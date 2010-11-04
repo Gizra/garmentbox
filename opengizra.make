@@ -1,5 +1,11 @@
 ; $Id:$
+api = "2"
 core = "7.x"
+
+; Drupal core
+
+projects[drupal][type] = "core"
+projects[drupal][download][module] = "drupal"
 
 ; Contrib projects 
 
