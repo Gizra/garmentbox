@@ -19,7 +19,9 @@ projects[flag][subdir] = "contrib"
 projects[flag][version] = "2.x-dev"
 
 projects[og][subdir] = "contrib"
-projects[og][version] = "2.1"
+projects[og][download][type] = "git"
+projects[og][download][url] = "git://github.com/amitaibu/og.git"
+projects[og][download][branch] = "master"
 
 
 ; Development modules
