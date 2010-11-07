@@ -15,14 +15,21 @@ projects[admin_menu][version] = "3.x-dev"
 projects[ctools][subdir] = "contrib"
 projects[ctools][version] = "1.x-dev"
 
-projects[panels][subdir] = "contrib"
-projects[panels][version] = "3.x-dev"
+projects[content][subdir] = "contrib"
+projects[content][version] = "2.x-dev"
+
+projects[date][subdir] = "contrib"
+projects[date][version] = "1.x-dev"
+
 
 projects[features][subdir] = "contrib"
 projects[features][version] = "1.0-alpha3"
 
 projects[flag][subdir] = "contrib"
 projects[flag][version] = "2.x-dev"
+
+projects[panels][subdir] = "contrib"
+projects[panels][version] = "3.x-dev"
 
 projects[og][subdir] = "contrib"
 projects[og][download][type] = "git"
