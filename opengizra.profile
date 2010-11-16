@@ -13,7 +13,7 @@
 function opengizra_profile_details() {
   return array(
     'name' => 'Open gizra',
-    'description' => st('The power of Drupal for today\'s online publishing from Phase2 Technology.'),
+    'description' => st('Open gizra PLM.'),
   );
 }
 
@@ -32,13 +32,13 @@ function opengizra_profile_modules() {
 
   $contributed_modules = array(
     //misc stand-alone, required by others
-    'flag',
+    'flag', 'entity',
 
     //date
     'date_api', 'date', 'date_timezone', 'date_popup',
 
     //cck
-    'nodereference', 'userreference',
+    // 'nodereference', 'userreference',
 
     //views
     'views', 'views_ui',
