@@ -2,9 +2,6 @@
 api = "2"
 core = "7.x"
 
-; Drupal core
-core = 7.x
-
 ; Contrib projects 
 
 projects[admin_menu][subdir] = "contrib"
