@@ -3,9 +3,7 @@ api = "2"
 core = "7.x"
 
 ; Drupal core
-
 core = 7.x
-projects[drupal] = 7.0-beta3
 
 ; Contrib projects 
 
