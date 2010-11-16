@@ -28,6 +28,9 @@ projects[features][version] = "1.0-alpha3"
 projects[flag][subdir] = "contrib"
 projects[flag][version] = "2.x-dev"
 
+projects[less][subdir] = "contrib"
+projects[less][version] = "2.x-dev"
+
 projects[panels][subdir] = "contrib"
 projects[panels][version] = "3.x-dev"
 
@@ -35,6 +38,9 @@ projects[og][subdir] = "contrib"
 projects[og][download][type] = "git"
 projects[og][download][url] = "git://github.com/amitaibu/og.git"
 projects[og][download][branch] = "master"
+
+projects[views][subdir] = "contrib"
+projects[views][version] = "3.x-dev"
 
 
 ; Development modules
