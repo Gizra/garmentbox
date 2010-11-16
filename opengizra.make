@@ -4,8 +4,8 @@ core = "7.x"
 
 ; Drupal core
 
-projects[drupal][type] = "core"
-projects[drupal][download][module] = "drupal"
+core = 7.x
+projects[drupal] = 7.0-beta3
 
 ; Contrib projects 
 
@@ -15,8 +15,8 @@ projects[admin_menu][version] = "3.x-dev"
 projects[ctools][subdir] = "contrib"
 projects[ctools][version] = "1.x-dev"
 
-projects[content][subdir] = "contrib"
-projects[content][version] = "2.x-dev"
+; projects[content][subdir] = "contrib"
+; projects[content][version] = "2.x-dev"
 
 projects[date][subdir] = "contrib"
 projects[date][version] = "1.x-dev"
