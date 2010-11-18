@@ -37,4 +37,8 @@ dependencies[] = panels
 dependencies[] = page_manager
 dependencies[] = views_ui
 
+; Features
+dependencies[] = pattern_making
+
+
 files[] = opengizra.profile
