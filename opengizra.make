@@ -40,6 +40,12 @@ projects[og][download][branch] = "master"
 projects[views][subdir] = "contrib"
 projects[views][version] = "3.x-dev"
 
+; Features
+projects[pattern_making][subdir] = "features"
+projects[pattern_making][download][type] = "git"
+projects[pattern_making][download][url] = "git@gizra-labs.com:/opengizra.git"
+projects[pattern_making][download][branch] = "features"
+
 
 ; Development modules
 projects[coder][subdir] = "developer"
@@ -47,6 +53,7 @@ projects[coder][version] = "1.x-dev"
 
 projects[devel][subdir] = "developer"
 projects[devel][version] = "1.x-dev"
+
 
 
 ; Themes
