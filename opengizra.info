@@ -19,9 +19,22 @@ dependencies[] = taxonomy
 dependencies[] = dblog
 dependencies[] = search
 dependencies[] = shortcut
-dependencies[] = toolbar
-dependencies[] = overlay
 dependencies[] = field_ui
 dependencies[] = file
 dependencies[] = rdf
+
+; Contrib modules
+dependencies[] = admin_menu
+dependencies[] = devel
+
+dependencies[] = ctools
+dependencies[] = date
+dependencies[] = entity
+dependencies[] = flag
+dependencies[] = features
+dependencies[] = og_ui
+dependencies[] = panels
+dependencies[] = page_manager
+dependencies[] = views_ui
+
 files[] = opengizra.profile

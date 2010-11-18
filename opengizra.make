@@ -17,6 +17,9 @@ projects[date][subdir] = "contrib"
 projects[date][version] = "1.x-dev"
 
 
+projects[entity][subdir] = "contrib"
+projects[entity][version] = "1.x-dev"
+
 projects[features][subdir] = "contrib"
 projects[features][version] = "1.0-alpha3"
 
