@@ -41,10 +41,10 @@ projects[views][subdir] = "contrib"
 projects[views][version] = "3.x-dev"
 
 ; Features
-projects[pattern_making][subdir] = "features"
-projects[pattern_making][download][type] = "git"
-projects[pattern_making][download][url] = "git@gizra-labs.com:/opengizra.git"
-projects[pattern_making][download][branch] = "features"
+projects[opengizra_features][subdir] = "features"
+projects[opengizra_features][download][type] = "git"
+projects[opengizra_features][download][url] = "git@gizra-labs.com:/opengizra.git"
+projects[opengizra_features][download][branch] = "features"
 
 
 ; Development modules
