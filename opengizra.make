@@ -42,9 +42,8 @@ projects[views][version] = "3.x-dev"
 
 ; Features
 projects[opengizra_features][subdir] = "features"
-projects[opengizra_features][download][type] = "git"
-projects[opengizra_features][download][url] = "git@gizra-labs.com:/opengizra.git"
-projects[opengizra_features][download][branch] = "features"
+projects[opengizra_features][download][type] = "get"
+projects[opengizra_features][download][url] = "http://localhost/opengizra-features/opengizra_features.tar.gz"
 
 
 ; Development modules
