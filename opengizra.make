@@ -10,8 +10,10 @@ projects[admin_menu][version] = "3.x-dev"
 projects[ctools][subdir] = "contrib"
 projects[ctools][version] = "1.x-dev"
 
-; projects[content][subdir] = "contrib"
-; projects[content][version] = "2.x-dev"
+projects[cck][subdir] = "contrib"
+projects[cck][version] = "2.x-dev"
+; Make Node Reference Relationships Work - http://drupal.org/node/962694
+projects[cck][patch][] = "http://drupal.org/files/issues/node_ref_views_3_d7.patch"
 
 projects[date][subdir] = "contrib"
 projects[date][version] = "1.x-dev"
