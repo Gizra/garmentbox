@@ -29,6 +29,11 @@ projects[flag][version] = "2.x-dev"
 projects[less][subdir] = "contrib"
 projects[less][version] = "2.x-dev"
 
+projects[message][subdir] = "contrib"
+projects[message][download][type] = "git"
+projects[message][download][url] = "git://github.com/amitaibu/message.git"
+projects[message][download][branch] = "DRUPAL-7--1"
+
 projects[panels][subdir] = "contrib"
 projects[panels][version] = "3.x-dev"
 
