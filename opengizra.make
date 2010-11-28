@@ -65,7 +65,7 @@ projects[zen_themes][download][url] = "https://github.com/downloads/amitaibu/zen
 
 projects[zen_ninesixty][type] = "theme"
 projects[zen_ninesixty][download][type] = "git"
-projects[zen_ninesixty][download][url] = "git://github.com/amitaibu/zen_ninesixty.git"
+projects[zen_ninesixty][download][url] = "git@github.com:amitaibu/zen_ninesixty.git"
 projects[zen_ninesixty][download][branch] = "7.x-1.x-dev"
 
 ; Instead of getting all the themes from Druapl, we get it from github download
