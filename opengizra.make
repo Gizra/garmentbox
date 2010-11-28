@@ -10,6 +10,9 @@ projects[admin_menu][version] = "3.x-dev"
 projects[ctools][subdir] = "contrib"
 projects[ctools][version] = "1.x-dev"
 
+; Fix term arguments using D6 function - http://drupal.org/node/983496
+projects[ctools][patch][] = "http://drupal.org/files/issues/fix-term-wsod.patch"
+
 projects[cck][subdir] = "contrib"
 projects[cck][version] = "2.x-dev"
 ; Make Node Reference Relationships Work - http://drupal.org/node/962694

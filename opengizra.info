@@ -36,7 +36,9 @@ dependencies[] = nodereference
 dependencies[] = og_ui
 dependencies[] = panels
 dependencies[] = page_manager
+dependencies[] = views_content
 dependencies[] = views_ui
+
 
 ; Features
 dependencies[] = pattern_making
