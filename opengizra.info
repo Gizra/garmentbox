@@ -32,6 +32,7 @@ dependencies[] = date
 dependencies[] = entity
 dependencies[] = flag
 dependencies[] = features
+dependencies[] = nodereference
 dependencies[] = og_ui
 dependencies[] = panels
 dependencies[] = page_manager
