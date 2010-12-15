@@ -13,8 +13,11 @@ projects[ctools][version] = "1.x-dev"
 ; Fix term arguments using D6 function - http://drupal.org/node/983496
 projects[ctools][patch][] = "http://drupal.org/files/issues/fix-term-wsod.patch"
 
-; page_manager_node_view_page() never reached fallback function  - http://drupal.org/node/983576
+; page_manager_node_view_page() never reached fallback function - http://drupal.org/node/983576
 projects[ctools][patch][] = "http://drupal.org/files/issues/fix-node-view-task.patch"
+
+; Fix notice when icon isn't declared - http://drupal.org/node/998870
+projects[ctools][patch][] = "http://drupal.org/files/issues/fix-no-icon-notice.patch"
 
 projects[cck][subdir] = "contrib"
 projects[cck][version] = "2.x-dev"
