@@ -25,20 +25,22 @@ dependencies[] = rdf
 
 ; Contrib modules
 dependencies[] = admin_menu
-dependencies[] = devel
-
 dependencies[] = ctools
 dependencies[] = date
 dependencies[] = entity
-dependencies[] = flag
 dependencies[] = features
+dependencies[] = field_group
+dependencies[] = flag
 dependencies[] = less
-dependencies[] = nodereference
+dependencies[] = node_reference
 dependencies[] = og_ui
 dependencies[] = panels
 dependencies[] = page_manager
 dependencies[] = views_content
 dependencies[] = views_ui
+
+; Development modules
+dependencies[] = devel
 
 ; Features
 dependencies[] = pattern_making

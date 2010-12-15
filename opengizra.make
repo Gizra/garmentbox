@@ -31,6 +31,9 @@ projects[entity][version] = "1.x-dev"
 projects[features][subdir] = "contrib"
 projects[features][version] = "1.0-alpha3"
 
+projects[field_group][subdir] = "contrib"
+projects[field_group][version] = "1.x-dev"
+
 projects[flag][subdir] = "contrib"
 projects[flag][version] = "2.x-dev"
 
@@ -51,6 +54,9 @@ projects[og][subdir] = "contrib"
 projects[og][download][type] = "git"
 projects[og][download][url] = "git://github.com/amitaibu/og.git"
 projects[og][download][branch] = "master"
+
+projects[references][subdir] = "contrib"
+projects[references][version] = "2.x-dev"
 
 projects[views][subdir] = "contrib"
 projects[views][version] = "3.x-dev"
