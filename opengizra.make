@@ -19,20 +19,14 @@ projects[ctools][patch][] = "http://drupal.org/files/issues/fix-node-view-task.p
 ; Fix notice when icon isn't declared - http://drupal.org/node/998870
 projects[ctools][patch][] = "http://drupal.org/files/issues/fix-no-icon-notice.patch"
 
-projects[cck][subdir] = "contrib"
-projects[cck][version] = "2.x-dev"
-; Make Node Reference Relationships Work - http://drupal.org/node/962694
-projects[cck][patch][] = "http://drupal.org/files/issues/node_ref_views_3_d7.patch"
-
 projects[date][subdir] = "contrib"
 projects[date][version] = "1.x-dev"
-
 
 projects[entity][subdir] = "contrib"
 projects[entity][version] = "1.x-dev"
 
 projects[features][subdir] = "contrib"
-projects[features][version] = "1.0-alpha3"
+projects[features][version] = "1.x-dev"
 
 projects[field_group][subdir] = "contrib"
 projects[field_group][version] = "1.x-dev"
@@ -66,7 +60,7 @@ projects[views][version] = "3.x-dev"
 
 ; Features
 projects[opengizra_features][type] = "module"
-projects[opengizra_features][subdir] = "contrib"
+projects[opengizra_features][subdir] = "features"
 projects[opengizra_features][download][type] = "git"
 projects[opengizra_features][download][url] = "git@gizra-labs.com:/opengizra.git"
 projects[opengizra_features][download][branch] = "features"

@@ -34,6 +34,7 @@ dependencies[] = flag
 dependencies[] = less
 dependencies[] = node_reference
 dependencies[] = og_ui
+dependencies[] = og_node_link
 dependencies[] = panels
 dependencies[] = page_manager
 dependencies[] = views_content
@@ -43,7 +44,6 @@ dependencies[] = views_ui
 dependencies[] = devel
 
 ; Features
-dependencies[] = pattern_making
 dependencies[] = opengizra_main
 
 files[] = opengizra.profile
