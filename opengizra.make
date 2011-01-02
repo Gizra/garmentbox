@@ -7,17 +7,11 @@ core = "7.x"
 projects[admin_menu][subdir] = "contrib"
 projects[admin_menu][version] = "3.x-dev"
 
+projects[calendar][subdir] = "contrib"
+projects[calendar][version] = "1.x-dev"
+
 projects[ctools][subdir] = "contrib"
 projects[ctools][version] = "1.x-dev"
-
-; Fix term arguments using D6 function - http://drupal.org/node/983496
-projects[ctools][patch][] = "http://drupal.org/files/issues/fix-term-wsod.patch"
-
-; page_manager_node_view_page() never reached fallback function - http://drupal.org/node/983576
-projects[ctools][patch][] = "http://drupal.org/files/issues/fix-node-view-task.patch"
-
-; Fix notice when icon isn't declared - http://drupal.org/node/998870
-projects[ctools][patch][] = "http://drupal.org/files/issues/fix-no-icon-notice.patch"
 
 projects[date][subdir] = "contrib"
 projects[date][version] = "1.x-dev"
@@ -33,6 +27,9 @@ projects[field_group][version] = "1.x-dev"
 
 projects[flag][subdir] = "contrib"
 projects[flag][version] = "2.x-dev"
+
+projects[gravatar][subdir] = "contrib"
+projects[gravatar][version] = "1.x-dev"
 
 projects[less][subdir] = "contrib"
 projects[less][version] = "2.x-dev"
@@ -50,7 +47,7 @@ projects[og][type] = "module"
 projects[og][subdir] = "contrib"
 projects[og][download][type] = "git"
 projects[og][download][url] = "git://github.com/amitaibu/og.git"
-projects[og][download][branch] = "master"
+projects[og][download][branch] = "DRUPAL-7--1"
 
 projects[references][subdir] = "contrib"
 projects[references][version] = "2.x-dev"

@@ -25,6 +25,7 @@ dependencies[] = rdf
 
 ; Contrib modules
 dependencies[] = admin_menu
+dependencies[] = calendar
 dependencies[] = ctools
 dependencies[] = date
 dependencies[] = entity
@@ -32,11 +33,13 @@ dependencies[] = features
 dependencies[] = field_group
 dependencies[] = flag
 dependencies[] = less
+dependencies[] = message
 dependencies[] = node_reference
 dependencies[] = og_ui
 dependencies[] = og_node_link
 dependencies[] = panels
 dependencies[] = page_manager
+dependencies[] = user_reference
 dependencies[] = views_content
 dependencies[] = views_ui
 
