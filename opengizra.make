@@ -31,6 +31,9 @@ projects[flag][version] = "2.x-dev"
 projects[gravatar][subdir] = "contrib"
 projects[gravatar][version] = "1.x-dev"
 
+projects[jcarousel][subdir] = "contrib"
+projects[jcarousel][version] = "2.x-dev
+
 projects[less][subdir] = "contrib"
 projects[less][version] = "2.x-dev"
 
