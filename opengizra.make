@@ -34,6 +34,12 @@ projects[gravatar][version] = "1.x-dev"
 projects[jcarousel][subdir] = "contrib"
 projects[jcarousel][version] = "2.x-dev
 
+projects[jscrollpane][type] = "module"
+projects[jscrollpane][subdir] = "contrib"
+projects[jscrollpane][download][type] = "git"
+projects[jscrollpane][download][url] = "git@github.com:amitaibu/jscrollpane.git"
+projects[jscrollpanes][download][branch] = "DRUPAL-7--1"
+
 projects[less][subdir] = "contrib"
 projects[less][version] = "2.x-dev"
 
