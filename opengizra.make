@@ -3,10 +3,6 @@ api = "2"
 core = "7.x"
 
 ; Contrib projects 
-
-projects[admin_menu][subdir] = "contrib"
-projects[admin_menu][version] = "3.x-dev"
-
 projects[calendar][subdir] = "contrib"
 projects[calendar][version] = "1.x-dev"
 
@@ -28,11 +24,8 @@ projects[field_group][version] = "1.x-dev"
 projects[flag][subdir] = "contrib"
 projects[flag][version] = "2.x-dev"
 
-projects[gravatar][subdir] = "contrib"
-projects[gravatar][version] = "1.x-dev"
-
 projects[jcarousel][subdir] = "contrib"
-projects[jcarousel][version] = "2.x-dev
+projects[jcarousel][version] = "2.3-alpha2"
 
 projects[jscrollpane][type] = "module"
 projects[jscrollpane][subdir] = "contrib"
@@ -79,19 +72,13 @@ projects[devel][subdir] = "developer"
 projects[devel][version] = "1.x-dev"
 
 ; Themes
-projects[zen_themes][type] = "theme"
-projects[zen_themes][download][type] = "get"
-projects[zen_themes][download][url] = "https://github.com/downloads/amitaibu/zen_ninesixty/d7-zen-960-base-themes.tar.gz"
+projects[ninesixty][type] = "theme"
+projects[ninesixty][download][type] = "git"
+projects[ninesixty][download][url] = "git://git.drupalcode.org/project/ninesixty.git"
+projects[ninesixty][download][branch] = "7.x-1.x"
 
 projects[zen_ninesixty][type] = "theme"
 projects[zen_ninesixty][download][type] = "git"
 projects[zen_ninesixty][download][url] = "git@gizra-labs.com:/opengizra.git"
 projects[zen_ninesixty][download][branch] = "zen-960"
 
-; Instead of getting all the themes from Druapl, we get it from github download
-; area.
-; projects[ninesixty][version] = "1.x-dev"
-; http://drupal.org/node/960968#comment-3720030
-; projects[ninesixty][patch][] = "http://drupal.org/files/issues/960968-ninesixty-d7-bugfixes.patch"
-
-; projects[zen][version] = "3.x-dev"
