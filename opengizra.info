@@ -26,13 +26,13 @@ dependencies[] = file
 dependencies[] = rdf
 
 ; Contrib modules
-dependencies[] = calendar
 dependencies[] = ctools
 dependencies[] = date
 dependencies[] = entity
 dependencies[] = features
 dependencies[] = field_group
 dependencies[] = flag
+dependencies[] = fullcalendar
 dependencies[] = jcarousel
 dependencies[] = jscrollpane
 dependencies[] = less

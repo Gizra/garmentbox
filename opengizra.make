@@ -24,6 +24,9 @@ projects[field_group][version] = "1.x-dev"
 projects[flag][subdir] = "contrib"
 projects[flag][version] = "2.x-dev"
 
+projects[fullcalendar][subdir] = "contrib"
+projects[fullcalendar][version] = "2.0-alpha2"
+
 projects[jcarousel][subdir] = "contrib"
 projects[jcarousel][version] = "2.3-alpha2"
 
