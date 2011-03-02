@@ -8,6 +8,8 @@ projects[calendar][version] = "1.x-dev"
 
 projects[ctools][subdir] = "contrib"
 projects[ctools][version] = "1.x-dev"
+; PHP strict warning in ctools_content_render
+projects[ctools][patch][] = "http://drupal.org/files/issues/fix-content-notice.patch"
 
 projects[date][subdir] = "contrib"
 projects[date][version] = "1.x-dev"
