@@ -62,7 +62,8 @@ projects[less][download][branch] = "7.x-2.x"
 
 projects[libraries][subdir] = "contrib"
 projects[libraries][download][type] = "git"
-projects[libraries][download][branch] = "7.x-2.x"
+; Libraries calls 7.x-2.x "master".
+projects[libraries][download][branch] = "master"
 
 projects[message][subdir] = "contrib"
 projects[message][download][type] = "git"
