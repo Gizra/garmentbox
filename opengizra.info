@@ -30,7 +30,6 @@ dependencies[] = ctools
 dependencies[] = date
 dependencies[] = entity
 dependencies[] = features
-dependencies[] = field_group
 dependencies[] = flag
 dependencies[] = less
 dependencies[] = message
