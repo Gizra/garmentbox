@@ -7,7 +7,7 @@ core = "7.x"
 projects[calendar][subdir] = "contrib"
 projects[calendar][download][type] = "git"
 projects[calendar][download][branch] = "7.x-1.x"
-  
+
 projects[ctools][subdir] = "contrib"
 projects[ctools][download][type] = "git"
 projects[ctools][download][branch] = "7.x-1.x"
@@ -27,14 +27,19 @@ projects[field_group][version] = "1.x-dev"
 projects[flag][subdir] = "contrib"
 projects[flag][version] = "2.x-dev"
 
+projects[hs_js][subdir] = "contrib"
+projects[hs_js][download][type] = "git"
+projects[hs_js][download][url] = "http://git.drupal.org/sandbox/amitaibu/1186934.git"
+projects[hs_js][download][branch] = "7.x-1.x"
+
 projects[jcarousel][subdir] = "contrib"
 projects[jcarousel][version] = "2.x-dev
 
-projects[jscrollpane][type] = "module"
-projects[jscrollpane][subdir] = "contrib"
-projects[jscrollpane][download][type] = "git"
-projects[jscrollpane][download][url] = "git@github.com:amitaibu/jscrollpane.git"
-projects[jscrollpanes][download][branch] = "DRUPAL-7--1"
+; projects[jscrollpane][type] = "module"
+; projects[jscrollpane][subdir] = "contrib"
+; projects[jscrollpane][download][type] = "git"
+; projects[jscrollpane][download][url] = "git@github.com:amitaibu/jscrollpane.git"
+; projects[jscrollpanes][download][branch] = "DRUPAL-7--1"
 
 projects[less][subdir] = "contrib"
 projects[less][version] = "2.x-dev"
