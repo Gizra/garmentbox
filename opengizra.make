@@ -2,8 +2,7 @@ api = "2"
 core = "7.x"
 
 ; Contrib projects 
-;=================
-
+=======
 projects[calendar][subdir] = "contrib"
 projects[calendar][download][type] = "git"
 projects[calendar][download][branch] = "7.x-1.x"
@@ -33,7 +32,7 @@ projects[hs_js][download][url] = "http://git.drupal.org/sandbox/amitaibu/1186934
 projects[hs_js][download][branch] = "7.x-1.x"
 
 projects[jcarousel][subdir] = "contrib"
-projects[jcarousel][version] = "2.x-dev
+projects[jcarousel][version] = "2.3-alpha2"
 
 ; projects[jscrollpane][type] = "module"
 ; projects[jscrollpane][subdir] = "contrib"
@@ -78,4 +77,13 @@ projects[devel][version] = "1.x-dev"
 
 ; Themes
 ;=======
-projects[ninesixty][version] = "1.x-dev"
+projects[ninesixty][type] = "theme"
+projects[ninesixty][download][type] = "git"
+projects[ninesixty][download][url] = "git://git.drupalcode.org/project/ninesixty.git"
+projects[ninesixty][download][branch] = "7.x-1.x"
+
+projects[zen_ninesixty][type] = "theme"
+projects[zen_ninesixty][download][type] = "git"
+projects[zen_ninesixty][download][url] = "git@gizra-labs.com:/opengizra.git"
+projects[zen_ninesixty][download][branch] = "zen-960"
+

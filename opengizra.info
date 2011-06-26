@@ -14,8 +14,10 @@ dependencies[] = list
 dependencies[] = menu
 dependencies[] = number
 dependencies[] = options
+dependencies[] = overlay
 dependencies[] = path
 dependencies[] = taxonomy
+dependencies[] = toolbar
 dependencies[] = dblog
 dependencies[] = search
 dependencies[] = shortcut
@@ -24,13 +26,14 @@ dependencies[] = file
 dependencies[] = rdf
 
 ; Contrib modules
-dependencies[] = admin_menu
-dependencies[] = calendar
 dependencies[] = ctools
 dependencies[] = date
 dependencies[] = entity
 dependencies[] = features
 dependencies[] = flag
+dependencies[] = fullcalendar
+dependencies[] = jcarousel
+dependencies[] = jscrollpane
 dependencies[] = less
 dependencies[] = message
 dependencies[] = node_reference
@@ -47,3 +50,4 @@ dependencies[] = devel
 
 ; Features
 dependencies[] = opengizra_main
+dependencies[] = task_tracker

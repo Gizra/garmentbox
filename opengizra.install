@@ -88,7 +88,7 @@ function opengizra_standard_install() {
       'theme' => $default_theme,
       'status' => 1,
       'weight' => -1,
-      'region' => 'sidebar_first',
+      'region' => 'search_box',
       'pages' => '',
       'cache' => -1,
     ),
@@ -105,16 +105,6 @@ function opengizra_standard_install() {
     array(
       'module' => 'user',
       'delta' => 'login',
-      'theme' => $default_theme,
-      'status' => 1,
-      'weight' => 0,
-      'region' => 'sidebar_first',
-      'pages' => '',
-      'cache' => -1,
-    ),
-    array(
-      'module' => 'system',
-      'delta' => 'navigation',
       'theme' => $default_theme,
       'status' => 1,
       'weight' => 0,
@@ -434,3 +424,4 @@ function opengizra_standard_install() {
   variable_set('admin_theme', 'seven');
   variable_set('node_admin_theme', '1');
 }
+
