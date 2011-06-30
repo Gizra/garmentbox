@@ -17,7 +17,7 @@ projects[calendar][download][branch] = "7.x-1.x"
 projects[chained_selects][type] = "module"
 projects[chained_selects][subdir] = "contrib"
 projects[chained_selects][download][type] = "git"
-projects[chained_selects][download][url] = "http://git.drupal.org/sandbox/amitaibu/1193422.git"
+projects[chained_selects][download][url] = "http://git.drupal.org/project/chained_selects.git"
 projects[chained_selects][download][branch] = "7.x-1.x"
   
 projects[ctools][subdir] = "contrib"
