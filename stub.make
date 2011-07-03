@@ -90,6 +90,10 @@ projects[references][subdir] = "contrib"
 projects[references][download][type] = "git"
 projects[references][download][branch] = "7.x-2.x"
 
+projects[user_modal][subdir] = "contrib"
+projects[user_modal][download][type] = "git"
+projects[user_modal][download][branch] = "7.x-1.x"
+
 projects[views][subdir] = "contrib"
 projects[views][download][type] = "git"
 projects[views][download][branch] = "7.x-3.x"
