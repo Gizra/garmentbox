@@ -111,3 +111,7 @@ projects[ninesixty][version] = "1.x-dev"
 projects[ninesixty][download][type] = "git"
 projects[ninesixty][download][branch] = "7.x-1.x"
 
+; Libraries
+;==========
+libraries[fullcalendar][download][type] = "file"
+libraries[fullcalendar][download][url] = "http://arshaw.com/fullcalendar/downloads/fullcalendar-1.5.1.zip"
