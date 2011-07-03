@@ -41,6 +41,10 @@ projects[flag][download][type] = "git"
 ; Flag 7.x-2.x is master
 projects[flag][download][branch] = "master"
 
+projects[fullcalendar][subdir] = "contrib"
+projects[fullcalendar][download][type] = "git"
+projects[fullcalendar][download][branch] = "7.x-2.x"
+
 projects[hs_js][type] = "module"
 projects[hs_js][subdir] = "contrib"
 projects[hs_js][download][type] = "git"

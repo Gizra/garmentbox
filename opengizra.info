@@ -38,7 +38,6 @@ dependencies[] = less
 dependencies[] = message
 dependencies[] = node_reference
 dependencies[] = og_ui
-dependencies[] = og_node_link
 dependencies[] = panels
 dependencies[] = page_manager
 dependencies[] = user_reference
