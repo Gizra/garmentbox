@@ -38,7 +38,8 @@ projects[features][download][branch] = "7.x-1.x"
 
 projects[flag][subdir] = "contrib"
 projects[flag][download][type] = "git"
-projects[flag][download][branch] = "7.x-2.x"
+; Flag 7.x-2.x is master
+projects[flag][download][branch] = "master"
 
 projects[hs_js][type] = "module"
 projects[hs_js][subdir] = "contrib"
