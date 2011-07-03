@@ -111,6 +111,12 @@ projects[ninesixty][version] = "1.x-dev"
 projects[ninesixty][download][type] = "git"
 projects[ninesixty][download][branch] = "7.x-1.x"
 
+projects[ninesixty_sub][type] = "theme"
+projects[ninesixty_sub][download][type] = "git"
+; TODO: Change to public git.
+projects[ninesixty_sub][download][url] = "git@gizra-labs.com:/opengizra.git"
+projects[ninesixty_sub][download][branch] = "ninesixty_sub"
+
 ; Libraries
 ;==========
 libraries[fullcalendar][download][type] = "file"
