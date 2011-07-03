@@ -47,7 +47,7 @@ dependencies[] = views_content
 dependencies[] = views_ui
 
 ; Development modules
-dependencies[] = devel
+dependencies[] = devel_generate
 
 ; Features
 dependencies[] = opengizra_main
