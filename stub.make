@@ -86,6 +86,10 @@ projects[strongarm][subdir] = "contrib"
 projects[strongarm][download][type] = "git"
 projects[strongarm][download][branch] = "7.x-2.x"
 
+projects[subform][subdir] = "contrib"
+projects[subform][download][type] = "git"
+projects[subform][download][branch] = "7.x-2.x"
+
 projects[references][subdir] = "contrib"
 projects[references][download][type] = "git"
 projects[references][download][branch] = "7.x-2.x"
