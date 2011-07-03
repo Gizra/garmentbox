@@ -51,5 +51,8 @@ dependencies[] = views_ui
 dependencies[] = devel_generate
 
 ; Features
+dependencies[] = opengizra_collection
+dependencies[] = opengizra_event
+dependencies[] = opengizra_item
 dependencies[] = opengizra_main
 dependencies[] = task_tracker
