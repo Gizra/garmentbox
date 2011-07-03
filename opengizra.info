@@ -41,6 +41,7 @@ dependencies[] = node_reference
 dependencies[] = og_ui
 dependencies[] = panels
 dependencies[] = page_manager
+dependencies[] = strongarm
 dependencies[] = user_reference
 dependencies[] = views_content
 dependencies[] = views_ui

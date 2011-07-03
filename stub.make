@@ -82,6 +82,10 @@ projects[panels][subdir] = "contrib"
 projects[panels][download][type] = "git"
 projects[panels][download][branch] = "7.x-3.x"
 
+projects[strongarm][subdir] = "contrib"
+projects[strongarm][download][type] = "git"
+projects[strongarm][download][branch] = "7.x-2.x"
+
 projects[references][subdir] = "contrib"
 projects[references][download][type] = "git"
 projects[references][download][branch] = "7.x-2.x"
