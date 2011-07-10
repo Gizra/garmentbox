@@ -63,7 +63,7 @@ projects[jscrollpane][type] = "module"
 projects[jscrollpane][subdir] = "contrib"
 projects[jscrollpane][download][type] = "git"
 projects[jscrollpane][download][url] = "https://github.com/amitaibu/jscrollpane.git"
-projects[jscrollpanes][download][branch] = "7.x-1.x"
+projects[jscrollpane][download][branch] = "7.x-1.x"
 
 projects[less][subdir] = "contrib"
 projects[less][download][type] = "git"
@@ -92,7 +92,7 @@ projects[strongarm][download][branch] = "7.x-2.x"
 
 projects[subform][subdir] = "contrib"
 projects[subform][download][type] = "git"
-projects[subform][download][branch] = "7.x-2.x"
+projects[subform][download][branch] = "7.x-1.x"
 
 projects[references][subdir] = "contrib"
 projects[references][download][type] = "git"
