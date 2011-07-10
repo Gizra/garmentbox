@@ -38,6 +38,7 @@ dependencies[] = jscrollpane
 dependencies[] = less
 dependencies[] = message
 dependencies[] = node_reference
+dependencies[] = og_context
 dependencies[] = og_ui
 dependencies[] = panels
 dependencies[] = page_manager

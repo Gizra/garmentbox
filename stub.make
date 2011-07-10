@@ -36,6 +36,10 @@ projects[features][subdir] = "contrib"
 projects[features][download][type] = "git"
 projects[features][download][branch] = "7.x-1.x"
 
+projects[field_slideshow][subdir] = "contrib"
+projects[field_slideshow][download][type] = "git"
+projects[field_slideshow][download][branch] = "7.x-1.x"
+
 projects[flag][subdir] = "contrib"
 projects[flag][download][type] = "git"
 ; Flag 7.x-2.x is master
@@ -133,3 +137,6 @@ projects[ninesixty_sub][download][branch] = "ninesixty_sub"
 ;==========
 libraries[fullcalendar][download][type] = "file"
 libraries[fullcalendar][download][url] = "http://arshaw.com/fullcalendar/downloads/fullcalendar-1.5.1.zip"
+
+libraries[jquery_chained][download][type] = "file"
+libraries[jquery_chained][download][url] = "http://www.appelsiini.net/download/jquery.chained.js"
