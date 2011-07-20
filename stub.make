@@ -10,6 +10,10 @@ projects[] = drupal
 ; Contrib projects 
 ;=================
 
+projects[backup_migrate][subdir] = "contrib"
+projects[backup_migrate][download][type] = "git"
+projects[backup_migrate][download][branch] = "7.x-2.x"
+
 projects[calendar][subdir] = "contrib"
 projects[calendar][download][type] = "git"
 projects[calendar][download][branch] = "7.x-1.x"
@@ -81,6 +85,10 @@ projects[message][download][branch] = "7.x-1.x"
 projects[og][subdir] = "contrib"
 projects[og][download][type] = "git"
 projects[og][download][branch] = "7.x-1.x"
+
+projects[og_subgroups][subdir] = "contrib"
+projects[og_subgroups][download][type] = "git"
+projects[og_subgroups][download][branch] = "7.x-1.x"
 
 projects[panels][subdir] = "contrib"
 projects[panels][download][type] = "git"

@@ -26,6 +26,7 @@ dependencies[] = file
 dependencies[] = rdf
 
 ; Contrib modules
+dependencies[] = backup_migrate
 dependencies[] = ctools
 dependencies[] = date
 dependencies[] = entity
@@ -39,8 +40,10 @@ dependencies[] = less
 dependencies[] = message
 dependencies[] = node_reference
 dependencies[] = og_context
+dependencies[] = og_subgroups
 dependencies[] = og_ui
 dependencies[] = panels
+dependencies[] = panels_mini
 dependencies[] = page_manager
 dependencies[] = strongarm
 dependencies[] = user_modal
