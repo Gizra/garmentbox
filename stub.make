@@ -143,8 +143,14 @@ projects[ninesixty_sub][download][branch] = "ninesixty_sub"
 
 ; Libraries
 ;==========
+
+libraries[expander][download][type] = "file"
+libraries[expander][download][url] = "http://plugins.learningjquery.com/expander/jquery.expander.js"
+
 libraries[fullcalendar][download][type] = "file"
 libraries[fullcalendar][download][url] = "http://arshaw.com/fullcalendar/downloads/fullcalendar-1.5.1.zip"
 
 libraries[jquery_chained][download][type] = "file"
 libraries[jquery_chained][download][url] = "http://www.appelsiini.net/download/jquery.chained.js"
+
+
