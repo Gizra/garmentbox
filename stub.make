@@ -154,3 +154,11 @@ libraries[jquery_chained][download][type] = "file"
 libraries[jquery_chained][download][url] = "http://www.appelsiini.net/download/jquery.chained.js"
 
 
+; Patches
+;========
+
+; TODO: Add this in git.
+; Flag Ctools integration
+; http://drupal.org/node/332956#comment-4327834
+; http://drupal.org/files/issues/ctools-plugin-flag-77-d7.patch
+http://drupal.org/files/issues/ctools-plugin-flag-77-d7.patch
