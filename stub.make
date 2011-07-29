@@ -86,6 +86,12 @@ projects[og][subdir] = "contrib"
 projects[og][download][type] = "git"
 projects[og][download][branch] = "7.x-1.x"
 
+projects[og_membership_expire][type] = "module"
+projects[og_membership_expire][subdir] = "contrib"
+projects[og_membership_expire][download][type] = "git"
+projects[og_membership_expire][download][url] = "http://git.drupal.org/sandbox/amitaibu/1106596.git"
+projects[og_membership_expire][download][branch] = "7.x-1.x"
+
 projects[og_subgroups][subdir] = "contrib"
 projects[og_subgroups][download][type] = "git"
 projects[og_subgroups][download][branch] = "7.x-1.x"
