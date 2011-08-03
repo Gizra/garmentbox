@@ -40,6 +40,10 @@ projects[features][subdir] = "contrib"
 projects[features][download][type] = "git"
 projects[features][download][branch] = "7.x-1.x"
 
+projects[field_collection][subdir] = "contrib"
+projects[field_collection][download][type] = "git"
+projects[field_collection][download][branch] = "7.x-1.x"
+
 projects[field_slideshow][subdir] = "contrib"
 projects[field_slideshow][download][type] = "git"
 projects[field_slideshow][download][branch] = "7.x-1.x"
