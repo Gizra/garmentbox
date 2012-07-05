@@ -88,3 +88,8 @@ projects[views][version] = "3.3"
 ; Themes
 projects[ninesixty][subdir] = "contrib"
 projects[ninesixty][version] = "1.0"
+
+; Libraries
+libraries[SolrPhpClient][download][type] = "get"
+libraries[SolrPhpClient][download][url] = "http://leafo.net/lessphp/src/lessphp-0.3.5.tar.gz"
+libraries[SolrPhpClient][directory_name] = "lessphp"
