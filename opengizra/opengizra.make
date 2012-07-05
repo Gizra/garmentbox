@@ -2,6 +2,9 @@ core = 7.x
 api = 2
 
 ; Modules
+projects[admin_menu][subdir] = "contrib"
+projects[admin_menu][version] = "3.0-rc3"
+
 projects[ctools][subdir] = "contrib"
 projects[ctools][version] = "1.0"
 
@@ -38,6 +41,9 @@ projects[fullcalendar][version] = "2.0-beta3"
 projects[libraries][subdir] = "contrib"
 projects[libraries][version] = "1.0"
 
+projects[less][subdir] = "contrib"
+projects[less][version] = "2.5"
+
 projects[mailsystem][version] = 2.34
 projects[mailsystem][subdir] = "contrib"
 
@@ -64,8 +70,11 @@ projects[oauth][patch][] = "http://drupal.org/files/oauth-1431642-consumer-delet
 projects[og][subdir] = "contrib"
 projects[og][version] = "2.0-beta1"
 
-projects[pathauto][version] = 1.1
+projects[panels][subdir] = "contrib"
+projects[panels][version] = "3.2"
+
 projects[pathauto][subdir] = "contrib"
+projects[pathauto][version] = 1.1
 
 projects[rules][subdir] = "contrib"
 projects[rules][version] = "2.1"
