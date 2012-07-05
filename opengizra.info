@@ -38,8 +38,10 @@ dependencies[] = fullcalendar
 ;dependencies[] = hs_js
 ;dependencies[] = jcarousel
 ;dependencies[] = jscrollpane
-dependencies[] = less
+dependencies[] = libraries
+; dependencies[] = less
 dependencies[] = message
+dependencies[] = module_filter
 dependencies[] = og
 dependencies[] = og_context
 dependencies[] = og_ui
@@ -55,8 +57,8 @@ dependencies[] = views_ui
 dependencies[] = devel
 
 ; Features
-dependencies[] = opengizra_collection
-dependencies[] = opengizra_event
-dependencies[] = opengizra_item
+;dependencies[] = opengizra_collection
+;dependencies[] = opengizra_event
+;dependencies[] = opengizra_item
 dependencies[] = opengizra_main
-dependencies[] = opengizra_og
+;dependencies[] = opengizra_og

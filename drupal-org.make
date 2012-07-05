@@ -85,11 +85,14 @@ projects[strongarm][version] = "2.0-rc1"
 projects[views][subdir] = "contrib"
 projects[views][version] = "3.3"
 
+projects[views_bulk_operations][subdir] = "contrib"
+projects[views_bulk_operations][version] = "3.0-rc1"
+
 ; Themes
 projects[ninesixty][subdir] = "contrib"
 projects[ninesixty][version] = "1.0"
 
 ; Libraries
-libraries[SolrPhpClient][download][type] = "get"
-libraries[SolrPhpClient][download][url] = "http://leafo.net/lessphp/src/lessphp-0.3.5.tar.gz"
-libraries[SolrPhpClient][directory_name] = "lessphp"
+libraries[lessphp][type] = "libraries"
+libraries[lessphp][download][type] = "get"
+libraries[lessphp][download][url] = "http://leafo.net/lessphp/src/lessphp-0.3.5.tar.gz"

@@ -18,35 +18,7 @@ function opengizra_main_enable() {
   variable_set('theme_default', 'ninesixty_sub');
 
   // Enable node view page override by Page manager module.
-  variable_set('page_manager_node_view_disabled', $status);
-}
-
-/**
- * Implements hook_init().
- */
-function opengizra_main_init() {
-  $group = og_context();
-  if (!$group) {
-    return;
-  }
-
-  $list = og_get_hierarchy($group->entity_type, $group->etid, array('sanitize' => FALSE));
-  if (!$list) {
-    return;
-  }
-
-  $node = menu_get_object();
-
-  foreach ($list as $gid => $label) {
-    if (!empty($node) && $gid == $group->gid && $group->entity_type == 'node' && $group->etid == $node->nid) {
-      continue;
-    }
-    $wrapper = entity_metadata_wrapper('group', $gid);
-    $breadcrumb[$gid] = l($label, $wrapper->url->value());
-  }
-  $breadcrumb[] = l(t('Home'), '<front>');
-  $breadcrumb = array_reverse($breadcrumb);
-  drupal_set_breadcrumb($breadcrumb);
+  variable_set('page_manager_node_view_disabled', FALSE);
 }
 
 /**

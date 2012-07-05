@@ -12,6 +12,18 @@ function opengizra_install() {
  * Copied from Standard profile -- standard_install()
  */
 function opengizra_standard_install() {
+  // Disable bartik.
+  theme_disable(array('bartik'));
+
+  // Enable our themes.
+  theme_enable(array('ninesixty', 'ninesixty_sub'));
+
+  // Set the default theme.
+  variable_set('theme_default', 'ninesixty_sub');
+
+  // Enable node view page override by Page manager module.
+  variable_set('page_manager_node_view_disabled', FALSE);
+
   // Add text formats.
   $filtered_html_format = array(
     'format' => 'filtered_html',

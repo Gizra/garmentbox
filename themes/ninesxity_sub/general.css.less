@@ -9,21 +9,21 @@
 
 @page_background: #ececec;
 @page_border: #cccccc;
-  
+
 @scroll_color: #c2c1c1;
-  
+
 @menu-text: #767474;
-@menu-background: #81944d;  
-  
+@menu-background: #81944d;
+
 @item-title: #666464;
 @item-text: #9b9999;
-  
+
 @gallery-dark-gray: #a1a1a1;
 @gallery-light-gray: #c8c8c8;
-  
+
 @light-blue: #21c3f4;
-  
-@shadow (@tpl: 1px; @tpr: 1px; @length: 3px; @color: black) {
+
+@shadow (@tpl: 1px, @tpr: 1px, @length: 3px, @color: black) {
   -moz-box-shadow: @tpl @tpr @length @color;
   -webkit-box-shadow: @tpl @tpr @length @color;
   box-shadow: @tpl @tpr @length @color;
@@ -34,7 +34,7 @@
   -webkit-box-shadow: none;
   box-shadow: none;
   background-color: transparent;
-  padding: 0;  
+  padding: 0;
 }
 
 @inner-shadow {
@@ -46,11 +46,11 @@
 @image-shadow {
   @shadow;
   background-color: white;
-  padding: 1px;  
+  padding: 1px;
 }
 
 
-@rounded-corners (@radius-tpl: 5px; @radius-tpr: 5px; @radius-btr: 5px; @radius-btl: 5px) {
+@rounded-corners (@radius-tpl: 5px, @radius-tpr: 5px, @radius-btr: 5px; @radius-btl: 5px) {
   -moz-border-radius: @radius-tpl @radius-tpr @radius-btr @radius-btl;
   -webkit-border-radius: @radius-tpl @radius-tpr @radius-btr @radius-btl;
   border-radius: @radius-tpl @radius-tpr @radius-btr @radius-btl;
@@ -67,13 +67,13 @@
   transition: all @time linear;
   -o-transition: all @time linear;
   -moz-transition: all @time linear;
-  -webkit-transition: all @time linear;   
+  -webkit-transition: all @time linear;
 }
 
 @gradient(@startcolor: @light_background; @endcolor: white){
   background: @startcolor; /* Fallback */
-  background: -moz-linear-gradient(top, @startcolor, @endcolor);  
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(@startcolor), to(@endcolor)); 
+  background: -moz-linear-gradient(top, @startcolor, @endcolor);
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(@startcolor), to(@endcolor));
 }
 
 
@@ -82,7 +82,7 @@
   border: 1px solid #E1E1E1;
   font-size: 11px;
   @rounded-corners;
-  padding: 10px;  
+  padding: 10px;
 }
 
 .panel-pane-title {
@@ -99,35 +99,35 @@
 }
 
 @message-stream {
-  
+
   .views-row {
     padding-bottom: 20px;
     margin-bottom: 10px;
     border-bottom: 1px solid #D2D2D2;
-    
+
     .views-field-picture {
       float: left; /* LTR */
       margin: 5px 10px 0 25px; /* LTR */
     }
-  
+
     .views-field-message-render {
-    
+
       p {
         margin-bottom: 0;
       }
     }
-    
+
     .views-field-timestamp {
       font-size: 11px;
     }
-    
+
     &:last-child {
       padding-bottom: 0;
       margin-bottom: 0;
       border-bottom: none;
     }
   }
-  
+
   .message-type-create-content {
     background: url("images/message-type/create-content.png") no-repeat scroll 0 5px transparent;
   }
@@ -136,54 +136,54 @@
 @calling-card {
   @light-background-box;
   padding: 0;
-  
+
   .inside {
     margin: 0;
   }
-  
+
   h2.pane-title {
     padding: 10px;
     margin: 0;
     color: #43464e;
     font-size: 11px;
   }
-  
+
   a {
     color: #3366CC;
   }
-  
+
   .panel-separator,
   .panel-pane {
     margin: 0;
     padding: 0;
   }
-  
+
   .pane-content {
-  
+
     .form-item {
       margin: 0;
-      
+
       p {
         margin-bottom: 0;
       }
     }
-    
+
     .field-expander {
-    
+
       p {
         margin-bottom: 5px;
-      }    
+      }
     }
   }
-  
+
   .row-odd,
   .row-even {
     padding: 10px;
   }
-  
+
   .row-odd {
     background-color: #e1e1e1;
-  }  
+  }
 }
 
 @button {
@@ -194,13 +194,13 @@
   @rounded-corners-fix(2px);
   display: inline-block;
   padding: 5px 10px;
-  
+
   &:hover {
     @gradient(#4D90FE; #357AE8);
     border: 1px solid #2F5BB7;
     @shadow(0; 1px; 1px; rgba(0, 0, 0, 0.1));
   }
-  
+
   &:active {
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) inset;
   }
@@ -210,7 +210,7 @@
   @button;
   @gradient(#A9D349; #BDEC6F);
   border-color: #AAD349;
-  
+
   &:hover {
     @gradient(#A9D349; #B7E464);
     border-color: #A8D046;
@@ -221,10 +221,10 @@
 // http://www.zurb.com/playground/css3-polaroids
 @polaroid {
 
-  ul { 
-    margin: 0 0 18px -30px; 
+  ul {
+    margin: 0 0 18px -30px;
   }
-  
+
   ul li {
     display: inline;
     float: left;
@@ -246,53 +246,53 @@
     -webkit-transition: -webkit-transform .15s linear;
     -moz-transform: rotate(-2deg);
   }
-  
+
   ul a {
 
   }
-  
+
   ul img {
     display: block;
     margin-bottom: 7px;
     padding: 0;
     border: 1px solid #D2D2D2;
   }
-  
+
   ul li:nth-child(even) {
     -webkit-transform: rotate(2deg);
     -moz-transform: rotate(2deg);
   }
-  
+
   ul li:nth-child(3n) {
     -webkit-transform: none;
     position: relative;
     top: -5px;
     -moz-transform: none;
   }
-  
+
   ul li:nth-child(4n) {
     margin-left: 0;
-  }    
-  
+  }
+
   ul li:nth-child(5n) {
     -webkit-transform: rotate(5deg);
     position: relative;
     right: 5px;
     -moz-transform: rotate(5deg);
   }
-  
+
   ul li:nth-child(8n) {
     position: relative;
     right: 5px;
     top: 8px;
   }
-  
+
   ul li:nth-child(11n) {
     position: relative;
     left: -5px;
     top: 3px;
   }
-  
+
   ul li:hover {
     -webkit-transform: scale(1.25);
     -moz-transform: scale(1.25);
@@ -300,16 +300,16 @@
     -moz-box-shadow: 0 3px 6px rgba(0, 0, 0, .5);
     position: relative;
     z-index: 5;
-  }  
+  }
 }
 
 
 @polaroid-small {
   @polaroid;
-  
-  ul li { 
+
+  ul li {
     margin: 0 0 25px 30px;
     width: 55px;
-    height: 80px;  
+    height: 80px;
   }
 }
