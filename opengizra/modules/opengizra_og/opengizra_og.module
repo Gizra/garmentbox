@@ -1,0 +1,223 @@
+<?php
+
+include_once('opengizra_og.features.inc');
+
+// TODO: Features should take care of this.
+include_once('opengizra_og.message.inc');
+
+/**
+ * @file
+ * Opengizra functioanlity related to Organic groups module.
+ */
+
+/**
+ * Implements hook_og_membership_insert().
+ *
+ * Create a message, and relate it to the group audience.
+ */
+function opengizra_og_og_membership_insert($og_membership) {
+  if ($og_membership->entity_type != 'node') {
+    return;
+  }
+
+  $node = node_load($og_membership->etid);
+  $account = user_load($node->uid);
+
+  $arguments = array(
+    '@user-url' => array(
+      'callback' => 'url',
+      'callback arguments' => array('node/' . $account->uid),
+    ),
+    '@name' => $account->name,
+    '@url' => array(
+      'callback' => 'url',
+      'callback arguments' => array('node/' . $node->nid),
+    ),
+    '@title' => $node->title,
+  );
+
+  $message = message_create('create_content', array('arguments' => $arguments), $account);
+  $wrapper = entity_metadata_wrapper('message', $message);
+  $wrapper->field_node_reference->set($node);
+
+  // Check if the content is associated with a group.
+  $gids = og_get_entity_groups('node', $node);
+  if (!$gids && $group = og_get_group('node', $node->nid)) {
+    // The node is a group.
+    $gids = array($group->gid);
+  }
+
+  if ($gids) {
+    $wrapper->field_og_group_id->set($gids);
+  }
+
+  $wrapper->save();
+}
+
+/**
+ * Implements hook_field_access().
+ */
+function opengizra_og_field_access($op, $field, $entity_type, $entity, $account) {
+  if ($op == 'edit' && $field['field_name'] == 'field_last_message_id') {
+    return FALSE;
+  }
+}
+
+/**
+ * Implements hook_message_view().
+ */
+function opengizra_og_message_view($message, $view_mode, $langcode) {
+  global $user;
+  $wrapper = entity_metadata_wrapper('message', $message);
+  if (!$wrapper->field_og_group_id) {
+    return;
+  }
+
+  foreach ($wrapper->field_og_group_id->value() as $gid) {
+    // Register the viewed messages.
+    opengizra_og_message_viewed($gid, $message->mid);
+  }
+}
+
+/**
+ * Get or set the last viewed message by group ID.
+ *
+ * @param unknown_type $gid
+ * @param unknown_type $mid
+ */
+function opengizra_og_message_viewed($gid = NULL, $mid = 0) {
+  global $user;
+  $cache = &drupal_static(__FUNCTION__, array());
+
+  if (empty($gid)) {
+    // Return the cached values.
+    return $cache;
+  }
+
+  if ((!empty($mid) && empty($cache[$gid])) ||  $mid > $cache[$gid]) {
+    $cache[$gid] = $mid;
+  }
+}
+
+/**
+ * Implements hook_page_alter().
+ *
+ * This is late enough to save the last message ID viewed.
+ */
+function opengizra_og_page_alter() {
+  global $user;
+  $message_viewed = opengizra_og_message_viewed();
+  if (!$message_viewed) {
+    return;
+  }
+
+  $wrapper = entity_metadata_wrapper('user', $user->uid);
+  if (!$wrapper->og_membership) {
+    return;
+  }
+
+  // Save the last message ID for any registered membership.
+  foreach ($wrapper->og_membership as $og_membership) {
+    $gid = $og_membership->group->gid->value();
+    if (!empty($message_viewed[$gid]) && $message_viewed[$gid] >$og_membership->field_last_message_id->value()) {
+      $og_membership->field_last_message_id->set($message_viewed[$gid]);
+      $og_membership->save();
+    }
+  }
+}
+
+
+/**
+ * Implements of hook_ctools_plugin_directory().
+ */
+function opengizra_og_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'ctools' && !empty($plugin)) {
+    return "plugins/$plugin";
+  }
+}
+
+/**
+ * Implements hook_admin_paths().
+ */
+function opengizra_og_admin_paths() {
+  return array(
+    'group/*/*/subscribe' => TRUE,
+    'group/*/*/unsubscribe' => TRUE,
+  );
+}
+
+
+/**
+ * Implements hook_entity_property_info().
+ */
+function opengizra_og_entity_property_info() {
+  $info = array();
+  $properties = &$info['og_membership']['properties'];
+
+    $properties['last_message'] = array(
+      'label' => t("Last message"),
+      'type' => 'message',
+      'description' => t("The last message the user viewed."),
+      'getter callback' => 'opengizra_og_get_properties',
+    );
+
+  return $info;
+}
+
+/**
+ * Property getter callback.
+ */
+function opengizra_og_get_properties($entity, array $options, $name, $entity_type, $info) {
+  switch ($name) {
+    case 'last_message':
+      $langcode = field_language($entity_type, $entity, $name, isset($options['language']) ? $options['language']->language : NULL);
+      if (!isset($entity->field_last_message_id[$langcode][0])) {
+        // No values.
+        return;
+      }
+      return $entity->field_last_message_id[$langcode][0]['value'];
+  }
+}
+
+/**
+ * Get the number of unviewed messages.
+ * @param unknown_type $gid
+ * @param unknown_type $account
+ */
+function opengizra_og_get_unviewed_message_count($gid, $account = NULL) {
+  if (empty($account)) {
+    global $user;
+    $account = clone $user;
+  }
+
+  $og_membership = og_get_group_membership($gid, 'user', $account->uid);
+  if (!$og_membership) {
+    return;
+  }
+
+  $wrapper = entity_metadata_wrapper('og_membership', $og_membership);
+  if (!$wrapper->field_last_message_id) {
+    return;
+  }
+
+  $last_id = $wrapper->field_last_message_id->value(array('identifier' => TRUE));
+  if (empty($last_id)) {
+    $last_id = 0;
+  }
+  $query = new EntityFieldQuery();
+  $result = $query
+    ->entityCondition('entity_type', 'message')
+    ->fieldCondition('field_og_group_id', 'value', $gid, '=')
+    ->propertyCondition('mid', $last_id, '>')
+    ->count()
+    ->execute();
+
+  return $result;
+}
+
+/**
+ * Wrapper function to get a string with the current user's group IDs.
+ */
+function opengizra_og_get_entity_group_string() {
+  return implode(',', og_get_entity_groups());
+}

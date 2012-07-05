@@ -1,0 +1,18 @@
+<?php
+/**
+ * @file
+ * Code for the Opengizra item feature.
+ */
+
+include_once('opengizra_item.features.inc');
+
+/**
+ * Implements hook_menu_alter().
+ *
+ * Remove and rename node related tabs.
+ */
+function opengizra_item_menu_alter(&$items) {
+  $items['node/%node/devel']['type'] = MENU_CALLBACK;
+  $items['node/%node/edit']['type'] = MENU_CALLBACK;
+  $items['node/%node/view']['title'] = t('Stream');
+}

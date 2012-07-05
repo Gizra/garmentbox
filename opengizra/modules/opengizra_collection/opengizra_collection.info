@@ -1,0 +1,8 @@
+core = "7.x"
+dependencies[] = "features"
+dependencies[] = "taxonomy"
+description = "Opengizra collection custom code."
+features[taxonomy][] = "collection"
+name = "Opengizra collection"
+package = "Features"
+php = "5.2.4"
