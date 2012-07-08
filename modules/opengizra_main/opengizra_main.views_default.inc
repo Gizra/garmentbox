@@ -5,7 +5,7 @@
  */
 
 /**
- * Implementation of hook_views_default_views().
+ * Implements hook_views_default_views().
  */
 function opengizra_main_views_default_views() {
   $export = array();
@@ -17,7 +17,7 @@ function opengizra_main_views_default_views() {
   $view->base_table = 'message';
   $view->human_name = 'PLM message';
   $view->core = 7;
-  $view->api_version = '3.0-alpha1';
+  $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
@@ -38,7 +38,7 @@ function opengizra_main_views_default_views() {
   $handler->display->display_options['relationships']['user']['table'] = 'message';
   $handler->display->display_options['relationships']['user']['field'] = 'user';
   $handler->display->display_options['relationships']['user']['required'] = 0;
-  /* Field: Message: Name */
+  /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'message';
   $handler->display->display_options['fields']['name']['field'] = 'name';
@@ -84,7 +84,7 @@ function opengizra_main_views_default_views() {
   $handler->display->display_options['fields']['picture']['hide_empty'] = 0;
   $handler->display->display_options['fields']['picture']['empty_zero'] = 0;
   $handler->display->display_options['fields']['picture']['hide_alter_empty'] = 0;
-  /* Field: Message: Render message */
+  /* Field: Message: Render message (Get text) */
   $handler->display->display_options['fields']['message_render']['id'] = 'message_render';
   $handler->display->display_options['fields']['message_render']['table'] = 'message';
   $handler->display->display_options['fields']['message_render']['field'] = 'message_render';
@@ -134,7 +134,7 @@ function opengizra_main_views_default_views() {
   $handler->display->display_options['sorts']['timestamp']['table'] = 'message';
   $handler->display->display_options['sorts']['timestamp']['field'] = 'timestamp';
   $handler->display->display_options['sorts']['timestamp']['order'] = 'DESC';
-  /* Contextual filter: Message: Content reference (field_node_reference) */
+  /* Contextual filter: Broken/missing handler */
   $handler->display->display_options['arguments']['field_node_reference_nid']['id'] = 'field_node_reference_nid';
   $handler->display->display_options['arguments']['field_node_reference_nid']['table'] = 'field_data_field_node_reference';
   $handler->display->display_options['arguments']['field_node_reference_nid']['field'] = 'field_node_reference_nid';
@@ -144,8 +144,6 @@ function opengizra_main_views_default_views() {
   $handler->display->display_options['arguments']['field_node_reference_nid']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['field_node_reference_nid']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['field_node_reference_nid']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['field_node_reference_nid']['break_phrase'] = 0;
-  $handler->display->display_options['arguments']['field_node_reference_nid']['not'] = 0;
 
   /* Display: Content pane */
   $handler = $view->new_display('panel_pane', 'Content pane', 'panel_pane_1');
@@ -168,7 +166,7 @@ function opengizra_main_views_default_views() {
   $view->base_table = 'node';
   $view->human_name = 'PLM OG fullcalendar';
   $view->core = 0;
-  $view->api_version = '3.0-alpha1';
+  $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Defaults */
@@ -181,22 +179,12 @@ function opengizra_main_views_default_views() {
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'fullcalendar';
-  $handler->display->display_options['style_options']['modules']['fc_theme'] = 0;
-  $handler->display->display_options['style_options']['modules']['fc_window'] = 0;
-  $handler->display->display_options['style_options']['times']['fc_clock'] = 0;
-  $handler->display->display_options['style_options']['times']['fc_default_date'] = 0;
-  $handler->display->display_options['style_options']['times']['fc_date'] = array(
-    'year' => '1900',
-    'month' => '1',
-    'day' => '1',
-  );
-  $handler->display->display_options['row_plugin'] = 'fields';
-  /* No results behavior: FullCalendar: Empty calendar */
+  /* No results behavior: Broken/missing handler */
   $handler->display->display_options['empty']['area']['id'] = 'area';
   $handler->display->display_options['empty']['area']['table'] = 'fullcalendar';
   $handler->display->display_options['empty']['area']['field'] = 'area';
   $handler->display->display_options['empty']['area']['empty'] = FALSE;
-  /* Relationship: Group membership: Node group membership */
+  /* Relationship: OG membership: OG membership from Node */
   $handler->display->display_options['relationships']['og_membership_rel']['id'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
@@ -209,7 +197,7 @@ function opengizra_main_views_default_views() {
   $handler->display->display_options['fields']['changed']['id'] = 'changed';
   $handler->display->display_options['fields']['changed']['table'] = 'node';
   $handler->display->display_options['fields']['changed']['field'] = 'changed';
-  /* Contextual filter: OG membership: Group gid */
+  /* Contextual filter: Broken/missing handler */
   $handler->display->display_options['arguments']['group']['id'] = 'group';
   $handler->display->display_options['arguments']['group']['table'] = 'og_membership';
   $handler->display->display_options['arguments']['group']['field'] = 'group';
@@ -220,8 +208,6 @@ function opengizra_main_views_default_views() {
   $handler->display->display_options['arguments']['group']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['group']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['group']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['group']['break_phrase'] = 0;
-  $handler->display->display_options['arguments']['group']['not'] = 0;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -256,7 +242,7 @@ function opengizra_main_views_default_views() {
   $view->base_table = 'node';
   $view->human_name = 'PLM OG image';
   $view->core = 7;
-  $view->api_version = '3.0-alpha1';
+  $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
@@ -272,7 +258,7 @@ function opengizra_main_views_default_views() {
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'list';
   $handler->display->display_options['row_plugin'] = 'fields';
-  /* Relationship: Group membership: Node group membership */
+  /* Relationship: OG membership: OG membership from Node */
   $handler->display->display_options['relationships']['og_membership_rel']['id'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
@@ -337,7 +323,7 @@ function opengizra_main_views_default_views() {
   $handler->display->display_options['sorts']['created']['table'] = 'node';
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
-  /* Contextual filter: OG membership: Group gid */
+  /* Contextual filter: Broken/missing handler */
   $handler->display->display_options['arguments']['group']['id'] = 'group';
   $handler->display->display_options['arguments']['group']['table'] = 'og_membership';
   $handler->display->display_options['arguments']['group']['field'] = 'group';
@@ -348,8 +334,6 @@ function opengizra_main_views_default_views() {
   $handler->display->display_options['arguments']['group']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['group']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['group']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['group']['break_phrase'] = 0;
-  $handler->display->display_options['arguments']['group']['not'] = 0;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -449,7 +433,7 @@ function opengizra_main_views_default_views() {
   $handler->display->display_options['fields']['title']['hide_alter_empty'] = 0;
   $handler->display->display_options['fields']['title']['link_to_node'] = 0;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: OG membership: Group gid */
+  /* Contextual filter: Broken/missing handler */
   $handler->display->display_options['arguments']['group']['id'] = 'group';
   $handler->display->display_options['arguments']['group']['table'] = 'og_membership';
   $handler->display->display_options['arguments']['group']['field'] = 'group';
@@ -461,8 +445,6 @@ function opengizra_main_views_default_views() {
   $handler->display->display_options['arguments']['group']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['group']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['group']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['group']['break_phrase'] = 1;
-  $handler->display->display_options['arguments']['group']['not'] = 0;
   $handler->display->display_options['argument_input'] = array(
     'group' => array(
       'type' => 'none',
@@ -482,7 +464,7 @@ function opengizra_main_views_default_views() {
   $view->base_table = 'users';
   $view->human_name = 'PLM OG members';
   $view->core = 0;
-  $view->api_version = '3.0-alpha1';
+  $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Defaults */
@@ -499,7 +481,7 @@ function opengizra_main_views_default_views() {
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
-  /* Relationship: Group membership: User group membership */
+  /* Relationship: OG membership: OG membership from User */
   $handler->display->display_options['relationships']['og_membership_rel']['id'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'users';
   $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
@@ -557,7 +539,7 @@ function opengizra_main_views_default_views() {
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['relationship'] = 'og_membership_rel';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
-  /* Contextual filter: OG membership: Group gid */
+  /* Contextual filter: Broken/missing handler */
   $handler->display->display_options['arguments']['group']['id'] = 'group';
   $handler->display->display_options['arguments']['group']['table'] = 'og_membership';
   $handler->display->display_options['arguments']['group']['field'] = 'group';
@@ -570,8 +552,6 @@ function opengizra_main_views_default_views() {
   $handler->display->display_options['arguments']['group']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['group']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['group']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['group']['break_phrase'] = 0;
-  $handler->display->display_options['arguments']['group']['not'] = 0;
   /* Filter criterion: User: Active */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'users';

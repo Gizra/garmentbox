@@ -5,7 +5,7 @@
  */
 
 /**
- * Implementation of hook_field_default_fields().
+ * Implements hook_field_default_fields().
  */
 function opengizra_item_field_default_fields() {
   $fields = array();
@@ -116,8 +116,10 @@ function opengizra_item_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'field_slideshow',
+          'module' => 'image',
           'settings' => array(
+            'image_link' => '',
+            'image_style' => '',
             'slideshow_caption' => '',
             'slideshow_caption_link' => '',
             'slideshow_carousel_image_style' => 'thumbnail',
@@ -136,7 +138,7 @@ function opengizra_item_field_default_fields() {
             'slideshow_speed' => '1000',
             'slideshow_timeout' => '4000',
           ),
-          'type' => 'slideshow',
+          'type' => 'image',
           'weight' => '1',
         ),
         'teaser' => array(
@@ -152,6 +154,7 @@ function opengizra_item_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'alt_field' => 0,
+        'default_image' => 0,
         'file_directory' => 'item-images',
         'file_extensions' => 'png gif jpg jpeg',
         'max_filesize' => '',
@@ -240,10 +243,92 @@ function opengizra_item_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-item-og_group_ref'
+  $fields['node-item-og_group_ref'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'og_group_ref',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'module' => 'entityreference',
+      'settings' => array(
+        'handler' => 'og',
+        'handler_settings' => array(
+          'behaviors' => array(
+            'og_behavior' => array(
+              'status' => TRUE,
+            ),
+          ),
+          'membership_type' => 'og_membership_type_default',
+          'primary_field' => FALSE,
+          'reference_type' => 'my_groups',
+          'target_bundles' => array(),
+        ),
+        'handler_submit' => 'Change handler',
+        'target_type' => 'node',
+      ),
+      'translatable' => '0',
+      'type' => 'entityreference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'item',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'og_ui',
+          'settings' => array(),
+          'type' => 'og_list_default',
+          'weight' => 0,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'og_group_ref',
+      'label' => 'Groups audience',
+      'required' => TRUE,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'view modes' => array(
+        'full' => array(
+          'custom settings' => FALSE,
+          'label' => 'Full',
+          'type' => 'og_list_default',
+        ),
+        'teaser' => array(
+          'custom settings' => FALSE,
+          'label' => 'Teaser',
+          'type' => 'og_list_default',
+        ),
+      ),
+      'widget' => array(
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
+        'weight' => 0,
+      ),
+    ),
+  );
 
   // Translatables
   // Included for use with string extractors like potx.
   t('Body');
+  t('Groups audience');
   t('Images');
   t('Production status');
 

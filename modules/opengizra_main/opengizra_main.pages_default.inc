@@ -5,12 +5,12 @@
  */
 
 /**
- * Implementation of hook_default_page_manager_handlers().
+ * Implements hook_default_page_manager_handlers().
  */
 function opengizra_main_default_page_manager_handlers() {
   $export = array();
 
-  $handler = new stdClass;
+  $handler = new stdClass();
   $handler->disabled = FALSE; /* Edit this to true to make a default handler disabled initially */
   $handler->api_version = 1;
   $handler->name = 'node_view_panel_context_2';
@@ -50,7 +50,7 @@ function opengizra_main_default_page_manager_handlers() {
       'logic' => 'and',
     ),
   );
-  $display = new panels_display;
+  $display = new panels_display();
   $display->layout = 'grid_8_8_5';
   $display->layout_settings = array();
   $display->panel_settings = array(
@@ -72,7 +72,7 @@ function opengizra_main_default_page_manager_handlers() {
   $display->title = '%node:title';
   $display->content = array();
   $display->panels = array();
-    $pane = new stdClass;
+    $pane = new stdClass();
     $pane->pid = 'new-1';
     $pane->panel = 'first';
     $pane->type = 'panels_mini';
@@ -93,9 +93,10 @@ function opengizra_main_default_page_manager_handlers() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
+    $pane->locks = '';
     $display->content['new-1'] = $pane;
     $display->panels['first'][0] = 'new-1';
-    $pane = new stdClass;
+    $pane = new stdClass();
     $pane->pid = 'new-2';
     $pane->panel = 'last';
     $pane->type = 'panels_mini';
@@ -117,9 +118,10 @@ function opengizra_main_default_page_manager_handlers() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
+    $pane->locks = '';
     $display->content['new-2'] = $pane;
     $display->panels['last'][0] = 'new-2';
-    $pane = new stdClass;
+    $pane = new stdClass();
     $pane->pid = 'new-3';
     $pane->panel = 'middle';
     $pane->type = 'page_tabs';
@@ -139,9 +141,10 @@ function opengizra_main_default_page_manager_handlers() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
+    $pane->locks = '';
     $display->content['new-3'] = $pane;
     $display->panels['middle'][0] = 'new-3';
-    $pane = new stdClass;
+    $pane = new stdClass();
     $pane->pid = 'new-4';
     $pane->panel = 'middle';
     $pane->type = 'views_panes';
@@ -169,9 +172,10 @@ function opengizra_main_default_page_manager_handlers() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 1;
+    $pane->locks = '';
     $display->content['new-4'] = $pane;
     $display->panels['middle'][1] = 'new-4';
-    $pane = new stdClass;
+    $pane = new stdClass();
     $pane->pid = 'new-5';
     $pane->panel = 'middle';
     $pane->type = 'views_panes';
@@ -199,6 +203,7 @@ function opengizra_main_default_page_manager_handlers() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 2;
+    $pane->locks = '';
     $display->content['new-5'] = $pane;
     $display->panels['middle'][2] = 'new-5';
   $display->hide_title = PANELS_TITLE_FIXED;
@@ -210,10 +215,10 @@ function opengizra_main_default_page_manager_handlers() {
 }
 
 /**
- * Implementation of hook_default_page_manager_pages().
+ * Implements hook_default_page_manager_pages().
  */
 function opengizra_main_default_page_manager_pages() {
-  $page = new stdClass;
+  $page = new stdClass();
   $page->disabled = FALSE; /* Edit this to true to make a default page disabled initially */
   $page->api_version = 1;
   $page->name = 'content_calendar';
@@ -263,7 +268,7 @@ function opengizra_main_default_page_manager_pages() {
     'admin_paths' => FALSE,
   );
   $page->default_handlers = array();
-  $handler = new stdClass;
+  $handler = new stdClass();
   $handler->disabled = FALSE; /* Edit this to true to make a default handler disabled initially */
   $handler->api_version = 1;
   $handler->name = 'page_content_calendar_panel_context';
@@ -301,7 +306,7 @@ function opengizra_main_default_page_manager_pages() {
       'logic' => 'and',
     ),
   );
-  $display = new panels_display;
+  $display = new panels_display();
   $display->layout = 'grid_8_8_5';
   $display->layout_settings = array();
   $display->panel_settings = array(
@@ -321,8 +326,8 @@ function opengizra_main_default_page_manager_pages() {
   $display->title = '';
   $display->content = array();
   $display->panels = array();
-    $pane = new stdClass;
-    $pane->pid = 'new-1';
+    $pane = new stdClass();
+    $pane->pid = 'new-6';
     $pane->panel = 'first';
     $pane->type = 'panels_mini';
     $pane->subtype = 'group_sidebar';
@@ -342,10 +347,11 @@ function opengizra_main_default_page_manager_pages() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
-    $display->content['new-1'] = $pane;
-    $display->panels['first'][0] = 'new-1';
-    $pane = new stdClass;
-    $pane->pid = 'new-2';
+    $pane->locks = '';
+    $display->content['new-6'] = $pane;
+    $display->panels['first'][0] = 'new-6';
+    $pane = new stdClass();
+    $pane->pid = 'new-7';
     $pane->panel = 'last';
     $pane->type = 'panels_mini';
     $pane->subtype = 'group_content_sidebar';
@@ -366,10 +372,11 @@ function opengizra_main_default_page_manager_pages() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
-    $display->content['new-2'] = $pane;
-    $display->panels['last'][0] = 'new-2';
-    $pane = new stdClass;
-    $pane->pid = 'new-3';
+    $pane->locks = '';
+    $display->content['new-7'] = $pane;
+    $display->panels['last'][0] = 'new-7';
+    $pane = new stdClass();
+    $pane->pid = 'new-8';
     $pane->panel = 'middle';
     $pane->type = 'page_tabs';
     $pane->subtype = 'page_tabs';
@@ -388,10 +395,11 @@ function opengizra_main_default_page_manager_pages() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
-    $display->content['new-3'] = $pane;
-    $display->panels['middle'][0] = 'new-3';
-    $pane = new stdClass;
-    $pane->pid = 'new-4';
+    $pane->locks = '';
+    $display->content['new-8'] = $pane;
+    $display->panels['middle'][0] = 'new-8';
+    $pane = new stdClass();
+    $pane->pid = 'new-9';
     $pane->panel = 'middle';
     $pane->type = 'views_panes';
     $pane->subtype = 'plm_og_fullcalendar-panel_pane_1';
@@ -418,15 +426,16 @@ function opengizra_main_default_page_manager_pages() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 1;
-    $display->content['new-4'] = $pane;
-    $display->panels['middle'][1] = 'new-4';
+    $pane->locks = '';
+    $display->content['new-9'] = $pane;
+    $display->panels['middle'][1] = 'new-9';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
   $pages['content_calendar'] = $page;
 
-  $page = new stdClass;
+  $page = new stdClass();
   $page->disabled = FALSE; /* Edit this to true to make a default page disabled initially */
   $page->api_version = 1;
   $page->name = 'content_comments';
@@ -476,7 +485,7 @@ function opengizra_main_default_page_manager_pages() {
     'admin_paths' => FALSE,
   );
   $page->default_handlers = array();
-  $handler = new stdClass;
+  $handler = new stdClass();
   $handler->disabled = FALSE; /* Edit this to true to make a default handler disabled initially */
   $handler->api_version = 1;
   $handler->name = 'page_content_comments_panel_context';
@@ -514,7 +523,7 @@ function opengizra_main_default_page_manager_pages() {
       'logic' => 'and',
     ),
   );
-  $display = new panels_display;
+  $display = new panels_display();
   $display->layout = 'grid_8_8_5';
   $display->layout_settings = array();
   $display->panel_settings = array(
@@ -531,8 +540,8 @@ function opengizra_main_default_page_manager_pages() {
   $display->title = '';
   $display->content = array();
   $display->panels = array();
-    $pane = new stdClass;
-    $pane->pid = 'new-1';
+    $pane = new stdClass();
+    $pane->pid = 'new-10';
     $pane->panel = 'first';
     $pane->type = 'panels_mini';
     $pane->subtype = 'group_sidebar';
@@ -552,10 +561,11 @@ function opengizra_main_default_page_manager_pages() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
-    $display->content['new-1'] = $pane;
-    $display->panels['first'][0] = 'new-1';
-    $pane = new stdClass;
-    $pane->pid = 'new-2';
+    $pane->locks = '';
+    $display->content['new-10'] = $pane;
+    $display->panels['first'][0] = 'new-10';
+    $pane = new stdClass();
+    $pane->pid = 'new-11';
     $pane->panel = 'last';
     $pane->type = 'panels_mini';
     $pane->subtype = 'group_content_sidebar';
@@ -576,10 +586,11 @@ function opengizra_main_default_page_manager_pages() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
-    $display->content['new-2'] = $pane;
-    $display->panels['last'][0] = 'new-2';
-    $pane = new stdClass;
-    $pane->pid = 'new-3';
+    $pane->locks = '';
+    $display->content['new-11'] = $pane;
+    $display->panels['last'][0] = 'new-11';
+    $pane = new stdClass();
+    $pane->pid = 'new-12';
     $pane->panel = 'middle';
     $pane->type = 'page_tabs';
     $pane->subtype = 'page_tabs';
@@ -598,10 +609,11 @@ function opengizra_main_default_page_manager_pages() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
-    $display->content['new-3'] = $pane;
-    $display->panels['middle'][0] = 'new-3';
-    $pane = new stdClass;
-    $pane->pid = 'new-4';
+    $pane->locks = '';
+    $display->content['new-12'] = $pane;
+    $display->panels['middle'][0] = 'new-12';
+    $pane = new stdClass();
+    $pane->pid = 'new-13';
     $pane->panel = 'middle';
     $pane->type = 'node_comment_form';
     $pane->subtype = 'node_comment_form';
@@ -620,10 +632,11 @@ function opengizra_main_default_page_manager_pages() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 1;
-    $display->content['new-4'] = $pane;
-    $display->panels['middle'][1] = 'new-4';
-    $pane = new stdClass;
-    $pane->pid = 'new-5';
+    $pane->locks = '';
+    $display->content['new-13'] = $pane;
+    $display->panels['middle'][1] = 'new-13';
+    $pane = new stdClass();
+    $pane->pid = 'new-14';
     $pane->panel = 'middle';
     $pane->type = 'node_comments';
     $pane->subtype = 'node_comments';
@@ -643,15 +656,16 @@ function opengizra_main_default_page_manager_pages() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 2;
-    $display->content['new-5'] = $pane;
-    $display->panels['middle'][2] = 'new-5';
+    $pane->locks = '';
+    $display->content['new-14'] = $pane;
+    $display->panels['middle'][2] = 'new-14';
   $display->hide_title = PANELS_TITLE_FIXED;
-  $display->title_pane = 'new-4';
+  $display->title_pane = 'new-13';
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
   $pages['content_comments'] = $page;
 
-  $page = new stdClass;
+  $page = new stdClass();
   $page->disabled = FALSE; /* Edit this to true to make a default page disabled initially */
   $page->api_version = 1;
   $page->name = 'content_images';
@@ -701,7 +715,7 @@ function opengizra_main_default_page_manager_pages() {
     'admin_paths' => FALSE,
   );
   $page->default_handlers = array();
-  $handler = new stdClass;
+  $handler = new stdClass();
   $handler->disabled = FALSE; /* Edit this to true to make a default handler disabled initially */
   $handler->api_version = 1;
   $handler->name = 'page_content_images_panel_context';
@@ -739,7 +753,7 @@ function opengizra_main_default_page_manager_pages() {
       'logic' => 'and',
     ),
   );
-  $display = new panels_display;
+  $display = new panels_display();
   $display->layout = 'grid_8_8_5';
   $display->layout_settings = array();
   $display->panel_settings = array(
@@ -756,8 +770,8 @@ function opengizra_main_default_page_manager_pages() {
   $display->title = '';
   $display->content = array();
   $display->panels = array();
-    $pane = new stdClass;
-    $pane->pid = 'new-1';
+    $pane = new stdClass();
+    $pane->pid = 'new-15';
     $pane->panel = 'first';
     $pane->type = 'panels_mini';
     $pane->subtype = 'group_sidebar';
@@ -777,10 +791,11 @@ function opengizra_main_default_page_manager_pages() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
-    $display->content['new-1'] = $pane;
-    $display->panels['first'][0] = 'new-1';
-    $pane = new stdClass;
-    $pane->pid = 'new-2';
+    $pane->locks = '';
+    $display->content['new-15'] = $pane;
+    $display->panels['first'][0] = 'new-15';
+    $pane = new stdClass();
+    $pane->pid = 'new-16';
     $pane->panel = 'last';
     $pane->type = 'panels_mini';
     $pane->subtype = 'group_content_sidebar';
@@ -801,10 +816,11 @@ function opengizra_main_default_page_manager_pages() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
-    $display->content['new-2'] = $pane;
-    $display->panels['last'][0] = 'new-2';
-    $pane = new stdClass;
-    $pane->pid = 'new-3';
+    $pane->locks = '';
+    $display->content['new-16'] = $pane;
+    $display->panels['last'][0] = 'new-16';
+    $pane = new stdClass();
+    $pane->pid = 'new-17';
     $pane->panel = 'middle';
     $pane->type = 'page_tabs';
     $pane->subtype = 'page_tabs';
@@ -823,10 +839,11 @@ function opengizra_main_default_page_manager_pages() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
-    $display->content['new-3'] = $pane;
-    $display->panels['middle'][0] = 'new-3';
-    $pane = new stdClass;
-    $pane->pid = 'new-4';
+    $pane->locks = '';
+    $display->content['new-17'] = $pane;
+    $display->panels['middle'][0] = 'new-17';
+    $pane = new stdClass();
+    $pane->pid = 'new-18';
     $pane->panel = 'middle';
     $pane->type = 'views_panes';
     $pane->subtype = 'plm_og_image-panel_pane_1';
@@ -856,10 +873,11 @@ function opengizra_main_default_page_manager_pages() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 1;
-    $display->content['new-4'] = $pane;
-    $display->panels['middle'][1] = 'new-4';
-    $pane = new stdClass;
-    $pane->pid = 'new-5';
+    $pane->locks = '';
+    $display->content['new-18'] = $pane;
+    $display->panels['middle'][1] = 'new-18';
+    $pane = new stdClass();
+    $pane->pid = 'new-19';
     $pane->panel = 'middle';
     $pane->type = 'entity_field';
     $pane->subtype = 'node:field_images';
@@ -907,15 +925,16 @@ function opengizra_main_default_page_manager_pages() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 2;
-    $display->content['new-5'] = $pane;
-    $display->panels['middle'][2] = 'new-5';
+    $pane->locks = '';
+    $display->content['new-19'] = $pane;
+    $display->panels['middle'][2] = 'new-19';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
   $pages['content_images'] = $page;
 
-  $page = new stdClass;
+  $page = new stdClass();
   $page->disabled = FALSE; /* Edit this to true to make a default page disabled initially */
   $page->api_version = 1;
   $page->name = 'homepage';
@@ -933,7 +952,7 @@ function opengizra_main_default_page_manager_pages() {
     'admin_paths' => FALSE,
   );
   $page->default_handlers = array();
-  $handler = new stdClass;
+  $handler = new stdClass();
   $handler->disabled = FALSE; /* Edit this to true to make a default handler disabled initially */
   $handler->api_version = 1;
   $handler->name = 'page_homepage_panel_context';
@@ -959,7 +978,7 @@ function opengizra_main_default_page_manager_pages() {
     ),
     'relationships' => array(),
   );
-  $display = new panels_display;
+  $display = new panels_display();
   $display->layout = 'twocol_stacked';
   $display->layout_settings = array();
   $display->panel_settings = array(
@@ -978,8 +997,8 @@ function opengizra_main_default_page_manager_pages() {
   $display->title = '';
   $display->content = array();
   $display->panels = array();
-    $pane = new stdClass;
-    $pane->pid = 'new-1';
+    $pane = new stdClass();
+    $pane->pid = 'new-20';
     $pane->panel = 'left';
     $pane->type = 'views_panes';
     $pane->subtype = 'message_dashboard-panel_pane_1';
@@ -993,10 +1012,11 @@ function opengizra_main_default_page_manager_pages() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
-    $display->content['new-1'] = $pane;
-    $display->panels['left'][0] = 'new-1';
-    $pane = new stdClass;
-    $pane->pid = 'new-2';
+    $pane->locks = '';
+    $display->content['new-20'] = $pane;
+    $display->panels['left'][0] = 'new-20';
+    $pane = new stdClass();
+    $pane->pid = 'new-21';
     $pane->panel = 'right';
     $pane->type = 'views_panes';
     $pane->subtype = 'plm_og_image-images_teaser';
@@ -1010,10 +1030,11 @@ function opengizra_main_default_page_manager_pages() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
-    $display->content['new-2'] = $pane;
-    $display->panels['right'][0] = 'new-2';
-    $pane = new stdClass;
-    $pane->pid = 'new-3';
+    $pane->locks = '';
+    $display->content['new-21'] = $pane;
+    $display->panels['right'][0] = 'new-21';
+    $pane = new stdClass();
+    $pane->pid = 'new-22';
     $pane->panel = 'right';
     $pane->type = 'views_panes';
     $pane->subtype = 'upcoming_events-panel_pane_1';
@@ -1031,15 +1052,16 @@ function opengizra_main_default_page_manager_pages() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 1;
-    $display->content['new-3'] = $pane;
-    $display->panels['right'][1] = 'new-3';
+    $pane->locks = '';
+    $display->content['new-22'] = $pane;
+    $display->panels['right'][1] = 'new-22';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
   $pages['homepage'] = $page;
 
-  $page = new stdClass;
+  $page = new stdClass();
   $page->disabled = FALSE; /* Edit this to true to make a default page disabled initially */
   $page->api_version = 1;
   $page->name = 'page_403';
@@ -1057,7 +1079,7 @@ function opengizra_main_default_page_manager_pages() {
     'admin_paths' => FALSE,
   );
   $page->default_handlers = array();
-  $handler = new stdClass;
+  $handler = new stdClass();
   $handler->disabled = FALSE; /* Edit this to true to make a default handler disabled initially */
   $handler->api_version = 1;
   $handler->name = 'page_page_403_panel_context';
@@ -1074,7 +1096,7 @@ function opengizra_main_default_page_manager_pages() {
     'contexts' => array(),
     'relationships' => array(),
   );
-  $display = new panels_display;
+  $display = new panels_display();
   $display->layout = 'onecol';
   $display->layout_settings = array();
   $display->panel_settings = array(
@@ -1087,8 +1109,8 @@ function opengizra_main_default_page_manager_pages() {
   $display->title = '';
   $display->content = array();
   $display->panels = array();
-    $pane = new stdClass;
-    $pane->pid = 'new-1';
+    $pane = new stdClass();
+    $pane->pid = 'new-23';
     $pane->panel = 'middle';
     $pane->type = 'error_pages';
     $pane->subtype = 'error_pages';
@@ -1106,15 +1128,16 @@ function opengizra_main_default_page_manager_pages() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
-    $display->content['new-1'] = $pane;
-    $display->panels['middle'][0] = 'new-1';
+    $pane->locks = '';
+    $display->content['new-23'] = $pane;
+    $display->panels['middle'][0] = 'new-23';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
   $pages['page_403'] = $page;
 
-  $page = new stdClass;
+  $page = new stdClass();
   $page->disabled = FALSE; /* Edit this to true to make a default page disabled initially */
   $page->api_version = 1;
   $page->name = 'page_404';
@@ -1132,7 +1155,7 @@ function opengizra_main_default_page_manager_pages() {
     'admin_paths' => FALSE,
   );
   $page->default_handlers = array();
-  $handler = new stdClass;
+  $handler = new stdClass();
   $handler->disabled = FALSE; /* Edit this to true to make a default handler disabled initially */
   $handler->api_version = 1;
   $handler->name = 'page_page_404_panel_context';
@@ -1149,7 +1172,7 @@ function opengizra_main_default_page_manager_pages() {
     'contexts' => array(),
     'relationships' => array(),
   );
-  $display = new panels_display;
+  $display = new panels_display();
   $display->layout = 'onecol';
   $display->layout_settings = array();
   $display->panel_settings = array(
@@ -1162,8 +1185,8 @@ function opengizra_main_default_page_manager_pages() {
   $display->title = '';
   $display->content = array();
   $display->panels = array();
-    $pane = new stdClass;
-    $pane->pid = 'new-1';
+    $pane = new stdClass();
+    $pane->pid = 'new-24';
     $pane->panel = 'middle';
     $pane->type = 'error_pages';
     $pane->subtype = 'error_pages';
@@ -1181,14 +1204,15 @@ function opengizra_main_default_page_manager_pages() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 0;
-    $display->content['new-1'] = $pane;
-    $display->panels['middle'][0] = 'new-1';
+    $pane->locks = '';
+    $display->content['new-24'] = $pane;
+    $display->panels['middle'][0] = 'new-24';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
   $pages['page_404'] = $page;
 
- return $pages;
+  return $pages;
 
 }

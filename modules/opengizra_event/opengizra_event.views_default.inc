@@ -5,7 +5,7 @@
  */
 
 /**
- * Implementation of hook_views_default_views().
+ * Implements hook_views_default_views().
  */
 function opengizra_event_views_default_views() {
   $export = array();
@@ -17,7 +17,7 @@ function opengizra_event_views_default_views() {
   $view->base_table = 'node';
   $view->human_name = 'Upcoming events';
   $view->core = 7;
-  $view->api_version = '3.0-alpha1';
+  $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
@@ -41,18 +41,18 @@ function opengizra_event_views_default_views() {
   $handler->display->display_options['row_options']['separator'] = ',';
   $handler->display->display_options['row_options']['hide_empty'] = 0;
   $handler->display->display_options['row_options']['default_field_elements'] = 1;
-  /* Relationship: Group membership: Node group membership */
+  /* Relationship: OG membership: OG membership from Node */
   $handler->display->display_options['relationships']['og_membership_rel']['id'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['og_membership_rel']['required'] = 0;
-  /* Relationship: OG membership: Group gid */
+  /* Relationship: Broken/missing handler */
   $handler->display->display_options['relationships']['group']['id'] = 'group';
   $handler->display->display_options['relationships']['group']['table'] = 'og_membership';
   $handler->display->display_options['relationships']['group']['field'] = 'group';
   $handler->display->display_options['relationships']['group']['relationship'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['group']['required'] = 0;
-  /* Field: Organic groups group: Entity id */
+  /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['etid']['id'] = 'etid';
   $handler->display->display_options['fields']['etid']['table'] = 'og';
   $handler->display->display_options['fields']['etid']['field'] = 'etid';
@@ -76,8 +76,6 @@ function opengizra_event_views_default_views() {
   $handler->display->display_options['fields']['etid']['hide_empty'] = 0;
   $handler->display->display_options['fields']['etid']['empty_zero'] = 0;
   $handler->display->display_options['fields']['etid']['hide_alter_empty'] = 0;
-  $handler->display->display_options['fields']['etid']['separator'] = '';
-  $handler->display->display_options['fields']['etid']['format_plural'] = 0;
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -125,7 +123,7 @@ function opengizra_event_views_default_views() {
     'show_repeat_rule' => 'show',
   );
   $handler->display->display_options['fields']['field_date']['field_api_classes'] = 0;
-  /* Field: Organic groups group: Label */
+  /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['label']['id'] = 'label';
   $handler->display->display_options['fields']['label']['table'] = 'og';
   $handler->display->display_options['fields']['label']['field'] = 'label';
@@ -153,7 +151,7 @@ function opengizra_event_views_default_views() {
   $handler->display->display_options['sorts']['field_date_value']['id'] = 'field_date_value';
   $handler->display->display_options['sorts']['field_date_value']['table'] = 'field_data_field_date';
   $handler->display->display_options['sorts']['field_date_value']['field'] = 'field_date_value';
-  /* Contextual filter: OG membership: Group gid */
+  /* Contextual filter: Broken/missing handler */
   $handler->display->display_options['arguments']['group']['id'] = 'group';
   $handler->display->display_options['arguments']['group']['table'] = 'og_membership';
   $handler->display->display_options['arguments']['group']['field'] = 'group';
@@ -165,8 +163,6 @@ function opengizra_event_views_default_views() {
   $handler->display->display_options['arguments']['group']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['group']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['group']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['group']['break_phrase'] = 1;
-  $handler->display->display_options['arguments']['group']['not'] = 0;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
