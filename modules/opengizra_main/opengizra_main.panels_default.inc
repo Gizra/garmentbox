@@ -290,7 +290,16 @@ function opengizra_main_default_panels_mini() {
     ),
   );
   $mini->contexts = array();
-  $mini->relationships = array();
+  $mini->relationships = array(
+    0 => array(
+      'identifier' => 'Department node',
+      'keyword' => 'node_2',
+      'name' => 'entity_from_field:og_group_ref-node-node',
+      'context' => 'requiredcontext_entity:node_1',
+      'delta' => '0',
+      'id' => 1,
+    ),
+  );
   $display = new panels_display();
   $display->layout = 'onecol';
   $display->layout_settings = array();
@@ -332,12 +341,12 @@ function opengizra_main_default_panels_mini() {
     $pane->pid = 'new-33';
     $pane->panel = 'middle';
     $pane->type = 'views_panes';
-    $pane->subtype = 'plm_og_members-panel_pane_1';
+    $pane->subtype = 'og_members-panel_pane_1';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
       'context' => array(
-        0 => 'requiredcontext_entity:group_1',
+        0 => 'relationship_entity_from_field:og_group_ref-node-node_1',
       ),
       'override_title' => 0,
       'override_title_text' => '',
@@ -349,7 +358,7 @@ function opengizra_main_default_panels_mini() {
     $pane->css = array();
     $pane->extras = array();
     $pane->position = 1;
-    $pane->locks = '';
+    $pane->locks = array();
     $display->content['new-33'] = $pane;
     $display->panels['middle'][1] = 'new-33';
   $display->hide_title = PANELS_TITLE_FIXED;
