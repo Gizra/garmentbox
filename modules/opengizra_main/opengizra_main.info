@@ -52,6 +52,7 @@ features[variable][] = comment_subject_field_department
 features[variable][] = menu_options_department
 features[variable][] = menu_parent_department
 features[variable][] = node_options_department
+features[variable][] = node_preview_department
 features[variable][] = node_submitted_department
 features[variable][] = site_403
 features[variable][] = site_404
