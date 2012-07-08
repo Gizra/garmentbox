@@ -1,0 +1,14 @@
+<?php
+/**
+ * @file
+ * Code for the Opengizra item feature.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function opengizra_item_install() {
+  $og_field = og_fields_info(OG_AUDIENCE_FIELD);
+  $og_field['instance']['required'] = TRUE;
+  og_create_field(OG_AUDIENCE_FIELD, 'node', 'item', $og_field);
+}
