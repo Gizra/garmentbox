@@ -58,8 +58,14 @@ projects[mimemail][subdir] = "contrib"
 projects[mimemail][patch][] = "http://drupal.org/files/rules-1585546-1-moving_rules_actions.patch"
 projects[mimemail][patch][] = "http://drupal.org/files/compress_install_missing_value.patch"
 
-projects[module_filter][version] = 1.6
 projects[module_filter][subdir] = "contrib"
+projects[module_filter][version] = 1.6
+
+projects[multiupload_filefield_widget][subdir] = "contrib"
+projects[multiupload_filefield_widget][version] = 1.0
+
+projects[multiupload_imagefield_widget][subdir] = "contrib"
+projects[multiupload_imagefield_widget][version] = 1.0
 
 projects[oauth][subdir] = "contrib"
 projects[oauth][version] = "3.0"
