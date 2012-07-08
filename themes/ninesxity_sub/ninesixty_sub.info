@@ -6,7 +6,7 @@ core       = 7.x
 base theme = ninesixty
 
 ; Add LESS file.
-stylesheets[all][] = style.css.less
+stylesheets[all][] = css/style.css.less
 
   ; Set the conditional stylesheets that are processed by IE.
 ;conditional-stylesheets[if IE][all][]       = css/ie.css

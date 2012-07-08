@@ -1,5 +1,3 @@
-@import url('css3pie.define');
-
 @light_color: #009aff;
 @light_background: #F4F4F4;
 @text_color: #676767;
@@ -50,7 +48,7 @@
 }
 
 
-@rounded-corners (@radius-tpl: 5px, @radius-tpr: 5px, @radius-btr: 5px; @radius-btl: 5px) {
+@rounded-corners (@radius-tpl: 5px, @radius-tpr: 5px, @radius-btr: 5px, @radius-btl: 5px) {
   -moz-border-radius: @radius-tpl @radius-tpr @radius-btr @radius-btl;
   -webkit-border-radius: @radius-tpl @radius-tpr @radius-btr @radius-btl;
   border-radius: @radius-tpl @radius-tpr @radius-btr @radius-btl;
@@ -70,7 +68,7 @@
   -webkit-transition: all @time linear;
 }
 
-@gradient(@startcolor: @light_background; @endcolor: white){
+@gradient(@startcolor: @light_background, @endcolor: white){
   background: @startcolor; /* Fallback */
   background: -moz-linear-gradient(top, @startcolor, @endcolor);
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(@startcolor), to(@endcolor));
@@ -129,7 +127,7 @@
   }
 
   .message-type-create-content {
-    background: url("images/message-type/create-content.png") no-repeat scroll 0 5px transparent;
+    background: url("../images/message-type/create-content.png") no-repeat scroll 0 5px transparent;
   }
 }
 
@@ -189,16 +187,16 @@
 @button {
   text-decoration: none;
   color: white;
-  @gradient(#4D90FE; #4787ED);
+  @gradient(#4D90FE, #4787ED);
   border: 1px solid #3079ED;
   @rounded-corners-fix(2px);
   display: inline-block;
   padding: 5px 10px;
 
   &:hover {
-    @gradient(#4D90FE; #357AE8);
+    @gradient(#4D90FE, #357AE8);
     border: 1px solid #2F5BB7;
-    @shadow(0; 1px; 1px; rgba(0, 0, 0, 0.1));
+    @shadow(0, 1px, 1px, rgba(0, 0, 0, 0.1));
   }
 
   &:active {
@@ -208,11 +206,11 @@
 
 @button-green {
   @button;
-  @gradient(#A9D349; #BDEC6F);
+  @gradient(#A9D349, #BDEC6F);
   border-color: #AAD349;
 
   &:hover {
-    @gradient(#A9D349; #B7E464);
+    @gradient(#A9D349, #B7E464);
     border-color: #A8D046;
   }
 }
