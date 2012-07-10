@@ -21,34 +21,19 @@ function opengizra_og_og_membership_insert($og_membership) {
   }
 
   $node = node_load($og_membership->etid);
-  $account = user_load($node->uid);
 
-  $arguments = array(
-    '@user-url' => array(
-      'callback' => 'url',
-      'callback arguments' => array('node/' . $account->uid),
-    ),
-    '@name' => $account->name,
-    '@url' => array(
-      'callback' => 'url',
-      'callback arguments' => array('node/' . $node->nid),
-    ),
-    '@title' => $node->title,
-  );
-
-  $message = message_create('create_content', array('arguments' => $arguments), $account);
+  $message = message_create('create_content', array('uid' => $node->uid));
   $wrapper = entity_metadata_wrapper('message', $message);
-  $wrapper->field_node_reference->set($node);
 
   // Check if the content is associated with a group.
   $gids = og_get_entity_groups('node', $node);
   if (!$gids && $group = og_is_group('node', $node)) {
     // The node is a group.
-    $gids = array($group->gid);
+    $gids = array($node->nid);
   }
 
   if ($gids) {
-    $wrapper->field_group->set($gids);
+    $wrapper->field_groups->set($gids);
   }
 
   $wrapper->save();
@@ -69,13 +54,13 @@ function opengizra_og_field_access($op, $field, $entity_type, $entity, $account)
 function opengizra_og_message_view($message, $view_mode, $langcode) {
   global $user;
   $wrapper = entity_metadata_wrapper('message', $message);
-  if (!$wrapper->field_group) {
+  if (!$wrapper->field_groups) {
     return;
   }
 
-  foreach ($wrapper->field_group->value() as $gid) {
+  foreach ($wrapper->field_groups->value(array('identifier' => TRUE)) as $nid) {
     // Register the viewed messages.
-    opengizra_og_message_viewed($gid, $message->mid);
+    opengizra_og_message_viewed($nid, $message->mid);
   }
 }
 
@@ -85,17 +70,17 @@ function opengizra_og_message_view($message, $view_mode, $langcode) {
  * @param unknown_type $gid
  * @param unknown_type $mid
  */
-function opengizra_og_message_viewed($gid = NULL, $mid = 0) {
+function opengizra_og_message_viewed($nid = NULL, $mid = 0) {
   global $user;
   $cache = &drupal_static(__FUNCTION__, array());
 
-  if (empty($gid)) {
+  if (empty($nid)) {
     // Return the cached values.
     return $cache;
   }
 
-  if ((!empty($mid) && empty($cache[$gid])) ||  $mid > $cache[$gid]) {
-    $cache[$gid] = $mid;
+  if ((!empty($mid) && empty($cache[$nid])) ||  $mid > $cache[$nid]) {
+    $cache[$nid] = $mid;
   }
 }
 
@@ -207,7 +192,7 @@ function opengizra_og_get_unviewed_message_count($gid, $account = NULL) {
   $query = new EntityFieldQuery();
   $result = $query
     ->entityCondition('entity_type', 'message')
-    ->fieldCondition('field_group', 'value', $gid, '=')
+    ->fieldCondition('field_groups', 'target_id', $gid, '=')
     ->propertyCondition('mid', $last_id, '>')
     ->count()
     ->execute();

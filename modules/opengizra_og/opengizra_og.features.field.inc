@@ -10,14 +10,14 @@
 function opengizra_og_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'message-create_content-field_group'
-  $fields['message-create_content-field_group'] = array(
+  // Exported field: 'message-create_content-field_groups'
+  $fields['message-create_content-field_groups'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '1',
+      'cardinality' => '-1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_group',
+      'field_name' => 'field_groups',
       'foreign keys' => array(
         'node' => array(
           'columns' => array(
@@ -46,9 +46,7 @@ function opengizra_og_field_default_fields() {
             'property' => 'nid',
             'type' => 'none',
           ),
-          'target_bundles' => array(
-            'department' => 'department',
-          ),
+          'target_bundles' => array(),
         ),
         'handler_submit' => 'Change handler',
         'target_type' => 'node',
@@ -70,12 +68,12 @@ function opengizra_og_field_default_fields() {
             'link' => FALSE,
           ),
           'type' => 'entityreference_label',
-          'weight' => 0,
+          'weight' => 1,
         ),
       ),
       'entity_type' => 'message',
-      'field_name' => 'field_group',
-      'label' => 'Group',
+      'field_name' => 'field_groups',
+      'label' => 'Groups',
       'required' => 0,
       'settings' => array(
         'behaviors' => array(
@@ -97,7 +95,7 @@ function opengizra_og_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'entityreference_autocomplete',
-        'weight' => '1',
+        'weight' => '2',
       ),
     ),
   );
@@ -111,11 +109,11 @@ function opengizra_og_field_default_fields() {
       'entity_types' => array(),
       'field_name' => 'field_message',
       'foreign keys' => array(
-        'node' => array(
+        'message' => array(
           'columns' => array(
-            'target_id' => 'nid',
+            'target_id' => 'mid',
           ),
-          'table' => 'node',
+          'table' => 'message',
         ),
       ),
       'indexes' => array(
@@ -194,7 +192,7 @@ function opengizra_og_field_default_fields() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Group');
+  t('Groups');
   t('Last message');
 
   return $fields;
