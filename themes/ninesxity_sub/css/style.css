@@ -181,10 +181,10 @@
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#a9d349), to(#b7e464));
   border-color: #A8D046;
 }
-.view-content .polaroid ul {
+.polaroid ul {
   margin: 0 0 18px -30px;
 }
-.view-content .polaroid ul li {
+.polaroid ul li {
   display: inline;
   float: left;
   background: #fff;
@@ -205,42 +205,42 @@
   -webkit-transition: -webkit-transform 0.15s linear;
   -moz-transform: rotate(-2deg);
 }
-.view-content .polaroid ul img {
+.polaroid ul img {
   display: block;
   margin-bottom: 7px;
   padding: 0;
   border: 1px solid #D2D2D2;
 }
-.view-content .polaroid ul li:nth-child(even) {
+.polaroid ul li:nth-child(even) {
   -webkit-transform: rotate(2deg);
   -moz-transform: rotate(2deg);
 }
-.view-content .polaroid ul li:nth-child(3n) {
+.polaroid ul li:nth-child(3n) {
   -webkit-transform: none;
   position: relative;
   top: -5px;
   -moz-transform: none;
 }
-.view-content .polaroid ul li:nth-child(4n) {
+.polaroid ul li:nth-child(4n) {
   margin-left: 0;
 }
-.view-content .polaroid ul li:nth-child(5n) {
+.polaroid ul li:nth-child(5n) {
   -webkit-transform: rotate(5deg);
   position: relative;
   right: 5px;
   -moz-transform: rotate(5deg);
 }
-.view-content .polaroid ul li:nth-child(8n) {
+.polaroid ul li:nth-child(8n) {
   position: relative;
   right: 5px;
   top: 8px;
 }
-.view-content .polaroid ul li:nth-child(11n) {
+.polaroid ul li:nth-child(11n) {
   position: relative;
   left: -5px;
   top: 3px;
 }
-.view-content .polaroid ul li:hover {
+.polaroid ul li:hover {
   -webkit-transform: scale(1.25);
   -moz-transform: scale(1.25);
   -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
@@ -248,10 +248,10 @@
   position: relative;
   z-index: 5;
 }
-.view-content .polaroid-small ul {
+.polaroid-small ul {
   margin: 0 0 18px -30px;
 }
-.view-content .polaroid-small ul li {
+.polaroid-small ul li {
   display: inline;
   float: left;
   background: #fff;
@@ -272,42 +272,42 @@
   -webkit-transition: -webkit-transform 0.15s linear;
   -moz-transform: rotate(-2deg);
 }
-.view-content .polaroid-small ul img {
+.polaroid-small ul img {
   display: block;
   margin-bottom: 7px;
   padding: 0;
   border: 1px solid #D2D2D2;
 }
-.view-content .polaroid-small ul li:nth-child(even) {
+.polaroid-small ul li:nth-child(even) {
   -webkit-transform: rotate(2deg);
   -moz-transform: rotate(2deg);
 }
-.view-content .polaroid-small ul li:nth-child(3n) {
+.polaroid-small ul li:nth-child(3n) {
   -webkit-transform: none;
   position: relative;
   top: -5px;
   -moz-transform: none;
 }
-.view-content .polaroid-small ul li:nth-child(4n) {
+.polaroid-small ul li:nth-child(4n) {
   margin-left: 0;
 }
-.view-content .polaroid-small ul li:nth-child(5n) {
+.polaroid-small ul li:nth-child(5n) {
   -webkit-transform: rotate(5deg);
   position: relative;
   right: 5px;
   -moz-transform: rotate(5deg);
 }
-.view-content .polaroid-small ul li:nth-child(8n) {
+.polaroid-small ul li:nth-child(8n) {
   position: relative;
   right: 5px;
   top: 8px;
 }
-.view-content .polaroid-small ul li:nth-child(11n) {
+.polaroid-small ul li:nth-child(11n) {
   position: relative;
   left: -5px;
   top: 3px;
 }
-.view-content .polaroid-small ul li:hover {
+.polaroid-small ul li:hover {
   -webkit-transform: scale(1.25);
   -moz-transform: scale(1.25);
   -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
@@ -315,7 +315,7 @@
   position: relative;
   z-index: 5;
 }
-.view-content .polaroid-small ul li {
+.polaroid-small ul li {
   margin: 0 0 25px 30px;
   width: 55px;
   height: 80px;

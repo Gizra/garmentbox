@@ -43,7 +43,7 @@ function opengizra_og_default_panels_mini() {
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass();
-    $pane->pid = 'new-5';
+    $pane->pid = 'new-1';
     $pane->panel = 'middle';
     $pane->type = 'og_message';
     $pane->subtype = 'og_message';
@@ -62,10 +62,10 @@ function opengizra_og_default_panels_mini() {
     $pane->extras = array();
     $pane->position = 0;
     $pane->locks = '';
-    $display->content['new-5'] = $pane;
-    $display->panels['middle'][0] = 'new-5';
+    $display->content['new-1'] = $pane;
+    $display->panels['middle'][0] = 'new-1';
   $display->hide_title = PANELS_TITLE_FIXED;
-  $display->title_pane = 'new-5';
+  $display->title_pane = 'new-1';
   $mini->display = $display;
   $export['og_message'] = $mini;
 
