@@ -64,4 +64,4 @@ dependencies[] = opengizra_event
 dependencies[] = opengizra_image
 dependencies[] = opengizra_item
 dependencies[] = opengizra_main
-; dependencies[] = opengizra_og
+dependencies[] = opengizra_og
