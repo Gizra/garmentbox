@@ -27,6 +27,7 @@ function opengizra_og_og_membership_insert($og_membership) {
 
   // Check if the content is associated with a group.
   $gids = og_get_entity_groups('node', $node);
+  $gids = !empty($gids['node']) ? $gids['node'] : array();
   if (!$gids && $group = og_is_group('node', $node)) {
     // The node is a group.
     $gids = array($node->nid);
