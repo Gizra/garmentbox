@@ -1,8 +1,4 @@
-/*
- * General declarations
- */
-
-@import url('general.css.less');
+@import url('general.less');
 
 h1 {
   color: #4D90FE;
@@ -67,7 +63,7 @@ a {
       input.form-text {
         width: 270px;
         height: 25px;
-        @rounded-corners;
+        .rounded-corners;
         border: #d9d9d9 solid 1px;
         background-color: #ffffff;
         font-size: 20px;
@@ -128,9 +124,9 @@ a {
 
           a {
             padding: 5px 10px;
-            @rounded-corners;
+            .rounded-corners;
             color: #999999;
-            @gradient(#F5F5F5, #F1F1F1);
+            .gradient(#F5F5F5, #F1F1F1);
             border: 1px solid #D9D9D9;
 
             &.active,
@@ -139,7 +135,7 @@ a {
             }
 
             &.active {
-              @gradient(#EEEEEE, #E0E0E0);
+              .gradient(#EEEEEE, #E0E0E0);
             }
           }
         }
@@ -163,7 +159,7 @@ a {
       a {
         color: white;
         text-decoration: none;
-        @transition;
+        .transition;
       }
 
       :hover {
@@ -236,9 +232,9 @@ a {
     }
 
     textarea {
-      @rounded-corners;
+      .rounded-corners;
       border: 1px solid #d1d1d1;
-      @inner-shadow;
+      .inner-shadow;
       padding: 5px;
     }
 
@@ -271,8 +267,8 @@ a {
     clear: both;
 
     .form-submit {
-      @button-green;
-      @rounded-corners;
+      .button-green;
+      .rounded-corners;
       padding: 5px 25px;
     }
   }
@@ -302,15 +298,15 @@ a {
   #overlay-content {
     margin: 0 auto;
     width: 690px;
-    @rounded-corners-fix(29px);
+    .rounded-corners-fix(29px);
     border: 10px solid #C7FA83;
 
     #content {
       background-color: white;
-      @rounded-corners-fix(20px);
+      .rounded-corners-fix(20px);
 
       #header-messages {
-        @rounded-corners(20px, 20px, 0, 0);
+        .rounded-corners(20px, 20px, 0, 0);
       }
 
       #main {
@@ -325,7 +321,7 @@ a {
               height: 40px;
               padding: 0px 20px;
               background-color: #2eb3cb;
-              @rounded-corners;
+              .rounded-corners;
               border: none;
               color: white;
               font-weight: bold;
@@ -335,24 +331,6 @@ a {
         }
       }
     }
-  }
-}
-
-.message-stream {
-  @message-stream;
-}
-
-.polaroid {
-
-  .view-content {
-    @polaroid;
-  }
-}
-
-.polaroid-small {
-
-  .view-content {
-    @polaroid-small;
   }
 }
 
@@ -366,7 +344,7 @@ a {
 }
 
 .pane-calling-card {
-  @calling-card;
+  .calling-card;
 }
 
 .page-home {
@@ -375,7 +353,6 @@ a {
     margin-left: 20px;
 
     .pane-upcoming-events-panel-pane-1 {
-
 
       li {
         margin-bottom: 10px;
@@ -393,7 +370,7 @@ body.group-context {
     .field-name-group-group {
 
       a {
-        @button;
+        .button;
       }
     }
 

@@ -41,9 +41,6 @@ projects[fullcalendar][version] = "2.0-beta3"
 projects[libraries][subdir] = "contrib"
 projects[libraries][version] = "1.0"
 
-projects[less][subdir] = "contrib"
-projects[less][version] = "2.5"
-
 projects[mailsystem][version] = 2.34
 projects[mailsystem][subdir] = "contrib"
 
@@ -100,8 +97,3 @@ projects[views_bulk_operations][version] = "3.0-rc1"
 ; Themes
 projects[ninesixty][subdir] = "contrib"
 projects[ninesixty][version] = "1.x-dev"
-
-; Libraries
-libraries[lessphp][type] = "libraries"
-libraries[lessphp][download][type] = "get"
-libraries[lessphp][download][url] = "http://leafo.net/lessphp/src/lessphp-0.3.5.tar.gz"

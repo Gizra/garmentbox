@@ -21,13 +21,13 @@
 
 @light-blue: #21c3f4;
 
-@shadow (@tpl: 1px, @tpr: 1px, @length: 3px, @color: black) {
+.shadow (@tpl: 1px, @tpr: 1px, @length: 3px, @color: black) {
   -moz-box-shadow: @tpl @tpr @length @color;
   -webkit-box-shadow: @tpl @tpr @length @color;
   box-shadow: @tpl @tpr @length @color;
 }
 
-@no-shadow {
+.no-shadow {
   -moz-box-shadow: none;
   -webkit-box-shadow: none;
   box-shadow: none;
@@ -35,40 +35,40 @@
   padding: 0;
 }
 
-@inner-shadow {
+.inner-shadow {
   -moz-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.25);
   -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.25);
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.25);
 }
 
-@image-shadow {
-  @shadow;
+.image-shadow {
+  .shadow;
   background-color: white;
   padding: 1px;
 }
 
 
-@rounded-corners (@radius-tpl: 5px, @radius-tpr: 5px, @radius-btr: 5px, @radius-btl: 5px) {
+.rounded-corners (@radius-tpl: 5px, @radius-tpr: 5px, @radius-btr: 5px, @radius-btl: 5px) {
   -moz-border-radius: @radius-tpl @radius-tpr @radius-btr @radius-btl;
   -webkit-border-radius: @radius-tpl @radius-tpr @radius-btr @radius-btl;
   border-radius: @radius-tpl @radius-tpr @radius-btr @radius-btl;
 }
 
-@rounded-corners-fix (@radius: 5px) {
-  // Seems to be a bug with LESS, and we can't call @rounded-corners();
+.rounded-corners-fix (@radius: 5px) {
+  // Seems to be a bug with LESS, and we can't call .rounded-corners();
   -moz-border-radius: @radius @radius @radius @radius;
   -webkit-border-radius: @radius @radius @radius @radius;
   border-radius: @radius @radius @radius @radius;
 }
 
-@transition(@time: 0.3s){
+.transition (@time: 0.3s){
   transition: all @time linear;
   -o-transition: all @time linear;
   -moz-transition: all @time linear;
   -webkit-transition: all @time linear;
 }
 
-@gradient(@startcolor: @light_background, @endcolor: white){
+.gradient (@startcolor: @light_background, @endcolor: white){
   background: @startcolor; /* Fallback */
   background: -moz-linear-gradient(top, @startcolor, @endcolor);
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(@startcolor), to(@endcolor));
@@ -76,10 +76,10 @@
 
 
 
-@light-background-box {
+.light-background-box {
   border: 1px solid #E1E1E1;
   font-size: 11px;
-  @rounded-corners;
+  .rounded-corners;
   padding: 10px;
 }
 
@@ -96,7 +96,7 @@
   border-bottom: 2px dashed #6A6869;
 }
 
-@message-stream {
+.message-stream {
 
   .views-row {
     padding-bottom: 20px;
@@ -131,8 +131,8 @@
   }
 }
 
-@calling-card {
-  @light-background-box;
+.calling-card {
+  .light-background-box;
   padding: 0;
 
   .inside {
@@ -184,19 +184,19 @@
   }
 }
 
-@button {
+.button {
   text-decoration: none;
   color: white;
-  @gradient(#4D90FE, #4787ED);
+  .gradient(#4D90FE, #4787ED);
   border: 1px solid #3079ED;
-  @rounded-corners-fix(2px);
+  .rounded-corners-fix(2px);
   display: inline-block;
   padding: 5px 10px;
 
   &:hover {
-    @gradient(#4D90FE, #357AE8);
+    .gradient(#4D90FE, #357AE8);
     border: 1px solid #2F5BB7;
-    @shadow(0, 1px, 1px, rgba(0, 0, 0, 0.1));
+    .shadow(0, 1px, 1px, rgba(0, 0, 0, 0.1));
   }
 
   &:active {
@@ -204,20 +204,20 @@
   }
 }
 
-@button-green {
-  @button;
-  @gradient(#A9D349, #BDEC6F);
+.button-green {
+  .button;
+  .gradient(#A9D349, #BDEC6F);
   border-color: #AAD349;
 
   &:hover {
-    @gradient(#A9D349, #B7E464);
+    .gradient(#A9D349, #B7E464);
     border-color: #A8D046;
   }
 }
 
 // Polariod effect.
 // http://www.zurb.com/playground/css3-polaroids
-@polaroid {
+.view-content .polaroid {
 
   ul {
     margin: 0 0 18px -30px;
@@ -302,8 +302,8 @@
 }
 
 
-@polaroid-small {
-  @polaroid;
+.view-content .polaroid-small {
+  .view-content .polaroid;
 
   ul li {
     margin: 0 0 25px 30px;
