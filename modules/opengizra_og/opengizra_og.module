@@ -92,22 +92,22 @@ function opengizra_og_message_viewed($nid = NULL, $mid = 0) {
  */
 function opengizra_og_page_alter() {
   global $user;
-  $message_viewed = opengizra_og_message_viewed();
-  if (!$message_viewed) {
+  if (!$message_viewed = opengizra_og_message_viewed()) {
     return;
   }
 
-  $wrapper = entity_metadata_wrapper('user', $user->uid);
-  if (!$wrapper->og_membership) {
+  $gids = og_get_entity_groups();
+
+  if (empty($gids['node'])) {
     return;
   }
 
   // Save the last message ID for any registered membership.
-  foreach ($wrapper->og_membership as $og_membership) {
-    $gid = $og_membership->group->gid->value();
-    if (!empty($message_viewed[$gid]) && $message_viewed[$gid] >$og_membership->field_message->value()) {
-      $og_membership->field_message->set($message_viewed[$gid]);
-      $og_membership->save();
+  foreach ($gids['node'] as $membership_id => $nid) {
+    $wrapper = entity_metadata_wrapper('og_membership', $membership_id);
+    if (!empty($message_viewed[$nid]) && $message_viewed[$nid] > $wrapper->field_message->value()) {
+      $wrapper->field_message->set($message_viewed[$nid]);
+      $wrapper->save();
     }
   }
 }
@@ -170,22 +170,19 @@ function opengizra_og_get_properties($entity, array $options, $name, $entity_typ
  * @param unknown_type $gid
  * @param unknown_type $account
  */
-function opengizra_og_get_unviewed_message_count($gid, $account = NULL) {
+function opengizra_og_get_unviewed_message_count($nid, $account = NULL) {
   if (empty($account)) {
     global $user;
     $account = clone $user;
   }
 
-  $og_membership = og_get_group_membership($gid, 'user', $account->uid);
-  if (!$og_membership) {
+  if (!$og_membership = og_get_membership('node', $nid, 'user', $account->uid)) {
     return;
   }
 
   $wrapper = entity_metadata_wrapper('og_membership', $og_membership);
-  if (!$wrapper->field_message) {
-    return;
-  }
 
+  // Get last message ID.
   $last_id = $wrapper->field_message->value(array('identifier' => TRUE));
   if (empty($last_id)) {
     $last_id = 0;
@@ -193,7 +190,7 @@ function opengizra_og_get_unviewed_message_count($gid, $account = NULL) {
   $query = new EntityFieldQuery();
   $result = $query
     ->entityCondition('entity_type', 'message')
-    ->fieldCondition('field_groups', 'target_id', $gid, '=')
+    ->fieldCondition('field_groups', 'target_id', $nid, '=')
     ->propertyCondition('mid', $last_id, '>')
     ->count()
     ->execute();

@@ -24,9 +24,6 @@ function ninesixty_sub_preprocess_page(&$vars, $hook) {
   // viewed message to be registered.
   $vars['og_message'] = '';
 
-  // FIXME:
-  return;
-
   if ($user->uid) {
     $block = module_invoke('panels_mini', 'block_view', 'og_message');
     $vars['og_message'] = $block['content'];
@@ -34,24 +31,6 @@ function ninesixty_sub_preprocess_page(&$vars, $hook) {
 
   if (($node = opengizra_main_get_node()) && entity_access('update', 'node', $node)) {
     $vars['title_suffix'] = l(t('edit'), 'node/' . $node->nid . '/edit');
-  }
-
-
-  $group = og_context();
-  if (!$group || $group->entity_type != 'node') {
-    return;
-  }
-  $wrapper = entity_metadata_wrapper('node', $group->etid);
-
-  if ($wrapper->type->value() != 'company') {
-    return;
-  }
-  // Change the site-name
-  $vars['site_name'] = $wrapper->title->value(array('sanitize' => TRUE));
-
-  // Change the logo, if exists.
-  if ($logo = $wrapper->field_logo->value()) {
-    $vars['logo_img'] = theme('image_style', array('style_name' => 'thumbnail', 'path' => $logo['uri']));
   }
 }
 

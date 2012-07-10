@@ -14,12 +14,13 @@ $plugin = array(
  */
 function opengizra_og_og_message_content_type_render($subtype, $conf, $args, $context) {
   if (empty($context) || empty($context->data)) {
-    return FALSE;
+    return;
   }
-  
+
   $module = 'opengizra_og';
   $wrapper = entity_metadata_wrapper('user', $context->data->uid);
   if (!$wrapper->og_membership->value()) {
+    // User has no groups.
     return;
   }
 
@@ -31,14 +32,14 @@ function opengizra_og_og_message_content_type_render($subtype, $conf, $args, $co
   $delta = 0;
   $node = menu_get_object('node');
   while ($delta < $max) {
-    $group = $wrapper->og_membership->get($delta)->group;
-    $count = opengizra_og_get_unviewed_message_count($group->gid->value());
-    $text = $group->label->value() . ' (' . $count . ')';
+    $group_node = $wrapper->og_membership->get($delta)->group->value();
+    $count = opengizra_og_get_unviewed_message_count($group_node->nid);
+    $text = $group_node->title . ' (' . $count . ')';
     $options = array();
-    if ($node && $node->nid == $group->entity->value(array('identifier' => TRUE))) {
+    if ($node && $node->nid == $group_node->nid) {
       $options['attributes']['class'][] = 'active';
     }
-    $items[] = array('data' => l($text, $group->url->value(), $options));
+    $items[] = array('data' => l($text, 'node/' . $group_node->nid, $options));
     $delta++;
   }
 
