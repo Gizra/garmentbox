@@ -5,7 +5,7 @@
  */
 
 /**
- * Implementation of hook_views_default_views().
+ * Implements hook_views_default_views().
  */
 function opengizra_og_views_default_views() {
   $export = array();
@@ -17,7 +17,7 @@ function opengizra_og_views_default_views() {
   $view->base_table = 'message';
   $view->human_name = 'OG message';
   $view->core = 7;
-  $view->api_version = '3.0-alpha1';
+  $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
@@ -50,7 +50,7 @@ function opengizra_og_views_default_views() {
   $handler->display->display_options['relationships']['user']['table'] = 'message';
   $handler->display->display_options['relationships']['user']['field'] = 'user';
   $handler->display->display_options['relationships']['user']['required'] = 0;
-  /* Field: Message: Name */
+  /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'message';
   $handler->display->display_options['fields']['name']['field'] = 'name';
@@ -96,7 +96,7 @@ function opengizra_og_views_default_views() {
   $handler->display->display_options['fields']['picture']['hide_empty'] = 0;
   $handler->display->display_options['fields']['picture']['empty_zero'] = 0;
   $handler->display->display_options['fields']['picture']['hide_alter_empty'] = 0;
-  /* Field: Message: Render message */
+  /* Field: Message: Render message (Get text) */
   $handler->display->display_options['fields']['message_render']['id'] = 'message_render';
   $handler->display->display_options['fields']['message_render']['table'] = 'message';
   $handler->display->display_options['fields']['message_render']['field'] = 'message_render';
@@ -146,7 +146,7 @@ function opengizra_og_views_default_views() {
   $handler->display->display_options['sorts']['mid']['table'] = 'message';
   $handler->display->display_options['sorts']['mid']['field'] = 'mid';
   $handler->display->display_options['sorts']['mid']['order'] = 'DESC';
-  /* Contextual filter: Message: OG group ID (field_og_group_id) */
+  /* Contextual filter: Broken/missing handler */
   $handler->display->display_options['arguments']['field_og_group_id_value']['id'] = 'field_og_group_id_value';
   $handler->display->display_options['arguments']['field_og_group_id_value']['table'] = 'field_data_field_og_group_id';
   $handler->display->display_options['arguments']['field_og_group_id_value']['field'] = 'field_og_group_id_value';
@@ -156,8 +156,6 @@ function opengizra_og_views_default_views() {
   $handler->display->display_options['arguments']['field_og_group_id_value']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['field_og_group_id_value']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['field_og_group_id_value']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['field_og_group_id_value']['break_phrase'] = 0;
-  $handler->display->display_options['arguments']['field_og_group_id_value']['not'] = 0;
 
   /* Display: Content pane */
   $handler = $view->new_display('panel_pane', 'Content pane', 'panel_pane_1');
