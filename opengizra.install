@@ -25,7 +25,7 @@ function opengizra_standard_install() {
   variable_set('page_manager_node_view_disabled', FALSE);
 
   // Set front page.
-  variable_set('frontpage', 'home');
+  variable_set('site_frontpage', 'home');
 
   // Add text formats.
   $filtered_html_format = array(
