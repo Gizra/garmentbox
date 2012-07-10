@@ -25,8 +25,9 @@ function opengizra_og_og_message_content_type_render($subtype, $conf, $args, $co
   }
 
   // TODO: Make it a settings.
-  $count = $wrapper->og_membership->count();
-  $max = $count < 5 ? $count : 5;
+  $membership_count = $wrapper->og_membership->count();
+
+  $max = $membership_count < 5 ? $membership_count : 5;
 
   $items = array();
   $delta = 0;

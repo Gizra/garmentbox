@@ -34,9 +34,7 @@ function opengizra_og_views_default_views() {
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['style_options']['row_class'] = 'message-type-[name] ';
-  $handler->display->display_options['row_plugin'] = 'fields';
-  $handler->display->display_options['row_options']['hide_empty'] = 0;
-  $handler->display->display_options['row_options']['default_field_elements'] = 1;
+  $handler->display->display_options['row_plugin'] = 'entity';
   /* No results behavior: Global: Text area */
   $handler->display->display_options['empty']['area']['id'] = 'area';
   $handler->display->display_options['empty']['area']['table'] = 'views';
@@ -146,16 +144,6 @@ function opengizra_og_views_default_views() {
   $handler->display->display_options['sorts']['mid']['table'] = 'message';
   $handler->display->display_options['sorts']['mid']['field'] = 'mid';
   $handler->display->display_options['sorts']['mid']['order'] = 'DESC';
-  /* Contextual filter: Broken/missing handler */
-  $handler->display->display_options['arguments']['field_og_group_id_value']['id'] = 'field_og_group_id_value';
-  $handler->display->display_options['arguments']['field_og_group_id_value']['table'] = 'field_data_field_og_group_id';
-  $handler->display->display_options['arguments']['field_og_group_id_value']['field'] = 'field_og_group_id_value';
-  $handler->display->display_options['arguments']['field_og_group_id_value']['default_action'] = 'not found';
-  $handler->display->display_options['arguments']['field_og_group_id_value']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['field_og_group_id_value']['default_argument_skip_url'] = 0;
-  $handler->display->display_options['arguments']['field_og_group_id_value']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_og_group_id_value']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_og_group_id_value']['summary_options']['items_per_page'] = '25';
 
   /* Display: Content pane */
   $handler = $view->new_display('panel_pane', 'Content pane', 'panel_pane_1');
