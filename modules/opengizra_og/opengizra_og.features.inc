@@ -37,9 +37,9 @@ function opengizra_og_default_message_type() {
     "arguments" : null,
     "message_text" : { "und" : [
         {
-          "value" : "\\u003Ca href=\\u0022[message:user:uid]\\u0022\\u003E[message:user:name]\\u003C\\/a\\u003E created \\u003Ca href=\\u0022[message:field-groups:1:url]\\u0022\\u003E[message:field-groups:0:title]\\u003C\\/a\\u003E",
+          "value" : "\\u003Ca href=\\u0022[message:user:uid]\\u0022\\u003E[message:user:name]\\u003C\\/a\\u003E created \\u003Ca href=\\u0022[message:field-groups:0:url]\\u0022\\u003E[message:field-groups:0:title]\\u003C\\/a\\u003E",
           "format" : "full_html",
-          "safe_value" : "\\u003Cp\\u003E\\u003Ca href=\\u0022[message:user:uid]\\u0022\\u003E[message:user:name]\\u003C\\/a\\u003E created \\u003Ca href=\\u0022[message:field-groups:1:url]\\u0022\\u003E[message:field-groups:0:title]\\u003C\\/a\\u003E\\u003C\\/p\\u003E\\n"
+          "safe_value" : "\\u003Cp\\u003E\\u003Ca href=\\u0022[message:user:uid]\\u0022\\u003E[message:user:name]\\u003C\\/a\\u003E created \\u003Ca href=\\u0022[message:field-groups:0:url]\\u0022\\u003E[message:field-groups:0:title]\\u003C\\/a\\u003E\\u003C\\/p\\u003E\\n"
         }
       ]
     },
