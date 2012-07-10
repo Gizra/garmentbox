@@ -8,6 +8,7 @@ dependencies[] = features
 dependencies[] = field_slideshow
 dependencies[] = image
 dependencies[] = list
+dependencies[] = multiupload_imagefield_widget
 dependencies[] = og
 dependencies[] = og_ui
 dependencies[] = strongarm
