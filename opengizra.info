@@ -51,6 +51,7 @@ dependencies[] = page_manager
 dependencies[] = panels
 dependencies[] = panels_mini
 dependencies[] = strongarm
+dependencies[] = token
 dependencies[] = views
 dependencies[] = views_content
 dependencies[] = views_ui
