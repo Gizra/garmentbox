@@ -96,7 +96,7 @@ projects[views_bulk_operations][version] = "3.0-rc1"
 
 ; Themes
 projects[ninesixty][subdir] = "contrib"
-projects[ninesixty][version] = "1.0"
+projects[ninesixty][version] = "1.x-dev"
 
 ; Libraries
 libraries[lessphp][type] = "libraries"
