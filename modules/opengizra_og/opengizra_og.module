@@ -2,9 +2,6 @@
 
 include_once('opengizra_og.features.inc');
 
-// TODO: Features should take care of this.
-include_once('opengizra_og.message.inc');
-
 /**
  * @file
  * Opengizra functioanlity related to Organic groups module.
