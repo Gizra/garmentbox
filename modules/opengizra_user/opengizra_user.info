@@ -1,6 +1,0 @@
-core = "7.x"
-description = "Opengizra user related features"
-name = "Opengizra user"
-package = "Opengizra"
-php = "5.2.4"
-project = "opengizra"
