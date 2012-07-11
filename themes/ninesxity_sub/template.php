@@ -23,15 +23,6 @@ function ninesixty_sub_preprocess_page(&$vars, $hook) {
   // Invoke the og-message block. We do it late in the template, to allow the
   // viewed message to be registered.
   $vars['og_message'] = '';
-
-  if ($user->uid) {
-    $block = module_invoke('panels_mini', 'block_view', 'og_message');
-    $vars['og_message'] = $block['content'];
-  }
-
-  if (($node = opengizra_main_get_node()) && entity_access('update', 'node', $node)) {
-    $vars['title_suffix'] = l(t('edit'), 'node/' . $node->nid . '/edit');
-  }
 }
 
 /**
