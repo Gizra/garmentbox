@@ -61,4 +61,5 @@ dependencies[] = views_ui
 dependencies[] = devel
 
 ; Features
-
+dependencies[] = opengizra_item
+dependencies[] = opengizra_material
