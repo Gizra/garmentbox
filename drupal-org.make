@@ -53,6 +53,12 @@ projects[message][version] = "1.4"
 projects[message_notify][subdir] = "contrib"
 projects[message_notify][version] = "1.1"
 
+projects[migrate][version] = 2.4
+projects[migrate][subdir] = "contrib"
+
+projects[migrate_extras][version] = 2.4
+projects[migrate_extras][subdir] = "contrib"
+
 projects[mimemail][version] = 1.0-alpha1
 projects[mimemail][subdir] = "contrib"
 projects[mimemail][patch][] = "http://drupal.org/files/rules-1585546-1-moving_rules_actions.patch"
