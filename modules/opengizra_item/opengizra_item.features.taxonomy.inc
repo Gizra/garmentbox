@@ -9,9 +9,9 @@
  */
 function opengizra_item_taxonomy_default_vocabularies() {
   return array(
-    'collection_status' => array(
-      'name' => 'Collection status',
-      'machine_name' => 'collection_status',
+    'item_status' => array(
+      'name' => 'Item status',
+      'machine_name' => 'item_status',
       'description' => '',
       'hierarchy' => '0',
       'module' => 'taxonomy',
