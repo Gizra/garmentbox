@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Opengizra Season feature.
+ */
+
+include_once 'opengizra_season.features.inc';

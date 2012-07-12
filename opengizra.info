@@ -63,3 +63,4 @@ dependencies[] = devel
 ; Features
 dependencies[] = opengizra_item
 dependencies[] = opengizra_material
+dependencies[] = opengizra_season
