@@ -1,6 +1,6 @@
 <?php
 
-class openGizraFieldCollectionMigration extends Migration {
+abstract class openGizraFieldCollectionMigration extends Migration {
 
   public function __construct() {
     parent::__construct();

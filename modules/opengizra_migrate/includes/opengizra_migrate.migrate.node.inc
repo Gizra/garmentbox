@@ -5,7 +5,7 @@
  * Populate distribution with some content.
  */
 
-class openGizraMigrationNode extends Migration {
+abstract class openGizraMigrationNode extends Migration {
 
   public function __construct() {
     parent::__construct();

@@ -8,7 +8,7 @@ class openGizraCollections extends openGizraMigrationNode {
   /**
    * Map the field and properties to the CSV header.
    */
-  private $csvColumns = array(
+  public $csvColumns = array(
     array('title', 'Title'),
     array('body', 'Body'),
   );
@@ -16,7 +16,7 @@ class openGizraCollections extends openGizraMigrationNode {
   /**
    * The node type name.
    */
-  private $type = 'collections';
+  public $type = 'collections';
 
   public function __construct() {
     parent::__construct();
@@ -29,13 +29,13 @@ class openGizraCollections extends openGizraMigrationNode {
  * Migrate homepage_section field-collections .
  */
 class openGizraCollectionsFieldCollections extends openGizraFieldCollectionMigration {
-  private $csvColumns = array(
+  public $csvColumns = array(
     array('id', 'Unique ID'),
     array('ref', 'Reference ID'),
     array('title', 'Title'),
   );
 
-  private $type = 'field_status_info';
-  private $parentType = 'collections';
+  public $type = 'field_status_info';
+  public $parentType = 'collections';
   public $parentClass = 'openGizraCollections';
 }
