@@ -6,12 +6,7 @@
  */
 function opengizra_install() {
   opengizra_standard_install();
-}
 
-/**
- * Copied from Standard profile -- standard_install()
- */
-function opengizra_standard_install() {
   // Disable bartik.
   theme_disable(array('bartik'));
 
@@ -26,7 +21,12 @@ function opengizra_standard_install() {
 
   // Set front page.
   variable_set('site_frontpage', 'home');
+}
 
+/**
+ * Copied from Standard profile -- standard_install()
+ */
+function opengizra_standard_install() {
   // Add text formats.
   $filtered_html_format = array(
     'format' => 'filtered_html',

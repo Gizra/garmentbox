@@ -1,0 +1,7 @@
+name = "opengizra migration"
+description = "Populate the opengizra content."
+package = "opengizra"
+core = 7.x
+dependencies[] = migrate
+dependencies[] = migrate_extras
+files[] = opengizra_migrate.migrate.inc
