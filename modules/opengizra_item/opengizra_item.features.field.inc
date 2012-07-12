@@ -10,6 +10,156 @@
 function opengizra_item_field_default_fields() {
   $fields = array();
 
+  // Exported field: 'field_collection_item-field_size_info-field_size'
+  $fields['field_collection_item-field_size_info-field_size'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_size',
+      'foreign keys' => array(
+        'node' => array(
+          'columns' => array(
+            'target_id' => 'nid',
+          ),
+          'table' => 'node',
+        ),
+      ),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'module' => 'entityreference',
+      'settings' => array(
+        'handler' => 'base',
+        'handler_settings' => array(
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 0,
+            ),
+          ),
+          'sort' => array(
+            'direction' => 'ASC',
+            'field' => 'property',
+            'property' => 'name',
+            'type' => 'property',
+          ),
+          'target_bundles' => array(
+            'size' => 'size',
+          ),
+        ),
+        'handler_submit' => 'Change handler',
+        'target_type' => 'taxonomy_term',
+      ),
+      'translatable' => '0',
+      'type' => 'entityreference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'field_size_info',
+      'default_value' => NULL,
+      'default_value_function' => 'entityreference_prepopulate_field_default_value',
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => FALSE,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'field_collection_item',
+      'field_name' => 'field_size',
+      'label' => 'Size',
+      'required' => 0,
+      'settings' => array(
+        'behaviors' => array(
+          'prepopulate' => array(
+            'action' => 'none',
+            'fallback' => 'none',
+            'skip_perm' => '0',
+            'status' => 1,
+          ),
+        ),
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
+        'weight' => '1',
+      ),
+    ),
+  );
+
+  // Exported field: 'field_collection_item-field_size_info-field_sku'
+  $fields['field_collection_item-field_size_info-field_sku'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_sku',
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'module' => 'text',
+      'settings' => array(
+        'max_length' => '255',
+      ),
+      'translatable' => '0',
+      'type' => 'text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'field_size_info',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => 1,
+        ),
+      ),
+      'entity_type' => 'field_collection_item',
+      'field_name' => 'field_sku',
+      'label' => 'SKU',
+      'required' => 0,
+      'settings' => array(
+        'text_processing' => '0',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'text',
+        'settings' => array(
+          'size' => '60',
+        ),
+        'type' => 'text_textfield',
+        'weight' => '2',
+      ),
+    ),
+  );
+
   // Exported field: 'node-item-body'
   $fields['node-item-body'] = array(
     'field_config' => array(
@@ -238,7 +388,7 @@ function opengizra_item_field_default_fields() {
         'behaviors' => array(
           'prepopulate' => array(
             'action' => 'disable',
-            'fallback' => 'redirect',
+            'fallback' => 'none',
             'skip_perm' => '0',
             'status' => 1,
           ),
@@ -332,7 +482,7 @@ function opengizra_item_field_default_fields() {
         'behaviors' => array(
           'prepopulate' => array(
             'action' => 'disable',
-            'fallback' => 'redirect',
+            'fallback' => 'none',
             'skip_perm' => '0',
             'status' => 1,
           ),
@@ -349,66 +499,40 @@ function opengizra_item_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-item_instance-field_size'
-  $fields['node-item_instance-field_size'] = array(
+  // Exported field: 'node-item_instance-field_size_info'
+  $fields['node-item_instance-field_size_info'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '-1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_size',
-      'foreign keys' => array(
-        'node' => array(
-          'columns' => array(
-            'target_id' => 'nid',
-          ),
-          'table' => 'node',
-        ),
-      ),
-      'indexes' => array(
-        'target_id' => array(
-          0 => 'target_id',
-        ),
-      ),
-      'module' => 'entityreference',
+      'field_name' => 'field_size_info',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'module' => 'field_collection',
       'settings' => array(
-        'handler' => 'base',
-        'handler_settings' => array(
-          'behaviors' => array(
-            'views-select-list' => array(
-              'status' => 0,
-            ),
-          ),
-          'sort' => array(
-            'direction' => 'ASC',
-            'field' => 'property',
-            'property' => 'name',
-            'type' => 'property',
-          ),
-          'target_bundles' => array(
-            'size' => 'size',
-          ),
-        ),
-        'handler_submit' => 'Change handler',
-        'target_type' => 'taxonomy_term',
+        'path' => '',
       ),
       'translatable' => '0',
-      'type' => 'entityreference',
+      'type' => 'field_collection',
     ),
     'field_instance' => array(
       'bundle' => 'item_instance',
       'default_value' => NULL,
-      'default_value_function' => 'entityreference_prepopulate_field_default_value',
       'deleted' => '0',
       'description' => '',
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'entityreference',
+          'module' => 'field_collection',
           'settings' => array(
-            'link' => FALSE,
+            'add' => 'Add',
+            'delete' => 'Delete',
+            'description' => TRUE,
+            'edit' => 'Edit',
+            'view_mode' => 'full',
           ),
-          'type' => 'entityreference_label',
+          'type' => 'field_collection_view',
           'weight' => 2,
         ),
         'teaser' => array(
@@ -419,25 +543,17 @@ function opengizra_item_field_default_fields() {
         ),
       ),
       'entity_type' => 'node',
-      'field_name' => 'field_size',
-      'label' => 'Size',
+      'field_name' => 'field_size_info',
+      'label' => 'Size info',
       'required' => 0,
       'settings' => array(
-        'behaviors' => array(
-          'prepopulate' => array(
-            'action' => 'none',
-            'fallback' => 'none',
-            'skip_perm' => '0',
-            'status' => 1,
-          ),
-        ),
         'user_register_form' => FALSE,
       ),
       'widget' => array(
-        'active' => 1,
-        'module' => 'options',
+        'active' => 0,
+        'module' => 'field_collection',
         'settings' => array(),
-        'type' => 'options_select',
+        'type' => 'field_collection_embed',
         'weight' => '-2',
       ),
     ),
@@ -449,7 +565,9 @@ function opengizra_item_field_default_fields() {
   t('Image');
   t('Item');
   t('Material');
+  t('SKU');
   t('Size');
+  t('Size info');
 
   return $fields;
 }
