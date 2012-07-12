@@ -10,6 +10,147 @@
 function opengizra_material_field_default_fields() {
   $fields = array();
 
+  // Exported field: 'field_collection_item-field_source_info-field_price'
+  $fields['field_collection_item-field_source_info-field_price'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_price',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'currency_price' => array(
+          0 => 'amount',
+          1 => 'currency_code',
+        ),
+      ),
+      'module' => 'commerce_price',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'commerce_price',
+    ),
+    'field_instance' => array(
+      'bundle' => 'field_source_info',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => NULL,
+          'settings' => array(),
+          'type' => 'commerce_price_default',
+          'weight' => 1,
+        ),
+      ),
+      'entity_type' => 'field_collection_item',
+      'field_name' => 'field_price',
+      'label' => 'Price',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'commerce_price',
+        'settings' => array(
+          'currency_code' => 'default',
+        ),
+        'type' => 'commerce_price_full',
+        'weight' => '2',
+      ),
+    ),
+  );
+
+  // Exported field: 'field_collection_item-field_source_info-field_vendor'
+  $fields['field_collection_item-field_source_info-field_vendor'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_vendor',
+      'foreign keys' => array(
+        'node' => array(
+          'columns' => array(
+            'target_id' => 'nid',
+          ),
+          'table' => 'node',
+        ),
+      ),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'module' => 'entityreference',
+      'settings' => array(
+        'handler' => 'base',
+        'handler_settings' => array(
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 0,
+            ),
+          ),
+          'sort' => array(
+            'direction' => 'ASC',
+            'field' => 'body:value',
+            'property' => 'title',
+            'type' => 'property',
+          ),
+          'target_bundles' => array(
+            'vendor' => 'vendor',
+          ),
+        ),
+        'handler_submit' => 'Change handler',
+        'target_type' => 'node',
+      ),
+      'translatable' => '0',
+      'type' => 'entityreference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'field_source_info',
+      'default_value' => NULL,
+      'default_value_function' => '',
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => FALSE,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'field_collection_item',
+      'field_name' => 'field_vendor',
+      'label' => 'Vendor',
+      'required' => 0,
+      'settings' => array(
+        'behaviors' => array(
+          'prepopulate' => array(
+            'action' => 'none',
+            'fallback' => 'none',
+            'skip_perm' => '0',
+            'status' => 0,
+          ),
+        ),
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
+        'weight' => '1',
+      ),
+    ),
+  );
+
   // Exported field: 'node-material-body'
   $fields['node-material-body'] = array(
     'field_config' => array(
@@ -215,6 +356,66 @@ function opengizra_material_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-material-field_source_info'
+  $fields['node-material-field_source_info'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_source_info',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'module' => 'field_collection',
+      'settings' => array(
+        'path' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'field_collection',
+    ),
+    'field_instance' => array(
+      'bundle' => 'material',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'field_collection',
+          'settings' => array(
+            'add' => 'Add',
+            'delete' => 'Delete',
+            'description' => TRUE,
+            'edit' => 'Edit',
+            'view_mode' => 'full',
+          ),
+          'type' => 'field_collection_view',
+          'weight' => 4,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_source_info',
+      'label' => 'Source info',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'field_collection',
+        'settings' => array(),
+        'type' => 'field_collection_embed',
+        'weight' => 0,
+      ),
+    ),
+  );
+
   // Exported field: 'node-material-field_unit'
   $fields['node-material-field_unit'] = array(
     'field_config' => array(
@@ -285,8 +486,11 @@ function opengizra_material_field_default_fields() {
   // Included for use with string extractors like potx.
   t('Body');
   t('Nick name');
+  t('Price');
   t('Quantity');
+  t('Source info');
   t('Unit');
+  t('Vendor');
 
   return $fields;
 }
