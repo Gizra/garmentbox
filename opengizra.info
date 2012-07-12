@@ -43,8 +43,6 @@ dependencies[] = fullcalendar
 dependencies[] = libraries
 ; dependencies[] = less
 dependencies[] = message
-dependencies[] = migrate
-dependencies[] = migrate_extras
 dependencies[] = module_filter
 dependencies[] = multiupload_filefield_widget
 dependencies[] = multiupload_imagefield_widget
@@ -62,6 +60,11 @@ dependencies[] = views_ui
 
 ; Development modules
 dependencies[] = devel
+
+; Migrate
+dependencies[] = date_migrate
+dependencies[] = migrate
+dependencies[] = migrate_extras
 
 ; Features
 dependencies[] = opengizra_collection
