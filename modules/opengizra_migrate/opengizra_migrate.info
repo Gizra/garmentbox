@@ -5,3 +5,7 @@ core = 7.x
 dependencies[] = migrate
 dependencies[] = migrate_extras
 files[] = opengizra_migrate.migrate.inc
+
+files[] = includes/opengizra_migrate.migrate.node.inc
+files[] = includes/opengizra_migrate.migrate.field_collection.inc
+files[] = includes/opengizra_migrate.migrate.field_collection_destination.inc
