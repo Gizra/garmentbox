@@ -1,10 +1,9 @@
 <?php
 
-
 /**
  * Migrate Collection nodes.
  */
-class openGizraCollections extends openGizraMigration {
+class openGizraCollections extends openGizraMigrationNode {
 
   /**
    * Map the field and properties to the CSV header.
@@ -29,7 +28,7 @@ class openGizraCollections extends openGizraMigration {
 /**
  * Migrate homepage_section field-collections .
  */
-class openGizraCollectionsFieldCollections extends Migration {
+class openGizraCollectionsFieldCollections extends openGizraFieldCollectionMigration {
   private $csvColumns = array(
     array('id', 'Unique ID'),
     array('ref', 'Reference ID'),
