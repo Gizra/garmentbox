@@ -1,23 +1,44 @@
-closet/*
-DC/*
-DC/versions/*
-_.git
-sites/default/files
-sites/default/tmp
-sites/default/settings.php
-sites/default/.htaccess
-.project
-.svn
-*.sln
-*.puo
-*.phpproj
-*.cache
-.httpd.conf
-php.ini
-.settings
-.buildpath
-*.sql*
-backup/*
-.tmp_*
-*.tar.gz
-mob/dbcon.php
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Logs and databases #
+######################
+*.log
+*.sql
+*.sqlite
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+
+# Opengizra #
+#############
+modules/contrib
+1/modules
+themes/contrib
