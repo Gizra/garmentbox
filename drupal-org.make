@@ -24,7 +24,7 @@ projects[entity][subdir] = "contrib"
 projects[entity][version] = "1.x-dev"
 
 projects[entityreference][subdir] = "contrib"
-projects[entityreference][version] = "1.0-rc3"
+projects[entityreference][version] = "1.x-dev"
 
 projects[entityreference_prepopulate][subdir] = "contrib"
 projects[entityreference_prepopulate][version] = "1.x-dev"
