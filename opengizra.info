@@ -25,6 +25,7 @@ dependencies[] = rdf
 
 ; Contrib modules
 dependencies[] = admin_menu_toolbar
+dependencies[] = commerce_price
 dependencies[] = ctools
 dependencies[] = date
 dependencies[] = entity
