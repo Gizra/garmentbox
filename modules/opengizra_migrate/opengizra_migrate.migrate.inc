@@ -3,7 +3,7 @@
 /**
  * Migrate Collection nodes.
  */
-class openGizraCollections extends openGizraMigrationNode {
+class openGizraCollections extends openGizraMigration {
 
   /**
    * Map the field and properties to the CSV header.
@@ -16,7 +16,9 @@ class openGizraCollections extends openGizraMigrationNode {
   /**
    * The node type name.
    */
-  public $type = 'collections';
+  public $entityType = 'node';
+  public $bundle = 'collection';
+  public $csvFile = 'collections';
 
   public function __construct() {
     parent::__construct();
@@ -31,11 +33,13 @@ class openGizraCollections extends openGizraMigrationNode {
 class openGizraCollectionsFieldCollections extends openGizraFieldCollectionMigration {
   public $csvColumns = array(
     array('id', 'Unique ID'),
-    array('ref', 'Reference ID'),
+    array('ref', 'Node ID'),
     array('title', 'Title'),
   );
 
-  public $type = 'field_status_info';
-  public $parentType = 'collections';
+  public $entityType = 'field_collection_item';
+  public $bundle = 'field_status_info';
+  public $csvFile = 'field_status_info';
+
   public $parentClass = 'openGizraCollections';
 }
