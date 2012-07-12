@@ -15,6 +15,13 @@ function opengizra_item_ctools_plugin_api() {
 }
 
 /**
+ * Implements hook_views_api().
+ */
+function opengizra_item_views_api() {
+  return array("version" => "3.0");
+}
+
+/**
  * Implements hook_node_info().
  */
 function opengizra_item_node_info() {
