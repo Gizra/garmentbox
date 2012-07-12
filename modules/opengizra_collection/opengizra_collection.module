@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Opengizra collection feature.
+ */
+
+include_once 'opengizra_collection.features.inc';
