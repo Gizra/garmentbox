@@ -1,2 +1,2 @@
-Unique ID,Title,Item,Material
-itemInstance1,item1,item1,material1
+Unique ID,Title,Item,Material,Images
+itemInstance1,item1,item1,material1,itemInstance1.0.jpg | itemInstance1.1.jpg
