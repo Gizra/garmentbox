@@ -1,16 +1,16 @@
 Unique ID,Title,Item,Material,Images
-itemInstance1,Peach silk v-neck shirt,item1,material8,itemInstance1.0.jpg; itemInstance1.1.jpg; itemInstance1.2.jpg
-itemInstance2,Black v-neck shirt,item1,material6,
-itemInstance3,Red v-neck shirt,item1,material5,
-itemInstance4,Black Vest dress,item2,material6,
-itemInstance5,Salmon Vest dress,item2,material7,
-itemInstance6,Peach Vest dress,item2,material8,
-itemInstance7,White Open sleeves shirt,item3,material1,
-itemInstance8,Silk Open sleeves shirt,item3,material2,
-itemInstance9,Cotton Open sleeves shirt,item3,material3,
-itemInstance10,Black Pearls Epaulets shirt,item4,material6,
-itemInstance11,Red Pearls Epaulets shirt,item4,material5,
-itemInstance12,White Pearls Epaulets shirt,item4,material4,
-itemInstance13,Peach mini dress,item5,material8,
-itemInstance14,Black mini dress,item5,material6,
-itemInstance15,Res mini dress,item5,material5,
+itemInstance1,Lines v-neck shirt,item1,material8,itemInstance1.0.jpg
+itemInstance2,Black v-neck shirt,item1,material6,itemInstance2.0.jpg
+itemInstance3,Grey v-neck shirt,item1,material5,itemInstance5.0.jpg
+itemInstance4,Pink Vest dress,item2,material6,itemInstance4.0.jpg; itemInstance4.1.jpg
+itemInstance5,Salmon Vest dress,item2,material7,itemInstance5.jpg
+itemInstance6,Peach Vest dress,item2,material8,itemInstance6.jpg
+itemInstance7,White Open sleeves shirt,item3,material1,itemInstance7.0.jpg; itemInstance7.1.jpg
+itemInstance8,Lines Open sleeves shirt,item3,material2,itemInstance8.0.jpg
+itemInstance9,Cotton Open sleeves shirt,item3,material3,itemInstance9.0.jpg
+itemInstance10,Black Pearls Epaulets shirt,item4,material6,itemInstance10.0.jpg; itemInstance10.1.jpg
+itemInstance11,Printed Pearls Epaulets shirt,item4,material5,itemInstance11.0.jpg
+itemInstance12,White Pearls Epaulets shirt,item4,material4,itemInstance12.0.jpg
+itemInstance13,White mini dress,item5,material8,itemInstance13.0.jpg; itemInstance13.1.jpg
+itemInstance14,Grey mini dress,item5,material5,itemInstance14.0.jpg
+itemInstance15,Black mini dress,item5,material6,itemInstance15.0.jpg
