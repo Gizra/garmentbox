@@ -57,6 +57,7 @@ class openGizraCollectionsFieldCollections extends openGizraFieldCollectionMigra
     array('id', 'Unique ID'),
     array('host_entity_id', 'Node ID'),
     array('field_collection_status', 'Term ID'),
+    array('field_date', 'Deadline'),
   );
 
   public $entityType = 'field_collection_item';
@@ -79,5 +80,7 @@ class openGizraCollectionsFieldCollections extends openGizraFieldCollectionMigra
     $this
       ->addFieldMapping('field_collection_status', 'field_collection_status')
       ->sourceMigration('openGizraCollectionStatusTerms');
+
+    $this->addFieldMapping('field_date', 'field_date');
   }
 }
