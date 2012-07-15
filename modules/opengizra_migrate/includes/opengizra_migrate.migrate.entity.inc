@@ -18,22 +18,21 @@ abstract class openGizraMigration extends Migration {
     $this->description = t('Import @type - @bundle from CSV file.', array('@type' => $this->entityType, '@bundle' => $this->bundle));
 
     if ($this->entityType == 'node') {
-      $key_name = 'title';
       $this->addFieldMapping('title', 'title');
       $class_name = 'MigrateDestinationNode';
     }
     elseif ($this->entityType == 'taxonomy_term') {
-      $key_name = 'name';
       $this->addFieldMapping('name', 'name');
       $class_name = 'MigrateDestinationTerm';
     }
 
     // Create a map object for tracking the relationships between source rows
     $key = array(
-      $key_name => array(
-        'type' => 'varchar',
-        'length' => 255,
+      'id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
         'not null' => TRUE,
+        'auto_increment' => FALSE,
       ),
     );
     $this->map = new MigrateSQLMap($this->machineName, $key, MigrateDestinationEntityAPI::getKeySchema($this->entityType));

@@ -77,6 +77,41 @@ class openGizraVendors extends openGizraMigration {
   }
 }
 
+/**
+ * Migrate Vendors nodes.
+ */
+class openGizraItems extends openGizraMigration {
+
+  public $csvColumns = array(
+    array('id', 'Unique ID'),
+    array('title', 'Title'),
+    array('body', 'Body'),
+    array('field_item_status', 'Status'),
+    array('field_collection', 'Collection'),
+  );
+
+  public $entityType = 'node';
+  public $bundle = 'item';
+
+  public $dependencies = array(
+    'openGizraItemStatusTerms',
+    'openGizraCollections',
+  );
+
+  public function __construct() {
+    parent::__construct();
+    $this->addFieldMapping('body', 'body');
+    $this
+      ->addFieldMapping('field_collection', 'field_collection')
+      ->sourceMigration('openGizraCollections');
+
+    $this
+      ->addFieldMapping('field_item_status', 'field_item_status')
+      ->sourceMigration('openGizraItemStatusTerms');
+  }
+}
+
+
 ///////////////////////////////
 // Field collections
 
