@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Migrate Collection nodes.
+ * Migrate Collection status terms.
  */
 class openGizraCollectionStatusTerms extends openGizraMigration {
 
@@ -19,6 +19,27 @@ class openGizraCollectionStatusTerms extends openGizraMigration {
   public $entityType = 'taxonomy_term';
   public $bundle = 'collection_status';
   public $csvFile = 'collection_status';
+}
+
+/**
+ * Migrate Item status terms.
+ */
+class openGizraItemStatusTerms extends openGizraMigration {
+
+  /**
+   * Map the field and properties to the CSV header.
+   */
+  public $csvColumns = array(
+    array('id', 'Unique ID'),
+    array('name', 'Name'),
+  );
+
+  /**
+   * The node type name.
+   */
+  public $entityType = 'taxonomy_term';
+  public $bundle = 'item_status';
+  public $csvFile = 'item_status';
 }
 
 /**
