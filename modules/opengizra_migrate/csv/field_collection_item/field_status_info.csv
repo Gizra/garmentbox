@@ -1,7 +1,7 @@
-Unique ID,Node ID,Term ID,Deadline
-1,2013 - Men,Design,"May 7, 2013"
-2,2013 - Men,Sample,"May 8, 2013"
-3,2013 - Men,Production,"May 9, 2013"
-4,2013 - Women,Design,"May 10, 2013"
-5,2013 - Women,Sample,"May 11, 2013"
-6,2013 - Women shirt,Production,"May 12, 2013"
+Unique ID,Collection,Status,Deadline
+1,collection1,itemStatus1,"May 7, 2013"
+2,collection2,itemStatus2,"May 8, 2013"
+3,collection3,itemStatus3,"May 9, 2013"
+4,collection1,itemStatus1,"May 10, 2013"
+5,collection2,itemStatus2,"May 11, 2013"
+6,collection3,itemStatus3,"May 12, 2013"
