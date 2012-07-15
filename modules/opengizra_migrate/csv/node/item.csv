@@ -1,2 +1,6 @@
 Unique ID,Title,Body,Collection,Status,Image
-1,item1,Nice item,collection1,itemStatus1,item1.0.jpg
+item1,V-neck shirt,"Short Sleeve V-Neck Top, Short W/Belt Waist Not Adjustable.",collection1,itemStatus1,
+item2,Vest dress,"Knee length dresses, no sleeves, double pocket",collection3,itemStatus2,
+item3,Open sleeves shirt,"Loose, open sleeves shirt, no pockets",collection3,itemStatus3,
+item4,Pearls Epaulets shirt,"Loose, short sleeves shirt, pearls Epaulets",collection1,itemStatus2,
+item5,Mini dress,"Mini loose dress, short sleeves shirt, double pocket",collection1,itemStatus1,
