@@ -222,3 +222,38 @@ class openGizraCollectionsFieldStatusInfo extends openGizraFieldCollectionMigrat
     $this->addFieldMapping('field_date', 'field_date');
   }
 }
+
+
+/**
+ * Migrate "size info" field collection.
+ */
+class openGizraCollectionsFieldSizeInfo extends openGizraFieldCollectionMigration {
+  public $csvColumns = array(
+    array('id', 'Unique ID'),
+    array('host_entity_id', 'Item instance'),
+    array('field_size', 'Size'),
+    array('field_sku', 'SKU'),
+  );
+
+  public $entityType = 'field_collection_item';
+  public $bundle = 'field_size_info';
+  public $hostEntityType = 'node';
+
+  public $dependencies = array(
+    'openGizraSizeTerms',
+    'openGizraItemInstances',
+  );
+
+  public function __construct() {
+    parent::__construct();
+    $this
+      ->addFieldMapping('host_entity_id', 'host_entity_id')
+      ->sourceMigration('openGizraItemInstances');
+
+    $this
+      ->addFieldMapping('field_size', 'field_size')
+      ->sourceMigration('openGizraSizeTerms');
+
+    $this->addFieldMapping('field_sku', 'field_sku');
+  }
+}
