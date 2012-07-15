@@ -34,6 +34,20 @@ class openGizraItemStatusTerms extends openGizraMigration {
   public $bundle = 'item_status';
 }
 
+/**
+ * Migrate Size terms.
+ */
+class openGizraSizeTerms extends openGizraMigration {
+
+  public $csvColumns = array(
+    array('id', 'Unique ID'),
+    array('name', 'Name'),
+  );
+
+  public $entityType = 'taxonomy_term';
+  public $bundle = 'size';
+}
+
 ///////////////////////////////
 // Nodes
 
@@ -108,6 +122,38 @@ class openGizraItems extends openGizraMigration {
     $this
       ->addFieldMapping('field_item_status', 'field_item_status')
       ->sourceMigration('openGizraItemStatusTerms');
+  }
+}
+
+/**
+ * Migrate Item instances nodes.
+ */
+class openGizraItemInstances extends openGizraMigration {
+
+  public $csvColumns = array(
+    array('id', 'Unique ID'),
+    array('title', 'Title'),
+    array('field_item', 'Item'),
+    array('field_material', 'Material'),
+  );
+
+  public $entityType = 'node';
+  public $bundle = 'item_instance';
+
+  public $dependencies = array(
+    'openGizraItems',
+  );
+
+  public function __construct() {
+    parent::__construct();
+    $this->addFieldMapping('body', 'body');
+    $this
+      ->addFieldMapping('field_collection', 'field_collection')
+      ->sourceMigration('openGizraItems');
+
+    $this
+      ->addFieldMapping('field_material', 'field_material')
+      ->sourceMigration('openGizraMaterials');
   }
 }
 
