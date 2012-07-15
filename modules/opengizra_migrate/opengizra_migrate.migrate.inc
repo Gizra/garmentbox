@@ -72,7 +72,12 @@ class openGizraCollectionsFieldCollections extends openGizraFieldCollectionMigra
 
   public function __construct() {
     parent::__construct();
-    $this->addFieldMapping('host_entity_id', 'host_entity_id')->sourceMigration('openGizraCollections');
-    $this->addFieldMapping('field_collection_status', 'field_collection_status')->sourceMigration('openGizraCollectionStatusTerms');
+    $this
+      ->addFieldMapping('host_entity_id', 'host_entity_id')
+      ->sourceMigration('openGizraCollections');
+
+    $this
+      ->addFieldMapping('field_collection_status', 'field_collection_status')
+      ->sourceMigration('openGizraCollectionStatusTerms');
   }
 }

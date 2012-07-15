@@ -104,7 +104,7 @@ class openGizraMigrateDestinationFieldCollection extends MigrateDestinationEntit
     $field_collection_item = field_collection_item_load($item_id);
     // If the collection wasn't imported we can't roll it back so check if the
     // loaded object matches the fieldcollection item class.
-    if ($field_collection_item instanceof  FieldCollectionItemEntity) {
+    if ($field_collection_item instanceof FieldCollectionItemEntity) {
       $field_collection_item->delete();
     }
 
