@@ -13,12 +13,8 @@ class openGizraCollectionStatusTerms extends openGizraMigration {
     array('name', 'Name'),
   );
 
-  /**
-   * The node type name.
-   */
   public $entityType = 'taxonomy_term';
   public $bundle = 'collection_status';
-  public $csvFile = 'collection_status';
 }
 
 /**
@@ -26,20 +22,13 @@ class openGizraCollectionStatusTerms extends openGizraMigration {
  */
 class openGizraItemStatusTerms extends openGizraMigration {
 
-  /**
-   * Map the field and properties to the CSV header.
-   */
   public $csvColumns = array(
     array('id', 'Unique ID'),
     array('name', 'Name'),
   );
 
-  /**
-   * The node type name.
-   */
   public $entityType = 'taxonomy_term';
   public $bundle = 'item_status';
-  public $csvFile = 'item_status';
 }
 
 /**
@@ -47,25 +36,17 @@ class openGizraItemStatusTerms extends openGizraMigration {
  */
 class openGizraCollections extends openGizraMigration {
 
-  /**
-   * Map the field and properties to the CSV header.
-   */
   public $csvColumns = array(
     array('id', 'Unique ID'),
     array('title', 'Title'),
     array('body', 'Body'),
   );
 
-  /**
-   * The node type name.
-   */
   public $entityType = 'node';
   public $bundle = 'collection';
-  public $csvFile = 'collections';
 
   public function __construct() {
     parent::__construct();
-
     $this->addFieldMapping('body', 'body');
   }
 }
@@ -84,8 +65,6 @@ class openGizraCollectionsFieldCollections extends openGizraFieldCollectionMigra
   public $entityType = 'field_collection_item';
   public $bundle = 'field_status_info';
   public $hostEntityType = 'node';
-
-  public $csvFile = 'field_status_info';
 
   public $dependencies = array(
     'openGizraCollectionStatusTerms',
