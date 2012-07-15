@@ -31,7 +31,7 @@ abstract class openGizraMigration extends Migration {
 
     // Create a MigrateSource object.
     $this->source = new MigrateSourceCSV(drupal_get_path('module', 'opengizra_migrate') . '/csv/' . $this->csvFile . '.csv', $this->csvColumns, array('header_rows' => 1));
-    $this->destination = new MigrateDestinationNode('page_element', array('text_format' => 'full_html'));
+    $this->destination = new MigrateDestinationNode($this->bundle, array('text_format' => 'filtered_html'));
     $this->addFieldMapping('title', 'title');
   }
 
