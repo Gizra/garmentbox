@@ -84,7 +84,7 @@ function opengizra_item_views_default_views() {
   $handler->display->display_options['sorts']['created']['table'] = 'node';
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
-  /* Contextual filter: Content: Season (field_season) */
+  /* Contextual filter: Broken/missing handler */
   $handler->display->display_options['arguments']['field_season_target_id']['id'] = 'field_season_target_id';
   $handler->display->display_options['arguments']['field_season_target_id']['table'] = 'field_data_field_season';
   $handler->display->display_options['arguments']['field_season_target_id']['field'] = 'field_season_target_id';
