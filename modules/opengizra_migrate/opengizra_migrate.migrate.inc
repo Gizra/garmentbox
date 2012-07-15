@@ -192,11 +192,11 @@ class openGizraItemInstances extends openGizraMigration {
 /**
  * Migrate "status info" field collection.
  */
-class openGizraCollectionsFieldCollections extends openGizraFieldCollectionMigration {
+class openGizraCollectionsFieldStatusInfo extends openGizraFieldCollectionMigration {
   public $csvColumns = array(
     array('id', 'Unique ID'),
-    array('host_entity_id', 'Node ID'),
-    array('field_collection_status', 'Term ID'),
+    array('host_entity_id', 'Collection'),
+    array('field_collection_status', 'Status'),
     array('field_date', 'Deadline'),
   );
 
