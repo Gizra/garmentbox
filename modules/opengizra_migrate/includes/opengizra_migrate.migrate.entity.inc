@@ -29,10 +29,9 @@ abstract class openGizraMigration extends Migration {
     // Create a map object for tracking the relationships between source rows
     $key = array(
       'id' => array(
-        'type' => 'int',
-        'unsigned' => TRUE,
+        'type' => 'varchar',
+        'length' => 255,
         'not null' => TRUE,
-        'auto_increment' => FALSE,
       ),
     );
     $this->map = new MigrateSQLMap($this->machineName, $key, MigrateDestinationEntityAPI::getKeySchema($this->entityType));
