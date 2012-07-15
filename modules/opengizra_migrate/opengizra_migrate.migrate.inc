@@ -86,8 +86,8 @@ class openGizraItems extends openGizraMigration {
     array('id', 'Unique ID'),
     array('title', 'Title'),
     array('body', 'Body'),
-    array('field_item_status', 'Status'),
     array('field_collection', 'Collection'),
+    array('field_item_status', 'Status'),
   );
 
   public $entityType = 'node';
