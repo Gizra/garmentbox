@@ -5,7 +5,7 @@ abstract class openGizraFieldCollectionMigration extends Migration {
   public function __construct() {
     parent::__construct();
     $this->description = t('Import @bundle field collections from CSV file.', array('@parent_type' => $this->bundle));
-    $this->$dependencies = array($this->parentClass);
+    $this->dependencies = array($this->parentClass);
 
     // Create a map object for tracking the relationships between source rows
     $key = array(

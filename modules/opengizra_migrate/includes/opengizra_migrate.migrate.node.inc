@@ -15,7 +15,7 @@ abstract class openGizraMigration extends Migration {
       throw new Exception('openGizraMigration supports only nodes and terms.');
     }
 
-    $this->description = t('Import @type nodes from CSV file.', array('@type' => $this->type));
+    $this->description = t('Import @type nodes from CSV file.', array('@type' => $this->bundle));
     // Create a map object for tracking the relationships between source rows
 
     $key_name = $this->entityType == 'node' ? 'title' : 'name';
