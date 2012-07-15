@@ -162,6 +162,7 @@ class openGizraItemInstances extends openGizraMigration {
     array('title', 'Title'),
     array('field_item', 'Item'),
     array('field_material', 'Material'),
+    array('field_images', 'Images'),
   );
 
   public $entityType = 'node';
@@ -182,6 +183,20 @@ class openGizraItemInstances extends openGizraMigration {
     $this
       ->addFieldMapping('field_material', 'field_material')
       ->sourceMigration('openGizraMaterials');
+
+
+    $this->addFieldMapping('field_images', 'field_images');
+    $this
+      ->addFieldMapping('field_images:file_replace')
+      ->defaultValue(FILE_EXISTS_REPLACE);
+    $this
+      ->addFieldMapping('field_images:source_dir')
+      ->defaultValue(drupal_get_path('module', 'opengizra_migrate') . '/images');
+  }
+
+  function prepareRow($row) {
+    parent::prepareRow($row);
+    $row->field_images = explode('; ', $row->field_images);
   }
 }
 

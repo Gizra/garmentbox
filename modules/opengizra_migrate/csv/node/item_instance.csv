@@ -1,5 +1,5 @@
 Unique ID,Title,Item,Material,Images
-itemInstance1,Peach silk v-neck shirt,item1,material8,
+itemInstance1,Peach silk v-neck shirt,item1,material8,itemInstance1.0.jpg; itemInstance1.1.jpg; itemInstance1.2.jpg
 itemInstance2,Black v-neck shirt,item1,material6,
 itemInstance3,Red v-neck shirt,item1,material5,
 itemInstance4,Black Vest dress,item2,material6,
