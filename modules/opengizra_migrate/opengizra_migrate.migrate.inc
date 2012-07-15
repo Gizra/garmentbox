@@ -3,12 +3,34 @@
 /**
  * Migrate Collection nodes.
  */
+class openGizraCollectionStatusTerms extends openGizraMigration {
+
+  /**
+   * Map the field and properties to the CSV header.
+   */
+  public $csvColumns = array(
+    array('id', 'Unique ID'),
+    array('name', 'Name'),
+  );
+
+  /**
+   * The node type name.
+   */
+  public $entityType = 'taxonomy_term';
+  public $bundle = 'collection_status';
+  public $csvFile = 'collection_status';
+}
+
+/**
+ * Migrate Collection nodes.
+ */
 class openGizraCollections extends openGizraMigration {
 
   /**
    * Map the field and properties to the CSV header.
    */
   public $csvColumns = array(
+    array('id', 'Unique ID'),
     array('title', 'Title'),
     array('body', 'Body'),
   );

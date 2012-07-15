@@ -19,7 +19,7 @@ abstract class openGizraFieldCollectionMigration extends Migration {
 
     // Create a MigrateSource object.
     $this->source = new MigrateSourceCSV(drupal_get_path('module', 'opengizra_migrate') . '/csv/' . $this->csvFile . '.csv', $this->csvColumns, array('header_rows' => 1));
-    $this->destination = new openGizraMigrateDestinationFieldCollection('field_features', array('host_entity_type' => 'node'));
+    $this->destination = new openGizraMigrateDestinationFieldCollection($this->bundle, array('host_entity_type' => 'node'));
 
     $this->addFieldMapping('host_entity_id', 'ref')->sourceMigration($this->parentClass);
   }

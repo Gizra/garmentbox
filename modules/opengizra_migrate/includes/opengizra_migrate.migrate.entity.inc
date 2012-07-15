@@ -15,11 +15,20 @@ abstract class openGizraMigration extends Migration {
       throw new Exception('openGizraMigration supports only nodes and terms.');
     }
 
-    $this->description = t('Import @type nodes from CSV file.', array('@type' => $this->bundle));
+    $this->description = t('Import @type - @bundle from CSV file.', array('@type' => $this->entityType, '@bundle' => $this->bundle));
+
+    if ($this->entityType == 'node') {
+      $key_name = 'title';
+      $this->addFieldMapping('title', 'title');
+      $class_name = 'MigrateDestinationNode';
+    }
+    elseif ($this->entityType == 'taxonomy_term') {
+      $key_name = 'name';
+      $this->addFieldMapping('name', 'name');
+      $class_name = 'MigrateDestinationTerm';
+    }
+
     // Create a map object for tracking the relationships between source rows
-
-    $key_name = $this->entityType == 'node' ? 'title' : 'name';
-
     $key = array(
       $key_name => array(
         'type' => 'varchar',
@@ -31,8 +40,9 @@ abstract class openGizraMigration extends Migration {
 
     // Create a MigrateSource object.
     $this->source = new MigrateSourceCSV(drupal_get_path('module', 'opengizra_migrate') . '/csv/' . $this->csvFile . '.csv', $this->csvColumns, array('header_rows' => 1));
-    $this->destination = new MigrateDestinationNode($this->bundle, array('text_format' => 'filtered_html'));
-    $this->addFieldMapping('title', 'title');
+    $this->destination = new $class_name($this->bundle, array('text_format' => 'filtered_html'));
+
+
   }
 
   function prepareRow($row) {
