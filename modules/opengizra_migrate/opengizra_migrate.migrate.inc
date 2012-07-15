@@ -176,7 +176,7 @@ class openGizraItemInstances extends openGizraMigration {
     parent::__construct();
     $this->addFieldMapping('body', 'body');
     $this
-      ->addFieldMapping('field_collection', 'field_collection')
+      ->addFieldMapping('field_item', 'field_item')
       ->sourceMigration('openGizraItems');
 
     $this
