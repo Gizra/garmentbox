@@ -1,5 +1,8 @@
 <?php
 
+///////////////////////////////
+// Terms
+
 /**
  * Migrate Collection status terms.
  */
@@ -31,6 +34,9 @@ class openGizraItemStatusTerms extends openGizraMigration {
   public $bundle = 'item_status';
 }
 
+///////////////////////////////
+// Nodes
+
 /**
  * Migrate Collection nodes.
  */
@@ -50,6 +56,29 @@ class openGizraCollections extends openGizraMigration {
     $this->addFieldMapping('body', 'body');
   }
 }
+
+/**
+ * Migrate Vendors nodes.
+ */
+class openGizraVendors extends openGizraMigration {
+
+  public $csvColumns = array(
+    array('id', 'Unique ID'),
+    array('title', 'Title'),
+    array('body', 'Body'),
+  );
+
+  public $entityType = 'node';
+  public $bundle = 'vendor';
+
+  public function __construct() {
+    parent::__construct();
+    $this->addFieldMapping('body', 'body');
+  }
+}
+
+///////////////////////////////
+// Field collections
 
 /**
  * Migrate "status info" field collection.
