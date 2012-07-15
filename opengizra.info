@@ -25,6 +25,7 @@ dependencies[] = rdf
 
 ; Contrib modules
 dependencies[] = admin_menu_toolbar
+dependencies[] = addressfield
 dependencies[] = commerce_price
 dependencies[] = ctools
 dependencies[] = date
@@ -71,4 +72,5 @@ dependencies[] = opengizra_collection
 dependencies[] = opengizra_item
 dependencies[] = opengizra_material
 dependencies[] = opengizra_migrate
+dependencies[] = opengizra_vendor
 

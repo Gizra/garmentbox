@@ -5,6 +5,9 @@ api = 2
 projects[admin_menu][subdir] = "contrib"
 projects[admin_menu][version] = "3.0-rc3"
 
+projects[addressfield][subdir] = "contrib"
+projects[addressfield][version] = "1.0-beta3"
+
 projects[commerce][subdir] = "contrib"
 projects[commerce][version] = "1.3"
 
