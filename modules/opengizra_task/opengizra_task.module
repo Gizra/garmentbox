@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Opengizra Task feature.
+ */
+
+include_once 'opengizra_task.features.inc';

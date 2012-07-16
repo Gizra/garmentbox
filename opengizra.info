@@ -72,5 +72,6 @@ dependencies[] = opengizra_collection
 dependencies[] = opengizra_item
 dependencies[] = opengizra_material
 dependencies[] = opengizra_migrate
+dependencies[] = opengizra_task
 dependencies[] = opengizra_vendor
 
