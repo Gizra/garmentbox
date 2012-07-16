@@ -114,7 +114,7 @@ function opengizra_task_field_default_fields() {
           ),
           'sort' => array(
             'direction' => 'ASC',
-            'field' => 'property',
+            'field' => 'field_status_closed:value',
             'property' => 'name',
             'type' => 'property',
           ),
@@ -154,7 +154,7 @@ function opengizra_task_field_default_fields() {
       'entity_type' => 'node',
       'field_name' => 'field_task_status',
       'label' => 'Status',
-      'required' => 0,
+      'required' => 1,
       'settings' => array(
         'behaviors' => array(
           'prepopulate' => array(
