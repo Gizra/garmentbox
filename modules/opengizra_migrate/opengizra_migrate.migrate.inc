@@ -35,6 +35,26 @@ class openGizraItemStatusTerms extends openGizraMigration {
 }
 
 /**
+ * Migrate Task status terms.
+ */
+class openGizraTaskStatusTerms extends openGizraMigration {
+
+  public $csvColumns = array(
+    array('id', 'Unique ID'),
+    array('name', 'Name'),
+    array('field_status_closed', 'Closed'),
+  );
+
+  public $entityType = 'taxonomy_term';
+  public $bundle = 'task_status';
+
+  public function __construct() {
+    parent::__construct();
+    $this->addFieldMapping('field_status_closed', 'field_status_closed');
+  }
+}
+
+/**
  * Migrate Size terms.
  */
 class openGizraSizeTerms extends openGizraMigration {
