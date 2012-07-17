@@ -27,11 +27,9 @@ function opengizra_item_views_default_views() {
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
-  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '20';
   $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['pager']['options']['id'] = '0';
-  $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all'] = 0;
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
   /* Field: Content: Image */
@@ -84,12 +82,18 @@ function opengizra_item_views_default_views() {
   $handler->display->display_options['sorts']['created']['table'] = 'node';
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
-  /* Contextual filter: Broken/missing handler */
-  $handler->display->display_options['arguments']['field_season_target_id']['id'] = 'field_season_target_id';
-  $handler->display->display_options['arguments']['field_season_target_id']['table'] = 'field_data_field_season';
-  $handler->display->display_options['arguments']['field_season_target_id']['field'] = 'field_season_target_id';
-  $handler->display->display_options['arguments']['field_season_target_id']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['field_season_target_id']['summary']['format'] = 'default_summary';
+  /* Contextual filter: Content: Collection (field_collection) */
+  $handler->display->display_options['arguments']['field_collection_target_id']['id'] = 'field_collection_target_id';
+  $handler->display->display_options['arguments']['field_collection_target_id']['table'] = 'field_data_field_collection';
+  $handler->display->display_options['arguments']['field_collection_target_id']['field'] = 'field_collection_target_id';
+  $handler->display->display_options['arguments']['field_collection_target_id']['default_action'] = 'not found';
+  $handler->display->display_options['arguments']['field_collection_target_id']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['field_collection_target_id']['default_argument_skip_url'] = 0;
+  $handler->display->display_options['arguments']['field_collection_target_id']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_collection_target_id']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_collection_target_id']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_collection_target_id']['break_phrase'] = 0;
+  $handler->display->display_options['arguments']['field_collection_target_id']['not'] = 0;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -103,6 +107,19 @@ function opengizra_item_views_default_views() {
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
     'item' => 'item',
+  );
+
+  /* Display: Content pane */
+  $handler = $view->new_display('panel_pane', 'Content pane', 'panel_pane_1');
+  $handler->display->display_options['argument_input'] = array(
+    'field_collection_target_id' => array(
+      'type' => 'context',
+      'context' => 'entity:node.nid',
+      'context_optional' => 0,
+      'panel' => '0',
+      'fixed' => '',
+      'label' => 'Content: Collection (field_collection)',
+    ),
   );
   $export['items_gallery'] = $view;
 

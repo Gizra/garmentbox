@@ -2,6 +2,7 @@ name = Opengizra Vendor
 description = Opengizra Vendor
 core = 7.x
 package = Features
+php = 5.2.4
 dependencies[] = addressfield
 dependencies[] = ctools
 dependencies[] = features

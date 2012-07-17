@@ -45,6 +45,32 @@ function opengizra_task_views_default_views() {
   $handler->display->display_options['style_options']['override'] = 1;
   $handler->display->display_options['style_options']['sticky'] = 0;
   $handler->display->display_options['style_options']['empty_table'] = 0;
+  /* Field: Content: New comments */
+  $handler->display->display_options['fields']['new_comments']['id'] = 'new_comments';
+  $handler->display->display_options['fields']['new_comments']['table'] = 'node';
+  $handler->display->display_options['fields']['new_comments']['field'] = 'new_comments';
+  $handler->display->display_options['fields']['new_comments']['label'] = '';
+  $handler->display->display_options['fields']['new_comments']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['new_comments']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['new_comments']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['new_comments']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['new_comments']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['new_comments']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['new_comments']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['new_comments']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['new_comments']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['new_comments']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['new_comments']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['new_comments']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['new_comments']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['new_comments']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['new_comments']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['new_comments']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['new_comments']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['new_comments']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['new_comments']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['new_comments']['format_plural'] = 0;
+  $handler->display->display_options['fields']['new_comments']['link_to_comment'] = 1;
   /* Field: Content: Nid */
   $handler->display->display_options['fields']['nid']['id'] = 'nid';
   $handler->display->display_options['fields']['nid']['table'] = 'node';
@@ -85,6 +111,32 @@ function opengizra_task_views_default_views() {
   $handler->display->display_options['fields']['title']['hide_empty'] = 0;
   $handler->display->display_options['fields']['title']['empty_zero'] = 0;
   $handler->display->display_options['fields']['title']['link_to_node'] = 1;
+  /* Field: Content: Status */
+  $handler->display->display_options['fields']['field_task_status']['id'] = 'field_task_status';
+  $handler->display->display_options['fields']['field_task_status']['table'] = 'field_data_field_task_status';
+  $handler->display->display_options['fields']['field_task_status']['field'] = 'field_task_status';
+  $handler->display->display_options['fields']['field_task_status']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['field_task_status']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_task_status']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_task_status']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_task_status']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_task_status']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_task_status']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_task_status']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_task_status']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_task_status']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['field_task_status']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_task_status']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_task_status']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_task_status']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['field_task_status']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_task_status']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['field_task_status']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_task_status']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['field_task_status']['settings'] = array(
+    'link' => 0,
+  );
+  $handler->display->display_options['fields']['field_task_status']['field_api_classes'] = 0;
   /* Field: Content: Assignee */
   $handler->display->display_options['fields']['field_task_assignee']['id'] = 'field_task_assignee';
   $handler->display->display_options['fields']['field_task_assignee']['table'] = 'field_data_field_task_assignee';
@@ -111,6 +163,80 @@ function opengizra_task_views_default_views() {
     'link' => 1,
   );
   $handler->display->display_options['fields']['field_task_assignee']['field_api_classes'] = 0;
+  /* Field: Content: Comment count */
+  $handler->display->display_options['fields']['comment_count']['id'] = 'comment_count';
+  $handler->display->display_options['fields']['comment_count']['table'] = 'node_comment_statistics';
+  $handler->display->display_options['fields']['comment_count']['field'] = 'comment_count';
+  $handler->display->display_options['fields']['comment_count']['label'] = 'Replies';
+  $handler->display->display_options['fields']['comment_count']['alter']['alter_text'] = 1;
+  $handler->display->display_options['fields']['comment_count']['alter']['text'] = '[comment_count]
+[new_comments]';
+  $handler->display->display_options['fields']['comment_count']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['comment_count']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['comment_count']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['comment_count']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['comment_count']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['comment_count']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['comment_count']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['comment_count']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['comment_count']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['comment_count']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['comment_count']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['comment_count']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['comment_count']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['comment_count']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['comment_count']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['comment_count']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['comment_count']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['comment_count']['format_plural'] = 0;
+  /* Field: Content: Last comment time */
+  $handler->display->display_options['fields']['last_comment_timestamp']['id'] = 'last_comment_timestamp';
+  $handler->display->display_options['fields']['last_comment_timestamp']['table'] = 'node_comment_statistics';
+  $handler->display->display_options['fields']['last_comment_timestamp']['field'] = 'last_comment_timestamp';
+  $handler->display->display_options['fields']['last_comment_timestamp']['label'] = 'Last updated';
+  $handler->display->display_options['fields']['last_comment_timestamp']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['last_comment_timestamp']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['last_comment_timestamp']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['last_comment_timestamp']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['last_comment_timestamp']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['last_comment_timestamp']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['last_comment_timestamp']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['last_comment_timestamp']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['last_comment_timestamp']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['last_comment_timestamp']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['last_comment_timestamp']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['last_comment_timestamp']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['last_comment_timestamp']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['last_comment_timestamp']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['last_comment_timestamp']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['last_comment_timestamp']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['last_comment_timestamp']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['last_comment_timestamp']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['last_comment_timestamp']['date_format'] = 'raw time ago';
+  /* Field: Content: Post date */
+  $handler->display->display_options['fields']['created']['id'] = 'created';
+  $handler->display->display_options['fields']['created']['table'] = 'node';
+  $handler->display->display_options['fields']['created']['field'] = 'created';
+  $handler->display->display_options['fields']['created']['label'] = 'Created';
+  $handler->display->display_options['fields']['created']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['created']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['created']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['created']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['created']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['created']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['created']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['created']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['created']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['created']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['created']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['created']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['created']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['created']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['created']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['created']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['created']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['created']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['created']['date_format'] = 'raw time ago';
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
