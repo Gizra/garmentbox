@@ -19,11 +19,11 @@ function opengizra_collection_field_default_fields() {
       'entity_types' => array(),
       'field_name' => 'field_collection_status',
       'foreign keys' => array(
-        'node' => array(
+        'taxonomy_term_data' => array(
           'columns' => array(
-            'target_id' => 'nid',
+            'target_id' => 'tid',
           ),
-          'table' => 'node',
+          'table' => 'taxonomy_term_data',
         ),
       ),
       'indexes' => array(

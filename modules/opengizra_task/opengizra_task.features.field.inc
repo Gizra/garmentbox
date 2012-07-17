@@ -49,7 +49,7 @@ function opengizra_task_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => 0,
+          'weight' => '0',
         ),
         'teaser' => array(
           'label' => 'hidden',
@@ -82,14 +82,14 @@ function opengizra_task_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-task-field_item'
-  $fields['node-task-field_item'] = array(
+  // Exported field: 'node-task-field_entity_reference'
+  $fields['node-task-field_entity_reference'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_item',
+      'field_name' => 'field_entity_reference',
       'foreign keys' => array(
         'node' => array(
           'columns' => array(
@@ -119,7 +119,11 @@ function opengizra_task_field_default_fields() {
             'type' => 'property',
           ),
           'target_bundles' => array(
+            'collection' => 'collection',
             'item' => 'item',
+            'item_instance' => 'item_instance',
+            'material' => 'material',
+            'vendor' => 'vendor',
           ),
         ),
         'handler_submit' => 'Change handler',
@@ -139,10 +143,10 @@ function opengizra_task_field_default_fields() {
           'label' => 'above',
           'module' => 'entityreference',
           'settings' => array(
-            'link' => FALSE,
+            'link' => 1,
           ),
           'type' => 'entityreference_label',
-          'weight' => 2,
+          'weight' => '2',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -152,9 +156,9 @@ function opengizra_task_field_default_fields() {
         ),
       ),
       'entity_type' => 'node',
-      'field_name' => 'field_item',
-      'label' => 'Item',
-      'required' => 1,
+      'field_name' => 'field_entity_reference',
+      'label' => 'Reference',
+      'required' => 0,
       'settings' => array(
         'behaviors' => array(
           'prepopulate' => array(
@@ -168,22 +172,26 @@ function opengizra_task_field_default_fields() {
       ),
       'widget' => array(
         'active' => 1,
-        'module' => 'options',
-        'settings' => array(),
-        'type' => 'options_select',
-        'weight' => '-1',
+        'module' => 'entityreference',
+        'settings' => array(
+          'match_operator' => 'CONTAINS',
+          'path' => '',
+          'size' => '60',
+        ),
+        'type' => 'entityreference_autocomplete',
+        'weight' => '-2',
       ),
     ),
   );
 
-  // Exported field: 'node-task-field_item_instance'
-  $fields['node-task-field_item_instance'] = array(
+  // Exported field: 'node-task-field_task_assignee'
+  $fields['node-task-field_task_assignee'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '-1',
+      'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_item_instance',
+      'field_name' => 'field_task_assignee',
       'foreign keys' => array(
         'node' => array(
           'columns' => array(
@@ -203,21 +211,19 @@ function opengizra_task_field_default_fields() {
         'handler_settings' => array(
           'behaviors' => array(
             'views-select-list' => array(
-              'status' => 0,
+              'status' => 1,
             ),
           ),
           'sort' => array(
             'direction' => 'ASC',
-            'field' => 'body:value',
-            'property' => 'title',
+            'field' => 'property',
+            'property' => 'name',
             'type' => 'property',
           ),
-          'target_bundles' => array(
-            'item_instance' => 'item_instance',
-          ),
+          'target_bundles' => array(),
         ),
         'handler_submit' => 'Change handler',
-        'target_type' => 'node',
+        'target_type' => 'user',
       ),
       'translatable' => '0',
       'type' => 'entityreference',
@@ -233,10 +239,10 @@ function opengizra_task_field_default_fields() {
           'label' => 'above',
           'module' => 'entityreference',
           'settings' => array(
-            'link' => FALSE,
+            'link' => 1,
           ),
           'type' => 'entityreference_label',
-          'weight' => 3,
+          'weight' => '3',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -246,8 +252,8 @@ function opengizra_task_field_default_fields() {
         ),
       ),
       'entity_type' => 'node',
-      'field_name' => 'field_item_instance',
-      'label' => 'Item instance',
+      'field_name' => 'field_task_assignee',
+      'label' => 'Assignee',
       'required' => 0,
       'settings' => array(
         'behaviors' => array(
@@ -265,7 +271,7 @@ function opengizra_task_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => 0,
+        'weight' => '-1',
       ),
     ),
   );
@@ -330,7 +336,7 @@ function opengizra_task_field_default_fields() {
             'link' => FALSE,
           ),
           'type' => 'entityreference_label',
-          'weight' => 1,
+          'weight' => '1',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -428,9 +434,9 @@ function opengizra_task_field_default_fields() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Assignee');
   t('Body');
-  t('Item');
-  t('Item instance');
+  t('Reference');
   t('Status');
   t('Status is considered closed');
 
