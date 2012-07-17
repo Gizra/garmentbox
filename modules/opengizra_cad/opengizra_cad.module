@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Opengizra CAD feature.
+ */
+
+include_once 'opengizra_cad.features.inc';
