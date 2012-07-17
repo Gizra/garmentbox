@@ -39,10 +39,13 @@ projects[field_collection][subdir] = "contrib"
 projects[field_collection][version] = "1.x-dev"
 
 projects[flag][subdir] = "contrib"
-projects[flag][version] = "2.0-beta6"
+projects[flag][version] = "2.0-beta7"
 
 projects[fullcalendar][subdir] = "contrib"
 projects[fullcalendar][version] = "2.0-beta3"
+
+projects[gravatar][subdir] = "contrib"
+projects[gravatar][version] = "1.1"
 
 projects[libraries][subdir] = "contrib"
 projects[libraries][version] = "1.0"
