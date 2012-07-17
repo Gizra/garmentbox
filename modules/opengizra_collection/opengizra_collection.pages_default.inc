@@ -68,11 +68,8 @@ function opengizra_collection_default_page_manager_handlers() {
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
-      'arguments' => array(
-        'type' => 'collection',
-      ),
       'context' => array(
-        1 => 'argument_entity_id:node_1',
+        0 => 'argument_entity_id:node_1',
       ),
     );
     $pane->cache = array();

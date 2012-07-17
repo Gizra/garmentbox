@@ -45,12 +45,6 @@ function opengizra_task_views_default_views() {
   $handler->display->display_options['style_options']['override'] = 1;
   $handler->display->display_options['style_options']['sticky'] = 0;
   $handler->display->display_options['style_options']['empty_table'] = 0;
-  /* Relationship: Entity Reference: Referencing entity */
-  $handler->display->display_options['relationships']['reverse_field_entity_reference_node']['id'] = 'reverse_field_entity_reference_node';
-  $handler->display->display_options['relationships']['reverse_field_entity_reference_node']['table'] = 'node';
-  $handler->display->display_options['relationships']['reverse_field_entity_reference_node']['field'] = 'reverse_field_entity_reference_node';
-  $handler->display->display_options['relationships']['reverse_field_entity_reference_node']['label'] = 'Referenced content';
-  $handler->display->display_options['relationships']['reverse_field_entity_reference_node']['required'] = 0;
   /* Field: Content: Nid */
   $handler->display->display_options['fields']['nid']['id'] = 'nid';
   $handler->display->display_options['fields']['nid']['table'] = 'node';
@@ -122,18 +116,18 @@ function opengizra_task_views_default_views() {
   $handler->display->display_options['sorts']['created']['table'] = 'node';
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
-  /* Contextual filter: Content: Type */
-  $handler->display->display_options['arguments']['type']['id'] = 'type';
-  $handler->display->display_options['arguments']['type']['table'] = 'node';
-  $handler->display->display_options['arguments']['type']['field'] = 'type';
-  $handler->display->display_options['arguments']['type']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['type']['summary']['format'] = 'default_summary';
-  /* Contextual filter: Content: Nid */
-  $handler->display->display_options['arguments']['nid']['id'] = 'nid';
-  $handler->display->display_options['arguments']['nid']['table'] = 'node';
-  $handler->display->display_options['arguments']['nid']['field'] = 'nid';
-  $handler->display->display_options['arguments']['nid']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['nid']['summary']['format'] = 'default_summary';
+  /* Contextual filter: Content: Reference (field_entity_reference) */
+  $handler->display->display_options['arguments']['field_entity_reference_target_id']['id'] = 'field_entity_reference_target_id';
+  $handler->display->display_options['arguments']['field_entity_reference_target_id']['table'] = 'field_data_field_entity_reference';
+  $handler->display->display_options['arguments']['field_entity_reference_target_id']['field'] = 'field_entity_reference_target_id';
+  $handler->display->display_options['arguments']['field_entity_reference_target_id']['default_action'] = 'not found';
+  $handler->display->display_options['arguments']['field_entity_reference_target_id']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['field_entity_reference_target_id']['default_argument_skip_url'] = 0;
+  $handler->display->display_options['arguments']['field_entity_reference_target_id']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_entity_reference_target_id']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_entity_reference_target_id']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_entity_reference_target_id']['break_phrase'] = 0;
+  $handler->display->display_options['arguments']['field_entity_reference_target_id']['not'] = 0;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -152,21 +146,13 @@ function opengizra_task_views_default_views() {
   /* Display: Content pane */
   $handler = $view->new_display('panel_pane', 'Content pane', 'panel_pane_1');
   $handler->display->display_options['argument_input'] = array(
-    'type' => array(
-      'type' => 'user',
-      'context' => 'entity:comment.author',
-      'context_optional' => 0,
-      'panel' => '0',
-      'fixed' => '',
-      'label' => 'Content: Type',
-    ),
-    'nid' => array(
+    'field_entity_reference_target_id' => array(
       'type' => 'context',
       'context' => 'entity:node.nid',
       'context_optional' => 0,
       'panel' => '0',
       'fixed' => '',
-      'label' => 'Content: Nid',
+      'label' => 'Content: Reference (field_entity_reference)',
     ),
   );
   $export['task_list'] = $view;
