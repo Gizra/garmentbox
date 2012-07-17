@@ -173,6 +173,40 @@ class openGizraItems extends openGizraMigration {
 }
 
 /**
+ * Migrate Task nodes.
+ */
+class openGizraTasks extends openGizraMigration {
+
+  public $csvColumns = array(
+    array('id', 'Unique ID'),
+    array('title', 'Title'),
+    array('body', 'Body'),
+    array('field_entity_reference', 'Reference'),
+    array('field_task_status', 'Status'),
+  );
+
+  public $entityType = 'node';
+  public $bundle = 'task';
+
+  public $dependencies = array(
+    'openGizraTaskStatusTerms',
+    'openGizraCollections',
+  );
+
+  public function __construct() {
+    parent::__construct();
+    $this->addFieldMapping('body', 'body');
+    $this
+      ->addFieldMapping('field_entity_reference', 'field_entity_reference')
+      ->sourceMigration('openGizraCollections');
+
+    $this
+      ->addFieldMapping('field_task_status', 'field_task_status')
+      ->sourceMigration('openGizraTaskStatusTerms');
+  }
+}
+
+/**
  * Migrate Item instances nodes.
  */
 class openGizraItemInstances extends openGizraMigration {
