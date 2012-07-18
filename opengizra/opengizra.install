@@ -18,9 +18,6 @@ function opengizra_install() {
 
   // Enable node view page override by Page manager module.
   variable_set('page_manager_node_view_disabled', FALSE);
-
-  // Set front page.
-  variable_set('site_frontpage', 'home');
 }
 
 /**
