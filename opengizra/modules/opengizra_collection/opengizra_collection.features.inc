@@ -46,7 +46,7 @@ function opengizra_collection_flag_default_flags() {
       'unflag' => array(),
     ),
     'weight' => 0,
-    'show_on_page' => 0,
+    'show_on_page' => 1,
     'show_on_teaser' => 0,
     'show_on_form' => 0,
     'show_contextual_link' => 0,
