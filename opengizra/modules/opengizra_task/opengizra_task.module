@@ -18,13 +18,44 @@ function opengizra_task_node_presave($node) {
   }
 
   $wrapper = entity_metadata_wrapper('node', $node);
-  if ($wrapper->field_entity_reference->getBundle() == 'collection') {
-    // Task is already related to a collection.
-    $collection_id = $wrapper->field_entity_reference->getIdentifier();
-  }
-  else {
-    $collection_id = $wrapper->field_entity_reference->field_collection->getIdentifier();
+  $wrapper->field_reference_hierarchy->set(opengizra_get_node_hierarchy($node));
+}
+
+/**
+ * Get the hierachy for a node.
+ *
+ * @todo: Move to general module.
+ *
+ * @param $node
+ *   The node object to check the hierachy.
+ *
+ * @return
+ *   Array with node IDs sorted by hierarchy.
+ */
+function opengizra_get_node_hierarchy($node, &$nids = array()) {
+  if ($node->type == 'collection') {
+    // Node is top most, so return early.
+    return array($node->nid);
   }
 
-  $wrapper->field_collection->set($collection_id);
+  $wrapper = entity_metadata_wrapper('node', $node);
+  switch ($node->type) {
+    case 'item':
+      $field_name = 'field_collection';
+      break;
+
+    case 'item_instance':
+      $field_name = 'field_item';
+      break;
+
+    case 'task':
+      $field_name = 'field_entity_reference';
+      break;
+  }
+
+  $referenced_node = $wrapper->{$field_name}->value();
+  $nids[] = $referenced_node->nid;
+  opengizra_get_node_hierarchy($referenced_node, $nids);
+
+  return array_reverse($nids);
 }
