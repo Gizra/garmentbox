@@ -15,6 +15,7 @@ features[ctools][] = strongarm:strongarm:1
 features[ctools][] = views:views_default:3.0
 features[features_api][] = api:1
 features[field][] = node-task-body
+features[field][] = node-task-field_collection
 features[field][] = node-task-field_entity_reference
 features[field][] = node-task-field_task_assignee
 features[field][] = node-task-field_task_status
