@@ -23,7 +23,7 @@ function opengizra_task_node_presave($node) {
     $collection_id = $wrapper->field_entity_reference->getIdentifier();
   }
   else {
-    $collection_id = $wrapper->field_entity_reference->get(0)->field_collection->getIdentifier();
+    $collection_id = $wrapper->field_entity_reference->field_collection->getIdentifier();
   }
 
   $wrapper->field_collection->set($collection_id);
