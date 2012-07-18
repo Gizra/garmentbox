@@ -9,7 +9,7 @@
  *
  * Allows the profile to alter the site configuration form.
  */
-function opengizra_profile_form_install_configure_form_alter(&$form, $form_state) {
+function opengizra_form_install_configure_form_alter(&$form, $form_state) {
   // Pre-populate the site name with the server name.
   $form['site_information']['site_name']['#default_value'] = $_SERVER['SERVER_NAME'];
 }
@@ -17,10 +17,10 @@ function opengizra_profile_form_install_configure_form_alter(&$form, $form_state
 /**
  * Implements hook_install_tasks().
  */
-function opengizra_profile_install_tasks() {
+function opengizra_install_tasks() {
   $tasks = array();
 
-  $tasks['opengizra_profile_import_data'] = array(
+  $tasks['opengizra_import_data'] = array(
     'display_name' => st('Import content'),
     'display' => TRUE,
     'type' => 'batch',
@@ -33,7 +33,7 @@ function opengizra_profile_install_tasks() {
  * Task callback: return a batch API array, for importing content and creating
  * menues.
  */
-function opengizra_profile_import_data() {
+function opengizra_import_data() {
   drupal_set_title(st('Import content'));
 
   // Fixes problems when the CSV files used for importing have been created
@@ -42,7 +42,7 @@ function opengizra_profile_import_data() {
 
   $migrations = migrate_migrations();
   foreach ($migrations as $machine_name => $migration) {
-    $operations[] =  array('_opengizra_profile_import_data', array($machine_name, t('Importing content.')));
+    $operations[] =  array('_opengizra_import_data', array($machine_name, t('Importing content.')));
   }
 
   $batch = array(
@@ -58,7 +58,7 @@ function opengizra_profile_import_data() {
  *
  * @see opengizra_profile_import_data().
  */
-function _opengizra_profile_import_data($operation, $type, &$context) {
+function _opengizra_import_data($operation, $type, &$context) {
   $context['message'] = t('@operation', array('@operation' => $type));
   $migration =  Migration::getInstance($operation);
   $migration->processImport();
