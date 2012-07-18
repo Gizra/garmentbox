@@ -67,6 +67,7 @@
 
     <div id="main" class="column<?php print ns(' grid-24', $page['sidebar_first'], 5, $page['sidebar_second'], 5) . ns(' push-5', !$page['sidebar_first'], 5); ?>">
       <div id="main-content" class="clearfix">
+        <?php print render($tabs); ?>
         <?php print render($page['content']); ?>
       </div>
     </div>
