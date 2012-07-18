@@ -26,7 +26,7 @@ function opengizra_collection_flag($action, $flag, $content_id, $account) {
  * Redriect user to the active collection.
  */
 function opengizra_collection_init() {
-  if (drupal_is_front_page() && $flaggings = flag_get_flagged_content('active_collection')) {
+  if (!drupal_is_cli() && drupal_is_front_page() && $flaggings = flag_get_flagged_content('active_collection')) {
     drupal_goto('node/' . $flaggings[0]->content_id);
   }
 }

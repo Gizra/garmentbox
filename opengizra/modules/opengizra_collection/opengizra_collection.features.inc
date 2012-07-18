@@ -54,11 +54,11 @@ function opengizra_collection_flag_default_flags() {
     'i18n' => 0,
     'flag_confirmation' => 'Mark this collection as active?',
     'unflag_confirmation' => 'Mark this collection as non-active?',
-    'api_version' => 2,
     'module' => 'opengizra_collection',
     'locked' => array(
       0 => 'name',
     ),
+    'api_version' => 2,
   );
   return $flags;
 }
