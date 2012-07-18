@@ -85,9 +85,6 @@ projects[oauth][patch][] = "http://drupal.org/files/980340-d7.patch"
 projects[oauth][patch][] = "http://drupal.org/files/1535764-fix-signatures.patch"
 projects[oauth][patch][] = "http://drupal.org/files/oauth-1431642-consumer-deletion.patch"
 
-projects[og][subdir] = "contrib"
-projects[og][version] = "2.0-beta1"
-
 projects[panels][subdir] = "contrib"
 projects[panels][version] = "3.2"
 
