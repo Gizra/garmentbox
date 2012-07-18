@@ -39,7 +39,7 @@ Thumbs.db
 
 # Opengizra #
 #############
-modules/contrib
-1/modules
-themes/contrib
+opengizra/modules/contrib
+opengizra/1/modules
+opengizra/themes/contrib
 www
