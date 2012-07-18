@@ -5,3 +5,26 @@
  */
 
 include_once 'opengizra_task.features.inc';
+
+
+/**
+ * Implements hook_node_presave().
+ *
+ * Populate the Collection reference field based on the selected entity.
+ */
+function opengizra_task_node_presave($node) {
+  if ($node->type != 'task') {
+    return;
+  }
+
+  $wrapper = entity_metadata_wrapper('node', $node);
+  if ($wrapper->field_entity_reference->getBundle() == 'collection') {
+    // Task is already related to a collection.
+    $collection_id = $wrapper->field_entity_reference->getIdentifier();
+  }
+  else {
+    $collection_id = $wrapper->field_entity_reference->get(0)->field_collection->getIdentifier();
+  }
+
+  $wrapper->field_collection->set($collection_id);
+}
