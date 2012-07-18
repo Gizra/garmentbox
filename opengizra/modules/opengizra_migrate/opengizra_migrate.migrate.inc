@@ -199,6 +199,8 @@ class openGizraTasks extends openGizraMigration {
   public $dependencies = array(
     'openGizraTaskStatusTerms',
     'openGizraCollections',
+    'openGizraItems',
+    'openGizraItemInstances',
   );
 
   public function __construct() {
@@ -206,7 +208,7 @@ class openGizraTasks extends openGizraMigration {
     $this->addFieldMapping('body', 'body');
     $this
       ->addFieldMapping('field_entity_reference', 'field_entity_reference')
-      ->sourceMigration('openGizraCollections');
+      ->sourceMigration(array('openGizraCollections', 'openGizraItems','openGizraItemInstances'));
 
     $this
       ->addFieldMapping('field_task_status', 'field_task_status')
