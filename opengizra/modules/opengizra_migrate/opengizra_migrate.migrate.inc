@@ -80,6 +80,7 @@ class openGizraCollections extends openGizraMigration {
     array('id', 'Unique ID'),
     array('title', 'Title'),
     array('body', 'Body'),
+    array('flag', 'Flag'),
   );
 
   public $entityType = 'node';
@@ -88,6 +89,13 @@ class openGizraCollections extends openGizraMigration {
   public function __construct() {
     parent::__construct();
     $this->addFieldMapping('body', 'body');
+  }
+
+  public function complete($entity, stdClass $row) {
+    if ($row->flag) {
+      // Mark collection is "Active collection".
+      flag('flag', 'active_collection', $entity->nid);
+    }
   }
 }
 
