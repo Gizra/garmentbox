@@ -35,6 +35,7 @@ function opengizra_item_views_default_views() {
   $handler->display->display_options['fields']['field_images']['id'] = 'field_images';
   $handler->display->display_options['fields']['field_images']['table'] = 'field_data_field_images';
   $handler->display->display_options['fields']['field_images']['field'] = 'field_images';
+  $handler->display->display_options['fields']['field_images']['label'] = '';
   $handler->display->display_options['fields']['field_images']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_images']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['field_images']['alter']['absolute'] = 0;
@@ -48,7 +49,7 @@ function opengizra_item_views_default_views() {
   $handler->display->display_options['fields']['field_images']['alter']['strip_tags'] = 0;
   $handler->display->display_options['fields']['field_images']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['field_images']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['field_images']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['field_images']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_images']['element_default_classes'] = 1;
   $handler->display->display_options['fields']['field_images']['hide_empty'] = 0;
   $handler->display->display_options['fields']['field_images']['empty_zero'] = 0;
