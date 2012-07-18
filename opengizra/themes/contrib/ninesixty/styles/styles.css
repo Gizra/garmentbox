@@ -1,0 +1,73 @@
+
+/* common elements */
+body {
+  color: #666666;
+}
+a {
+  color: #6688CC;
+}
+
+table {
+  width: 100%;
+}
+
+/* common spacing */
+#site-header,
+#site-subheader,
+#footer-region,
+.column,
+.column .block,
+.node,
+.comment {
+  margin-bottom: 20px;
+}
+
+/* site header */
+#site-header {
+  padding-top: 10px;
+  padding-bottom: 17px;
+  border-bottom-width: 3px;
+  border-style: solid;
+}
+#brand-id {
+  margin-bottom: 0;
+}
+#site-menu {
+  margin-bottom: 10px;
+}
+#site-menu ul.main-menu,
+#site-menu ul.secondary-menu {
+  display: block;
+  margin: 0;
+}
+.region-search-box .container-inline {
+  white-space: nowrap;
+}
+.region-search-box .contextual-links-wrapper {
+  top: -20px;
+}
+
+/* content */
+.field-type-taxonomy-term-reference .field-item {
+  display: inline;
+  margin: 0 .25em;
+}
+.node .field-name-body {
+  margin: 10px 0;
+}
+
+/* content footer */
+.item-list .pager {
+  text-align: inherit;
+}
+.item-list .pager li {
+  margin: 0;
+}
+
+/* footer */
+#footer {
+  padding-top: 17px;
+  padding-bottom: 10px;
+  border-top-width: 3px;
+  border-style: solid;
+}

@@ -1,0 +1,17 @@
+.key dt.container span {
+  background-position: top left;
+}
+.c12 dt.container span {
+  background-image: url(../framework/images/ruler-12-rtl.png);
+}
+.c16 dt.container span {
+  background-image: url(../framework/images/ruler-16-rtl.png);
+}
+.c24 dt.container span {
+  background-image: url(../framework/images/ruler-24-rtl.png);
+}
+
+.fill div,
+.fill div b {
+  float: right;
+}

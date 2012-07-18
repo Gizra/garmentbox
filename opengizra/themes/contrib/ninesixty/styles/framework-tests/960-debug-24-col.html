@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>NineSixty CSS test - 24 columns - debugger</title>
+  <link rel="stylesheet" href="../framework/960-24-col.css" type="text/css" media="screen" />
+  <link rel="stylesheet" href="../framework/960-debug.css" type="text/css" media="screen" />
+  <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
+</head>
+<body>
+  <div id="head" class="c24 ltr clearfix">
+    <div class="info" dir="ltr">
+      <h1>960-debug.css test &ndash; 24 columns</h1>
+
+      <dl class="key">
+        <dt class="container"><span>The letter "C" with a purple background.</span></dt>
+        <dd>Grid container <em>&ndash; on body:hover.</em></dd>
+        <dt class="prefix-suffix"><span>Purple shaded grid column.</span></dt>
+        <dd>Prefix/Suffix <em>&ndash; padded space converted to a border then colored for visibility.</em></dd>
+        <dt class="grid-grid"><span>Grid column with a dotted outline.</span></dt>
+        <dd>Grid within grids <em>&ndash; outline count matches embed depth on hover.</em></dd>
+        <dt class="alpha-omega"><span>Purple dot.</span></dt>
+        <dd>Alpha/Omega <em>&ndash; left or right dot indicates cut margins.</em></dd>
+      </dl>
+
+      <ul class="links">
+        <li><a href="960.html">See 12 &amp; 16 column test.</a></li>
+        <li><a href="960-12-col.html">See 12 column test.</a></li>
+        <li><a href="960-16-col.html">See 16 column test.</a></li>
+        <li><a href="960-24-col.html">See 24 column test.</a></li>
+        <li>Viewing other tests. &ndash; <a class="dir" href="960-debug-24-col-rtl.html"><em>See right to left.</em></a></li>
+      </ul>
+
+    </div>
+  </div>
+
+  <div id="pew-pew" class="container-24 fill">
+    <span class="embeded-note up-top has-background">Labels above the elements are generated with the <em>:before</em> pseudo element + generated content.</span>
+ 
+    <div class="prefix-12 suffix-12"><b></b></div>
+
+    <div class="prefix-4 grid-1 suffix-5"><b></b></div>
+    <div class="grid-1 suffix-13"><b></b></div>
+    <div class="prefix-2 grid-1 suffix-2"><b></b></div>
+    <div class="grid-1 suffix-3"><b></b></div>
+    <div class="grid-1 suffix-2"><b></b></div>
+    <div class="grid-1 suffix-11"><b></b></div>
+    <div class="prefix-2 grid-1 suffix-1"><b></b></div>
+    <div class="grid-7 suffix-1">
+      <b>
+        <div class="grid-7 alpha omega"><b></b></div>
+      </b>
+    </div>
+    <div class="grid-1 suffix-11"><b></b></div>
+    <div class="prefix-2 grid-3 suffix-1"><b></b></div>
+    <div class="grid-3 suffix-1"><b></b></div>
+    <div class="grid-3 suffix-11"><b></b></div>
+    <div class="prefix-2 grid-11 suffix-11">
+      <b>
+        <div class="grid-3 push-8 alpha"><b></b></div>
+        <div class="grid-5"><b class="embeded-note">alpha/omega reversal due to .push/pull</b></div>
+        <div class="grid-3 pull-8 omega"><b></b></div>
+      </b>
+    </div>
+    <div class="ugly-row prefix-3 grid-9 suffix-12">
+      <b>
+        <div class="grid-3 alpha">
+          <b class="embeded-note">2 levels deep!</b>
+        </div>
+        <div class="grid-3">
+          <b>
+            <div class="grid-3 alpha omega">
+              <b class="embeded-note">3 levels deep!</b>
+            </div>
+          </b>
+        </div>
+        <div class="grid-3 omega">
+          <b>
+            <div class="grid-3 alpha omega">
+              <b>
+                <div class="grid-3 alpha omega">
+                  <b class="embeded-note">4 levels deep!</b>
+                </div>
+              </b>
+            </div>
+          </b>
+        </div>
+      </b>
+    </div>
+    <div class="prefix-4 grid-1 suffix-5"><b></b></div>
+    <div class="grid-1 suffix-13"><b></b></div>
+    <div class="prefix-3 grid-1 suffix-7"><b></b></div>
+    <div class="grid-1 suffix-12"><b></b></div>
+
+    <div class="prefix-12 suffix-12"><b></b></div>
+    <div class="prefix-12 suffix-12"><b></b></div>
+    <div class="prefix-12 suffix-12"><b></b></div>
+    <div class="prefix-12 suffix-12"><b></b></div>
+    <div class="prefix-12 suffix-12"><b></b></div>
+
+    <div class="prefix-8 grid-1 suffix-15 push-1 pull-1"><b></b></div>
+    <div class="prefix-8 grid-1 suffix-15"><b></b></div>
+
+    <div class="prefix-12 suffix-12"><b></b></div>
+    <div class="prefix-12 suffix-12"><b></b></div>
+    <div class="prefix-12 suffix-12"><b></b></div>
+    <div class="prefix-12 suffix-12"><b></b></div>
+    <div class="prefix-12 suffix-12"><b></b></div>
+
+    <div class="prefix-13 grid-1 suffix-10"><b></b></div>
+    <div class="prefix-13 grid-1 suffix-10"><b></b></div>
+
+    <div class="prefix-12 suffix-12"><b></b></div>
+    <div class="prefix-12 suffix-12"><b></b></div>
+    <div class="prefix-12 suffix-12"><b></b></div>
+    <div class="prefix-12 suffix-12"><b></b></div>
+    <div class="prefix-12 suffix-12"><b></b></div>
+
+    <div class="prefix-13 grid-1 suffix-10"><b></b></div>
+    <div class="prefix-12 grid-3 suffix-9"><b></b></div>
+    <div class="prefix-12 grid-3 suffix-9"><b></b></div>
+    <div class="prefix-7 grid-13 suffix-4"><b></b></div>
+    <div class="prefix-6 grid-15 suffix-3"><b></b></div>
+    <div class="prefix-6 grid-15 suffix-3"><b></b></div>
+    <div class="prefix-6 grid-15 suffix-3"><b></b></div>
+
+    <div class="prefix-12 suffix-12"><b></b></div>
+  </div>
+
+</body>
+</html>

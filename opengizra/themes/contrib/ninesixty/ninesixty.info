@@ -1,0 +1,53 @@
+
+name = 960 Grid System
+description = A blank base theme using the 960 Grid System. See the "README.txt" file within the theme folder for more information.
+core = 7.x
+engine = phptemplate
+ 
+; Style sheets.
+stylesheets[all][] = styles/framework/reset.css
+stylesheets[all][] = styles/framework/text.css
+stylesheets[all][] = styles/framework/960.css
+stylesheets[all][] = styles/styles.css
+
+; Block regions.
+regions[page_top]       = Page top
+regions[header]         = Header
+regions[search_box]     = Search Box
+regions[highlighted]    = Highlight
+regions[help]           = Help
+regions[content]        = Content
+regions[sidebar_first]  = Left sidebar
+regions[sidebar_second] = Right sidebar
+regions[footer]         = Footer
+regions[page_bottom]    = Page bottom
+
+; Float these style sheet above others.
+settings[css_float][] = reset.css
+settings[css_float][] = text.css
+
+; This is used to target the 960 styles set from the 'stylesheets' key. Based on the
+; options and selection below, this target will be replaced with one of the options.
+settings[ns_columns_target] = 960.css
+
+; Setup all the possible 960 style options.
+settings[ns_columns_option][12+16] = 960.css
+settings[ns_columns_option][12]    = 960-12-col.css
+settings[ns_columns_option][16]    = 960-16-col.css
+settings[ns_columns_option][24]    = 960-24-col.css
+
+; Select which to use from the options set above.
+settings[ns_columns_select] = 12+16
+
+; Column debug style. Will bind to anything set for ns_columns_option.
+settings[ns_columns_debug_css] = 960-debug.css
+
+; Enable/disable debug style.
+settings[ns_columns_debug] = 0
+
+; Information added by drupal.org packaging script on 2012-03-01
+version = "7.x-1.0+28-dev"
+core = "7.x"
+project = "ninesixty"
+datestamp = "1330604789"
+

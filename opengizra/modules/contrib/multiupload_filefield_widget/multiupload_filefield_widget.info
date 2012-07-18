@@ -1,0 +1,12 @@
+name = Multiupload Filefield Widget
+description = "Creates a widget for filefield to upload multiple files at once using html5."
+package = Fields
+core = 7.x
+files[] = multiupload_filefield_widget.module
+files[] = multiupload_filefield_widget.test
+; Information added by drupal.org packaging script on 2012-07-05
+version = "7.x-1.0"
+core = "7.x"
+project = "multiupload_filefield_widget"
+datestamp = "1341525109"
+

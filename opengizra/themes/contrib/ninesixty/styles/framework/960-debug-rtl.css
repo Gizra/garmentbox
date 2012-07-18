@@ -1,0 +1,559 @@
+
+
+/* generate rulers into foreground for increased visibility. */
+body:hover .container-12:not(:hover):before {
+  content: url(images/ruler-12-rtl.png) !important;
+}
+body:hover .container-16:not(:hover):before {
+  content: url(images/ruler-16-rtl.png) !important;
+}
+body:hover .container-24:not(:hover):before {
+  content: url(images/ruler-24-rtl.png) !important;
+}
+body:hover .container-12:not(:hover):before,
+body:hover .container-16:not(:hover):before {
+  right: 10px !important;
+}
+body:hover .container-24:not(:hover):before {
+  right: 5px !important;
+}
+
+*[class*="container-"]:hover .alpha {
+  background-position: 100% 12px !important;
+}
+*[class*="container-"]:hover .omega {
+  background-position: 0 12px !important;
+}
+
+/* setup for transition on column counter. */
+*[class*="container-"]:hover *[class*="grid-"]:not(.alpha):not(.omega) {
+  background-position: 0 -18px, 0 0 !important;
+}
+/* needs a more specific selector to override '*[class*="container-"]:hover .alpha.omega' */
+body:hover *[class*="container-"]:hover *[class*="grid-"]:hover {
+  background-position: 0 0, 0 0 !important; /* LTR */
+}
+*[class*="container-"]:hover .grid-1:hover {
+  background-image: url(images/c1.png), url(images/cbg-rtl.png) !important;
+}
+*[class*="container-"]:hover .grid-2:hover {
+  background-image: url(images/c2.png), url(images/cbg-rtl.png) !important;
+}
+*[class*="container-"]:hover .grid-3:hover {
+  background-image: url(images/c3.png), url(images/cbg-rtl.png) !important;
+}
+*[class*="container-"]:hover .grid-4:hover {
+  background-image: url(images/c4.png), url(images/cbg-rtl.png) !important;
+}
+*[class*="container-"]:hover .grid-5:hover {
+  background-image: url(images/c5.png), url(images/cbg-rtl.png) !important;
+}
+*[class*="container-"]:hover .grid-6:hover {
+  background-image: url(images/c6.png), url(images/cbg-rtl.png) !important;
+}
+*[class*="container-"]:hover .grid-7:hover {
+  background-image: url(images/c7.png), url(images/cbg-rtl.png) !important;
+}
+*[class*="container-"]:hover .grid-8:hover {
+  background-image: url(images/c8.png), url(images/cbg-rtl.png) !important;
+}
+*[class*="container-"]:hover .grid-9:hover {
+  background-image: url(images/c9.png), url(images/cbg-rtl.png) !important;
+}
+*[class*="container-"]:hover .grid-10:hover {
+  background-image: url(images/c10.png), url(images/cbg-rtl.png) !important;
+}
+*[class*="container-"]:hover .grid-11:hover {
+  background-image: url(images/c11.png), url(images/cbg-rtl.png) !important;
+}
+*[class*="container-"]:hover .grid-12:hover {
+  background-image: url(images/c12.png), url(images/cbg-rtl.png) !important;
+}
+*[class*="container-"]:hover .grid-13:hover {
+  background-image: url(images/c13.png), url(images/cbg-rtl.png) !important;
+}
+*[class*="container-"]:hover .grid-14:hover {
+  background-image: url(images/c14.png), url(images/cbg-rtl.png) !important;
+}
+*[class*="container-"]:hover .grid-15:hover {
+  background-image: url(images/c15.png), url(images/cbg-rtl.png) !important;
+}
+*[class*="container-"]:hover .grid-16:hover {
+  background-image: url(images/c16.png), url(images/cbg-rtl.png) !important;
+}
+*[class*="container-"]:hover .grid-17:hover {
+  background-image: url(images/c17.png), url(images/cbg-rtl.png) !important;
+}
+*[class*="container-"]:hover .grid-18:hover {
+  background-image: url(images/c18.png), url(images/cbg-rtl.png) !important;
+}
+*[class*="container-"]:hover .grid-19:hover {
+  background-image: url(images/c19.png), url(images/cbg-rtl.png) !important;
+}
+*[class*="container-"]:hover .grid-20:hover {
+  background-image: url(images/c20.png), url(images/cbg-rtl.png) !important;
+}
+*[class*="container-"]:hover .grid-21:hover {
+  background-image: url(images/c21.png), url(images/cbg-rtl.png) !important;
+}
+*[class*="container-"]:hover .grid-22:hover {
+  background-image: url(images/c22.png), url(images/cbg-rtl.png) !important;
+}
+*[class*="container-"]:hover .grid-23:hover {
+  background-image: url(images/c23.png), url(images/cbg-rtl.png) !important;
+}
+*[class*="container-"]:hover .grid-24:hover {
+  background-image: url(images/c24.png), url(images/cbg-rtl.png) !important;
+}
+
+*[class*="container-"]:hover *[class*="prefix-"] {
+  border-right-style: solid !important;
+  border-left-width: 0 !important;
+  padding-right: 0 !important;
+}
+*[class*="container-"]:hover *[class*="suffix-"] {
+  border-left-style: solid !important;
+  border-right-width: 0 !important;
+  padding-left: 0 !important;
+}
+
+/* `Prefix Extra Space >> Global */
+.container-12:hover .prefix-3,
+.container-16:hover .prefix-4 {
+  border-right-width: 240px !important;
+}
+.container-12:hover .prefix-6,
+.container-16:hover .prefix-8 {
+  border-right-width: 480px !important;
+}
+.container-12:hover .prefix-9,
+.container-16:hover .prefix-12 {
+  border-right-width: 720px !important;
+}
+/* `Prefix Extra Space >> 12 Columns */
+.container-12:hover .prefix-1 {
+  border-right-width: 80px !important;
+}
+.container-12:hover .prefix-2 {
+  border-right-width: 160px !important;
+}
+.container-12:hover .prefix-4 {
+  border-right-width: 320px !important;
+}
+.container-12:hover .prefix-5 {
+  border-right-width: 400px !important;
+}
+.container-12:hover .prefix-7 {
+  border-right-width: 560px !important;
+}
+.container-12:hover .prefix-8 {
+  border-right-width: 640px !important;
+}
+.container-12:hover .prefix-10 {
+  border-right-width: 800px !important;
+}
+.container-12:hover .prefix-11 {
+  border-right-width: 880px !important;
+}
+/* `Prefix Extra Space >> 16 Columns */
+.container-16:hover .prefix-1 {
+  border-right-width: 60px !important;
+}
+.container-16:hover .prefix-2 {
+  border-right-width: 120px !important;
+}
+.container-16:hover .prefix-3 {
+  border-right-width: 180px !important;
+}
+.container-16:hover .prefix-5 {
+  border-right-width: 300px !important;
+}
+.container-16:hover .prefix-6 {
+  border-right-width: 360px !important;
+}
+.container-16:hover .prefix-7 {
+  border-right-width: 420px !important;
+}
+.container-16:hover .prefix-9 {
+  border-right-width: 540px !important;
+}
+.container-16:hover .prefix-10 {
+  border-right-width: 600px !important;
+}
+.container-16:hover .prefix-11 {
+  border-right-width: 660px !important;
+}
+.container-16:hover .prefix-13 {
+  border-right-width: 780px !important;
+}
+.container-16:hover .prefix-14 {
+  border-right-width: 840px !important;
+}
+.container-16:hover .prefix-15 {
+  border-right-width: 900px !important;
+}
+/* `Suffix Extra Space >> Global */
+.container-12:hover .suffix-3,
+.container-16:hover .suffix-4 {
+  border-left-width: 240px !important;
+}
+.container-12:hover .suffix-6,
+.container-16:hover .suffix-8 {
+  border-left-width: 480px !important;
+}
+.container-12:hover .suffix-9,
+.container-16:hover .suffix-12 {
+  border-left-width: 720px !important;
+}
+/* `Suffix Extra Space >> 12 Columns */
+.container-12:hover .suffix-1 {
+  border-left-width: 80px !important;
+}
+.container-12:hover .suffix-2 {
+  border-left-width: 160px !important;
+}
+.container-12:hover .suffix-4 {
+  border-left-width: 320px !important;
+}
+.container-12:hover .suffix-5 {
+  border-left-width: 400px !important;
+}
+.container-12:hover .suffix-7 {
+  border-left-width: 560px !important;
+}
+.container-12:hover .suffix-8 {
+  border-left-width: 640px !important;
+}
+.container-12:hover .suffix-10 {
+  border-left-width: 800px !important;
+}
+.container-12:hover .suffix-11 {
+  border-left-width: 880px !important;
+}
+/* `Suffix Extra Space >> 16 Columns */
+.container-16:hover .suffix-1 {
+  border-left-width: 60px !important;
+}
+.container-16:hover .suffix-2 {
+  border-left-width: 120px !important;
+}
+.container-16:hover .suffix-3 {
+  border-left-width: 180px !important;
+}
+.container-16:hover .suffix-5 {
+  border-left-width: 300px !important;
+}
+.container-16:hover .suffix-6 {
+  border-left-width: 360px !important;
+}
+.container-16:hover .suffix-7 {
+  border-left-width: 420px !important;
+}
+.container-16:hover .suffix-9 {
+  border-left-width: 540px !important;
+}
+.container-16:hover .suffix-10 {
+  border-left-width: 600px !important;
+}
+.container-16:hover .suffix-11 {
+  border-left-width: 660px !important;
+}
+.container-16:hover .suffix-13 {
+  border-left-width: 780px !important;
+}
+.container-16:hover .suffix-14 {
+  border-left-width: 840px !important;
+}
+.container-16:hover .suffix-15 {
+  border-left-width: 900px !important;
+}
+/* `Prefix Extra Space >> 24 Columns */
+.container-24:hover .prefix-1 {
+  border-right-width: 40px !important;
+}
+.container-24:hover .prefix-2 {
+  border-right-width: 80px !important;
+}
+.container-24:hover .prefix-3 {
+  border-right-width: 120px !important;
+}
+.container-24:hover .prefix-4 {
+  border-right-width: 160px !important;
+}
+.container-24:hover .prefix-5 {
+  border-right-width: 200px !important;
+}
+.container-24:hover .prefix-6 {
+  border-right-width: 240px !important;
+}
+.container-24:hover .prefix-7 {
+  border-right-width: 280px !important;
+}
+.container-24:hover .prefix-8 {
+  border-right-width: 320px !important;
+}
+.container-24:hover .prefix-9 {
+  border-right-width: 360px !important;
+}
+.container-24:hover .prefix-10 {
+  border-right-width: 400px !important;
+}
+.container-24:hover .prefix-11 {
+  border-right-width: 440px !important;
+}
+.container-24:hover .prefix-12 {
+  border-right-width: 480px !important;
+}
+.container-24:hover .prefix-13 {
+  border-right-width: 520px !important;
+}
+.container-24:hover .prefix-14 {
+  border-right-width: 560px !important;
+}
+.container-24:hover .prefix-15 {
+  border-right-width: 600px !important;
+}
+.container-24:hover .prefix-16 {
+  border-right-width: 640px !important;
+}
+.container-24:hover .prefix-17 {
+  border-right-width: 680px !important;
+}
+.container-24:hover .prefix-18 {
+  border-right-width: 720px !important;
+}
+.container-24:hover .prefix-19 {
+  border-right-width: 760px !important;
+}
+.container-24:hover .prefix-20 {
+  border-right-width: 800px !important;
+}
+.container-24:hover .prefix-21 {
+  border-right-width: 840px !important;
+}
+.container-24:hover .prefix-22 {
+  border-right-width: 880px !important;
+}
+.container-24:hover .prefix-23 {
+  border-right-width: 920px !important;
+}
+/* `Suffix Extra Space >> 24 Columns */
+.container-24:hover .suffix-1 {
+  border-left-width: 40px !important;
+}
+.container-24:hover .suffix-2 {
+  border-left-width: 80px !important;
+}
+.container-24:hover .suffix-3 {
+  border-left-width: 120px !important;
+}
+.container-24:hover .suffix-4 {
+  border-left-width: 160px !important;
+}
+.container-24:hover .suffix-5 {
+  border-left-width: 200px !important;
+}
+.container-24:hover .suffix-6 {
+  border-left-width: 240px !important;
+}
+.container-24:hover .suffix-7 {
+  border-left-width: 280px !important;
+}
+.container-24:hover .suffix-8 {
+  border-left-width: 320px !important;
+}
+.container-24:hover .suffix-9 {
+  border-left-width: 360px !important;
+}
+.container-24:hover .suffix-10 {
+  border-left-width: 400px !important;
+}
+.container-24:hover .suffix-11 {
+  border-left-width: 440px !important;
+}
+.container-24:hover .suffix-12 {
+  border-left-width: 480px !important;
+}
+.container-24:hover .suffix-13 {
+  border-left-width: 520px !important;
+}
+.container-24:hover .suffix-14 {
+  border-left-width: 560px !important;
+}
+.container-24:hover .suffix-15 {
+  border-left-width: 600px !important;
+}
+.container-24:hover .suffix-16 {
+  border-left-width: 640px !important;
+}
+.container-24:hover .suffix-17 {
+  border-left-width: 680px !important;
+}
+.container-24:hover .suffix-18 {
+  border-left-width: 720px !important;
+}
+.container-24:hover .suffix-19 {
+  border-left-width: 760px !important;
+}
+.container-24:hover .suffix-20 {
+  border-left-width: 800px !important;
+}
+.container-24:hover .suffix-21 {
+  border-left-width: 840px !important;
+}
+.container-24:hover .suffix-22 {
+  border-left-width: 880px !important;
+}
+.container-24:hover .suffix-23 {
+  border-left-width: 920px !important;
+}
+
+/* push/pull setup for labels through generated content. */
+*[class*="container-"]:hover *[class*="push-"]:before,
+*[class*="container-"]:hover *[class*="pull-"]:before {
+  left: auto !important;
+  right: 0 !important;
+}
+/* push info. is RTL specific. */
+*[class*="container-"]:hover .push-1:before {
+  content: '← push 1' !important;
+}
+*[class*="container-"]:hover .push-2:before {
+  content: '← push 2' !important;
+}
+*[class*="container-"]:hover .push-3:before {
+  content: '← push 3' !important;
+}
+*[class*="container-"]:hover .push-4:before {
+  content: '← push 4' !important;
+}
+*[class*="container-"]:hover .push-5:before {
+  content: '← push 5' !important;
+}
+*[class*="container-"]:hover .push-6:before {
+  content: '← push 6' !important;
+}
+*[class*="container-"]:hover .push-7:before {
+  content: '← push 7' !important;
+}
+*[class*="container-"]:hover .push-8:before {
+  content: '← push 8' !important;
+}
+*[class*="container-"]:hover .push-9:before {
+  content: '← push 9' !important;
+}
+*[class*="container-"]:hover .push-10:before {
+  content: '← push 10' !important;
+}
+*[class*="container-"]:hover .push-11:before {
+  content: '← push 11' !important;
+}
+*[class*="container-"]:hover .push-12:before {
+  content: '← push 12' !important;
+}
+*[class*="container-"]:hover .push-13:before {
+  content: '← push 13' !important;
+}
+*[class*="container-"]:hover .push-14:before {
+  content: '← push 14' !important;
+}
+*[class*="container-"]:hover .push-15:before {
+  content: '← push 15' !important;
+}
+*[class*="container-"]:hover .push-16:before {
+  content: '← push 16' !important;
+}
+*[class*="container-"]:hover .push-17:before {
+  content: '← push 17' !important;
+}
+*[class*="container-"]:hover .push-18:before {
+  content: '← push 18' !important;
+}
+*[class*="container-"]:hover .push-19:before {
+  content: '← push 19' !important;
+}
+*[class*="container-"]:hover .push-20:before {
+  content: '← push 20' !important;
+}
+*[class*="container-"]:hover .push-21:before {
+  content: '← push 21' !important;
+}
+*[class*="container-"]:hover .push-22:before {
+  content: '← push 22' !important;
+}
+*[class*="container-"]:hover .push-23:before {
+  content: '← push 23' !important;
+}
+/* pull info. is RTL specific. */
+*[class*="container-"]:hover .pull-1:before {
+  content: '→ pull 1' !important;
+}
+*[class*="container-"]:hover .pull-2:before {
+  content: '→ pull 2' !important;
+}
+*[class*="container-"]:hover .pull-3:before {
+  content: '→ pull 3' !important;
+}
+*[class*="container-"]:hover .pull-4:before {
+  content: '→ pull 4' !important;
+}
+*[class*="container-"]:hover .pull-5:before {
+  content: '→ pull 5' !important;
+}
+*[class*="container-"]:hover .pull-6:before {
+  content: '→ pull 6' !important;
+}
+*[class*="container-"]:hover .pull-7:before {
+  content: '→ pull 7' !important;
+}
+*[class*="container-"]:hover .pull-8:before {
+  content: '→ pull 8' !important;
+}
+*[class*="container-"]:hover .pull-9:before {
+  content: '→ pull 9' !important;
+}
+*[class*="container-"]:hover .pull-10:before {
+  content: '→ pull 10' !important;
+}
+*[class*="container-"]:hover .pull-11:before {
+  content: '→ pull 11' !important;
+}
+*[class*="container-"]:hover .pull-12:before {
+  content: '→ pull 12' !important;
+}
+*[class*="container-"]:hover .pull-13:before {
+  content: '→ pull 13' !important;
+}
+*[class*="container-"]:hover .pull-14:before {
+  content: '→ pull 14' !important;
+}
+*[class*="container-"]:hover .pull-15:before {
+  content: '→ pull 15' !important;
+}
+*[class*="container-"]:hover .pull-16:before {
+  content: '→ pull 16' !important;
+}
+*[class*="container-"]:hover .pull-17:before {
+  content: '→ pull 17' !important;
+}
+*[class*="container-"]:hover .pull-18:before {
+  content: '→ pull 18' !important;
+}
+*[class*="container-"]:hover .pull-19:before {
+  content: '→ pull 19' !important;
+}
+*[class*="container-"]:hover .pull-20:before {
+  content: '→ pull 20' !important;
+}
+*[class*="container-"]:hover .pull-21:before {
+  content: '→ pull 21' !important;
+}
+*[class*="container-"]:hover .pull-22:before {
+  content: '→ pull 22' !important;
+}
+*[class*="container-"]:hover .pull-23:before {
+  content: '→ pull 23' !important;
+}
+*[class*="container-"]:hover *[class*="push-"][class*="pull-"]:before {
+  content: 'push/pull conflict!' !important;
+}

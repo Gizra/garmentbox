@@ -1,0 +1,872 @@
+
+/*
+** "container mode"
+** Hover body to emphasize containers. Blends columns/ruler with the existing design.
+*/
+
+body:hover .container-12,
+body:hover .container-16,
+body:hover .container-24 {
+  position: relative !important;
+  background-repeat: repeat !important;
+  background-position: top left !important;
+     -moz-box-shadow: 0 0 3px rgba(127,127,255,.5) !important;
+  -webkit-box-shadow: 0 0 3px rgba(127,127,255,.5) !important;
+          box-shadow: 0 0 3px rgba(127,127,255,.5) !important;
+     -moz-transition: -moz-box-shadow    .2s;
+  -webkit-transition: -webkit-box-shadow .2s;
+          transition: box-shadow         .2s;
+}
+
+body:hover .container-12 {
+  background-image: url(images/col-60px.png) !important;
+}
+body:hover .container-16 {
+  background-image: url(images/col-40px.png) !important;
+}
+body:hover .container-24 {
+  background-image: url(images/col-30px.png) !important;
+}
+body:hover .container-12:not(:hover),
+body:hover .container-16:not(:hover),
+body:hover .container-24:not(:hover) {
+  background-color: rgba(255,0,0,.15) !important;
+}
+
+/* generate rulers into foreground for increased visibility. */
+body:hover .container-12:not(:hover):before,
+body:hover .container-16:not(:hover):before,
+body:hover .container-24:not(:hover):before {
+  position: absolute !important;
+  top: 0;
+  left: 10px; /* LTR */
+}
+body:hover .container-12:not(:hover):before {
+  content: url(images/ruler-12.png); /* LTR */
+}
+body:hover .container-16:not(:hover):before {
+  content: url(images/ruler-16.png); /* LTR */
+}
+body:hover .container-24:not(:hover):before {
+  left: 5px; /* LTR */
+}
+body:hover .container-24:not(:hover):before {
+  content: url(images/ruler-24.png); /* LTR */
+}
+
+/* fade slightly so underlying columns show through. */
+body:hover .container-12 > *,
+body:hover .container-16 > *,
+body:hover .container-24 > * {
+  opacity: .6 !important;
+     -moz-transition: opacity .2s;
+       -o-transition: opacity .2s;
+  -webkit-transition: opacity .2s;
+          transition: opacity .2s;
+}
+
+/*
+** "grid mode"
+** Focus on grids. Also illustrate prefix, suffix, push and pull.
+*/
+
+body .container-12:hover,
+body .container-16:hover,
+body .container-24:hover {
+  z-index: 100;
+     -moz-box-shadow: 0 0 8px rgba(27,27,100,.7) !important;
+  -webkit-box-shadow: 0 0 8px rgba(27,27,100,.7) !important;
+          box-shadow: 0 0 8px rgba(27,27,100,.7) !important;
+}
+body .container-12:hover > *,
+body .container-16:hover > *,
+body .container-24:hover > * {
+  opacity: 1 !important;
+}
+
+/* On container hover, all elements are reset for better visibility. */
+.container-12:hover,
+.container-16:hover,
+.container-24:hover,
+.container-12:hover *,
+.container-16:hover *,
+.container-24:hover * {
+  color: rgba(0,0,0,.5) !important;
+  border-color: rgba(0,0,0,.5) !important;
+  text-shadow: none !important;
+}
+.container-12:hover,
+.container-16:hover,
+.container-24:hover {
+  background-color: rgba(255,255,255,.9) !important;
+}
+.container-12:hover *,
+.container-16:hover *,
+.container-24:hover * {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+.container-12:hover a,
+.container-16:hover a,
+.container-24:hover a {
+  text-decoration: underline !important;
+}
+.container-12:hover img,
+.container-16:hover img,
+.container-24:hover img,
+.container-12:hover embed,
+.container-16:hover embed,
+.container-24:hover embed,
+.container-12:hover iframe,
+.container-16:hover iframe,
+.container-24:hover iframe {
+  opacity: .6 !important;
+}
+
+*[class*="container-"]:hover *[class*="grid-"] {
+  background-color: rgba(200,0,0,.075) !important;
+     -moz-box-shadow: inset 1px 1px 1px rgba(0,0,0,.2) !important;
+  -webkit-box-shadow: inset 1px 1px 1px rgba(0,0,0,.2) !important;
+          box-shadow: inset 1px 1px 1px rgba(0,0,0,.2) !important;
+     -moz-transition: min-height, outline-offset .2s;
+       -o-transition: min-height, outline-offset .2s;
+  -webkit-transition: min-height, outline-offset .2s;
+          transition: min-height, outline-offset .2s;
+}
+/* ignore transitions for alpha/omega. conflicts with grid counter. */
+*[class*="container-"]:hover *[class*="grid-"]:not(.alpha):not(.omega) {
+     -moz-transition: min-height, background-position .2s;
+       -o-transition: min-height, background-position .2s;
+  -webkit-transition: min-height, background-position .2s;
+          transition: min-height, background-position .2s;
+}
+
+*[class*="container-"]:hover .alpha,
+*[class*="container-"]:hover .omega {
+  background-image: url(images/indicate.png) !important;
+  background-repeat: no-repeat !important;
+}
+*[class*="container-"]:hover .alpha {
+  background-position: 0 12px !important; /* LTR */
+}
+*[class*="container-"]:hover .omega {
+  background-position: 100% 12px !important; /* LTR */
+}
+/* uses 2 layers of background images. */
+*[class*="container-"]:hover .alpha.omega {
+  background-image: url(images/indicate.png), url(images/indicate.png) !important;
+  background-position: 0 12px, 100% 12px !important;
+}
+
+/* subtle hint on grid margins. */
+*[class*="container-"]:hover *[class*="grid-"]:hover:not(.alpha):not(.omega) {
+     -moz-box-shadow: inset 1px 1px 1px rgba(0,0,0,.2),
+                          -10px 0 0 rgba(255,127,127,.1),
+                           10px 0 0 rgba(255,63,63,.1) !important;
+  -webkit-box-shadow: inset 1px 1px 1px rgba(0,0,0,.2),
+                          -10px 0 0 rgba(255,127,127,.1),
+                           10px 0 0 rgba(255,63,63,.1) !important;
+          box-shadow: inset 1px 1px 1px rgba(0,0,0,.2),
+                          -10px 0 0 rgba(255,127,127,.1),
+                           10px 0 0 rgba(255,63,63,.1) !important;
+}
+*[class*="container-"]:hover *[class*="grid-"].alpha:hover:not(.omega) {
+     -moz-box-shadow: 10px 0 0 rgba(255,127,127,.1) !important;
+  -webkit-box-shadow: 10px 0 0 rgba(255,127,127,.1) !important;
+          box-shadow: 10px 0 0 rgba(255,127,127,.1) !important;
+}
+*[class*="container-"]:hover *[class*="grid-"].omega:hover:not(.alpha) {
+     -moz-box-shadow: -10px 0 0 rgba(255,63,63,.1) !important;
+  -webkit-box-shadow: -10px 0 0 rgba(255,63,63,.1) !important;
+          box-shadow: -10px 0 0 rgba(255,63,63,.1) !important;
+}
+/* grids for 24 column container uses 5px margins. */
+.container-24:hover *[class*="grid-"]:hover:not(.alpha):not(.omega) {
+     -moz-box-shadow: inset 1px 1px 1px rgba(0,0,0,.2),
+                           -5px 0 0 rgba(255,127,127,.1),
+                            5px 0 0 rgba(255,63,63,.1) !important;
+  -webkit-box-shadow: inset 1px 1px 1px rgba(0,0,0,.2),
+                           -5px 0 0 rgba(255,127,127,.1),
+                            5px 0 0 rgba(255,63,63,.1) !important;
+          box-shadow: inset 1px 1px 1px rgba(0,0,0,.2),
+                           -5px 0 0 rgba(255,127,127,.1),
+                            5px 0 0 rgba(255,63,63,.1) !important;
+}
+.container-24:hover *[class*="grid-"].alpha:hover:not(.omega) {
+     -moz-box-shadow: 5px 0 0 rgba(255,127,127,.1) !important;
+  -webkit-box-shadow: 5px 0 0 rgba(255,127,127,.1) !important;
+          box-shadow: 5px 0 0 rgba(255,127,127,.1) !important;
+}
+.container-24:hover *[class*="grid-"].omega:hover:not(.alpha) {
+     -moz-box-shadow: -5px 0 0 rgba(255,63,63,.1) !important;
+  -webkit-box-shadow: -5px 0 0 rgba(255,63,63,.1) !important;
+          box-shadow: -5px 0 0 rgba(255,63,63,.1) !important;
+}
+
+/* A little hint/warning for embeded grids. Follow margin/gutters. */
+*[class*="container-"]:hover *[class*="grid-"] *[class*="grid-"] {
+  outline: 1px dotted rgba(0,0,0,.25) !important;
+}
+*[class*="container-"]:hover *[class*="grid-"]:hover *[class*="grid-"]:hover {
+  outline-color: rgba(255,0,0,.2) !important;
+  outline-offset: 10px;
+}
+*[class*="container-"]:hover *[class*="grid-"] *[class*="grid-"] *[class*="grid-"]:hover {
+  outline-offset: 20px;
+}
+*[class*="container-"]:hover *[class*="grid-"] *[class*="grid-"] *[class*="grid-"] *[class*="grid-"]:hover {
+  outline-offset: 30px;
+}
+*[class*="container-"]:hover *[class*="grid-"] *[class*="grid-"] *[class*="grid-"] *[class*="grid-"] *[class*="grid-"]:hover {
+  outline-offset: 40px;
+}
+*[class*="container-"]:hover *[class*="grid-"] *[class*="grid-"] *[class*="grid-"] *[class*="grid-"] *[class*="grid-"] *[class*="grid-"]:hover {
+  outline-offset: 50px;
+}
+.container-24:hover *[class*="grid-"]:hover *[class*="grid-"]:hover {
+  outline-offset: 5px;
+}
+.container-24:hover *[class*="grid-"] *[class*="grid-"] *[class*="grid-"]:hover {
+  outline-offset: 10px;
+}
+.container-24:hover *[class*="grid-"] *[class*="grid-"] *[class*="grid-"] *[class*="grid-"]:hover {
+  outline-offset: 15px;
+}
+.container-24:hover *[class*="grid-"] *[class*="grid-"] *[class*="grid-"] *[class*="grid-"] *[class*="grid-"]:hover {
+  outline-offset: 20px;
+}
+.container-24:hover *[class*="grid-"] *[class*="grid-"] *[class*="grid-"] *[class*="grid-"] *[class*="grid-"] *[class*="grid-"]:hover {
+  outline-offset: 25px;
+}
+
+*[class*="container-"] *[class*="grid-"]:hover,
+*[class*="container-"] *[class*="grid-"]:hover * {
+  color: rgba(0,0,0,.25) !important;
+}
+*[class*="container-"] *[class*="grid-"]:hover * {
+  border-color: rgba(0,0,0,.25) !important;
+}
+*[class*="container-"] *[class*="grid-"] *:hover {
+  color: rgba(0,0,0,.75) !important;
+  border-color: rgba(0,0,0,.75) !important;
+}
+*[class*="container-"] *[class*="grid-"]:hover img,
+*[class*="container-"] *[class*="grid-"]:hover embed,
+*[class*="container-"] *[class*="grid-"]:hover iframe {
+  opacity: .25 !important;
+}
+*[class*="container-"] *[class*="grid-"] img:hover,
+*[class*="container-"] *[class*="grid-"] embed:hover,
+*[class*="container-"] *[class*="grid-"] iframe:hover {
+  opacity: .75 !important;
+}
+
+/* setup for transition on column counter. */
+*[class*="container-"]:hover *[class*="grid-"]:not(.alpha):not(.omega) {
+  background-position: 100% -18px, 100% 0 !important; /* LTR */
+}
+/* needs a more specific selector to override '*[class*="container-"]:hover .alpha.omega' */
+body:hover *[class*="container-"]:hover *[class*="grid-"]:hover {
+  min-height: 16px;
+  outline-color: rgba(0,0,0,.5) !important;
+  outline: 1px solid rgba(0,0,0,.5) !important;
+  background-position: 100% 0, 100% 0 !important; /* LTR */
+  background-repeat: no-repeat !important;
+  background-color: rgba(255,0,0,.1) !important;
+}
+*[class*="container-"]:hover .grid-1:hover {
+  background-image: url(images/c1.png), url(images/cbg.png) !important;
+}
+*[class*="container-"]:hover .grid-2:hover {
+  background-image: url(images/c2.png), url(images/cbg.png) !important;
+}
+*[class*="container-"]:hover .grid-3:hover {
+  background-image: url(images/c3.png), url(images/cbg.png) !important;
+}
+*[class*="container-"]:hover .grid-4:hover {
+  background-image: url(images/c4.png), url(images/cbg.png) !important;
+}
+*[class*="container-"]:hover .grid-5:hover {
+  background-image: url(images/c5.png), url(images/cbg.png) !important;
+}
+*[class*="container-"]:hover .grid-6:hover {
+  background-image: url(images/c6.png), url(images/cbg.png) !important;
+}
+*[class*="container-"]:hover .grid-7:hover {
+  background-image: url(images/c7.png), url(images/cbg.png) !important;
+}
+*[class*="container-"]:hover .grid-8:hover {
+  background-image: url(images/c8.png), url(images/cbg.png) !important;
+}
+*[class*="container-"]:hover .grid-9:hover {
+  background-image: url(images/c9.png), url(images/cbg.png) !important;
+}
+*[class*="container-"]:hover .grid-10:hover {
+  background-image: url(images/c10.png), url(images/cbg.png) !important;
+}
+*[class*="container-"]:hover .grid-11:hover {
+  background-image: url(images/c11.png), url(images/cbg.png) !important;
+}
+*[class*="container-"]:hover .grid-12:hover {
+  background-image: url(images/c12.png), url(images/cbg.png) !important;
+}
+*[class*="container-"]:hover .grid-13:hover {
+  background-image: url(images/c13.png), url(images/cbg.png) !important;
+}
+*[class*="container-"]:hover .grid-14:hover {
+  background-image: url(images/c14.png), url(images/cbg.png) !important;
+}
+*[class*="container-"]:hover .grid-15:hover {
+  background-image: url(images/c15.png), url(images/cbg.png) !important;
+}
+*[class*="container-"]:hover .grid-16:hover {
+  background-image: url(images/c16.png), url(images/cbg.png) !important;
+}
+*[class*="container-"]:hover .grid-17:hover {
+  background-image: url(images/c17.png), url(images/cbg.png) !important;
+}
+*[class*="container-"]:hover .grid-18:hover {
+  background-image: url(images/c18.png), url(images/cbg.png) !important;
+}
+*[class*="container-"]:hover .grid-19:hover {
+  background-image: url(images/c19.png), url(images/cbg.png) !important;
+}
+*[class*="container-"]:hover .grid-20:hover {
+  background-image: url(images/c20.png), url(images/cbg.png) !important;
+}
+*[class*="container-"]:hover .grid-21:hover {
+  background-image: url(images/c21.png), url(images/cbg.png) !important;
+}
+*[class*="container-"]:hover .grid-22:hover {
+  background-image: url(images/c22.png), url(images/cbg.png) !important;
+}
+*[class*="container-"]:hover .grid-23:hover {
+  background-image: url(images/c23.png), url(images/cbg.png) !important;
+}
+*[class*="container-"]:hover .grid-24:hover {
+  background-image: url(images/c24.png), url(images/cbg.png) !important;
+}
+
+/* push/pull setup for labels through generated content. */
+*[class*="container-"]:hover *[class*="push-"]:before,
+*[class*="container-"]:hover *[class*="pull-"]:before {
+  font-size: 12px !important;
+  font-weight: normal !important;
+  white-space: nowrap !important;
+  text-decoration: none !important;
+  text-indent: 0 !important;
+  line-height: 1.2 !important;
+  position: absolute !important;
+  top: -1.75em !important;
+  left: 0 !important; /* LTR */
+  padding: .1em .5em !important;
+  color: rgba(255,255,255,.8) !important;
+  background-color: rgba(100,100,100,.5) !important;
+  -webkit-border-radius: 3px !important;
+     -moz-border-radius: 3px !important;
+          border-radius: 3px !important;
+     -moz-box-shadow: 0px 1px 1px rgba(0,0,0,.2) !important;
+  -webkit-box-shadow: 0px 1px 1px rgba(0,0,0,.2) !important;
+          box-shadow: 0px 1px 1px rgba(0,0,0,.2) !important;
+}
+*[class*="container-"] *[class*="push-"]:hover:before,
+*[class*="container-"] *[class*="pull-"]:hover:before {
+  background-color: rgba(0,0,0,.5) !important;
+}
+/* push info. is LTR specific. */
+*[class*="container-"]:hover .push-1:before {
+  content: '→ push 1' !important;
+}
+*[class*="container-"]:hover .push-2:before {
+  content: '→ push 2' !important;
+}
+*[class*="container-"]:hover .push-3:before {
+  content: '→ push 3' !important;
+}
+*[class*="container-"]:hover .push-4:before {
+  content: '→ push 4' !important;
+}
+*[class*="container-"]:hover .push-5:before {
+  content: '→ push 5' !important;
+}
+*[class*="container-"]:hover .push-6:before {
+  content: '→ push 6' !important;
+}
+*[class*="container-"]:hover .push-7:before {
+  content: '→ push 7' !important;
+}
+*[class*="container-"]:hover .push-8:before {
+  content: '→ push 8' !important;
+}
+*[class*="container-"]:hover .push-9:before {
+  content: '→ push 9' !important;
+}
+*[class*="container-"]:hover .push-10:before {
+  content: '→ push 10' !important;
+}
+*[class*="container-"]:hover .push-11:before {
+  content: '→ push 11' !important;
+}
+*[class*="container-"]:hover .push-12:before {
+  content: '→ push 12' !important;
+}
+*[class*="container-"]:hover .push-13:before {
+  content: '→ push 13' !important;
+}
+*[class*="container-"]:hover .push-14:before {
+  content: '→ push 14' !important;
+}
+*[class*="container-"]:hover .push-15:before {
+  content: '→ push 15' !important;
+}
+*[class*="container-"]:hover .push-16:before {
+  content: '→ push 16' !important;
+}
+*[class*="container-"]:hover .push-17:before {
+  content: '→ push 17' !important;
+}
+*[class*="container-"]:hover .push-18:before {
+  content: '→ push 18' !important;
+}
+*[class*="container-"]:hover .push-19:before {
+  content: '→ push 19' !important;
+}
+*[class*="container-"]:hover .push-20:before {
+  content: '→ push 20' !important;
+}
+*[class*="container-"]:hover .push-21:before {
+  content: '→ push 21' !important;
+}
+*[class*="container-"]:hover .push-22:before {
+  content: '→ push 22' !important;
+}
+*[class*="container-"]:hover .push-23:before {
+  content: '→ push 23' !important;
+}
+/* pull info. is LTR specific. */
+*[class*="container-"]:hover .pull-1:before {
+  content: '← pull 1' !important;
+}
+*[class*="container-"]:hover .pull-2:before {
+  content: '← pull 2' !important;
+}
+*[class*="container-"]:hover .pull-3:before {
+  content: '← pull 3' !important;
+}
+*[class*="container-"]:hover .pull-4:before {
+  content: '← pull 4' !important;
+}
+*[class*="container-"]:hover .pull-5:before {
+  content: '← pull 5' !important;
+}
+*[class*="container-"]:hover .pull-6:before {
+  content: '← pull 6' !important;
+}
+*[class*="container-"]:hover .pull-7:before {
+  content: '← pull 7' !important;
+}
+*[class*="container-"]:hover .pull-8:before {
+  content: '← pull 8' !important;
+}
+*[class*="container-"]:hover .pull-9:before {
+  content: '← pull 9' !important;
+}
+*[class*="container-"]:hover .pull-10:before {
+  content: '← pull 10' !important;
+}
+*[class*="container-"]:hover .pull-11:before {
+  content: '← pull 11' !important;
+}
+*[class*="container-"]:hover .pull-12:before {
+  content: '← pull 12' !important;
+}
+*[class*="container-"]:hover .pull-13:before {
+  content: '← pull 13' !important;
+}
+*[class*="container-"]:hover .pull-14:before {
+  content: '← pull 14' !important;
+}
+*[class*="container-"]:hover .pull-15:before {
+  content: '← pull 15' !important;
+}
+*[class*="container-"]:hover .pull-16:before {
+  content: '← pull 16' !important;
+}
+*[class*="container-"]:hover .pull-17:before {
+  content: '← pull 17' !important;
+}
+*[class*="container-"]:hover .pull-18:before {
+  content: '← pull 18' !important;
+}
+*[class*="container-"]:hover .pull-19:before {
+  content: '← pull 19' !important;
+}
+*[class*="container-"]:hover .pull-20:before {
+  content: '← pull 20' !important;
+}
+*[class*="container-"]:hover .pull-21:before {
+  content: '← pull 21' !important;
+}
+*[class*="container-"]:hover .pull-22:before {
+  content: '← pull 22' !important;
+}
+*[class*="container-"]:hover .pull-23:before {
+  content: '← pull 23' !important;
+}
+/* invalid info. needs to be overridden in RTL. */
+*[class*="container-"]:hover *[class*="push-"][class*="pull-"]:before {
+  content: 'push/pull conflict!' !important;
+  background-color: rgba(255,0,0,.5) !important;
+  z-index: 100;
+}
+
+/*
+** Convert padding into borders to give them color for prefix/suffix classes.
+** All the following prefix/suffix overrides need a RTL counterpart.
+*/
+
+*[class*="container-"]:hover *[class*="prefix-"],
+*[class*="container-"]:hover *[class*="suffix-"] {
+  border-color: rgba(0,0,255,.075) !important;
+}
+*[class*="container-"]:hover *[class*="prefix-"] {
+  border-left-style: solid !important;
+  padding-left: 0 !important;
+}
+*[class*="container-"]:hover *[class*="suffix-"] {
+  border-right-style: solid !important;
+  padding-right: 0 !important;
+}
+
+/* `Prefix Extra Space >> Global */
+.container-12:hover .prefix-3,
+.container-16:hover .prefix-4 {
+  border-left-width: 240px !important;
+}
+.container-12:hover .prefix-6,
+.container-16:hover .prefix-8 {
+  border-left-width: 480px !important;
+}
+.container-12:hover .prefix-9,
+.container-16:hover .prefix-12 {
+  border-left-width: 720px !important;
+}
+/* `Prefix Extra Space >> 12 Columns */
+.container-12:hover .prefix-1 {
+  border-left-width: 80px !important;
+}
+.container-12:hover .prefix-2 {
+  border-left-width: 160px !important;
+}
+.container-12:hover .prefix-4 {
+  border-left-width: 320px !important;
+}
+.container-12:hover .prefix-5 {
+  border-left-width: 400px !important;
+}
+.container-12:hover .prefix-7 {
+  border-left-width: 560px !important;
+}
+.container-12:hover .prefix-8 {
+  border-left-width: 640px !important;
+}
+.container-12:hover .prefix-10 {
+  border-left-width: 800px !important;
+}
+.container-12:hover .prefix-11 {
+  border-left-width: 880px !important;
+}
+/* `Prefix Extra Space >> 16 Columns */
+.container-16:hover .prefix-1 {
+  border-left-width: 60px !important;
+}
+.container-16:hover .prefix-2 {
+  border-left-width: 120px !important;
+}
+.container-16:hover .prefix-3 {
+  border-left-width: 180px !important;
+}
+.container-16:hover .prefix-5 {
+  border-left-width: 300px !important;
+}
+.container-16:hover .prefix-6 {
+  border-left-width: 360px !important;
+}
+.container-16:hover .prefix-7 {
+  border-left-width: 420px !important;
+}
+.container-16:hover .prefix-9 {
+  border-left-width: 540px !important;
+}
+.container-16:hover .prefix-10 {
+  border-left-width: 600px !important;
+}
+.container-16:hover .prefix-11 {
+  border-left-width: 660px !important;
+}
+.container-16:hover .prefix-13 {
+  border-left-width: 780px !important;
+}
+.container-16:hover .prefix-14 {
+  border-left-width: 840px !important;
+}
+.container-16:hover .prefix-15 {
+  border-left-width: 900px !important;
+}
+/* `Suffix Extra Space >> Global */
+.container-12:hover .suffix-3,
+.container-16:hover .suffix-4 {
+  border-right-width: 240px !important;
+}
+.container-12:hover .suffix-6,
+.container-16:hover .suffix-8 {
+  border-right-width: 480px !important;
+}
+.container-12:hover .suffix-9,
+.container-16:hover .suffix-12 {
+  border-right-width: 720px !important;
+}
+/* `Suffix Extra Space >> 12 Columns */
+.container-12:hover .suffix-1 {
+  border-right-width: 80px !important;
+}
+.container-12:hover .suffix-2 {
+  border-right-width: 160px !important;
+}
+.container-12:hover .suffix-4 {
+  border-right-width: 320px !important;
+}
+.container-12:hover .suffix-5 {
+  border-right-width: 400px !important;
+}
+.container-12:hover .suffix-7 {
+  border-right-width: 560px !important;
+}
+.container-12:hover .suffix-8 {
+  border-right-width: 640px !important;
+}
+.container-12:hover .suffix-10 {
+  border-right-width: 800px !important;
+}
+.container-12:hover .suffix-11 {
+  border-right-width: 880px !important;
+}
+/* `Suffix Extra Space >> 16 Columns */
+.container-16:hover .suffix-1 {
+  border-right-width: 60px !important;
+}
+.container-16:hover .suffix-2 {
+  border-right-width: 120px !important;
+}
+.container-16:hover .suffix-3 {
+  border-right-width: 180px !important;
+}
+.container-16:hover .suffix-5 {
+  border-right-width: 300px !important;
+}
+.container-16:hover .suffix-6 {
+  border-right-width: 360px !important;
+}
+.container-16:hover .suffix-7 {
+  border-right-width: 420px !important;
+}
+.container-16:hover .suffix-9 {
+  border-right-width: 540px !important;
+}
+.container-16:hover .suffix-10 {
+  border-right-width: 600px !important;
+}
+.container-16:hover .suffix-11 {
+  border-right-width: 660px !important;
+}
+.container-16:hover .suffix-13 {
+  border-right-width: 780px !important;
+}
+.container-16:hover .suffix-14 {
+  border-right-width: 840px !important;
+}
+.container-16:hover .suffix-15 {
+  border-right-width: 900px !important;
+}
+/* `Prefix Extra Space >> 24 Columns */
+.container-24:hover .prefix-1 {
+  border-left-width: 40px !important;
+}
+.container-24:hover .prefix-2 {
+  border-left-width: 80px !important;
+}
+.container-24:hover .prefix-3 {
+  border-left-width: 120px !important;
+}
+.container-24:hover .prefix-4 {
+  border-left-width: 160px !important;
+}
+.container-24:hover .prefix-5 {
+  border-left-width: 200px !important;
+}
+.container-24:hover .prefix-6 {
+  border-left-width: 240px !important;
+}
+.container-24:hover .prefix-7 {
+  border-left-width: 280px !important;
+}
+.container-24:hover .prefix-8 {
+  border-left-width: 320px !important;
+}
+.container-24:hover .prefix-9 {
+  border-left-width: 360px !important;
+}
+.container-24:hover .prefix-10 {
+  border-left-width: 400px !important;
+}
+.container-24:hover .prefix-11 {
+  border-left-width: 440px !important;
+}
+.container-24:hover .prefix-12 {
+  border-left-width: 480px !important;
+}
+.container-24:hover .prefix-13 {
+  border-left-width: 520px !important;
+}
+.container-24:hover .prefix-14 {
+  border-left-width: 560px !important;
+}
+.container-24:hover .prefix-15 {
+  border-left-width: 600px !important;
+}
+.container-24:hover .prefix-16 {
+  border-left-width: 640px !important;
+}
+.container-24:hover .prefix-17 {
+  border-left-width: 680px !important;
+}
+.container-24:hover .prefix-18 {
+  border-left-width: 720px !important;
+}
+.container-24:hover .prefix-19 {
+  border-left-width: 760px !important;
+}
+.container-24:hover .prefix-20 {
+  border-left-width: 800px !important;
+}
+.container-24:hover .prefix-21 {
+  border-left-width: 840px !important;
+}
+.container-24:hover .prefix-22 {
+  border-left-width: 880px !important;
+}
+.container-24:hover .prefix-23 {
+  border-left-width: 920px !important;
+}
+/* `Suffix Extra Space >> 24 Columns */
+.container-24:hover .suffix-1 {
+  border-right-width: 40px !important;
+}
+.container-24:hover .suffix-2 {
+  border-right-width: 80px !important;
+}
+.container-24:hover .suffix-3 {
+  border-right-width: 120px !important;
+}
+.container-24:hover .suffix-4 {
+  border-right-width: 160px !important;
+}
+.container-24:hover .suffix-5 {
+  border-right-width: 200px !important;
+}
+.container-24:hover .suffix-6 {
+  border-right-width: 240px !important;
+}
+.container-24:hover .suffix-7 {
+  border-right-width: 280px !important;
+}
+.container-24:hover .suffix-8 {
+  border-right-width: 320px !important;
+}
+.container-24:hover .suffix-9 {
+  border-right-width: 360px !important;
+}
+.container-24:hover .suffix-10 {
+  border-right-width: 400px !important;
+}
+.container-24:hover .suffix-11 {
+  border-right-width: 440px !important;
+}
+.container-24:hover .suffix-12 {
+  border-right-width: 480px !important;
+}
+.container-24:hover .suffix-13 {
+  border-right-width: 520px !important;
+}
+.container-24:hover .suffix-14 {
+  border-right-width: 560px !important;
+}
+.container-24:hover .suffix-15 {
+  border-right-width: 600px !important;
+}
+.container-24:hover .suffix-16 {
+  border-right-width: 640px !important;
+}
+.container-24:hover .suffix-17 {
+  border-right-width: 680px !important;
+}
+.container-24:hover .suffix-18 {
+  border-right-width: 720px !important;
+}
+.container-24:hover .suffix-19 {
+  border-right-width: 760px !important;
+}
+.container-24:hover .suffix-20 {
+  border-right-width: 800px !important;
+}
+.container-24:hover .suffix-21 {
+  border-right-width: 840px !important;
+}
+.container-24:hover .suffix-22 {
+  border-right-width: 880px !important;
+}
+.container-24:hover .suffix-23 {
+  border-right-width: 920px !important;
+}
+
+/*
+** clearfix without .clearfix because containers will always have inner floats.
+** Without this, it's possible for the background column guide to not show.
+*/
+.container-12:before,
+.container-16:before,
+.container-24:before,
+.container-12:after,
+.container-16:after,
+.container-24:after {
+  content: '\0020';
+  display: block;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+.container-12:after,
+.container-16:after,
+.container-24:after {
+  clear: both;
+  line-height: 0;
+}
+.container-12,
+.container-16,
+.container-24 {
+  zoom: 1;
+}
+
+/* clearfix reversal on select elements. */
+body:hover .container-12:not(:hover):before,
+body:hover .container-16:not(:hover):before,
+body:hover .container-24:not(:hover):before,
+*[class*="container-"]:hover *[class*="push-"]:before,
+*[class*="container-"]:hover *[class*="pull-"]:before {
+  z-index: 99;
+  overflow: visible;
+  visibility: visible;
+  width: auto;
+  height: auto;
+}
