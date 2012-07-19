@@ -499,6 +499,100 @@ function opengizra_item_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-item_instance-field_bom'
+  $fields['node-item_instance-field_bom'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_bom',
+      'foreign keys' => array(
+        'node' => array(
+          'columns' => array(
+            'target_id' => 'nid',
+          ),
+          'table' => 'node',
+        ),
+      ),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'module' => 'entityreference',
+      'settings' => array(
+        'handler' => 'base',
+        'handler_settings' => array(
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 0,
+            ),
+          ),
+          'sort' => array(
+            'direction' => 'ASC',
+            'field' => 'body:value',
+            'property' => 'title',
+            'type' => 'property',
+          ),
+          'target_bundles' => array(
+            'bom' => 'bom',
+          ),
+        ),
+        'handler_submit' => 'Change handler',
+        'target_type' => 'node',
+      ),
+      'translatable' => '0',
+      'type' => 'entityreference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'item_instance',
+      'default_value' => NULL,
+      'default_value_function' => '',
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => FALSE,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => 4,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_bom',
+      'label' => 'Bill of materials',
+      'required' => 0,
+      'settings' => array(
+        'behaviors' => array(
+          'prepopulate' => array(
+            'action' => 'none',
+            'fallback' => 'none',
+            'skip_perm' => '0',
+            'status' => 0,
+          ),
+        ),
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
+        'weight' => '1',
+      ),
+    ),
+  );
+
   // Exported field: 'node-item_instance-field_images'
   $fields['node-item_instance-field_images'] = array(
     'field_config' => array(
@@ -573,7 +667,7 @@ function opengizra_item_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_miw',
-        'weight' => 0,
+        'weight' => '0',
       ),
     ),
   );
@@ -672,100 +766,6 @@ function opengizra_item_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-item_instance-field_material'
-  $fields['node-item_instance-field_material'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_material',
-      'foreign keys' => array(
-        'node' => array(
-          'columns' => array(
-            'target_id' => 'nid',
-          ),
-          'table' => 'node',
-        ),
-      ),
-      'indexes' => array(
-        'target_id' => array(
-          0 => 'target_id',
-        ),
-      ),
-      'module' => 'entityreference',
-      'settings' => array(
-        'handler' => 'base',
-        'handler_settings' => array(
-          'behaviors' => array(
-            'views-select-list' => array(
-              'status' => 0,
-            ),
-          ),
-          'sort' => array(
-            'direction' => 'ASC',
-            'field' => 'body:value',
-            'property' => 'title',
-            'type' => 'property',
-          ),
-          'target_bundles' => array(
-            'material' => 'material',
-          ),
-        ),
-        'handler_submit' => 'Change handler',
-        'target_type' => 'node',
-      ),
-      'translatable' => '0',
-      'type' => 'entityreference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'item_instance',
-      'default_value' => NULL,
-      'default_value_function' => 'entityreference_prepopulate_field_default_value',
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'entityreference',
-          'settings' => array(
-            'link' => FALSE,
-          ),
-          'type' => 'entityreference_label',
-          'weight' => 1,
-        ),
-        'teaser' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'field_material',
-      'label' => 'Material',
-      'required' => 1,
-      'settings' => array(
-        'behaviors' => array(
-          'prepopulate' => array(
-            'action' => 'disable',
-            'fallback' => 'none',
-            'skip_perm' => '0',
-            'status' => 1,
-          ),
-        ),
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'options',
-        'settings' => array(),
-        'type' => 'options_select',
-        'weight' => '-3',
-      ),
-    ),
-  );
-
   // Exported field: 'node-item_instance-field_size_info'
   $fields['node-item_instance-field_size_info'] = array(
     'field_config' => array(
@@ -828,12 +828,12 @@ function opengizra_item_field_default_fields() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Bill of materials');
   t('Body');
   t('Collection');
   t('Image');
   t('Images');
   t('Item');
-  t('Material');
   t('SKU');
   t('Size');
   t('Size info');
