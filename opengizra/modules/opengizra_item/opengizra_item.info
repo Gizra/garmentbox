@@ -31,6 +31,7 @@ features[field][] = node-item_instance-field_size_info
 features[node][] = item
 features[node][] = item_instance
 features[page_manager_handlers][] = node_view_panel_context_2
+features[page_manager_handlers][] = node_view_panel_context_3
 features[taxonomy][] = item_status
 features[taxonomy][] = size
 features[variable][] = comment_anonymous_item
