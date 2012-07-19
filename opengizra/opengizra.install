@@ -280,11 +280,10 @@ function opengizra_standard_install() {
   $description = st('Use tags to group articles on similar topics into categories.');
   $help = st('Enter a comma-separated list of words to describe your content.');
   $vocabulary = (object) array(
+    'machine_name' => 'tags',
     'name' => 'Tags',
     'description' => $description,
-    'machine_name' => 'tags',
     'help' => $help,
-
   );
   taxonomy_vocabulary_save($vocabulary);
 
@@ -326,6 +325,26 @@ function opengizra_standard_install() {
     ),
   );
   field_create_instance($instance);
+
+   // FIXME:
+  // We need to build the taxonomy vocabulary, because they are not built
+  // by features on time.
+  $vocab_info = array(
+    'collection_status' => 'Collection status',
+    'item_status' => 'Item status',
+    'size' => 'Size',
+    'task_status' => 'Task status',
+  );
+
+  foreach ($vocab_info as $machine_name => $name) {
+    $vocabulary = (object) array(
+      'machine_name' => $machine_name,
+      'name' => $name,
+      'description' => '',
+      'help' => '',
+    );
+    taxonomy_vocabulary_save($vocabulary);
+  }
 
 
   // Create an image field named "Image", enabled for the 'article' content type.
