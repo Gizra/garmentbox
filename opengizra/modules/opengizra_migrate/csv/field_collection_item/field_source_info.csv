@@ -1,0 +1,11 @@
+Unique ID,Material,Vendor,Price
+fieldSourceInfo1,material1,vendor1,10
+fieldSourceInfo2,material1,vendor1,20
+fieldSourceInfo3,material1,vendor3,30
+fieldSourceInfo4,material2,vendor4,35
+fieldSourceInfo5,material3,vendor5,15.5
+fieldSourceInfo6,material4,vendor6,60
+fieldSourceInfo7,material5,vendor7,110
+fieldSourceInfo8,material6,vendor8,9
+fieldSourceInfo9,material7,vendor1,33
+fieldSourceInfo10,material8,vendor2,69

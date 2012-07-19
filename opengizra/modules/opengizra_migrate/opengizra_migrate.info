@@ -4,6 +4,7 @@ package = "opengizra"
 core = 7.x
 dependencies[] = migrate
 dependencies[] = migrate_extras
+dependencies[] = commerce_migrate
 files[] = opengizra_migrate.migrate.inc
 
 files[] = includes/opengizra_migrate.migrate.entity.inc
