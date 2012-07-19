@@ -1,7 +1,7 @@
 Unique ID,Bom,Material,Unit,Quantity
-fieldBomInfo1,material1,kilogram,5
-fieldBomInfo2,material1,kilogram,7
-fieldBomInfo3,material1,kilogram,8
-fieldBomInfo4,material2,kilogram,2.5
-fieldBomInfo5,material3,kilogram,20
-fieldBomInfo6,material4,kilogram,33
+fieldBomInfo1,bom1,material1,kilogram,5
+fieldBomInfo2,bom1,material2,kilogram,7
+fieldBomInfo3,bom1,material3,kilogram,8
+fieldBomInfo4,bom2,material1,kilogram,2.5
+fieldBomInfo5,bom3,material2,kilogram,20
+fieldBomInfo6,bom4,material3,kilogram,33
