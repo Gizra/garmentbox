@@ -162,7 +162,27 @@ class openGizraMaterials extends openGizraMigration {
     $this
       ->addFieldMapping('field_images:source_dir')
       ->defaultValue(drupal_get_path('module', 'opengizra_migrate') . '/images');
+  }
+}
 
+/**
+ * Migrate Bill of materials (Bom) nodes.
+ */
+class openGizraBoms extends openGizraMigration {
+
+  public $csvColumns = array(
+    array('id', 'Unique ID'),
+    array('title', 'Title'),
+    array('body', 'Body'),
+  );
+
+  public $entityType = 'node';
+  public $bundle = 'bom';
+
+  public function __construct() {
+    parent::__construct();
+
+    $this->addFieldMapping('body', 'body');
   }
 }
 
@@ -397,6 +417,43 @@ class openGizraCollectionsFieldSourceInfo extends openGizraFieldCollectionMigrat
       ->addFieldMapping('field_vendor', 'field_vendor')
       ->sourceMigration('openGizraVendors');
 
-     $this->addFieldMapping('field_price', 'field_price')
+     $this->addFieldMapping('field_price', 'field_price');
+  }
+}
+
+
+/**
+ * Migrate "Bom info" field collection.
+ */
+class openGizraCollectionsFieldBomInfo extends openGizraFieldCollectionMigration {
+  public $csvColumns = array(
+    array('id', 'Unique ID'),
+    array('host_entity_id', 'Bom'),
+    array('field_material', 'Material'),
+    array('field_unit', 'Unit'),
+    array('field_quantity', 'Quantity'),
+  );
+
+  public $entityType = 'field_collection_item';
+  public $bundle = 'field_bom_info';
+  public $hostEntityType = 'node';
+
+  public $dependencies = array(
+    'openGizraBoms',
+    'openGizraMaterials',
+  );
+
+  public function __construct() {
+    parent::__construct();
+    $this
+      ->addFieldMapping('host_entity_id', 'host_entity_id')
+      ->sourceMigration('openGizraBoms');
+
+    $this
+      ->addFieldMapping('field_material', 'field_material')
+      ->sourceMigration('openGizraMaterials');
+
+    $this->addFieldMapping('field_unit', 'field_unit');
+    $this->addFieldMapping('field_quantity', 'field_quantity');
   }
 }

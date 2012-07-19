@@ -11,6 +11,9 @@ projects[addressfield][version] = "1.0-beta3"
 projects[commerce][subdir] = "contrib"
 projects[commerce][version] = "1.3"
 
+projects[commerce_migrate][subdir] = "contrib"
+projects[commerce_migrate][version] = "1.x-dev"
+
 projects[ctools][subdir] = "contrib"
 projects[ctools][version] = "1.0"
 
