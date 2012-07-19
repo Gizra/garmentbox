@@ -129,8 +129,6 @@ class openGizraMaterials extends openGizraMigration {
     array('title', 'Title'),
     array('body', 'Body'),
     array('field_nick_name', 'Nick name'),
-    array('field_unit', 'Unit'),
-    array('field_quantity', 'Quantity'),
     array('field_images', 'Images'),
   );
 
@@ -144,16 +142,8 @@ class openGizraMaterials extends openGizraMigration {
   public function __construct() {
     parent::__construct();
 
-    $fields = array(
-      'body',
-      'field_nick_name',
-      'field_unit',
-      'field_quantity',
-    );
-
-    foreach ($fields as $field) {
-      $this->addFieldMapping($field, $field);
-    }
+    $this->addFieldMapping('body', 'body');
+    $this->addFieldMapping('field_nick_name', 'field_nick_name');
 
     $this->addFieldMapping('field_images', 'field_images');
     $this
@@ -396,6 +386,7 @@ class openGizraCollectionsFieldSourceInfo extends openGizraFieldCollectionMigrat
     array('host_entity_id', 'Material'),
     array('field_vendor', 'Vendor'),
     array('field_price', 'Price'),
+    array('field_unit', 'Unit'),
   );
 
   public $entityType = 'field_collection_item';
@@ -417,7 +408,8 @@ class openGizraCollectionsFieldSourceInfo extends openGizraFieldCollectionMigrat
       ->addFieldMapping('field_vendor', 'field_vendor')
       ->sourceMigration('openGizraVendors');
 
-     $this->addFieldMapping('field_price', 'field_price');
+    $this->addFieldMapping('field_price', 'field_price');
+    $this->addFieldMapping('field_unit', 'field_unit');
   }
 }
 

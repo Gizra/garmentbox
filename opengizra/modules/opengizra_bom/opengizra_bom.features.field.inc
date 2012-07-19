@@ -256,7 +256,7 @@ function opengizra_bom_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => 0,
+          'weight' => '0',
         ),
         'teaser' => array(
           'label' => 'hidden',
@@ -314,16 +314,17 @@ function opengizra_bom_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'field_collection',
+          'module' => 'field_collection_table',
           'settings' => array(
             'add' => 'Add',
             'delete' => 'Delete',
             'description' => TRUE,
             'edit' => 'Edit',
+            'empty' => TRUE,
             'view_mode' => 'full',
           ),
-          'type' => 'field_collection_view',
-          'weight' => 1,
+          'type' => 'field_collection_table_view',
+          'weight' => '1',
         ),
         'teaser' => array(
           'label' => 'hidden',
