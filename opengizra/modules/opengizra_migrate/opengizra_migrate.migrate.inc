@@ -274,7 +274,7 @@ class openGizraItemInstances extends openGizraMigration {
     array('id', 'Unique ID'),
     array('title', 'Title'),
     array('field_item', 'Item'),
-    array('field_material', 'Material'),
+    array('field_bom', 'Bom'),
     array('field_images', 'Images'),
   );
 
@@ -282,7 +282,7 @@ class openGizraItemInstances extends openGizraMigration {
   public $bundle = 'item_instance';
 
   public $dependencies = array(
-    'openGizraMaterials',
+    'openGizraBoms',
     'openGizraItems',
   );
 
@@ -294,8 +294,8 @@ class openGizraItemInstances extends openGizraMigration {
       ->sourceMigration('openGizraItems');
 
     $this
-      ->addFieldMapping('field_material', 'field_material')
-      ->sourceMigration('openGizraMaterials');
+      ->addFieldMapping('field_bom', 'field_bom')
+      ->sourceMigration('openGizraBoms');
 
 
     $this->addFieldMapping('field_images', 'field_images');
