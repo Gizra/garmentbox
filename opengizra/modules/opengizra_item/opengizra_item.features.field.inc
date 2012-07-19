@@ -588,7 +588,7 @@ function opengizra_item_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '1',
+        'weight' => '2',
       ),
     ),
   );
@@ -667,7 +667,7 @@ function opengizra_item_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_miw',
-        'weight' => '0',
+        'weight' => '3',
       ),
     ),
   );
@@ -761,7 +761,7 @@ function opengizra_item_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '-4',
+        'weight' => '1',
       ),
     ),
   );
@@ -821,7 +821,7 @@ function opengizra_item_field_default_fields() {
         'module' => 'field_collection',
         'settings' => array(),
         'type' => 'field_collection_embed',
-        'weight' => '-2',
+        'weight' => '4',
       ),
     ),
   );
