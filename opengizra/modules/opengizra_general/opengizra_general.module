@@ -48,7 +48,7 @@ function opengizra_general_get_node_hierarchy($node, &$nids = array()) {
 
   $referenced_node = $wrapper->{$field_name}->value();
   $nids[$referenced_node->nid] = $referenced_node->title;
-  opengizra_get_node_hierarchy($referenced_node, $nids);
+  opengizra_general_get_node_hierarchy($referenced_node, $nids);
 
   return array_reverse($nids);
 }
