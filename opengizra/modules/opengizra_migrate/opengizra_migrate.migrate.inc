@@ -127,7 +127,11 @@ class openGizraMaterials extends openGizraMigration {
   public $csvColumns = array(
     array('id', 'Unique ID'),
     array('title', 'Title'),
-    array('field_vendor', 'Vendor'),
+    array('body', 'Body'),
+    array('field_nick_name', 'Nick name'),
+    array('field_unit', 'Unit'),
+    array('field_quantity', 'Quantity'),
+    array('field_images', 'Images'),
   );
 
   public $entityType = 'node';
@@ -139,10 +143,26 @@ class openGizraMaterials extends openGizraMigration {
 
   public function __construct() {
     parent::__construct();
-    $this->addFieldMapping('body', 'body');
+
+    $fields = array(
+      'body',
+      'field_nick_name',
+      'field_unit',
+      'field_quantity',
+    );
+
+    foreach ($fields as $field) {
+      $this->addFieldMapping($field, $field);
+    }
+
+    $this->addFieldMapping('field_images', 'field_images');
     $this
-      ->addFieldMapping('field_vendor', 'field_vendor')
-      ->sourceMigration('openGizraVendors');
+      ->addFieldMapping('field_images:file_replace')
+      ->defaultValue(FILE_EXISTS_REPLACE);
+    $this
+      ->addFieldMapping('field_images:source_dir')
+      ->defaultValue(drupal_get_path('module', 'opengizra_migrate') . '/images');
+
   }
 }
 

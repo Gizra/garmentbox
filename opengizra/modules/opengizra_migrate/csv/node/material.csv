@@ -1,9 +1,9 @@
-Unique ID,Title,Body,Nick name,Unit,Quantity
-material1,Novelle Art Noveau Natural Shell Buttons,"Card of two 7/8"" JHB natural shell buttons in shades of gray, black and white. Shanks. Washable - Dry Cleanable",gizra black,Kilogram,10
-material2,Tan/Brown 2-Hole Shell,"Code: BEA-10082-BRN, Size 13/16""",,,
-material3,Ivory Satin Button,"Code: DILL-IVOSAT, Size: 7/8"", Price 1.50$",,,
-material4,"Abby in Ivory Camel Caramel Chocolate Brown 1""","Polyester 2-hole buttons with ivory/beige/brown rims and transparent centers. 1"".? 2 per card",,,
-material5,Bamboo Knit - Red,"Bamboo Knit. 93% Rayon process Bamboo, 7% Spandex. Hand Wash Cold. 58"" Wide",,,
-material6,Vienna Linen - Black 312,"100% Linen, 60"" Wide, Dry Clean. Priced per yard.",,,
-material7,Forever Charmeuse - Salmon,"100% Polyester, 45"" wide, machine washable. Priced per yard.",,,
-material8,Silk Chiffon- Peach,"Silk Chiffon - 100% Silk. 45"" Wide. Dry Clean Only",,,
+Unique ID,Title,Body,Nick name,Unit,Quantity,Images
+material1,Novelle Art Noveau Natural Shell Buttons,"Card of two 7/8"" JHB natural shell buttons in shades of gray, black and white. Shanks. Washable - Dry Cleanable",gizra black,kilogram,10
+material2,Tan/Brown 2-Hole Shell,"Code: BEA-10082-BRN, Size 13/16""",Semi gray,kilogram,20
+material3,Ivory Satin Button,"Code: DILL-IVOSAT, Size: 7/8"", Price 1.50$",Adi blue,kilogram,7.5
+material4,"Abby in Ivory Camel Caramel Chocolate Brown 1""","Polyester 2-hole buttons with ivory/beige/brown rims and transparent centers. 1"".? 2 per card",Mother status,kilogram,8
+material5,Bamboo Knit - Red,"Bamboo Knit. 93% Rayon process Bamboo, 7% Spandex. Hand Wash Cold. 58"" Wide",Long bird,kilogram,25
+material6,Vienna Linen - Black 312,"100% Linen, 60"" Wide, Dry Clean. Priced per yard.",Big ben,kilogram,12
+material7,Forever Charmeuse - Salmon,"100% Polyester, 45"" wide, machine washable. Priced per yard.",Funny talk,kilogram,80
+material8,Silk Chiffon- Peach,"Silk Chiffon - 100% Silk. 45"" Wide. Dry Clean Only",Lasso,kilogram,6
