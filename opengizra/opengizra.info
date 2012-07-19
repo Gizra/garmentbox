@@ -35,6 +35,7 @@ dependencies[] = entityreference
 dependencies[] = entityreference_prepopulate
 dependencies[] = features
 dependencies[] = field_collection
+dependencies[] = field_collection_table
 dependencies[] = flag
 dependencies[] = fullcalendar
 dependencies[] = gravatar

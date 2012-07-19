@@ -41,6 +41,9 @@ projects[features][version] = "1.0-rc2"
 projects[field_collection][subdir] = "contrib"
 projects[field_collection][version] = "1.x-dev"
 
+projects[field_collection_table][subdir] = "contrib"
+projects[field_collection_table][version] = "1.x-dev"
+
 projects[flag][subdir] = "contrib"
 projects[flag][version] = "2.0-beta7"
 
