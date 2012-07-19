@@ -94,7 +94,9 @@ class openGizraCollections extends openGizraMigration {
   public function complete($entity, stdClass $row) {
     if ($row->flag) {
       // Mark collection is "Active collection".
-      flag('flag', 'active_collection', $entity->nid);
+      // We do it with user ID 1, that has flagging permissions.
+      $account = user_load(1);
+      $result = flag('flag', 'active_collection', $entity->nid, $account);
     }
   }
 }
