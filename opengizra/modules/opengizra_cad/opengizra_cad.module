@@ -5,3 +5,18 @@
  */
 
 include_once 'opengizra_cad.features.inc';
+
+/**
+ * Implements hook_node_presave().
+ *
+ * Populate the Collection reference field based on the selected entity.
+ */
+function opengizra_cad_node_presave($node) {
+  if ($node->type != 'pattern') {
+    return;
+  }
+
+  $wrapper = entity_metadata_wrapper('node', $node);
+  $nids = array_keys(opengizra_general_get_node_hierarchy($node));
+  $wrapper->field_reference_hierarchy->set($nids);
+}
