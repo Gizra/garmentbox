@@ -9,7 +9,11 @@
  */
 function opengizra_general_init() {
   if ($node = menu_get_object()) {
-    drupal_set_breadcrumb(opengizra_general_get_node_hierarchy($node));
+    $breadcrumb[] = l(t('Home'), '<front>');
+    foreach (opengizra_general_get_node_hierarchy($node) as $nid => $title) {
+      $breadcrumb[] = l($title, 'node/' . $nid);
+    }
+    drupal_set_breadcrumb($breadcrumb);
   }
 }
 
@@ -28,7 +32,8 @@ function opengizra_general_init() {
 function opengizra_general_get_node_hierarchy($node, &$nids = array()) {
   if ($node->type == 'collection') {
     // Node is top most, so return early.
-    return array($node->nid);
+    $nids[$node->nid] = $node->title;
+    return $nids;
   }
 
   $wrapper = entity_metadata_wrapper('node', $node);
@@ -50,6 +55,6 @@ function opengizra_general_get_node_hierarchy($node, &$nids = array()) {
   $nids[$referenced_node->nid] = $referenced_node->title;
   opengizra_general_get_node_hierarchy($referenced_node, $nids);
 
-  return array_reverse($nids);
+  return array_reverse($nids, TRUE);
 }
 
