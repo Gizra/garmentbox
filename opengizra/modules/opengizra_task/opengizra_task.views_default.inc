@@ -57,6 +57,12 @@ function opengizra_task_views_default_views() {
   $handler->display->display_options['empty']['area']['content'] = 'No tasks assigned.';
   $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
   $handler->display->display_options['empty']['area']['tokenize'] = 0;
+  /* Relationship: Entity Reference: Referenced Entity */
+  $handler->display->display_options['relationships']['field_task_status_target_id']['id'] = 'field_task_status_target_id';
+  $handler->display->display_options['relationships']['field_task_status_target_id']['table'] = 'field_data_field_task_status';
+  $handler->display->display_options['relationships']['field_task_status_target_id']['field'] = 'field_task_status_target_id';
+  $handler->display->display_options['relationships']['field_task_status_target_id']['label'] = 'field_task_status';
+  $handler->display->display_options['relationships']['field_task_status_target_id']['required'] = 0;
   /* Field: Content: New comments */
   $handler->display->display_options['fields']['new_comments']['id'] = 'new_comments';
   $handler->display->display_options['fields']['new_comments']['table'] = 'node';
@@ -264,6 +270,14 @@ function opengizra_task_views_default_views() {
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
     'task' => 'task',
+  );
+  /* Filter criterion: Taxonomy term: Status is considered closed (field_status_closed) */
+  $handler->display->display_options['filters']['field_status_closed_value']['id'] = 'field_status_closed_value';
+  $handler->display->display_options['filters']['field_status_closed_value']['table'] = 'field_data_field_status_closed';
+  $handler->display->display_options['filters']['field_status_closed_value']['field'] = 'field_status_closed_value';
+  $handler->display->display_options['filters']['field_status_closed_value']['relationship'] = 'field_task_status_target_id';
+  $handler->display->display_options['filters']['field_status_closed_value']['value'] = array(
+    0 => '0',
   );
 
   /* Display: Content pane */
