@@ -8,9 +8,9 @@
  * Implements hook_init().
  */
 function opengizra_general_init() {
-  if ($node = menu_get_object()) {
+  if (($node = menu_get_object()) && $nids = opengizra_general_get_node_hierarchy($node)) {
     $breadcrumb[] = l(t('Home'), '<front>');
-    foreach (opengizra_general_get_node_hierarchy($node) as $nid => $title) {
+    foreach ($nids as $nid => $title) {
       $breadcrumb[] = l($title, 'node/' . $nid);
     }
     drupal_set_breadcrumb($breadcrumb);
@@ -27,14 +27,20 @@ function opengizra_general_init() {
  *
  * @return
  *   Array keyed with node IDs and the node title as value, sorted by
- *   hierarchy.
+ *   hierarchy. If no hierarchy found returns FALSE.
  */
 function opengizra_general_get_node_hierarchy($node, &$nids = array()) {
+  if ($nids === FALSE) {
+    // We reached a content type that has no hierarchy so break here.
+    return;
+  }
   if ($node->type == 'collection') {
     // Node is top most, so return early.
     $nids[$node->nid] = $node->title;
     return $nids;
   }
+
+  $field_name = FALSE;
 
   $wrapper = entity_metadata_wrapper('node', $node);
   switch ($node->type) {
@@ -49,6 +55,11 @@ function opengizra_general_get_node_hierarchy($node, &$nids = array()) {
     case 'task':
       $field_name = 'field_entity_reference';
       break;
+  }
+
+  if (!$field_name) {
+    $nids = FALSE;
+    return;
   }
 
   $referenced_node = $wrapper->{$field_name}->value();
