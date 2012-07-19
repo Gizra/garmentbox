@@ -4,6 +4,8 @@
  * Code for the Opengizra General feature.
  */
 
+include_once 'opengizra_general.features.inc';
+
 /**
  * Implements hook_init().
  */
