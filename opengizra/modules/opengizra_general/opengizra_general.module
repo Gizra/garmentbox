@@ -1,0 +1,55 @@
+<?php
+/**
+ * @file
+ * Code for the Opengizra General feature.
+ */
+
+/**
+ * Implements hook_init().
+ */
+function opengizra_general_init() {
+  if ($node = menu_get_object()) {
+    drupal_set_breadcrumb(opengizra_general_get_node_hierarchy($node));
+  }
+}
+
+/**
+ * Get the hierachy for a node.
+ *
+ * @todo: Move to general module.
+ *
+ * @param $node
+ *   The node object to check the hierachy.
+ *
+ * @return
+ *   Array keyed with node IDs and the node title as value, sorted by
+ *   hierarchy.
+ */
+function opengizra_general_get_node_hierarchy($node, &$nids = array()) {
+  if ($node->type == 'collection') {
+    // Node is top most, so return early.
+    return array($node->nid);
+  }
+
+  $wrapper = entity_metadata_wrapper('node', $node);
+  switch ($node->type) {
+    case 'item':
+      $field_name = 'field_collection';
+      break;
+
+    case 'item_instance':
+      $field_name = 'field_item';
+      break;
+
+    case 'task':
+      $field_name = 'field_entity_reference';
+      break;
+  }
+
+  $referenced_node = $wrapper->{$field_name}->value();
+  $nids[$referenced_node->nid] = $referenced_node->title;
+  opengizra_get_node_hierarchy($referenced_node, $nids);
+
+  return array_reverse($nids);
+}
+
