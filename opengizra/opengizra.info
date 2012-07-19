@@ -48,6 +48,7 @@ dependencies[] = multiupload_imagefield_widget
 dependencies[] = page_manager
 dependencies[] = panels
 dependencies[] = panels_mini
+dependencies[] = pathauto
 dependencies[] = strongarm
 dependencies[] = token
 dependencies[] = views
