@@ -5,6 +5,16 @@
  */
 
 /**
+ * Implements hook_ctools_plugin_api().
+ */
+function opengizra_line_sheet_ctools_plugin_api() {
+  list($module, $api) = func_get_args();
+  if ($module == "page_manager" && $api == "pages_default") {
+    return array("version" => "1");
+  }
+}
+
+/**
  * Implements hook_flag_default_flags().
  */
 function opengizra_line_sheet_flag_default_flags() {
