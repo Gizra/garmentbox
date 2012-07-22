@@ -8,11 +8,11 @@
 /**
  * Preprocess page.
  */
-function ninesixty_sub_preprocess_page(&$vars, $hook) {
+function ninesixty_sub_preprocess_page(&$variables) {
   global $user;
   if (overlay_get_mode() == 'child') {
     // Add our custom overlay.tpl
-    $vars['theme_hook_suggestions'][] = 'page__overlay';
+    $variables['theme_hook_suggestions'][] = 'page__overlay';
   }
 
   if (count(drupal_get_breadcrumb()) == 1) {
@@ -22,16 +22,24 @@ function ninesixty_sub_preprocess_page(&$vars, $hook) {
 
   // Invoke the og-message block. We do it late in the template, to allow the
   // viewed message to be registered.
-  $vars['og_message'] = '';
+  $variables['og_message'] = '';
+}
+
+/**
+ * Preprocess page.
+ */
+function ninesixty_sub_preprocess_node(&$variables) {
+  $suffix = $variables['view_mode'] != 'full' ? '__' . $variables['view_mode'] : '';
+  $variables['theme_hook_suggestions'][] = 'node__' . $variables['type'] . $suffix;
 }
 
 /**
  * Comment preprocess.
  */
-function ninesixty_sub_preprocess_comment(&$vars, $hook) {
-  $vars['date'] = date('F Y', $vars['comment']->created);
-  $params = array ('!author' => $vars['author']);
-  $vars['author'] = t('!author wrote:' ,$params);
+function ninesixty_sub_preprocess_comment(&$variables) {
+  $variables['date'] = date('F Y', $variables['comment']->created);
+  $params = array ('!author' => $variables['author']);
+  $variables['author'] = t('!author wrote:' ,$params);
 }
 
 /**
