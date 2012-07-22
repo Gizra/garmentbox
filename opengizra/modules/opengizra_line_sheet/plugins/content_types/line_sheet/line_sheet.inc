@@ -36,11 +36,13 @@ function opengizra_line_sheet_line_sheet_content_type_render($subtype, $conf, $a
   foreach ($nids as $row) {
     $nid = $row->content_id;
     $sizes = array();
+    $materials = array();
     $wrapper = entity_metadata_wrapper('node', $nid);
     $item_wrapper = $wrapper->field_item;
 
     $item_nid = $item_wrapper->getIdentifier();
 
+    $items[$item_nid]['title'] = $item_wrapper->label();
     $items[$item_nid]['body'] = $item_wrapper->body->value() ? $item_wrapper->body->value->value() : '';
     if ($image = $wrapper->field_images->value()) {
       $items[$item_nid]['images'][] = theme('image_style', array('style_name' => 'thumbnail', 'path' => $image[0]['uri']));
@@ -48,7 +50,21 @@ function opengizra_line_sheet_line_sheet_content_type_render($subtype, $conf, $a
     foreach ($wrapper->field_size_info as $size_wrapper) {
       $sizes[] = $size_wrapper->field_size->label();
     }
-    $items[$item_nid]['sizes'] = implode(', ', $sizes);
+
+    foreach ($wrapper->field_bom->field_bom_info as $bom_wrapper) {
+      if ($material = $bom_wrapper->field_material->field_nick_name->value()) {
+        $materials[] = $material;
+      }
+    }
+
+    if (empty($items[$item_nid]['sizes'])) {
+      $items[$item_nid]['sizes'] = implode(', ', $sizes);
+    }
+
+    if (empty($items[$item_nid]['materials'])) {
+      $items[$item_nid]['materials'] = implode(', ', $materials);
+    }
+
     $items[$item_nid]['links'][] = l(t('View'), 'node/' . $nid);
     $items[$item_nid]['links'][] = flag_create_link('line_sheet', $nid);
   }
@@ -82,7 +98,9 @@ function opengizra_line_sheet_line_sheet_content_type_theme(&$theme, $plugin) {
       'body' => NULL,
       'images' => NULL,
       'links' => NULL,
+      'materials' => NULL,
       'sizes' => NULL,
+      'title' => NULL,
     ),
   );
 }
