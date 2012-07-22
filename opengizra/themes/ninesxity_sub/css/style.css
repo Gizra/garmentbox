@@ -947,3 +947,22 @@ body.group-context .panel-col-last li {
 .page-node-calendar .panel-grid-8-8-5 .pane-upcoming-events-panel-pane-1 .views-field-field-date {
   font-size: 11px;
 }
+.pane-line-sheet .line-sheet-item {
+  margin-bottom: 10px;
+  border: 1px solid black;
+  padding: 5px;
+}
+.pane-line-sheet .line-sheet-item .col-first,
+.pane-line-sheet .line-sheet-item .col-last {
+  float: left;
+  width: 50%;
+}
+.pane-line-sheet .line-sheet-item .title {
+  font-weight: bold;
+}
+.pane-line-sheet .line-sheet-item .images ul {
+  list-style: none;
+}
+.pane-line-sheet .line-sheet-item .images ul li {
+  display: inline-block;
+}
