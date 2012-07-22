@@ -41,19 +41,22 @@ function opengizra_line_sheet_line_sheet_content_type_render($subtype, $conf, $a
 
     $item_nid = $item_wrapper->getIdentifier();
 
-    $items[$item_nid]['body'] = $wrapper->body->value() ? $wrapper->body->value->value() : '';
+    $items[$item_nid]['body'] = $item_wrapper->body->value() ? $item_wrapper->body->value->value() : '';
     if ($image = $wrapper->field_images->value()) {
-      $items[$item_nid]['images'][] = array('data' => theme('image_style', array('style_name' => 'thumbnail', 'path' => $image[0]['uri'])));
+      $items[$item_nid]['images'][] = theme('image_style', array('style_name' => 'thumbnail', 'path' => $image[0]['uri']));
     }
     foreach ($wrapper->field_size_info as $size_wrapper) {
       $sizes[] = $size_wrapper->field_size->label();
     }
     $items[$item_nid]['sizes'] = implode(', ', $sizes);
+    $items[$item_nid]['links'][] = l(t('View'), 'node/' . $nid);
+    $items[$item_nid]['links'][] = flag_create_link('line_sheet', $nid);
   }
 
   $output = '';
   foreach ($items as $nid => $variables) {
     $variables['images'] = theme('item_list', array('items' => $variables['images']));
+    $variables['links'] = theme('item_list', array('items' => $variables['links']));
     $output .= theme('opengizra_line_sheet', $variables);
   }
 
