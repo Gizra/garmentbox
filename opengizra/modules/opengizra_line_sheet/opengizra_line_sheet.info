@@ -1,0 +1,8 @@
+name = Opengizra Line Sheet
+description = Opengizra Line Sheet
+core = 7.x
+package = Features
+dependencies[] = flag
+dependencies[] = flag
+features[features_api][] = api:1
+features[flag][] = line_sheet

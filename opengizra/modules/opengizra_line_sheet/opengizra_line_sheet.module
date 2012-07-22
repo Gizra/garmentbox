@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Opengizra Line Sheet feature.
+ */
+
+include_once 'opengizra_line_sheet.features.inc';
