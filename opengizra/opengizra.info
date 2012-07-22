@@ -74,6 +74,7 @@ dependencies[] = opengizra_item
 dependencies[] = opengizra_line_sheet
 dependencies[] = opengizra_material
 dependencies[] = opengizra_migrate
+dependencies[] = opengizra_pattern_task
 dependencies[] = opengizra_task
 dependencies[] = opengizra_vendor
 
