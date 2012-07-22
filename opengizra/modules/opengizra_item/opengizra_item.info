@@ -27,6 +27,7 @@ features[field][] = node-item-field_item_status
 features[field][] = node-item_instance-field_bom
 features[field][] = node-item_instance-field_images
 features[field][] = node-item_instance-field_item
+features[field][] = node-item_instance-field_reference_hierarchy
 features[field][] = node-item_instance-field_size_info
 features[node][] = item
 features[node][] = item_instance
