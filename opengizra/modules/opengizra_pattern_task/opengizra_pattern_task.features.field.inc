@@ -82,6 +82,104 @@ function opengizra_pattern_task_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-pattern_task-field_file_collection'
+  $fields['node-pattern_task-field_file_collection'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_file_collection',
+      'foreign keys' => array(
+        'node' => array(
+          'columns' => array(
+            'target_id' => 'nid',
+          ),
+          'table' => 'node',
+        ),
+      ),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'module' => 'entityreference',
+      'settings' => array(
+        'handler' => 'base',
+        'handler_settings' => array(
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 0,
+            ),
+          ),
+          'sort' => array(
+            'direction' => 'DESC',
+            'field' => 'field_material:target_id',
+            'property' => 'item_id',
+            'type' => 'property',
+          ),
+          'target_bundles' => array(
+            'field_files_collection' => 'field_files_collection',
+          ),
+        ),
+        'handler_submit' => 'Change handler',
+        'target_type' => 'field_collection_item',
+      ),
+      'translatable' => '0',
+      'type' => 'entityreference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'pattern_task',
+      'default_value' => NULL,
+      'default_value_function' => 'entityreference_prepopulate_field_default_value',
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => FALSE,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => 5,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_file_collection',
+      'label' => 'File collection',
+      'required' => 0,
+      'settings' => array(
+        'behaviors' => array(
+          'prepopulate' => array(
+            'action' => 'none',
+            'fallback' => 'none',
+            'skip_perm' => '0',
+            'status' => 1,
+          ),
+        ),
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(
+          'match_operator' => 'CONTAINS',
+          'path' => '',
+          'size' => '60',
+        ),
+        'type' => 'options_select',
+        'weight' => '7',
+      ),
+    ),
+  );
+
   // Exported field: 'node-pattern_task-field_pattern'
   $fields['node-pattern_task-field_pattern'] = array(
     'field_config' => array(
@@ -466,6 +564,7 @@ function opengizra_pattern_task_field_default_fields() {
   // Included for use with string extractors like potx.
   t('Assignee');
   t('Body');
+  t('File collection');
   t('Pattern');
   t('Reference hierarchy');
   t('Status');

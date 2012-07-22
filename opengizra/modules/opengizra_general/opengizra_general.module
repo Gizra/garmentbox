@@ -61,6 +61,10 @@ function opengizra_general_get_node_hierarchy($node, &$nids = array()) {
     case 'pattern':
       $field_name = 'field_pattern_entity_reference';
       break;
+
+    case 'pattern_task':
+      $field_name = 'field_pattern';
+      break;
   }
 
   if (!$field_name) {

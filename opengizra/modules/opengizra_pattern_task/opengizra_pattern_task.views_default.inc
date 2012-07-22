@@ -240,6 +240,33 @@ function opengizra_pattern_task_views_default_views() {
   $handler->display->display_options['fields']['created']['empty_zero'] = 0;
   $handler->display->display_options['fields']['created']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['created']['date_format'] = 'raw time ago';
+  /* Field: Content: File collection */
+  $handler->display->display_options['fields']['field_file_collection']['id'] = 'field_file_collection';
+  $handler->display->display_options['fields']['field_file_collection']['table'] = 'field_data_field_file_collection';
+  $handler->display->display_options['fields']['field_file_collection']['field'] = 'field_file_collection';
+  $handler->display->display_options['fields']['field_file_collection']['label'] = 'File';
+  $handler->display->display_options['fields']['field_file_collection']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['field_file_collection']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_file_collection']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_file_collection']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_file_collection']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_file_collection']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_file_collection']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_file_collection']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_file_collection']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_file_collection']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['field_file_collection']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_file_collection']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_file_collection']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_file_collection']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['field_file_collection']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_file_collection']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['field_file_collection']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_file_collection']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['field_file_collection']['settings'] = array(
+    'link' => 1,
+  );
+  $handler->display->display_options['fields']['field_file_collection']['field_api_classes'] = 0;
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
