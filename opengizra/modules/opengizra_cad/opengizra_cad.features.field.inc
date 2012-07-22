@@ -280,7 +280,7 @@ function opengizra_cad_field_default_fields() {
       ),
       'entity_type' => 'node',
       'field_name' => 'field_pattern_entity_reference',
-      'label' => 'Reference',
+      'label' => 'Referencing Items',
       'required' => 0,
       'settings' => array(
         'behaviors' => array(
@@ -404,8 +404,8 @@ function opengizra_cad_field_default_fields() {
   t('Body');
   t('File');
   t('Files');
-  t('Reference');
   t('Reference hierarchy');
+  t('Referencing Items');
 
   return $fields;
 }
