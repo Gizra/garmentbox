@@ -95,6 +95,8 @@ class openGizraCollections extends openGizraMigration {
     if ($row->flag) {
       // Mark collection is "Active collection".
       // We do it with user ID 1, that has flagging permissions.
+      // We also need to reset the flags cache.
+      flag_get_flags(NULL, NULL, NULL, TRUE);
       $account = user_load(1);
       $result = flag('flag', 'active_collection', $entity->nid, $account);
     }
