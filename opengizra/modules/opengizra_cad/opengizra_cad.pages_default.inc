@@ -64,7 +64,7 @@ function opengizra_cad_default_page_manager_handlers() {
     $pane->pid = 'new-1';
     $pane->panel = 'left';
     $pane->type = 'views_panes';
-    $pane->subtype = 'task_list-panel_pane_1';
+    $pane->subtype = 'pattern_task-panel_pane_1';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
@@ -148,7 +148,7 @@ function opengizra_cad_default_page_manager_handlers() {
     $display->content['new-3'] = $pane;
     $display->panels['right'][1] = 'new-3';
   $display->hide_title = PANELS_TITLE_FIXED;
-  $display->title_pane = 'new-1';
+  $display->title_pane = '0';
   $handler->conf['display'] = $display;
   $export['node_view_panel_context_6'] = $handler;
 
