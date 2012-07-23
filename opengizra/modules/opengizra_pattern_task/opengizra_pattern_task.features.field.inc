@@ -91,11 +91,11 @@ function opengizra_pattern_task_field_default_fields() {
       'entity_types' => array(),
       'field_name' => 'field_file_collection',
       'foreign keys' => array(
-        'node' => array(
+        'field_collection_item' => array(
           'columns' => array(
-            'target_id' => 'nid',
+            'target_id' => 'item_id',
           ),
-          'table' => 'node',
+          'table' => 'field_collection_item',
         ),
       ),
       'indexes' => array(

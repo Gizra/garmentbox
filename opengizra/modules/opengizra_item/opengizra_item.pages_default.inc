@@ -266,7 +266,7 @@ function opengizra_item_default_page_manager_handlers() {
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
-      'label' => 'hidden',
+      'label' => 'title',
       'formatter' => 'image',
       'delta_limit' => '0',
       'delta_offset' => '0',
@@ -293,17 +293,22 @@ function opengizra_item_default_page_manager_handlers() {
     $pane->pid = 'new-8';
     $pane->panel = 'right';
     $pane->type = 'entity_field';
-    $pane->subtype = 'node:field_bom';
+    $pane->subtype = 'node:field_bom_info';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
       'label' => 'title',
-      'formatter' => 'entityreference_entity_view',
-      'delta_limit' => 0,
+      'formatter' => 'field_collection_table_view',
+      'delta_limit' => '0',
       'delta_offset' => '0',
-      'delta_reversed' => FALSE,
+      'delta_reversed' => 0,
       'formatter_settings' => array(
-        'view_mode' => 'teaser',
+        'edit' => 'Edit',
+        'delete' => 'Delete',
+        'add' => 'Add',
+        'description' => 1,
+        'view_mode' => 'full',
+        'empty' => 1,
       ),
       'context' => 'argument_entity_id:node_1',
       'override_title' => 0,

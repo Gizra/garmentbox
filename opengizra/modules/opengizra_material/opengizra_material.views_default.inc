@@ -39,7 +39,7 @@ function opengizra_material_views_default_views() {
   $handler->display->display_options['empty']['area']['content'] = 'No Bill of Materials are referencing this Material.';
   $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
   $handler->display->display_options['empty']['area']['tokenize'] = 0;
-  /* Relationship: Field collection item: Entity with the Info (field_bom_info) */
+  /* Relationship: Field collection item: Entity with the Bill of materials (field_bom_info) */
   $handler->display->display_options['relationships']['field_bom_info_node']['id'] = 'field_bom_info_node';
   $handler->display->display_options['relationships']['field_bom_info_node']['table'] = 'field_collection_item';
   $handler->display->display_options['relationships']['field_bom_info_node']['field'] = 'field_bom_info_node';

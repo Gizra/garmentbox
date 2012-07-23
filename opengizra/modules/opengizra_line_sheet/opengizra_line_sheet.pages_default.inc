@@ -16,7 +16,10 @@ function opengizra_line_sheet_default_page_manager_pages() {
   $page->admin_title = 'Line Sheet';
   $page->admin_description = 'Show a line sheet of a collection.';
   $page->path = 'line-sheet/%node';
-  $page->access = array();
+  $page->access = array(
+    'type' => 'none',
+    'settings' => NULL,
+  );
   $page->menu = array();
   $page->arguments = array(
     'node' => array(
