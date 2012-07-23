@@ -51,7 +51,7 @@ function opengizra_line_sheet_line_sheet_content_type_render($subtype, $conf, $a
       $sizes[] = $size_wrapper->field_size->label();
     }
 
-    foreach ($wrapper->field_bom->field_bom_info as $bom_wrapper) {
+    foreach ($wrapper->field_bom_info as $bom_wrapper) {
       if ($material = $bom_wrapper->field_material->field_nick_name->value()) {
         $materials[] = $material;
       }
