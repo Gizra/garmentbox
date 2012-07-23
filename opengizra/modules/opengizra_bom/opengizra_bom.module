@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the Opengizra Bom feature.
- */
-
-include_once 'opengizra_bom.features.inc';

@@ -67,7 +67,6 @@ dependencies[] = migrate
 dependencies[] = migrate_extras
 
 ; Features
-dependencies[] = opengizra_bom
 dependencies[] = opengizra_cad
 dependencies[] = opengizra_collection
 dependencies[] = opengizra_event

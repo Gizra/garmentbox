@@ -160,27 +160,6 @@ class openGizraMaterials extends openGizraMigration {
 }
 
 /**
- * Migrate Bill of materials (Bom) nodes.
- */
-class openGizraBoms extends openGizraMigration {
-
-  public $csvColumns = array(
-    array('id', 'Unique ID'),
-    array('title', 'Title'),
-    array('body', 'Body'),
-  );
-
-  public $entityType = 'node';
-  public $bundle = 'bom';
-
-  public function __construct() {
-    parent::__construct();
-
-    $this->addFieldMapping('body', 'body');
-  }
-}
-
-/**
  * Migrate Items nodes.
  */
 class openGizraItems extends openGizraMigration {
@@ -268,7 +247,6 @@ class openGizraItemInstances extends openGizraMigration {
     array('id', 'Unique ID'),
     array('title', 'Title'),
     array('field_item', 'Item'),
-    array('field_bom', 'Bom'),
     array('field_images', 'Images'),
   );
 
@@ -276,7 +254,6 @@ class openGizraItemInstances extends openGizraMigration {
   public $bundle = 'item_instance';
 
   public $dependencies = array(
-    'openGizraBoms',
     'openGizraItems',
   );
 
@@ -286,10 +263,6 @@ class openGizraItemInstances extends openGizraMigration {
     $this
       ->addFieldMapping('field_item', 'field_item')
       ->sourceMigration('openGizraItems');
-
-    $this
-      ->addFieldMapping('field_bom', 'field_bom')
-      ->sourceMigration('openGizraBoms');
 
 
     $this->addFieldMapping('field_images', 'field_images');
@@ -424,7 +397,7 @@ class openGizraCollectionsFieldSourceInfo extends openGizraFieldCollectionMigrat
 class openGizraCollectionsFieldBomInfo extends openGizraFieldCollectionMigration {
   public $csvColumns = array(
     array('id', 'Unique ID'),
-    array('host_entity_id', 'Bom'),
+    array('host_entity_id', 'Item instance'),
     array('field_material', 'Material'),
     array('field_unit', 'Unit'),
     array('field_quantity', 'Quantity'),
@@ -435,7 +408,7 @@ class openGizraCollectionsFieldBomInfo extends openGizraFieldCollectionMigration
   public $hostEntityType = 'node';
 
   public $dependencies = array(
-    'openGizraBoms',
+    'openGizraItemInstances',
     'openGizraMaterials',
   );
 
@@ -443,7 +416,7 @@ class openGizraCollectionsFieldBomInfo extends openGizraFieldCollectionMigration
     parent::__construct();
     $this
       ->addFieldMapping('host_entity_id', 'host_entity_id')
-      ->sourceMigration('openGizraBoms');
+      ->sourceMigration('openGizraItemInstances');
 
     $this
       ->addFieldMapping('field_material', 'field_material')
