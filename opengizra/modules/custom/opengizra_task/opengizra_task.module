@@ -22,7 +22,31 @@ function opengizra_task_node_presave($node) {
   $wrapper->field_reference_hierarchy->set($nids);
 }
 
+/**
+ * Implements hook_comment_insert().
+ *
+ * Save the node task fields according to the saved comment.
+ */
 function opengizra_task_comment_insert($comment) {
+  $wrapper = entity_metadata_wrapper('comment', $comment);
+  $node = $wrapper->node->value();
+
+  if (!$field_names = opengizra_task_intersect_fields($comment, $node)) {
+    return;
+  }
+
+  $save = FALSE;
+  foreach ($field_names as $field_name) {
+    $value = $wrapper->{$field_name}->value();
+    if ($wrapper->node->{$field_name}->value() != $value) {
+      $save = TRUE;
+      $wrapper->node->{$field_name}->set($value);
+    }
+  }
+
+  if ($save) {
+    $wrapper->node->save();
+  }
 }
 
 /**
