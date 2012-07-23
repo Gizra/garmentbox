@@ -202,7 +202,7 @@ function opengizra_event_field_default_fields() {
             'type' => 'property',
           ),
           'target_bundles' => array(
-            'collection' => 'collection',
+            'season' => 'season',
             'item' => 'item',
             'item_instance' => 'item_instance',
             'material' => 'material',

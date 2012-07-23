@@ -330,7 +330,7 @@ function opengizra_standard_install() {
   // We need to build the taxonomy vocabulary, because they are not built
   // by features on time.
   $vocab_info = array(
-    'collection_status' => 'Collection status',
+    'season_status' => 'Season status',
     'item_status' => 'Item status',
     'size' => 'Size',
     'task_status' => 'Task status',

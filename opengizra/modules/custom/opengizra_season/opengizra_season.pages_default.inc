@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * opengizra_collection.pages_default.inc
+ * opengizra_season.pages_default.inc
  */
 
 /**
  * Implements hook_default_page_manager_handlers().
  */
-function opengizra_collection_default_page_manager_handlers() {
+function opengizra_season_default_page_manager_handlers() {
   $export = array();
 
   $handler = new stdClass();
@@ -19,7 +19,7 @@ function opengizra_collection_default_page_manager_handlers() {
   $handler->handler = 'panel_context';
   $handler->weight = 0;
   $handler->conf = array(
-    'title' => 'Collection',
+    'title' => 'Season',
     'no_blocks' => 0,
     'pipeline' => 'standard',
     'body_classes_to_remove' => '',
@@ -34,7 +34,7 @@ function opengizra_collection_default_page_manager_handlers() {
           'name' => 'node_type',
           'settings' => array(
             'type' => array(
-              'collection' => 'collection',
+              'season' => 'season',
             ),
           ),
           'context' => 'argument_entity_id:node_1',
@@ -71,7 +71,7 @@ function opengizra_collection_default_page_manager_handlers() {
       'types' => array(
         'item' => 'item',
       ),
-      'field_name' => 'field_collection',
+      'field_name' => 'field_season',
       'context' => 'argument_entity_id:node_1',
       'override_title' => 1,
       'override_title_text' => '',

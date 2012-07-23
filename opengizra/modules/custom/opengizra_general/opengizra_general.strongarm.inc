@@ -20,9 +20,9 @@ function opengizra_general_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'pathauto_node_collection_pattern';
-  $strongarm->value = 'collection/[node:nid]';
-  $export['pathauto_node_collection_pattern'] = $strongarm;
+  $strongarm->name = 'pathauto_node_season_pattern';
+  $strongarm->value = 'season/[node:nid]';
+  $export['pathauto_node_season_pattern'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */

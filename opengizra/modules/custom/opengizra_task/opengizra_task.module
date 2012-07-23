@@ -10,7 +10,7 @@ include_once 'opengizra_task.features.inc';
 /**
  * Implements hook_node_presave().
  *
- * Populate the Collection reference field based on the selected entity.
+ * Populate the Season reference field based on the selected entity.
  */
 function opengizra_task_node_presave($node) {
   if ($node->type != 'task') {

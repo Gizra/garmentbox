@@ -14,7 +14,7 @@ function opengizra_line_sheet_default_page_manager_pages() {
   $page->name = 'line_sheet';
   $page->task = 'page';
   $page->admin_title = 'Line Sheet';
-  $page->admin_description = 'Show a line sheet of a collection.';
+  $page->admin_description = 'Show a line sheet of a season.';
   $page->path = 'line-sheet/%node';
   $page->access = array(
     'type' => 'none',
@@ -57,7 +57,7 @@ function opengizra_line_sheet_default_page_manager_pages() {
           'name' => 'node_type',
           'settings' => array(
             'type' => array(
-              'collection' => 'collection',
+              'season' => 'season',
             ),
           ),
           'context' => 'argument_entity_id:node_1',

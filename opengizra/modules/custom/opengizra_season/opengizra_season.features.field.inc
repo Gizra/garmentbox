@@ -1,23 +1,23 @@
 <?php
 /**
  * @file
- * opengizra_collection.features.field.inc
+ * opengizra_season.features.field.inc
  */
 
 /**
  * Implements hook_field_default_fields().
  */
-function opengizra_collection_field_default_fields() {
+function opengizra_season_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'field_collection_item-field_status_info-field_collection_status'
-  $fields['field_collection_item-field_status_info-field_collection_status'] = array(
+  // Exported field: 'field_collection_item-field_status_info-field_season_status'
+  $fields['field_collection_item-field_status_info-field_season_status'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_collection_status',
+      'field_name' => 'field_season_status',
       'foreign keys' => array(
         'taxonomy_term_data' => array(
           'columns' => array(
@@ -47,7 +47,7 @@ function opengizra_collection_field_default_fields() {
             'type' => 'property',
           ),
           'target_bundles' => array(
-            'collection_status' => 'collection_status',
+            'season_status' => 'season_status',
           ),
         ),
         'handler_submit' => 'Change handler',
@@ -74,7 +74,7 @@ function opengizra_collection_field_default_fields() {
         ),
       ),
       'entity_type' => 'field_collection_item',
-      'field_name' => 'field_collection_status',
+      'field_name' => 'field_season_status',
       'label' => 'Status',
       'required' => 0,
       'settings' => array(
@@ -174,8 +174,8 @@ function opengizra_collection_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-collection-body'
-  $fields['node-collection-body'] = array(
+  // Exported field: 'node-season-body'
+  $fields['node-season-body'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
@@ -203,7 +203,7 @@ function opengizra_collection_field_default_fields() {
       'type' => 'text_with_summary',
     ),
     'field_instance' => array(
-      'bundle' => 'collection',
+      'bundle' => 'season',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -246,8 +246,8 @@ function opengizra_collection_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-collection-field_status_info'
-  $fields['node-collection-field_status_info'] = array(
+  // Exported field: 'node-season-field_status_info'
+  $fields['node-season-field_status_info'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '-1',
@@ -256,7 +256,7 @@ function opengizra_collection_field_default_fields() {
       'field_name' => 'field_status_info',
       'foreign keys' => array(),
       'indexes' => array(),
-      'module' => 'field_collection',
+      'module' => 'field_season',
       'settings' => array(
         'path' => '',
       ),
@@ -264,7 +264,7 @@ function opengizra_collection_field_default_fields() {
       'type' => 'field_collection',
     ),
     'field_instance' => array(
-      'bundle' => 'collection',
+      'bundle' => 'season',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',

@@ -4,9 +4,9 @@
 // Terms
 
 /**
- * Migrate Collection status terms.
+ * Migrate Season status terms.
  */
-class openGizraCollectionStatusTerms extends openGizraMigration {
+class openGizraSeasonStatusTerms extends openGizraMigration {
 
   /**
    * Map the field and properties to the CSV header.
@@ -17,7 +17,7 @@ class openGizraCollectionStatusTerms extends openGizraMigration {
   );
 
   public $entityType = 'taxonomy_term';
-  public $bundle = 'collection_status';
+  public $bundle = 'season_status';
 }
 
 /**
@@ -74,7 +74,7 @@ class openGizraSizeTerms extends openGizraMigration {
 /**
  * Migrate Collection nodes.
  */
-class openGizraCollections extends openGizraMigration {
+class openGizraSeasons extends openGizraMigration {
 
   public $csvColumns = array(
     array('id', 'Unique ID'),
@@ -84,7 +84,7 @@ class openGizraCollections extends openGizraMigration {
   );
 
   public $entityType = 'node';
-  public $bundle = 'collection';
+  public $bundle = 'season';
 
   public function __construct() {
     parent::__construct();
@@ -98,7 +98,7 @@ class openGizraCollections extends openGizraMigration {
       // We also need to reset the flags cache.
       flag_get_flags(NULL, NULL, NULL, TRUE);
       $account = user_load(1);
-      $result = flag('flag', 'active_collection', $entity->nid, $account);
+      $result = flag('flag', 'active_season', $entity->nid, $account);
     }
   }
 }
@@ -168,7 +168,7 @@ class openGizraItems extends openGizraMigration {
     array('id', 'Unique ID'),
     array('title', 'Title'),
     array('body', 'Body'),
-    array('field_collection', 'Collection'),
+    array('field_season', 'Season'),
     array('field_item_status', 'Status'),
     array('field_image', 'Image'),
   );
@@ -178,15 +178,15 @@ class openGizraItems extends openGizraMigration {
 
   public $dependencies = array(
     'openGizraItemStatusTerms',
-    'openGizraCollections',
+    'openGizraSeasons',
   );
 
   public function __construct() {
     parent::__construct();
     $this->addFieldMapping('body', 'body');
     $this
-      ->addFieldMapping('field_collection', 'field_collection')
-      ->sourceMigration('openGizraCollections');
+      ->addFieldMapping('field_season', 'field_season')
+      ->sourceMigration('openGizraSeasons');
 
     $this
       ->addFieldMapping('field_item_status', 'field_item_status')
@@ -220,7 +220,7 @@ class openGizraTasks extends openGizraMigration {
 
   public $dependencies = array(
     'openGizraTaskStatusTerms',
-    'openGizraCollections',
+    'openGizraSeasons',
     'openGizraItems',
     'openGizraItemInstances',
   );
@@ -230,7 +230,7 @@ class openGizraTasks extends openGizraMigration {
     $this->addFieldMapping('body', 'body');
     $this
       ->addFieldMapping('field_entity_reference', 'field_entity_reference')
-      ->sourceMigration(array('openGizraCollections', 'openGizraItems','openGizraItemInstances'));
+      ->sourceMigration(array('openGizraSeasons', 'openGizraItems','openGizraItemInstances'));
 
     $this
       ->addFieldMapping('field_task_status', 'field_task_status')
@@ -290,8 +290,8 @@ class openGizraItemInstances extends openGizraMigration {
 class openGizraCollectionsFieldStatusInfo extends openGizraFieldCollectionMigration {
   public $csvColumns = array(
     array('id', 'Unique ID'),
-    array('host_entity_id', 'Collection'),
-    array('field_collection_status', 'Status'),
+    array('host_entity_id', 'Season'),
+    array('field_season_status', 'Status'),
     array('field_date', 'Deadline'),
   );
 
@@ -300,19 +300,19 @@ class openGizraCollectionsFieldStatusInfo extends openGizraFieldCollectionMigrat
   public $hostEntityType = 'node';
 
   public $dependencies = array(
-    'openGizraCollectionStatusTerms',
-    'openGizraCollections',
+    'openGizraSeasonStatusTerms',
+    'openGizraSeasons',
   );
 
   public function __construct() {
     parent::__construct();
     $this
       ->addFieldMapping('host_entity_id', 'host_entity_id')
-      ->sourceMigration('openGizraCollections');
+      ->sourceMigration('openGizraSeasons');
 
     $this
-      ->addFieldMapping('field_collection_status', 'field_collection_status')
-      ->sourceMigration('openGizraCollectionStatusTerms');
+      ->addFieldMapping('field_season_status', 'field_season_status')
+      ->sourceMigration('openGizraSeasonStatusTerms');
 
     $this->addFieldMapping('field_date', 'field_date');
   }

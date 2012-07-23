@@ -68,7 +68,6 @@ dependencies[] = migrate_extras
 
 ; Features
 dependencies[] = opengizra_cad
-dependencies[] = opengizra_collection
 dependencies[] = opengizra_event
 dependencies[] = opengizra_general
 dependencies[] = opengizra_item
@@ -76,6 +75,7 @@ dependencies[] = opengizra_line_sheet
 dependencies[] = opengizra_material
 dependencies[] = opengizra_migrate
 dependencies[] = opengizra_pattern_task
+dependencies[] = opengizra_season
 dependencies[] = opengizra_task
 dependencies[] = opengizra_vendor
 

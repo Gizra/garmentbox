@@ -436,14 +436,14 @@ function opengizra_item_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-item-field_collection'
-  $fields['node-item-field_collection'] = array(
+  // Exported field: 'node-item-field_season'
+  $fields['node-item-field_season'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_collection',
+      'field_name' => 'field_season',
       'foreign keys' => array(
         'node' => array(
           'columns' => array(
@@ -473,7 +473,7 @@ function opengizra_item_field_default_fields() {
             'type' => 'property',
           ),
           'target_bundles' => array(
-            'collection' => 'collection',
+            'season' => 'season',
           ),
         ),
         'handler_submit' => 'Change handler',
@@ -506,8 +506,8 @@ function opengizra_item_field_default_fields() {
         ),
       ),
       'entity_type' => 'node',
-      'field_name' => 'field_collection',
-      'label' => 'Collection',
+      'field_name' => 'field_season',
+      'label' => 'Season',
       'required' => 0,
       'settings' => array(
         'behaviors' => array(
@@ -1104,7 +1104,7 @@ function opengizra_item_field_default_fields() {
   // Included for use with string extractors like potx.
   t('Bill of materials');
   t('Body');
-  t('Collection');
+  t('Season');
   t('Image');
   t('Images');
   t('Item');

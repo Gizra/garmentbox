@@ -5,7 +5,7 @@
  */
 $plugin = array(
   'title' => t('Line Sheet'),
-  'description' => t('Show a line sheet of a collection.'),
+  'description' => t('Show a line sheet of a season.'),
   'category' => t('Opengizra - Line Sheet'),
   'required context' => new ctools_context_required(t('Node'), 'node'),
   'hook theme' => 'opengizra_line_sheet_line_sheet_content_type_theme',
@@ -24,7 +24,7 @@ function opengizra_line_sheet_line_sheet_content_type_render($subtype, $conf, $a
   $module = 'opengizra_line_sheet';
   $block = new stdClass();
   $block->module = $module;
-  $block->title = t('Line Sheet @collection', array('@collection' => $node->title));
+  $block->title = t('Line Sheet @season', array('@season' => $node->title));
 
   if (!$nids = opengizra_line_sheet_flag_get_flagged_content('line_sheet', $node)) {
     $block->content = t('No items added to the line sheet.');

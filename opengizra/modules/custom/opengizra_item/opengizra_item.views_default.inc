@@ -199,18 +199,18 @@ function opengizra_item_views_default_views() {
   $handler->display->display_options['sorts']['created']['table'] = 'node';
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
-  /* Contextual filter: Content: Collection (field_collection) */
-  $handler->display->display_options['arguments']['field_collection_target_id']['id'] = 'field_collection_target_id';
-  $handler->display->display_options['arguments']['field_collection_target_id']['table'] = 'field_data_field_collection';
-  $handler->display->display_options['arguments']['field_collection_target_id']['field'] = 'field_collection_target_id';
-  $handler->display->display_options['arguments']['field_collection_target_id']['default_action'] = 'not found';
-  $handler->display->display_options['arguments']['field_collection_target_id']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['field_collection_target_id']['default_argument_skip_url'] = 0;
-  $handler->display->display_options['arguments']['field_collection_target_id']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_collection_target_id']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_collection_target_id']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['field_collection_target_id']['break_phrase'] = 0;
-  $handler->display->display_options['arguments']['field_collection_target_id']['not'] = 0;
+  /* Contextual filter: Content: Season (field_season) */
+  $handler->display->display_options['arguments']['field_season_target_id']['id'] = 'field_season_target_id';
+  $handler->display->display_options['arguments']['field_season_target_id']['table'] = 'field_data_field_season';
+  $handler->display->display_options['arguments']['field_season_target_id']['field'] = 'field_season_target_id';
+  $handler->display->display_options['arguments']['field_season_target_id']['default_action'] = 'not found';
+  $handler->display->display_options['arguments']['field_season_target_id']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['field_season_target_id']['default_argument_skip_url'] = 0;
+  $handler->display->display_options['arguments']['field_season_target_id']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_season_target_id']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_season_target_id']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_season_target_id']['break_phrase'] = 0;
+  $handler->display->display_options['arguments']['field_season_target_id']['not'] = 0;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -229,13 +229,13 @@ function opengizra_item_views_default_views() {
   /* Display: Content pane */
   $handler = $view->new_display('panel_pane', 'Content pane', 'panel_pane_1');
   $handler->display->display_options['argument_input'] = array(
-    'field_collection_target_id' => array(
+    'field_season_target_id' => array(
       'type' => 'context',
       'context' => 'entity:node.nid',
       'context_optional' => 0,
       'panel' => '0',
       'fixed' => '',
-      'label' => 'Content: Collection (field_collection)',
+      'label' => 'Content: Season (field_season)',
     ),
   );
   $export['items_gallery'] = $view;

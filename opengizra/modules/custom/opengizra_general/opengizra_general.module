@@ -36,7 +36,7 @@ function opengizra_general_get_node_hierarchy($node, &$nids = array()) {
     // We reached a content type that has no hierarchy so break here.
     return;
   }
-  if ($node->type == 'collection') {
+  if ($node->type == 'season') {
     // Node is top most, so return early.
     $nids[$node->nid] = $node->title;
     return $nids;
@@ -47,7 +47,7 @@ function opengizra_general_get_node_hierarchy($node, &$nids = array()) {
   $wrapper = entity_metadata_wrapper('node', $node);
   switch ($node->type) {
     case 'item':
-      $field_name = 'field_collection';
+      $field_name = 'field_season';
       break;
 
     case 'item_instance':

@@ -1,17 +1,17 @@
 <?php
 /**
  * @file
- * opengizra_collection.features.taxonomy.inc
+ * opengizra_season.features.taxonomy.inc
  */
 
 /**
  * Implements hook_taxonomy_default_vocabularies().
  */
-function opengizra_collection_taxonomy_default_vocabularies() {
+function opengizra_season_taxonomy_default_vocabularies() {
   return array(
-    'collection_status' => array(
-      'name' => 'Collection status',
-      'machine_name' => 'collection_status',
+    'season_status' => array(
+      'name' => 'season status',
+      'machine_name' => 'season_status',
       'description' => '',
       'hierarchy' => '0',
       'module' => 'taxonomy',
