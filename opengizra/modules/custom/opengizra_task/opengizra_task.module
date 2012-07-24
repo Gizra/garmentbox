@@ -36,11 +36,21 @@ function opengizra_task_comment_insert($comment) {
   }
 
   $save = FALSE;
+  $field_names[] ='subject_field';
   foreach ($field_names as $field_name) {
     $value = $wrapper->{$field_name}->value();
+    if ($field_name == 'subject_field') {
+      // The title field in the node has different name than the comment.
+      $field_name = 'title_field';
+    }
     if ($wrapper->node->{$field_name}->value() != $value) {
       $save = TRUE;
-      $wrapper->node->{$field_name}->set($value);
+      if ($field_name == 'title_field') {
+        $wrapper->node->title->set($value);
+      }
+      else {
+        $wrapper->node->{$field_name}->set($value);
+      }
     }
   }
 
@@ -87,5 +97,8 @@ function opengizra_task_sync_comment(&$form, $form_state) {
     }
     $form[$field_name][LANGUAGE_NONE]['#default_value'] = $value;
   }
+
+  // Replace the node title field with the comment's subject field.
+  $form['subject_field'][LANGUAGE_NONE][0]['value']['#default_value'] = $node->title;
 }
 

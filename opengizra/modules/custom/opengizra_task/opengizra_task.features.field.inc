@@ -91,7 +91,7 @@ function opengizra_task_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '2',
+        'weight' => '1',
       ),
     ),
   );
@@ -179,7 +179,7 @@ function opengizra_task_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '4',
+        'weight' => '2',
       ),
     ),
   );
@@ -251,7 +251,7 @@ function opengizra_task_field_default_fields() {
           'summary_rows' => 5,
         ),
         'type' => 'text_textarea_with_summary',
-        'weight' => '-4',
+        'weight' => '1',
       ),
     ),
   );
@@ -332,7 +332,7 @@ function opengizra_task_field_default_fields() {
       'entity_type' => 'node',
       'field_name' => 'field_entity_reference',
       'label' => 'Reference',
-      'required' => 0,
+      'required' => 1,
       'settings' => array(
         'behaviors' => array(
           'prepopulate' => array(
@@ -346,14 +346,14 @@ function opengizra_task_field_default_fields() {
       ),
       'widget' => array(
         'active' => 1,
-        'module' => 'entityreference',
+        'module' => 'options',
         'settings' => array(
           'match_operator' => 'CONTAINS',
           'path' => '',
           'size' => '60',
         ),
-        'type' => 'entityreference_autocomplete',
-        'weight' => '-2',
+        'type' => 'options_select',
+        'weight' => '7',
       ),
     ),
   );
@@ -449,7 +449,7 @@ function opengizra_task_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'entityreference_autocomplete',
-        'weight' => '2',
+        'weight' => '3',
       ),
     ),
   );
@@ -541,7 +541,7 @@ function opengizra_task_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '-1',
+        'weight' => '5',
       ),
     ),
   );
@@ -635,7 +635,73 @@ function opengizra_task_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '-3',
+        'weight' => '6',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-task-title_field'
+  $fields['node-task-title_field'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'title_field',
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'module' => 'text',
+      'settings' => array(
+        'max_length' => 255,
+      ),
+      'translatable' => '1',
+      'type' => 'text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'task',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'A field replacing node title.',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 6,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'title_field',
+      'label' => 'Title',
+      'required' => TRUE,
+      'settings' => array(
+        'text_processing' => 0,
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'module' => 'text',
+        'settings' => array(
+          'size' => 60,
+        ),
+        'type' => 'text_textfield',
+        'weight' => '0',
       ),
     ),
   );
@@ -704,12 +770,14 @@ function opengizra_task_field_default_fields() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('A field replacing node title.');
   t('Assignee');
   t('Body');
   t('Reference');
   t('Reference hierarchy');
   t('Status');
   t('Status is considered closed');
+  t('Title');
 
   return $fields;
 }
