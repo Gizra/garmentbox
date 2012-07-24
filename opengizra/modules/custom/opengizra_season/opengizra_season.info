@@ -8,7 +8,6 @@ dependencies[] = date
 dependencies[] = entityreference
 dependencies[] = features
 dependencies[] = field_collection
-dependencies[] = field_season
 dependencies[] = flag
 dependencies[] = options
 dependencies[] = page_manager
