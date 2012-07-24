@@ -25,7 +25,8 @@ function opengizra_task_field_group_info() {
     'children' => array(
       0 => 'field_task_assignee',
       1 => 'field_task_status',
-      2 => 'field_entity_reference',
+      2 => 'subject_field',
+      3 => 'field_entity_reference',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

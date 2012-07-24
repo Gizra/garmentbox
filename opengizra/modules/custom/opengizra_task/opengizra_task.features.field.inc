@@ -10,6 +10,98 @@
 function opengizra_task_field_default_fields() {
   $fields = array();
 
+  // Exported field: 'comment-comment_node_task-field_entity_reference'
+  $fields['comment-comment_node_task-field_entity_reference'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_entity_reference',
+      'foreign keys' => array(
+        'node' => array(
+          'columns' => array(
+            'target_id' => 'nid',
+          ),
+          'table' => 'node',
+        ),
+      ),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'module' => 'entityreference',
+      'settings' => array(
+        'handler' => 'base',
+        'handler_settings' => array(
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 0,
+            ),
+          ),
+          'sort' => array(
+            'direction' => 'ASC',
+            'field' => 'body:value',
+            'property' => 'title',
+            'type' => 'property',
+          ),
+          'target_bundles' => array(
+            'item' => 'item',
+            'item_instance' => 'item_instance',
+            'material' => 'material',
+            'season' => 'season',
+            'vendor' => 'vendor',
+          ),
+        ),
+        'handler_submit' => 'Change handler',
+        'target_type' => 'node',
+      ),
+      'translatable' => '0',
+      'type' => 'entityreference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'comment_node_task',
+      'default_value' => NULL,
+      'default_value_function' => '',
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => FALSE,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => 4,
+        ),
+      ),
+      'entity_type' => 'comment',
+      'field_name' => 'field_entity_reference',
+      'label' => 'Reference',
+      'required' => 1,
+      'settings' => array(
+        'behaviors' => array(
+          'prepopulate' => array(
+            'action' => 'none',
+            'fallback' => 'none',
+            'skip_perm' => '0',
+            'status' => 0,
+          ),
+        ),
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
+        'weight' => '3',
+      ),
+    ),
+  );
+
   // Exported field: 'comment-comment_node_task-field_task_assignee'
   $fields['comment-comment_node_task-field_task_assignee'] = array(
     'field_config' => array(
@@ -180,6 +272,66 @@ function opengizra_task_field_default_fields() {
         'settings' => array(),
         'type' => 'options_select',
         'weight' => '2',
+      ),
+    ),
+  );
+
+  // Exported field: 'comment-comment_node_task-subject_field'
+  $fields['comment-comment_node_task-subject_field'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'subject_field',
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'module' => 'text',
+      'settings' => array(
+        'max_length' => 255,
+      ),
+      'translatable' => '1',
+      'type' => 'text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'comment_node_task',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'A field replacing comment subject.',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 3,
+        ),
+      ),
+      'entity_type' => 'comment',
+      'field_name' => 'subject_field',
+      'label' => 'Subject',
+      'required' => TRUE,
+      'settings' => array(
+        'text_processing' => 0,
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'module' => 'text',
+        'settings' => array(
+          'size' => 60,
+        ),
+        'type' => 'text_textfield',
+        'weight' => '4',
       ),
     ),
   );
@@ -770,6 +922,7 @@ function opengizra_task_field_default_fields() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('A field replacing comment subject.');
   t('A field replacing node title.');
   t('Assignee');
   t('Body');
@@ -777,6 +930,7 @@ function opengizra_task_field_default_fields() {
   t('Reference hierarchy');
   t('Status');
   t('Status is considered closed');
+  t('Subject');
   t('Title');
 
   return $fields;
