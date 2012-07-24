@@ -34,15 +34,6 @@ function ninesixty_sub_preprocess_node(&$variables) {
 }
 
 /**
- * Comment preprocess.
- */
-function ninesixty_sub_preprocess_comment(&$variables) {
-  $variables['date'] = date('F Y', $variables['comment']->created);
-  $params = array ('!author' => $variables['author']);
-  $variables['author'] = t('!author wrote:' ,$params);
-}
-
-/**
  * Override theme_system_powered_by().
  */
 function ninesixty_sub_system_powered_by() {

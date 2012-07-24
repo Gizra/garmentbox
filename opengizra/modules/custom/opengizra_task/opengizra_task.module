@@ -102,3 +102,55 @@ function opengizra_task_sync_comment(&$form, $form_state) {
   $form['subject_field'][LANGUAGE_NONE][0]['value']['#default_value'] = $node->title;
 }
 
+/**
+ * Comment preprocess.
+ *
+ * Add all the fields that have changed from previous comment.
+ */
+function opengizra_task_preprocess_comment(&$variables) {
+  $comment = $variables['comment'];
+  $node = $variables['node'];
+  $variables['changed_fields'] = '';
+
+  if (!$field_names = opengizra_task_intersect_fields($comment, $node)) {
+    return;
+  }
+  $field_names[] ='subject_field';
+
+  $cache = &drupal_static(__FUNCTION__, array());
+  if (isset($cache[$node->nid])) {
+    $thread = $cache[$node->nid];
+  }
+  else {
+    $thread = comment_get_thread($node, COMMENT_MODE_FLAT, 1000);
+    $cache[$node->nid] = $thread;
+  }
+
+  // If this is not the first comment, and the previous comment's field
+  // were changed preapre to show it.
+  $key = array_search($comment->cid, $thread);
+  if ($key == 0) {
+    return;
+  }
+
+  $wrapper = entity_metadata_wrapper('comment', $comment);
+  $previous_wrapper = entity_metadata_wrapper('comment', $thread[$key - 1]);
+
+  foreach ($field_names as $field_name) {
+    $value = $wrapper->{$field_name}->value();
+    $previous_value = $previous_wrapper->{$field_name}->value();
+    if ($previous_value == $value) {
+      continue;
+    }
+
+    $params = array();
+
+    $instance = field_info_instance('comment', $field_name, $comment->node_type);
+    $params['@label'] = $instance['label'];
+    $params['@previous'] = strip_tags(render(field_view_field('comment', $previous_wrapper->value(), $field_name)));
+    $params['@current'] = strip_tags(render(field_view_field('comment', $wrapper->value(), $field_name)));
+
+    $variables['changed_fields'] .= format_string('@label: @previous >> @current', $params);
+  }
+}
+
