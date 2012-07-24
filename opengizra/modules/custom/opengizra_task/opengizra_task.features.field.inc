@@ -119,10 +119,10 @@ function opengizra_task_field_default_fields() {
             'type' => 'property',
           ),
           'target_bundles' => array(
-            'collection' => 'collection',
             'item' => 'item',
             'item_instance' => 'item_instance',
             'material' => 'material',
+            'season' => 'season',
             'vendor' => 'vendor',
           ),
         ),
