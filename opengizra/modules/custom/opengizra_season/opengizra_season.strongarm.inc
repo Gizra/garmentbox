@@ -20,13 +20,6 @@ function opengizra_season_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'comment_season';
-  $strongarm->value = '1';
-  $export['comment_season'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'comment_default_mode_season';
   $strongarm->value = 1;
   $export['comment_default_mode_season'] = $strongarm;
@@ -51,6 +44,13 @@ function opengizra_season_strongarm() {
   $strongarm->name = 'comment_preview_season';
   $strongarm->value = '1';
   $export['comment_preview_season'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'comment_season';
+  $strongarm->value = '1';
+  $export['comment_season'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
