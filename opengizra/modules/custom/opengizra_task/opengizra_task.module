@@ -112,11 +112,6 @@ function opengizra_task_preprocess_comment(&$variables) {
   $node = $variables['node'];
   $variables['changed_fields'] = '';
 
-  if (!$field_names = opengizra_task_intersect_fields($comment, $node)) {
-    return;
-  }
-  $field_names[] ='subject_field';
-
   $cache = &drupal_static(__FUNCTION__, array());
   if (isset($cache[$node->nid])) {
     $thread = $cache[$node->nid];
@@ -126,12 +121,22 @@ function opengizra_task_preprocess_comment(&$variables) {
     $cache[$node->nid] = $thread;
   }
 
+  // As we already called the non-cached comment_get_thread(), this is
+  // a good place to change the permalink text to be the comment number
+  // in the thread.
+  $key = array_search($comment->cid, $thread);
+  $variables['permalink'] = str_replace('Permalink', '#' . ($key + 1), $variables['permalink']);
+
   // If this is not the first comment, and the previous comment's field
   // were changed preapre to show it.
-  $key = array_search($comment->cid, $thread);
   if ($key == 0) {
     return;
   }
+
+  if (!$field_names = opengizra_task_intersect_fields($comment, $node)) {
+    return;
+  }
+  $field_names[] ='subject_field';
 
   $wrapper = entity_metadata_wrapper('comment', $comment);
   $previous_wrapper = entity_metadata_wrapper('comment', $thread[$key - 1]);
