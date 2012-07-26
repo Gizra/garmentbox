@@ -23,6 +23,48 @@ function opengizra_task_node_presave($node) {
 }
 
 /**
+ * Implements hook_node_insert().
+ *
+ * Create an unpublished comment that will hold the node's state as it was
+ * created.
+ */
+function opengizra_task_node_insert($node) {
+  if ($node->type != 'task') {
+    return;
+  }
+
+  // Create a stub comment.
+  $comment = (object)array(
+    'subject' => '',
+    'nid' => $node->nid,
+    'uid' => 0,
+    'cid' => FALSE,
+    'pid' => 0,
+    'node_type' => 'comment_node_' . $node->type,
+    // Comment is unpublished.
+    'status' => 0,
+  );
+
+  if (!$field_names = opengizra_task_intersect_fields($comment, $node)) {
+    return;
+  }
+  $field_names[] ='title_field';
+
+  $wrapper = entity_metadata_wrapper('comment', $comment);
+  foreach ($field_names as $field_name) {
+    $value = $wrapper->node->{$field_name}->value();
+    if ($field_name == 'title_field') {
+      // The title field in the node has different name than the comment.
+      $field_name = 'subject_field';
+    }
+    $wrapper->{$field_name}->set($value);
+  }
+
+  $wrapper->save();
+}
+
+
+/**
  * Implements hook_comment_insert().
  *
  * Save the node task fields according to the saved comment.
@@ -125,13 +167,17 @@ function opengizra_task_preprocess_comment(&$variables) {
   // a good place to change the permalink text to be the comment number
   // in the thread.
   $key = array_search($comment->cid, $thread);
-  $variables['permalink'] = str_replace('Permalink', '#' . ($key + 1), $variables['permalink']);
+  $variables['permalink'] = str_replace('Permalink', '#' . $key, $variables['permalink']);
 
   // If this is not the first comment, and the previous comment's field
   // were changed preapre to show it.
   if ($key == 0) {
+    // Don't show this comment;
+    $variables['show_comment'] = FALSE;
+    $variables['content'] = array();
     return;
   }
+  $variables['show_comment'] = TRUE;
 
   if (!$field_names = opengizra_task_intersect_fields($comment, $node)) {
     return;
