@@ -151,11 +151,14 @@ function opengizra_task_preprocess_comment(&$variables) {
     $params = array();
 
     $instance = field_info_instance('comment', $field_name, $comment->node_type);
-    $params['@label'] = $instance['label'];
-    $params['@previous'] = strip_tags(render(field_view_field('comment', $previous_wrapper->value(), $field_name)));
-    $params['@current'] = strip_tags(render(field_view_field('comment', $wrapper->value(), $field_name)));
+    $display = $instance['display']['default'];
+    $display['label'] = 'inline';
+    $params['@previous'] = strip_tags(render(field_view_field('comment', $previous_wrapper->value(), $field_name, $display)));
 
-    $variables['changed_fields'] .= format_string('@label: @previous >> @current', $params);
+    $display['label'] = 'hidden';
+    $params['@current'] = strip_tags(render(field_view_field('comment', $wrapper->value(), $field_name, $display)));
+
+    $variables['changed_fields'] .= format_string('@previous » @current', $params);
   }
 }
 
