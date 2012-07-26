@@ -31,6 +31,7 @@ projects[entity][version] = "1.x-dev"
 
 projects[entityreference][subdir] = "contrib"
 projects[entityreference][version] = "1.x-dev"
+projects[entityreference][patch][] = "http://drupal.org/files/1354482-er-user-roles-19.patch"
 
 projects[entityreference_prepopulate][subdir] = "contrib"
 projects[entityreference_prepopulate][version] = "1.x-dev"
