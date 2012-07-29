@@ -47,10 +47,6 @@ function opengizra_bom_field_formatter_view($entity_type, $entity, $field, $inst
         'class' => 'field_price',
       );
 
-      $element[0]['#header'][] = array(
-        'data' => t('Unit'),
-        'class' => 'field_unit',
-      );
       $element[0]['#header'][] = $last_col;
 
       // Inject rows.
@@ -64,10 +60,6 @@ function opengizra_bom_field_formatter_view($entity_type, $entity, $field, $inst
         $row['data'][] = array(
           'data' => field_view_field('field_collection_item', $collection_item, 'field_price', array('label' => 'hidden')),
           'class' => 'field_price',
-        );
-        $row['data'][] = array(
-          'data' => field_view_field('field_collection_item', $collection_item, 'field_unit', array('label' => 'hidden')),
-          'class' => 'field_unit',
         );
         $row['data'][] = $last_col;
         $element[0]['#rows'][$key] = $row;
