@@ -27,6 +27,7 @@ function opengizra_bom_field_formatter_view($entity_type, $entity, $field, $inst
   switch ($display['type']) {
     case 'opengizra_bom_table':
       $wrapper = entity_metadata_wrapper($entity_type, $entity);
+      dpm($wrapper->value());
       return;
   }
 }
