@@ -19,12 +19,15 @@ function opengizra_material_field_attach_form($entity_type, $entity, &$form, &$f
     return;
   }
 
+  // Check if we are in a node context, or directly inside a field
+  // collection.
+  $key = !empty($form_state['node']) ? 'field_source_info[und][0][field_unit][und]' : 'field_unit[und]';
    $state = array(
      '#states' => array(
       'visible' => array(
         array(
-          array(':input[name="field_unit[und]"]' => array('value' => 'pound')),
-          array(':input[name="field_unit[und]"]' => array('value' => 'kilogram')),
+          array(':input[name="' . $key . '"]' => array('value' => 'pound')),
+          array(':input[name="' . $key . '"]' => array('value' => 'kilogram')),
         ),
       ),
     ),
@@ -44,12 +47,13 @@ function opengizra_material_field_attach_form($entity_type, $entity, &$form, &$f
  * those fields required.
  */
 function opengizra_material_length_validate($element, &$form_state) {
-  if (!in_array($form_state['values']['field_unit'][LANGUAGE_NONE][0]['value'], array('kilogram', 'pound'))) {
+  $values = !empty($form_state['values']['field_source_info']) ? $form_state['values']['field_source_info'][LANGUAGE_NONE][0] : $form_state['values'];
+  if (!in_array($values['field_unit'][LANGUAGE_NONE][0]['value'], array('kilogram', 'pound'))) {
     return;
   }
   $field_name = $element[LANGUAGE_NONE]['#field_name'];
 
-  if (empty($form_state['values'][$field_name][LANGUAGE_NONE][0]['value'])) {
+  if (empty($values[$field_name][LANGUAGE_NONE][0]['value'])) {
     form_error($element, t('@name is required.', array('@name' => $element[LANGUAGE_NONE]['#title'])));
   }
 }

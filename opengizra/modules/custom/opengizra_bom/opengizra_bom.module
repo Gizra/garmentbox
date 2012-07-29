@@ -34,6 +34,8 @@ function opengizra_bom_field_formatter_view($entity_type, $entity, $field, $inst
       // Inject header.
       $last_col = array_pop($element[0]['#header']);
 
+      $total = 0;
+
       foreach ($element[0]['#header'] as $key => $value) {
         if ($value['class'] == 'field_material') {
           $material_delta = $key;
@@ -63,7 +65,25 @@ function opengizra_bom_field_formatter_view($entity_type, $entity, $field, $inst
         );
         $row['data'][] = $last_col;
         $element[0]['#rows'][$key] = $row;
+
+        // Calculate the total.
+        $collection_wrapper = $wrapper->field_material->field_source_info;
+        $unit_price = $collection_wrapper->field_price->amount->value();
+
+        $material_unit = $wrapper->field_material->field_source_info->field_unit->value();
+        $material_length_unit = $wrapper->field_material->field_source_info->field_length_unit->value();
+        $bom_unit = $collection_wrapper->field_unit->value();
+        if ($material_unit == $bom_unit) {
+          $total += $material_unit * $unit_price;
+        }
+        elseif ($material_length_unit) {
+          // Use the conversion given in the material.
+          $total += $bom_unit / $material_length_unit * $unit_price;
+
+        }
       }
+
+      $element['1']['#markup'] = t('Total: @total', array('@total' => 0));
 
       return $element;
   }
