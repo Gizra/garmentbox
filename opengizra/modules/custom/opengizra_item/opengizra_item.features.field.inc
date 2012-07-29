@@ -176,6 +176,8 @@ function opengizra_item_field_default_fields() {
         'allowed_values' => array(
           'kilogram' => 'Kilogram',
           'pound' => 'Pound',
+          'meter' => 'Meter',
+          'yard' => 'Yard',
         ),
         'allowed_values_function' => '',
       ),

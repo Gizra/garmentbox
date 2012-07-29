@@ -10,6 +10,125 @@
 function opengizra_material_field_default_fields() {
   $fields = array();
 
+  // Exported field: 'field_collection_item-field_source_info-field_length'
+  $fields['field_collection_item-field_source_info-field_length'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_length',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'module' => 'number',
+      'settings' => array(
+        'decimal_separator' => '.',
+        'precision' => '10',
+        'scale' => '2',
+      ),
+      'translatable' => '0',
+      'type' => 'number_decimal',
+    ),
+    'field_instance' => array(
+      'bundle' => 'field_source_info',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'number',
+          'settings' => array(
+            'decimal_separator' => '.',
+            'prefix_suffix' => TRUE,
+            'scale' => 2,
+            'thousand_separator' => ' ',
+          ),
+          'type' => 'number_decimal',
+          'weight' => 3,
+        ),
+      ),
+      'entity_type' => 'field_collection_item',
+      'field_name' => 'field_length',
+      'label' => 'Length',
+      'required' => 0,
+      'settings' => array(
+        'max' => '',
+        'min' => '',
+        'prefix' => '',
+        'suffix' => '',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'number',
+        'settings' => array(),
+        'type' => 'number',
+        'weight' => '5',
+      ),
+    ),
+  );
+
+  // Exported field: 'field_collection_item-field_source_info-field_length_unit'
+  $fields['field_collection_item-field_source_info-field_length_unit'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_length_unit',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'module' => 'list',
+      'settings' => array(
+        'allowed_values' => array(
+          'meter' => 'Meter',
+          'yard' => 'Yard',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'list_text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'field_source_info',
+      'default_value' => array(
+        0 => array(
+          'value' => 'meter',
+        ),
+      ),
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'list',
+          'settings' => array(),
+          'type' => 'list_default',
+          'weight' => 4,
+        ),
+      ),
+      'entity_type' => 'field_collection_item',
+      'field_name' => 'field_length_unit',
+      'label' => 'Length unit',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
+        'weight' => '6',
+      ),
+    ),
+  );
+
   // Exported field: 'field_collection_item-field_source_info-field_price'
   $fields['field_collection_item-field_source_info-field_price'] = array(
     'field_config' => array(
@@ -84,6 +203,8 @@ function opengizra_material_field_default_fields() {
         'allowed_values' => array(
           'kilogram' => 'Kilogram',
           'pound' => 'Pound',
+          'meter' => 'Meter',
+          'yard' => 'Yard',
         ),
         'allowed_values_function' => '',
       ),
@@ -436,7 +557,7 @@ function opengizra_material_field_default_fields() {
   $fields['node-material-field_source_info'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '-1',
+      'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_source_info',
@@ -487,7 +608,7 @@ function opengizra_material_field_default_fields() {
         'module' => 'field_collection',
         'settings' => array(),
         'type' => 'field_collection_embed',
-        'weight' => '0',
+        'weight' => 0,
       ),
     ),
   );
@@ -496,6 +617,8 @@ function opengizra_material_field_default_fields() {
   // Included for use with string extractors like potx.
   t('Body');
   t('Images');
+  t('Length');
+  t('Length unit');
   t('Nick name');
   t('Price');
   t('Source info');
