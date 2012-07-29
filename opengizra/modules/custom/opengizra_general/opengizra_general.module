@@ -79,3 +79,28 @@ function opengizra_general_get_node_hierarchy($node, &$nids = array()) {
   return array_reverse($nids, TRUE);
 }
 
+/**
+ * Render node as a mini panel.
+ *
+ * @param $node
+ *   The node to pass to the mini panel.
+ *
+ *  @param $mini_name
+ *    The mini panel name that his rendered html will replace the node rendered
+ *    html.
+ */
+function hv_render_node_as_mini_panel($node, $mini_name) {
+  ctools_include('context');
+  $mini = panels_mini_load($mini_name);
+  $contexts = array();
+
+  foreach ($mini->requiredcontexts as $key => $required_context) {
+    $id = 'requiredcontext_' . $mini->requiredcontexts[$key]['name'] . '_' . $mini->requiredcontexts[$key]['id'];
+    $contexts[$id] = ctools_context_create('node', $node);
+  }
+
+  $context = ctools_context_match_required_contexts($mini->requiredcontexts, $contexts);
+  $mini->context = $mini->display->context = ctools_context_load_contexts($mini, FALSE, $context);
+  return panels_render_display($mini->display);
+}
+

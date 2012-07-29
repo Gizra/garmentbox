@@ -20,3 +20,12 @@ function opengizra_item_node_presave($node) {
   $nids = array_keys(opengizra_general_get_node_hierarchy($node));
   $wrapper->field_reference_hierarchy->set($nids);
 }
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function opengizra_item_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'ctools') {
+    return 'plugins/' . $plugin;
+  }
+}
