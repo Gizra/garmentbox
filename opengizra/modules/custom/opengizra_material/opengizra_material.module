@@ -5,3 +5,51 @@
  */
 
 include_once 'opengizra_material.features.inc';
+
+/**
+ * Implements hook_field_attach_form().
+ */
+function opengizra_material_field_attach_form($entity_type, $entity, &$form, &$form_state, $langcode) {
+  if ($entity_type != 'field_collection_item') {
+    return;
+  }
+
+  list(,, $bundle) = entity_extract_ids($entity_type, $entity);
+  if ($bundle != 'field_source_info') {
+    return;
+  }
+
+   $state = array(
+     '#states' => array(
+      'visible' => array(
+        array(
+          array(':input[name="field_unit[und]"]' => array('value' => 'pound')),
+          array(':input[name="field_unit[und]"]' => array('value' => 'kilogram')),
+        ),
+      ),
+    ),
+  );
+
+  $form['field_length'] += $state;
+  $form['field_length_unit'] += $state;
+
+  $form['field_length']['#element_validate'][] = 'opengizra_material_length_validate';
+  $form['field_length_unit']['#element_validate'][] = 'opengizra_material_length_validate';
+}
+
+/**
+ * Element validate; Make length and unit-length required.
+ *
+ * If the selected unit is of weighttype (e.g. Kilogram), we need to make
+ * those fields required.
+ */
+function opengizra_material_length_validate($element, &$form_state) {
+  if (!in_array($form_state['values']['field_unit'][LANGUAGE_NONE][0]['value'], array('kilogram', 'pound'))) {
+    return;
+  }
+  $field_name = $element[LANGUAGE_NONE]['#field_name'];
+
+  if (empty($form_state['values'][$field_name][LANGUAGE_NONE][0]['value'])) {
+    form_error($element, t('@name is required.', array('@name' => $element[LANGUAGE_NONE]['#title'])));
+  }
+}
