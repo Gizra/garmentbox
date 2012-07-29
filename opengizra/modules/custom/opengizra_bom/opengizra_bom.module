@@ -26,8 +26,53 @@ function opengizra_bom_field_formatter_view($entity_type, $entity, $field, $inst
 
   switch ($display['type']) {
     case 'opengizra_bom_table':
-      $wrapper = entity_metadata_wrapper($entity_type, $entity);
-      dpm($wrapper->value());
-      return;
+      $field_name = $field['field_name'];
+      $dummy_display = $display;
+      $dummy_display['type'] = 'field_collection_table_view';
+      $element = field_view_field($entity_type, $entity, $field_name, $dummy_display);
+
+      // Inject header.
+      $last_col = array_pop($element[0]['#header']);
+
+      foreach ($element[0]['#header'] as $key => $value) {
+        if ($value['class'] == 'field_material') {
+          $material_delta = $key;
+          break;
+        }
+      }
+
+
+      $element[0]['#header'][] = array(
+        'data' => t('Price'),
+        'class' => 'field_price',
+      );
+
+      $element[0]['#header'][] = array(
+        'data' => t('Unit'),
+        'class' => 'field_unit',
+      );
+      $element[0]['#header'][] = $last_col;
+
+      // Inject rows.
+      foreach ($element[0]['#rows'] as $key => $row) {
+        $wrapper = entity_metadata_wrapper('field_collection_item', $row['data'][$material_delta]['data']['#object']->item_id);
+        $collection_item = $wrapper->field_material->field_source_info->value();
+        $field_price = field_view_field('field_collection_item', $collection_item, 'field_price');
+        $field_unit = field_view_field('field_collection_item', $collection_item, 'field_unit');
+
+        $last_col = array_pop($row['data']);
+        $row['data'][] = array(
+          'data' => field_view_field('field_collection_item', $collection_item, 'field_price', array('label' => 'hidden')),
+          'class' => 'field_price',
+        );
+        $row['data'][] = array(
+          'data' => field_view_field('field_collection_item', $collection_item, 'field_unit', array('label' => 'hidden')),
+          'class' => 'field_unit',
+        );
+        $row['data'][] = $last_col;
+        $element[0]['#rows'][$key] = $row;
+      }
+
+      return $element;
   }
 }
