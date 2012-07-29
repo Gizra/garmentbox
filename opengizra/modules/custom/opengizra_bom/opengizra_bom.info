@@ -1,0 +1,5 @@
+name = Opengizra BOM
+description = Opengizra Bill of Materials
+core = 7.x
+package = Features
+php = 5.2.4

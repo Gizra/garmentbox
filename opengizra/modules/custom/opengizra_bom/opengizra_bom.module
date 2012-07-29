@@ -1,0 +1,32 @@
+<?php
+/**
+ * @file
+ * Code for the Opengizra BOM.
+ */
+
+
+/**
+ * Implement hook_field_formatter_info().
+ */
+function opengizra_bom_field_formatter_info() {
+  return array(
+    'opengizra_bom_table' => array(
+      'label' => t('BOM table'),
+      'field types' => array('field_collection'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function opengizra_bom_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+
+  $settings = $display['settings'];
+
+  switch ($display['type']) {
+    case 'opengizra_bom_table':
+      $wrapper = entity_metadata_wrapper($entity_type, $entity);
+      return;
+  }
+}
