@@ -23,10 +23,11 @@ function opengizra_task_field_group_info() {
     'label' => 'Change properties',
     'weight' => '0',
     'children' => array(
-      0 => 'field_task_assignee',
-      1 => 'field_task_status',
-      2 => 'subject_field',
-      3 => 'field_entity_reference',
+      0 => 'field_entity_reference',
+      1 => 'field_task_assignee',
+      2 => 'field_task_status',
+      3 => 'subject_field',
+      4 => 'field_date',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -56,6 +57,7 @@ function opengizra_task_field_group_info() {
       0 => 'field_entity_reference',
       1 => 'field_task_assignee',
       2 => 'field_task_status',
+      3 => 'field_date',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

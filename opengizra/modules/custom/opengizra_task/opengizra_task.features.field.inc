@@ -10,6 +10,82 @@
 function opengizra_task_field_default_fields() {
   $fields = array();
 
+  // Exported field: 'comment-comment_node_task-field_date'
+  $fields['comment-comment_node_task-field_date'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_date',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'module' => 'date',
+      'settings' => array(
+        'cache_count' => '4',
+        'cache_enabled' => 0,
+        'granularity' => array(
+          'day' => 'day',
+          'hour' => 0,
+          'minute' => 0,
+          'month' => 'month',
+          'second' => 0,
+          'year' => 'year',
+        ),
+        'timezone_db' => '',
+        'todate' => '',
+        'tz_handling' => 'none',
+      ),
+      'translatable' => '0',
+      'type' => 'datetime',
+    ),
+    'field_instance' => array(
+      'bundle' => 'comment_node_task',
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'date',
+          'settings' => array(
+            'format_type' => 'long',
+            'fromto' => 'both',
+            'multiple_from' => '',
+            'multiple_number' => '',
+            'multiple_to' => '',
+          ),
+          'type' => 'date_default',
+          'weight' => 5,
+        ),
+      ),
+      'entity_type' => 'comment',
+      'field_name' => 'field_date',
+      'label' => 'Deadline',
+      'required' => 0,
+      'settings' => array(
+        'default_value' => 'now',
+        'default_value2' => 'same',
+        'default_value_code' => '',
+        'default_value_code2' => '',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'date',
+        'settings' => array(
+          'increment' => '15',
+          'input_format' => 'm/d/Y - H:i:s',
+          'input_format_custom' => '',
+          'label_position' => 'above',
+          'text_parts' => array(),
+          'year_range' => '-3:+3',
+        ),
+        'type' => 'date_select',
+        'weight' => '5',
+      ),
+    ),
+  );
+
   // Exported field: 'comment-comment_node_task-field_entity_reference'
   $fields['comment-comment_node_task-field_entity_reference'] = array(
     'field_config' => array(
@@ -308,7 +384,7 @@ function opengizra_task_field_default_fields() {
       'bundle' => 'comment_node_task',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'A field replacing comment subject.',
+      'description' => '',
       'display' => array(
         'default' => array(
           'label' => 'above',
@@ -320,15 +396,20 @@ function opengizra_task_field_default_fields() {
       'entity_type' => 'comment',
       'field_name' => 'subject_field',
       'label' => 'Subject',
-      'required' => TRUE,
+      'required' => 1,
       'settings' => array(
-        'text_processing' => 0,
+        'hide_label' => array(
+          'entity' => 0,
+          'page' => 0,
+        ),
+        'text_processing' => '0',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
+        'active' => 1,
         'module' => 'text',
         'settings' => array(
-          'size' => 60,
+          'size' => '60',
         ),
         'type' => 'text_textfield',
         'weight' => '4',
@@ -404,6 +485,88 @@ function opengizra_task_field_default_fields() {
         ),
         'type' => 'text_textarea_with_summary',
         'weight' => '1',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-task-field_date'
+  $fields['node-task-field_date'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_date',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'module' => 'date',
+      'settings' => array(
+        'cache_count' => '4',
+        'cache_enabled' => 0,
+        'granularity' => array(
+          'day' => 'day',
+          'hour' => 0,
+          'minute' => 0,
+          'month' => 'month',
+          'second' => 0,
+          'year' => 'year',
+        ),
+        'timezone_db' => '',
+        'todate' => '',
+        'tz_handling' => 'none',
+      ),
+      'translatable' => '0',
+      'type' => 'datetime',
+    ),
+    'field_instance' => array(
+      'bundle' => 'task',
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'date',
+          'settings' => array(
+            'format_type' => 'long',
+            'fromto' => 'both',
+            'multiple_from' => '',
+            'multiple_number' => '',
+            'multiple_to' => '',
+          ),
+          'type' => 'date_default',
+          'weight' => 7,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_date',
+      'label' => 'Deadline',
+      'required' => 0,
+      'settings' => array(
+        'default_value' => 'now',
+        'default_value2' => 'same',
+        'default_value_code' => '',
+        'default_value_code2' => '',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'date',
+        'settings' => array(
+          'increment' => '15',
+          'input_format' => 'm/d/Y - H:i:s',
+          'input_format_custom' => '',
+          'label_position' => 'above',
+          'text_parts' => array(),
+          'year_range' => '-3:+3',
+        ),
+        'type' => 'date_popup',
+        'weight' => '8',
       ),
     ),
   );
@@ -824,7 +987,7 @@ function opengizra_task_field_default_fields() {
       'bundle' => 'task',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'A field replacing node title.',
+      'description' => '',
       'display' => array(
         'default' => array(
           'label' => 'above',
@@ -842,18 +1005,23 @@ function opengizra_task_field_default_fields() {
       'entity_type' => 'node',
       'field_name' => 'title_field',
       'label' => 'Title',
-      'required' => TRUE,
+      'required' => 1,
       'settings' => array(
-        'text_processing' => 0,
+        'hide_label' => array(
+          'entity' => 0,
+          'page' => 0,
+        ),
+        'text_processing' => '0',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
+        'active' => 1,
         'module' => 'text',
         'settings' => array(
-          'size' => 60,
+          'size' => '60',
         ),
         'type' => 'text_textfield',
-        'weight' => '0',
+        'weight' => 0,
       ),
     ),
   );
@@ -922,10 +1090,9 @@ function opengizra_task_field_default_fields() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('A field replacing comment subject.');
-  t('A field replacing node title.');
   t('Assignee');
   t('Body');
+  t('Deadline');
   t('Reference');
   t('Reference hierarchy');
   t('Status');
