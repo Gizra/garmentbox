@@ -93,8 +93,6 @@ function opengizra_bom_field_formatter_view($entity_type, $entity, $field, $inst
 
       $element[0]['table'] = $table;
       $element[0]['total']['#markup'] = t('Total: @total', array('@total' => commerce_currency_format($total, 'USD')));
-
-
       return $element;
   }
 }
