@@ -721,6 +721,7 @@ function opengizra_item_field_default_fields() {
       'indexes' => array(),
       'module' => 'field_collection',
       'settings' => array(
+        'hide_blank_items' => TRUE,
         'path' => '',
       ),
       'translatable' => '0',
@@ -1148,6 +1149,7 @@ function opengizra_item_field_default_fields() {
       'indexes' => array(),
       'module' => 'field_collection',
       'settings' => array(
+        'hide_blank_items' => TRUE,
         'path' => '',
       ),
       'translatable' => '0',

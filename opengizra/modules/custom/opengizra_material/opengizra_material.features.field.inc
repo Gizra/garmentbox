@@ -565,6 +565,7 @@ function opengizra_material_field_default_fields() {
       'indexes' => array(),
       'module' => 'field_collection',
       'settings' => array(
+        'hide_blank_items' => TRUE,
         'path' => '',
       ),
       'translatable' => '0',

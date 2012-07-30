@@ -74,6 +74,37 @@ function opengizra_item_default_panels_mini() {
     $pane->pid = 'new-19';
     $pane->panel = 'middle';
     $pane->type = 'entity_field';
+    $pane->subtype = 'node:field_images';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'label' => 'hidden',
+      'formatter' => 'image',
+      'delta_limit' => '0',
+      'delta_offset' => '0',
+      'delta_reversed' => 0,
+      'formatter_settings' => array(
+        'image_style' => 'thumbnail',
+        'image_link' => 'content',
+      ),
+      'context' => 'requiredcontext_entity:node_1',
+      'override_title' => 0,
+      'override_title_text' => '',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 1;
+    $pane->locks = array();
+    $display->content['new-19'] = $pane;
+    $display->panels['middle'][1] = 'new-19';
+    $pane = new stdClass();
+    $pane->pid = 'new-20';
+    $pane->panel = 'middle';
+    $pane->type = 'entity_field';
     $pane->subtype = 'node:field_bom_info';
     $pane->shown = TRUE;
     $pane->access = array();
@@ -101,12 +132,12 @@ function opengizra_item_default_panels_mini() {
     );
     $pane->css = array();
     $pane->extras = array();
-    $pane->position = 1;
+    $pane->position = 2;
     $pane->locks = array();
-    $display->content['new-19'] = $pane;
-    $display->panels['middle'][1] = 'new-19';
+    $display->content['new-20'] = $pane;
+    $display->panels['middle'][2] = 'new-20';
     $pane = new stdClass();
-    $pane->pid = 'new-20';
+    $pane->pid = 'new-21';
     $pane->panel = 'middle';
     $pane->type = 'node_links';
     $pane->subtype = 'node_links';
@@ -126,12 +157,12 @@ function opengizra_item_default_panels_mini() {
     );
     $pane->css = array();
     $pane->extras = array();
-    $pane->position = 2;
+    $pane->position = 3;
     $pane->locks = array();
-    $display->content['new-20'] = $pane;
-    $display->panels['middle'][2] = 'new-20';
+    $display->content['new-21'] = $pane;
+    $display->panels['middle'][3] = 'new-21';
     $pane = new stdClass();
-    $pane->pid = 'new-21';
+    $pane->pid = 'new-22';
     $pane->panel = 'middle';
     $pane->type = 'views_panes';
     $pane->subtype = 'pattern-panel_pane_1';
@@ -148,10 +179,10 @@ function opengizra_item_default_panels_mini() {
     );
     $pane->css = array();
     $pane->extras = array();
-    $pane->position = 3;
+    $pane->position = 4;
     $pane->locks = array();
-    $display->content['new-21'] = $pane;
-    $display->panels['middle'][3] = 'new-21';
+    $display->content['new-22'] = $pane;
+    $display->panels['middle'][4] = 'new-22';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $mini->display = $display;

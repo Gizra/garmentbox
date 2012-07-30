@@ -68,5 +68,4 @@ features[variable][] = node_preview_item
 features[variable][] = node_preview_item_instance
 features[variable][] = node_submitted_item
 features[variable][] = node_submitted_item_instance
-features[views_view][] = item_instance
 features[views_view][] = items_gallery
