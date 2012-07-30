@@ -59,7 +59,7 @@ function opengizra_bom_field_formatter_view($entity_type, $entity, $field, $inst
 
         $material_wrapper = entity_metadata_wrapper('field_collection_item', $row['data'][$material_delta]['data']['#object']->item_id);
         $collection_item = $material_wrapper->field_material->field_source_info->value();
-        $field_price = field_view_field('field_collection_item', $collection_item, 'field_price', array('label' => 'hidden', 'type' => 'commerce_price_formatted_components'));
+        $field_price = field_view_field('field_collection_item', $collection_item, 'field_price', array('label' => 'hidden', 'type' => 'commerce_price_formatted_amount'));
 
         $row['data'][] = array(
           'data' => $field_price,
