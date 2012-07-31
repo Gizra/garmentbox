@@ -80,26 +80,22 @@ class openGizraSeasons extends openGizraMigration {
     array('id', 'Unique ID'),
     array('title', 'Title'),
     array('body', 'Body'),
-    array('flag', 'Flag'),
+    array('field_season_status', 'Status'),
   );
 
   public $entityType = 'node';
   public $bundle = 'season';
 
+  public $dependencies = array(
+    'openGizraSeasonStatusTerms',
+  );
+
   public function __construct() {
     parent::__construct();
     $this->addFieldMapping('body', 'body');
-  }
-
-  public function complete($entity, stdClass $row) {
-    if ($row->flag) {
-      // Mark collection is "Active collection".
-      // We do it with user ID 1, that has flagging permissions.
-      // We also need to reset the flags cache.
-      flag_get_flags(NULL, NULL, NULL, TRUE);
-      $account = user_load(1);
-      $result = flag('flag', 'active_season', $entity->nid, $account);
-    }
+    $this
+      ->addFieldMapping('field_season_status', 'field_season_status')
+      ->sourceMigration('openGizraSeasonStatusTerms');
   }
 }
 

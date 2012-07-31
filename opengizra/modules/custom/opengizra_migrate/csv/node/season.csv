@@ -1,4 +1,4 @@
-Unique ID,Title,Body,Flag
-season1,Autumn-Winter 2013 Women,"clean modern lines of the Sixties. Bright sequins in clean patterns alongside Peruvian-inspired knits add youth and energy.",1
-season2,Spring-Summer 2012 Men,"Graphic construction cuts throughout the season in bold geometric prints, stark blacks and whites in herringbone raffia, and window pane checks.",0
-season3,Autumn-Winter 2012 Women,"The latest Autumn / Winter 2012 season draws inspiration from vintage í90s style.  Lots of grey and brown colors, along with some rich blue that reflect the autumn feel in their silhouettes, featuring trench coats",0
+Unique ID,Title,Body,Status
+season1,Autumn-Winter 2013 Women,"clean modern lines of the Sixties. Bright sequins in clean patterns alongside Peruvian-inspired knits add youth and energy.",seasonStatus1
+season2,Spring-Summer 2012 Men,"Graphic construction cuts throughout the season in bold geometric prints, stark blacks and whites in herringbone raffia, and window pane checks.",seasonStatus2
+season3,Autumn-Winter 2012 Women,"The latest Autumn / Winter 2012 season draws inspiration from vintage í90s style.  Lots of grey and brown colors, along with some rich blue that reflect the autumn feel in their silhouettes, featuring trench coats",seasonStatus3
