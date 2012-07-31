@@ -709,8 +709,8 @@ function opengizra_item_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-item_instance-field_bom_info'
-  $fields['node-item_instance-field_bom_info'] = array(
+  // Exported field: 'node-item_variant-field_bom_info'
+  $fields['node-item_variant-field_bom_info'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '-1',
@@ -728,7 +728,7 @@ function opengizra_item_field_default_fields() {
       'type' => 'field_collection',
     ),
     'field_instance' => array(
-      'bundle' => 'item_instance',
+      'bundle' => 'item_variant',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
@@ -770,8 +770,8 @@ function opengizra_item_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-item_instance-field_images'
-  $fields['node-item_instance-field_images'] = array(
+  // Exported field: 'node-item_variant-field_images'
+  $fields['node-item_variant-field_images'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '-1',
@@ -800,7 +800,7 @@ function opengizra_item_field_default_fields() {
       'type' => 'image',
     ),
     'field_instance' => array(
-      'bundle' => 'item_instance',
+      'bundle' => 'item_variant',
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -853,8 +853,8 @@ function opengizra_item_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-item_instance-field_item'
-  $fields['node-item_instance-field_item'] = array(
+  // Exported field: 'node-item_variant-field_item'
+  $fields['node-item_variant-field_item'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
@@ -900,7 +900,7 @@ function opengizra_item_field_default_fields() {
       'type' => 'entityreference',
     ),
     'field_instance' => array(
-      'bundle' => 'item_instance',
+      'bundle' => 'item_variant',
       'default_value' => NULL,
       'default_value_function' => 'entityreference_prepopulate_field_default_value',
       'deleted' => '0',
@@ -947,8 +947,8 @@ function opengizra_item_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-item_instance-field_item_status'
-  $fields['node-item_instance-field_item_status'] = array(
+  // Exported field: 'node-item_variant-field_item_status'
+  $fields['node-item_variant-field_item_status'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
@@ -994,7 +994,7 @@ function opengizra_item_field_default_fields() {
       'type' => 'entityreference',
     ),
     'field_instance' => array(
-      'bundle' => 'item_instance',
+      'bundle' => 'item_variant',
       'default_value' => NULL,
       'default_value_function' => '',
       'deleted' => '0',
@@ -1041,8 +1041,8 @@ function opengizra_item_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-item_instance-field_reference_hierarchy'
-  $fields['node-item_instance-field_reference_hierarchy'] = array(
+  // Exported field: 'node-item_variant-field_reference_hierarchy'
+  $fields['node-item_variant-field_reference_hierarchy'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '-1',
@@ -1086,7 +1086,7 @@ function opengizra_item_field_default_fields() {
       'type' => 'entityreference',
     ),
     'field_instance' => array(
-      'bundle' => 'item_instance',
+      'bundle' => 'item_variant',
       'default_value' => NULL,
       'default_value_function' => '',
       'deleted' => '0',
@@ -1137,8 +1137,8 @@ function opengizra_item_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-item_instance-field_size_info'
-  $fields['node-item_instance-field_size_info'] = array(
+  // Exported field: 'node-item_variant-field_size_info'
+  $fields['node-item_variant-field_size_info'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '-1',
@@ -1156,7 +1156,7 @@ function opengizra_item_field_default_fields() {
       'type' => 'field_collection',
     ),
     'field_instance' => array(
-      'bundle' => 'item_instance',
+      'bundle' => 'item_variant',
       'default_value' => NULL,
       'deleted' => '0',
       'description' => '',

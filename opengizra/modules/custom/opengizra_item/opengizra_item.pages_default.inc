@@ -95,7 +95,7 @@ function opengizra_item_default_page_manager_handlers() {
     $pane->access = array();
     $pane->configuration = array(
       'types' => array(
-        'item_instance' => 'item_instance',
+        'item_variant' => 'item_variant',
       ),
       'field_name' => 'field_item',
       'context' => 'argument_entity_id:node_1',
@@ -163,8 +163,8 @@ function opengizra_item_default_page_manager_handlers() {
     $pane = new stdClass();
     $pane->pid = 'new-5';
     $pane->panel = 'right';
-    $pane->type = 'item_instance_tabs';
-    $pane->subtype = 'item_instance_tabs';
+    $pane->type = 'item_variant_tabs';
+    $pane->subtype = 'item_variant_tabs';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
@@ -186,7 +186,7 @@ function opengizra_item_default_page_manager_handlers() {
     $pane->pid = 'new-6';
     $pane->panel = 'right';
     $pane->type = 'views_panes';
-    $pane->subtype = 'item_instance-panel_pane_1';
+    $pane->subtype = 'item_variant-panel_pane_1';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
@@ -326,7 +326,7 @@ function opengizra_item_default_page_manager_handlers() {
   $handler->handler = 'panel_context';
   $handler->weight = 2;
   $handler->conf = array(
-    'title' => 'Item Instance',
+    'title' => 'Item Variant',
     'no_blocks' => 0,
     'pipeline' => 'standard',
     'body_classes_to_remove' => '',
@@ -341,7 +341,7 @@ function opengizra_item_default_page_manager_handlers() {
           'name' => 'node_type',
           'settings' => array(
             'type' => array(
-              'item_instance' => 'item_instance',
+              'item_variant' => 'item_variant',
             ),
           ),
           'context' => 'argument_entity_id:node_1',

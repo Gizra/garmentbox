@@ -1,7 +1,7 @@
-Unique ID,Item instance,Size,SKU
-1,itemInstance1,size1,12345
-2,itemInstance1,size2,12346
-3,itemInstance1,size3,12347
-4,itemInstance2,size1,12348
-5,itemInstance2,size2,12349
-6,itemInstance3,size3,12350
+Unique ID,Item variant,Size,SKU
+1,ItemVariant1,size1,12345
+2,ItemVariant1,size2,12346
+3,ItemVariant1,size3,12347
+4,ItemVariant2,size1,12348
+5,ItemVariant2,size2,12349
+6,ItemVariant3,size3,12350

@@ -42,8 +42,8 @@ function opengizra_item_node_info() {
       'title_label' => t('Title'),
       'help' => '',
     ),
-    'item_instance' => array(
-      'name' => t('Item instance'),
+    'item_variant' => array(
+      'name' => t('Item variant'),
       'base' => 'node_content',
       'description' => '',
       'has_title' => '1',

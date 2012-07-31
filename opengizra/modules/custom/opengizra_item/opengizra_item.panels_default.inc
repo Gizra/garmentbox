@@ -13,9 +13,9 @@ function opengizra_item_default_panels_mini() {
   $mini = new stdClass();
   $mini->disabled = FALSE; /* Edit this to true to make a default mini disabled initially */
   $mini->api_version = 1;
-  $mini->name = 'item_instance';
+  $mini->name = 'item_variant';
   $mini->category = '';
-  $mini->admin_title = 'Item Instance';
+  $mini->admin_title = 'Item Variant';
   $mini->admin_description = '';
   $mini->requiredcontexts = array(
     0 => array(
@@ -186,7 +186,7 @@ function opengizra_item_default_panels_mini() {
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $mini->display = $display;
-  $export['item_instance'] = $mini;
+  $export['item_variant'] = $mini;
 
   return $export;
 }

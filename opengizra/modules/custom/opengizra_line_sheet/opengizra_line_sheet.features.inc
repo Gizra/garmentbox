@@ -25,7 +25,7 @@ function opengizra_line_sheet_flag_default_flags() {
     'title' => 'Line Sheet',
     'global' => '1',
     'types' => array(
-      0 => 'item_instance',
+      0 => 'item_variant',
     ),
     'flag_short' => 'Add to line Sheet',
     'flag_long' => '',

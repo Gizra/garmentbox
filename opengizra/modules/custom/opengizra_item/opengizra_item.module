@@ -12,7 +12,7 @@ include_once 'opengizra_item.features.inc';
  * Populate the Season reference field based on the selected entity.
  */
 function opengizra_item_node_presave($node) {
-  if ($node->type != 'item_instance') {
+  if ($node->type != 'item_variant') {
     return;
   }
 

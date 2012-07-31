@@ -50,7 +50,7 @@ function opengizra_general_get_node_hierarchy($node, &$nids = array()) {
       $field_name = 'field_season';
       break;
 
-    case 'item_instance':
+    case 'item_variant':
       $field_name = 'field_item';
       break;
 

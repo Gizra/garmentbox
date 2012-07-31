@@ -4,7 +4,7 @@
  * Plugin definition.
  */
 $plugin = array(
-  'title' => t('Item instances tabs'),
+  'title' => t('Item variants tabs'),
   'description' => t('Show item instances as tabs'),
   'required context' => new ctools_context_required(t('Node'), 'node'),
   'category' => t('Opengizra Item'),
@@ -13,14 +13,14 @@ $plugin = array(
 /**
  * Render callback.
  */
-function opengizra_item_item_instance_tabs_content_type_render($subtype, $conf, $args, $context) {
+function opengizra_item_item_variant_tabs_content_type_render($subtype, $conf, $args, $context) {
   if (empty($context->data)) {
     return FALSE;
   }
 
   $node = $context->data;
   if ($node->type != 'item') {
-    throw new Exception('Item instances tabs expects passed node to be of type Instance');
+    throw new Exception('Item variants tabs expects passed node to be of type Instance');
   }
 
   $module = 'opengizra_item';
@@ -32,7 +32,7 @@ function opengizra_item_item_instance_tabs_content_type_render($subtype, $conf, 
   $query = new EntityFieldQuery();
   $result = $query
     ->entityCondition('entity_type', 'node')
-    ->propertyCondition('type', 'item_instance')
+    ->propertyCondition('type', 'item_variant')
     ->propertyCondition('status', NODE_PUBLISHED)
     ->fieldCondition('field_item', 'target_id', $node->nid)
     ->propertyOrderBy('nid')
@@ -58,9 +58,9 @@ function opengizra_item_item_instance_tabs_content_type_render($subtype, $conf, 
     $items[] = '<a href="#item-instance-' . $node->nid . '">' . check_plain($node->title) . '</a>';
 
 
-    $output = '<div id="item-instance-' . $node->nid . '">' . hv_render_node_as_mini_panel($node, 'item_instance') . '</div>';
+    $output = '<div id="item-instance-' . $node->nid . '">' . hv_render_node_as_mini_panel($node, 'item_variant') . '</div>';
     // Add the tab itself.
-    $form['tabs_wrapper']['item_instance_' . $node->nid] = array('#markup' => $output);
+    $form['tabs_wrapper']['item_variant_' . $node->nid] = array('#markup' => $output);
   }
 
   $form['tabs_wrapper']['tabs_header'] = array(
@@ -79,6 +79,6 @@ function opengizra_item_item_instance_tabs_content_type_render($subtype, $conf, 
 /**
  * Edit form.
  */
-function opengizra_item_item_instance_tabs_content_type_edit_form($form, &$form_state) {
+function opengizra_item_item_variant_tabs_content_type_edit_form($form, &$form_state) {
   return $form;
 }

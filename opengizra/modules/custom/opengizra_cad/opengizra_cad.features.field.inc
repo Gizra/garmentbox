@@ -254,7 +254,7 @@ function opengizra_cad_field_default_fields() {
           ),
           'target_bundles' => array(
             'item' => 'item',
-            'item_instance' => 'item_instance',
+            'item_variant' => 'item_variant',
           ),
         ),
         'handler_submit' => 'Change handler',

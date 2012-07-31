@@ -222,7 +222,7 @@ class openGizraTasks extends openGizraMigration {
     'openGizraTaskStatusTerms',
     'openGizraSeasons',
     'openGizraItems',
-    'openGizraItemInstances',
+    'openGizraItemVariants',
   );
 
   public function __construct() {
@@ -230,7 +230,7 @@ class openGizraTasks extends openGizraMigration {
     $this->addFieldMapping('body', 'body');
     $this
       ->addFieldMapping('field_entity_reference', 'field_entity_reference')
-      ->sourceMigration(array('openGizraSeasons', 'openGizraItems','openGizraItemInstances'));
+      ->sourceMigration(array('openGizraSeasons', 'openGizraItems','openGizraItemVariants'));
 
     $this
       ->addFieldMapping('field_task_status', 'field_task_status')
@@ -239,9 +239,9 @@ class openGizraTasks extends openGizraMigration {
 }
 
 /**
- * Migrate Item instances nodes.
+ * Migrate Item variants nodes.
  */
-class openGizraItemInstances extends openGizraMigration {
+class openGizraItemVariants extends openGizraMigration {
 
   public $csvColumns = array(
     array('id', 'Unique ID'),
@@ -251,7 +251,7 @@ class openGizraItemInstances extends openGizraMigration {
   );
 
   public $entityType = 'node';
-  public $bundle = 'item_instance';
+  public $bundle = 'item_variant';
 
   public $dependencies = array(
     'openGizraItems',
@@ -325,7 +325,7 @@ class openGizraCollectionsFieldStatusInfo extends openGizraFieldCollectionMigrat
 class openGizraCollectionsFieldSizeInfo extends openGizraFieldCollectionMigration {
   public $csvColumns = array(
     array('id', 'Unique ID'),
-    array('host_entity_id', 'Item instance'),
+    array('host_entity_id', 'Item variant'),
     array('field_size', 'Size'),
     array('field_sku', 'SKU'),
   );
@@ -336,14 +336,14 @@ class openGizraCollectionsFieldSizeInfo extends openGizraFieldCollectionMigratio
 
   public $dependencies = array(
     'openGizraSizeTerms',
-    'openGizraItemInstances',
+    'openGizraItemVariants',
   );
 
   public function __construct() {
     parent::__construct();
     $this
       ->addFieldMapping('host_entity_id', 'host_entity_id')
-      ->sourceMigration('openGizraItemInstances');
+      ->sourceMigration('openGizraItemVariants');
 
     $this
       ->addFieldMapping('field_size', 'field_size')
@@ -397,7 +397,7 @@ class openGizraCollectionsFieldSourceInfo extends openGizraFieldCollectionMigrat
 class openGizraCollectionsFieldBomInfo extends openGizraFieldCollectionMigration {
   public $csvColumns = array(
     array('id', 'Unique ID'),
-    array('host_entity_id', 'Item instance'),
+    array('host_entity_id', 'Item variant'),
     array('field_material', 'Material'),
     array('field_unit', 'Unit'),
     array('field_quantity', 'Quantity'),
@@ -408,7 +408,7 @@ class openGizraCollectionsFieldBomInfo extends openGizraFieldCollectionMigration
   public $hostEntityType = 'node';
 
   public $dependencies = array(
-    'openGizraItemInstances',
+    'openGizraItemVariants',
     'openGizraMaterials',
   );
 
@@ -416,7 +416,7 @@ class openGizraCollectionsFieldBomInfo extends openGizraFieldCollectionMigration
     parent::__construct();
     $this
       ->addFieldMapping('host_entity_id', 'host_entity_id')
-      ->sourceMigration('openGizraItemInstances');
+      ->sourceMigration('openGizraItemVariants');
 
     $this
       ->addFieldMapping('field_material', 'field_material')
