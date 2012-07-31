@@ -12,4 +12,7 @@ include_once 'opengizra_season.features.inc';
  * Redriect user to the active season.
  */
 function opengizra_season_init() {
+  if (!drupal_is_cli() && drupal_is_front_page()) {
+    drupal_goto('node/17');
+  }
 }
