@@ -21,7 +21,6 @@ features[field][] = field_collection_item-field_status_info-field_season_status
 features[field][] = node-season-body
 features[field][] = node-season-field_season_status
 features[field][] = node-season-field_status_info
-features[flag][] = active_season
 features[node][] = season
 features[page_manager_handlers][] = node_view_panel_context
 features[taxonomy][] = season_status
