@@ -48,14 +48,14 @@ function opengizra_task_node_insert($node) {
   if (!$field_names = opengizra_task_intersect_fields($comment, $node)) {
     return;
   }
-  $field_names[] ='title_field';
+  $field_names[] ='title';
 
   $wrapper = entity_metadata_wrapper('comment', $comment);
   foreach ($field_names as $field_name) {
     $value = $wrapper->node->{$field_name}->value();
-    if ($field_name == 'title_field') {
+    if ($field_name == 'title') {
       // The title field in the node has different name than the comment.
-      $field_name = 'subject_field';
+      $field_name = 'subject';
     }
     $wrapper->{$field_name}->set($value);
   }
@@ -78,16 +78,16 @@ function opengizra_task_comment_insert($comment) {
   }
 
   $save = FALSE;
-  $field_names[] ='subject_field';
+  $field_names[] ='subject';
   foreach ($field_names as $field_name) {
     $value = $wrapper->{$field_name}->value();
-    if ($field_name == 'subject_field') {
+    if ($field_name == 'subject') {
       // The title field in the node has different name than the comment.
-      $field_name = 'title_field';
+      $field_name = 'title';
     }
     if ($wrapper->node->{$field_name}->value() != $value) {
       $save = TRUE;
-      if ($field_name == 'title_field') {
+      if ($field_name == 'title') {
         $wrapper->node->title->set($value);
       }
       else {
@@ -182,7 +182,7 @@ function opengizra_task_preprocess_comment(&$variables) {
   if (!$field_names = opengizra_task_intersect_fields($comment, $node)) {
     return;
   }
-  $field_names[] ='subject_field';
+  $field_names[] ='subject';
 
   $wrapper = entity_metadata_wrapper('comment', $comment);
   $previous_wrapper = entity_metadata_wrapper('comment', $thread[$key - 1]);
