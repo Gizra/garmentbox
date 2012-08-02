@@ -200,11 +200,13 @@ function opengizra_task_preprocess_comment(&$variables) {
     $display = $instance['display']['default'];
     $display['label'] = 'inline';
     $params['@previous'] = strip_tags(render(field_view_field('comment', $previous_wrapper->value(), $field_name, $display)));
+    $params['@previous'] = str_replace('&nbsp;', ' ', $params['@previous']);
+
 
     $display['label'] = 'hidden';
     $params['@current'] = strip_tags(render(field_view_field('comment', $wrapper->value(), $field_name, $display)));
 
-    $variables['changed_fields'] .= format_string('@previous » @current', $params);
+    $variables['changed_fields'] .= '<div class="task-change">' . format_string('@previous » @current', $params) . '</div>';
   }
 }
 
