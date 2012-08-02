@@ -89,7 +89,7 @@ function opengizra_general_get_node_hierarchy($node, &$nids = array()) {
  *    The mini panel name that his rendered html will replace the node rendered
  *    html.
  */
-function hv_render_node_as_mini_panel($node, $mini_name) {
+function opengizra_general_render_node_as_mini_panel($node, $mini_name) {
   ctools_include('context');
   $mini = panels_mini_load($mini_name);
   $contexts = array();
@@ -104,3 +104,13 @@ function hv_render_node_as_mini_panel($node, $mini_name) {
   return panels_render_display($mini->display);
 }
 
+/**
+ * Implements hook_field_access().
+ *
+ * Hide the reference hierarchy field.
+ */
+function opengizra_general_field_access($op, $field, $entity_type, $entity, $account) {
+  if (!empty($field['field_name']) && $field['field_name'] == 'field_reference_hierarchy') {
+    return FALSE;
+  }
+}
