@@ -1137,6 +1137,65 @@ function opengizra_item_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-item_variant-field_retail_price'
+  $fields['node-item_variant-field_retail_price'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_retail_price',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'currency_price' => array(
+          0 => 'amount',
+          1 => 'currency_code',
+        ),
+      ),
+      'module' => 'commerce_price',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'commerce_price',
+    ),
+    'field_instance' => array(
+      'bundle' => 'item_variant',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => NULL,
+          'settings' => array(),
+          'type' => 'commerce_price_default',
+          'weight' => 8,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_retail_price',
+      'label' => 'Retail price',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'commerce_price',
+        'settings' => array(
+          'currency_code' => 'default',
+        ),
+        'type' => 'commerce_price_full',
+        'weight' => '33',
+      ),
+    ),
+  );
+
   // Exported field: 'node-item_variant-field_size_info'
   $fields['node-item_variant-field_size_info'] = array(
     'field_config' => array(
@@ -1198,6 +1257,65 @@ function opengizra_item_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-item_variant-field_wholesale_price'
+  $fields['node-item_variant-field_wholesale_price'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_wholesale_price',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'currency_price' => array(
+          0 => 'amount',
+          1 => 'currency_code',
+        ),
+      ),
+      'module' => 'commerce_price',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'commerce_price',
+    ),
+    'field_instance' => array(
+      'bundle' => 'item_variant',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => NULL,
+          'settings' => array(),
+          'type' => 'commerce_price_default',
+          'weight' => 9,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_wholesale_price',
+      'label' => 'Wholesale price',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'commerce_price',
+        'settings' => array(
+          'currency_code' => 'default',
+        ),
+        'type' => 'commerce_price_full',
+        'weight' => '34',
+      ),
+    ),
+  );
+
   // Translatables
   // Included for use with string extractors like potx.
   t('Bill of materials');
@@ -1208,12 +1326,14 @@ function opengizra_item_field_default_fields() {
   t('Material');
   t('Quantity');
   t('Reference hierarchy');
+  t('Retail price');
   t('SKU');
   t('Season');
   t('Size');
   t('Size info');
   t('Status');
   t('Unit');
+  t('Wholesale price');
 
   return $fields;
 }
