@@ -335,6 +335,7 @@ function opengizra_standard_install() {
     'size' => 'Size',
     'task_status' => 'Task status',
     'bol' => 'Bill of Labor',
+    'inventory_type' => 'Inventory type',
   );
 
   foreach ($vocab_info as $machine_name => $name) {
