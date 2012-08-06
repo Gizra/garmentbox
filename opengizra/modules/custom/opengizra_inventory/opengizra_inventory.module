@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Opengizra Inventory feature.
+ */
+
+include_once 'opengizra_inventory.features.inc';
