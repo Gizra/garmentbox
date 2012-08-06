@@ -251,7 +251,7 @@ function opengizra_item_field_default_fields() {
           ),
           'sort' => array(
             'direction' => 'ASC',
-            'field' => 'property',
+            'field' => 'field_status_closed:value',
             'property' => 'name',
             'type' => 'property',
           ),
