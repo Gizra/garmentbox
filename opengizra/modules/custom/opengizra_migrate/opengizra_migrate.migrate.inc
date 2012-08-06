@@ -68,6 +68,26 @@ class openGizraSizeTerms extends openGizraMigration {
   public $bundle = 'size';
 }
 
+/**
+ * Migrate Size terms.
+ */
+class openGizraInventoryTypeTerms extends openGizraMigration {
+
+  public $csvColumns = array(
+    array('id', 'Unique ID'),
+    array('name', 'Name'),
+    array('field_include_in_total', 'Include in total'),
+  );
+
+  public $entityType = 'taxonomy_term';
+  public $bundle = 'size';
+
+  public function __construct() {
+    parent::__construct();
+    $this->addFieldMapping('field_include_in_total', 'field_include_in_total');
+  }
+}
+
 ///////////////////////////////
 // Nodes
 
