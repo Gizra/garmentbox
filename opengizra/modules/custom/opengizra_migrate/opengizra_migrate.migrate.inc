@@ -80,7 +80,7 @@ class openGizraInventoryTypeTerms extends openGizraMigration {
   );
 
   public $entityType = 'taxonomy_term';
-  public $bundle = 'size';
+  public $bundle = 'inventory_type';
 
   public function __construct() {
     parent::__construct();
