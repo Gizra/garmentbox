@@ -1,0 +1,6 @@
+Unique ID,Name,Include in total
+inventoryType1,In future production,0
+inventoryType2,Current production,1
+inventoryType3,Consignation,0
+inventoryType4,Regular stock,1
+inventoryType5,Defective,0
