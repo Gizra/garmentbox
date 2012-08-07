@@ -1,6 +1,5 @@
-Unique ID,Name,Include in total
-inventoryType1,In future production,0
-inventoryType2,Current production,1
-inventoryType3,Consignation,0
-inventoryType4,Regular stock,1
-inventoryType5,Defective,0
+Unique ID,Title,Item variant,Type,Production date,Delivery date,Status
+inventoryLine1,inventoryLine1,itemVariant1,inventoryType1,"May 7, 2013","May 30, 2013",0
+inventoryLine2,inventoryLine2,itemVariant1,inventoryType1,"May 7, 2013","May 30, 2013",0
+inventoryLine3,inventoryLine3,itemVariant2,inventoryType2,"May 7, 2013","May 30, 2013",0
+inventoryLine4,inventoryLine4,itemVariant3,inventoryType3,"May 7, 2013","May 30, 2013",0

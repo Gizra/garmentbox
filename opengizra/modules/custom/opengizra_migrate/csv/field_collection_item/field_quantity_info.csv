@@ -1,0 +1,7 @@
+Unique ID,Inventory line,Size,Quantity
+fieldQuantityInfo1,inventoryLine1,size1,5
+fieldQuantityInfo2,inventoryLine1,size2,7
+fieldQuantityInfo3,inventoryLine1,size3,10
+fieldQuantityInfo4,inventoryLine2,size1,1
+fieldQuantityInfo5,inventoryLine3,size2,3
+fieldQuantityInfo6,inventoryLine4,size3,5

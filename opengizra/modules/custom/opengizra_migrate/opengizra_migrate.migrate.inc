@@ -296,6 +296,47 @@ class openGizraItemVariants extends openGizraMigration {
   }
 }
 
+/**
+ * Migrate inventory line nodes.
+ */
+class openGizraInventoryLines extends openGizraMigration {
+
+  public $csvColumns = array(
+    array('id', 'Unique ID'),
+    array('title', 'Title'),
+    array('field_item_variant', 'Item variant'),
+    array('field_inventory_type', 'Type'),
+    array('field_production_start_date', 'Production date'),
+    array('field_delivery_date', 'Delivery date'),
+    array('field_inventory_status', 'Status'),
+  );
+
+  public $entityType = 'node';
+  public $bundle = 'inventory_line';
+
+  public $dependencies = array(
+    'openGizraItemVariants',
+    'openGizraInventoryTypeTerms',
+  );
+
+  public function __construct() {
+    parent::__construct();
+
+    $this
+      ->addFieldMapping('field_item_variant', 'field_item_variant')
+      ->sourceMigration('openGizraItemVariants');
+
+    $this
+      ->addFieldMapping('field_inventory_type', 'field_inventory_type')
+      ->sourceMigration('openGizraInventoryTypeTerms');
+
+    $this->addFieldMapping('field_production_start_date', 'field_production_start_date');
+    $this->addFieldMapping('field_delivery_date', 'field_delivery_date');
+
+    $this->addFieldMapping('field_inventory_status', 'field_inventory_status');
+  }
+}
+
 
 ///////////////////////////////
 // Field collections
@@ -439,6 +480,41 @@ class openGizraCollectionsFieldBomInfo extends openGizraFieldCollectionMigration
       ->sourceMigration('openGizraMaterials');
 
     $this->addFieldMapping('field_unit', 'field_unit');
+    $this->addFieldMapping('field_quantity', 'field_quantity');
+  }
+}
+
+
+/**
+ * Migrate "Quantity info" field collection.
+ */
+class openGizraCollectionsFieldQuantityInfo extends openGizraFieldCollectionMigration {
+  public $csvColumns = array(
+    array('id', 'Unique ID'),
+    array('host_entity_id', 'Inventory line'),
+    array('field_size', 'Size'),
+    array('field_quantity', 'Quantity'),
+  );
+
+  public $entityType = 'field_collection_item';
+  public $bundle = 'field_quantity_info';
+  public $hostEntityType = 'node';
+
+  public $dependencies = array(
+    'openGizraInventoryLines',
+    'openGizraSizeTerms',
+  );
+
+  public function __construct() {
+    parent::__construct();
+    $this
+      ->addFieldMapping('host_entity_id', 'host_entity_id')
+      ->sourceMigration('openGizraInventoryLines');
+
+    $this
+      ->addFieldMapping('field_size', 'field_size')
+      ->sourceMigration('openGizraSizeTerms');
+
     $this->addFieldMapping('field_quantity', 'field_quantity');
   }
 }
