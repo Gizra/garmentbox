@@ -167,7 +167,12 @@ function opengizra_inventory_summary_content_type_render($subtype, $conf, $args,
 
 
     $items = array();
-    foreach ($data['data'] as $inventory_tid => $inventory_data) {
+    foreach ($header as $inventory_tid => $header_value) {
+      if (!is_numeric($inventory_tid)) {
+        continue;
+      }
+
+      $inventory_data = $data['data'][$inventory_tid];
       if (!$inventory_data) {
         // There are no values for this inventory type.
         $row[] = '-';
