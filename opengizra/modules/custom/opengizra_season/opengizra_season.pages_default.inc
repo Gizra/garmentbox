@@ -63,6 +63,28 @@ function opengizra_season_default_page_manager_handlers() {
     $pane = new stdClass();
     $pane->pid = 'new-1';
     $pane->panel = 'bottom';
+    $pane->type = 'summary';
+    $pane->subtype = 'summary';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'context' => 'argument_entity_id:node_1',
+      'override_title' => 0,
+      'override_title_text' => '',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 0;
+    $pane->locks = array();
+    $display->content['new-1'] = $pane;
+    $display->panels['bottom'][0] = 'new-1';
+    $pane = new stdClass();
+    $pane->pid = 'new-2';
+    $pane->panel = 'bottom';
     $pane->type = 'node_prepopulate';
     $pane->subtype = 'node_prepopulate';
     $pane->shown = TRUE;
@@ -82,12 +104,12 @@ function opengizra_season_default_page_manager_handlers() {
     );
     $pane->css = array();
     $pane->extras = array();
-    $pane->position = 0;
+    $pane->position = 1;
     $pane->locks = array();
-    $display->content['new-1'] = $pane;
-    $display->panels['bottom'][0] = 'new-1';
+    $display->content['new-2'] = $pane;
+    $display->panels['bottom'][1] = 'new-2';
     $pane = new stdClass();
-    $pane->pid = 'new-2';
+    $pane->pid = 'new-3';
     $pane->panel = 'bottom';
     $pane->type = 'node_links';
     $pane->subtype = 'node_links';
@@ -107,12 +129,12 @@ function opengizra_season_default_page_manager_handlers() {
     );
     $pane->css = array();
     $pane->extras = array();
-    $pane->position = 1;
+    $pane->position = 2;
     $pane->locks = array();
-    $display->content['new-2'] = $pane;
-    $display->panels['bottom'][1] = 'new-2';
+    $display->content['new-3'] = $pane;
+    $display->panels['bottom'][2] = 'new-3';
     $pane = new stdClass();
-    $pane->pid = 'new-3';
+    $pane->pid = 'new-4';
     $pane->panel = 'left';
     $pane->type = 'views_panes';
     $pane->subtype = 'task_list-panel_pane_1';
@@ -131,30 +153,8 @@ function opengizra_season_default_page_manager_handlers() {
     $pane->extras = array();
     $pane->position = 0;
     $pane->locks = array();
-    $display->content['new-3'] = $pane;
-    $display->panels['left'][0] = 'new-3';
-    $pane = new stdClass();
-    $pane->pid = 'new-4';
-    $pane->panel = 'left';
-    $pane->type = 'summary';
-    $pane->subtype = 'summary';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array(
-      'context' => 'argument_entity_id:node_1',
-      'override_title' => 0,
-      'override_title_text' => '',
-    );
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => NULL,
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 1;
-    $pane->locks = array();
     $display->content['new-4'] = $pane;
-    $display->panels['left'][1] = 'new-4';
+    $display->panels['left'][0] = 'new-4';
     $pane = new stdClass();
     $pane->pid = 'new-5';
     $pane->panel = 'right';
