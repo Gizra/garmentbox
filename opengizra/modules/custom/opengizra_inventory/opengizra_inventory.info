@@ -27,6 +27,7 @@ features[field][] = node-inventory_line-field_price
 features[field][] = node-inventory_line-field_production_start_date
 features[field][] = node-inventory_line-field_quantity_info
 features[field][] = taxonomy_term-inventory_type-field_include_in_total
+features[field][] = taxonomy_term-inventory_type-field_saleable
 features[node][] = inventory_line
 features[taxonomy][] = inventory_type
 features[variable][] = ant_inventory_line
