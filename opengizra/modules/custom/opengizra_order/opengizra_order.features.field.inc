@@ -46,7 +46,9 @@ function opengizra_order_field_default_fields() {
             'property' => 'title',
             'type' => 'property',
           ),
-          'target_bundles' => array(),
+          'target_bundles' => array(
+            'address' => 'address',
+          ),
         ),
         'handler_submit' => 'Change handler',
         'target_type' => 'node',
