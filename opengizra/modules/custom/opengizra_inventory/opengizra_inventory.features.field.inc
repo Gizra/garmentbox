@@ -628,9 +628,9 @@ function opengizra_inventory_field_default_fields() {
       ),
       'widget' => array(
         'active' => 0,
-        'module' => 'field_collection_table',
+        'module' => 'field_collection',
         'settings' => array(),
-        'type' => 'field_collection_table',
+        'type' => 'field_collection_embed',
         'weight' => '32',
       ),
     ),
