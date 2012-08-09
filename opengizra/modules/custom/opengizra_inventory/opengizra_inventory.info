@@ -26,8 +26,8 @@ features[field][] = node-inventory_line-field_item_variant
 features[field][] = node-inventory_line-field_price
 features[field][] = node-inventory_line-field_production_start_date
 features[field][] = node-inventory_line-field_quantity_info
+features[field][] = taxonomy_term-inventory_type-field_for_sale
 features[field][] = taxonomy_term-inventory_type-field_include_in_total
-features[field][] = taxonomy_term-inventory_type-field_saleable
 features[node][] = inventory_line
 features[taxonomy][] = inventory_type
 features[variable][] = ant_inventory_line
@@ -44,5 +44,4 @@ features[variable][] = menu_parent_inventory_line
 features[variable][] = node_options_inventory_line
 features[variable][] = node_preview_inventory_line
 features[variable][] = node_submitted_inventory_line
-
 files[] = includes/node_inventory_line.inline_entity_form.inc

@@ -695,6 +695,68 @@ function opengizra_inventory_field_default_fields() {
     ),
   );
 
+  // Exported field: 'taxonomy_term-inventory_type-field_for_sale'
+  $fields['taxonomy_term-inventory_type-field_for_sale'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_for_sale',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'module' => 'list',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => '',
+          1 => '',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'list_boolean',
+    ),
+    'field_instance' => array(
+      'bundle' => 'inventory_type',
+      'default_value' => array(
+        0 => array(
+          'value' => 0,
+        ),
+      ),
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'list',
+          'settings' => array(),
+          'type' => 'list_default',
+          'weight' => 2,
+        ),
+      ),
+      'entity_type' => 'taxonomy_term',
+      'field_name' => 'field_for_sale',
+      'label' => 'For sale',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(
+          'display_label' => 1,
+        ),
+        'type' => 'options_onoff',
+        'weight' => '33',
+      ),
+    ),
+  );
+
   // Exported field: 'taxonomy_term-inventory_type-field_include_in_total'
   $fields['taxonomy_term-inventory_type-field_include_in_total'] = array(
     'field_config' => array(
@@ -757,72 +819,10 @@ function opengizra_inventory_field_default_fields() {
     ),
   );
 
-  // Exported field: 'taxonomy_term-inventory_type-field_saleable'
-  $fields['taxonomy_term-inventory_type-field_saleable'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_saleable',
-      'foreign keys' => array(),
-      'indexes' => array(
-        'value' => array(
-          0 => 'value',
-        ),
-      ),
-      'module' => 'list',
-      'settings' => array(
-        'allowed_values' => array(
-          0 => '',
-          1 => '',
-        ),
-        'allowed_values_function' => '',
-      ),
-      'translatable' => '0',
-      'type' => 'list_boolean',
-    ),
-    'field_instance' => array(
-      'bundle' => 'inventory_type',
-      'default_value' => array(
-        0 => array(
-          'value' => 0,
-        ),
-      ),
-      'deleted' => '0',
-      'description' => 'Determine if this type should be visible in the "Inventory type" field inside and Order.',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'list',
-          'settings' => array(),
-          'type' => 'list_default',
-          'weight' => 1,
-        ),
-      ),
-      'entity_type' => 'taxonomy_term',
-      'field_name' => 'field_saleable',
-      'label' => 'Saleable',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'options',
-        'settings' => array(
-          'display_label' => 1,
-        ),
-        'type' => 'options_onoff',
-        'weight' => '32',
-      ),
-    ),
-  );
-
   // Translatables
   // Included for use with string extractors like potx.
-  t('Determine if this type should be visible in the "Inventory type" field inside and Order.');
   t('Expected delivery date');
+  t('For sale');
   t('Include in total');
   t('Inventory Status');
   t('Inventory type');
@@ -831,7 +831,6 @@ function opengizra_inventory_field_default_fields() {
   t('Production start date');
   t('Quantity');
   t('Quantity info');
-  t('Saleable');
   t('Size');
 
   return $fields;

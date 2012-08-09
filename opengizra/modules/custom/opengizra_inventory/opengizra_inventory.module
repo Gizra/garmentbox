@@ -57,6 +57,7 @@ function opengizra_inventory_form_order_node_form_alter(&$form, $form_state) {
   $subform = &$form['field_inventory_line_inline'][LANGUAGE_NONE]['form'];
 
   _opengizra_inventory_form_hide_fields($subform, $form_state);
+  _opengizra_inventory_form_saleble_inventory_type($subform, $form_state);
 }
 
 /**
@@ -80,5 +81,22 @@ function _opengizra_inventory_form_hide_fields(&$form, $form_state) {
 
   foreach ($elements as $element) {
     $form[$element] += $states;
+  }
+}
+
+
+/**
+ * Show only "Saleble" inventory type.
+ */
+function _opengizra_inventory_form_saleble_inventory_type(&$form, $form_state) {
+  $tids = $form['field_inventory_type'][LANGUAGE_NONE]['#options'];
+  unset($tids['_none']);
+
+  $terms = taxonomy_term_load_multiple(array_keys($tids));
+  foreach ($terms as $term) {
+    $wrapper = entity_metadata_wrapper('taxonomy_term', $term);
+    if (!$wrapper->field_for_sale->value()) {
+      unset($form['field_inventory_type'][LANGUAGE_NONE]['#options'][$term->tid]);
+    }
   }
 }
