@@ -18,13 +18,13 @@ projects[commerce_migrate][subdir] = "contrib"
 projects[commerce_migrate][version] = "1.x-dev"
 
 projects[ctools][subdir] = "contrib"
-projects[ctools][version] = "1.0"
+projects[ctools][version] = "1.1"
 
 projects[date][subdir] = "contrib"
 projects[date][version] = "2.5"
 
 projects[devel][subdir] = "contrib"
-projects[devel][version] = "1.2"
+projects[devel][version] = "1.3"
 
 projects[diff][subdir] = "contrib"
 projects[diff][version] = "2.0"
@@ -40,7 +40,7 @@ projects[entityreference_prepopulate][subdir] = "contrib"
 projects[entityreference_prepopulate][version] = "1.x-dev"
 
 projects[features][subdir] = "contrib"
-projects[features][version] = "1.0-rc2"
+projects[features][version] = "1.0"
 
 projects[field_collection][subdir] = "contrib"
 projects[field_collection][version] = "1.x-dev"
@@ -52,7 +52,7 @@ projects[field_group][subdir] = "contrib"
 projects[field_group][version] = "1.1"
 
 projects[flag][subdir] = "contrib"
-projects[flag][version] = "2.0-beta7"
+projects[flag][version] = "2.0-beta8"
 
 projects[fullcalendar][subdir] = "contrib"
 projects[fullcalendar][version] = "2.0-beta3"
