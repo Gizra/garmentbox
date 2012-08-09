@@ -148,7 +148,8 @@ class openGizraAddresses extends openGizraMigration {
     );
     // The country should be passed in as the primary value.
     $this->addFieldMapping('field_postal_address', 'profile_country')
-         ->arguments($arguments);
+         ->arguments($arguments)
+         ->description('Address field');
     // Since the excerpt is mapped via an argument, add a null mapping so it's
     // not flagged as unmapped.
     $this->addFieldMapping(NULL, 'profile_address');
