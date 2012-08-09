@@ -58,6 +58,7 @@ function opengizra_inventory_form_order_node_form_alter(&$form, $form_state) {
 
   _opengizra_inventory_form_hide_fields($subform, $form_state);
   _opengizra_inventory_form_saleble_inventory_type($subform, $form_state);
+  _opengizra_inventory_form_price($form, $form_state);
 }
 
 /**
@@ -99,4 +100,11 @@ function _opengizra_inventory_form_saleble_inventory_type(&$form, $form_state) {
       unset($form['field_inventory_type'][LANGUAGE_NONE]['#options'][$term->tid]);
     }
   }
+}
+
+
+/**
+ * Set the price field to required and add calcualted price.
+ */
+function _opengizra_inventory_form_price(&$form, $form_state) {
 }
