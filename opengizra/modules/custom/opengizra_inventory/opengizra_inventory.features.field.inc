@@ -493,6 +493,65 @@ function opengizra_inventory_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-inventory_line-field_price'
+  $fields['node-inventory_line-field_price'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_price',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'currency_price' => array(
+          0 => 'amount',
+          1 => 'currency_code',
+        ),
+      ),
+      'module' => 'commerce_price',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'commerce_price',
+    ),
+    'field_instance' => array(
+      'bundle' => 'inventory_line',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => NULL,
+          'settings' => array(),
+          'type' => 'commerce_price_default',
+          'weight' => 7,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_price',
+      'label' => 'Price',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'commerce_price',
+        'settings' => array(
+          'currency_code' => 'default',
+        ),
+        'type' => 'commerce_price_full',
+        'weight' => '39',
+      ),
+    ),
+  );
+
   // Exported field: 'node-inventory_line-field_production_start_date'
   $fields['node-inventory_line-field_production_start_date'] = array(
     'field_config' => array(
@@ -705,6 +764,7 @@ function opengizra_inventory_field_default_fields() {
   t('Inventory Status');
   t('Inventory type');
   t('Item variant');
+  t('Price');
   t('Production start date');
   t('Quantity');
   t('Quantity info');
