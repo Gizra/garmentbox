@@ -129,7 +129,10 @@ class openGizraAddresses extends openGizraMigration {
   public $csvColumns = array(
     array('id', 'Unique ID'),
     array('title', 'Title'),
-    array('field_address', 'Address'),
+    array('profile_address', 'Address'),
+    array('profile_city', 'City'),
+    array('profile_state', 'State'),
+    array('profile_country', 'Country'),
   );
 
   public $entityType = 'node';
@@ -137,7 +140,20 @@ class openGizraAddresses extends openGizraMigration {
 
   public function __construct() {
     parent::__construct();
-    $this->addFieldMapping('field_address', 'field_address');
+
+    $arguments = array(
+      'thoroughfare' => array('source_field' => 'profile_address'),
+      'locality' => array('source_field' => 'profile_city'),
+      'administrative_area' => array('source_field' => 'profile_state'),
+    );
+    // The country should be passed in as the primary value.
+    $this->addFieldMapping('field_postal_address', 'profile_country')
+         ->arguments($arguments);
+    // Since the excerpt is mapped via an argument, add a null mapping so it's
+    // not flagged as unmapped.
+    $this->addFieldMapping(NULL, 'profile_address');
+    $this->addFieldMapping(NULL, 'profile_city');
+    $this->addFieldMapping(NULL, 'profile_state');
   }
 }
 

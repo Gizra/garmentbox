@@ -1,14 +1,14 @@
-Unique ID,Title,Address
-address1,Middlesex, "81 Middlesex Street, London E1 7DA, 020 7377 8513"
-address2,306th, "306 W. 38th Street 7th Floor, New York, NY 10018"
-address3,Louisiana, "3101 Louisiana St., Houston, TX 77006, 713.528.7299"
-address4,Beech Road, "24 Beech Road, St.Albans, Herts, AL3 5AS, UK, Tel: 01727 865038"
-address5,Canon,"2841 Canon St. Ste. G . San Diego, CA 92106"
-address6,Sterling,"55 Sterling Street Second Floor, Clinton, Massachusetts 01510"
-address7,Inwood Road,"12300 Inwood Road, Suite 106, Dallas, TX 75244"
-address8,Brener,"Brener 5, Tel-aviv, Israel"
-address9,Hamptons,"81 Middlesex Street, London E1 7DA, 020 7377 8513"
-address10,Louie,"306 W. 38th Street 7th Floor, New York, NY 10018"
-address12,Upstairs,"3101 Louisiana St., Houston, TX 77006, 713.528.7299"
-address12,Sea side,"24 Beech Road, St.Albans, Herts, AL3 5AS, UK, Tel: 01727 865038"
-address13,Moon,"2841 Canon St. Ste. G . San Diego, CA 92106"
+Unique ID,Title,Address,City,State,Country
+address1,Middlesex,"81 Middlesex Street",London,,England
+address2,306th, "306 W. 38th Street 7th Floor",New York,New York,United States
+address3,Louisiana, "3101 Louisiana St.,Houston,Texas,United States
+address4,Middlesex,"81 Middlesex Street",London,,England
+address5,306th, "306 W. 38th Street 7th Floor",New York,New York,United States
+address6,Louisiana, "3101 Louisiana St.,Houston,Texas,United States
+address7,Middlesex,"81 Middlesex Street",London,,England
+address8,306th, "306 W. 38th Street 7th Floor",New York,New York,United States
+address9,Louisiana, "3101 Louisiana St.,Houston,Texas,United States
+address10,Middlesex,"81 Middlesex Street",London,,England
+address11,306th, "306 W. 38th Street 7th Floor",New York,New York,United States
+address12,Louisiana, "3101 Louisiana St.,Houston,Texas,United States
+address13,Middlesex,"81 Middlesex Street",London,,England
