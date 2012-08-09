@@ -13,16 +13,16 @@ function opengizra_inventory_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'ant_item_variant';
+  $strongarm->name = 'ant_inventory_line';
   $strongarm->value = '1';
-  $export['ant_item_variant'] = $strongarm;
+  $export['ant_inventory_line'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'ant_pattern_item_variant';
+  $strongarm->name = 'ant_pattern_inventory_line';
   $strongarm->value = '[node:field-item-variant] - [current-date:short]';
-  $export['ant_pattern_item_variant'] = $strongarm;
+  $export['ant_pattern_inventory_line'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
