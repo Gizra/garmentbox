@@ -86,7 +86,7 @@ function _opengizra_inventory_form_hide_fields(&$form, $form_state) {
 
 
 /**
- * Show only "Saleble" inventory type.
+ * Show only "For sale" inventory type.
  */
 function _opengizra_inventory_form_saleble_inventory_type(&$form, $form_state) {
   $tids = $form['field_inventory_type'][LANGUAGE_NONE]['#options'];
