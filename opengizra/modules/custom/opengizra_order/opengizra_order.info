@@ -2,6 +2,7 @@ name = Opengizra Order
 description = Opengizra Order
 core = 7.x
 package = Features
+php = 5.2.4
 dependencies[] = ctools
 dependencies[] = entityreference
 dependencies[] = features

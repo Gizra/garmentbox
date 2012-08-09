@@ -2,6 +2,7 @@ name = Opengizra Customer
 description = Opengizra Customer
 core = 7.x
 package = Features
+php = 5.2.4
 dependencies[] = ctools
 dependencies[] = entityreference
 dependencies[] = features

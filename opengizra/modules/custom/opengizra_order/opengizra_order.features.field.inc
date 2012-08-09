@@ -134,7 +134,7 @@ function opengizra_order_field_default_fields() {
           ),
           'sort' => array(
             'direction' => 'ASC',
-            'field' => 'body:value',
+            'field' => 'field_postal_address:country',
             'property' => 'title',
             'type' => 'property',
           ),
@@ -179,7 +179,7 @@ function opengizra_order_field_default_fields() {
         'behaviors' => array(
           'prepopulate' => array(
             'action' => 'disable',
-            'fallback' => 'redirect',
+            'fallback' => 'none',
             'skip_perm' => '0',
             'status' => 1,
           ),
