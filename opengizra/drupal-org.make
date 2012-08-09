@@ -57,6 +57,9 @@ projects[fullcalendar][version] = "2.0-beta3"
 projects[gravatar][subdir] = "contrib"
 projects[gravatar][version] = "1.1"
 
+projects[inline_entity_form][subdir] = "contrib"
+projects[inline_entity_form][version] = "1.x-dev"
+
 projects[libraries][subdir] = "contrib"
 projects[libraries][version] = "1.0"
 
