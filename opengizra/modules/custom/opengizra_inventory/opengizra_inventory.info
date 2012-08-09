@@ -44,3 +44,5 @@ features[variable][] = menu_parent_inventory_line
 features[variable][] = node_options_inventory_line
 features[variable][] = node_preview_inventory_line
 features[variable][] = node_submitted_inventory_line
+
+files[] = includes/node_inventory_line.inline_entity_form.inc

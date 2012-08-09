@@ -34,3 +34,15 @@ function opengizra_inventory_field_access($op, $field, $entity_type, $entity, $a
     return FALSE;
   }
 }
+
+/**
+ * Implements hook_entity_info_alter().
+ *
+ * Add the controller information on the entity. Note that you can also
+ * add the controller on the bundle level.
+ */
+function opengizra_inventory_entity_info_alter(&$entity_info) {
+  $entity_info['node']['bundles']['inventory_line']['inline entity form'] = array(
+    'controller' => 'NodeInventoryLineInlineEntityFormController',
+  );
+}
