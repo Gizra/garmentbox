@@ -46,3 +46,39 @@ function opengizra_inventory_entity_info_alter(&$entity_info) {
     'controller' => 'NodeInventoryLineInlineEntityFormController',
   );
 }
+
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Order form.
+ */
+function opengizra_inventory_form_order_node_form_alter(&$form, $form_state) {
+  $subform = &$form['field_inventory_line_inline'][LANGUAGE_NONE]['form'];
+
+  _opengizra_inventory_form_hide_fields($subform, $form_state);
+}
+
+/**
+ * Hide all fields if Item variant is not selected.
+ */
+function _opengizra_inventory_form_hide_fields(&$form, $form_state) {
+  $elements = array(
+    'field_quantity_info',
+    'field_inventory_type',
+    'field_price',
+    'actions',
+  );
+
+  $states = array(
+    '#states' => array(
+      'invisible' => array(
+        ':input[name="field_inventory_line_inline[und][form][field_item_variant][und]"]' => array('value' => '_none'),
+      ),
+    ),
+  );
+
+  foreach ($elements as $element) {
+    $form[$element] += $states;
+  }
+}
