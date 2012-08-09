@@ -70,9 +70,11 @@ dependencies[] = migrate
 dependencies[] = migrate_extras
 
 ; Features
+dependencies[] = opengizra_address
 dependencies[] = opengizra_bol
 dependencies[] = opengizra_bom
 dependencies[] = opengizra_cad
+dependencies[] = opengizra_customer
 dependencies[] = opengizra_event
 dependencies[] = opengizra_general
 dependencies[] = opengizra_inventory
@@ -80,6 +82,7 @@ dependencies[] = opengizra_item
 dependencies[] = opengizra_line_sheet
 dependencies[] = opengizra_material
 dependencies[] = opengizra_migrate
+dependencies[] = opengizra_order
 dependencies[] = opengizra_pattern_task
 dependencies[] = opengizra_season
 dependencies[] = opengizra_task

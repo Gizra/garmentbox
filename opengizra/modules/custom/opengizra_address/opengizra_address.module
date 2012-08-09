@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Opengizra Address feature.
+ */
+
+include_once 'opengizra_address.features.inc';

@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Opengizra Customer feature.
+ */
+
+include_once 'opengizra_customer.features.inc';
