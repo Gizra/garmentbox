@@ -14,3 +14,23 @@ function opengizra_inventory_ctools_plugin_directory($module, $plugin) {
     return 'plugins/' . $plugin;
   }
 }
+
+/**
+ * Implements hook_field_access().
+ *
+ * Hide date fields from inventory form.
+ */
+function opengizra_inventory_field_access($op, $field, $entity_type, $entity, $account) {
+  if ($op != 'edit') {
+    return;
+  }
+
+  $field_names = array(
+    'field_production_start_date',
+    'field_delivery_date',
+    'field_inventory_status',
+  );
+  if (!empty($field['field_name']) && in_array($field['field_name'],$field_names)) {
+    return FALSE;
+  }
+}
