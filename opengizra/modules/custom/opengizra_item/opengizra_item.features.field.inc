@@ -647,7 +647,7 @@ function opengizra_item_field_default_fields() {
           ),
           'sort' => array(
             'direction' => 'ASC',
-            'field' => 'body:value',
+            'field' => 'field_postal_address:country',
             'property' => 'title',
             'type' => 'property',
           ),
