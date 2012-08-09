@@ -149,7 +149,6 @@ class openGizraVendors extends openGizraMigration {
   public $csvColumns = array(
     array('id', 'Unique ID'),
     array('title', 'Title'),
-    array('body', 'Body'),
     array('field_address_inline', 'Address'),
   );
 
@@ -178,7 +177,6 @@ class openGizraCustomers extends openGizraMigration {
   public $csvColumns = array(
     array('id', 'Unique ID'),
     array('title', 'Title'),
-    array('body', 'Body'),
     array('field_addresses_inline', 'Address'),
   );
 
@@ -191,7 +189,6 @@ class openGizraCustomers extends openGizraMigration {
 
   public function __construct() {
     parent::__construct();
-    $this->addFieldMapping('body', 'body');
 
     $this
       ->addFieldMapping('field_addresses_inline', 'field_addresses_inline')
