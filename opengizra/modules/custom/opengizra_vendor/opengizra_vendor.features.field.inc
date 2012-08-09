@@ -101,7 +101,7 @@ function opengizra_vendor_field_default_fields() {
           'type_settings' => array(),
         ),
         'type' => 'inline_entity_form',
-        'weight' => '31',
+        'weight' => '2',
       ),
     ),
   );

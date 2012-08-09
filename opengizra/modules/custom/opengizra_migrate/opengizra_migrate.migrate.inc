@@ -122,6 +122,26 @@ class openGizraSeasons extends openGizraMigration {
 }
 
 /**
+ * Migrate Address nodes.
+ */
+class openGizraAddresses extends openGizraMigration {
+
+  public $csvColumns = array(
+    array('id', 'Unique ID'),
+    array('title', 'Title'),
+    array('field_address', 'Address'),
+  );
+
+  public $entityType = 'node';
+  public $bundle = 'address';
+
+  public function __construct() {
+    parent::__construct();
+    $this->addFieldMapping('field_address', 'field_address');
+  }
+}
+
+/**
  * Migrate Vendors nodes.
  */
 class openGizraVendors extends openGizraMigration {
@@ -130,14 +150,57 @@ class openGizraVendors extends openGizraMigration {
     array('id', 'Unique ID'),
     array('title', 'Title'),
     array('body', 'Body'),
+    array('field_address_inline', 'Address'),
   );
 
   public $entityType = 'node';
   public $bundle = 'vendor';
 
+  public $dependencies = array(
+    'openGizraAddresses',
+  );
+
   public function __construct() {
     parent::__construct();
     $this->addFieldMapping('body', 'body');
+
+    $this
+      ->addFieldMapping('field_address_inline', 'field_address_inline')
+      ->sourceMigration('openGizraAddresses');
+  }
+}
+
+/**
+ * Migrate Customers nodes.
+ */
+class openGizraCustomers extends openGizraMigration {
+
+  public $csvColumns = array(
+    array('id', 'Unique ID'),
+    array('title', 'Title'),
+    array('body', 'Body'),
+    array('field_addresses_inline', 'Address'),
+  );
+
+  public $entityType = 'node';
+  public $bundle = 'customer';
+
+  public $dependencies = array(
+    'openGizraAddresses',
+  );
+
+  public function __construct() {
+    parent::__construct();
+    $this->addFieldMapping('body', 'body');
+
+    $this
+      ->addFieldMapping('field_addresses_inline', 'field_addresses_inline')
+      ->sourceMigration('openGizraAddresses');
+  }
+
+  function prepareRow($row) {
+    parent::prepareRow($row);
+    $row->field_addresses_inline = explode('; ', $row->field_addresses_inline);
   }
 }
 

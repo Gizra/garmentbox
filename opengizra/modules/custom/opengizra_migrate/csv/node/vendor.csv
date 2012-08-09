@@ -1,9 +1,9 @@
-Unique ID,Title,Body,field_address
-Vendor1,Vogue Fabrics,Best prices for silk and cottons,"81 Middlesex Street, London E1 7DA, 020 7377 8513"
-Vendor2,Ny Fashion Center Fabrics,Free shipping,"306 W. 38th Street 7th Floor, New York, NY 10018"
-Vendor3,High Fashion Fabrics,,"3101 Louisiana St., Houston, TX 77006, 713.528.7299"
-Vendor4,Fashion 'n' Fabrics,,"24 Beech Road, St.Albans, Herts, AL3 5AS, UK, Tel: 01727 865038"
-Vendor5,As Cute As a Button ,Special offers an may,"2841 Canon St. Ste. G . San Diego, CA 92106"
-Vendor6,Clothing Buttons,,"55 Sterling Street Second Floor, Clinton, Massachusetts 01510"
-Vendor7,Bennos Buttons,Free shipping on all orders over 50$,"12300 Inwood Road, Suite 106, Dallas, TX 75244"
-Vendor8,Your Button Shop,,Only on http://yourbuttonshop.com/index.php?main_page=about_us&zenid=57e69457a02d557511ee19ad1ebb25a3
+Unique ID,Title,Address
+vendor1,Vogue Fabrics,address1
+vendor2,Ny Fashion Center Fabric,address2
+vendor3,High Fashion Fabrics,address3
+vendor4,Fashion 'n' Fabrics,address4
+vendor5,As Cute As a Button,address5
+vendor6,Clothing Buttons,,address6
+vendor7,Bennos Buttons,,address7
+vendor8,Your Button Shop,,address8
