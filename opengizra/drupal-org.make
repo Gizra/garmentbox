@@ -62,7 +62,6 @@ projects[gravatar][version] = "1.1"
 
 projects[inline_entity_form][subdir] = "contrib"
 projects[inline_entity_form][version] = "1.x-dev"
-projects[inline_entity_form][patch][] = "http://drupal.org/files/1720490-ief-bundle-controller-1.patch"
 
 projects[libraries][subdir] = "contrib"
 projects[libraries][version] = "1.0"
