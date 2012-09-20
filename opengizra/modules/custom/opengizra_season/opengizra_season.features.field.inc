@@ -10,7 +10,7 @@
 function opengizra_season_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'field_collection_item-field_status_info-field_date'
+  // Exported field: 'field_collection_item-field_status_info-field_date'.
   $fields['field_collection_item-field_status_info-field_date'] = array(
     'field_config' => array(
       'active' => '1',
@@ -20,6 +20,7 @@ function opengizra_season_field_default_fields() {
       'field_name' => 'field_date',
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'date',
       'settings' => array(
         'cache_count' => '4',
@@ -86,7 +87,7 @@ function opengizra_season_field_default_fields() {
     ),
   );
 
-  // Exported field: 'field_collection_item-field_status_info-field_season_status'
+  // Exported field: 'field_collection_item-field_status_info-field_season_status'.
   $fields['field_collection_item-field_status_info-field_season_status'] = array(
     'field_config' => array(
       'active' => '1',
@@ -107,6 +108,7 @@ function opengizra_season_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -174,7 +176,7 @@ function opengizra_season_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-season-body'
+  // Exported field: 'node-season-body'.
   $fields['node-season-body'] = array(
     'field_config' => array(
       'active' => '1',
@@ -197,6 +199,7 @@ function opengizra_season_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(),
       'translatable' => '0',
@@ -214,6 +217,12 @@ function opengizra_season_field_default_fields() {
           'settings' => array(),
           'type' => 'text_default',
           'weight' => 0,
+        ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '0',
         ),
         'teaser' => array(
           'label' => 'hidden',
@@ -246,7 +255,7 @@ function opengizra_season_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-season-field_season_status'
+  // Exported field: 'node-season-field_season_status'.
   $fields['node-season-field_season_status'] = array(
     'field_config' => array(
       'active' => '1',
@@ -267,6 +276,7 @@ function opengizra_season_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -312,6 +322,15 @@ function opengizra_season_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => 2,
         ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => FALSE,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '0',
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -344,7 +363,7 @@ function opengizra_season_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-season-field_status_info'
+  // Exported field: 'node-season-field_status_info'.
   $fields['node-season-field_status_info'] = array(
     'field_config' => array(
       'active' => '1',
@@ -354,6 +373,7 @@ function opengizra_season_field_default_fields() {
       'field_name' => 'field_status_info',
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'field_collection',
       'settings' => array(
         'hide_blank_items' => TRUE,
@@ -380,6 +400,12 @@ function opengizra_season_field_default_fields() {
           ),
           'type' => 'field_collection_view',
           'weight' => 1,
+        ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '0',
         ),
         'teaser' => array(
           'label' => 'above',

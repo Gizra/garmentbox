@@ -31,6 +31,7 @@ features[variable][] = comment_form_location_season
 features[variable][] = comment_preview_season
 features[variable][] = comment_season
 features[variable][] = comment_subject_field_season
+features[variable][] = field_bundle_settings_node__season
 features[variable][] = menu_options_season
 features[variable][] = menu_parent_season
 features[variable][] = node_options_season

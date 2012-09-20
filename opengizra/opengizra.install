@@ -11,10 +11,10 @@ function opengizra_install() {
   theme_disable(array('bartik'));
 
   // Enable our themes.
-  theme_enable(array('ninesixty', 'ninesixty_sub'));
+  theme_enable(array('omega', 'opengizra_omega'));
 
   // Set the default theme.
-  variable_set('theme_default', 'ninesixty_sub');
+  variable_set('theme_default', 'opengizra_omega');
 
   // Enable node view page override by Page manager module.
   variable_set('page_manager_node_view_disabled', FALSE);

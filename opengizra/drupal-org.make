@@ -125,6 +125,10 @@ projects[views][version] = "3.3"
 projects[views_bulk_operations][subdir] = "contrib"
 projects[views_bulk_operations][version] = "3.0-rc1"
 
+projects[fontyourface][subdir] = "contrib"
+projects[fontyourface][version] = "2.4"
+
+
 ; Themes
-projects[ninesixty][subdir] = "contrib"
-projects[ninesixty][version] = "1.x-dev"
+projects[omega][subdir] = "contrib"
+projects[omega][version] = "4.0-alpha1"

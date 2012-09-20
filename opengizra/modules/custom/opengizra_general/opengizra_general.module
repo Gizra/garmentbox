@@ -114,3 +114,13 @@ function opengizra_general_field_access($op, $field, $entity_type, $entity, $acc
     return FALSE;
   }
 }
+
+/**
+ * Implements hook_entity_info_alter()
+ */
+function opengizra_general_entity_info_alter(&$entity_info) {
+  $entity_info['node']['view modes']['opengizra_header'] = array(
+    'label' => t('Opengizra header'),
+    'custom settings' => TRUE,
+  );
+}

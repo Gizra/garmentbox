@@ -1,0 +1,45 @@
+table {
+
+  tr {
+    height: 20px;
+  }
+
+  tbody tr {
+    @include vertical-gradient(#fcfcfc, #f0f0f0);
+
+    &.even {
+      @include vertical-gradient(#fbfffe, #f1f5f4);
+    }
+
+    &:hover {
+      @include vertical-gradient(#f2fbff, #e1ebf4);
+    }
+  }
+
+  thead tr {
+    background: url("../images/table-header-bg.png") repeat-x;
+  }
+
+  th, td {
+    border: 1px solid #b7b7b7;
+    padding: 9px;
+  }
+
+  th {
+    color: #5e5e5e;
+    font-weight: normal;
+  }
+
+  .views-field-edit-node a {
+    background: url("../images/edit-icon.png");
+    width: 28px;
+    height: 27px;
+    display: block;
+    color: transparent;
+
+    &:hover {
+      background-image: url("../images/edit-icon-active.png");
+      @include transition(0.5s);
+    }
+  }
+}
