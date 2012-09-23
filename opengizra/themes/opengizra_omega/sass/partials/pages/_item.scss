@@ -1,26 +1,12 @@
 .node-type-item {
 
-  #add-variant {
+  #add-variant a {
     float: right; //LTR
-
-    li {
-      list-style-type: none;
-    }
-
-    a {
-      @include pink-button;
-    }
+    @include primary-button;
   }
 
-  #add-task {
+  #add-task a {
     float: right; //LTR
-
-    li {
-      list-style-type: none;
-    }
-
-    a {
-      @include bluegray-button;
-    }
+    @include secondary-button;
   }
 }

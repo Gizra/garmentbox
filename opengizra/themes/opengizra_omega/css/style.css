@@ -69,6 +69,82 @@ table .views-field-edit-node a:hover {
   transition: 0.3s;
 }
 
+/* line 1, ../sass/partials/widget/_tabs.scss */
+.panel-pane.tabs ul {
+  margin: 20px 0 0;
+}
+/* line 4, ../sass/partials/widget/_tabs.scss */
+.panel-pane.tabs ul li {
+  list-style-type: none;
+  margin: 0;
+  width: 114px;
+  height: 36px;
+  float: left;
+  margin-right: 6px;
+}
+/* line 12, ../sass/partials/widget/_tabs.scss */
+.panel-pane.tabs ul li a {
+  background-color: white;
+  text-align: center;
+  width: 114px;
+  height: 36px;
+  line-height: 36px;
+  display: block;
+  color: #a7bbba;
+  -moz-box-shadow: 1px 1px 2px 0 #cacaca;
+  -webkit-box-shadow: 1px 1px 2px 0 #cacaca;
+  box-shadow: 1px 1px 2px 0 #cacaca;
+}
+/* line 23, ../sass/partials/widget/_tabs.scss */
+.panel-pane.tabs ul li a:hover {
+  text-decoration: none;
+  background-color: #fafafa;
+  -moz-box-shadow: 0 0 3px 0 #cacaca;
+  -webkit-box-shadow: 0 0 3px 0 #cacaca;
+  box-shadow: 0 0 3px 0 #cacaca;
+  -moz-transition: 0.2s;
+  -webkit-transition: 0.2s;
+  -o-transition: 0.2s;
+  transition: 0.2s;
+}
+/* line 30, ../sass/partials/widget/_tabs.scss */
+.panel-pane.tabs ul li a.active {
+  color: #ea166b;
+  -moz-box-shadow: 0 -1px 2px 0 #cacaca;
+  -webkit-box-shadow: 0 -1px 2px 0 #cacaca;
+  box-shadow: 0 -1px 2px 0 #cacaca;
+  margin-left: 1px;
+  height: 42px;
+  position: absolute;
+}
+/* line 37, ../sass/partials/widget/_tabs.scss */
+.panel-pane.tabs ul li a.active:hover {
+  background-color: white;
+  -moz-box-shadow: 0 -1px 2px 0 #cacaca;
+  -webkit-box-shadow: 0 -1px 2px 0 #cacaca;
+  box-shadow: 0 -1px 2px 0 #cacaca;
+}
+
+/* line 3, ../sass/partials/widget/_breadcrumbs.scss */
+.pane-breadcrumbs span, .pane-breadcrumbs a {
+  color: #7b7b7b;
+  margin-right: 5px;
+  font-size: 11px;
+}
+/* line 9, ../sass/partials/widget/_breadcrumbs.scss */
+.pane-breadcrumbs a {
+  border-bottom: 1px solid #d5d5d3;
+}
+/* line 12, ../sass/partials/widget/_breadcrumbs.scss */
+.pane-breadcrumbs a:hover {
+  text-decoration: none;
+  border-bottom: 1px solid #7b7b7b;
+  -moz-transition: 0.3s;
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+}
+
 /* line 1, ../sass/partials/layout/_header.scss */
 #header {
   background: url("../images/header-bg.png") repeat-x;
@@ -154,19 +230,33 @@ table .views-field-edit-node a:hover {
   display: block;
 }
 
+/* line 1, ../sass/partials/layout/_page.scss */
+section.tabs {
+  margin-top: 10px;
+}
+
+/* line 5, ../sass/partials/layout/_page.scss */
+section.content {
+  border: 1px solid #e4e4e2;
+  background-color: white;
+  margin-top: 5px;
+  padding: 20px;
+}
+/* line 11, ../sass/partials/layout/_page.scss */
+section.content h2.pane-title {
+  font-weight: normal;
+  font-size: 28px;
+  margin-bottom: 10px;
+  margin-top: 0;
+  padding-top: 20px;
+}
+
 /* line 3, ../sass/partials/pages/_item.scss */
-.node-type-item #add-variant {
-  float: right;
-}
-/* line 6, ../sass/partials/pages/_item.scss */
-.node-type-item #add-variant li {
-  list-style-type: none;
-}
-/* line 10, ../sass/partials/pages/_item.scss */
 .node-type-item #add-variant a {
+  float: right;
   border: 1px solid #60636a;
   border-radius: 5px;
-  padding: 8px;
+  padding: 5px 8px;
   color: #f8fffd;
   text-shadow: 0 1px #3e021e;
   font-size: 20px;
@@ -196,19 +286,12 @@ table .views-field-edit-node a:hover {
   content: url("../images/white-plus.png");
   margin-right: 8px;
 }
-/* line 15, ../sass/partials/pages/_item.scss */
-.node-type-item #add-task {
-  float: right;
-}
-/* line 18, ../sass/partials/pages/_item.scss */
-.node-type-item #add-task li {
-  list-style-type: none;
-}
-/* line 22, ../sass/partials/pages/_item.scss */
+/* line 8, ../sass/partials/pages/_item.scss */
 .node-type-item #add-task a {
+  float: right;
   border: 1px solid #60636a;
   border-radius: 5px;
-  padding: 8px;
+  padding: 5px 8px;
   color: #27282d;
   border-color: #636468;
   background: #acb4b4;
@@ -252,23 +335,11 @@ body {
 }
 
 /* line 17, ../sass/style.scss */
-#main-content {
-  background-color: white;
-}
-
-/* line 21, ../sass/style.scss */
 a {
   color: #679190;
   text-decoration: none;
 }
-/* line 25, ../sass/style.scss */
+/* line 21, ../sass/style.scss */
 a:hover {
   text-decoration: underline;
-}
-
-/* line 30, ../sass/style.scss */
-h2.pane-title {
-  font-weight: normal;
-  font-size: 28px;
-  margin-bottom: 10px;
 }

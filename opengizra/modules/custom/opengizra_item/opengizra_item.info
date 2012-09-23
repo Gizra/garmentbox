@@ -31,6 +31,7 @@ features[field][] = field_collection_item-field_size_info-field_sku
 features[field][] = node-item-body
 features[field][] = node-item-field_image
 features[field][] = node-item-field_item_status
+features[field][] = node-item-field_reference_hierarchy
 features[field][] = node-item-field_season
 features[field][] = node-item-title_field
 features[field][] = node-item_variant-field_bom_info

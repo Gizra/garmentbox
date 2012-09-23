@@ -1,0 +1,18 @@
+.pane-breadcrumbs {
+
+  span, a {
+    color: #7b7b7b;
+    margin-right: 5px; //LTR
+    font-size: 11px;
+  }
+
+  a {
+    border-bottom: 1px solid #d5d5d3;
+
+    &:hover {
+      text-decoration: none;
+      border-bottom: 1px solid #7b7b7b;
+      @include transition(0.3s);
+    }
+  }
+}

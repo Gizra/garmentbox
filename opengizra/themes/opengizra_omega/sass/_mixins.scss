@@ -15,14 +15,14 @@
 @mixin button {
   border: 1px solid #60636a;
   border-radius: 5px;
-  padding: 8px;
+  padding: 5px 8px;
 
   &:hover {
     text-decoration: none;
   }
 }
 
-@mixin pink-button {
+@mixin primary-button {
   @include button;
   color: #f8fffd;
   text-shadow: 0 1px #3e021e;
@@ -43,7 +43,7 @@
   }
 }
 
-@mixin bluegray-button {
+@mixin secondary-button {
   @include button;
   color: #27282d;
   border-color: #636468;
@@ -63,4 +63,8 @@
   }
 }
 
-
+@mixin box-shadow($h, $v, $blur, $spread, $color) {
+  -moz-box-shadow: $h $v $blur $spread $color;
+  -webkit-box-shadow: $h $v $blur $spread $color;
+  box-shadow: $h $v $blur $spread $color;
+}
