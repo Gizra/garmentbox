@@ -25,33 +25,48 @@ table tbody tr:hover {
 }
 /* line 19, ../sass/partials/widget/_table.scss */
 table thead tr {
-  background: url("../images/table-header-bg.png") repeat-x;
+  background: #eeeeee;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #eeeeee 0%, #e3e3e3 3%, #dedede 5%, #d4d4d4 78%, lightgrey 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #eeeeee), color-stop(3%, #e3e3e3), color-stop(5%, #dedede), color-stop(78%, #d4d4d4), color-stop(100%, lightgrey));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #eeeeee 0%, #e3e3e3 3%, #dedede 5%, #d4d4d4 78%, lightgrey 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #eeeeee 0%, #e3e3e3 3%, #dedede 5%, #d4d4d4 78%, lightgrey 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #eeeeee 0%, #e3e3e3 3%, #dedede 5%, #d4d4d4 78%, lightgrey 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #eeeeee 0%, #e3e3e3 3%, #dedede 5%, #d4d4d4 78%, #d3d3d3 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#d3d3d3',GradientType=0 );
+  /* IE6-9 */
 }
-/* line 23, ../sass/partials/widget/_table.scss */
+/* line 30, ../sass/partials/widget/_table.scss */
 table th, table td {
   border: 1px solid #b7b7b7;
   padding: 9px;
 }
-/* line 28, ../sass/partials/widget/_table.scss */
+/* line 35, ../sass/partials/widget/_table.scss */
 table th {
   color: #5e5e5e;
   font-weight: normal;
 }
-/* line 33, ../sass/partials/widget/_table.scss */
+/* line 40, ../sass/partials/widget/_table.scss */
 table .views-field-edit-node a {
-  background: url("../images/edit-icon.png");
+  background: url("../images/edit-icon.png") no-repeat;
   width: 28px;
   height: 27px;
   display: block;
   color: transparent;
 }
-/* line 40, ../sass/partials/widget/_table.scss */
+/* line 47, ../sass/partials/widget/_table.scss */
 table .views-field-edit-node a:hover {
   background-image: url("../images/edit-icon-active.png");
-  -moz-transition: 0.5s;
-  -webkit-transition: 0.5s;
-  -o-transition: 0.5s;
-  transition: 0.5s;
+  -moz-transition: 0.3s;
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
 }
 
 /* line 1, ../sass/partials/layout/_header.scss */
@@ -71,20 +86,15 @@ table .views-field-edit-node a:hover {
   font-family: Dosis, Arial, Helvetica, sans-serif;
 }
 /* line 15, ../sass/partials/layout/_header.scss */
-#title h2 {
+#title .field-name-title-field {
   float: left;
   margin: 0;
   line-height: 68px;
-}
-/* line 20, ../sass/partials/layout/_header.scss */
-#title h2 a {
-  font-weight: normal;
   color: #464543;
   text-shadow: 0 1px #cadcdc;
   font-size: 40px;
-  text-decoration: none;
 }
-/* line 29, ../sass/partials/layout/_header.scss */
+/* line 24, ../sass/partials/layout/_header.scss */
 #title .tabs {
   border: none;
   padding: 0;
@@ -93,7 +103,7 @@ table .views-field-edit-node a:hover {
   margin-top: 32px;
   margin-left: 5px;
 }
-/* line 37, ../sass/partials/layout/_header.scss */
+/* line 32, ../sass/partials/layout/_header.scss */
 #title .tabs a {
   background-color: transparent;
   border: none;
@@ -103,21 +113,129 @@ table .views-field-edit-node a:hover {
   padding: 0;
   font-size: 13px;
 }
-/* line 48, ../sass/partials/layout/_header.scss */
-#title .field {
+/* line 43, ../sass/partials/layout/_header.scss */
+#title .field-name-field-item-status, #title .field-name-field-season-status {
   float: right;
   margin-top: 10px;
 }
-/* line 52, ../sass/partials/layout/_header.scss */
-#title .field .field-label {
+/* line 47, ../sass/partials/layout/_header.scss */
+#title .field-name-field-item-status .field-label, #title .field-name-field-season-status .field-label {
   color: #c4eeed;
   text-transform: lowercase;
 }
-/* line 57, ../sass/partials/layout/_header.scss */
-#title .field .field-item {
+/* line 52, ../sass/partials/layout/_header.scss */
+#title .field-name-field-item-status .field-item, #title .field-name-field-season-status .field-item {
   color: #f6fafb;
   text-transform: uppercase;
   font-size: 20px;
+}
+
+/* line 61, ../sass/partials/layout/_header.scss */
+.node-type-item #title {
+  background: url("../images/title-large-bg.png") repeat-x;
+  height: 86px;
+}
+/* line 65, ../sass/partials/layout/_header.scss */
+.node-type-item #title .field-name-field-item-status {
+  margin-top: 22px;
+}
+/* line 69, ../sass/partials/layout/_header.scss */
+.node-type-item #title .field-name-field-image {
+  margin-top: 7px;
+  margin-right: 10px;
+  background: url("../images/header-thumbnail-bg.png") repeat-x;
+  float: left;
+  width: 57px;
+  height: 77px;
+}
+/* line 77, ../sass/partials/layout/_header.scss */
+.node-type-item #title .field-name-field-image img {
+  margin: 3px auto;
+  display: block;
+}
+
+/* line 3, ../sass/partials/pages/_item.scss */
+.node-type-item #add-variant {
+  float: right;
+}
+/* line 6, ../sass/partials/pages/_item.scss */
+.node-type-item #add-variant li {
+  list-style-type: none;
+}
+/* line 10, ../sass/partials/pages/_item.scss */
+.node-type-item #add-variant a {
+  border: 1px solid #60636a;
+  border-radius: 5px;
+  padding: 8px;
+  color: #f8fffd;
+  text-shadow: 0 1px #3e021e;
+  font-size: 20px;
+  background: #faa8ca;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #faa8ca 0%, #f33284 3%, #f0086b 21%, #f00468 24%, #f00267 29%, #f00267 74%, #e80263 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #faa8ca), color-stop(3%, #f33284), color-stop(21%, #f0086b), color-stop(24%, #f00468), color-stop(29%, #f00267), color-stop(74%, #f00267), color-stop(100%, #e80263));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #faa8ca 0%, #f33284 3%, #f0086b 21%, #f00468 24%, #f00267 29%, #f00267 74%, #e80263 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #faa8ca 0%, #f33284 3%, #f0086b 21%, #f00468 24%, #f00267 29%, #f00267 74%, #e80263 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #faa8ca 0%, #f33284 3%, #f0086b 21%, #f00468 24%, #f00267 29%, #f00267 74%, #e80263 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #faa8ca 0%, #f33284 3%, #f0086b 21%, #f00468 24%, #f00267 29%, #f00267 74%, #e80263 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa8ca', endColorstr='#e80263',GradientType=0 );
+  /* IE6-9 */
+}
+/* line 20, ../sass/_mixins.scss */
+.node-type-item #add-variant a:hover {
+  text-decoration: none;
+}
+/* line 40, ../sass/_mixins.scss */
+.node-type-item #add-variant a:before {
+  content: url("../images/white-plus.png");
+  margin-right: 8px;
+}
+/* line 15, ../sass/partials/pages/_item.scss */
+.node-type-item #add-task {
+  float: right;
+}
+/* line 18, ../sass/partials/pages/_item.scss */
+.node-type-item #add-task li {
+  list-style-type: none;
+}
+/* line 22, ../sass/partials/pages/_item.scss */
+.node-type-item #add-task a {
+  border: 1px solid #60636a;
+  border-radius: 5px;
+  padding: 8px;
+  color: #27282d;
+  border-color: #636468;
+  background: #acb4b4;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #acb4b4 0%, #bdd5d5 4%, #a7c7c7 8%, #97bdbd 27%, #94bbbb 35%, #93baba 77%, #8fb4b4 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #acb4b4), color-stop(4%, #bdd5d5), color-stop(8%, #a7c7c7), color-stop(27%, #97bdbd), color-stop(35%, #94bbbb), color-stop(77%, #93baba), color-stop(100%, #8fb4b4));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #acb4b4 0%, #bdd5d5 4%, #a7c7c7 8%, #97bdbd 27%, #94bbbb 35%, #93baba 77%, #8fb4b4 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #acb4b4 0%, #bdd5d5 4%, #a7c7c7 8%, #97bdbd 27%, #94bbbb 35%, #93baba 77%, #8fb4b4 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #acb4b4 0%, #bdd5d5 4%, #a7c7c7 8%, #97bdbd 27%, #94bbbb 35%, #93baba 77%, #8fb4b4 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #acb4b4 0%, #bdd5d5 4%, #a7c7c7 8%, #97bdbd 27%, #94bbbb 35%, #93baba 77%, #8fb4b4 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#acb4b4', endColorstr='#8fb4b4',GradientType=0 );
+  /* IE6-9 */
+}
+/* line 20, ../sass/_mixins.scss */
+.node-type-item #add-task a:hover {
+  text-decoration: none;
+}
+/* line 60, ../sass/_mixins.scss */
+.node-type-item #add-task a:before {
+  content: url("../images/gray-plus.png");
+  margin-right: 8px;
 }
 
 /* line 6, ../sass/style.scss */
@@ -146,4 +264,11 @@ a {
 /* line 25, ../sass/style.scss */
 a:hover {
   text-decoration: underline;
+}
+
+/* line 30, ../sass/style.scss */
+h2.pane-title {
+  font-weight: normal;
+  font-size: 28px;
+  margin-bottom: 10px;
 }

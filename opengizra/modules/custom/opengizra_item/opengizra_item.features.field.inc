@@ -10,7 +10,7 @@
 function opengizra_item_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'field_collection_item-field_bom_info-field_material'
+  // Exported field: 'field_collection_item-field_bom_info-field_material'.
   $fields['field_collection_item-field_bom_info-field_material'] = array(
     'field_config' => array(
       'active' => '1',
@@ -31,6 +31,7 @@ function opengizra_item_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -98,7 +99,7 @@ function opengizra_item_field_default_fields() {
     ),
   );
 
-  // Exported field: 'field_collection_item-field_bom_info-field_quantity'
+  // Exported field: 'field_collection_item-field_bom_info-field_quantity'.
   $fields['field_collection_item-field_bom_info-field_quantity'] = array(
     'field_config' => array(
       'active' => '1',
@@ -108,6 +109,7 @@ function opengizra_item_field_default_fields() {
       'field_name' => 'field_quantity',
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'number',
       'settings' => array(
         'decimal_separator' => '.',
@@ -157,7 +159,7 @@ function opengizra_item_field_default_fields() {
     ),
   );
 
-  // Exported field: 'field_collection_item-field_bom_info-field_unit'
+  // Exported field: 'field_collection_item-field_bom_info-field_unit'.
   $fields['field_collection_item-field_bom_info-field_unit'] = array(
     'field_config' => array(
       'active' => '1',
@@ -171,6 +173,7 @@ function opengizra_item_field_default_fields() {
           0 => 'value',
         ),
       ),
+      'locked' => '0',
       'module' => 'list',
       'settings' => array(
         'allowed_values' => array(
@@ -219,7 +222,7 @@ function opengizra_item_field_default_fields() {
     ),
   );
 
-  // Exported field: 'field_collection_item-field_size_info-field_size'
+  // Exported field: 'field_collection_item-field_size_info-field_size'.
   $fields['field_collection_item-field_size_info-field_size'] = array(
     'field_config' => array(
       'active' => '1',
@@ -240,6 +243,7 @@ function opengizra_item_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -307,7 +311,7 @@ function opengizra_item_field_default_fields() {
     ),
   );
 
-  // Exported field: 'field_collection_item-field_size_info-field_sku'
+  // Exported field: 'field_collection_item-field_size_info-field_sku'.
   $fields['field_collection_item-field_size_info-field_sku'] = array(
     'field_config' => array(
       'active' => '1',
@@ -328,6 +332,7 @@ function opengizra_item_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(
         'max_length' => '255',
@@ -369,7 +374,7 @@ function opengizra_item_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-item-body'
+  // Exported field: 'node-item-body'.
   $fields['node-item-body'] = array(
     'field_config' => array(
       'active' => '1',
@@ -392,6 +397,7 @@ function opengizra_item_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(),
       'translatable' => '0',
@@ -408,7 +414,13 @@ function opengizra_item_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => 0,
+          'weight' => '0',
+        ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '4',
         ),
         'teaser' => array(
           'label' => 'hidden',
@@ -438,7 +450,7 @@ function opengizra_item_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-item-field_image'
+  // Exported field: 'node-item-field_image'.
   $fields['node-item-field_image'] = array(
     'field_config' => array(
       'active' => '1',
@@ -459,9 +471,10 @@ function opengizra_item_field_default_fields() {
           0 => 'fid',
         ),
       ),
+      'locked' => '0',
       'module' => 'image',
       'settings' => array(
-        'default_image' => 0,
+        'default_image' => FALSE,
         'uri_scheme' => 'public',
       ),
       'translatable' => '1',
@@ -474,13 +487,19 @@ function opengizra_item_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '1',
+        ),
+        'opengizra_header' => array(
+          'label' => 'hidden',
           'module' => 'image',
           'settings' => array(
             'image_link' => '',
-            'image_style' => '',
+            'image_style' => 'header_thumbnail',
           ),
           'type' => 'image',
-          'weight' => 1,
+          'weight' => '0',
         ),
         'teaser' => array(
           'label' => 'hidden',
@@ -521,7 +540,7 @@ function opengizra_item_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-item-field_item_status'
+  // Exported field: 'node-item-field_item_status'.
   $fields['node-item-field_item_status'] = array(
     'field_config' => array(
       'active' => '1',
@@ -542,6 +561,7 @@ function opengizra_item_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -581,7 +601,16 @@ function opengizra_item_field_default_fields() {
             'link' => FALSE,
           ),
           'type' => 'entityreference_label',
-          'weight' => 3,
+          'weight' => '3',
+        ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => FALSE,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '2',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -615,7 +644,7 @@ function opengizra_item_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-item-field_season'
+  // Exported field: 'node-item-field_season'.
   $fields['node-item-field_season'] = array(
     'field_config' => array(
       'active' => '1',
@@ -636,6 +665,7 @@ function opengizra_item_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -675,7 +705,13 @@ function opengizra_item_field_default_fields() {
             'link' => FALSE,
           ),
           'type' => 'entityreference_label',
-          'weight' => 4,
+          'weight' => '4',
+        ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '3',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -709,7 +745,81 @@ function opengizra_item_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-item_variant-field_bom_info'
+  // Exported field: 'node-item-title_field'.
+  $fields['node-item-title_field'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'title_field',
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'text',
+      'settings' => array(
+        'max_length' => 255,
+      ),
+      'translatable' => '1',
+      'type' => 'text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'item',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'A field replacing node title.',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '5',
+        ),
+        'opengizra_header' => array(
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '1',
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'title_field',
+      'label' => 'Title',
+      'required' => TRUE,
+      'settings' => array(
+        'text_processing' => 0,
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'module' => 'text',
+        'settings' => array(
+          'size' => 60,
+        ),
+        'type' => 'text_textfield',
+        'weight' => '-5',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-item_variant-field_bom_info'.
   $fields['node-item_variant-field_bom_info'] = array(
     'field_config' => array(
       'active' => '1',
@@ -719,6 +829,7 @@ function opengizra_item_field_default_fields() {
       'field_name' => 'field_bom_info',
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'field_collection',
       'settings' => array(
         'hide_blank_items' => TRUE,
@@ -746,6 +857,12 @@ function opengizra_item_field_default_fields() {
           'type' => 'field_collection_view',
           'weight' => 6,
         ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -770,7 +887,7 @@ function opengizra_item_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-item_variant-field_images'
+  // Exported field: 'node-item_variant-field_images'.
   $fields['node-item_variant-field_images'] = array(
     'field_config' => array(
       'active' => '1',
@@ -791,6 +908,7 @@ function opengizra_item_field_default_fields() {
           0 => 'fid',
         ),
       ),
+      'locked' => '0',
       'module' => 'image',
       'settings' => array(
         'default_image' => 0,
@@ -813,6 +931,12 @@ function opengizra_item_field_default_fields() {
           ),
           'type' => 'image',
           'weight' => 3,
+        ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
         'teaser' => array(
           'label' => 'hidden',
@@ -853,7 +977,7 @@ function opengizra_item_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-item_variant-field_item'
+  // Exported field: 'node-item_variant-field_item'.
   $fields['node-item_variant-field_item'] = array(
     'field_config' => array(
       'active' => '1',
@@ -874,6 +998,7 @@ function opengizra_item_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -915,6 +1040,12 @@ function opengizra_item_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => 0,
         ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -947,7 +1078,7 @@ function opengizra_item_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-item_variant-field_item_status'
+  // Exported field: 'node-item_variant-field_item_status'.
   $fields['node-item_variant-field_item_status'] = array(
     'field_config' => array(
       'active' => '1',
@@ -968,6 +1099,7 @@ function opengizra_item_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -1009,6 +1141,12 @@ function opengizra_item_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => 7,
         ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -1041,7 +1179,7 @@ function opengizra_item_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-item_variant-field_reference_hierarchy'
+  // Exported field: 'node-item_variant-field_reference_hierarchy'.
   $fields['node-item_variant-field_reference_hierarchy'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1062,6 +1200,7 @@ function opengizra_item_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -1101,6 +1240,12 @@ function opengizra_item_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => 5,
         ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -1137,7 +1282,7 @@ function opengizra_item_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-item_variant-field_retail_price'
+  // Exported field: 'node-item_variant-field_retail_price'.
   $fields['node-item_variant-field_retail_price'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1152,6 +1297,7 @@ function opengizra_item_field_default_fields() {
           1 => 'currency_code',
         ),
       ),
+      'locked' => '0',
       'module' => 'commerce_price',
       'settings' => array(),
       'translatable' => '0',
@@ -1169,6 +1315,12 @@ function opengizra_item_field_default_fields() {
           'settings' => array(),
           'type' => 'commerce_price_default',
           'weight' => 8,
+        ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1196,7 +1348,7 @@ function opengizra_item_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-item_variant-field_size_info'
+  // Exported field: 'node-item_variant-field_size_info'.
   $fields['node-item_variant-field_size_info'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1206,6 +1358,7 @@ function opengizra_item_field_default_fields() {
       'field_name' => 'field_size_info',
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'field_collection',
       'settings' => array(
         'hide_blank_items' => TRUE,
@@ -1233,6 +1386,12 @@ function opengizra_item_field_default_fields() {
           'type' => 'field_collection_view',
           'weight' => 2,
         ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -1257,7 +1416,7 @@ function opengizra_item_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-item_variant-field_wholesale_price'
+  // Exported field: 'node-item_variant-field_wholesale_price'.
   $fields['node-item_variant-field_wholesale_price'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1272,6 +1431,7 @@ function opengizra_item_field_default_fields() {
           1 => 'currency_code',
         ),
       ),
+      'locked' => '0',
       'module' => 'commerce_price',
       'settings' => array(),
       'translatable' => '0',
@@ -1289,6 +1449,12 @@ function opengizra_item_field_default_fields() {
           'settings' => array(),
           'type' => 'commerce_price_default',
           'weight' => 9,
+        ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1318,6 +1484,7 @@ function opengizra_item_field_default_fields() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('A field replacing node title.');
   t('Bill of materials');
   t('Body');
   t('Image');
@@ -1332,6 +1499,7 @@ function opengizra_item_field_default_fields() {
   t('Size');
   t('Size info');
   t('Status');
+  t('Title');
   t('Unit');
   t('Wholesale price');
 

@@ -10,7 +10,7 @@
 function opengizra_task_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'comment-comment_node_task-field_date'
+  // Exported field: 'comment-comment_node_task-field_date'.
   $fields['comment-comment_node_task-field_date'] = array(
     'field_config' => array(
       'active' => '1',
@@ -20,6 +20,7 @@ function opengizra_task_field_default_fields() {
       'field_name' => 'field_date',
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'date',
       'settings' => array(
         'cache_count' => '4',
@@ -86,7 +87,7 @@ function opengizra_task_field_default_fields() {
     ),
   );
 
-  // Exported field: 'comment-comment_node_task-field_entity_reference'
+  // Exported field: 'comment-comment_node_task-field_entity_reference'.
   $fields['comment-comment_node_task-field_entity_reference'] = array(
     'field_config' => array(
       'active' => '1',
@@ -107,6 +108,7 @@ function opengizra_task_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -178,7 +180,7 @@ function opengizra_task_field_default_fields() {
     ),
   );
 
-  // Exported field: 'comment-comment_node_task-field_task_assignee'
+  // Exported field: 'comment-comment_node_task-field_task_assignee'.
   $fields['comment-comment_node_task-field_task_assignee'] = array(
     'field_config' => array(
       'active' => '1',
@@ -199,6 +201,7 @@ function opengizra_task_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -264,7 +267,7 @@ function opengizra_task_field_default_fields() {
     ),
   );
 
-  // Exported field: 'comment-comment_node_task-field_task_status'
+  // Exported field: 'comment-comment_node_task-field_task_status'.
   $fields['comment-comment_node_task-field_task_status'] = array(
     'field_config' => array(
       'active' => '1',
@@ -285,6 +288,7 @@ function opengizra_task_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -352,7 +356,7 @@ function opengizra_task_field_default_fields() {
     ),
   );
 
-  // Exported field: 'comment-comment_node_task-subject_field'
+  // Exported field: 'comment-comment_node_task-subject_field'.
   $fields['comment-comment_node_task-subject_field'] = array(
     'field_config' => array(
       'active' => '1',
@@ -373,6 +377,7 @@ function opengizra_task_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(
         'max_length' => 255,
@@ -417,7 +422,7 @@ function opengizra_task_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-task-body'
+  // Exported field: 'node-task-body'.
   $fields['node-task-body'] = array(
     'field_config' => array(
       'active' => '1',
@@ -440,6 +445,7 @@ function opengizra_task_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(),
       'translatable' => '0',
@@ -457,6 +463,12 @@ function opengizra_task_field_default_fields() {
           'settings' => array(),
           'type' => 'text_default',
           'weight' => '0',
+        ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
         'teaser' => array(
           'label' => 'hidden',
@@ -489,7 +501,7 @@ function opengizra_task_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-task-field_date'
+  // Exported field: 'node-task-field_date'.
   $fields['node-task-field_date'] = array(
     'field_config' => array(
       'active' => '1',
@@ -499,6 +511,7 @@ function opengizra_task_field_default_fields() {
       'field_name' => 'field_date',
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'date',
       'settings' => array(
         'cache_count' => '4',
@@ -536,6 +549,12 @@ function opengizra_task_field_default_fields() {
           'type' => 'date_default',
           'weight' => 7,
         ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -571,7 +590,7 @@ function opengizra_task_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-task-field_entity_reference'
+  // Exported field: 'node-task-field_entity_reference'.
   $fields['node-task-field_entity_reference'] = array(
     'field_config' => array(
       'active' => '1',
@@ -592,6 +611,7 @@ function opengizra_task_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -637,6 +657,12 @@ function opengizra_task_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => '2',
         ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -673,7 +699,7 @@ function opengizra_task_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-task-field_reference_hierarchy'
+  // Exported field: 'node-task-field_reference_hierarchy'.
   $fields['node-task-field_reference_hierarchy'] = array(
     'field_config' => array(
       'active' => '1',
@@ -694,6 +720,7 @@ function opengizra_task_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -733,6 +760,12 @@ function opengizra_task_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => 5,
         ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -769,7 +802,7 @@ function opengizra_task_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-task-field_task_assignee'
+  // Exported field: 'node-task-field_task_assignee'.
   $fields['node-task-field_task_assignee'] = array(
     'field_config' => array(
       'active' => '1',
@@ -790,6 +823,7 @@ function opengizra_task_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -829,6 +863,12 @@ function opengizra_task_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => '3',
         ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -861,7 +901,7 @@ function opengizra_task_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-task-field_task_status'
+  // Exported field: 'node-task-field_task_status'.
   $fields['node-task-field_task_status'] = array(
     'field_config' => array(
       'active' => '1',
@@ -882,6 +922,7 @@ function opengizra_task_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -923,6 +964,12 @@ function opengizra_task_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => '1',
         ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -955,7 +1002,7 @@ function opengizra_task_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-task-title_field'
+  // Exported field: 'node-task-title_field'.
   $fields['node-task-title_field'] = array(
     'field_config' => array(
       'active' => '1',
@@ -976,6 +1023,7 @@ function opengizra_task_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(
         'max_length' => 255,
@@ -994,6 +1042,12 @@ function opengizra_task_field_default_fields() {
           'settings' => array(),
           'type' => 'hidden',
           'weight' => 6,
+        ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1026,7 +1080,7 @@ function opengizra_task_field_default_fields() {
     ),
   );
 
-  // Exported field: 'taxonomy_term-task_status-field_status_closed'
+  // Exported field: 'taxonomy_term-task_status-field_status_closed'.
   $fields['taxonomy_term-task_status-field_status_closed'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1040,6 +1094,7 @@ function opengizra_task_field_default_fields() {
           0 => 'value',
         ),
       ),
+      'locked' => '0',
       'module' => 'list',
       'settings' => array(
         'allowed_values' => array(

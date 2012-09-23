@@ -1,0 +1,26 @@
+.node-type-item {
+
+  #add-variant {
+    float: right; //LTR
+
+    li {
+      list-style-type: none;
+    }
+
+    a {
+      @include pink-button;
+    }
+  }
+
+  #add-task {
+    float: right; //LTR
+
+    li {
+      list-style-type: none;
+    }
+
+    a {
+      @include bluegray-button;
+    }
+  }
+}

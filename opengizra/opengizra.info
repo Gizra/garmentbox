@@ -61,6 +61,7 @@ dependencies[] = views
 dependencies[] = views_bulk_operations
 dependencies[] = views_content
 dependencies[] = views_ui
+dependencies[] = title
 
 ; Development modules
 dependencies[] = devel
@@ -88,4 +89,3 @@ dependencies[] = opengizra_pattern_task
 dependencies[] = opengizra_season
 dependencies[] = opengizra_task
 dependencies[] = opengizra_vendor
-

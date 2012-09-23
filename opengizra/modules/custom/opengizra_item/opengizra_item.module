@@ -29,3 +29,37 @@ function opengizra_item_ctools_plugin_directory($module, $plugin) {
     return 'plugins/' . $plugin;
   }
 }
+
+/**
+ * Implements hook_panels_pane_content_alter().
+ *
+ * Override the links created by entityreference_prepopulate to change their
+ * titles.
+ */
+function opengizra_item_panels_pane_content_alter(&$content, $pane, $args, $context) {
+  if ($content->module != 'entityreference_prepopulate') {
+    return;
+  }
+
+  $nid = $args[0];
+  $items = array();
+  foreach ($pane->configuration['types'] as $type) {
+    switch ($type) {
+      case 'task':
+        $field_name = 'field_entity_reference';
+        $link_text = t('Add new task');
+        break;
+
+      case 'item_variant':
+        $field_name = 'field_item';
+        $link_text = t('Add new variation');
+        break;
+    }
+
+    $options = array(
+      'query' => array($field_name => $nid) + drupal_get_destination(),
+    );
+    $items[] = array('data' => l($link_text, 'node/add/' . str_replace('_', '-', $type), $options));
+  }
+  $content->content['entityreference_prepopulate']['#items'] = $items;
+}

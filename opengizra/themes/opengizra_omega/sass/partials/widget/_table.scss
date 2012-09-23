@@ -17,7 +17,14 @@ table {
   }
 
   thead tr {
-    background: url("../images/table-header-bg.png") repeat-x;
+    background: #eeeeee; /* Old browsers */
+    background: -moz-linear-gradient(top,  #eeeeee 0%, #e3e3e3 3%, #dedede 5%, #d4d4d4 78%, #d3d3d3 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeeee), color-stop(3%,#e3e3e3), color-stop(5%,#dedede), color-stop(78%,#d4d4d4), color-stop(100%,#d3d3d3)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #eeeeee 0%,#e3e3e3 3%,#dedede 5%,#d4d4d4 78%,#d3d3d3 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #eeeeee 0%,#e3e3e3 3%,#dedede 5%,#d4d4d4 78%,#d3d3d3 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #eeeeee 0%,#e3e3e3 3%,#dedede 5%,#d4d4d4 78%,#d3d3d3 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #eeeeee 0%,#e3e3e3 3%,#dedede 5%,#d4d4d4 78%,#d3d3d3 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#d3d3d3',GradientType=0 ); /* IE6-9 */
   }
 
   th, td {
@@ -31,7 +38,7 @@ table {
   }
 
   .views-field-edit-node a {
-    background: url("../images/edit-icon.png");
+    background: url("../images/edit-icon.png") no-repeat;
     width: 28px;
     height: 27px;
     display: block;
@@ -39,7 +46,7 @@ table {
 
     &:hover {
       background-image: url("../images/edit-icon-active.png");
-      @include transition(0.5s);
+      @include transition(0.3s);
     }
   }
 }
