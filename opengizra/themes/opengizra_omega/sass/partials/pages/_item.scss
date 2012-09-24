@@ -1,12 +1,3 @@
 .node-type-item {
 
-  #add-variant a {
-    float: right; //LTR
-    @include primary-button;
-  }
-
-  #add-task a {
-    float: right; //LTR
-    @include secondary-button;
-  }
 }

@@ -58,7 +58,7 @@
 }
 
 // Large title strip.
-.node-type-item #title {
+.node-type-item #title, .node-type-item-variant #title {
   background: url("../images/title-large-bg.png") repeat-x;
   height: 86px;
 
@@ -66,7 +66,7 @@
     margin-top: 22px;
   }
 
-  .field-name-field-image {
+  .field-name-field-image, .field-name-field-images {
     margin-top: 7px;
     margin-right: 10px; //LTR
     background: url("../images/header-thumbnail-bg.png") repeat-x;

@@ -131,6 +131,17 @@ projects[fontyourface][version] = "2.4"
 projects[title][subdir] = "contrib"
 projects[title][version] = "1.0-alpha4"
 
+projects[image_delta_formatter][subdir] = "contrib"
+projects[image_delta_formatter][version] = "1.x-dev"
+
+projects[jcarousel][subdir] = "contrib"
+projects[jcarousel][version] = "2.6"
+
+; Libraries.
+libraries[jquery.cycle][type] = "libraries"
+libraries[jquery.cycle][download][type] = "git"
+libraries[jquery.cycle][download][url] = "https://github.com/malsup/cycle.git"
+
 ; Themes
 projects[omega][subdir] = "contrib"
 projects[omega][version] = "4.0-alpha1"

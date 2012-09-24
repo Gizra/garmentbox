@@ -119,7 +119,6 @@
 
 <footer>
   <div class="container">
-    <?php print render($page['footer']); ?>
     <?php print render($page['bottom']); ?>
   </div>
 </footer>

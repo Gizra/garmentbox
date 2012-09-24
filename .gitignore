@@ -42,4 +42,12 @@ Thumbs.db
 opengizra/modules/contrib
 opengizra/1/modules
 opengizra/themes/contrib
+opengizra/libraries
 www
+opengizra/themes/opengizra_omega/.sass-cache/
+install.sh
+
+# Aptana #
+##########
+.project
+.settings/

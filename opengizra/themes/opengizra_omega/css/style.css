@@ -53,20 +53,53 @@ table th {
   font-weight: normal;
 }
 /* line 40, ../sass/partials/widget/_table.scss */
-table .views-field-edit-node a {
-  background: url("../images/edit-icon.png") no-repeat;
+table .views-field-edit-node a, table li.edit a {
   width: 28px;
   height: 27px;
   display: block;
   color: transparent;
+  background: url("../images/edit.png") no-repeat;
 }
-/* line 47, ../sass/partials/widget/_table.scss */
-table .views-field-edit-node a:hover {
-  background-image: url("../images/edit-icon-active.png");
+/* line 78, ../sass/_mixins.scss */
+table .views-field-edit-node a:hover, table li.edit a:hover {
   -moz-transition: 0.3s;
   -webkit-transition: 0.3s;
   -o-transition: 0.3s;
   transition: 0.3s;
+}
+/* line 88, ../sass/_mixins.scss */
+table .views-field-edit-node a:hover, table li.edit a:hover {
+  background-image: url("../images/edit-active.png");
+}
+/* line 44, ../sass/partials/widget/_table.scss */
+table .field-collection-view-links {
+  margin: 0;
+  padding: 0;
+}
+/* line 48, ../sass/partials/widget/_table.scss */
+table .field-collection-view-links li {
+  list-style-type: none;
+  margin: 0 0 0 5px;
+  float: left;
+}
+/* line 53, ../sass/partials/widget/_table.scss */
+table .field-collection-view-links li.delete a {
+  width: 28px;
+  height: 27px;
+  display: block;
+  color: transparent;
+  background: url("../images/delete.png") no-repeat;
+}
+/* line 78, ../sass/_mixins.scss */
+table .field-collection-view-links li.delete a:hover {
+  -moz-transition: 0.3s;
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+}
+/* line 98, ../sass/_mixins.scss */
+table .field-collection-view-links li.delete a:hover {
+  background-image: url("../images/delete-active.png");
 }
 
 /* line 1, ../sass/partials/widget/_tabs.scss */
@@ -145,6 +178,46 @@ table .views-field-edit-node a:hover {
   transition: 0.3s;
 }
 
+/* line 1, ../sass/partials/widget/_slideshow.scss */
+.jcarousel-skin-default .jcarousel-container-horizontal {
+  width: 100%;
+  height: 200px;
+  padding: 0;
+}
+/* line 6, ../sass/partials/widget/_slideshow.scss */
+.jcarousel-skin-default .jcarousel-container-horizontal .jcarousel-clip-horizontal {
+  width: 990px;
+  margin: 0 auto;
+}
+/* line 11, ../sass/partials/widget/_slideshow.scss */
+.jcarousel-skin-default .jcarousel-container-horizontal .jcarousel-item {
+  width: 160px;
+  height: 206px;
+  padding-top: 3px;
+  border: none;
+  margin: 0 47px 0 0;
+  background: url("../images/slideshow-bg.png") no-repeat;
+}
+/* line 21, ../sass/partials/widget/_slideshow.scss */
+.jcarousel-skin-default .jcarousel-container-horizontal .jcarousel-next, .jcarousel-skin-default .jcarousel-container-horizontal .jcarousel-prev {
+  position: absolute;
+  display: block;
+  background: url("../images/slideshow-previous.png") no-repeat;
+  color: transparent;
+  top: 50%;
+  margin-top: -24px;
+  width: 48px;
+  height: 48px;
+  z-index: 10;
+  left: 0;
+}
+/* line 33, ../sass/partials/widget/_slideshow.scss */
+.jcarousel-skin-default .jcarousel-container-horizontal .jcarousel-next {
+  background-image: url("../images/slideshow-next.png");
+  left: auto;
+  right: 0;
+}
+
 /* line 1, ../sass/partials/layout/_header.scss */
 #header {
   background: url("../images/header-bg.png") repeat-x;
@@ -207,16 +280,16 @@ table .views-field-edit-node a:hover {
 }
 
 /* line 61, ../sass/partials/layout/_header.scss */
-.node-type-item #title {
+.node-type-item #title, .node-type-item-variant #title {
   background: url("../images/title-large-bg.png") repeat-x;
   height: 86px;
 }
 /* line 65, ../sass/partials/layout/_header.scss */
-.node-type-item #title .field-name-field-item-status {
+.node-type-item #title .field-name-field-item-status, .node-type-item-variant #title .field-name-field-item-status {
   margin-top: 22px;
 }
 /* line 69, ../sass/partials/layout/_header.scss */
-.node-type-item #title .field-name-field-image {
+.node-type-item #title .field-name-field-image, .node-type-item #title .field-name-field-images, .node-type-item-variant #title .field-name-field-image, .node-type-item-variant #title .field-name-field-images {
   margin-top: 7px;
   margin-right: 10px;
   background: url("../images/header-thumbnail-bg.png") repeat-x;
@@ -225,7 +298,7 @@ table .views-field-edit-node a:hover {
   height: 77px;
 }
 /* line 77, ../sass/partials/layout/_header.scss */
-.node-type-item #title .field-name-field-image img {
+.node-type-item #title .field-name-field-image img, .node-type-item #title .field-name-field-images img, .node-type-item-variant #title .field-name-field-image img, .node-type-item-variant #title .field-name-field-images img {
   margin: 3px auto;
   display: block;
 }
@@ -251,8 +324,8 @@ section.content h2.pane-title {
   padding-top: 20px;
 }
 
-/* line 3, ../sass/partials/pages/_item.scss */
-.node-type-item #add-variant a {
+/* line 1, ../sass/partials/layout/_buttons.scss */
+#add-variant a {
   float: right;
   border: 1px solid #60636a;
   border-radius: 5px;
@@ -278,16 +351,17 @@ section.content h2.pane-title {
   /* IE6-9 */
 }
 /* line 20, ../sass/_mixins.scss */
-.node-type-item #add-variant a:hover {
+#add-variant a:hover {
   text-decoration: none;
 }
 /* line 40, ../sass/_mixins.scss */
-.node-type-item #add-variant a:before {
+#add-variant a:before {
   content: url("../images/white-plus.png");
   margin-right: 8px;
 }
-/* line 8, ../sass/partials/pages/_item.scss */
-.node-type-item #add-task a {
+
+/* line 6, ../sass/partials/layout/_buttons.scss */
+#add-task a {
   float: right;
   border: 1px solid #60636a;
   border-radius: 5px;
@@ -312,12 +386,128 @@ section.content h2.pane-title {
   /* IE6-9 */
 }
 /* line 20, ../sass/_mixins.scss */
-.node-type-item #add-task a:hover {
+#add-task a:hover {
   text-decoration: none;
 }
 /* line 60, ../sass/_mixins.scss */
-.node-type-item #add-task a:before {
+#add-task a:before {
   content: url("../images/gray-plus.png");
+  margin-right: 8px;
+}
+
+/* line 3, ../sass/partials/pages/_item-variant.scss */
+.node-type-item-variant .pane-item-variant-summary {
+  border-bottom: 1px solid #d1d1d1;
+  padding-bottom: 20px;
+}
+/* line 7, ../sass/partials/pages/_item-variant.scss */
+.node-type-item-variant .pane-item-variant-summary .panel-pane {
+  float: left;
+  margin-right: 20px;
+}
+/* line 11, ../sass/partials/pages/_item-variant.scss */
+.node-type-item-variant .pane-item-variant-summary .panel-pane .field-label {
+  text-transform: lowercase;
+  color: #8d8d8d;
+  font-weight: normal;
+  font-size: 12px;
+}
+/* line 18, ../sass/partials/pages/_item-variant.scss */
+.node-type-item-variant .pane-item-variant-summary .panel-pane .field-item {
+  text-transform: uppercase;
+  font-size: 18px;
+}
+/* line 23, ../sass/partials/pages/_item-variant.scss */
+.node-type-item-variant .pane-item-variant-summary .panel-pane .field-name-field-size-info ul {
+  margin: 0;
+}
+/* line 26, ../sass/partials/pages/_item-variant.scss */
+.node-type-item-variant .pane-item-variant-summary .panel-pane .field-name-field-size-info ul li {
+  list-style-type: none;
+  float: left;
+  margin: 0;
+  border-right: 2px solid #9d9d9d;
+  padding: 0 5px;
+}
+/* line 33, ../sass/partials/pages/_item-variant.scss */
+.node-type-item-variant .pane-item-variant-summary .panel-pane .field-name-field-size-info ul li.last {
+  border-right: none;
+}
+/* line 37, ../sass/partials/pages/_item-variant.scss */
+.node-type-item-variant .pane-item-variant-summary .panel-pane .field-name-field-size-info ul li.first {
+  padding-left: 0;
+}
+/* line 43, ../sass/partials/pages/_item-variant.scss */
+.node-type-item-variant .pane-item-variant-summary .panel-pane .flag-line-sheet a {
+  font-size: 11px;
+  display: block;
+  background: url("../images/unflagged.png") no-repeat;
+  padding-left: 30px;
+  height: 26px;
+  line-height: 26px;
+  color: #515151;
+}
+/* line 52, ../sass/partials/pages/_item-variant.scss */
+.node-type-item-variant .pane-item-variant-summary .panel-pane .flag-line-sheet a.unflag-action {
+  background-image: url("../images/flagged.png");
+}
+/* line 57, ../sass/partials/pages/_item-variant.scss */
+.node-type-item-variant .pane-item-variant-summary .panel-pane .field-type-commerce-price .field-item {
+  color: #f50067;
+  font-size: 26px;
+}
+/* line 63, ../sass/partials/pages/_item-variant.scss */
+.node-type-item-variant .pane-item-variant-summary .pane-main-material {
+  background: url("../images/material-thumbnail-bg.png") no-repeat;
+  width: 78px;
+  height: 86px;
+  padding-top: 11px;
+  padding-left: 3px;
+}
+/* line 71, ../sass/partials/pages/_item-variant.scss */
+.node-type-item-variant .pane-item-variant-summary .pane-custom .separator {
+  border-left: 1px dashed #d0d0d0;
+  height: 71px;
+}
+/* line 77, ../sass/partials/pages/_item-variant.scss */
+.node-type-item-variant .pane-item-variant-action-links {
+  border-top: 1px solid #d1d1d1;
+  margin-top: 65px;
+}
+/* line 81, ../sass/partials/pages/_item-variant.scss */
+.node-type-item-variant .pane-item-variant-action-links h2:after {
+  content: ":";
+}
+/* line 85, ../sass/partials/pages/_item-variant.scss */
+.node-type-item-variant .pane-item-variant-action-links li {
+  list-style-type: none;
+  margin: 0;
+}
+/* line 89, ../sass/partials/pages/_item-variant.scss */
+.node-type-item-variant .pane-item-variant-action-links li a {
+  display: block;
+  float: left;
+  margin-right: 80px;
+}
+/* line 94, ../sass/partials/pages/_item-variant.scss */
+.node-type-item-variant .pane-item-variant-action-links li a.pattern-history {
+  clear: left;
+  font-size: 12px;
+  margin-left: 34px;
+  color: #888888;
+}
+/* line 102, ../sass/partials/pages/_item-variant.scss */
+.node-type-item-variant .pane-item-variant-action-links li a.icon {
+  color: #537f80;
+}
+/* line 105, ../sass/partials/pages/_item-variant.scss */
+.node-type-item-variant .pane-item-variant-action-links li a.icon.pattern:before {
+  content: url("../images/pattern-file.png");
+  margin-right: 5px;
+}
+/* line 110, ../sass/partials/pages/_item-variant.scss */
+.node-type-item-variant .pane-item-variant-action-links li a.icon.cutter-must:before {
+  content: url("../images/cutter-must.png");
   margin-right: 8px;
 }
 
@@ -332,14 +522,15 @@ body {
   margin: 0;
   background-color: #f4f4f2;
   font-family: Arial, Helvetica, sans-serif;
+  padding-bottom: 20px;
 }
 
-/* line 17, ../sass/style.scss */
+/* line 18, ../sass/style.scss */
 a {
   color: #679190;
   text-decoration: none;
 }
-/* line 21, ../sass/style.scss */
+/* line 22, ../sass/style.scss */
 a:hover {
   text-decoration: underline;
 }

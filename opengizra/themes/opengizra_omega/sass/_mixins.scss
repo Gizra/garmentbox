@@ -68,3 +68,34 @@
   -webkit-box-shadow: $h $v $blur $spread $color;
   box-shadow: $h $v $blur $spread $color;
 }
+
+@mixin action-button {
+  width: 28px;
+  height: 27px;
+  display: block;
+  color: transparent;
+
+  &:hover {
+    @include transition(0.3s);
+  }
+}
+
+@mixin edit-button {
+  @include action-button;
+
+  background: url("../images/edit.png") no-repeat;
+
+  &:hover {
+    background-image: url("../images/edit-active.png");
+  }
+}
+
+@mixin delete-button {
+  @include action-button;
+
+  background: url("../images/delete.png") no-repeat;
+
+  &:hover {
+    background-image: url("../images/delete-active.png");
+  }
+}

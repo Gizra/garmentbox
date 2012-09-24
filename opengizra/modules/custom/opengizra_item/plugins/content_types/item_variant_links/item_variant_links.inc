@@ -18,9 +18,8 @@ function opengizra_item_item_variant_links_content_type_render($subtype, $conf, 
     return FALSE;
   }
 
-  $module = 'opengizra_item';
   $block = new stdClass();
-  $block->module = $module;
+  $block->module = 'opengizra_item';
   $block->title = '';
   $block->css_class = 'tabs';
 

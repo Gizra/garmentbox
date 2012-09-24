@@ -37,16 +37,22 @@ table {
     font-weight: normal;
   }
 
-  .views-field-edit-node a {
-    background: url("../images/edit-icon.png") no-repeat;
-    width: 28px;
-    height: 27px;
-    display: block;
-    color: transparent;
+  .views-field-edit-node a, li.edit a {
+    @include edit-button;
+  }
 
-    &:hover {
-      background-image: url("../images/edit-icon-active.png");
-      @include transition(0.3s);
+  .field-collection-view-links {
+    margin: 0;
+    padding: 0;
+
+    li {
+      list-style-type: none;
+      margin: 0 0 0 5px; //LTR
+      float: left; //LTR
+
+      &.delete a {
+        @include delete-button;
+      }
     }
   }
 }

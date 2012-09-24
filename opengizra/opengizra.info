@@ -62,6 +62,7 @@ dependencies[] = views_bulk_operations
 dependencies[] = views_content
 dependencies[] = views_ui
 dependencies[] = title
+dependencies[] = image_delta_formatter
 
 ; Development modules
 dependencies[] = devel
