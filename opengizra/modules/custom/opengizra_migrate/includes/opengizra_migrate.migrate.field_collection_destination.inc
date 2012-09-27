@@ -72,8 +72,9 @@ class openGizraMigrateDestinationFieldCollection extends MigrateDestinationEntit
       $entity->{$field} = $value;
     }
     $this->prepare($entity, $row);
+
     migrate_instrument_start('field_collection_save');
-    $status = entity_save('field_collection_item', $entity);
+    $status = $entity->save(TRUE);
     migrate_instrument_stop('field_collection_save');
 
     if ($status) {
