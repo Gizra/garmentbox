@@ -91,6 +91,7 @@ projects[module_filter][version] = 1.7
 
 projects[multiupload_filefield_widget][subdir] = "contrib"
 projects[multiupload_filefield_widget][version] = 1.0
+projects[multiupload_filefield_widget][patch][] = "http://drupal.org/files/mfw_size_notice-1548502-6.patch"
 
 projects[multiupload_imagefield_widget][subdir] = "contrib"
 projects[multiupload_imagefield_widget][version] = 1.0

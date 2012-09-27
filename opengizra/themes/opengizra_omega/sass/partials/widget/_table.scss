@@ -50,6 +50,10 @@ table {
       margin: 0 0 0 5px; //LTR
       float: left; //LTR
 
+      &.first {
+        margin-left: 0; //LTR
+      }
+
       &.delete a {
         @include delete-button;
       }

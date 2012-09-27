@@ -1,7 +1,7 @@
-Unique ID,Item variant,Material,Unit,Quantity
-fieldBomInfo1,ItemVariant1,material1,kilogram,5
-fieldBomInfo2,ItemVariant2,material2,kilogram,7
-fieldBomInfo3,ItemVariant3,material3,kilogram,8
-fieldBomInfo4,ItemVariant4,material1,kilogram,2.5
-fieldBomInfo5,ItemVariant5,material2,kilogram,20
-fieldBomInfo6,ItemVariant6,material3,kilogram,33
+Unique ID,Item variant,Material,Material source,Unit,Quantity
+fieldBomInfo1,ItemVariant1,material1,fieldSourceInfo1,kilogram,5
+fieldBomInfo2,ItemVariant2,material2,fieldSourceInfo4,kilogram,7
+fieldBomInfo3,ItemVariant3,material3,fieldSourceInfo5,kilogram,8
+fieldBomInfo4,ItemVariant4,material1,fieldSourceInfo2,kilogram,2.5
+fieldBomInfo5,ItemVariant5,material2,fieldSourceInfo4,kilogram,20
+fieldBomInfo6,ItemVariant6,material3,fieldSourceInfo10,kilogram,33

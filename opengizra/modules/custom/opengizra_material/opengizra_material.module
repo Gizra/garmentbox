@@ -19,17 +19,26 @@ function opengizra_material_field_attach_form($entity_type, $entity, &$form, &$f
     return;
   }
 
+  // Fetch all mass unit types.
+  $query = new EntityFieldQuery();
+  $result = $query->entityCondition('entity_type', 'taxonomy_term')
+    ->fieldCondition('field_unit_type', 'value', 'mass')
+    ->execute();
+
+  if (!$result) {
+    return;
+  }
+
   // Check if we are in a node context, or directly inside a field
   // collection.
   $key = !empty($form_state['node']) ? 'field_source_info[und][0][field_unit][und]' : 'field_unit[und]';
-   $state = array(
-     '#states' => array(
-      'visible' => array(
-        array(
-          array(':input[name="' . $key . '"]' => array('value' => 'pound')),
-          array(':input[name="' . $key . '"]' => array('value' => 'kilogram')),
-        ),
-      ),
+  $mass_inputs = array();
+  foreach (array_keys($result['taxonomy_term']) as $tid) {
+    $mass_inputs[] = array(':input[name="' . $key . '"]' => array('value' => $tid));
+  }
+  $state = array(
+    '#states' => array(
+      'visible' => array($mass_inputs),
     ),
   );
 
@@ -47,6 +56,7 @@ function opengizra_material_field_attach_form($entity_type, $entity, &$form, &$f
  * those fields required.
  */
 function opengizra_material_length_validate($element, &$form_state) {
+  return;
   $values = !empty($form_state['values']['field_source_info']) ? $form_state['values']['field_source_info'][LANGUAGE_NONE][0] : $form_state['values'];
   if (!in_array($values['field_unit'][LANGUAGE_NONE][0]['value'], array('kilogram', 'pound'))) {
     return;

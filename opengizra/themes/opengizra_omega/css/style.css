@@ -58,9 +58,10 @@ table .views-field-edit-node a, table li.edit a {
   height: 27px;
   display: block;
   color: transparent;
+  overflow: hidden;
   background: url("../images/edit.png") no-repeat;
 }
-/* line 78, ../sass/_mixins.scss */
+/* line 79, ../sass/_mixins.scss */
 table .views-field-edit-node a:hover, table li.edit a:hover {
   -moz-transition: 0.3s;
   -webkit-transition: 0.3s;
@@ -83,21 +84,26 @@ table .field-collection-view-links li {
   float: left;
 }
 /* line 53, ../sass/partials/widget/_table.scss */
+table .field-collection-view-links li.first {
+  margin-left: 0;
+}
+/* line 57, ../sass/partials/widget/_table.scss */
 table .field-collection-view-links li.delete a {
   width: 28px;
   height: 27px;
   display: block;
   color: transparent;
+  overflow: hidden;
   background: url("../images/delete.png") no-repeat;
 }
-/* line 78, ../sass/_mixins.scss */
+/* line 79, ../sass/_mixins.scss */
 table .field-collection-view-links li.delete a:hover {
   -moz-transition: 0.3s;
   -webkit-transition: 0.3s;
   -o-transition: 0.3s;
   transition: 0.3s;
 }
-/* line 98, ../sass/_mixins.scss */
+/* line 97, ../sass/_mixins.scss */
 table .field-collection-view-links li.delete a:hover {
   background-image: url("../images/delete-active.png");
 }
@@ -110,16 +116,16 @@ table .field-collection-view-links li.delete a:hover {
 .panel-pane.tabs ul li {
   list-style-type: none;
   margin: 0;
-  width: 114px;
   height: 36px;
   float: left;
   margin-right: 6px;
 }
-/* line 12, ../sass/partials/widget/_tabs.scss */
+/* line 11, ../sass/partials/widget/_tabs.scss */
 .panel-pane.tabs ul li a {
   background-color: white;
   text-align: center;
-  width: 114px;
+  min-width: 114px;
+  padding: 0 10px;
   height: 36px;
   line-height: 36px;
   display: block;
@@ -148,9 +154,8 @@ table .field-collection-view-links li.delete a:hover {
   box-shadow: 0 -1px 2px 0 #cacaca;
   margin-left: 1px;
   height: 42px;
-  position: absolute;
 }
-/* line 37, ../sass/partials/widget/_tabs.scss */
+/* line 36, ../sass/partials/widget/_tabs.scss */
 .panel-pane.tabs ul li a.active:hover {
   background-color: white;
   -moz-box-shadow: 0 -1px 2px 0 #cacaca;

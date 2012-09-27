@@ -24,7 +24,7 @@ function opengizra_item_item_variant_action_links_content_type_render($subtype, 
 
   $items = array();
   $items[] = l(t('Download pattern file'), '', array('attributes' => array('class' => array('icon pattern'))));
-  $items[] = l(t('Print cutter\'s must'), '', array('attributes' => array('class' => array('icon cutter-must'))));
+  $items[] = l(t("Print cutter's must"), '', array('attributes' => array('class' => array('icon cutter-must'))));
   $items[] = l(t('See pattern history...'), '', array('attributes' => array('class' => array('pattern-history'))));
 
   $block->content = theme('item_list', array('items' => $items));

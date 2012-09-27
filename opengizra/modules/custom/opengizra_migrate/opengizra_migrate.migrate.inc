@@ -90,6 +90,28 @@ class openGizraInventoryTypeTerms extends openGizraMigration {
   }
 }
 
+/**
+ * Migrate measurement unit terms.
+ */
+class openGizraMeasurementUnitTerms extends openGizraMigration {
+
+  public $csvColumns = array(
+    array('id', 'Unique ID'),
+    array('name', 'Name'),
+    array('field_unit_type', 'Type'),
+    array('field_conversion_ratio', 'Conversion'),
+  );
+
+  public $entityType = 'taxonomy_term';
+  public $bundle = 'measurement_units';
+
+  public function __construct() {
+    parent::__construct();
+    $this->addFieldMapping('field_unit_type', 'field_unit_type');
+    $this->addFieldMapping('field_conversion_ratio', 'field_conversion_ratio');
+  }
+}
+
 ///////////////////////////////
 // Nodes
 
@@ -535,6 +557,7 @@ class openGizraCollectionsFieldBomInfo extends openGizraFieldCollectionMigration
     array('id', 'Unique ID'),
     array('host_entity_id', 'Item variant'),
     array('field_material', 'Material'),
+    array('field_material_item', 'Material source'),
     array('field_unit', 'Unit'),
     array('field_quantity', 'Quantity'),
   );
@@ -546,6 +569,7 @@ class openGizraCollectionsFieldBomInfo extends openGizraFieldCollectionMigration
   public $dependencies = array(
     'openGizraItemVariants',
     'openGizraMaterials',
+    'openGizraCollectionsFieldSourceInfo',
   );
 
   public function __construct() {
@@ -557,6 +581,10 @@ class openGizraCollectionsFieldBomInfo extends openGizraFieldCollectionMigration
     $this
       ->addFieldMapping('field_material', 'field_material')
       ->sourceMigration('openGizraMaterials');
+
+    $this
+      ->addFieldMapping('field_material_item', 'field_material_item')
+      ->sourceMigration('openGizraCollectionsFieldSourceInfo');
 
     $this->addFieldMapping('field_unit', 'field_unit');
     $this->addFieldMapping('field_quantity', 'field_quantity');

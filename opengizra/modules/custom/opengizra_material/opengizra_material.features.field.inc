@@ -10,7 +10,7 @@
 function opengizra_material_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'field_collection_item-field_source_info-field_length'
+  // Exported field: 'field_collection_item-field_source_info-field_length'.
   $fields['field_collection_item-field_source_info-field_length'] = array(
     'field_config' => array(
       'active' => '1',
@@ -20,6 +20,7 @@ function opengizra_material_field_default_fields() {
       'field_name' => 'field_length',
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'number',
       'settings' => array(
         'decimal_separator' => '.',
@@ -64,12 +65,12 @@ function opengizra_material_field_default_fields() {
         'module' => 'number',
         'settings' => array(),
         'type' => 'number',
-        'weight' => '5',
+        'weight' => '4',
       ),
     ),
   );
 
-  // Exported field: 'field_collection_item-field_source_info-field_length_unit'
+  // Exported field: 'field_collection_item-field_source_info-field_length_unit'.
   $fields['field_collection_item-field_source_info-field_length_unit'] = array(
     'field_config' => array(
       'active' => '1',
@@ -77,39 +78,44 @@ function opengizra_material_field_default_fields() {
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_length_unit',
-      'foreign keys' => array(),
-      'indexes' => array(
-        'value' => array(
-          0 => 'value',
+      'foreign keys' => array(
+        'tid' => array(
+          'columns' => array(
+            'tid' => 'tid',
+          ),
+          'table' => 'taxonomy_term_data',
         ),
       ),
-      'module' => 'list',
+      'indexes' => array(
+        'tid' => array(
+          0 => 'tid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'taxonomy',
       'settings' => array(
         'allowed_values' => array(
-          'meter' => 'Meter',
-          'yard' => 'Yard',
+          0 => array(
+            'vocabulary' => 'measurement_units',
+            'parent' => '0',
+          ),
         ),
-        'allowed_values_function' => '',
       ),
       'translatable' => '0',
-      'type' => 'list_text',
+      'type' => 'taxonomy_term_reference',
     ),
     'field_instance' => array(
       'bundle' => 'field_source_info',
-      'default_value' => array(
-        0 => array(
-          'value' => 'meter',
-        ),
-      ),
+      'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'list',
+          'module' => 'taxonomy',
           'settings' => array(),
-          'type' => 'list_default',
-          'weight' => 4,
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => 7,
         ),
       ),
       'entity_type' => 'field_collection_item',
@@ -124,12 +130,12 @@ function opengizra_material_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '6',
+        'weight' => '8',
       ),
     ),
   );
 
-  // Exported field: 'field_collection_item-field_source_info-field_price'
+  // Exported field: 'field_collection_item-field_source_info-field_price'.
   $fields['field_collection_item-field_source_info-field_price'] = array(
     'field_config' => array(
       'active' => '1',
@@ -144,6 +150,7 @@ function opengizra_material_field_default_fields() {
           1 => 'currency_code',
         ),
       ),
+      'locked' => '0',
       'module' => 'commerce_price',
       'settings' => array(),
       'translatable' => '0',
@@ -184,7 +191,7 @@ function opengizra_material_field_default_fields() {
     ),
   );
 
-  // Exported field: 'field_collection_item-field_source_info-field_unit'
+  // Exported field: 'field_collection_item-field_source_info-field_unit'.
   $fields['field_collection_item-field_source_info-field_unit'] = array(
     'field_config' => array(
       'active' => '1',
@@ -192,41 +199,44 @@ function opengizra_material_field_default_fields() {
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_unit',
-      'foreign keys' => array(),
-      'indexes' => array(
-        'value' => array(
-          0 => 'value',
+      'foreign keys' => array(
+        'tid' => array(
+          'columns' => array(
+            'tid' => 'tid',
+          ),
+          'table' => 'taxonomy_term_data',
         ),
       ),
-      'module' => 'list',
+      'indexes' => array(
+        'tid' => array(
+          0 => 'tid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'taxonomy',
       'settings' => array(
         'allowed_values' => array(
-          'kilogram' => 'Kilogram',
-          'pound' => 'Pound',
-          'meter' => 'Meter',
-          'yard' => 'Yard',
+          0 => array(
+            'vocabulary' => 'measurement_units',
+            'parent' => '0',
+          ),
         ),
-        'allowed_values_function' => '',
       ),
       'translatable' => '0',
-      'type' => 'list_text',
+      'type' => 'taxonomy_term_reference',
     ),
     'field_instance' => array(
       'bundle' => 'field_source_info',
-      'default_value' => array(
-        0 => array(
-          'value' => 'kilogram',
-        ),
-      ),
+      'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'list',
+          'module' => 'taxonomy',
           'settings' => array(),
-          'type' => 'list_default',
-          'weight' => 2,
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => 6,
         ),
       ),
       'entity_type' => 'field_collection_item',
@@ -241,12 +251,12 @@ function opengizra_material_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '4',
+        'weight' => '7',
       ),
     ),
   );
 
-  // Exported field: 'field_collection_item-field_source_info-field_vendor'
+  // Exported field: 'field_collection_item-field_source_info-field_vendor'.
   $fields['field_collection_item-field_source_info-field_vendor'] = array(
     'field_config' => array(
       'active' => '1',
@@ -267,6 +277,7 @@ function opengizra_material_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -334,7 +345,7 @@ function opengizra_material_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-material-body'
+  // Exported field: 'node-material-body'.
   $fields['node-material-body'] = array(
     'field_config' => array(
       'active' => '1',
@@ -357,6 +368,7 @@ function opengizra_material_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(),
       'translatable' => '0',
@@ -373,6 +385,12 @@ function opengizra_material_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
+          'weight' => 0,
+        ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
           'weight' => 0,
         ),
         'teaser' => array(
@@ -406,7 +424,7 @@ function opengizra_material_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-material-field_images'
+  // Exported field: 'node-material-field_images'.
   $fields['node-material-field_images'] = array(
     'field_config' => array(
       'active' => '1',
@@ -427,6 +445,7 @@ function opengizra_material_field_default_fields() {
           0 => 'fid',
         ),
       ),
+      'locked' => '0',
       'module' => 'image',
       'settings' => array(
         'default_image' => 0,
@@ -449,6 +468,12 @@ function opengizra_material_field_default_fields() {
           ),
           'type' => 'image',
           'weight' => 5,
+        ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
         'teaser' => array(
           'label' => 'above',
@@ -485,7 +510,7 @@ function opengizra_material_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-material-field_nick_name'
+  // Exported field: 'node-material-field_nick_name'.
   $fields['node-material-field_nick_name'] = array(
     'field_config' => array(
       'active' => '1',
@@ -506,6 +531,7 @@ function opengizra_material_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(
         'max_length' => '255',
@@ -525,6 +551,12 @@ function opengizra_material_field_default_fields() {
           'settings' => array(),
           'type' => 'text_default',
           'weight' => 1,
+        ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
         'teaser' => array(
           'label' => 'above',
@@ -553,7 +585,7 @@ function opengizra_material_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-material-field_source_info'
+  // Exported field: 'node-material-field_source_info'.
   $fields['node-material-field_source_info'] = array(
     'field_config' => array(
       'active' => '1',
@@ -563,6 +595,7 @@ function opengizra_material_field_default_fields() {
       'field_name' => 'field_source_info',
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'field_collection',
       'settings' => array(
         'hide_blank_items' => TRUE,
@@ -590,6 +623,12 @@ function opengizra_material_field_default_fields() {
           'type' => 'field_collection_view',
           'weight' => 4,
         ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -614,16 +653,139 @@ function opengizra_material_field_default_fields() {
     ),
   );
 
+  // Exported field: 'taxonomy_term-measurement_units-field_conversion_ratio'.
+  $fields['taxonomy_term-measurement_units-field_conversion_ratio'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_conversion_ratio',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'locked' => '0',
+      'module' => 'number',
+      'settings' => array(
+        'decimal_separator' => '.',
+      ),
+      'translatable' => '0',
+      'type' => 'number_float',
+    ),
+    'field_instance' => array(
+      'bundle' => 'measurement_units',
+      'default_value' => array(
+        0 => array(
+          'value' => '1',
+        ),
+      ),
+      'deleted' => '0',
+      'description' => 'The ratio between the value and its metric equivalent.',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'number',
+          'settings' => array(
+            'decimal_separator' => '.',
+            'prefix_suffix' => TRUE,
+            'scale' => 2,
+            'thousand_separator' => ' ',
+          ),
+          'type' => 'number_decimal',
+          'weight' => 1,
+        ),
+      ),
+      'entity_type' => 'taxonomy_term',
+      'field_name' => 'field_conversion_ratio',
+      'label' => 'Conversion ratio',
+      'required' => 0,
+      'settings' => array(
+        'max' => '',
+        'min' => '0',
+        'prefix' => '',
+        'suffix' => '',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'number',
+        'settings' => array(),
+        'type' => 'number',
+        'weight' => '32',
+      ),
+    ),
+  );
+
+  // Exported field: 'taxonomy_term-measurement_units-field_unit_type'.
+  $fields['taxonomy_term-measurement_units-field_unit_type'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_unit_type',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'list',
+      'settings' => array(
+        'allowed_values' => array(
+          'length' => 'Length',
+          'mass' => 'Mass',
+          'unit' => 'Unit',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'list_text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'measurement_units',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'list',
+          'settings' => array(),
+          'type' => 'list_default',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'taxonomy_term',
+      'field_name' => 'field_unit_type',
+      'label' => 'Unit type',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
+        'weight' => '31',
+      ),
+    ),
+  );
+
   // Translatables
   // Included for use with string extractors like potx.
   t('Body');
+  t('Conversion ratio');
   t('Images');
   t('Length');
   t('Length unit');
   t('Nick name');
   t('Price');
   t('Source info');
+  t('The ratio between the value and its metric equivalent.');
   t('Unit');
+  t('Unit type');
   t('Vendor');
 
   return $fields;

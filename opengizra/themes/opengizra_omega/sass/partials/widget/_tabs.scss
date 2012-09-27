@@ -4,7 +4,6 @@
   li {
     list-style-type: none;
     margin: 0;
-    width: 114px;
     height: 36px;
     float: left; //LTR
     margin-right: 6px; //LTR
@@ -12,7 +11,8 @@
     a {
       background-color: white;
       text-align: center;
-      width: 114px;
+      min-width: 114px;
+      padding: 0 10px;
       height: 36px;
       line-height: 36px;
 
@@ -32,7 +32,6 @@
         @include box-shadow(0, -1px, 2px, 0, #cacaca);
         margin-left: 1px; //LTR
         height: 42px;
-        position: absolute;
 
         &:hover {
           background-color: white;

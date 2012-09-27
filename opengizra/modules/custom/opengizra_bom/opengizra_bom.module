@@ -56,7 +56,7 @@ function opengizra_bom_field_formatter_view($entity_type, $entity, $field, $inst
       // Inject rows.
       foreach ($element[0]['#rows'] as $key => $row) {
         $last_col = array_pop($row['data']);
-
+return;
         $material_wrapper = entity_metadata_wrapper('field_collection_item', $row['data'][$material_delta]['data']['#object']->item_id);
         $collection_item = $material_wrapper->field_material->field_source_info->value();
         $field_price = field_view_field('field_collection_item', $collection_item, 'field_price', array('label' => 'hidden', 'type' => 'commerce_price_formatted_amount'));
@@ -95,4 +95,85 @@ function opengizra_bom_field_formatter_view($entity_type, $entity, $field, $inst
       $element[0]['total']['#markup'] = t('Total: @total', array('@total' => commerce_currency_format($total, 'USD')));
       return $element;
   }
+}
+
+/**
+ *
+ */
+function opengizra_bom_get_variant_bom_price($node) {
+  $wrapper = entity_metadata_wrapper('node', $node);
+  // Iterate the BOM.
+  $price = 0;
+  for ($delta = 0; $delta < $wrapper->field_bom_info->count(); $delta++) {
+    $price += opengizra_bom_get_material_price($wrapper->field_bom_info->get($delta)->value());
+  }
+
+  return $price;
+}
+
+/**
+ *
+ */
+function opengizra_bom_get_material_price($collection_item) {
+  $wrapper = entity_metadata_wrapper('field_collection_item', $collection_item);
+
+  // Get the price per
+  $m_unit = $wrapper->field_material_item->field_unit->value();
+  $m_length_unit = $wrapper->field_material_item->field_length_unit->value();
+  $m_length_unit_conversion = $wrapper->field_material_item->field_length_unit->field_conversion_ratio->value();
+  $m_length = $wrapper->field_material_item->field_length->value();
+  $m_price = $wrapper->field_material_item->field_price->value();
+  $bom_unit = $wrapper->field_unit->value();
+  $bom_unit_conversion = $wrapper->field_unit->field_conversion_ratio->value();
+
+  $length_price = opengizra_bom_get_length_price($m_price['amount'], $m_unit, $m_length, $m_length_unit_conversion / $bom_unit_conversion);
+  $bom_quantity = $wrapper->field_quantity->value();
+  return $length_price * $bom_quantity;
+}
+
+/**
+ *
+ */
+function opengizra_bom_get_length_price($price, $unit, $length, $length_ratio) {
+  $wrapper = entity_metadata_wrapper('taxonomy_term', $unit);
+
+  // If the material price is given in mass, convert it to price per length.
+  if ($wrapper->field_unit_type->value() == 'mass') {
+    $price /= $length;
+    $price *= $length_ratio;
+  }
+
+  return $price;
+}
+
+/**
+ * Implements hook_entity_info_alter().
+ */
+function opengizra_bom_entity_info_alter(&$entity_info) {
+  $entity_info['field_collection_item']['label callback'] = 'opengizra_bom_field_collection_item_label';
+}
+
+/**
+ * Label callback.
+ *
+ * Rebulid the label for source info field collections to present the material
+ * and the vendor.
+ *
+ * @see opengizra_bom_entity_info_alter().
+ */
+function opengizra_bom_field_collection_item_label($entity) {
+  if ($entity->field_name != 'field_source_info') {
+     // Fall to the default value, which is the item ID.
+    return $entity->item_id;
+  }
+
+  $material = '';
+  // TODO Check why sometimes host_entity is null.
+  if ($host_entity = $entity->hostEntity()) {
+    $material = $host_entity->title;
+  }
+  $wrapper = entity_metadata_wrapper('field_collection_item', $entity);
+  $vendor = $wrapper->field_vendor->label();
+
+  return check_plain("$material [$vendor]");
 }

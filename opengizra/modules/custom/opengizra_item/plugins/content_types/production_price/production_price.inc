@@ -24,9 +24,12 @@ function opengizra_item_production_price_content_type_render($subtype, $conf, $a
   $block->title = '';
 
   $node = $context->data;
-  $wrapper = entity_metadata_wrapper('node', $node);
-// dpm($wrapper->field_bom_info->get(0)->field_material->value());
-  $variables = array();
+
+  $price = opengizra_bom_get_variant_bom_price($node);
+
+  $variables = array(
+    'price' => $price,
+  );
   $block->content = theme('opengizra_item_production_price', $variables);
   return $block;
 }

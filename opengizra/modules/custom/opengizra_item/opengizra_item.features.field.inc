@@ -43,7 +43,7 @@ function opengizra_item_field_default_fields() {
           ),
           'sort' => array(
             'direction' => 'ASC',
-            'field' => 'body:value',
+            'field' => 'field_postal_address:country',
             'property' => 'title',
             'type' => 'property',
           ),
@@ -95,6 +95,95 @@ function opengizra_item_field_default_fields() {
         'settings' => array(),
         'type' => 'options_select',
         'weight' => '0',
+      ),
+    ),
+  );
+
+  // Exported field: 'field_collection_item-field_bom_info-field_material_item'.
+  $fields['field_collection_item-field_bom_info-field_material_item'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_material_item',
+      'foreign keys' => array(
+        'field_collection_item' => array(
+          'columns' => array(
+            'target_id' => 'item_id',
+          ),
+          'table' => 'field_collection_item',
+        ),
+      ),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'entityreference',
+      'settings' => array(
+        'handler' => 'base',
+        'handler_settings' => array(
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 0,
+            ),
+          ),
+          'sort' => array(
+            'direction' => 'ASC',
+            'field' => 'field_file:fid',
+            'property' => 'item_id',
+            'type' => 'none',
+          ),
+          'target_bundles' => array(
+            'field_source_info' => 'field_source_info',
+          ),
+        ),
+        'handler_submit' => 'Change handler',
+        'target_type' => 'field_collection_item',
+      ),
+      'translatable' => '0',
+      'type' => 'entityreference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'field_bom_info',
+      'default_value' => NULL,
+      'default_value_function' => '',
+      'deleted' => '0',
+      'description' => 'A specific material source.',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => FALSE,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => 3,
+        ),
+      ),
+      'entity_type' => 'field_collection_item',
+      'field_name' => 'field_material_item',
+      'label' => 'Material item',
+      'required' => 1,
+      'settings' => array(
+        'behaviors' => array(
+          'prepopulate' => array(
+            'action' => 'none',
+            'fallback' => 'none',
+            'skip_perm' => '0',
+            'status' => 0,
+          ),
+        ),
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
+        'weight' => '3',
       ),
     ),
   );
@@ -167,42 +256,44 @@ function opengizra_item_field_default_fields() {
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_unit',
-      'foreign keys' => array(),
+      'foreign keys' => array(
+        'tid' => array(
+          'columns' => array(
+            'tid' => 'tid',
+          ),
+          'table' => 'taxonomy_term_data',
+        ),
+      ),
       'indexes' => array(
-        'value' => array(
-          0 => 'value',
+        'tid' => array(
+          0 => 'tid',
         ),
       ),
       'locked' => '0',
-      'module' => 'list',
+      'module' => 'taxonomy',
       'settings' => array(
         'allowed_values' => array(
-          'kilogram' => 'Kilogram',
-          'pound' => 'Pound',
-          'meter' => 'Meter',
-          'yard' => 'Yard',
+          0 => array(
+            'vocabulary' => 'measurement_units',
+            'parent' => '0',
+          ),
         ),
-        'allowed_values_function' => '',
       ),
       'translatable' => '0',
-      'type' => 'list_text',
+      'type' => 'taxonomy_term_reference',
     ),
     'field_instance' => array(
       'bundle' => 'field_bom_info',
-      'default_value' => array(
-        0 => array(
-          'value' => 'kilogram',
-        ),
-      ),
+      'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'list',
+          'module' => 'taxonomy',
           'settings' => array(),
-          'type' => 'list_default',
-          'weight' => '2',
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => 6,
         ),
       ),
       'entity_type' => 'field_collection_item',
@@ -217,7 +308,7 @@ function opengizra_item_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '1',
+        'weight' => '7',
       ),
     ),
   );
@@ -1677,12 +1768,14 @@ function opengizra_item_field_default_fields() {
   // Translatables
   // Included for use with string extractors like potx.
   t('A field replacing node title.');
+  t('A specific material source.');
   t('Bill of materials');
   t('Body');
   t('Image');
   t('Images');
   t('Item');
   t('Material');
+  t('Material item');
   t('Quantity');
   t('Reference hierarchy');
   t('Retail price');

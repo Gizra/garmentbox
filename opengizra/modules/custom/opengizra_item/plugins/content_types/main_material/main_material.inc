@@ -28,16 +28,17 @@ function opengizra_item_main_material_content_type_render($subtype, $conf, $args
     return;
   }
 
-  if (!$wrapper->field_bom_info->get(0)->field_material->value()) {
+  // Get the first BOM collection item.
+  if (!$entity = $wrapper->field_bom_info->get(0)->field_material_item->value()) {
     return;
   }
 
-  $wrapper = $wrapper->field_bom_info->get(0)->field_material;
-
+  // Wrap the host entity of the first item.
+  $wrapper = entity_metadata_wrapper('node', $entity->hostEntity());
   if (!$wrapper->field_images->value()) {
     return;
   }
-
+  // Display the first material image.
   $image = $wrapper->field_images->get(0)->value();
   $block->content = theme('image_style', array('style_name' => 'material_thumbnail', 'path' => $image['uri']));
   return $block;

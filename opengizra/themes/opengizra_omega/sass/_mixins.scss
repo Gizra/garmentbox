@@ -74,6 +74,7 @@
   height: 27px;
   display: block;
   color: transparent;
+  overflow: hidden;
 
   &:hover {
     @include transition(0.3s);
@@ -82,7 +83,6 @@
 
 @mixin edit-button {
   @include action-button;
-
   background: url("../images/edit.png") no-repeat;
 
   &:hover {
@@ -92,7 +92,6 @@
 
 @mixin delete-button {
   @include action-button;
-
   background: url("../images/delete.png") no-repeat;
 
   &:hover {

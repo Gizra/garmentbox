@@ -286,35 +286,13 @@ function opengizra_item_default_page_manager_handlers() {
     $pane = new stdClass();
     $pane->pid = 'new-8';
     $pane->panel = 'content';
-    $pane->type = 'views_panes';
-    $pane->subtype = 'task_list-panel_pane_1';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array(
-      'context' => array(
-        0 => 'argument_entity_id:node_1',
-      ),
-    );
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => NULL,
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 1;
-    $pane->locks = array();
-    $display->content['new-8'] = $pane;
-    $display->panels['content'][1] = 'new-8';
-    $pane = new stdClass();
-    $pane->pid = 'new-9';
-    $pane->panel = 'content';
     $pane->type = 'entity_field';
     $pane->subtype = 'node:field_bom_info';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
       'label' => 'title',
-      'formatter' => 'field_collection_table_view',
+      'formatter' => 'opengizra_bom_table',
       'delta_limit' => '0',
       'delta_offset' => '0',
       'delta_reversed' => 0,
@@ -336,111 +314,12 @@ function opengizra_item_default_page_manager_handlers() {
     );
     $pane->css = array();
     $pane->extras = array();
-    $pane->position = 2;
+    $pane->position = 1;
     $pane->locks = array();
-    $display->content['new-9'] = $pane;
-    $display->panels['content'][2] = 'new-9';
+    $display->content['new-8'] = $pane;
+    $display->panels['content'][1] = 'new-8';
     $pane = new stdClass();
-    $pane->pid = 'new-10';
-    $pane->panel = 'content';
-    $pane->type = 'views_panes';
-    $pane->subtype = 'pattern-panel_pane_1';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array(
-      'context' => array(
-        0 => 'argument_entity_id:node_1',
-      ),
-    );
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => NULL,
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 3;
-    $pane->locks = array();
-    $display->content['new-10'] = $pane;
-    $display->panels['content'][3] = 'new-10';
-    $pane = new stdClass();
-    $pane->pid = 'new-11';
-    $pane->panel = 'content';
-    $pane->type = 'node_prepopulate';
-    $pane->subtype = 'node_prepopulate';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array(
-      'types' => array(
-        'task' => 'task',
-      ),
-      'field_name' => 'field_entity_reference',
-      'context' => 'argument_entity_id:node_1',
-      'override_title' => 1,
-      'override_title_text' => '',
-    );
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => NULL,
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 4;
-    $pane->locks = array();
-    $display->content['new-11'] = $pane;
-    $display->panels['content'][4] = 'new-11';
-    $pane = new stdClass();
-    $pane->pid = 'new-12';
-    $pane->panel = 'content';
-    $pane->type = 'node_prepopulate';
-    $pane->subtype = 'node_prepopulate';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array(
-      'types' => array(
-        'pattern' => 'pattern',
-      ),
-      'field_name' => 'field_pattern_entity_reference',
-      'context' => 'argument_entity_id:node_1',
-      'override_title' => 1,
-      'override_title_text' => '',
-    );
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => NULL,
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 5;
-    $pane->locks = array();
-    $display->content['new-12'] = $pane;
-    $display->panels['content'][5] = 'new-12';
-    $pane = new stdClass();
-    $pane->pid = 'new-13';
-    $pane->panel = 'content';
-    $pane->type = 'node_links';
-    $pane->subtype = 'node_links';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array(
-      'override_title' => 1,
-      'override_title_text' => '',
-      'build_mode' => 'full',
-      'identifier' => '',
-      'link' => 0,
-      'context' => 'argument_entity_id:node_1',
-    );
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => NULL,
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 6;
-    $pane->locks = array();
-    $display->content['new-13'] = $pane;
-    $display->panels['content'][6] = 'new-13';
-    $pane = new stdClass();
-    $pane->pid = 'new-14';
+    $pane->pid = 'new-9';
     $pane->panel = 'content';
     $pane->type = 'entity_field';
     $pane->subtype = 'node:field_images';
@@ -484,12 +363,34 @@ function opengizra_item_default_page_manager_handlers() {
     );
     $pane->css = array();
     $pane->extras = array();
-    $pane->position = 7;
+    $pane->position = 2;
     $pane->locks = array();
-    $display->content['new-14'] = $pane;
-    $display->panels['content'][7] = 'new-14';
+    $display->content['new-9'] = $pane;
+    $display->panels['content'][2] = 'new-9';
     $pane = new stdClass();
-    $pane->pid = 'new-15';
+    $pane->pid = 'new-10';
+    $pane->panel = 'content';
+    $pane->type = 'item_variant_action_links';
+    $pane->subtype = 'item_variant_action_links';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'context' => 'argument_entity_id:node_1',
+      'override_title' => 0,
+      'override_title_text' => '',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 3;
+    $pane->locks = array();
+    $display->content['new-10'] = $pane;
+    $display->panels['content'][3] = 'new-10';
+    $pane = new stdClass();
+    $pane->pid = 'new-11';
     $pane->panel = 'tabs';
     $pane->type = 'breadcrumbs';
     $pane->subtype = 'breadcrumbs';
@@ -508,10 +409,10 @@ function opengizra_item_default_page_manager_handlers() {
     $pane->extras = array();
     $pane->position = 0;
     $pane->locks = array();
-    $display->content['new-15'] = $pane;
-    $display->panels['tabs'][0] = 'new-15';
+    $display->content['new-11'] = $pane;
+    $display->panels['tabs'][0] = 'new-11';
     $pane = new stdClass();
-    $pane->pid = 'new-16';
+    $pane->pid = 'new-12';
     $pane->panel = 'tabs';
     $pane->type = 'item_variant_links';
     $pane->subtype = 'item_variant_links';
@@ -530,10 +431,10 @@ function opengizra_item_default_page_manager_handlers() {
     $pane->extras = array();
     $pane->position = 1;
     $pane->locks = array();
-    $display->content['new-16'] = $pane;
-    $display->panels['tabs'][1] = 'new-16';
+    $display->content['new-12'] = $pane;
+    $display->panels['tabs'][1] = 'new-12';
     $pane = new stdClass();
-    $pane->pid = 'new-17';
+    $pane->pid = 'new-13';
     $pane->panel = 'tabs';
     $pane->type = 'prepopulate_link';
     $pane->subtype = 'prepopulate_link';
@@ -556,10 +457,10 @@ function opengizra_item_default_page_manager_handlers() {
     $pane->extras = array();
     $pane->position = 2;
     $pane->locks = array();
-    $display->content['new-17'] = $pane;
-    $display->panels['tabs'][2] = 'new-17';
+    $display->content['new-13'] = $pane;
+    $display->panels['tabs'][2] = 'new-13';
   $display->hide_title = PANELS_TITLE_FIXED;
-  $display->title_pane = 'new-8';
+  $display->title_pane = '0';
   $handler->conf['display'] = $display;
   $export['node_view_panel_context_3'] = $handler;
 
