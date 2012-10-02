@@ -20,9 +20,11 @@ function opengizra_material_field_attach_form($entity_type, $entity, &$form, &$f
   }
 
   // Fetch all mass unit types.
+  $vocabulary = taxonomy_vocabulary_machine_name_load('measurement_units');
   $query = new EntityFieldQuery();
   $result = $query->entityCondition('entity_type', 'taxonomy_term')
     ->fieldCondition('field_unit_type', 'value', 'mass')
+    ->propertyCondition('vid', $vocabulary->vid)
     ->execute();
 
   if (!$result) {

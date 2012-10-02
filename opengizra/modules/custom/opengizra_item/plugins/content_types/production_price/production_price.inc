@@ -25,11 +25,12 @@ function opengizra_item_production_price_content_type_render($subtype, $conf, $a
 
   $node = $context->data;
 
-  $price = opengizra_bom_get_variant_bom_price($node);
+  $raw_price = opengizra_bom_get_variant_bom_price($node);
 
   $variables = array(
-    'price' => $price,
+    'price' => commerce_currency_format($raw_price, commerce_default_currency()),
   );
+
   $block->content = theme('opengizra_item_production_price', $variables);
   return $block;
 }
