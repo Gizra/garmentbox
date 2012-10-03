@@ -1,29 +1,33 @@
-/* line 3, ../sass/partials/widget/_table.scss */
+/* line 1, ../sass/partials/widget/_table.scss */
+table {
+  width: 100%;
+}
+/* line 4, ../sass/partials/widget/_table.scss */
 table tr {
   height: 20px;
 }
-/* line 7, ../sass/partials/widget/_table.scss */
+/* line 8, ../sass/partials/widget/_table.scss */
 table tbody tr {
   background-color: #fcfcfc;
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#fcfcfc, endColorstr=#f0f0f0);
   background-image: -moz-linear-gradient(center top, #fcfcfc, #f0f0f0);
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fcfcfc), to(#f0f0f0));
 }
-/* line 10, ../sass/partials/widget/_table.scss */
+/* line 11, ../sass/partials/widget/_table.scss */
 table tbody tr.even {
   background-color: #fbfffe;
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#fbfffe, endColorstr=#f1f5f4);
   background-image: -moz-linear-gradient(center top, #fbfffe, #f1f5f4);
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fbfffe), to(#f1f5f4));
 }
-/* line 14, ../sass/partials/widget/_table.scss */
+/* line 15, ../sass/partials/widget/_table.scss */
 table tbody tr:hover {
   background-color: #f2fbff;
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f2fbff, endColorstr=#e1ebf4);
   background-image: -moz-linear-gradient(center top, #f2fbff, #e1ebf4);
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f2fbff), to(#e1ebf4));
 }
-/* line 19, ../sass/partials/widget/_table.scss */
+/* line 20, ../sass/partials/widget/_table.scss */
 table thead tr {
   background: #eeeeee;
   /* Old browsers */
@@ -42,17 +46,21 @@ table thead tr {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#d3d3d3',GradientType=0 );
   /* IE6-9 */
 }
-/* line 30, ../sass/partials/widget/_table.scss */
+/* line 31, ../sass/partials/widget/_table.scss */
 table th, table td {
   border: 1px solid #b7b7b7;
   padding: 9px;
 }
-/* line 35, ../sass/partials/widget/_table.scss */
+/* line 36, ../sass/partials/widget/_table.scss */
 table th {
   color: #5e5e5e;
   font-weight: normal;
 }
-/* line 40, ../sass/partials/widget/_table.scss */
+/* line 41, ../sass/partials/widget/_table.scss */
+table td.active {
+  background-color: rgba(50, 50, 50, 0.05);
+}
+/* line 45, ../sass/partials/widget/_table.scss */
 table .views-field-edit-node a, table li.edit a {
   width: 28px;
   height: 27px;
@@ -72,22 +80,21 @@ table .views-field-edit-node a:hover, table li.edit a:hover {
 table .views-field-edit-node a:hover, table li.edit a:hover {
   background-image: url("../images/edit-active.png");
 }
-/* line 44, ../sass/partials/widget/_table.scss */
+/* line 49, ../sass/partials/widget/_table.scss */
 table .field-collection-view-links {
   margin: 0;
   padding: 0;
 }
-/* line 48, ../sass/partials/widget/_table.scss */
+/* line 53, ../sass/partials/widget/_table.scss */
 table .field-collection-view-links li {
-  list-style-type: none;
   margin: 0 0 0 5px;
   float: left;
 }
-/* line 53, ../sass/partials/widget/_table.scss */
+/* line 57, ../sass/partials/widget/_table.scss */
 table .field-collection-view-links li.first {
   margin-left: 0;
 }
-/* line 57, ../sass/partials/widget/_table.scss */
+/* line 61, ../sass/partials/widget/_table.scss */
 table .field-collection-view-links li.delete a {
   width: 28px;
   height: 27px;
@@ -114,13 +121,12 @@ table .field-collection-view-links li.delete a:hover {
 }
 /* line 4, ../sass/partials/widget/_tabs.scss */
 .panel-pane.tabs ul li {
-  list-style-type: none;
   margin: 0;
   height: 36px;
   float: left;
   margin-right: 6px;
 }
-/* line 11, ../sass/partials/widget/_tabs.scss */
+/* line 10, ../sass/partials/widget/_tabs.scss */
 .panel-pane.tabs ul li a {
   background-color: white;
   text-align: center;
@@ -134,7 +140,7 @@ table .field-collection-view-links li.delete a:hover {
   -webkit-box-shadow: 1px 1px 2px 0 #cacaca;
   box-shadow: 1px 1px 2px 0 #cacaca;
 }
-/* line 23, ../sass/partials/widget/_tabs.scss */
+/* line 22, ../sass/partials/widget/_tabs.scss */
 .panel-pane.tabs ul li a:hover {
   text-decoration: none;
   background-color: #fafafa;
@@ -146,7 +152,7 @@ table .field-collection-view-links li.delete a:hover {
   -o-transition: 0.2s;
   transition: 0.2s;
 }
-/* line 30, ../sass/partials/widget/_tabs.scss */
+/* line 29, ../sass/partials/widget/_tabs.scss */
 .panel-pane.tabs ul li a.active {
   color: #ea166b;
   -moz-box-shadow: 0 -1px 2px 0 #cacaca;
@@ -155,7 +161,7 @@ table .field-collection-view-links li.delete a:hover {
   margin-left: 1px;
   height: 42px;
 }
-/* line 36, ../sass/partials/widget/_tabs.scss */
+/* line 35, ../sass/partials/widget/_tabs.scss */
 .panel-pane.tabs ul li a.active:hover {
   background-color: white;
   -moz-box-shadow: 0 -1px 2px 0 #cacaca;
@@ -330,7 +336,7 @@ section.content h2.pane-title {
 }
 
 /* line 1, ../sass/partials/layout/_buttons.scss */
-#add-variant a {
+#add-variant a, .primary-button a {
   float: right;
   border: 1px solid #60636a;
   border-radius: 5px;
@@ -356,11 +362,11 @@ section.content h2.pane-title {
   /* IE6-9 */
 }
 /* line 20, ../sass/_mixins.scss */
-#add-variant a:hover {
+#add-variant a:hover, .primary-button a:hover {
   text-decoration: none;
 }
 /* line 40, ../sass/_mixins.scss */
-#add-variant a:before {
+#add-variant a:before, .primary-button a:before {
   content: url("../images/white-plus.png");
   margin-right: 8px;
 }
@@ -428,21 +434,20 @@ section.content h2.pane-title {
 }
 /* line 26, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-item-variant-summary .panel-pane .field-name-field-size-info ul li {
-  list-style-type: none;
   float: left;
   margin: 0;
   border-right: 2px solid #9d9d9d;
   padding: 0 5px;
 }
-/* line 33, ../sass/partials/pages/_item-variant.scss */
+/* line 32, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-item-variant-summary .panel-pane .field-name-field-size-info ul li.last {
   border-right: none;
 }
-/* line 37, ../sass/partials/pages/_item-variant.scss */
+/* line 36, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-item-variant-summary .panel-pane .field-name-field-size-info ul li.first {
   padding-left: 0;
 }
-/* line 43, ../sass/partials/pages/_item-variant.scss */
+/* line 42, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-item-variant-summary .panel-pane .flag-line-sheet a {
   font-size: 11px;
   display: block;
@@ -452,16 +457,16 @@ section.content h2.pane-title {
   line-height: 26px;
   color: #515151;
 }
-/* line 52, ../sass/partials/pages/_item-variant.scss */
+/* line 51, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-item-variant-summary .panel-pane .flag-line-sheet a.unflag-action {
   background-image: url("../images/flagged.png");
 }
-/* line 57, ../sass/partials/pages/_item-variant.scss */
+/* line 56, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-item-variant-summary .panel-pane .field-type-commerce-price .field-item {
   color: #f50067;
   font-size: 26px;
 }
-/* line 63, ../sass/partials/pages/_item-variant.scss */
+/* line 62, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-item-variant-summary .pane-main-material {
   background: url("../images/material-thumbnail-bg.png") no-repeat;
   width: 78px;
@@ -469,33 +474,33 @@ section.content h2.pane-title {
   padding-top: 11px;
   padding-left: 3px;
 }
-/* line 71, ../sass/partials/pages/_item-variant.scss */
+/* line 70, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-item-variant-summary .pane-custom .separator {
   border-left: 1px dashed #d0d0d0;
   height: 71px;
 }
-/* line 77, ../sass/partials/pages/_item-variant.scss */
+/* line 76, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-node-field-bol-info, .node-type-item-variant .pane-node-field-bom-info {
   position: relative;
   margin-top: 40px;
 }
-/* line 81, ../sass/partials/pages/_item-variant.scss */
+/* line 80, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-node-field-bol-info table, .node-type-item-variant .pane-node-field-bom-info table {
   width: 100%;
 }
-/* line 84, ../sass/partials/pages/_item-variant.scss */
+/* line 83, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-node-field-bol-info table .field_collection_item_operations, .node-type-item-variant .pane-node-field-bom-info table .field_collection_item_operations {
   width: 85px;
 }
-/* line 88, ../sass/partials/pages/_item-variant.scss */
+/* line 87, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-node-field-bol-info table .field_price, .node-type-item-variant .pane-node-field-bom-info table .field_price {
   width: 150px;
 }
-/* line 93, ../sass/partials/pages/_item-variant.scss */
+/* line 92, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-node-field-bol-info .action-links li, .node-type-item-variant .pane-node-field-bom-info .action-links li {
   list-style-type: none;
 }
-/* line 96, ../sass/partials/pages/_item-variant.scss */
+/* line 95, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-node-field-bol-info .action-links li a, .node-type-item-variant .pane-node-field-bom-info .action-links li a {
   position: absolute;
   right: 0;
@@ -531,68 +536,72 @@ section.content h2.pane-title {
   content: url("../images/gray-plus.png");
   margin-right: 8px;
 }
-/* line 104, ../sass/partials/pages/_item-variant.scss */
+/* line 103, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-node-field-bol-info .bom-total, .node-type-item-variant .pane-node-field-bom-info .bom-total {
   float: right;
   margin-right: 104px;
   margin-top: 10px;
 }
-/* line 109, ../sass/partials/pages/_item-variant.scss */
+/* line 108, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-node-field-bol-info .bom-total span, .node-type-item-variant .pane-node-field-bom-info .bom-total span {
   display: block;
   float: left;
   color: #666666;
 }
-/* line 114, ../sass/partials/pages/_item-variant.scss */
+/* line 113, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-node-field-bol-info .bom-total span.amount, .node-type-item-variant .pane-node-field-bom-info .bom-total span.amount {
   width: 150px;
   padding: 0 10px;
   color: #ed056b;
 }
-/* line 124, ../sass/partials/pages/_item-variant.scss */
+/* line 123, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-node-field-images {
   margin-top: 65px;
 }
-/* line 128, ../sass/partials/pages/_item-variant.scss */
+/* line 127, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-item-variant-action-links {
   border-top: 1px solid #d1d1d1;
   margin-top: 65px;
 }
-/* line 132, ../sass/partials/pages/_item-variant.scss */
+/* line 131, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-item-variant-action-links h2:after {
   content: ":";
 }
-/* line 136, ../sass/partials/pages/_item-variant.scss */
+/* line 135, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-item-variant-action-links li {
-  list-style-type: none;
   margin: 0;
 }
-/* line 140, ../sass/partials/pages/_item-variant.scss */
+/* line 138, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-item-variant-action-links li a {
   display: block;
   float: left;
   margin-right: 80px;
 }
-/* line 145, ../sass/partials/pages/_item-variant.scss */
+/* line 143, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-item-variant-action-links li a.pattern-history {
   clear: left;
   font-size: 12px;
   margin-left: 34px;
   color: #888888;
 }
-/* line 153, ../sass/partials/pages/_item-variant.scss */
+/* line 151, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-item-variant-action-links li a.icon {
   color: #537f80;
 }
-/* line 156, ../sass/partials/pages/_item-variant.scss */
+/* line 154, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-item-variant-action-links li a.icon.pattern:before {
   content: url("../images/pattern-file.png");
   margin-right: 5px;
 }
-/* line 161, ../sass/partials/pages/_item-variant.scss */
+/* line 159, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-item-variant-action-links li a.icon.cutter-must:before {
   content: url("../images/cutter-must.png");
   margin-right: 8px;
+}
+
+/* line 3, ../sass/partials/pages/_season.scss */
+.node-type-season .view-footer {
+  margin-top: 5px;
 }
 
 /* line 4, ../sass/style.scss */
@@ -617,4 +626,14 @@ a {
 /* line 20, ../sass/style.scss */
 a:hover {
   text-decoration: underline;
+}
+
+/* line 25, ../sass/style.scss */
+li {
+  list-style-type: none;
+}
+
+/* line 29, ../sass/style.scss */
+.item-list ul li {
+  margin: 0;
 }

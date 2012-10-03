@@ -1,4 +1,5 @@
 table {
+  width: 100%;
 
   tr {
     height: 20px;
@@ -37,6 +38,10 @@ table {
     font-weight: normal;
   }
 
+  td.active {
+    background-color: rgba(50, 50, 50, 0.05);
+  }
+
   .views-field-edit-node a, li.edit a {
     @include edit-button;
   }
@@ -46,7 +51,6 @@ table {
     padding: 0;
 
     li {
-      list-style-type: none;
       margin: 0 0 0 5px; //LTR
       float: left; //LTR
 

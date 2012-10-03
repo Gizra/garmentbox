@@ -1,4 +1,4 @@
-#add-variant a {
+#add-variant a, .primary-button a {
   float: right; //LTR
   @include primary-button;
 }

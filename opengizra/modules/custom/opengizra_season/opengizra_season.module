@@ -6,3 +6,11 @@
 
 include_once 'opengizra_season.features.inc';
 
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function opengizra_season_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'ctools') {
+    return 'plugins/' . $plugin;
+  }
+}

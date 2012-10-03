@@ -21,3 +21,11 @@ a {
     text-decoration: underline;
   }
 }
+
+li {
+  list-style-type: none;
+}
+
+.item-list ul li {
+  margin: 0;
+}
