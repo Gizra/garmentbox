@@ -4,3 +4,23 @@
  * Code for the Opengizra BOL.
  */
 
+/**
+ * Get the BOL total price.
+ *
+ * @param $node
+ *   A node holding the BOL info.
+ *
+ * @return
+ *   The total raw price.
+ */
+function opengizra_bol_get_variant_bol_price($node) {
+  $wrapper = entity_metadata_wrapper('node', $node);
+  // Iterate the BOL and some the prices.
+  $price = 0;
+  for ($delta = 0; $delta < $wrapper->field_bol_info->count(); $delta++) {
+    $temp_price = $wrapper->field_bol_info->get($delta)->field_price->value();
+    $price += $temp_price['amount'];
+  }
+
+  return $price;
+}

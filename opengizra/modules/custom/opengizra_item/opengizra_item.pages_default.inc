@@ -299,7 +299,7 @@ function opengizra_item_default_page_manager_handlers() {
       'formatter_settings' => array(
         'edit' => 'Edit',
         'delete' => 'Delete',
-        'add' => 'Add',
+        'add' => 'Add new material',
         'description' => 1,
         'view_mode' => 'full',
         'empty' => 1,
@@ -320,6 +320,41 @@ function opengizra_item_default_page_manager_handlers() {
     $display->panels['content'][1] = 'new-8';
     $pane = new stdClass();
     $pane->pid = 'new-9';
+    $pane->panel = 'content';
+    $pane->type = 'entity_field';
+    $pane->subtype = 'node:field_bol_info';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'label' => 'title',
+      'formatter' => 'field_collection_table_view',
+      'delta_limit' => '0',
+      'delta_offset' => '0',
+      'delta_reversed' => 0,
+      'formatter_settings' => array(
+        'edit' => 'Edit',
+        'delete' => 'Delete',
+        'add' => 'Add new labour',
+        'description' => 1,
+        'view_mode' => 'full',
+        'empty' => 1,
+      ),
+      'context' => 'argument_entity_id:node_1',
+      'override_title' => 0,
+      'override_title_text' => '',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 2;
+    $pane->locks = array();
+    $display->content['new-9'] = $pane;
+    $display->panels['content'][2] = 'new-9';
+    $pane = new stdClass();
+    $pane->pid = 'new-10';
     $pane->panel = 'content';
     $pane->type = 'entity_field';
     $pane->subtype = 'node:field_images';
@@ -363,12 +398,12 @@ function opengizra_item_default_page_manager_handlers() {
     );
     $pane->css = array();
     $pane->extras = array();
-    $pane->position = 2;
+    $pane->position = 3;
     $pane->locks = array();
-    $display->content['new-9'] = $pane;
-    $display->panels['content'][2] = 'new-9';
+    $display->content['new-10'] = $pane;
+    $display->panels['content'][3] = 'new-10';
     $pane = new stdClass();
-    $pane->pid = 'new-10';
+    $pane->pid = 'new-11';
     $pane->panel = 'content';
     $pane->type = 'item_variant_action_links';
     $pane->subtype = 'item_variant_action_links';
@@ -385,12 +420,12 @@ function opengizra_item_default_page_manager_handlers() {
     );
     $pane->css = array();
     $pane->extras = array();
-    $pane->position = 3;
+    $pane->position = 4;
     $pane->locks = array();
-    $display->content['new-10'] = $pane;
-    $display->panels['content'][3] = 'new-10';
+    $display->content['new-11'] = $pane;
+    $display->panels['content'][4] = 'new-11';
     $pane = new stdClass();
-    $pane->pid = 'new-11';
+    $pane->pid = 'new-12';
     $pane->panel = 'tabs';
     $pane->type = 'breadcrumbs';
     $pane->subtype = 'breadcrumbs';
@@ -409,10 +444,10 @@ function opengizra_item_default_page_manager_handlers() {
     $pane->extras = array();
     $pane->position = 0;
     $pane->locks = array();
-    $display->content['new-11'] = $pane;
-    $display->panels['tabs'][0] = 'new-11';
+    $display->content['new-12'] = $pane;
+    $display->panels['tabs'][0] = 'new-12';
     $pane = new stdClass();
-    $pane->pid = 'new-12';
+    $pane->pid = 'new-13';
     $pane->panel = 'tabs';
     $pane->type = 'item_variant_links';
     $pane->subtype = 'item_variant_links';
@@ -431,10 +466,10 @@ function opengizra_item_default_page_manager_handlers() {
     $pane->extras = array();
     $pane->position = 1;
     $pane->locks = array();
-    $display->content['new-12'] = $pane;
-    $display->panels['tabs'][1] = 'new-12';
+    $display->content['new-13'] = $pane;
+    $display->panels['tabs'][1] = 'new-13';
     $pane = new stdClass();
-    $pane->pid = 'new-13';
+    $pane->pid = 'new-14';
     $pane->panel = 'tabs';
     $pane->type = 'prepopulate_link';
     $pane->subtype = 'prepopulate_link';
@@ -457,8 +492,8 @@ function opengizra_item_default_page_manager_handlers() {
     $pane->extras = array();
     $pane->position = 2;
     $pane->locks = array();
-    $display->content['new-13'] = $pane;
-    $display->panels['tabs'][2] = 'new-13';
+    $display->content['new-14'] = $pane;
+    $display->panels['tabs'][2] = 'new-14';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;

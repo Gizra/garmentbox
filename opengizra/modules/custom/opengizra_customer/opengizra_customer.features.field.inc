@@ -10,7 +10,7 @@
 function opengizra_customer_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'node-customer-field_addresses_inline'
+  // Exported field: 'node-customer-field_addresses_inline'.
   $fields['node-customer-field_addresses_inline'] = array(
     'field_config' => array(
       'active' => '1',
@@ -31,6 +31,7 @@ function opengizra_customer_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -69,6 +70,12 @@ function opengizra_customer_field_default_fields() {
             'link' => FALSE,
           ),
           'type' => 'entityreference_label',
+          'weight' => 0,
+        ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
           'weight' => 0,
         ),
         'teaser' => array(

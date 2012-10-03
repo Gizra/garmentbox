@@ -25,7 +25,8 @@ function opengizra_item_production_price_content_type_render($subtype, $conf, $a
 
   $node = $context->data;
 
-  $raw_price = opengizra_bom_get_variant_bom_price($node);
+  // Sum the total BOM and BOL prices.
+  $raw_price = opengizra_bom_get_variant_bom_price($node) + opengizra_bol_get_variant_bol_price($node);
 
   $variables = array(
     'price' => commerce_currency_format($raw_price, commerce_default_currency()),

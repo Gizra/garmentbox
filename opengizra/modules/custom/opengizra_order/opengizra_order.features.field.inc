@@ -10,7 +10,7 @@
 function opengizra_order_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'node-order-field_address'
+  // Exported field: 'node-order-field_address'.
   $fields['node-order-field_address'] = array(
     'field_config' => array(
       'active' => '1',
@@ -31,6 +31,7 @@ function opengizra_order_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -72,6 +73,12 @@ function opengizra_order_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => 1,
         ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -104,7 +111,7 @@ function opengizra_order_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-order-field_customer'
+  // Exported field: 'node-order-field_customer'.
   $fields['node-order-field_customer'] = array(
     'field_config' => array(
       'active' => '1',
@@ -125,6 +132,7 @@ function opengizra_order_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -166,6 +174,12 @@ function opengizra_order_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => 0,
         ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -198,7 +212,7 @@ function opengizra_order_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-order-field_inventory_line_inline'
+  // Exported field: 'node-order-field_inventory_line_inline'.
   $fields['node-order-field_inventory_line_inline'] = array(
     'field_config' => array(
       'active' => '1',
@@ -219,6 +233,7 @@ function opengizra_order_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -259,6 +274,12 @@ function opengizra_order_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => 2,
         ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -294,7 +315,7 @@ function opengizra_order_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-order-field_season'
+  // Exported field: 'node-order-field_season'.
   $fields['node-order-field_season'] = array(
     'field_config' => array(
       'active' => '1',
@@ -315,6 +336,7 @@ function opengizra_order_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -355,6 +377,12 @@ function opengizra_order_field_default_fields() {
           ),
           'type' => 'entityreference_label',
           'weight' => 3,
+        ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
         'teaser' => array(
           'label' => 'above',

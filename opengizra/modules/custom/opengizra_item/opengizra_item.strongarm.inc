@@ -156,7 +156,7 @@ function opengizra_item_strongarm() {
     'extra_fields' => array(
       'form' => array(
         'path' => array(
-          'weight' => '30',
+          'weight' => '7',
         ),
       ),
       'display' => array(),

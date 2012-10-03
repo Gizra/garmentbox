@@ -10,7 +10,7 @@
 function opengizra_inventory_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'field_collection_item-field_quantity_info-field_quantity'
+  // Exported field: 'field_collection_item-field_quantity_info-field_quantity'.
   $fields['field_collection_item-field_quantity_info-field_quantity'] = array(
     'field_config' => array(
       'active' => '1',
@@ -20,6 +20,7 @@ function opengizra_inventory_field_default_fields() {
       'field_name' => 'field_quantity',
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'number',
       'settings' => array(
         'decimal_separator' => '.',
@@ -69,7 +70,7 @@ function opengizra_inventory_field_default_fields() {
     ),
   );
 
-  // Exported field: 'field_collection_item-field_quantity_info-field_size'
+  // Exported field: 'field_collection_item-field_quantity_info-field_size'.
   $fields['field_collection_item-field_quantity_info-field_size'] = array(
     'field_config' => array(
       'active' => '1',
@@ -90,6 +91,7 @@ function opengizra_inventory_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -157,7 +159,7 @@ function opengizra_inventory_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-inventory_line-field_delivery_date'
+  // Exported field: 'node-inventory_line-field_delivery_date'.
   $fields['node-inventory_line-field_delivery_date'] = array(
     'field_config' => array(
       'active' => '1',
@@ -167,6 +169,7 @@ function opengizra_inventory_field_default_fields() {
       'field_name' => 'field_delivery_date',
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'date',
       'settings' => array(
         'cache_count' => '4',
@@ -204,6 +207,12 @@ function opengizra_inventory_field_default_fields() {
           'type' => 'date_default',
           'weight' => 5,
         ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -239,7 +248,7 @@ function opengizra_inventory_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-inventory_line-field_inventory_status'
+  // Exported field: 'node-inventory_line-field_inventory_status'.
   $fields['node-inventory_line-field_inventory_status'] = array(
     'field_config' => array(
       'active' => '1',
@@ -253,6 +262,7 @@ function opengizra_inventory_field_default_fields() {
           0 => 'value',
         ),
       ),
+      'locked' => '0',
       'module' => 'list',
       'settings' => array(
         'allowed_values' => array(
@@ -281,6 +291,12 @@ function opengizra_inventory_field_default_fields() {
           'type' => 'list_default',
           'weight' => 6,
         ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -305,7 +321,7 @@ function opengizra_inventory_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-inventory_line-field_inventory_type'
+  // Exported field: 'node-inventory_line-field_inventory_type'.
   $fields['node-inventory_line-field_inventory_type'] = array(
     'field_config' => array(
       'active' => '1',
@@ -326,6 +342,7 @@ function opengizra_inventory_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -367,6 +384,12 @@ function opengizra_inventory_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => 2,
         ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -399,7 +422,7 @@ function opengizra_inventory_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-inventory_line-field_item_variant'
+  // Exported field: 'node-inventory_line-field_item_variant'.
   $fields['node-inventory_line-field_item_variant'] = array(
     'field_config' => array(
       'active' => '1',
@@ -420,6 +443,7 @@ function opengizra_inventory_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -461,6 +485,12 @@ function opengizra_inventory_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => 0,
         ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -493,7 +523,7 @@ function opengizra_inventory_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-inventory_line-field_price'
+  // Exported field: 'node-inventory_line-field_price'.
   $fields['node-inventory_line-field_price'] = array(
     'field_config' => array(
       'active' => '1',
@@ -508,6 +538,7 @@ function opengizra_inventory_field_default_fields() {
           1 => 'currency_code',
         ),
       ),
+      'locked' => '0',
       'module' => 'commerce_price',
       'settings' => array(),
       'translatable' => '0',
@@ -525,6 +556,12 @@ function opengizra_inventory_field_default_fields() {
           'settings' => array(),
           'type' => 'commerce_price_default',
           'weight' => 7,
+        ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
         'teaser' => array(
           'label' => 'above',
@@ -552,7 +589,7 @@ function opengizra_inventory_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-inventory_line-field_production_start_date'
+  // Exported field: 'node-inventory_line-field_production_start_date'.
   $fields['node-inventory_line-field_production_start_date'] = array(
     'field_config' => array(
       'active' => '1',
@@ -562,6 +599,7 @@ function opengizra_inventory_field_default_fields() {
       'field_name' => 'field_production_start_date',
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'date',
       'settings' => array(
         'cache_count' => '4',
@@ -599,6 +637,12 @@ function opengizra_inventory_field_default_fields() {
           'type' => 'date_default',
           'weight' => 4,
         ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -634,7 +678,7 @@ function opengizra_inventory_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-inventory_line-field_quantity_info'
+  // Exported field: 'node-inventory_line-field_quantity_info'.
   $fields['node-inventory_line-field_quantity_info'] = array(
     'field_config' => array(
       'active' => '1',
@@ -644,6 +688,7 @@ function opengizra_inventory_field_default_fields() {
       'field_name' => 'field_quantity_info',
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'field_collection',
       'settings' => array(
         'hide_blank_items' => 1,
@@ -671,6 +716,12 @@ function opengizra_inventory_field_default_fields() {
           'type' => 'field_collection_view',
           'weight' => 1,
         ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -695,7 +746,7 @@ function opengizra_inventory_field_default_fields() {
     ),
   );
 
-  // Exported field: 'taxonomy_term-inventory_type-field_for_sale'
+  // Exported field: 'taxonomy_term-inventory_type-field_for_sale'.
   $fields['taxonomy_term-inventory_type-field_for_sale'] = array(
     'field_config' => array(
       'active' => '1',
@@ -709,6 +760,7 @@ function opengizra_inventory_field_default_fields() {
           0 => 'value',
         ),
       ),
+      'locked' => '0',
       'module' => 'list',
       'settings' => array(
         'allowed_values' => array(
@@ -757,7 +809,7 @@ function opengizra_inventory_field_default_fields() {
     ),
   );
 
-  // Exported field: 'taxonomy_term-inventory_type-field_include_in_total'
+  // Exported field: 'taxonomy_term-inventory_type-field_include_in_total'.
   $fields['taxonomy_term-inventory_type-field_include_in_total'] = array(
     'field_config' => array(
       'active' => '1',
@@ -771,6 +823,7 @@ function opengizra_inventory_field_default_fields() {
           0 => 'value',
         ),
       ),
+      'locked' => '0',
       'module' => 'list',
       'settings' => array(
         'allowed_values' => array(

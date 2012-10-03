@@ -65,7 +65,7 @@ function opengizra_material_field_default_fields() {
         'module' => 'number',
         'settings' => array(),
         'type' => 'number',
-        'weight' => '4',
+        'weight' => '3',
       ),
     ),
   );
@@ -79,43 +79,55 @@ function opengizra_material_field_default_fields() {
       'entity_types' => array(),
       'field_name' => 'field_length_unit',
       'foreign keys' => array(
-        'tid' => array(
+        'node' => array(
           'columns' => array(
-            'tid' => 'tid',
+            'target_id' => 'nid',
           ),
-          'table' => 'taxonomy_term_data',
+          'table' => 'node',
         ),
       ),
       'indexes' => array(
-        'tid' => array(
-          0 => 'tid',
+        'target_id' => array(
+          0 => 'target_id',
         ),
       ),
       'locked' => '0',
-      'module' => 'taxonomy',
+      'module' => 'entityreference',
       'settings' => array(
-        'allowed_values' => array(
-          0 => array(
-            'vocabulary' => 'measurement_units',
-            'parent' => '0',
+        'handler' => 'base',
+        'handler_settings' => array(
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 0,
+            ),
+          ),
+          'sort' => array(
+            'type' => 'none',
+          ),
+          'target_bundles' => array(
+            'measurement_units' => 'measurement_units',
           ),
         ),
+        'target_type' => 'taxonomy_term',
       ),
       'translatable' => '0',
-      'type' => 'taxonomy_term_reference',
+      'type' => 'entityreference',
     ),
     'field_instance' => array(
       'bundle' => 'field_source_info',
       'default_value' => NULL,
+      'default_value_function' => '',
       'deleted' => '0',
       'description' => '',
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => 7,
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => FALSE,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => 9,
         ),
       ),
       'entity_type' => 'field_collection_item',
@@ -123,6 +135,11 @@ function opengizra_material_field_default_fields() {
       'label' => 'Length unit',
       'required' => 0,
       'settings' => array(
+        'behaviors' => array(
+          'prepopulate' => array(
+            'status' => 0,
+          ),
+        ),
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -130,7 +147,7 @@ function opengizra_material_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '8',
+        'weight' => '4',
       ),
     ),
   );
@@ -186,7 +203,7 @@ function opengizra_material_field_default_fields() {
           'currency_code' => 'default',
         ),
         'type' => 'commerce_price_full',
-        'weight' => '2',
+        'weight' => '1',
       ),
     ),
   );
@@ -200,50 +217,67 @@ function opengizra_material_field_default_fields() {
       'entity_types' => array(),
       'field_name' => 'field_unit',
       'foreign keys' => array(
-        'tid' => array(
+        'node' => array(
           'columns' => array(
-            'tid' => 'tid',
+            'target_id' => 'nid',
           ),
-          'table' => 'taxonomy_term_data',
+          'table' => 'node',
         ),
       ),
       'indexes' => array(
-        'tid' => array(
-          0 => 'tid',
+        'target_id' => array(
+          0 => 'target_id',
         ),
       ),
       'locked' => '0',
-      'module' => 'taxonomy',
+      'module' => 'entityreference',
       'settings' => array(
-        'allowed_values' => array(
-          0 => array(
-            'vocabulary' => 'measurement_units',
-            'parent' => '0',
+        'handler' => 'base',
+        'handler_settings' => array(
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 0,
+            ),
+          ),
+          'sort' => array(
+            'type' => 'none',
+          ),
+          'target_bundles' => array(
+            'measurement_units' => 'measurement_units',
           ),
         ),
+        'target_type' => 'taxonomy_term',
       ),
       'translatable' => '0',
-      'type' => 'taxonomy_term_reference',
+      'type' => 'entityreference',
     ),
     'field_instance' => array(
       'bundle' => 'field_source_info',
       'default_value' => NULL,
+      'default_value_function' => '',
       'deleted' => '0',
       'description' => '',
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'taxonomy',
-          'settings' => array(),
-          'type' => 'taxonomy_term_reference_link',
-          'weight' => 6,
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => FALSE,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => 8,
         ),
       ),
       'entity_type' => 'field_collection_item',
       'field_name' => 'field_unit',
       'label' => 'Unit',
-      'required' => 0,
+      'required' => 1,
       'settings' => array(
+        'behaviors' => array(
+          'prepopulate' => array(
+            'status' => 0,
+          ),
+        ),
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -251,7 +285,7 @@ function opengizra_material_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '7',
+        'weight' => '2',
       ),
     ),
   );
@@ -340,7 +374,7 @@ function opengizra_material_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_select',
-        'weight' => '1',
+        'weight' => '0',
       ),
     ),
   );

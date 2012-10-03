@@ -24,7 +24,7 @@ function opengizra_item_main_material_content_type_render($subtype, $conf, $args
 
   $node = $context->data;
   $wrapper = entity_metadata_wrapper('node', $node);
-  if (empty($wrapper->field_bom_info)) {
+  if (!$wrapper->field_bom_info->value()) {
     return;
   }
 

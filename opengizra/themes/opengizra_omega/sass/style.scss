@@ -1,10 +1,8 @@
 @import "mixins";
 @import "partials";
 
-$width: 1200px;
-
 .container {
-  width: $width;
+  width: 1200px;
   margin: 0 auto;
 }
 

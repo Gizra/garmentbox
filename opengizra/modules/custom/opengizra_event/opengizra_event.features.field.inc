@@ -10,7 +10,7 @@
 function opengizra_event_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'node-event-body'
+  // Exported field: 'node-event-body'.
   $fields['node-event-body'] = array(
     'field_config' => array(
       'active' => '1',
@@ -33,6 +33,7 @@ function opengizra_event_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(),
       'translatable' => '0',
@@ -49,6 +50,12 @@ function opengizra_event_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
+          'weight' => 0,
+        ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
           'weight' => 0,
         ),
         'teaser' => array(
@@ -83,7 +90,7 @@ function opengizra_event_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-event-field_dates'
+  // Exported field: 'node-event-field_dates'.
   $fields['node-event-field_dates'] = array(
     'field_config' => array(
       'active' => '1',
@@ -93,6 +100,7 @@ function opengizra_event_field_default_fields() {
       'field_name' => 'field_dates',
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'date',
       'settings' => array(
         'cache_count' => '4',
@@ -130,6 +138,12 @@ function opengizra_event_field_default_fields() {
           'type' => 'date_default',
           'weight' => 1,
         ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -165,7 +179,7 @@ function opengizra_event_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-event-field_entity_reference'
+  // Exported field: 'node-event-field_entity_reference'.
   $fields['node-event-field_entity_reference'] = array(
     'field_config' => array(
       'active' => '1',
@@ -186,6 +200,7 @@ function opengizra_event_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -231,6 +246,12 @@ function opengizra_event_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => 2,
         ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -267,7 +288,7 @@ function opengizra_event_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-event-field_reference_hierarchy'
+  // Exported field: 'node-event-field_reference_hierarchy'.
   $fields['node-event-field_reference_hierarchy'] = array(
     'field_config' => array(
       'active' => '1',
@@ -288,6 +309,7 @@ function opengizra_event_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -326,6 +348,12 @@ function opengizra_event_field_default_fields() {
           ),
           'type' => 'entityreference_label',
           'weight' => 3,
+        ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
         'teaser' => array(
           'label' => 'above',

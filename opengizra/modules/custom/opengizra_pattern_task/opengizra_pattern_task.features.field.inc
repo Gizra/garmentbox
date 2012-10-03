@@ -10,7 +10,7 @@
 function opengizra_pattern_task_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'node-pattern_task-body'
+  // Exported field: 'node-pattern_task-body'.
   $fields['node-pattern_task-body'] = array(
     'field_config' => array(
       'active' => '1',
@@ -33,6 +33,7 @@ function opengizra_pattern_task_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(),
       'translatable' => '0',
@@ -49,6 +50,12 @@ function opengizra_pattern_task_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
+          'weight' => 0,
+        ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
           'weight' => 0,
         ),
         'teaser' => array(
@@ -82,7 +89,7 @@ function opengizra_pattern_task_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-pattern_task-field_file_collection'
+  // Exported field: 'node-pattern_task-field_file_collection'.
   $fields['node-pattern_task-field_file_collection'] = array(
     'field_config' => array(
       'active' => '1',
@@ -103,6 +110,7 @@ function opengizra_pattern_task_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -144,6 +152,12 @@ function opengizra_pattern_task_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => 5,
         ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -180,7 +194,7 @@ function opengizra_pattern_task_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-pattern_task-field_pattern'
+  // Exported field: 'node-pattern_task-field_pattern'.
   $fields['node-pattern_task-field_pattern'] = array(
     'field_config' => array(
       'active' => '1',
@@ -201,6 +215,7 @@ function opengizra_pattern_task_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -242,6 +257,12 @@ function opengizra_pattern_task_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => 3,
         ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -274,7 +295,7 @@ function opengizra_pattern_task_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-pattern_task-field_reference_hierarchy'
+  // Exported field: 'node-pattern_task-field_reference_hierarchy'.
   $fields['node-pattern_task-field_reference_hierarchy'] = array(
     'field_config' => array(
       'active' => '1',
@@ -295,6 +316,7 @@ function opengizra_pattern_task_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -334,6 +356,12 @@ function opengizra_pattern_task_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => 2,
         ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -370,7 +398,7 @@ function opengizra_pattern_task_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-pattern_task-field_task_assignee'
+  // Exported field: 'node-pattern_task-field_task_assignee'.
   $fields['node-pattern_task-field_task_assignee'] = array(
     'field_config' => array(
       'active' => '1',
@@ -391,6 +419,7 @@ function opengizra_pattern_task_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -430,6 +459,12 @@ function opengizra_pattern_task_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => 1,
         ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -462,7 +497,7 @@ function opengizra_pattern_task_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-pattern_task-field_task_status'
+  // Exported field: 'node-pattern_task-field_task_status'.
   $fields['node-pattern_task-field_task_status'] = array(
     'field_config' => array(
       'active' => '1',
@@ -483,6 +518,7 @@ function opengizra_pattern_task_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -527,6 +563,12 @@ function opengizra_pattern_task_field_default_fields() {
           ),
           'type' => 'entityreference_label',
           'weight' => 4,
+        ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
         'teaser' => array(
           'label' => 'above',

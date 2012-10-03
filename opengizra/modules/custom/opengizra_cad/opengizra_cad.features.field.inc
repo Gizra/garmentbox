@@ -10,7 +10,7 @@
 function opengizra_cad_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'field_collection_item-field_files_collection-field_file'
+  // Exported field: 'field_collection_item-field_files_collection-field_file'.
   $fields['field_collection_item-field_files_collection-field_file'] = array(
     'field_config' => array(
       'active' => '1',
@@ -31,6 +31,7 @@ function opengizra_cad_field_default_fields() {
           0 => 'fid',
         ),
       ),
+      'locked' => '0',
       'module' => 'file',
       'settings' => array(
         'display_default' => 0,
@@ -83,7 +84,7 @@ function opengizra_cad_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-pattern-body'
+  // Exported field: 'node-pattern-body'.
   $fields['node-pattern-body'] = array(
     'field_config' => array(
       'active' => '1',
@@ -106,6 +107,7 @@ function opengizra_cad_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(),
       'translatable' => '0',
@@ -123,6 +125,12 @@ function opengizra_cad_field_default_fields() {
           'settings' => array(),
           'type' => 'text_default',
           'weight' => '0',
+        ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
         'teaser' => array(
           'label' => 'hidden',
@@ -155,7 +163,7 @@ function opengizra_cad_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-pattern-field_files_collection'
+  // Exported field: 'node-pattern-field_files_collection'.
   $fields['node-pattern-field_files_collection'] = array(
     'field_config' => array(
       'active' => '1',
@@ -165,6 +173,7 @@ function opengizra_cad_field_default_fields() {
       'field_name' => 'field_files_collection',
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'field_collection',
       'settings' => array(
         'hide_blank_items' => TRUE,
@@ -192,6 +201,12 @@ function opengizra_cad_field_default_fields() {
           'type' => 'field_collection_view',
           'weight' => '1',
         ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -216,7 +231,7 @@ function opengizra_cad_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-pattern-field_pattern_entity_reference'
+  // Exported field: 'node-pattern-field_pattern_entity_reference'.
   $fields['node-pattern-field_pattern_entity_reference'] = array(
     'field_config' => array(
       'active' => '1',
@@ -237,6 +252,7 @@ function opengizra_cad_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -279,6 +295,12 @@ function opengizra_cad_field_default_fields() {
           'type' => 'entityreference_label',
           'weight' => '2',
         ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -311,7 +333,7 @@ function opengizra_cad_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-pattern-field_reference_hierarchy'
+  // Exported field: 'node-pattern-field_reference_hierarchy'.
   $fields['node-pattern-field_reference_hierarchy'] = array(
     'field_config' => array(
       'active' => '1',
@@ -332,6 +354,7 @@ function opengizra_cad_field_default_fields() {
           0 => 'target_id',
         ),
       ),
+      'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
         'handler' => 'base',
@@ -370,6 +393,12 @@ function opengizra_cad_field_default_fields() {
           ),
           'type' => 'entityreference_label',
           'weight' => '3',
+        ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
         'teaser' => array(
           'label' => 'above',

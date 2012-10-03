@@ -74,6 +74,57 @@
     }
   }
 
+  .pane-node-field-bol-info, .pane-node-field-bom-info {
+    position: relative;
+    margin-top: 40px;
+
+    table {
+      width: 100%;
+
+      .field_collection_item_operations {
+        width: 85px;
+      }
+
+      .field_price {
+        width: 150px;
+      }
+    }
+
+    .action-links li {
+      list-style-type: none;
+
+      a {
+        position: absolute;
+        right: 0; //LTR
+        top: 15px;
+        @include secondary-button;
+      }
+    }
+
+    .bom-total {
+      float: right; //LTR
+      margin-right: 104px;
+      margin-top: 10px;
+
+      span {
+        display: block;
+        float: left; //LTR
+        color: #666666;
+
+        &.amount {
+          width: 150px;
+          padding: 0 10px;
+          color: #ed056b;
+        }
+      }
+
+    }
+  }
+
+  .pane-node-field-images {
+    margin-top: 65px;
+  }
+
   .pane-item-variant-action-links {
     border-top: 1px solid #d1d1d1;
     margin-top: 65px;

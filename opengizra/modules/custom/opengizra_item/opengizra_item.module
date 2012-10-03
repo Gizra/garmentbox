@@ -75,3 +75,18 @@ function opengizra_item_field_formatter_view($entity_type, $entity, $field, $ins
       return $element;
   }
 }
+
+/**
+ * Implements hook_form_[FORM ID]_alter().
+ *
+ * Remove mass measurement units from the item variant BOM form.
+ */
+function opengizra_item_form_item_variant_node_form_alter(&$form, $form_state) {
+  $mass_units = opengizra_material_get_units('mass');
+  foreach (array_keys($form['field_bom_info'][LANGUAGE_NONE][0]['field_unit']['und']['#options']) as $tid) {
+    if (in_array($tid, $mass_units)) {
+      unset($form['field_bom_info'][LANGUAGE_NONE][0]['field_unit']['und']['#options'][$tid]);
+    }
+  }
+}
+

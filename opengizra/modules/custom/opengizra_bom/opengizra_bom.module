@@ -34,13 +34,6 @@ function opengizra_bom_field_formatter_view($entity_type, $entity, $field, $inst
       // Inject header.
       $last_col = array_pop($element[0]['#header']);
 
-      foreach ($element[0]['#header'] as $key => $value) {
-        if ($value['class'] == 'field_material_item') {
-          $material_delta = $key;
-          break;
-        }
-      }
-
       $element[0]['#header'][] = array(
         'data' => t('Price'),
         'class' => 'field_price',
@@ -52,8 +45,18 @@ function opengizra_bom_field_formatter_view($entity_type, $entity, $field, $inst
       // Inject rows.
       foreach ($element[0]['#rows'] as $key => $row) {
         $last_col = array_pop($row['data']);
+        // Find the material item delta.
+        $delta = 'missing';
+        foreach ($row['data'] as $delta => $data) {
+          if ($data['class'] == 'field_material_item') {
+            break;
+          }
+        }
+        if ($delta == 'missing') {
+          continue;
+        }
 
-        $wrapper = entity_metadata_wrapper('field_collection_item', $row['data'][$material_delta]['data']['#object']->item_id);
+        $wrapper = entity_metadata_wrapper('field_collection_item', $row['data'][$delta]['data']['#object']->item_id);
         $field_price = field_view_field('field_collection_item', $wrapper->field_material_item->value(), 'field_price', array('label' => 'hidden', 'type' => 'commerce_price_formatted_amount'));
 
         $total += $price = opengizra_bom_get_material_price($wrapper->value());
@@ -71,7 +74,7 @@ function opengizra_bom_field_formatter_view($entity_type, $entity, $field, $inst
       $element[0] = array();
 
       $element[0]['table'] = $table;
-      $element[0]['total']['#markup'] = t('Total: @total', array('@total' => commerce_currency_format($total, commerce_default_currency())));
+      $element[0]['total']['#markup'] = t('<div class="bom-total"><span class="label">Total:</span><span class="amount">@total</span></div>', array('@total' => commerce_currency_format($total, commerce_default_currency())));
       return $element;
   }
 }
@@ -110,10 +113,10 @@ function opengizra_bom_get_material_price($collection_item) {
 
   $m_unit = $wrapper->field_material_item->field_unit->value();
   $m_length_unit = $wrapper->field_material_item->field_length_unit->value();
-  $m_length_unit_conversion = $wrapper->field_material_item->field_length_unit->field_conversion_ratio->value();
+  $m_length_unit_conversion = ($wrapper->field_material_item->field_length_unit->value() && !empty($wrapper->field_material_item->field_length_unit->field_conversion_ratio)) ? $wrapper->field_material_item->field_length_unit->field_conversion_ratio->value() : 1;
   $m_length = $wrapper->field_material_item->field_length->value();
   $m_price = $wrapper->field_material_item->field_price->value();
-  $bom_unit_conversion = $wrapper->field_unit->field_conversion_ratio->value();
+  $bom_unit_conversion = !empty($wrapper->field_unit->field_conversion_ratio) ? $wrapper->field_unit->field_conversion_ratio->value() : 1;
 
   $length_price = opengizra_bom_get_length_price($m_price['amount'], $m_unit, $m_length, $m_length_unit_conversion / $bom_unit_conversion);
   $bom_quantity = $wrapper->field_quantity->value();

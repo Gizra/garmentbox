@@ -19,23 +19,13 @@ function opengizra_material_field_attach_form($entity_type, $entity, &$form, &$f
     return;
   }
 
-  // Fetch all mass unit types.
-  $vocabulary = taxonomy_vocabulary_machine_name_load('measurement_units');
-  $query = new EntityFieldQuery();
-  $result = $query->entityCondition('entity_type', 'taxonomy_term')
-    ->fieldCondition('field_unit_type', 'value', 'mass')
-    ->propertyCondition('vid', $vocabulary->vid)
-    ->execute();
-
-  if (!$result) {
-    return;
-  }
+  $mass_terms = opengizra_material_get_units('mass');
 
   // Check if we are in a node context, or directly inside a field
   // collection.
   $key = !empty($form_state['node']) ? 'field_source_info[und][0][field_unit][und]' : 'field_unit[und]';
   $mass_inputs = array();
-  foreach (array_keys($result['taxonomy_term']) as $tid) {
+  foreach ($mass_terms as $tid) {
     $mass_inputs[] = array(':input[name="' . $key . '"]' => array('value' => $tid));
   }
   $state = array(
@@ -49,23 +39,52 @@ function opengizra_material_field_attach_form($entity_type, $entity, &$form, &$f
 
   $form['field_length']['#element_validate'][] = 'opengizra_material_length_validate';
   $form['field_length_unit']['#element_validate'][] = 'opengizra_material_length_validate';
+
+  // Remove non-length units from the length_unit field.
+  $length_terms = opengizra_material_get_units('length');
+  foreach (array_keys($form['field_length_unit'][LANGUAGE_NONE]['#options']) as $tid) {
+    if (!in_array($tid, $length_terms)) {
+      unset($form['field_length_unit'][LANGUAGE_NONE]['#options'][$tid]);
+    }
+  }
 }
 
 /**
  * Element validate; Make length and unit-length required.
  *
- * If the selected unit is of weighttype (e.g. Kilogram), we need to make
+ * If the selected unit is of mass type (e.g. Kilogram), we need to make
  * those fields required.
  */
 function opengizra_material_length_validate($element, &$form_state) {
-  return;
   $values = !empty($form_state['values']['field_source_info']) ? $form_state['values']['field_source_info'][LANGUAGE_NONE][0] : $form_state['values'];
-  if (!in_array($values['field_unit'][LANGUAGE_NONE][0]['value'], array('kilogram', 'pound'))) {
+  $mass_terms = opengizra_material_get_units('mass');
+  if (!in_array($values['field_unit'][LANGUAGE_NONE], $mass_terms)) {
     return;
   }
   $field_name = $element[LANGUAGE_NONE]['#field_name'];
-
-  if (empty($values[$field_name][LANGUAGE_NONE][0]['value'])) {
+  $value_key = !empty($element[LANGUAGE_NONE]['#value_key']) ? $element[LANGUAGE_NONE]['#value_key'] : 'value';
+  if (empty($values[$field_name][LANGUAGE_NONE][0][$value_key])) {
     form_error($element, t('@name is required.', array('@name' => $element[LANGUAGE_NONE]['#title'])));
   }
+}
+
+/**
+ * Retrieve unit terms of a specific type.
+ *
+ * @param $type
+ *   The measurment units type. E.g. 'mass' / 'length'.
+ *
+ * @return
+ *   Array of terms.
+ */
+function opengizra_material_get_units($type) {
+  // Fetch all mass unit types.
+  $vocabulary = taxonomy_vocabulary_machine_name_load('measurement_units');
+  $query = new EntityFieldQuery();
+  $result = $query->entityCondition('entity_type', 'taxonomy_term')
+    ->fieldCondition('field_unit_type', 'value', $type)
+    ->propertyCondition('vid', $vocabulary->vid)
+    ->execute();
+
+  return !$result ? array() : array_keys($result['taxonomy_term']);
 }

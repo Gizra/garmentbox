@@ -63,6 +63,7 @@ dependencies[] = views_content
 dependencies[] = views_ui
 dependencies[] = title
 dependencies[] = image_delta_formatter
+dependencies[] = migrate_ui
 
 ; Development modules
 dependencies[] = devel

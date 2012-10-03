@@ -10,7 +10,7 @@
 function opengizra_address_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'node-address-field_postal_address'
+  // Exported field: 'node-address-field_postal_address'.
   $fields['node-address-field_postal_address'] = array(
     'field_config' => array(
       'active' => '1',
@@ -20,6 +20,7 @@ function opengizra_address_field_default_fields() {
       'field_name' => 'field_postal_address',
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'addressfield',
       'settings' => array(),
       'translatable' => '0',
@@ -50,6 +51,12 @@ function opengizra_address_field_default_fields() {
           ),
           'type' => 'addressfield_default',
           'weight' => 1,
+        ),
+        'opengizra_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
         'teaser' => array(
           'label' => 'above',
