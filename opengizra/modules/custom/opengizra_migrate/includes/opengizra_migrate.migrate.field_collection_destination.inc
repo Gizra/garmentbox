@@ -77,7 +77,9 @@ class openGizraMigrateDestinationFieldCollection extends MigrateDestinationEntit
     $status = $entity->save();
     migrate_instrument_stop('field_collection_save');
 
-    if ($status) {
+    // TODO: status doesn't return correct value, so just check the
+    // entity was created.
+    if ($entity->item_id) {
       $this->complete($entity, $row);
       if ($updating) {
         $this->numUpdated++;
