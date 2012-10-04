@@ -452,6 +452,51 @@ class openGizraInventoryLines extends openGizraMigration {
   }
 }
 
+/**
+ * Migrate order nodes.
+ */
+class openGizraOrders extends openGizraMigration {
+
+  public $csvColumns = array(
+    array('id', 'Unique ID'),
+    array('title', 'Title'),
+    array('field_season', 'Season'),
+    array('field_customer', 'Customer'),
+    array('field_address', 'Address'),
+    array('field_inventory_line_inline', 'Inventory line'),
+  );
+
+  public $entityType = 'node';
+  public $bundle = 'order';
+
+  public $dependencies = array(
+    // 'openGizraSeasons',
+    // 'openGizraCustomer',
+    // 'openGizraAddresses',
+    'openGizraInventoryLines',
+  );
+
+  public function __construct() {
+    parent::__construct();
+
+    // $this
+      // ->addFieldMapping('field_season', 'field_season')
+      // ->sourceMigration('openGizraSeasons');
+//
+    // $this
+      // ->addFieldMapping('field_customer', 'field_customer')
+      // ->sourceMigration('openGizraCustomer');
+//
+    // $this
+      // ->addFieldMapping('field_address', 'field_address')
+      // ->sourceMigration('openGizraAddresses');
+
+    $this
+      ->addFieldMapping('field_inventory_line_inline', 'field_inventory_line_inline')
+      ->sourceMigration('openGizraInventoryLines');
+  }
+}
+
 
 ///////////////////////////////
 // Field collections

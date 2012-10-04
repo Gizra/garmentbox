@@ -114,6 +114,53 @@ table .field-collection-view-links li.delete a:hover {
 table .field-collection-view-links li.delete a:hover {
   background-image: url("../images/delete-active.png");
 }
+/* line 67, ../sass/partials/widget/_table.scss */
+table .quantity {
+  float: left;
+  margin-right: 5px;
+}
+/* line 72, ../sass/partials/widget/_table.scss */
+table .availability {
+  font-size: 12px;
+  float: left;
+  border-radius: 4px;
+  color: white;
+  padding: 1px 0;
+}
+/* line 79, ../sass/partials/widget/_table.scss */
+table .availability span {
+  padding: 1px 6px;
+}
+/* line 83, ../sass/partials/widget/_table.scss */
+table .availability.backorder {
+  background-color: #fe1511;
+  -moz-box-shadow: 0 -1px 1px 0 #ff8587;
+  -webkit-box-shadow: 0 -1px 1px 0 #ff8587;
+  box-shadow: 0 -1px 1px 0 #ff8587;
+}
+/* line 89, ../sass/partials/widget/_table.scss */
+table .availability.backorder span.amount {
+  border-right: 1px solid #d80202;
+}
+/* line 93, ../sass/partials/widget/_table.scss */
+table .availability.backorder span.label {
+  border-left: 1px solid #ff8587;
+}
+/* line 99, ../sass/partials/widget/_table.scss */
+table .availability.available {
+  background-color: #099609;
+  -moz-box-shadow: 0 -1px 1px 0 #ccebcc;
+  -webkit-box-shadow: 0 -1px 1px 0 #ccebcc;
+  box-shadow: 0 -1px 1px 0 #ccebcc;
+}
+/* line 105, ../sass/partials/widget/_table.scss */
+table .availability.available span.amount {
+  border-right: 1px solid #018305;
+}
+/* line 109, ../sass/partials/widget/_table.scss */
+table .availability.available span.label {
+  border-left: 1px solid #86ce84;
+}
 
 /* line 1, ../sass/partials/widget/_tabs.scss */
 .panel-pane.tabs ul {

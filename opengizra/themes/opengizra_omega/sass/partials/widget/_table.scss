@@ -63,4 +63,53 @@ table {
       }
     }
   }
+
+  .quantity {
+    float: left; //LTR
+    margin-right: 5px; //LTR
+  }
+
+  .availability {
+    font-size: 12px;
+    float: left; //LTR
+    border-radius: 4px;
+    color: white;
+    padding: 1px 0;
+
+    span {
+      padding: 1px 6px;
+    }
+
+    &.backorder {
+      background-color: #fe1511;
+      @include box-shadow(0, -1px, 1px, 0, #ff8587);
+
+      span {
+
+        &.amount {
+          border-right: 1px solid #d80202; //LTR
+        }
+
+        &.label {
+          border-left: 1px solid #ff8587; //LTR
+        }
+      }
+    }
+
+    &.available {
+      background-color: #099609;
+      @include box-shadow(0, -1px, 1px, 0, #ccebcc);
+
+      span {
+
+        &.amount {
+          border-right: 1px solid #018305; //LTR
+        }
+
+        &.label {
+          border-left: 1px solid #86ce84; //LTR
+        }
+      }
+    }
+  }
 }

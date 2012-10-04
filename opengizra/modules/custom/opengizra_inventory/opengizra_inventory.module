@@ -108,3 +108,15 @@ function _opengizra_inventory_form_saleble_inventory_type(&$form, $form_state) {
  */
 function _opengizra_inventory_form_price(&$form, $form_state) {
 }
+
+function opengizra_inventory_is_inventory_item_ordered($nid) {
+  $query = new EntityFieldQuery();
+  $result = $query->entityCondition('entity_type', 'node')
+    ->propertyCondition('type', 'order')
+    ->propertyCondition('status', NODE_PUBLISHED)
+    ->fieldCondition('field_inventory_line_inline', 'target_id', $nid)
+    ->range(0, 1)
+    ->execute();
+
+  return !empty($result);
+}

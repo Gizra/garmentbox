@@ -39,6 +39,7 @@ features[variable][] = comment_form_location_inventory_line
 features[variable][] = comment_inventory_line
 features[variable][] = comment_preview_inventory_line
 features[variable][] = comment_subject_field_inventory_line
+features[variable][] = field_bundle_settings_node__inventory_line
 features[variable][] = menu_options_inventory_line
 features[variable][] = menu_parent_inventory_line
 features[variable][] = node_options_inventory_line
