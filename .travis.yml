@@ -1,0 +1,20 @@
+language: php
+
+php:
+  - 5.3
+
+mysql:
+  database: drupal
+  username: root
+  encoding: utf8
+  
+before_script:
+  - "mysql -e 'create database drupal;'"
+  - pear channel-discover pear.drush.org
+  - pear install drush/drush
+  - phpenv rehash
+  - chmod -R 777 www/
+  - bash scripts/build
+  - cd www
+  - drush si opengizra--db-url=mysql://root:@127.0.0.1/drupal --account-pass=admin --yes
+  - drush cc all --yes
