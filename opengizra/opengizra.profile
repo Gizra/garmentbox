@@ -56,7 +56,7 @@ function opengizra_import_data() {
 /**
  * BatchAPI callback.
  *
- * @see opengizra_profile_import_data().
+ * @see opengizra_profile_import_data()
  */
 function _opengizra_import_data($operation, $type, &$context) {
   $context['message'] = t('@operation', array('@operation' => $type));
