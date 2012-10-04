@@ -18,4 +18,4 @@ before_script:
   - bash scripts/build
   - cd www
   - drush si opengizra --db-url=mysql://root:@127.0.0.1/drupal --account-pass=admin --yes
-  - drush cc all -y
+  - drush cc all --yes
