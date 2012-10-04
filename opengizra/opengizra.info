@@ -3,6 +3,8 @@ name = Opengizra
 description = Open gizra PLM (Product Lifecycle Management)
 version = VERSION
 core = 7.x
+
+; Core
 dependencies[] = block
 dependencies[] = color
 dependencies[] = comment
