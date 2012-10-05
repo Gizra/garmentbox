@@ -18,6 +18,10 @@ function opengizra_install() {
 
   // Enable node view page override by Page manager module.
   variable_set('page_manager_node_view_disabled', FALSE);
+
+  // Set first day for date API.
+  variable_set('date_first_day', 1);
+
 }
 
 /**
