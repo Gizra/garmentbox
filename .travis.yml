@@ -20,7 +20,7 @@ before_script:
   - drush cc all --yes
 
 # Dummy script to return "exit 0", until Behat is in place.
-script: ./scripts/ci/test.sh
+script: bash ./scripts/ci/test.sh
 
 notifications:
   email: false
