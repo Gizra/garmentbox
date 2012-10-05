@@ -17,7 +17,6 @@ before_script:
   - chmod -R 777 www/
   - bash scripts/build
   - cd www
-  - chmod 777 sites/default/settings.php
   - echo "\$conf['mail_system'] = array('default-system' => 'DevelMailLog');" >> sites/default/settings.php
   - drush si opengizra --db-url=mysql://root:@127.0.0.1/drupal --account-pass=admin --yes
   - drush cc all -y
