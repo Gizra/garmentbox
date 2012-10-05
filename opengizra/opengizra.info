@@ -42,7 +42,6 @@ dependencies[] = field_collection
 dependencies[] = field_collection_table
 dependencies[] = field_group
 dependencies[] = flag
-dependencies[] = fullcalendar
 dependencies[] = gravatar
 dependencies[] = inline_entity_form
 dependencies[] = libraries

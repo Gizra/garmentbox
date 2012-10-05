@@ -13,15 +13,14 @@ before_script:
   - pear channel-discover pear.drush.org
   - pear install drush/drush
   - phpenv rehash
-  - mkdir www
-  - chmod -R 777 www/
+  - bash scripts/ci/setup
   - bash scripts/build
   - cd www
   - drush si opengizra --db-url=mysql://root:@127.0.0.1/drupal --account-pass=admin --yes
   - drush cc all --yes
 
 # Dummy script to return "exit 0", until Behat is in place.
-script: ./scripts/travis-test.sh
+script: ./scripts/ci/test.sh
 
 notifications:
-  email: false   $conf['mail_system'] = array('default-system' => 'DevelMailLog');
+  email: false

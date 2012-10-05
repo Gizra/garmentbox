@@ -54,9 +54,6 @@ projects[field_group][version] = "1.1"
 projects[flag][subdir] = "contrib"
 projects[flag][version] = "2.0-beta8"
 
-projects[fullcalendar][subdir] = "contrib"
-projects[fullcalendar][version] = "2.0-beta3"
-
 projects[gravatar][subdir] = "contrib"
 projects[gravatar][version] = "1.1"
 
