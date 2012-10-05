@@ -18,8 +18,9 @@ before_script:
   - bash scripts/build
   - cd www
   - echo "\$conf['mail_system'] = array('default-system' => 'DevelMailLog');" >> sites/default/settings.php
+  - cat sites/default/settings.php
   - drush si opengizra --db-url=mysql://root:@127.0.0.1/drupal --account-pass=admin --yes
   - drush cc all --yes
 
 notifications:
-  email: false
+  email: false   $conf['mail_system'] = array('default-system' => 'DevelMailLog');
