@@ -15,11 +15,11 @@ before_script:
   - phpenv rehash
   - bash scripts/ci/setup
   - bash scripts/build
+  # Prepare the dummy test.
+  - chmod +x ./scripts/ci/test.sh  
   - cd www
   - drush si opengizra --db-url=mysql://root:@127.0.0.1/drupal --account-pass=admin --yes
   - drush cc all --yes
-  # Prepare the dummy test.
-  - chmod +x ./scripts/ci/test.sh
 
 # Dummy script to return "exit 0", until Behat is in place.
 script: ./scripts/ci/test.sh
