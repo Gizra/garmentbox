@@ -1,0 +1,1 @@
+![Garment-Box build](https://secure.travis-ci.org/Gizra/Garment-Box.png)
