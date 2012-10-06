@@ -7,7 +7,7 @@
  */
 
 /**
- * Implements theme_preprocess_page().
+ * Page preprocess.
  */
 function opengizra_omega_preprocess_page(&$variables) {
   if ($node = menu_get_object()) {
@@ -17,7 +17,7 @@ function opengizra_omega_preprocess_page(&$variables) {
 }
 
 /**
- * Implements theme_preprocess_node().
+ * Node preprocess.
  */
 function opengizra_omega_preprocess_node(&$variables) {
   if ($variables['view_mode'] == 'opengizra_header') {
