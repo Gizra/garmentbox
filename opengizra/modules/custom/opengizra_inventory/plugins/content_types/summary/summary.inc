@@ -8,6 +8,7 @@ $plugin = array(
   'description' => t('Show inventory summary per Item/ Season'),
   'required context' => new ctools_context_required(t('Node'), 'node'),
   'category' => t('Opengizra Inventory'),
+  'hook theme' => 'opengizra_inventory_summary_content_type_theme',
 );
 
 /**
@@ -213,25 +214,52 @@ function opengizra_inventory_summary_content_type_edit_form($form, &$form_state)
 }
 
 /**
- * TODO: Add tpl for the mess.
+ * Render a quantity / availablity cell.
+ *
+ * @param $quantity
+ *   The quantity.
+ * @param $availablity
+ *   How much is actualy available out of the quantity.
+ *
+ * @return
+ *   Rendered "inventory cell".
  */
 function opengizra_inventory_summary_quantity_cell($quantity, $availability) {
-  $cell = '<div class="quantity">' . $quantity . '</div>';
+  $params = array(
+    'quantity' => $quantity,
+    'availability' => $availability,
+    'label' => NULL,
+    'class' => NULL,
+  );
 
   if ($availability) {
     if ($availability > 0) {
-      $class = 'available';
-      $label = t('Available');
+      $params['class'] = 'available';
+      $params['label'] = t('Available');
     }
     else {
-      $class = 'backorder';
-      $label = t('Backorder');
+      $params['class'] = 'backorder';
+      $params['label'] = t('Backorder');
       // Display the absolute value.
-      $availability *= -1;
+      $params['availability'] *= -1;
     }
-
-    $cell .= "<div class=\"availability $class\"><span class=\"amount\">$availability</span><span class=\"label\">$label</span></div>";
   }
 
-  return $cell;
+  return theme('opengizra_inventory_cell', $params);
+}
+
+/**
+ * Delegated hook_theme().
+ */
+function opengizra_inventory_summary_content_type_theme(&$theme, $plugin) {
+  $theme['opengizra_inventory_cell'] = array(
+    'variables' => array(
+      'quantity' => NULL,
+      'availability' => NULL,
+      'label' => NULL,
+      'class' => NULL,
+    ),
+    'path' => $plugin['path'],
+    'template' => 'inventory-cell',
+  );
 }
