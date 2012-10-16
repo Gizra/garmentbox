@@ -31,6 +31,12 @@ table {
   th, td {
     border: 1px solid #b7b7b7;
     padding: 9px;
+
+    .minor {
+      font-size: 10px;
+      color: #666;
+      margin-left: 10px; //LTR
+    }
   }
 
   th {
