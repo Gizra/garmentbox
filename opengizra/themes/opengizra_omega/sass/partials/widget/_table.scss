@@ -15,6 +15,10 @@ table {
     &:hover {
       @include vertical-gradient(#f2fbff, #e1ebf4);
     }
+
+    &.hidden {
+      display: none;
+    }
   }
 
   thead tr {
@@ -116,6 +120,19 @@ table {
           border-left: 1px solid #86ce84; //LTR
         }
       }
+    }
+  }
+
+  .expander {
+    display: block;
+    width: 11px;
+    height: 11px;
+    float: left; //LTR
+    margin-right: 10px; //LTR
+    background: url("../images/contract.gif") no-repeat;
+
+    &.colapsed {
+      background-image: url("../images/expand.gif");
     }
   }
 }

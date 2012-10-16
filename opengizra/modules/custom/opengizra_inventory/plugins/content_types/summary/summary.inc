@@ -106,6 +106,8 @@ function opengizra_inventory_summary_content_type_render($subtype, $conf, $args,
     return $block;
   }
 
+  drupal_add_js(drupal_get_path('module', $module) . '/plugins/content_types/' . $subtype . '/' . $subtype . '.js');
+
   // Build inventory data info, keyed by the inventory item type TID.
   $inventory = array();
   $inventory_nodes = node_load_multiple(array_keys($result['node']));
@@ -167,12 +169,24 @@ function opengizra_inventory_summary_content_type_render($subtype, $conf, $args,
     $variant_label = $variant_data['label'];
 
     // Variant total row.
-    $row = array(t('@variant - Total', array('@variant' => $variant_label)));
+    $row = array(
+      'data' => array(),
+      'class' => array('total'),
+    );
+    $params = array(
+      'attributes' => array(
+        'class' => array('expander', 'colapsed'),
+        'variant-nid' => $nid,
+      )
+    );
+    $expand_link = l('', url(''), $params);
+    $row['data'][] = $expand_link . t('@variant - Total', array('@variant' => $variant_label));
     foreach($size_tree as $term) {
-      $row[] = opengizra_inventory_summary_quantity_cell($variant_data['total'][$term->tid]['quantity'], $variant_data['total'][$term->tid]['availablity']);
+      $row['data'][] = opengizra_inventory_summary_quantity_cell($variant_data['total'][$term->tid]['quantity'], $variant_data['total'][$term->tid]['availablity']);
     }
+
     // Total row description.
-    $row[] = $total_type_label;
+    $row['data'][] = $total_type_label;
 
     $rows[] = $row;
 
@@ -181,19 +195,22 @@ function opengizra_inventory_summary_content_type_render($subtype, $conf, $args,
         // There are no values for this inventory type.
         continue;
       }
-      $row = array();
+      $row = array(
+        'data' => array(),
+        'class' => array('type', 'hidden', 'variant-nid-' . $nid),
+      );
 
-      $row[] = $variant_label;
+      $row['data'][] = $variant_label;
 
       foreach($size_tree as $term) {
         if (empty($variant_inventory_data['data'][$term->tid])) {
-          $row[] = '-';
+          $row['data'][] = '-';
           continue;
         }
 
-        $row[] = opengizra_inventory_summary_quantity_cell($variant_inventory_data['data'][$term->tid]['quantity'], $variant_inventory_data['data'][$term->tid]['availability']);
+        $row['data'][] = opengizra_inventory_summary_quantity_cell($variant_inventory_data['data'][$term->tid]['quantity'], $variant_inventory_data['data'][$term->tid]['availability']);
       }
-      $row[] = $variant_inventory_data['type_label'];
+      $row['data'][] = $variant_inventory_data['type_label'];
       $rows[] = $row;
     }
   }
