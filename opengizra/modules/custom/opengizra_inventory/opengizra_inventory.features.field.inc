@@ -248,79 +248,6 @@ function opengizra_inventory_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-inventory_line-field_inventory_status'.
-  $fields['node-inventory_line-field_inventory_status'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_inventory_status',
-      'foreign keys' => array(),
-      'indexes' => array(
-        'value' => array(
-          0 => 'value',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'list',
-      'settings' => array(
-        'allowed_values' => array(
-          'in' => 'In',
-          'out' => 'Out',
-        ),
-        'allowed_values_function' => '',
-      ),
-      'translatable' => '0',
-      'type' => 'list_text',
-    ),
-    'field_instance' => array(
-      'bundle' => 'inventory_line',
-      'default_value' => array(
-        0 => array(
-          'value' => 'in',
-        ),
-      ),
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'list',
-          'settings' => array(),
-          'type' => 'list_default',
-          'weight' => 6,
-        ),
-        'opengizra_header' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'teaser' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'field_inventory_status',
-      'label' => 'Inventory Status',
-      'required' => 1,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'options',
-        'settings' => array(),
-        'type' => 'options_select',
-        'weight' => '37',
-      ),
-    ),
-  );
-
   // Exported field: 'node-inventory_line-field_inventory_type'.
   $fields['node-inventory_line-field_inventory_type'] = array(
     'field_config' => array(
@@ -746,14 +673,14 @@ function opengizra_inventory_field_default_fields() {
     ),
   );
 
-  // Exported field: 'taxonomy_term-inventory_type-field_for_sale'.
-  $fields['taxonomy_term-inventory_type-field_for_sale'] = array(
+  // Exported field: 'taxonomy_term-inventory_type-field_in_warehouse'.
+  $fields['taxonomy_term-inventory_type-field_in_warehouse'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_for_sale',
+      'field_name' => 'field_in_warehouse',
       'foreign keys' => array(),
       'indexes' => array(
         'value' => array(
@@ -791,8 +718,8 @@ function opengizra_inventory_field_default_fields() {
         ),
       ),
       'entity_type' => 'taxonomy_term',
-      'field_name' => 'field_for_sale',
-      'label' => 'For sale',
+      'field_name' => 'field_in_warehouse',
+      'label' => 'In warehouse',
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
@@ -875,9 +802,8 @@ function opengizra_inventory_field_default_fields() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Expected delivery date');
-  t('For sale');
+  t('In warehouse');
   t('Include in total');
-  t('Inventory Status');
   t('Inventory type');
   t('Item variant');
   t('Price');

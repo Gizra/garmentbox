@@ -83,7 +83,7 @@ class openGizraInventoryTypeTerms extends openGizraMigration {
     array('id', 'Unique ID'),
     array('name', 'Name'),
     array('field_include_in_total', 'Include in total'),
-    array('field_for_sale', 'For sale'),
+    array('field_in_warehouse', 'In warehouse'),
   );
 
   public $entityType = 'taxonomy_term';
@@ -92,7 +92,7 @@ class openGizraInventoryTypeTerms extends openGizraMigration {
   public function __construct() {
     parent::__construct();
     $this->addFieldMapping('field_include_in_total', 'field_include_in_total');
-    $this->addFieldMapping('field_for_sale', 'field_for_sale');
+    $this->addFieldMapping('field_in_warehouse', 'field_in_warehouse');
   }
 }
 

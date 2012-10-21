@@ -1,4 +1,4 @@
-Unique ID,Name,Include in total,For sale
+Unique ID,Name,Include in total,In warehouse
 inventoryType1,Future production,1,0
 inventoryType2,Current production,1,0
 inventoryType3,Consignment,0,0
