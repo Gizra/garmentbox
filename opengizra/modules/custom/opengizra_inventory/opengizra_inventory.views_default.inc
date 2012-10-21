@@ -107,7 +107,7 @@ function opengizra_inventory_views_default_views() {
   $handler->display->display_options['fields']['title']['empty_zero'] = 0;
   $handler->display->display_options['fields']['title']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['title']['link_to_node'] = 1;
-  /* Field: Content: Inventory Status */
+  /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['field_inventory_status']['id'] = 'field_inventory_status';
   $handler->display->display_options['fields']['field_inventory_status']['table'] = 'field_data_field_inventory_status';
   $handler->display->display_options['fields']['field_inventory_status']['field'] = 'field_inventory_status';
@@ -129,7 +129,6 @@ function opengizra_inventory_views_default_views() {
   $handler->display->display_options['fields']['field_inventory_status']['hide_empty'] = 0;
   $handler->display->display_options['fields']['field_inventory_status']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_inventory_status']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['field_inventory_status']['field_api_classes'] = 0;
   /* Field: Content: Inventory type */
   $handler->display->display_options['fields']['field_inventory_type']['id'] = 'field_inventory_type';
   $handler->display->display_options['fields']['field_inventory_type']['table'] = 'field_data_field_inventory_type';
