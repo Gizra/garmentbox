@@ -19,6 +19,10 @@ table {
     &.hidden {
       display: none;
     }
+
+    &.type td:first-child {
+      padding-left: 50px; //LTR
+    }
   }
 
   thead tr {
