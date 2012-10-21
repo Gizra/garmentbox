@@ -141,7 +141,7 @@ function opengizra_inventory_summary_content_type_render($subtype, $conf, $args,
 
       // Inventory line with Order ref are always sold (or ordered) stock and
       // need to be deducted from total and availability if marked as OUT, and
-      // from availability only if marked as IN .
+      // from availability only if marked as IN . IN = 0, OUT = 1.
       if ($is_ordered) {
         if (!$status) {
           $info['availability'] -= $quantity;
@@ -149,7 +149,7 @@ function opengizra_inventory_summary_content_type_render($subtype, $conf, $args,
         }
       }
       else {
-        $operation = $status ? 1 : -1;
+        $operation = $status ? -1 : 1;
         $info['availability'] += $quantity * $operation;
         $inventory[$nid]['total'][$size_tid]['availablity'] += $include_in_total ? ($quantity * $operation) : 0;
         if ($status) {
@@ -204,7 +204,7 @@ function opengizra_inventory_summary_content_type_render($subtype, $conf, $args,
 
       foreach($size_tree as $term) {
         if (empty($variant_inventory_data['data'][$term->tid])) {
-          $row['data'][] = '-';
+          $row['data'][] = 0;
           continue;
         }
 
