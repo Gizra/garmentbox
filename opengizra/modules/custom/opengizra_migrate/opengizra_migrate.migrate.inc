@@ -62,10 +62,16 @@ class openGizraSizeTerms extends openGizraMigration {
   public $csvColumns = array(
     array('id', 'Unique ID'),
     array('name', 'Name'),
+    array('weight', 'Weight'),
   );
 
   public $entityType = 'taxonomy_term';
   public $bundle = 'size';
+
+  public function __construct() {
+    parent::__construct();
+    $this->addFieldMapping('weight', 'weight');
+  }
 }
 
 /**
