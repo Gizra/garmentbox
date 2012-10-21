@@ -134,6 +134,7 @@ function opengizra_inventory_summary_content_type_render($subtype, $conf, $args,
       $info = !empty($inventory[$nid]['types'][$tid]['data'][$size_tid]) ? $inventory[$nid]['types'][$tid]['data'][$size_tid] : array();
       $info['availability'] = !empty($info['availability']) ? $info['availability'] : 0;
       $info['quantity'] = !empty($info['quantity']) ? $info['quantity'] : 0;
+
       // Determine if we need to add or subtract the quantity from the
       // total calcualtion.
       $status = $wrapper->field_inventory_status->value();
@@ -141,7 +142,7 @@ function opengizra_inventory_summary_content_type_render($subtype, $conf, $args,
 
       // Inventory line with Order ref are always sold (or ordered) stock and
       // need to be deducted from total and availability if marked as OUT, and
-      // from availability only if marked as IN . IN = 0, OUT = 1.
+      // from availability only if marked as IN. IN = 0, OUT = 1.
       if ($is_ordered) {
         if (!$status) {
           $info['availability'] -= $quantity;
@@ -208,7 +209,8 @@ function opengizra_inventory_summary_content_type_render($subtype, $conf, $args,
           continue;
         }
 
-        $row['data'][] = opengizra_inventory_summary_quantity_cell($variant_inventory_data['data'][$term->tid]['quantity'], $variant_inventory_data['data'][$term->tid]['availability']);
+        $quantity = $variant_inventory_data['data'][$term->tid]['quantity'] + abs($variant_inventory_data['data'][$term->tid]['availability']);
+        $row['data'][] = $quantity;
       }
       $row['data'][] = $variant_inventory_data['type_label'];
       $rows[] = $row;
