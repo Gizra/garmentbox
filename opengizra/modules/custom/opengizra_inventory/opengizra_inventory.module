@@ -56,7 +56,7 @@ function opengizra_inventory_entity_info_alter(&$entity_info) {
 function opengizra_inventory_form_order_node_form_alter(&$form, $form_state) {
   $subform = &$form['field_inventory_line_inline'][LANGUAGE_NONE]['form'];
 
-  _opengizra_inventory_form_hide_fields($subform, $form_state);
+  // _opengizra_inventory_form_hide_fields($subform, $form_state);
   _opengizra_inventory_form_saleble_inventory_type($subform, $form_state);
   _opengizra_inventory_form_price($form, $form_state);
 }
