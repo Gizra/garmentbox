@@ -114,6 +114,11 @@ function opengizra_inventory_summary_content_type_render($subtype, $conf, $args,
   foreach($inventory_nodes as $inventory_node) {
     $wrapper = entity_metadata_wrapper('node', $inventory_node);
     $tid = $wrapper->field_inventory_type->getIdentifier();
+
+    // Determine if we need to add or subtract the quantity from the total
+    // calcualtion.
+    $in_warehouse = $wrapper->field_inventory_type->field_in_warehouse->value();
+
     $nid = $wrapper->field_item_variant->getIdentifier();
 
     // Don't affect the total with excluded inventory types.
@@ -135,25 +140,22 @@ function opengizra_inventory_summary_content_type_render($subtype, $conf, $args,
       $info['availability'] = !empty($info['availability']) ? $info['availability'] : 0;
       $info['quantity'] = !empty($info['quantity']) ? $info['quantity'] : 0;
 
-      // Determine if we need to add or subtract the quantity from the
-      // total calcualtion.
-      $status = $wrapper->field_inventory_status->value();
       $quantity = $quantity_wrapper->field_quantity->value();
 
       // Inventory line with Order ref are always sold (or ordered) stock and
       // need to be deducted from total and availability if marked as OUT, and
       // from availability only if marked as IN. IN = 0, OUT = 1.
       if ($is_ordered) {
-        if (!$status) {
+        if (!$in_warehouse) {
           $info['availability'] -= $quantity;
           $inventory[$nid]['total'][$size_tid]['availablity'] -= $include_in_total ? $quantity : 0;
         }
       }
       else {
-        $operation = $status ? -1 : 1;
+        $operation = $in_warehouse ? -1 : 1;
         $info['availability'] += $quantity * $operation;
         $inventory[$nid]['total'][$size_tid]['availablity'] += $include_in_total ? ($quantity * $operation) : 0;
-        if ($status) {
+        if ($in_warehouse) {
           $info['quantity'] += $quantity;
           $inventory[$nid]['total'][$size_tid]['quantity'] += $include_in_total ? $quantity : 0;
         }
