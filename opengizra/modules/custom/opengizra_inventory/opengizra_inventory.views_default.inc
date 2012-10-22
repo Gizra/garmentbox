@@ -38,6 +38,8 @@ function opengizra_inventory_views_default_views() {
     'field_inventory_type' => 'field_inventory_type',
     'field_quantity_info' => 'field_quantity_info',
     'title_1' => 'title_1',
+    'field_include_in_total' => 'field_include_in_total',
+    'field_in_warehouse' => 'field_in_warehouse',
   );
   $handler->display->display_options['style_options']['default'] = 'title';
   $handler->display->display_options['style_options']['info'] = array(
@@ -68,6 +70,20 @@ function opengizra_inventory_views_default_views() {
       'empty_column' => 0,
     ),
     'title_1' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_include_in_total' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_in_warehouse' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -217,6 +233,7 @@ function opengizra_inventory_views_default_views() {
   $handler->display->display_options['fields']['title_1']['table'] = 'node';
   $handler->display->display_options['fields']['title_1']['field'] = 'title';
   $handler->display->display_options['fields']['title_1']['relationship'] = 'field_season_target_id';
+  $handler->display->display_options['fields']['title_1']['label'] = 'Season';
   $handler->display->display_options['fields']['title_1']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['title_1']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['title_1']['alter']['absolute'] = 0;
@@ -236,6 +253,54 @@ function opengizra_inventory_views_default_views() {
   $handler->display->display_options['fields']['title_1']['empty_zero'] = 0;
   $handler->display->display_options['fields']['title_1']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['title_1']['link_to_node'] = 1;
+  /* Field: Taxonomy term: Include in total */
+  $handler->display->display_options['fields']['field_include_in_total']['id'] = 'field_include_in_total';
+  $handler->display->display_options['fields']['field_include_in_total']['table'] = 'field_data_field_include_in_total';
+  $handler->display->display_options['fields']['field_include_in_total']['field'] = 'field_include_in_total';
+  $handler->display->display_options['fields']['field_include_in_total']['relationship'] = 'field_inventory_type_target_id';
+  $handler->display->display_options['fields']['field_include_in_total']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['field_include_in_total']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_include_in_total']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_include_in_total']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_include_in_total']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_include_in_total']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_include_in_total']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_include_in_total']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_include_in_total']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_include_in_total']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['field_include_in_total']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_include_in_total']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_include_in_total']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_include_in_total']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['field_include_in_total']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_include_in_total']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['field_include_in_total']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_include_in_total']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['field_include_in_total']['field_api_classes'] = 0;
+  /* Field: Taxonomy term: In warehouse */
+  $handler->display->display_options['fields']['field_in_warehouse']['id'] = 'field_in_warehouse';
+  $handler->display->display_options['fields']['field_in_warehouse']['table'] = 'field_data_field_in_warehouse';
+  $handler->display->display_options['fields']['field_in_warehouse']['field'] = 'field_in_warehouse';
+  $handler->display->display_options['fields']['field_in_warehouse']['relationship'] = 'field_inventory_type_target_id';
+  $handler->display->display_options['fields']['field_in_warehouse']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['field_in_warehouse']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_in_warehouse']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_in_warehouse']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_in_warehouse']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_in_warehouse']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_in_warehouse']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_in_warehouse']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_in_warehouse']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_in_warehouse']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['field_in_warehouse']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_in_warehouse']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_in_warehouse']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_in_warehouse']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['field_in_warehouse']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_in_warehouse']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['field_in_warehouse']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_in_warehouse']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['field_in_warehouse']['field_api_classes'] = 0;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
