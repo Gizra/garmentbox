@@ -23,6 +23,10 @@ table {
     &.type td:first-child {
       padding-left: 50px; //LTR
     }
+
+    &.emphasized {
+      @include vertical-gradient(#F4F5DC, #F1F5A6);
+    }
   }
 
   thead tr {

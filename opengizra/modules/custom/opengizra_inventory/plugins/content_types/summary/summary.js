@@ -14,6 +14,11 @@ Drupal.behaviors.OpenGizraInventorySummary = {
       expander.toggleClass('colapsed');
     });
 
+    $('tr.total').hover(function(event) {
+      var nid = $(event.currentTarget).find('.expander').attr('variant-nid');
+      $(event.currentTarget).parentsUntil('table').find('tr.in-total.variant-nid-' + nid).toggleClass('emphasized');
+    });
+
   }
 };
 

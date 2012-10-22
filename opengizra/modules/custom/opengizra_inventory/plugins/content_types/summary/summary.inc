@@ -126,6 +126,7 @@ function opengizra_inventory_summary_content_type_render($subtype, $conf, $args,
 
     $inventory[$nid]['label'] = $wrapper->field_item_variant->label();
     $inventory[$nid]['types'][$tid]['type_label'] = $wrapper->field_inventory_type->label();
+    $inventory[$nid]['types'][$tid]['in_total'] = $include_in_total;
 
     foreach ($size_tree as $term) {
       $inventory[$nid]['total'][$term->tid]['availablity'] = !empty($inventory[$nid]['total'][$term->tid]['availablity']) ? $inventory[$nid]['total'][$term->tid]['availablity'] : 0;
@@ -202,6 +203,12 @@ function opengizra_inventory_summary_content_type_render($subtype, $conf, $args,
         'data' => array(),
         'class' => array('type', 'hidden', 'variant-nid-' . $nid),
       );
+
+      // Add a class specifying that the row is included in the total, to enable
+      // highlighting it when the total is hovered.
+      if ($variant_inventory_data['in_total']) {
+        $row['class'][] = 'in-total';
+      }
 
       $row['data'][] = $variant_label;
 
