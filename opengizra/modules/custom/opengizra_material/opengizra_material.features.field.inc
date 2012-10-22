@@ -79,11 +79,11 @@ function opengizra_material_field_default_fields() {
       'entity_types' => array(),
       'field_name' => 'field_length_unit',
       'foreign keys' => array(
-        'node' => array(
+        'taxonomy_term_data' => array(
           'columns' => array(
-            'target_id' => 'nid',
+            'target_id' => 'tid',
           ),
-          'table' => 'node',
+          'table' => 'taxonomy_term_data',
         ),
       ),
       'indexes' => array(
@@ -810,9 +810,10 @@ function opengizra_material_field_default_fields() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Body');
+  t('Conversion form weight to length.');
   t('Conversion ratio');
   t('Images');
-  t('Length');
+  t('Length conversion');
   t('Length unit');
   t('Nick name');
   t('Price');

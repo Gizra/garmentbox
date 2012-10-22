@@ -1,4 +1,4 @@
-Unique ID,Name
-size1,Small
-size2,Medium
-size3,Large
+Unique ID,Name,Weight
+size1,Small,1
+size2,Medium,2
+size3,Large,3

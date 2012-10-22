@@ -15,6 +15,18 @@ table {
     &:hover {
       @include vertical-gradient(#f2fbff, #e1ebf4);
     }
+
+    &.hidden {
+      display: none;
+    }
+
+    &.type td:first-child {
+      padding-left: 50px; //LTR
+    }
+
+    &.emphasized {
+      @include vertical-gradient(#F4F5DC, #F1F5A6);
+    }
   }
 
   thead tr {
@@ -31,6 +43,12 @@ table {
   th, td {
     border: 1px solid #b7b7b7;
     padding: 9px;
+
+    .minor {
+      font-size: 10px;
+      color: #666;
+      margin-left: 10px; //LTR
+    }
   }
 
   th {
@@ -110,6 +128,19 @@ table {
           border-left: 1px solid #86ce84; //LTR
         }
       }
+    }
+  }
+
+  .expander {
+    display: block;
+    width: 11px;
+    height: 11px;
+    float: left; //LTR
+    margin-right: 10px; //LTR
+    background: url("../images/contract.gif") no-repeat;
+
+    &.colapsed {
+      background-image: url("../images/expand.gif");
     }
   }
 }

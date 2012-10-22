@@ -8,6 +8,7 @@ $plugin = array(
   'description' => t('Show inventory summary per Item/ Season'),
   'required context' => new ctools_context_required(t('Node'), 'node'),
   'category' => t('Opengizra Inventory'),
+  'hook theme' => 'opengizra_inventory_summary_content_type_theme',
 );
 
 /**
@@ -50,9 +51,23 @@ function opengizra_inventory_summary_content_type_render($subtype, $conf, $args,
     $item_nids = array_keys($result['node']);
   }
 
+  // Build an array of inventory types, keyed by TID. Specifying whether the
+  // type should be included in "totals".
+  $excluded_inventory_types = array();
   $vocab = taxonomy_vocabulary_machine_name_load('inventory_type');
-  foreach (taxonomy_get_tree($vocab->vid) as $value) {
-    $tids[] = $value->tid;
+  foreach (taxonomy_get_tree($vocab->vid, 0, NULL, TRUE) as $term) {
+    $wrapper = entity_metadata_wrapper('taxonomy_term', $term);
+    $inventory_types[$term->tid] = array(
+      'include_in_total' => $wrapper->field_include_in_total->value(),
+    );
+    if (!$wrapper->field_include_in_total->value()) {
+      $excluded_inventory_types[] = $wrapper->label();
+    }
+  }
+
+  $total_type_label = t('All types');
+  if ($excluded_inventory_types) {
+    $total_type_label .= t('<span class="minor">Except of @types.</span>', array('@types' => implode(', ', $excluded_inventory_types)));
   }
 
   $header = $rows = array();
@@ -91,19 +106,32 @@ function opengizra_inventory_summary_content_type_render($subtype, $conf, $args,
     return $block;
   }
 
+  drupal_add_js(drupal_get_path('module', $module) . '/plugins/content_types/' . $subtype . '/' . $subtype . '.js');
+
   // Build inventory data info, keyed by the inventory item type TID.
   $inventory = array();
   $inventory_nodes = node_load_multiple(array_keys($result['node']));
   foreach($inventory_nodes as $inventory_node) {
     $wrapper = entity_metadata_wrapper('node', $inventory_node);
     $tid = $wrapper->field_inventory_type->getIdentifier();
+
+    // Determine if we need to add or subtract the quantity from the total
+    // calcualtion.
+    $in_warehouse = $wrapper->field_inventory_type->field_in_warehouse->value();
+
     $nid = $wrapper->field_item_variant->getIdentifier();
+
+    // Don't affect the total with excluded inventory types.
+    $include_in_total = $inventory_types[$tid]['include_in_total'];
 
     $inventory[$nid]['label'] = $wrapper->field_item_variant->label();
     $inventory[$nid]['types'][$tid]['type_label'] = $wrapper->field_inventory_type->label();
+    $inventory[$nid]['types'][$tid]['in_total'] = $include_in_total;
 
-    $inventory[$nid]['types'][$tid]['availablity'] = !empty($inventory[$nid]['availablity']) ? $inventory[$nid]['availablity'] : 0;
-    $inventory[$nid]['types'][$tid]['quantity'] = !empty($inventory[$nid]['quantity']) ? $inventory[$nid]['quantity'] : 0;
+    foreach ($size_tree as $term) {
+      $inventory[$nid]['total'][$term->tid]['availablity'] = !empty($inventory[$nid]['total'][$term->tid]['availablity']) ? $inventory[$nid]['total'][$term->tid]['availablity'] : 0;
+      $inventory[$nid]['total'][$term->tid]['quantity'] = !empty($inventory[$nid]['total'][$term->tid]['quantity']) ? $inventory[$nid]['total'][$term->tid]['quantity'] : 0;
+    }
 
     $is_ordered = opengizra_inventory_is_inventory_item_ordered($inventory_node->nid);
 
@@ -112,27 +140,25 @@ function opengizra_inventory_summary_content_type_render($subtype, $conf, $args,
       $info = !empty($inventory[$nid]['types'][$tid]['data'][$size_tid]) ? $inventory[$nid]['types'][$tid]['data'][$size_tid] : array();
       $info['availability'] = !empty($info['availability']) ? $info['availability'] : 0;
       $info['quantity'] = !empty($info['quantity']) ? $info['quantity'] : 0;
-      // Determine if we need to add or subtract the quantity from the
-      // total calcualtion.
-      $status = $wrapper->field_inventory_status->value();
+
       $quantity = $quantity_wrapper->field_quantity->value();
 
       // Inventory line with Order ref are always sold (or ordered) stock and
       // need to be deducted from total and availability if marked as OUT, and
-      // from availability only if marked as IN .
+      // from availability only if marked as IN. IN = 0, OUT = 1.
       if ($is_ordered) {
-        if (!$status) {
+        if (!$in_warehouse) {
           $info['availability'] -= $quantity;
-          $inventory[$nid]['types'][$tid]['availablity'] -= $quantity;
+          $inventory[$nid]['total'][$size_tid]['availablity'] -= $include_in_total ? $quantity : 0;
         }
       }
       else {
-        $operation = $status ? 1 : -1;
+        $operation = $in_warehouse ? -1 : 1;
         $info['availability'] += $quantity * $operation;
-        $inventory[$nid]['types'][$tid]['availablity'] += $quantity * $operation;
-        if ($status) {
+        $inventory[$nid]['total'][$size_tid]['availablity'] += $include_in_total ? ($quantity * $operation) : 0;
+        if ($in_warehouse) {
           $info['quantity'] += $quantity;
-          $inventory[$nid]['types'][$tid]['quantity'] += $quantity;
+          $inventory[$nid]['total'][$size_tid]['quantity'] += $include_in_total ? $quantity : 0;
         }
       }
 
@@ -147,11 +173,24 @@ function opengizra_inventory_summary_content_type_render($subtype, $conf, $args,
     $variant_label = $variant_data['label'];
 
     // Variant total row.
-    $row = array(t('@variant - Total', array('@variant' => $variant_label)));
-    // TODO: Fix the total row.
-    // foreach($size_tree as $term) {
-      // $row[] = opengizra_inventory_summary_quantity_cell($variant_data['types'][$term->tid]['quantity'], $variant_data['types'][$term->tid]['availablity']);
-    // }
+    $row = array(
+      'data' => array(),
+      'class' => array('total'),
+    );
+    $params = array(
+      'attributes' => array(
+        'class' => array('expander', 'colapsed'),
+        'variant-nid' => $nid,
+      )
+    );
+    $expand_link = l('', url(''), $params);
+    $row['data'][] = $expand_link . t('@variant - Total', array('@variant' => $variant_label));
+    foreach($size_tree as $term) {
+      $row['data'][] = opengizra_inventory_summary_quantity_cell($variant_data['total'][$term->tid]['quantity'], $variant_data['total'][$term->tid]['availablity']);
+    }
+
+    // Total row description.
+    $row['data'][] = $total_type_label;
 
     $rows[] = $row;
 
@@ -160,19 +199,29 @@ function opengizra_inventory_summary_content_type_render($subtype, $conf, $args,
         // There are no values for this inventory type.
         continue;
       }
-      $row = array();
+      $row = array(
+        'data' => array(),
+        'class' => array('type', 'hidden', 'variant-nid-' . $nid),
+      );
 
-      $row[] = $variant_label;
+      // Add a class specifying that the row is included in the total, to enable
+      // highlighting it when the total is hovered.
+      if ($variant_inventory_data['in_total']) {
+        $row['class'][] = 'in-total';
+      }
+
+      $row['data'][] = $variant_label;
 
       foreach($size_tree as $term) {
         if (empty($variant_inventory_data['data'][$term->tid])) {
-          $row[] = '-';
+          $row['data'][] = 0;
           continue;
         }
 
-        $row[] = opengizra_inventory_summary_quantity_cell($variant_inventory_data['data'][$term->tid]['quantity'], $variant_inventory_data['data'][$term->tid]['availability']);
+        $quantity = $variant_inventory_data['data'][$term->tid]['quantity'] + abs($variant_inventory_data['data'][$term->tid]['availability']);
+        $row['data'][] = $quantity;
       }
-      $row[] = $variant_inventory_data['type_label'];
+      $row['data'][] = $variant_inventory_data['type_label'];
       $rows[] = $row;
     }
   }
@@ -193,25 +242,52 @@ function opengizra_inventory_summary_content_type_edit_form($form, &$form_state)
 }
 
 /**
- * TODO: Add tpl for the mess.
+ * Render a quantity / availablity cell.
+ *
+ * @param $quantity
+ *   The quantity.
+ * @param $availablity
+ *   How much is actualy available out of the quantity.
+ *
+ * @return
+ *   Rendered "inventory cell".
  */
 function opengizra_inventory_summary_quantity_cell($quantity, $availability) {
-  $cell = '<div class="quantity">' . $quantity . '</div>';
+  $params = array(
+    'quantity' => $quantity,
+    'availability' => $availability,
+    'label' => NULL,
+    'class' => NULL,
+  );
 
   if ($availability) {
     if ($availability > 0) {
-      $class = 'available';
-      $label = t('Available');
+      $params['class'] = 'available';
+      $params['label'] = t('Available');
     }
     else {
-      $class = 'backorder';
-      $label = t('Backorder');
+      $params['class'] = 'backorder';
+      $params['label'] = t('Backorder');
       // Display the absolute value.
-      $availability *= -1;
+      $params['availability'] *= -1;
     }
-
-    $cell .= "<div class=\"availability $class\"><span class=\"amount\">$availability</span><span class=\"label\">$label</span></div>";
   }
 
-  return $cell;
+  return theme('opengizra_inventory_cell', $params);
+}
+
+/**
+ * Delegated hook_theme().
+ */
+function opengizra_inventory_summary_content_type_theme(&$theme, $plugin) {
+  $theme['opengizra_inventory_cell'] = array(
+    'variables' => array(
+      'quantity' => NULL,
+      'availability' => NULL,
+      'label' => NULL,
+      'class' => NULL,
+    ),
+    'path' => $plugin['path'],
+    'template' => 'inventory-cell',
+  );
 }
