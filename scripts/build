@@ -34,7 +34,9 @@ cd $ROOT
     rm -Rf www/sites/default
     mv sites-backup/ www/sites/default
   fi
-
   # Move the profile in place.
   ln -s ../../opengizra www/profiles/opengizra
+
+  # On some computer replace ln with this.
+  #cp -R opengizra/ www/profiles/opengizra/
 )
