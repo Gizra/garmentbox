@@ -476,26 +476,26 @@ class openGizraOrders extends openGizraMigration {
   public $bundle = 'order';
 
   public $dependencies = array(
-    // 'openGizraSeasons',
-    // 'openGizraCustomer',
-    // 'openGizraAddresses',
+    'openGizraSeasons',
+    'openGizraCustomers',
+    'openGizraAddresses',
     'openGizraInventoryLines',
   );
 
   public function __construct() {
     parent::__construct();
 
-    // $this
-      // ->addFieldMapping('field_season', 'field_season')
-      // ->sourceMigration('openGizraSeasons');
-//
-    // $this
-      // ->addFieldMapping('field_customer', 'field_customer')
-      // ->sourceMigration('openGizraCustomer');
-//
-    // $this
-      // ->addFieldMapping('field_address', 'field_address')
-      // ->sourceMigration('openGizraAddresses');
+    $this
+      ->addFieldMapping('field_season', 'field_season')
+      ->sourceMigration('openGizraSeasons');
+
+    $this
+      ->addFieldMapping('field_customer', 'field_customer')
+      ->sourceMigration('openGizraCustomers');
+
+    $this
+      ->addFieldMapping('field_address', 'field_address')
+      ->sourceMigration('openGizraAddresses');
 
     $this
       ->addFieldMapping('field_inventory_line_inline', 'field_inventory_line_inline')
