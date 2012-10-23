@@ -7,42 +7,46 @@ table tr {
   height: 20px;
 }
 /* line 8, ../sass/partials/widget/_table.scss */
-table tbody tr {
+table tbody > tr {
   background-color: #fcfcfc;
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#fcfcfc, endColorstr=#f0f0f0);
   background-image: -moz-linear-gradient(center top, #fcfcfc, #f0f0f0);
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fcfcfc), to(#f0f0f0));
 }
 /* line 11, ../sass/partials/widget/_table.scss */
-table tbody tr.even {
+table tbody > tr.even {
   background-color: #fbfffe;
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#fbfffe, endColorstr=#f1f5f4);
   background-image: -moz-linear-gradient(center top, #fbfffe, #f1f5f4);
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fbfffe), to(#f1f5f4));
 }
 /* line 15, ../sass/partials/widget/_table.scss */
-table tbody tr:hover {
+table tbody > tr:hover {
   background-color: #f2fbff;
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f2fbff, endColorstr=#e1ebf4);
   background-image: -moz-linear-gradient(center top, #f2fbff, #e1ebf4);
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f2fbff), to(#e1ebf4));
 }
 /* line 19, ../sass/partials/widget/_table.scss */
-table tbody tr.hidden {
+table tbody > tr.hidden {
   display: none;
 }
 /* line 23, ../sass/partials/widget/_table.scss */
-table tbody tr.type td:first-child {
+table tbody > tr.type td:first-child {
   padding-left: 50px;
 }
 /* line 27, ../sass/partials/widget/_table.scss */
-table tbody tr.emphasized {
+table tbody > tr.emphasized {
   background-color: #f4f5dc;
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#f4f5dc, endColorstr=#f1f5a6);
   background-image: -moz-linear-gradient(center top, #f4f5dc, #f1f5a6);
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f4f5dc), to(#f1f5a6));
 }
-/* line 32, ../sass/partials/widget/_table.scss */
+/* line 31, ../sass/partials/widget/_table.scss */
+table tbody > tr.expandable {
+  cursor: pointer;
+}
+/* line 36, ../sass/partials/widget/_table.scss */
 table thead tr {
   background: #eeeeee;
   /* Old browsers */
@@ -61,27 +65,31 @@ table thead tr {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#d3d3d3',GradientType=0 );
   /* IE6-9 */
 }
-/* line 43, ../sass/partials/widget/_table.scss */
+/* line 47, ../sass/partials/widget/_table.scss */
 table th, table td {
   border: 1px solid #b7b7b7;
   padding: 9px;
 }
-/* line 47, ../sass/partials/widget/_table.scss */
+/* line 51, ../sass/partials/widget/_table.scss */
 table th .minor, table td .minor {
   font-size: 10px;
   color: #666;
   margin-left: 10px;
 }
-/* line 54, ../sass/partials/widget/_table.scss */
+/* line 58, ../sass/partials/widget/_table.scss */
 table th {
   color: #5e5e5e;
   font-weight: normal;
 }
-/* line 59, ../sass/partials/widget/_table.scss */
+/* line 65, ../sass/partials/widget/_table.scss */
 table td.active {
   background-color: rgba(50, 50, 50, 0.05);
 }
-/* line 63, ../sass/partials/widget/_table.scss */
+/* line 69, ../sass/partials/widget/_table.scss */
+table td.emphasized {
+  font-weight: bold;
+}
+/* line 74, ../sass/partials/widget/_table.scss */
 table .views-field-edit-node a, table li.edit a {
   width: 28px;
   height: 27px;
@@ -101,21 +109,21 @@ table .views-field-edit-node a:hover, table li.edit a:hover {
 table .views-field-edit-node a:hover, table li.edit a:hover {
   background-image: url("../images/edit-active.png");
 }
-/* line 67, ../sass/partials/widget/_table.scss */
+/* line 78, ../sass/partials/widget/_table.scss */
 table .field-collection-view-links {
   margin: 0;
   padding: 0;
 }
-/* line 71, ../sass/partials/widget/_table.scss */
+/* line 82, ../sass/partials/widget/_table.scss */
 table .field-collection-view-links li {
   margin: 0 0 0 5px;
   float: left;
 }
-/* line 75, ../sass/partials/widget/_table.scss */
+/* line 86, ../sass/partials/widget/_table.scss */
 table .field-collection-view-links li.first {
   margin-left: 0;
 }
-/* line 79, ../sass/partials/widget/_table.scss */
+/* line 90, ../sass/partials/widget/_table.scss */
 table .field-collection-view-links li.delete a {
   width: 28px;
   height: 27px;
@@ -135,12 +143,12 @@ table .field-collection-view-links li.delete a:hover {
 table .field-collection-view-links li.delete a:hover {
   background-image: url("../images/delete-active.png");
 }
-/* line 85, ../sass/partials/widget/_table.scss */
+/* line 96, ../sass/partials/widget/_table.scss */
 table .quantity {
   float: left;
   margin-right: 5px;
 }
-/* line 90, ../sass/partials/widget/_table.scss */
+/* line 101, ../sass/partials/widget/_table.scss */
 table .availability {
   font-size: 12px;
   float: left;
@@ -148,41 +156,41 @@ table .availability {
   color: white;
   padding: 1px 0;
 }
-/* line 97, ../sass/partials/widget/_table.scss */
+/* line 108, ../sass/partials/widget/_table.scss */
 table .availability span {
   padding: 1px 6px;
 }
-/* line 101, ../sass/partials/widget/_table.scss */
+/* line 112, ../sass/partials/widget/_table.scss */
 table .availability.backorder {
   background-color: #fe1511;
   -moz-box-shadow: 0 -1px 1px 0 #ff8587;
   -webkit-box-shadow: 0 -1px 1px 0 #ff8587;
   box-shadow: 0 -1px 1px 0 #ff8587;
 }
-/* line 107, ../sass/partials/widget/_table.scss */
+/* line 118, ../sass/partials/widget/_table.scss */
 table .availability.backorder span.amount {
   border-right: 1px solid #d80202;
 }
-/* line 111, ../sass/partials/widget/_table.scss */
+/* line 122, ../sass/partials/widget/_table.scss */
 table .availability.backorder span.label {
   border-left: 1px solid #ff8587;
 }
-/* line 117, ../sass/partials/widget/_table.scss */
+/* line 128, ../sass/partials/widget/_table.scss */
 table .availability.available {
   background-color: #099609;
   -moz-box-shadow: 0 -1px 1px 0 #ccebcc;
   -webkit-box-shadow: 0 -1px 1px 0 #ccebcc;
   box-shadow: 0 -1px 1px 0 #ccebcc;
 }
-/* line 123, ../sass/partials/widget/_table.scss */
+/* line 134, ../sass/partials/widget/_table.scss */
 table .availability.available span.amount {
   border-right: 1px solid #018305;
 }
-/* line 127, ../sass/partials/widget/_table.scss */
+/* line 138, ../sass/partials/widget/_table.scss */
 table .availability.available span.label {
   border-left: 1px solid #86ce84;
 }
-/* line 134, ../sass/partials/widget/_table.scss */
+/* line 145, ../sass/partials/widget/_table.scss */
 table .expander {
   display: block;
   width: 11px;
@@ -191,7 +199,7 @@ table .expander {
   margin-right: 10px;
   background: url("../images/contract.gif") no-repeat;
 }
-/* line 142, ../sass/partials/widget/_table.scss */
+/* line 153, ../sass/partials/widget/_table.scss */
 table .expander.colapsed {
   background-image: url("../images/expand.gif");
 }

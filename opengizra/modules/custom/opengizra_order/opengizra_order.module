@@ -5,3 +5,12 @@
  */
 
 include_once 'opengizra_order.features.inc';
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function opengizra_order_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'ctools') {
+    return 'plugins/' . $plugin;
+  }
+}

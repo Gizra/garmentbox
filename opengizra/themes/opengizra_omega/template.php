@@ -10,10 +10,18 @@
  * Page preprocess.
  */
 function opengizra_omega_preprocess_page(&$variables) {
-  if ($node = menu_get_object()) {
-    $variables['page']['title'] = node_view($node, 'opengizra_header');
+  $node = menu_get_object();
+  // When the node wasn't loaded, try fetching it from the menu item.
+  if (!$node) {
+    $item = menu_get_item();
+    if (substr($item['path'], 0, 8) == 'season/%') {
+      $node = $item['map'][1]->data;
+    }
   }
 
+  if ($node) {
+    $variables['page']['title'] = node_view($node, 'opengizra_header');
+  }
 }
 
 /**

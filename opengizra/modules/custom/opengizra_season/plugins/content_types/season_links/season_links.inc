@@ -25,9 +25,9 @@ function opengizra_season_season_links_content_type_render($subtype, $conf, $arg
 
   $items = array();
   $items[] = l(t('Task List'), "node/$nid");
-  $items[] = l(t('Items'), "node/$nid/items");
-  $items[] = l(t('Inventory'), "node/$nid/inventory");
-  $items[] = l(t('Orders'), "node/$nid/orders");
+  $items[] = l(t('Items'), "season/$nid/items");
+  $items[] = l(t('Inventory'), "season/$nid/inventory");
+  $items[] = l(t('Orders'), "season/$nid/orders");
 
   $block->content = theme('item_list', array('items' => $items));
   return $block;

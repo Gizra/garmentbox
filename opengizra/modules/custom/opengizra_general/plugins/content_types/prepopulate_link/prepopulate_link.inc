@@ -40,6 +40,11 @@ function opengizra_general_prepopulate_link_content_type_render($subtype, $conf,
       $link_text = t('Add new variation');
       break;
 
+    case 'order':
+      $field_name = 'field_season';
+      $link_text = t('Add new order');
+      break;
+
     default:
       return;
   }

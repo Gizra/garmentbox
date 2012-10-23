@@ -132,6 +132,20 @@ class openGizraBolTerms extends openGizraMigration {
   public $bundle = 'bol';
 }
 
+/**
+ * Migrate order status terms.
+ */
+class openGizraOrderStatusTerms extends openGizraMigration {
+
+  public $csvColumns = array(
+    array('id', 'Unique ID'),
+    array('name', 'Name'),
+  );
+
+  public $entityType = 'taxonomy_term';
+  public $bundle = 'order_status';
+}
+
 ///////////////////////////////
 // Nodes
 
@@ -243,7 +257,7 @@ class openGizraCustomers extends openGizraMigration {
   public $bundle = 'customer';
 
   public $dependencies = array(
-    'openGizraAddresses',
+     'openGizraAddresses',
   );
 
   public function __construct() {
@@ -470,6 +484,7 @@ class openGizraOrders extends openGizraMigration {
     array('field_customer', 'Customer'),
     array('field_address', 'Address'),
     array('field_inventory_line_inline', 'Inventory line'),
+    array('field_order_status', 'Status'),
   );
 
   public $entityType = 'node';
@@ -480,6 +495,7 @@ class openGizraOrders extends openGizraMigration {
     'openGizraCustomers',
     'openGizraAddresses',
     'openGizraInventoryLines',
+    'openGizraOrderStatusTerms'
   );
 
   public function __construct() {
@@ -500,6 +516,15 @@ class openGizraOrders extends openGizraMigration {
     $this
       ->addFieldMapping('field_inventory_line_inline', 'field_inventory_line_inline')
       ->sourceMigration('openGizraInventoryLines');
+
+    $this
+      ->addFieldMapping('field_order_status', 'field_order_status')
+      ->sourceMigration('openGizraOrderStatusTerms');
+  }
+
+  function prepareRow($row) {
+    parent::prepareRow($row);
+    $row->field_inventory_line_inline = explode('; ', $row->field_inventory_line_inline);
   }
 }
 

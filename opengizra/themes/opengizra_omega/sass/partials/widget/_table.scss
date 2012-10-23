@@ -5,7 +5,7 @@ table {
     height: 20px;
   }
 
-  tbody tr {
+  tbody > tr {
     @include vertical-gradient(#fcfcfc, #f0f0f0);
 
     &.even {
@@ -26,6 +26,10 @@ table {
 
     &.emphasized {
       @include vertical-gradient(#F4F5DC, #F1F5A6);
+    }
+
+    &.expandable {
+      cursor: pointer;
     }
   }
 
@@ -56,8 +60,15 @@ table {
     font-weight: normal;
   }
 
-  td.active {
-    background-color: rgba(50, 50, 50, 0.05);
+  td {
+
+    &.active {
+      background-color: rgba(50, 50, 50, 0.05);
+    }
+
+    &.emphasized {
+      font-weight: bold;
+    }
   }
 
   .views-field-edit-node a, li.edit a {

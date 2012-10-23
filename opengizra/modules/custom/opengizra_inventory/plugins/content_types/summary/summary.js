@@ -5,17 +5,15 @@
  */
 Drupal.behaviors.OpenGizraInventorySummary = {
   attach: function (context) {
-    $('.expander').click(function(event) {
+    $('tr.expandable td').click(function(event) {
       event.preventDefault();
-      var expander = $(event.currentTarget);
-      var nid = expander.attr('variant-nid');
-
-      expander.parentsUntil('table').find('tr.variant-nid-' + nid).toggle('fast');
-      expander.toggleClass('colapsed');
+      var totalRow = $(event.currentTarget).parentsUntil('tbody');
+      totalRow.parentsUntil('table').find('tr.variant-nid-' + totalRow.attr('variant-nid')).toggle('fast');
+      totalRow.find('.expander').toggleClass('colapsed');
     });
 
-    $('tr.total').hover(function(event) {
-      var nid = $(event.currentTarget).find('.expander').attr('variant-nid');
+    $('tr.expandable').hover(function(event) {
+      var nid = $(event.currentTarget).attr('variant-nid');
       $(event.currentTarget).parentsUntil('table').find('tr.in-total.variant-nid-' + nid).toggleClass('emphasized');
     });
 

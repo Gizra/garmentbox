@@ -175,12 +175,12 @@ function opengizra_inventory_summary_content_type_render($subtype, $conf, $args,
     // Variant total row.
     $row = array(
       'data' => array(),
-      'class' => array('total'),
+      'class' => array('expandable'),
+      'variant-nid' => $nid,
     );
     $params = array(
       'attributes' => array(
         'class' => array('expander', 'colapsed'),
-        'variant-nid' => $nid,
       )
     );
     $expand_link = l('', url(''), $params);
