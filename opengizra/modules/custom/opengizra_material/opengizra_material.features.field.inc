@@ -34,7 +34,7 @@ function opengizra_material_field_default_fields() {
       'bundle' => 'field_source_info',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'Conversion form weight to length.',
+      'description' => 'Conversion from weight to length.',
       'display' => array(
         'default' => array(
           'label' => 'above',
