@@ -310,7 +310,10 @@ function opengizra_season_default_page_manager_pages() {
   $page->admin_title = 'Season orders';
   $page->admin_description = '';
   $page->path = 'season/%node/orders';
-  $page->access = array();
+  $page->access = array(
+    'type' => 'none',
+    'settings' => NULL,
+  );
   $page->menu = array();
   $page->arguments = array(
     'node' => array(

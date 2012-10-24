@@ -8,7 +8,6 @@ dependencies[] = ctools
 dependencies[] = entityreference
 dependencies[] = features
 dependencies[] = field_collection
-dependencies[] = field_slideshow
 dependencies[] = image
 dependencies[] = image_delta_formatter
 dependencies[] = jcarousel

@@ -35,7 +35,7 @@ function opengizra_item_main_material_content_type_render($subtype, $conf, $args
 
   // Wrap the host entity of the first item.
   $wrapper = entity_metadata_wrapper('node', $entity->hostEntity());
-  if (!$wrapper->field_images->value()) {
+  if (!$wrapper->value() || !$wrapper->field_images->value()) {
     return;
   }
   // Display the first material image.

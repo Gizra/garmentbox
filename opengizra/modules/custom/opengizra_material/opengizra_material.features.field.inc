@@ -810,7 +810,7 @@ function opengizra_material_field_default_fields() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Body');
-  t('Conversion form weight to length.');
+  t('Conversion from weight to length.');
   t('Conversion ratio');
   t('Images');
   t('Length conversion');
