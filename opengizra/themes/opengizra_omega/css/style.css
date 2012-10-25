@@ -200,7 +200,18 @@ table .expander {
   background: url("../images/contract.gif") no-repeat;
 }
 /* line 153, ../sass/partials/widget/_table.scss */
-table .expander.colapsed {
+table .expander.collapsed {
+  background-image: url("../images/expand.gif");
+}
+
+/* line 161, ../sass/partials/widget/_table.scss */
+html.js fieldset.collapsible .fieldset-legend {
+  background: url("../images/contract.gif") no-repeat;
+  padding-left: 20px;
+  margin-left: 10px;
+}
+/* line 167, ../sass/partials/widget/_table.scss */
+html.js fieldset.collapsible.collapsed .fieldset-legend {
   background-image: url("../images/expand.gif");
 }
 

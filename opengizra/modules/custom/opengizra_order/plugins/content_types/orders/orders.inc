@@ -174,7 +174,7 @@ function opengizra_order_orders_content_type_render($subtype, $conf, $args, $con
     );
     $params = array(
       'attributes' => array(
-        'class' => array('expander', 'colapsed'),
+        'class' => array('expander', 'collapsed'),
       )
     );
     $expand_link = l('', url(''), $params);

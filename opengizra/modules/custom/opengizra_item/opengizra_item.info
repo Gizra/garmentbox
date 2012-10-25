@@ -50,6 +50,7 @@ features[field][] = node-item_variant-title_field
 features[image][] = header_thumbnail
 features[image][] = material_thumbnail
 features[image][] = variant_preview
+features[image][] = variant_thumbnail
 features[node][] = item
 features[node][] = item_variant
 features[page_manager_handlers][] = node_view_panel_context_2

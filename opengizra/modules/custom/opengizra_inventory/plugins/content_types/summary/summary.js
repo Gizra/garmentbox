@@ -9,7 +9,7 @@ Drupal.behaviors.OpenGizraInventorySummary = {
       event.preventDefault();
       var totalRow = $(event.currentTarget).parentsUntil('tbody');
       totalRow.parentsUntil('table').find('tr.variant-nid-' + totalRow.attr('variant-nid')).toggle('fast');
-      totalRow.find('.expander').toggleClass('colapsed');
+      totalRow.find('.expander').toggleClass('collapsed');
     });
 
     $('tr.expandable').hover(function(event) {

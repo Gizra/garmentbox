@@ -180,7 +180,7 @@ function opengizra_inventory_summary_content_type_render($subtype, $conf, $args,
     );
     $params = array(
       'attributes' => array(
-        'class' => array('expander', 'colapsed'),
+        'class' => array('expander', 'collapsed'),
       )
     );
     $expand_link = l('', url(''), $params);

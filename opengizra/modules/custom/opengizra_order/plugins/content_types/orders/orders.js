@@ -10,7 +10,7 @@ Drupal.behaviors.OpenGizraInventorySummary = {
       var totalRow = $(event.currentTarget).parentsUntil('tbody');
 
       totalRow.parentsUntil('table').find('tr#' + totalRow.attr('ref')).toggle('fast');
-      totalRow.find('.expander').toggleClass('colapsed');
+      totalRow.find('.expander').toggleClass('collapsed');
     });
   }
 };

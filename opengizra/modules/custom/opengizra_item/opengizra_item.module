@@ -90,3 +90,36 @@ function opengizra_item_form_item_variant_node_form_alter(&$form, $form_state) {
   }
 }
 
+/**
+ * Fetch variant's main material.
+ *
+ * @param $node
+ *   An item variant node.
+ *
+ * @return
+ *   Rendered icon of the item variant main material.
+ */
+function opengizra_item_get_main_material_icon($node) {
+  $wrapper = entity_metadata_wrapper('node', $node);
+  if (!$wrapper->field_bom_info->value()) {
+    return;
+  }
+
+  // Get the first BOM collection item.
+  if (!$entity = $wrapper->field_bom_info->get(0)->field_material_item->value()) {
+    return;
+  }
+
+  // Wrap the host entity of the first item.
+  $wrapper = entity_metadata_wrapper('node', $entity->hostEntity());
+  if (!$wrapper->value() || !$wrapper->field_images->value()) {
+    return;
+  }
+
+  // Display the first material image.
+  $image = $wrapper->field_images->get(0)->value();
+  $image = theme('image_style', array('style_name' => 'material_thumbnail', 'path' => $image['uri']));
+
+  return l($image, 'node/' . $wrapper->getIdentifier(), array('html' => TRUE, 'attributes' => array('title' => $wrapper->label())));
+}
+
