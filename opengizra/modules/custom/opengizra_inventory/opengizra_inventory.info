@@ -27,6 +27,7 @@ features[field][] = node-inventory_line-field_item_variant
 features[field][] = node-inventory_line-field_price
 features[field][] = node-inventory_line-field_production_start_date
 features[field][] = node-inventory_line-field_quantity_info
+features[field][] = taxonomy_term-inventory_type-field_closed_stock
 features[field][] = taxonomy_term-inventory_type-field_in_warehouse
 features[field][] = taxonomy_term-inventory_type-field_include_in_total
 features[node][] = inventory_line

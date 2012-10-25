@@ -673,6 +673,69 @@ function opengizra_inventory_field_default_fields() {
     ),
   );
 
+  // Exported field: 'taxonomy_term-inventory_type-field_closed_stock'.
+  $fields['taxonomy_term-inventory_type-field_closed_stock'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_closed_stock',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'list',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => 'No',
+          1 => 'Yes',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'list_boolean',
+    ),
+    'field_instance' => array(
+      'bundle' => 'inventory_type',
+      'default_value' => array(
+        0 => array(
+          'value' => 0,
+        ),
+      ),
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'list',
+          'settings' => array(),
+          'type' => 'list_default',
+          'weight' => 3,
+        ),
+      ),
+      'entity_type' => 'taxonomy_term',
+      'field_name' => 'field_closed_stock',
+      'label' => 'Closed stock',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(
+          'display_label' => 1,
+        ),
+        'type' => 'options_onoff',
+        'weight' => '34',
+      ),
+    ),
+  );
+
   // Exported field: 'taxonomy_term-inventory_type-field_in_warehouse'.
   $fields['taxonomy_term-inventory_type-field_in_warehouse'] = array(
     'field_config' => array(
@@ -801,6 +864,7 @@ function opengizra_inventory_field_default_fields() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Closed stock');
   t('Expected delivery date');
   t('In warehouse');
   t('Include in total');

@@ -84,6 +84,7 @@ class openGizraInventoryTypeTerms extends openGizraMigration {
     array('name', 'Name'),
     array('field_include_in_total', 'Include in total'),
     array('field_in_warehouse', 'In warehouse'),
+    array('field_closed_stock', 'Closed stock'),
   );
 
   public $entityType = 'taxonomy_term';
@@ -93,6 +94,7 @@ class openGizraInventoryTypeTerms extends openGizraMigration {
     parent::__construct();
     $this->addFieldMapping('field_include_in_total', 'field_include_in_total');
     $this->addFieldMapping('field_in_warehouse', 'field_in_warehouse');
+    $this->addFieldMapping('field_closed_stock', 'field_closed_stock');
   }
 }
 

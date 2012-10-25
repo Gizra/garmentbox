@@ -98,45 +98,104 @@ table {
     margin-right: 5px; //LTR
   }
 
-  .availability {
-    font-size: 12px;
-    float: left; //LTR
-    border-radius: 4px;
-    color: white;
-    padding: 1px 0;
+  .inventory-cell {
+    position: relative;
+    width: 200px;
 
-    span {
-      padding: 1px 6px;
-    }
-
-    &.backorder {
-      background-color: #fe1511;
-      @include box-shadow(0, -1px, 1px, 0, #ff8587);
+    .main-figure {
+      position: absolute;
+      top: 50%;
+      left: 0; //LTR
+      margin-top: -10px;
+      float: left; //LTR
+      border-radius: 6px;
+      background-color: #454444;
+      @include box-shadow(0, -1px, 1px, 0, #8C8989);
+      color: white;
+      padding: 1px 0;
 
       span {
+        padding: 1px 8px;
 
-        &.amount {
-          border-right: 1px solid #d80202; //LTR
+        &.amount.with-title {
+          border-right: 1px solid #2E2E2E; //LTR
         }
 
         &.label {
-          border-left: 1px solid #ff8587; //LTR
+          border-left: 1px solid #949494; //LTR
         }
       }
     }
 
-    &.available {
-      background-color: #099609;
-      @include box-shadow(0, -1px, 1px, 0, #ccebcc);
+    .sub-figures {
+      float: right; //LTR
 
-      span {
+      .sub-figure {
+        margin-right: 5px; //LTR
+        margin-top: 2px;
+        font-size: 11px;
+        float: left; //LTR
+        clear: left; //LTR
+        border-radius: 4px;
+        color: white;
+        padding: 1px 0;
+        width: 100%;
 
-        &.amount {
-          border-right: 1px solid #018305; //LTR
+        &:first-child {
+          margin-top: 0;
         }
 
-        &.label {
-          border-left: 1px solid #86ce84; //LTR
+        span {
+          padding: 1px 6px;
+          min-width: 20px;
+        }
+
+        &.future_stock {
+          background-color: #E0B21B;
+          @include box-shadow(0, -1px, 1px, 0, #E6CD7E);
+
+          span {
+
+            &.amount {
+              border-right: 1px solid #856A13; //LTR
+            }
+
+            &.label {
+              border-left: 1px solid #D6CBA5; //LTR
+            }
+          }
+        }
+
+        &.ordered {
+          background-color: #5555FA;
+          @include box-shadow(0, -1px, 1px, 0, #BBBBF2);
+
+          span {
+
+            &.amount {
+              border-right: 1px solid #16167A; //LTR
+            }
+
+            &.label {
+              border-left: 1px solid #9898D6; //LTR
+            }
+          }
+        }
+
+        &.available {
+          background-color: #099609;
+          @include box-shadow(0, -1px, 1px, 0, #ccebcc);
+
+          span {
+
+            &.amount {
+              border-right: 1px solid #018305; //LTR
+            }
+
+            &.label {
+              border-left: 1px solid #86ce84; //LTR
+            }
+          }
         }
       }
     }

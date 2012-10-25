@@ -1,6 +1,7 @@
-Unique ID,Name,Include in total,In warehouse
-inventoryType1,Future production,1,0
-inventoryType2,Current production,1,0
-inventoryType3,Consignment,0,0
-inventoryType4,Regular stock,1,1
-inventoryType5,Defective,0,1
+Unique ID,Name,Include in total,In warehouse,Closed stock
+inventoryType1,Future production,1,0,0
+inventoryType2,Current production,1,0,0
+inventoryType3,Consignment,0,0,0
+inventoryType4,Regular stock,1,1,0
+inventoryType5,Defective,0,1,0
+inventoryType6,Sent / Sold,0,0,1
