@@ -2,6 +2,27 @@
   background: url("../images/header-bg.png") repeat-x;
   height: 38px;
   padding-top: 14px;
+
+  #block-search-form {
+    display: none;
+  }
+
+  .region-header {
+    float: right; //LTR
+
+    #block-system-user-menu ul{
+      padding: 0;
+      margin: 0;
+
+      li {
+        list-style-type: none;
+        list-style-image: none;
+        display: block;
+        float: left; //LTR
+        font-size: 11px;
+      }
+    }
+  }
 }
 
 #title {

@@ -44,6 +44,8 @@ function opengizra_import_data() {
   foreach ($migrations as $machine_name => $migration) {
     $operations[] =  array('_opengizra_import_data', array($machine_name, t('Importing content.')));
   }
+  // Perform post-import tasks.
+  $operations[] = array('_opengizra_setup_blocks', array(t('Setup blocks.')));
 
   $batch = array(
     'title' => t('Importing content'),
@@ -62,4 +64,41 @@ function _opengizra_import_data($operation, $type, &$context) {
   $context['message'] = t('@operation', array('@operation' => $type));
   $migration =  Migration::getInstance($operation);
   $migration->processImport();
+}
+
+/**
+ * BatchAPI callback.
+ *
+ * @see opengizra_profile_import_data()
+ */
+function _opengizra_setup_blocks($operation, $type, &$context) {
+  $default_theme = variable_get('theme_default', 'opengizra_omega');
+
+  $blocks = array(
+    array(
+      'module' => 'system',
+      'delta' => 'user-menu',
+      'theme' => $default_theme,
+      'status' => 1,
+      'weight' => 0,
+      'region' => 'header',
+      'pages' => '',
+      'title' => '<none>',
+      'cache' => DRUPAL_NO_CACHE,
+    ),
+  );
+
+  drupal_static_reset();
+  _block_rehash($default_theme);
+  foreach ($blocks as $record) {
+    $module = array_shift($record);
+    $delta = array_shift($record);
+    $theme = array_shift($record);
+    db_update('block')
+      ->fields($record)
+      ->condition('module', $module)
+      ->condition('delta', $delta)
+      ->condition('theme', $theme)
+      ->execute();
+  }
 }

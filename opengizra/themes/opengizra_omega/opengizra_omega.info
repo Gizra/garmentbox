@@ -14,6 +14,7 @@ features[] = favicon
 features[] = name
 features[] = slogan
 
+regions[header] = Header
 regions[title] = Title
 regions[navigation] = Navigation
 regions[banner] = Banner
