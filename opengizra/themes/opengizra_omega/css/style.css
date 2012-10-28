@@ -427,7 +427,8 @@ html.js fieldset.collapsible.collapsed .fieldset-legend {
   font-family: Dosis, Arial, Helvetica, sans-serif;
 }
 /* line 36, ../sass/partials/layout/_header.scss */
-#title .field-name-title-field {
+#title h1 {
+  font-weight: normal;
   float: left;
   margin: 0;
   line-height: 68px;
@@ -435,7 +436,7 @@ html.js fieldset.collapsible.collapsed .fieldset-legend {
   text-shadow: 0 1px #cadcdc;
   font-size: 40px;
 }
-/* line 45, ../sass/partials/layout/_header.scss */
+/* line 46, ../sass/partials/layout/_header.scss */
 #title .tabs {
   border: none;
   padding: 0;
@@ -444,7 +445,7 @@ html.js fieldset.collapsible.collapsed .fieldset-legend {
   margin-top: 32px;
   margin-left: 5px;
 }
-/* line 53, ../sass/partials/layout/_header.scss */
+/* line 54, ../sass/partials/layout/_header.scss */
 #title .tabs a {
   background-color: transparent;
   border: none;
@@ -454,33 +455,33 @@ html.js fieldset.collapsible.collapsed .fieldset-legend {
   padding: 0;
   font-size: 13px;
 }
-/* line 64, ../sass/partials/layout/_header.scss */
+/* line 65, ../sass/partials/layout/_header.scss */
 #title .field-name-field-item-status, #title .field-name-field-season-status {
   float: right;
   margin-top: 10px;
 }
-/* line 68, ../sass/partials/layout/_header.scss */
+/* line 69, ../sass/partials/layout/_header.scss */
 #title .field-name-field-item-status .field-label, #title .field-name-field-season-status .field-label {
   color: #c4eeed;
   text-transform: lowercase;
 }
-/* line 73, ../sass/partials/layout/_header.scss */
+/* line 74, ../sass/partials/layout/_header.scss */
 #title .field-name-field-item-status .field-item, #title .field-name-field-season-status .field-item {
   color: #f6fafb;
   text-transform: uppercase;
   font-size: 20px;
 }
 
-/* line 82, ../sass/partials/layout/_header.scss */
+/* line 83, ../sass/partials/layout/_header.scss */
 .node-type-item #title, .node-type-item-variant #title {
   background: url("../images/title-large-bg.png") repeat-x;
   height: 86px;
 }
-/* line 86, ../sass/partials/layout/_header.scss */
+/* line 87, ../sass/partials/layout/_header.scss */
 .node-type-item #title .field-name-field-item-status, .node-type-item-variant #title .field-name-field-item-status {
   margin-top: 22px;
 }
-/* line 90, ../sass/partials/layout/_header.scss */
+/* line 91, ../sass/partials/layout/_header.scss */
 .node-type-item #title .field-name-field-image, .node-type-item #title .field-name-field-images, .node-type-item-variant #title .field-name-field-image, .node-type-item-variant #title .field-name-field-images {
   margin-top: 7px;
   margin-right: 10px;
@@ -489,7 +490,7 @@ html.js fieldset.collapsible.collapsed .fieldset-legend {
   width: 57px;
   height: 77px;
 }
-/* line 98, ../sass/partials/layout/_header.scss */
+/* line 99, ../sass/partials/layout/_header.scss */
 .node-type-item #title .field-name-field-image img, .node-type-item #title .field-name-field-images img, .node-type-item-variant #title .field-name-field-image img, .node-type-item-variant #title .field-name-field-images img {
   margin: 3px auto;
   display: block;
