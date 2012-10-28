@@ -1,21 +1,5 @@
 Unique ID,Title,Season,Customer,Address,Inventory line,Status
-order1,order1,season1,customer1,address1,inventoryLine1,orderStatus1
-order2,order2,season1,customer2,address2,inventoryLine3,orderStatus2
-order3,order3,season1,customer3,address3,inventoryLine5,orderStatus3
-order4,order4,season1,customer4,address4,inventoryLine7,orderStatus4
-order5,order5,season1,customer1,address5,inventoryLine9,orderStatus1
-order6,order6,season1,customer2,address6,inventoryLine11,orderStatus2
-order7,order7,season1,customer3,address7,inventoryLine13,orderStatus3
-order8,order8,season1,customer4,address8,inventoryLine15,orderStatus4
-order9,order9,season1,customer4,address9,inventoryLine17,orderStatus1
-order10,order10,season1,customer1,address10,inventoryLine19,orderStatus2
-order11,order11,season1,customer2,address11,inventoryLine21,orderStatus3
-order12,order12,season1,customer3,address12,inventoryLine23,orderStatus4
-order13,order13,season1,customer4,address13,inventoryLine25,orderStatus1
-order14,order14,season1,customer4,address13,inventoryLine12,orderStatus2
-order15,order15,season1,customer1,address1,inventoryLine27,orderStatus3
-order16,order16,season1,customer2,address2,inventoryLine28,orderStatus4
-order17,order17,season1,customer3,address3,inventoryLine29,orderStatus1
-order18,order18,season1,customer4,address4,inventoryLine30,orderStatus2
-order19,order19,season1,customer1,address5,inventoryLine31,orderStatus3
-order20,order20,season1,customer2,address6,inventoryLine32,orderStatus4
+order1,order1,season1,customer1,address1,inventoryLine1|inventoryLine2|inventoryLine3|inventoryLine4,orderStatus1
+order2,order2,season1,customer2,address2,inventoryLine5|inventoryLine6,orderStatus2
+order3,order3,season1,customer3,address3,inventoryLine7|inventoryLine8,orderStatus3
+order4,order4,season1,customer4,address4,inventoryLine9|inventoryLine10|inventoryLine11,orderStatus4

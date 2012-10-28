@@ -517,16 +517,20 @@ class openGizraOrders extends openGizraMigration {
 
     $this
       ->addFieldMapping('field_inventory_line_inline', 'field_inventory_line_inline')
-      ->sourceMigration('openGizraInventoryLines');
+      ->sourceMigration('openGizraInventoryLines')
+      ->separator('|');
 
     $this
       ->addFieldMapping('field_order_status', 'field_order_status')
       ->sourceMigration('openGizraOrderStatusTerms');
   }
 
-  function prepareRow($row) {
-    parent::prepareRow($row);
-    $row->field_inventory_line_inline = explode('; ', $row->field_inventory_line_inline);
+  public function prepare($entity, $row) {
+    // Fix the field_inventory_line_inline values.
+    foreach ($entity->field_inventory_line_inline[LANGUAGE_NONE] as $delta => $values) {
+      $target_id = $values['target_id']['destid1'];
+      $entity->field_inventory_line_inline[LANGUAGE_NONE][$delta]['target_id'] = $target_id;
+    }
   }
 }
 
