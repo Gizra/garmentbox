@@ -1,0 +1,7 @@
+Unique ID,Season,Status,Deadline
+1,season1,seasonStatus1,"May 7, 2013"
+2,season2,seasonStatus2,"May 8, 2013"
+3,season3,seasonStatus3,"May 9, 2013"
+4,season1,seasonStatus1,"May 10, 2013"
+5,season2,seasonStatus2,"May 11, 2013"
+6,season3,seasonStatus3,"May 12, 2013"

@@ -1,0 +1,31 @@
+@import "mixins";
+@import "partials";
+
+.container {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+body {
+  margin: 0;
+  background-color: #f4f4f2;
+  font-family: Arial, Helvetica, sans-serif;
+  padding-bottom: 20px;
+}
+
+a {
+  color: #679190;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+li {
+  list-style-type: none;
+}
+
+.item-list ul li {
+  margin: 0;
+}

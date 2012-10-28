@@ -1,0 +1,42 @@
+.panel-pane.tabs ul {
+  margin: 20px 0 0;
+
+  li {
+    margin: 0;
+    height: 36px;
+    float: left; //LTR
+    margin-right: 6px; //LTR
+
+    a {
+      background-color: white;
+      text-align: center;
+      min-width: 114px;
+      padding: 0 10px;
+      height: 36px;
+      line-height: 36px;
+
+      display: block;
+      color: #a7bbba;
+      @include box-shadow(1px, 1px, 2px, 0, #cacaca);
+
+      &:hover {
+        text-decoration: none;
+        background-color: #fafafa;
+        @include box-shadow(0, 0, 3px, 0, #cacaca);
+        @include transition(0.2s);
+      }
+
+      &.active {
+        color: #ea166b;
+        @include box-shadow(0, -1px, 2px, 0, #cacaca);
+        margin-left: 1px; //LTR
+        height: 42px;
+
+        &:hover {
+          background-color: white;
+          @include box-shadow(0, -1px, 2px, 0, #cacaca);
+        }
+      }
+    }
+  }
+}

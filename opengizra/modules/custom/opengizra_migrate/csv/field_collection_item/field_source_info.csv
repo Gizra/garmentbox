@@ -1,0 +1,11 @@
+Unique ID,Material,Vendor,Price,Unit,Length,Length unit
+fieldSourceInfo1,material1,vendor1,10,measurementUnit3,20,measurementUnit1
+fieldSourceInfo2,material1,vendor1,20,measurementUnit3,10,measurementUnit1
+fieldSourceInfo3,material1,vendor3,30,measurementUnit3,10,measurementUnit1
+fieldSourceInfo4,material2,vendor4,35,measurementUnit3,10,measurementUnit1
+fieldSourceInfo5,material3,vendor5,15.5,measurementUnit3,10,measurementUnit1
+fieldSourceInfo6,material4,vendor6,60,measurementUnit3,10,measurementUnit1
+fieldSourceInfo7,material5,vendor7,110,measurementUnit3,10,measurementUnit1
+fieldSourceInfo8,material6,vendor8,9,measurementUnit3,10,measurementUnit1
+fieldSourceInfo9,material7,vendor1,33,measurementUnit3,10,measurementUnit1
+fieldSourceInfo10,material8,vendor2,69,measurementUnit3,10,measurementUnit1

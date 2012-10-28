@@ -1,0 +1,167 @@
+.node-type-item-variant {
+
+  .pane-item-variant-summary {
+    border-bottom: 1px solid #d1d1d1;
+    padding-bottom: 20px;
+
+    .panel-pane {
+      float: left; //LTR
+      margin-right: 20px; //LTR
+
+      .field-label {
+        text-transform: lowercase;
+        color: #8d8d8d;
+        font-weight: normal;
+        font-size: 12px;
+      }
+
+      .field-item {
+        text-transform: uppercase;
+        font-size: 18px;
+      }
+
+      .field-name-field-size-info ul {
+        margin: 0;
+
+        li {
+          float: left; //LTR
+          margin: 0;
+          border-right: 2px solid #9d9d9d;
+          padding: 0 5px;
+
+          &.last {
+            border-right: none;
+          }
+
+          &.first {
+            padding-left: 0; //LTR
+          }
+        }
+      }
+
+      .flag-line-sheet a {
+        font-size: 11px;
+        display: block;
+        background: url("../images/unflagged.png") no-repeat;
+        padding-left: 30px; //LTR
+        height: 26px;
+        line-height: 26px;
+        color: #515151;
+
+        &.unflag-action {
+          background-image: url("../images/flagged.png");
+        }
+      }
+
+      .field-type-commerce-price .field-item {
+        color: #f50067;
+        font-size: 26px;
+      }
+    }
+
+    .pane-main-material {
+      background: url("../images/material-thumbnail-bg.png") no-repeat;
+      width: 78px;
+      height: 86px;
+      padding-top: 11px;
+      padding-left: 3px; //LTR
+    }
+
+    .pane-custom .separator {
+      border-left: 1px dashed #d0d0d0;
+      height: 71px;
+    }
+  }
+
+  .pane-node-field-bol-info, .pane-node-field-bom-info {
+    position: relative;
+    margin-top: 40px;
+
+    table {
+      width: 100%;
+
+      .field_collection_item_operations {
+        width: 85px;
+      }
+
+      .field_price {
+        width: 150px;
+      }
+    }
+
+    .action-links li {
+      list-style-type: none;
+
+      a {
+        position: absolute;
+        right: 0; //LTR
+        top: 15px;
+        @include secondary-button;
+      }
+    }
+
+    .bom-total {
+      float: right; //LTR
+      margin-right: 104px;
+      margin-top: 10px;
+
+      span {
+        display: block;
+        float: left; //LTR
+        color: #666666;
+
+        &.amount {
+          width: 150px;
+          padding: 0 10px;
+          color: #ed056b;
+        }
+      }
+
+    }
+  }
+
+  .pane-node-field-images {
+    margin-top: 65px;
+  }
+
+  .pane-item-variant-action-links {
+    border-top: 1px solid #d1d1d1;
+    margin-top: 65px;
+
+    h2:after {
+      content: ":";
+    }
+
+    li {
+      margin: 0;
+
+      a {
+        display: block;
+        float: left; //LTR
+        margin-right: 80px; //LTR
+
+        &.pattern-history {
+          clear: left; //LTR
+          font-size: 12px;
+          margin-left: 34px; //LTR
+          color: #888888;
+        }
+      }
+
+      a.icon {
+        color: #537f80;
+
+        &.pattern:before {
+          content: url("../images/pattern-file.png");
+          margin-right: 5px;
+        }
+
+        &.cutter-must:before {
+          content: url("../images/cutter-must.png");
+          margin-right: 8px;
+        }
+      }
+    }
+  }
+}
+

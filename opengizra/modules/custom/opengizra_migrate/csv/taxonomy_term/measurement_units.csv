@@ -1,0 +1,6 @@
+Unique ID,Name,Type,Conversion
+measurementUnit1,Meter,length,1
+measurementUnit2,Yard,length,0.9144
+measurementUnit3,Kilogram,mass,1
+measurementUnit4,Pound,mass,0.453592
+measurementUnit5,Units,unit,1

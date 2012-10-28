@@ -1,0 +1,103 @@
+#header {
+  background: url("../images/header-bg.png") repeat-x;
+  height: 38px;
+  padding-top: 14px;
+
+  #block-search-form {
+    display: none;
+  }
+
+  .region-header {
+    float: right; //LTR
+
+    #block-system-user-menu ul{
+      padding: 0;
+      margin: 0;
+
+      li {
+        list-style-type: none;
+        list-style-image: none;
+        display: block;
+        float: left; //LTR
+        font-size: 11px;
+      }
+    }
+  }
+}
+
+#title {
+  background: url("../images/title-bg.png") repeat-x;
+  height: 68px;
+
+  * {
+    font-family: Dosis, Arial, Helvetica, sans-serif;
+  }
+
+  .field-name-title-field {
+    float: left; //LTR
+    margin: 0;
+    line-height: 68px;
+    color: #464543;
+    text-shadow: 0 1px #cadcdc;
+    font-size: 40px;
+  }
+
+  .tabs {
+    border: none;
+    padding: 0;
+    margin: 0;
+    float: left; //LTR
+    margin-top: 32px;
+    margin-left: 5px; //LTR
+
+    a {
+      background-color: transparent;
+      border: none;
+      text-transform: lowercase;
+      color: #fffcff;
+      text-shadow: 0 1px #b4d1cf;
+      padding: 0;
+      font-size: 13px;
+    }
+  }
+
+  .field-name-field-item-status, .field-name-field-season-status {
+    float: right; //LTR
+    margin-top: 10px;
+
+    .field-label {
+      color: #c4eeed;
+      text-transform: lowercase;
+    }
+
+    .field-item {
+      color: #f6fafb;
+      text-transform: uppercase;
+      font-size: 20px;
+    }
+  }
+}
+
+// Large title strip.
+.node-type-item #title, .node-type-item-variant #title {
+  background: url("../images/title-large-bg.png") repeat-x;
+  height: 86px;
+
+  .field-name-field-item-status {
+    margin-top: 22px;
+  }
+
+  .field-name-field-image, .field-name-field-images {
+    margin-top: 7px;
+    margin-right: 10px; //LTR
+    background: url("../images/header-thumbnail-bg.png") repeat-x;
+    float: left; //LTR
+    width: 57px;
+    height: 77px;
+
+    img {
+      margin: 3px auto;
+      display: block;
+    }
+  }
+}

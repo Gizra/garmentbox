@@ -1,0 +1,36 @@
+name = Omega subtheme
+description = Default Omega Starterkit for the Omega base theme.
+screenshot = screenshot.png
+engine = phptemplate
+core = 7.x
+base theme = omega
+starterkit = TRUE
+hidden = TRUE
+
+stylesheets[all][] = css/style.css
+
+features[] = logo
+features[] = favicon
+features[] = name
+features[] = slogan
+
+regions[header] = Header
+regions[title] = Title
+regions[navigation] = Navigation
+regions[banner] = Banner
+regions[search] = Search
+regions[preface] = Preface
+regions[content] = Content
+regions[postscript] = Postscript
+regions[footer] = Footer
+regions[sidebar_first] = First Sidebar
+regions[sidebar_second] = Second Sidebar
+
+plugins[panels][layouts] = layouts
+
+; Information added by drupal.org packaging script on 2012-08-18
+version = "7.x-4.0-alpha1"
+core = "7.x"
+project = "omega"
+datestamp = "1345295541"
+

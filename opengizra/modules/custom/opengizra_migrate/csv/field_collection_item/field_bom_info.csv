@@ -1,0 +1,7 @@
+Unique ID,Item variant,Material source,Unit,Quantity
+fieldBomInfo1,ItemVariant1,fieldSourceInfo1,measurementUnit1,5
+fieldBomInfo2,ItemVariant2,fieldSourceInfo4,measurementUnit1,7
+fieldBomInfo3,ItemVariant3,fieldSourceInfo5,measurementUnit1,8
+fieldBomInfo4,ItemVariant4,fieldSourceInfo2,measurementUnit1,2.5
+fieldBomInfo5,ItemVariant5,fieldSourceInfo4,measurementUnit1,20
+fieldBomInfo6,ItemVariant6,fieldSourceInfo10,measurementUnit1,33

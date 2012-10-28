@@ -1,0 +1,1 @@
+[![Build Status](https://secure.travis-ci.org/Gizra/Garment-Box.png)](http://travis-ci.org/Gizra/Garment-Box)
