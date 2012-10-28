@@ -71,7 +71,7 @@ function _opengizra_import_data($operation, $type, &$context) {
  *
  * @see opengizra_profile_import_data()
  */
-function _opengizra_setup_blocks($operation, $type, &$context) {
+function _opengizra_setup_blocks($operation, &$context) {
   $default_theme = variable_get('theme_default', 'opengizra_omega');
 
   $blocks = array(
