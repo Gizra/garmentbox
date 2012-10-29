@@ -92,3 +92,4 @@ dependencies[] = opengizra_pattern_task
 dependencies[] = opengizra_season
 dependencies[] = opengizra_task
 dependencies[] = opengizra_vendor
+dependencies[] = opengizra_og

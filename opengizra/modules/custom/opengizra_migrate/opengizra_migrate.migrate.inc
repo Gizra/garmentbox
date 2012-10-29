@@ -152,6 +152,26 @@ class openGizraOrderStatusTerms extends openGizraMigration {
 // Nodes
 
 /**
+ * Migrate Department nodes.
+ */
+class openGizraDepartments extends openGizraMigration {
+
+  public $csvColumns = array(
+    array('id', 'Unique ID'),
+    array('title', 'Title'),
+  );
+
+  public $entityType = 'node';
+  public $bundle = 'department';
+
+  public function complete($node) {
+    if ($node->title == 'Main') {
+      variable_set('opengizra_og_main_department', $node->nid);
+    }
+  }
+}
+
+/**
  * Migrate Collection nodes.
  */
 class openGizraSeasons extends openGizraMigration {
@@ -167,6 +187,7 @@ class openGizraSeasons extends openGizraMigration {
   public $bundle = 'season';
 
   public $dependencies = array(
+    'openGizraDepartments',
     'openGizraSeasonStatusTerms',
   );
 
@@ -195,6 +216,10 @@ class openGizraAddresses extends openGizraMigration {
 
   public $entityType = 'node';
   public $bundle = 'address';
+
+  public $dependencies = array(
+    'openGizraDepartments',
+  );
 
   public function __construct() {
     parent::__construct();
@@ -231,6 +256,7 @@ class openGizraVendors extends openGizraMigration {
   public $bundle = 'vendor';
 
   public $dependencies = array(
+    'openGizraDepartments',
     'openGizraAddresses',
   );
 
@@ -293,6 +319,7 @@ class openGizraMaterials extends openGizraMigration {
   public $bundle = 'material';
 
   public $dependencies = array(
+    'openGizraDepartments',
     'openGizraVendors',
   );
 
@@ -330,6 +357,7 @@ class openGizraItems extends openGizraMigration {
   public $bundle = 'item';
 
   public $dependencies = array(
+    'openGizraDepartments',
     'openGizraItemStatusTerms',
     'openGizraSeasons',
   );
@@ -372,6 +400,7 @@ class openGizraTasks extends openGizraMigration {
   public $bundle = 'task';
 
   public $dependencies = array(
+    'openGizraDepartments',
     'openGizraTaskStatusTerms',
     'openGizraSeasons',
     'openGizraItems',
@@ -410,6 +439,7 @@ class openGizraItemVariants extends openGizraMigration {
   public $bundle = 'item_variant';
 
   public $dependencies = array(
+    'openGizraDepartments',
     'openGizraItems',
     'openGizraItemStatusTerms',
   );
@@ -464,6 +494,7 @@ class openGizraInventoryLines extends openGizraMigration {
   public $bundle = 'inventory_line';
 
   public $dependencies = array(
+    'openGizraDepartments',
     'openGizraItemVariants',
     'openGizraInventoryTypeTerms',
   );

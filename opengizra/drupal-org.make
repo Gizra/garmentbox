@@ -75,7 +75,7 @@ projects[message_notify][version] = "1.1"
 projects[migrate][version] = 2.4
 projects[migrate][subdir] = "contrib"
 
-projects[migrate_extras][version] = 2.4
+projects[migrate_extras][version] = 2.x-dev
 projects[migrate_extras][subdir] = "contrib"
 
 projects[mimemail][version] = 1.0-alpha1
@@ -134,6 +134,9 @@ projects[image_delta_formatter][version] = "1.x-dev"
 
 projects[jcarousel][subdir] = "contrib"
 projects[jcarousel][version] = "2.6"
+
+projects[og][subdir] = "contrib"
+projects[og][version] = "2.x-dev"
 
 ; Libraries.
 libraries[jquery.cycle][type] = "libraries"
