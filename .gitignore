@@ -51,3 +51,10 @@ install.sh
 ##########
 .project
 .settings/
+
+# Behat
+opengizra/behat/vendor/
+behat.local.yml
+opengizra/behat/bin
+opengizra/behat/composer.lock
+opengizra/behat/composer.phar

@@ -38,17 +38,29 @@ function opengizra_bom_field_formatter_view($entity_type, $entity, $field, $inst
       // Inject header.
       $last_col = array_pop($element[0]['#header']);
 
-      $element[0]['#header'][] = array(
+      $price_field = array(
         'data' => t('Price'),
         'class' => 'field_price',
       );
 
-      $element[0]['#header'][] = $last_col;
+      // If the last column is 'Operations', add the price field before of it,
+      // otherwise, return the last field to its place and append the price
+      // field.
+      if ($operations_available = ($last_col == t('Operations'))) {
+        $element[0]['#header'][] = $price_field;
+        $element[0]['#header'][] = $last_col;
+      }
+      else {
+        $element[0]['#header'][] = $last_col;
+        $element[0]['#header'][] = $price_field;
+      }
 
       $total = 0;
       // Inject rows.
       foreach ($element[0]['#rows'] as $key => $row) {
-        $last_col = array_pop($row['data']);
+        if ($operations_available) {
+          $last_col = array_pop($row['data']);
+        }
         // Find the material item delta.
         $delta = 'missing';
         foreach ($row['data'] as $delta => $data) {
@@ -70,7 +82,9 @@ function opengizra_bom_field_formatter_view($entity_type, $entity, $field, $inst
           'data' => $field_price,
           'class' => 'field_price',
         );
-        $row['data'][] = $last_col;
+        if ($operations_available) {
+          $row['data'][] = $last_col;
+        }
         $element[0]['#rows'][$key] = $row;
       }
       // Re-create the element, and add the total.
@@ -182,13 +196,11 @@ function opengizra_bom_field_collection_item_label($entity) {
     return $entity->item_id;
   }
 
-  $material = '';
-  // TODO Check why sometimes host_entity is null.
-  if ($host_entity = $entity->hostEntity()) {
-    $material = $host_entity->title;
-  }
+  $host_entity = $entity->hostEntity();
+  $material = $host_entity->title;
+
   $wrapper = entity_metadata_wrapper('field_collection_item', $entity);
   $vendor = $wrapper->field_vendor->label();
-
-  return check_plain("$material [$vendor]");
+  // Notice that the label is escaped later.
+  return "$material [$vendor]";
 }

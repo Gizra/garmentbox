@@ -1,0 +1,11 @@
+default:
+  paths:
+    features: 'features'
+  extensions:
+    Behat\MinkExtension\Extension:
+      goutte: ~
+      selenium2: ~
+    Drupal\DrupalExtension\Extension:
+      blackbox: ~
+imports:
+  - behat.local.yml

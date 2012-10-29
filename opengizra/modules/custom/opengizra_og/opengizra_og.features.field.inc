@@ -1724,7 +1724,6 @@ function opengizra_og_field_default_fields() {
   // Included for use with string extractors like potx.
   t('Determine if this is an OG group.');
   t('Group');
-  t('Group membership');
   t('Groups audience');
 
   return $fields;

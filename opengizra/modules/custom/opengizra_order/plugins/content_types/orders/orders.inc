@@ -101,13 +101,13 @@ function opengizra_order_orders_content_type_render($subtype, $conf, $args, $con
         'last_delivery_date' => 0,
         'next_delivery_date' => 0,
         'order_status' => $row->order_status,
+        'customer' => $row->customer,
+        'customer_nid' => $row->customer_nid,
       );
     }
 
     if (empty($orders[$row->order_nid]['lines'][$row->nid])) {
       $orders[$row->order_nid]['lines'][$row->nid] = array(
-        'customer' => $row->customer,
-        'customer_nid' => $row->customer_nid,
         'variant' => $row->variant,
         'variant_nid' => $row->variant_nid,
         'type' => $row->type,
@@ -149,6 +149,7 @@ function opengizra_order_orders_content_type_render($subtype, $conf, $args, $con
 
   $header = array(
     t('Order'),
+    t('Customer'),
     t('Total price'),
     t('Total items'),
     t('Last delivery date'),
@@ -157,7 +158,6 @@ function opengizra_order_orders_content_type_render($subtype, $conf, $args, $con
   );
 
   $inventory_header = array();
-  $inventory_header[] = t('Customer');
   $inventory_header[] = t('Variation');
   foreach ($size_tree as $term) {
     $inventory_header[] = $term->name;
@@ -179,6 +179,7 @@ function opengizra_order_orders_content_type_render($subtype, $conf, $args, $con
     );
     $expand_link = l('', url(''), $params);
     $order_row['data'][] = $expand_link . l($order['title'], 'node/' . $order_nid);
+    $order_row['data'][] = l($order['customer'], 'node/' . $order['customer_nid']);
     $order_row['data'][] = t('N/A');
     $order_row['data'][] = $order['total_items'];
     $order_row['data'][] = $order['last_delivery_date'] ? format_date($order['last_delivery_date']) : t('N/A');
@@ -190,7 +191,6 @@ function opengizra_order_orders_content_type_render($subtype, $conf, $args, $con
     $inventory_table = array();
     foreach ($order['lines'] as $inventory_line) {
       $row = array();
-      $row[] = l($inventory_line['customer'], 'node/' . $inventory_line['customer_nid']);
       $row[] = l($inventory_line['variant'], 'node/' . $inventory_line['variant_nid']);
 
       $total = 0;
@@ -213,7 +213,7 @@ function opengizra_order_orders_content_type_render($subtype, $conf, $args, $con
       'data' => array(
         array(
           'data' => theme('table', $variables),
-          'colspan' => 6,
+          'colspan' => 7,
         ),
       ),
       'class' => array('hidden'),
