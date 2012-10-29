@@ -1,7 +1,16 @@
 Unique ID,Item variant,Material source,Unit,Quantity
 fieldBomInfo1,ItemVariant1,fieldSourceInfo1,measurementUnit1,5
-fieldBomInfo2,ItemVariant2,fieldSourceInfo4,measurementUnit1,7
-fieldBomInfo3,ItemVariant3,fieldSourceInfo5,measurementUnit1,8
-fieldBomInfo4,ItemVariant4,fieldSourceInfo2,measurementUnit1,2.5
-fieldBomInfo5,ItemVariant5,fieldSourceInfo4,measurementUnit1,20
-fieldBomInfo6,ItemVariant6,fieldSourceInfo10,measurementUnit1,33
+fieldBomInfo2,ItemVariant2,fieldSourceInfo2,measurementUnit1,7
+fieldBomInfo3,ItemVariant3,fieldSourceInfo3,measurementUnit1,8
+fieldBomInfo4,ItemVariant4,fieldSourceInfo4,measurementUnit1,2.5
+fieldBomInfo5,ItemVariant5,fieldSourceInfo5,measurementUnit1,20
+fieldBomInfo6,ItemVariant6,fieldSourceInfo6,measurementUnit1,33
+fieldBomInfo7,ItemVariant7,fieldSourceInfo7,measurementUnit1,5
+fieldBomInfo8,ItemVariant8,fieldSourceInfo8,measurementUnit1,7
+fieldBomInfo9,ItemVariant9,fieldSourceInfo9,measurementUnit1,8
+fieldBomInfo10,ItemVariant10,fieldSourceInfo10,measurementUnit1,2.5
+fieldBomInfo11,ItemVariant11,fieldSourceInfo10,measurementUnit1,3.5
+fieldBomInfo12,ItemVariant12,fieldSourceInfo6,measurementUnit1,33
+fieldBomInfo13,ItemVariant13,fieldSourceInfo7,measurementUnit1,5
+fieldBomInfo14,ItemVariant14,fieldSourceInfo8,measurementUnit1,7
+fieldBomInfo15,ItemVariant15,fieldSourceInfo9,measurementUnit1,8

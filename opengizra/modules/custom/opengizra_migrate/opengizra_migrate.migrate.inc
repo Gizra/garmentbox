@@ -401,6 +401,9 @@ class openGizraItemVariants extends openGizraMigration {
     array('title', 'Title'),
     array('field_item', 'Item'),
     array('field_images', 'Images'),
+    array('field_item_status', 'Status'),
+    array('field_retail_price', 'Retail price'),
+    array('field_wholesale_price', 'Wholesale price'),
   );
 
   public $entityType = 'node';
@@ -408,6 +411,7 @@ class openGizraItemVariants extends openGizraMigration {
 
   public $dependencies = array(
     'openGizraItems',
+    'openGizraItemStatusTerms',
   );
 
   public function __construct() {
@@ -425,6 +429,14 @@ class openGizraItemVariants extends openGizraMigration {
     $this
       ->addFieldMapping('field_images:source_dir')
       ->defaultValue(drupal_get_path('module', 'opengizra_migrate') . '/images');
+
+    $this
+      ->addFieldMapping('field_item_status', 'field_item_status')
+      ->sourceMigration('openGizraItemStatusTerms');
+
+    $this->addFieldMapping('field_retail_price', 'field_retail_price');
+
+    $this->addFieldMapping('field_wholesale_price', 'field_wholesale_price');
   }
 
   function prepareRow($row) {
