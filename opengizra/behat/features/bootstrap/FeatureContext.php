@@ -15,6 +15,7 @@ class FeatureContext extends DrupalContext {
     switch ($page_type) {
       case 'item-variant':
       case 'season':
+      case 'item':
         $table = 'node';
         $id = 'nid';
         $path = "$page_type/%";

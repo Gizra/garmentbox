@@ -12,6 +12,7 @@ dependencies[] = image
 dependencies[] = list
 dependencies[] = multiupload_imagefield_widget
 dependencies[] = number
+dependencies[] = opengizra_og
 dependencies[] = options
 dependencies[] = page_manager
 dependencies[] = strongarm
