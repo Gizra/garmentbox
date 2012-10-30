@@ -16,6 +16,7 @@ dependencies[] = multiupload_imagefield_widget
 dependencies[] = number
 dependencies[] = opengizra_bol
 dependencies[] = opengizra_material
+dependencies[] = opengizra_og
 dependencies[] = options
 dependencies[] = page_manager
 dependencies[] = panels_mini

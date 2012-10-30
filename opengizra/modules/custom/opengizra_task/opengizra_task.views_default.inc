@@ -321,11 +321,14 @@ function opengizra_task_views_default_views() {
   $handler->display->display_options['fields']['edit_node']['hide_empty'] = 0;
   $handler->display->display_options['fields']['edit_node']['empty_zero'] = 0;
   $handler->display->display_options['fields']['edit_node']['hide_alter_empty'] = 1;
-  /* Sort criterion: Content: Post date */
-  $handler->display->display_options['sorts']['created']['id'] = 'created';
-  $handler->display->display_options['sorts']['created']['table'] = 'node';
-  $handler->display->display_options['sorts']['created']['field'] = 'created';
-  $handler->display->display_options['sorts']['created']['order'] = 'DESC';
+  /* Sort criterion: Content: Updated date */
+  $handler->display->display_options['sorts']['changed']['id'] = 'changed';
+  $handler->display->display_options['sorts']['changed']['table'] = 'node';
+  $handler->display->display_options['sorts']['changed']['field'] = 'changed';
+  /* Sort criterion: Content: Title */
+  $handler->display->display_options['sorts']['title']['id'] = 'title';
+  $handler->display->display_options['sorts']['title']['table'] = 'node';
+  $handler->display->display_options['sorts']['title']['field'] = 'title';
   /* Contextual filter: Content: Reference hierarchy (field_reference_hierarchy) */
   $handler->display->display_options['arguments']['field_reference_hierarchy_target_id']['id'] = 'field_reference_hierarchy_target_id';
   $handler->display->display_options['arguments']['field_reference_hierarchy_target_id']['table'] = 'field_data_field_reference_hierarchy';

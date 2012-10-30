@@ -21,7 +21,7 @@ Feature: Test Season page
     And I am on a "season" page titled "Autumn-Winter 2013 Women"
     Then I should see a table titled "Task list / Item 19" with the following <contents>:
     | Summary             | Status      | Assignee | Replies | Last updated | Created  | Actions |
-    | Fix marker          | Needs work  | <ignore> | 0       | <ignore>     | <ignore> | edit    |
+    | First task          | Open        | <ignore> | 0       | <ignore>     | <ignore> | edit    |
     And I should see "Total open tasks: 3"
 
   @api
