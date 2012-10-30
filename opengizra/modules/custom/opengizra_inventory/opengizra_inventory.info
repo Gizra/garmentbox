@@ -12,6 +12,7 @@ dependencies[] = field_collection
 dependencies[] = field_collection_table
 dependencies[] = list
 dependencies[] = number
+dependencies[] = opengizra_og
 dependencies[] = options
 dependencies[] = strongarm
 dependencies[] = taxonomy

@@ -9,6 +9,7 @@ dependencies[] = entityreference
 dependencies[] = features
 dependencies[] = field_group
 dependencies[] = list
+dependencies[] = opengizra_og
 dependencies[] = options
 dependencies[] = strongarm
 dependencies[] = taxonomy

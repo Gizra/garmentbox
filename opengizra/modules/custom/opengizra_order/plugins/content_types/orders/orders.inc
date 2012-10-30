@@ -81,7 +81,9 @@ function opengizra_order_orders_content_type_render($subtype, $conf, $args, $con
     $query->condition('fs.field_season_target_id', $node->nid);
   }
 
-  $query->orderBy('n_order.nid');
+  $query
+    ->orderBy('n_customer.title')
+    ->orderBy('n_variant.title');
 
   $result = $query->execute();
 

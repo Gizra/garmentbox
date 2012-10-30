@@ -9,6 +9,7 @@ dependencies[] = entityreference
 dependencies[] = features
 dependencies[] = field_sql_storage
 dependencies[] = node
+dependencies[] = opengizra_og
 dependencies[] = strongarm
 dependencies[] = text
 features[ctools][] = strongarm:strongarm:1

@@ -5,6 +5,7 @@ php = 5.2.4
 dependencies[] = ctools
 dependencies[] = entityreference
 dependencies[] = features
+dependencies[] = opengizra_og
 dependencies[] = options
 dependencies[] = rules
 dependencies[] = strongarm
