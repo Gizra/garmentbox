@@ -55,10 +55,10 @@ function opengizra_item_item_variant_tabs_content_type_render($subtype, $conf, $
 
   $items = array();
   foreach ($nodes as $node) {
-    $items[] = '<a href="#item-instance-' . $node->nid . '">' . check_plain($node->title) . '</a>';
+    $items[] = '<a href="#item-variant-' . $node->nid . '">' . check_plain($node->title) . '</a>';
 
 
-    $output = '<div id="item-instance-' . $node->nid . '">' . opengizra_general_render_node_as_mini_panel($node, 'item_variant') . '</div>';
+    $output = '<div id="item-variant-' . $node->nid . '">' . opengizra_general_render_node_as_mini_panel($node, 'item_variant') . '</div>';
     // Add the tab itself.
     $form['tabs_wrapper']['item_variant_' . $node->nid] = array('#markup' => $output);
   }

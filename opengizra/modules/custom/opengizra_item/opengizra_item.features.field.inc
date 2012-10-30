@@ -1080,7 +1080,7 @@ function opengizra_item_field_default_fields() {
       'settings' => array(
         'alt_field' => 0,
         'default_image' => 0,
-        'file_directory' => 'item-instance',
+        'file_directory' => 'item-variant',
         'file_extensions' => 'png gif jpg jpeg',
         'max_filesize' => '',
         'max_resolution' => '',
