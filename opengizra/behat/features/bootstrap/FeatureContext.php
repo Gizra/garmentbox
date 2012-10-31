@@ -180,7 +180,11 @@ class FeatureContext extends DrupalContext {
         throw new \Exception("Unexpected cell with text '{$cell->getText()}'.");
       }
 
-      switch ($expected_row[$i]) {
+      $content = self::getText($cell->getHtml());
+
+      $words = explode(' ', $expected_row[$i]);
+      $first_word = !empty($words[0]) ? $words[0] : '';
+      switch ($first_word) {
         case '<ignore>':
           continue 2;
 
@@ -189,8 +193,20 @@ class FeatureContext extends DrupalContext {
           self::verifyImageExists($cell);
           break;
 
+        case '<date>':
+          $expected_time = strtotime($words[1]);
+          if (!$expected_time) {
+            throw new \Exception("Couldn't parse date '{$words[1]}', use 'MM/DD/YYYY'.");
+          }
+          print_r("Expected: $expected_time\n");
+          $time = strtotime($content);
+          print_r("Found: $time\n");
+          if ($expected_time != $time) {
+            throw new \Exception("Found '$time' instead of '$expected_time'.");
+          }
+          break;
+
         default:
-          $content = self::getText($cell->getHtml());
           if ($content != $expected_row[$i]) {
             throw new \Exception("Found '$content' instead of '{$expected_row[$i]}'.");
           }
@@ -243,12 +259,7 @@ class FeatureContext extends DrupalContext {
     // Send a GET request to the image to make sure it's accessible.
     $image_url = $image_element->getAttribute('src');
     $client = new Client();
-    try {
-      $response = $client->get($image_url)->send();
-    }
-    catch (\Exception $e) {
-      throw new \Exception("Image not accessible. URL: $image_url");
-    }
+    $response = $client->get($image_url)->send();
     $info = $response->getInfo();
     if ($info['http_code'] != 200) {
       throw new \Exception("Image not accessible. URL: $image_url");
