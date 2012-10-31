@@ -257,10 +257,8 @@ class FeatureContext extends DrupalContext {
 
     ////////////// Temporary travis test:
     $client = new Client();
-    $response = $client->get('127.0.0.1')->send();
-    $info = $response->getInfo();
 
-    $response = $client->get('127.0.0.1/user')->send();
+    $response = $client->get('http://127.0.0.1/user')->send();
     $info = $response->getInfo();
 
     $response = $client->get($image_url . 'realynotthere.jpg')->send();
