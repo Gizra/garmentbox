@@ -19,9 +19,6 @@ before_script:
   - drush si opengizra --db-url=mysql://root:@127.0.0.1/drupal --account-pass=admin --yes
   - sudo chmod 777 -R sites/default/files
   - drush cc all --yes
-  - ls sites/default/files/
-  - ls sites/default/files/styles/
-  - ls sites/default/files/styles/variant_thumbnail/public/item-variant/
   - cd ..
 
   # Create a behat configuration file.
