@@ -30,7 +30,7 @@ Feature: Test Season page
     And I am on a "season" page titled "Autumn-Winter 2013 Women", in the tab "items"
     Then I should see a table titled "V-neck shirt" with the following <contents>:
     |         | Variant            | Main material | Status | Retail price | Wholesale price |
-    | <image> | Lines v-neck shirt | <image>       | Draft  | $80.00       | $55.00          |
+    | <image> | Black v-neck shirt | <image>       | Draft  | $80.00       | $55.00          |
 
   @api
   Scenario: Correct content is shown on the season inventory list.

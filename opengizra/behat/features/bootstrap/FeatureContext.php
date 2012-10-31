@@ -176,7 +176,6 @@ class FeatureContext extends DrupalContext {
   private static function compareTableRow($cells, $expected_row) {
     foreach ($cells as $i => $cell) {
       if (!array_key_exists($i, $expected_row)) {
-        print_r($expected_row);
         throw new \Exception("Unexpected cell with text '{$cell->getText()}'.");
       }
 
@@ -199,7 +198,6 @@ class FeatureContext extends DrupalContext {
             throw new \Exception("Couldn't parse date '{$words[1]}', use 'MM/DD/YYYY'.");
           }
           $time = strtotime($content);
-          print_r(date_default_timezone_get());
           if ($expected_time != $time) {
             throw new \Exception("Found '$time' instead of '$expected_time'.");
           }
