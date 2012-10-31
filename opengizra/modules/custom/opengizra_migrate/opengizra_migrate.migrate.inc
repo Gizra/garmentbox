@@ -499,6 +499,11 @@ class openGizraInventoryLines extends openGizraMigration {
     'openGizraInventoryTypeTerms',
   );
 
+  protected $dateFields = array(
+    'field_production_start_date',
+    'field_delivery_date'
+  );
+
   public function __construct() {
     parent::__construct();
 
@@ -599,6 +604,10 @@ class openGizraCollectionsFieldStatusInfo extends openGizraFieldCollectionMigrat
   public $dependencies = array(
     'openGizraSeasonStatusTerms',
     'openGizraSeasons',
+  );
+
+  protected $dateFields = array(
+    'field_date',
   );
 
   public function __construct() {

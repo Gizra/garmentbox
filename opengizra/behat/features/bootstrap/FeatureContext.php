@@ -255,6 +255,17 @@ class FeatureContext extends DrupalContext {
       throw new \Exception('Missing image tag.');
     }
 
+    ////////////// Temporary travis test:
+    $response = $client->get('127.0.0.1')->send();
+    $info = $response->getInfo();
+
+    $response = $client->get('127.0.0.1/user')->send();
+    $info = $response->getInfo();
+
+    $response = $client->get($image_url . 'realynotthere.jpg')->send();
+    $info = $response->getInfo();
+    ////////////
+
     // Send a GET request to the image to make sure it's accessible.
     $image_url = $image_element->getAttribute('src');
     $client = new Client();
@@ -263,15 +274,5 @@ class FeatureContext extends DrupalContext {
     if ($info['http_code'] != 200) {
       throw new \Exception("Image not accessible. URL: $image_url");
     }
-
-    // Temporary travis test:
-    $response = $client->get($image_url . 'realynotthere.jpg')->send();
-    $info = $response->getInfo();
-
-    $response = $client->get('127.0.0.1')->send();
-    $info = $response->getInfo();
-
-    $response = $client->get('127.0.0.1/user')->send();
-    $info = $response->getInfo();
   }
 }
