@@ -16,6 +16,7 @@ before_script:
   - bash scripts/ci/setup
   - bash scripts/build
   - cd www
+  - chmod 777 -R sites/default/files
   - drush si opengizra --db-url=mysql://root:@127.0.0.1/drupal --account-pass=admin --yes
   - drush cc all --yes
   - cd ..
@@ -23,7 +24,7 @@ before_script:
   # Create a behat configuration file.
   - cd opengizra/behat
   - cp behat.local.yml.travis behat.local.yml
-  
+
   # Create Drush alias.
   - cp aliases.drushrc.php ~/.drush/
   - composer install
