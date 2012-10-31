@@ -198,9 +198,8 @@ class FeatureContext extends DrupalContext {
           if (!$expected_time) {
             throw new \Exception("Couldn't parse date '{$words[1]}', use 'MM/DD/YYYY'.");
           }
-          print_r("Expected: $expected_time\n");
           $time = strtotime($content);
-          print_r("Found: $time\n");
+          print_r(date_default_timezone_get());
           if ($expected_time != $time) {
             throw new \Exception("Found '$time' instead of '$expected_time'.");
           }
@@ -264,5 +263,15 @@ class FeatureContext extends DrupalContext {
     if ($info['http_code'] != 200) {
       throw new \Exception("Image not accessible. URL: $image_url");
     }
+
+    // Temporary travis test:
+    $response = $client->get($image_url . 'realynotthere.jpg')->send();
+    $info = $response->getInfo();
+
+    $response = $client->get('127.0.0.1')->send();
+    $info = $response->getInfo();
+
+    $response = $client->get('127.0.0.1/user')->send();
+    $info = $response->getInfo();
   }
 }
