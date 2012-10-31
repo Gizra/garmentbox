@@ -256,6 +256,7 @@ class FeatureContext extends DrupalContext {
     }
 
     ////////////// Temporary travis test:
+    $client = new Client();
     $response = $client->get('127.0.0.1')->send();
     $info = $response->getInfo();
 
@@ -268,7 +269,7 @@ class FeatureContext extends DrupalContext {
 
     // Send a GET request to the image to make sure it's accessible.
     $image_url = $image_element->getAttribute('src');
-    $client = new Client();
+
     $response = $client->get($image_url)->send();
     $info = $response->getInfo();
     if ($info['http_code'] != 200) {
