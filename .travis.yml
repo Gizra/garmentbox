@@ -15,9 +15,10 @@ before_script:
   - phpenv rehash
   - bash scripts/ci/setup
   - bash scripts/build
+  - sudo chmod 777 -R www/
   - cd www
+  - ls
   - drush si opengizra --db-url=mysql://root:@127.0.0.1/drupal --account-pass=admin --yes
-  - sudo chmod 777 -R sites/default/files
   - drush cc all --yes
   - cd ..
 
