@@ -29,8 +29,8 @@ Feature: Test Season page
     Given I am logged in as a user with the "authenticated user" role
     And I am on a "season" page titled "Autumn-Winter 2013 Women", in the tab "items"
     Then I should see a table titled "V-neck shirt" with the following <contents>:
-    |         | Variant            | Main material | Status | Retail price | Wholesale price |
-    | <image> | Black v-neck shirt | <image>       | Draft  | $80.00       | $55.00          |
+    |         | Variant            | Main material | Status     | Retail price | Wholesale price |
+    | <image> | Black v-neck shirt | <image>       | Needs work | $100.00      | $70.00          |
 
   @api
   Scenario: Correct content is shown on the season inventory list.
