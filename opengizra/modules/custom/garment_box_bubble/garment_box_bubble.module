@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Garment-box Bubble feature.
+ */
+
+include_once 'garment_box_bubble.features.inc';
