@@ -138,6 +138,9 @@ projects[jcarousel][version] = "2.6"
 projects[og][subdir] = "contrib"
 projects[og][version] = "2.x-dev"
 
+projects[beautytips][subdir] = "contrib"
+projects[beautytips][version] = "2.x-dev"
+
 ; Libraries.
 libraries[jquery.cycle][type] = "libraries"
 libraries[jquery.cycle][download][type] = "git"
