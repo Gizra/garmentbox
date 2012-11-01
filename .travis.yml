@@ -16,12 +16,12 @@ before_script:
   - bash scripts/ci/setup
   - bash scripts/build
   - cd www
-  - drush si opengizra --db-url=mysql://root:@127.0.0.1/drupal --account-pass=admin --yes
+  - drush si garmentbox --db-url=mysql://root:@127.0.0.1/drupal --account-pass=admin --yes
   - drush cc all --yes
   - cd ..
 
   # Create a behat configuration file.
-  - cd opengizra/behat
+  - cd garmentbox/behat
   - cp behat.local.yml.travis behat.local.yml
   
   # Create Drush alias.
@@ -29,6 +29,6 @@ before_script:
   - composer install
 
 script:
-  - sudo drush @opengizra runserver --server=builtin 80 &
+  - sudo drush @garmentbox runserver --server=builtin 80 &
   - ./bin/behat
 

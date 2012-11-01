@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the Opengizra Vendor feature.
- */
-
-include_once 'opengizra_vendor.features.inc';

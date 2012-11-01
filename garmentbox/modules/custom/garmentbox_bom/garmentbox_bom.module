@@ -1,0 +1,206 @@
+<?php
+/**
+ * @file
+ * Code for the Garmentbox BOM.
+ */
+
+
+/**
+ * Implement hook_field_formatter_info().
+ */
+function garmentbox_bom_field_formatter_info() {
+  return array(
+    'garmentbox_bom_table' => array(
+      'label' => t('BOM table'),
+      'field types' => array('field_collection'),
+    ),
+    'garmentbox_bom_main_material_icon' => array(
+      'label' => t('Main material icon'),
+      'field types' => array('field_collection'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function garmentbox_bom_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+
+  $settings = $display['settings'];
+
+  switch ($display['type']) {
+    case 'garmentbox_bom_table':
+      $field_name = $field['field_name'];
+      $dummy_display = $display;
+      $dummy_display['type'] = 'field_collection_table_view';
+      $element = field_view_field($entity_type, $entity, $field_name, $dummy_display);
+
+      // Inject header.
+      $last_col = array_pop($element[0]['#header']);
+
+      $price_field = array(
+        'data' => t('Price'),
+        'class' => 'field_price',
+      );
+
+      // If the last column is 'Operations', add the price field before of it,
+      // otherwise, return the last field to its place and append the price
+      // field.
+      if ($operations_available = ($last_col == t('Operations'))) {
+        $element[0]['#header'][] = $price_field;
+        $element[0]['#header'][] = $last_col;
+      }
+      else {
+        $element[0]['#header'][] = $last_col;
+        $element[0]['#header'][] = $price_field;
+      }
+
+      $total = 0;
+      // Inject rows.
+      foreach ($element[0]['#rows'] as $key => $row) {
+        if ($operations_available) {
+          $last_col = array_pop($row['data']);
+        }
+        // Find the material item delta.
+        $delta = 'missing';
+        foreach ($row['data'] as $delta => $data) {
+          if ($data['class'] == 'field_material_item') {
+            break;
+          }
+        }
+        if ($delta == 'missing') {
+          continue;
+        }
+
+        $wrapper = entity_metadata_wrapper('field_collection_item', $row['data'][$delta]['data']['#object']->item_id);
+        $field_price = field_view_field('field_collection_item', $wrapper->field_material_item->value(), 'field_price', array('label' => 'hidden', 'type' => 'commerce_price_formatted_amount'));
+
+        $total += $price = garmentbox_bom_get_material_price($wrapper->value());
+        $field_price[0]['#markup'] = commerce_currency_format($price, commerce_default_currency());
+
+        $row['data'][] = array(
+          'data' => $field_price,
+          'class' => 'field_price',
+        );
+        if ($operations_available) {
+          $row['data'][] = $last_col;
+        }
+        $element[0]['#rows'][$key] = $row;
+      }
+      // Re-create the element, and add the total.
+      $table = $element[0];
+      $element[0] = array();
+
+      $element[0]['table'] = $table;
+      $element[0]['total']['#markup'] = t('<div class="bom-total"><span class="label">Total:</span><span class="amount">@total</span></div>', array('@total' => commerce_currency_format($total, commerce_default_currency())));
+      return $element;
+
+    case 'garmentbox_bom_main_material_icon':
+      $element = array(
+        array('#markup' => garmentbox_item_get_main_material_icon($entity)),
+      );
+      return $element;
+  }
+}
+
+/**
+ * Get the BOM total price.
+ *
+ * @param $node
+ *   A node holding the BOM info.
+ *
+ * @return
+ *   The total raw price.
+ */
+function garmentbox_bom_get_variant_bom_price($node) {
+  $wrapper = entity_metadata_wrapper('node', $node);
+  // Iterate the BOM.
+  $price = 0;
+  for ($delta = 0; $delta < $wrapper->field_bom_info->count(); $delta++) {
+    $price += garmentbox_bom_get_material_price($wrapper->field_bom_info->get($delta)->value());
+  }
+
+  return $price;
+}
+
+/**
+ * Calculate the price of a single BOM item.
+ *
+ * @param $collection_item
+ *   A BOM item.
+ *
+ * @return
+ *   The price of the given item.
+ */
+function garmentbox_bom_get_material_price($collection_item) {
+  $wrapper = entity_metadata_wrapper('field_collection_item', $collection_item);
+
+  $m_unit = $wrapper->field_material_item->field_unit->value();
+  $m_length_unit = $wrapper->field_material_item->field_length_unit->value();
+  $m_length_unit_conversion = ($wrapper->field_material_item->field_length_unit->value() && !empty($wrapper->field_material_item->field_length_unit->field_conversion_ratio)) ? $wrapper->field_material_item->field_length_unit->field_conversion_ratio->value() : 1;
+  $m_length = $wrapper->field_material_item->field_length->value();
+  $m_price = $wrapper->field_material_item->field_price->value();
+  $bom_unit_conversion = !empty($wrapper->field_unit->field_conversion_ratio) ? $wrapper->field_unit->field_conversion_ratio->value() : 1;
+
+  $length_price = garmentbox_bom_get_length_price($m_price['amount'], $m_unit, $m_length, $m_length_unit_conversion / $bom_unit_conversion);
+  $bom_quantity = $wrapper->field_quantity->value();
+  return $length_price * $bom_quantity;
+}
+
+/**
+ * Get the price per length unit of a material item.
+ *
+ * @param $price
+ *   The price per "unit".
+ * @param $unit
+ *   The material item unit.
+ * @param $length
+ *   The material length per mass unit.
+ * @param $length_ratio
+ *   The ratio between the material-length-per-mass and the BOM length unit
+ *   conversion rate.
+ *
+ * @return
+ *   The converted price.
+ */
+function garmentbox_bom_get_length_price($price, $unit, $length, $length_ratio) {
+  $wrapper = entity_metadata_wrapper('taxonomy_term', $unit);
+
+  // If the material price is given in mass, convert it to price per length.
+  if ($wrapper->field_unit_type->value() == 'mass') {
+    $price /= $length;
+    $price *= $length_ratio;
+  }
+
+  return $price;
+}
+
+/**
+ * Implements hook_entity_info_alter().
+ */
+function garmentbox_bom_entity_info_alter(&$entity_info) {
+  $entity_info['field_collection_item']['label callback'] = 'garmentbox_bom_field_collection_item_label';
+}
+
+/**
+ * Label callback.
+ *
+ * Rebulid the label for source info field collections to present the material
+ * and the vendor.
+ *
+ * @see garmentbox_bom_entity_info_alter().
+ */
+function garmentbox_bom_field_collection_item_label($entity) {
+  if ($entity->field_name != 'field_source_info') {
+     // Fall to the default value, which is the item ID.
+    return $entity->item_id;
+  }
+
+  $host_entity = $entity->hostEntity();
+  $material = $host_entity->title;
+
+  $wrapper = entity_metadata_wrapper('field_collection_item', $entity);
+  $vendor = $wrapper->field_vendor->label();
+  // Notice that the label is escaped later.
+  return "$material [$vendor]";
+}

@@ -1,0 +1,212 @@
+<?php
+/**
+ * @file
+ * Code for the Garmentbox Task feature.
+ */
+
+include_once 'garmentbox_task.features.inc';
+
+
+/**
+ * Implements hook_node_presave().
+ *
+ * Populate the Season reference field based on the selected entity.
+ */
+function garmentbox_task_node_presave($node) {
+  if ($node->type != 'task') {
+    return;
+  }
+
+  $wrapper = entity_metadata_wrapper('node', $node);
+  $nids = array_keys(garmentbox_general_get_node_hierarchy($node));
+  $wrapper->field_reference_hierarchy->set($nids);
+}
+
+/**
+ * Implements hook_node_insert().
+ *
+ * Create an unpublished comment that will hold the node's state as it was
+ * created.
+ */
+function garmentbox_task_node_insert($node) {
+  if ($node->type != 'task') {
+    return;
+  }
+
+  // Create a stub comment.
+  $comment = (object)array(
+    'subject' => '',
+    'nid' => $node->nid,
+    'uid' => 0,
+    'cid' => FALSE,
+    'pid' => 0,
+    'node_type' => 'comment_node_' . $node->type,
+    // Comment is unpublished.
+    'status' => 0,
+  );
+
+  if (!$field_names = garmentbox_task_intersect_fields($comment, $node)) {
+    return;
+  }
+  $field_names[] ='title';
+
+  $wrapper = entity_metadata_wrapper('comment', $comment);
+  foreach ($field_names as $field_name) {
+    $value = $wrapper->node->{$field_name}->value();
+    if ($field_name == 'title') {
+      // The title field in the node has different name than the comment.
+      $field_name = 'subject';
+    }
+    $wrapper->{$field_name}->set($value);
+  }
+
+  $wrapper->save();
+}
+
+
+/**
+ * Implements hook_comment_insert().
+ *
+ * Save the node task fields according to the saved comment.
+ */
+function garmentbox_task_comment_insert($comment) {
+  $wrapper = entity_metadata_wrapper('comment', $comment);
+  $node = $wrapper->node->value();
+
+  if (!$field_names = garmentbox_task_intersect_fields($comment, $node)) {
+    return;
+  }
+
+  $save = FALSE;
+  $field_names[] ='subject';
+  foreach ($field_names as $field_name) {
+    $value = $wrapper->{$field_name}->value();
+    if ($field_name == 'subject') {
+      // The title field in the node has different name than the comment.
+      $field_name = 'title';
+    }
+    if ($wrapper->node->{$field_name}->value() != $value) {
+      $save = TRUE;
+      if ($field_name == 'title') {
+        $wrapper->node->title->set($value);
+      }
+      else {
+        $wrapper->node->{$field_name}->set($value);
+      }
+    }
+  }
+
+  if ($save) {
+    $wrapper->node->save();
+  }
+}
+
+/**
+ * Return all the fields the exist in the comment and in the node.
+ */
+function garmentbox_task_intersect_fields($comment, $node) {
+  list(,, $comment_bundle) = entity_extract_ids('comment', $comment);
+  $comment_fields = array_keys(field_info_instances('comment', $comment_bundle));
+
+  list(,, $node_bundle) = entity_extract_ids('node', $node);
+  $node_fields = array_keys(field_info_instances('node', $node_bundle));
+
+  return array_intersect($comment_fields, $node_fields);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function garmentbox_task_form_comment_node_task_form_alter(&$form, $form_state) {
+  garmentbox_task_sync_comment($form, $form_state);
+}
+
+function garmentbox_task_sync_comment(&$form, $form_state) {
+  $comment = $form['#entity'];
+  $node = $form['#node'];
+  if (!$field_names = garmentbox_task_intersect_fields($comment, $node)) {
+    return;
+  }
+
+  $wrapper = entity_metadata_wrapper('node', $node);
+  foreach ($field_names as $field_name) {
+    if (!$value = $wrapper->{$field_name}->value()) {
+      continue;
+    }
+
+    if (is_object($value)) {
+      $value = $wrapper->{$field_name}->value(array('identifier' => TRUE));
+    }
+    $form[$field_name][LANGUAGE_NONE]['#default_value'] = $value;
+  }
+
+  // Replace the node title field with the comment's subject field.
+  $form['subject_field'][LANGUAGE_NONE][0]['value']['#default_value'] = $node->title;
+}
+
+/**
+ * Comment preprocess.
+ *
+ * Add all the fields that have changed from previous comment.
+ */
+function garmentbox_task_preprocess_comment(&$variables) {
+  $comment = $variables['comment'];
+  $node = $variables['node'];
+  $variables['changed_fields'] = '';
+
+  $cache = &drupal_static(__FUNCTION__, array());
+  if (isset($cache[$node->nid])) {
+    $thread = $cache[$node->nid];
+  }
+  else {
+    $thread = comment_get_thread($node, COMMENT_MODE_FLAT, 1000);
+    $cache[$node->nid] = $thread;
+  }
+
+  // As we already called the non-cached comment_get_thread(), this is
+  // a good place to change the permalink text to be the comment number
+  // in the thread.
+  $key = array_search($comment->cid, $thread);
+  $variables['permalink'] = str_replace('Permalink', '#' . $key, $variables['permalink']);
+
+  // If this is not the first comment, and the previous comment's field
+  // were changed preapre to show it.
+  if ($key == 0) {
+    // Don't show this comment;
+    $variables['show_comment'] = FALSE;
+    $variables['content'] = array();
+    return;
+  }
+  $variables['show_comment'] = TRUE;
+
+  if (!$field_names = garmentbox_task_intersect_fields($comment, $node)) {
+    return;
+  }
+  $field_names[] ='subject';
+
+  $wrapper = entity_metadata_wrapper('comment', $comment);
+  $previous_wrapper = entity_metadata_wrapper('comment', $thread[$key - 1]);
+
+  foreach ($field_names as $field_name) {
+    $value = $wrapper->{$field_name}->value();
+    $previous_value = $previous_wrapper->{$field_name}->value();
+    if ($previous_value == $value) {
+      continue;
+    }
+
+    $params = array();
+
+    $instance = field_info_instance('comment', $field_name, $comment->node_type);
+    $display = $instance['display']['default'];
+    $display['label'] = 'inline';
+    $params['@previous'] = strip_tags(render(field_view_field('comment', $previous_wrapper->value(), $field_name, $display)));
+    $params['@previous'] = str_replace('&nbsp;', ' ', $params['@previous']);
+
+
+    $display['label'] = 'hidden';
+    $params['@current'] = strip_tags(render(field_view_field('comment', $wrapper->value(), $field_name, $display)));
+
+    $variables['changed_fields'] .= '<div class="task-change">' . format_string('@previous » @current', $params) . '</div>';
+  }
+}
+

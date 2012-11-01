@@ -1,0 +1,16 @@
+<?php
+/**
+ * @file
+ * Code for the Garmentbox season feature.
+ */
+
+include_once 'garmentbox_season.features.inc';
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function garmentbox_season_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'ctools') {
+    return 'plugins/' . $plugin;
+  }
+}

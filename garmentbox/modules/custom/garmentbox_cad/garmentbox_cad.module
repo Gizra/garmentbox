@@ -1,0 +1,22 @@
+<?php
+/**
+ * @file
+ * Code for the Garmentbox CAD feature.
+ */
+
+include_once 'garmentbox_cad.features.inc';
+
+/**
+ * Implements hook_node_presave().
+ *
+ * Populate the Season reference field based on the selected entity.
+ */
+function garmentbox_cad_node_presave($node) {
+  if ($node->type != 'pattern') {
+    return;
+  }
+
+  $wrapper = entity_metadata_wrapper('node', $node);
+  $nids = array_keys(garmentbox_general_get_node_hierarchy($node));
+  $wrapper->field_reference_hierarchy->set($nids);
+}

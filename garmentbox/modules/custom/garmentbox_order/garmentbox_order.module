@@ -1,0 +1,16 @@
+<?php
+/**
+ * @file
+ * Code for the Garmentbox Order feature.
+ */
+
+include_once 'garmentbox_order.features.inc';
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function garmentbox_order_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'ctools') {
+    return 'plugins/' . $plugin;
+  }
+}

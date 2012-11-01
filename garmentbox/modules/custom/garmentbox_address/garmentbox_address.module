@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Garmentbox Address feature.
+ */
+
+include_once 'garmentbox_address.features.inc';

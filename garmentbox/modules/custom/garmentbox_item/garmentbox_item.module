@@ -1,0 +1,125 @@
+<?php
+/**
+ * @file
+ * Code for the Garmentbox Item feature.
+ */
+
+include_once 'garmentbox_item.features.inc';
+
+/**
+ * Implements hook_node_presave().
+ *
+ * Populate the Season reference field based on the selected entity.
+ */
+function garmentbox_item_node_presave($node) {
+  if ($node->type != 'item_variant' && $node->type != 'item') {
+    return;
+  }
+
+  $wrapper = entity_metadata_wrapper('node', $node);
+  $nids = array_keys(garmentbox_general_get_node_hierarchy($node));
+  $wrapper->field_reference_hierarchy->set($nids);
+}
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function garmentbox_item_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'ctools') {
+    return 'plugins/' . $plugin;
+  }
+}
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function garmentbox_item_field_formatter_info() {
+  return array(
+    'garmentbox_size_info' => array(
+      'label' => t('Size information'),
+      'field types' => array('field_collection'),
+    ),
+    'garmentbox_slideshow' => array(
+      'label' => t('Garmentbox slideshow'),
+      'field types' => array('image'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function garmentbox_item_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+
+  $settings = $display['settings'];
+
+  switch ($display['type']) {
+    case 'garmentbox_size_info':
+      $sizes = array();
+      foreach ($items as $item) {
+        $wrapper = entity_metadata_wrapper('field_collection_item', $item['value']);
+        $sizes[] = check_plain($wrapper->field_size->label());
+      }
+      $element[0] = array();
+      $element[0]['#markup'] = theme('item_list', array('items' => $sizes));
+      return $element;
+
+    case 'garmentbox_slideshow':
+      $options = array();
+      foreach ($items as &$item) {
+        $item = theme('image_style', array('style_name' => 'variant_preview', 'path' => $item['uri']));
+      }
+
+      $element[0] = array();
+      $element[0]['#markup'] = theme('jcarousel', array('items' => $items, 'options' => $options));
+      return $element;
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Remove mass measurement units from the item variant BOM form.
+ */
+function garmentbox_item_form_item_variant_node_form_alter(&$form, $form_state) {
+  $mass_units = garmentbox_material_get_units('mass');
+  foreach (array_keys($form['field_bom_info'][LANGUAGE_NONE][0]['field_unit'][LANGUAGE_NONE]['#options']) as $tid) {
+    if (in_array($tid, $mass_units)) {
+      unset($form['field_bom_info'][LANGUAGE_NONE][0]['field_unit'][LANGUAGE_NONE]['#options'][$tid]);
+    }
+  }
+}
+
+/**
+ * Fetch variant's main material.
+ *
+ * @param $node
+ *   An item variant node.
+ *
+ * @return
+ *   Rendered icon of the item variant main material.
+ */
+function garmentbox_item_get_main_material_icon($node) {
+  $wrapper = entity_metadata_wrapper('node', $node);
+  if (!$wrapper->field_bom_info->value()) {
+    return;
+  }
+
+  // Get the first BOM collection item.
+  if (!$entity = $wrapper->field_bom_info->get(0)->field_material_item->value()) {
+    return;
+  }
+
+  // Wrap the host entity of the first item.
+  $wrapper = entity_metadata_wrapper('node', $entity->hostEntity());
+  if (!$wrapper->value() || !$wrapper->field_images->value()) {
+    return;
+  }
+
+  // Display the first material image.
+  $image = $wrapper->field_images->get(0)->value();
+  $image = theme('image_style', array('style_name' => 'material_thumbnail', 'path' => $image['uri']));
+
+  return l($image, 'node/' . $wrapper->getIdentifier(), array('html' => TRUE, 'attributes' => array('title' => $wrapper->label())));
+}
+

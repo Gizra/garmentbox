@@ -1,0 +1,26 @@
+<?php
+/**
+ * @file
+ * Code for the Garmentbox BOL.
+ */
+
+/**
+ * Get the BOL total price.
+ *
+ * @param $node
+ *   A node holding the BOL info.
+ *
+ * @return
+ *   The total raw price.
+ */
+function garmentbox_bol_get_variant_bol_price($node) {
+  $wrapper = entity_metadata_wrapper('node', $node);
+  // Iterate the BOL and some the prices.
+  $price = 0;
+  foreach ($wrapper->field_bol_info as $item_wrapper) {
+    $temp_price = $item_wrapper->field_price->value();
+    $price += $temp_price['amount'];
+  }
+
+  return $price;
+}

@@ -1,0 +1,33 @@
+<?php
+
+include_once 'garmentbox_og.features.inc';
+
+/**
+ * Implements hook_node_insert().
+ *
+ * Attach every node created (Except of a "department") to the main department.
+ */
+function garmentbox_og_node_insert($node) {
+  if (!og_is_group_content_type('node', $node->type)) {
+    return;
+  }
+
+  $gid = variable_get('garmentbox_og_main_department');
+  if (!$gid) {
+    return;
+  }
+  og_group('node', $gid, array('entity_type' => 'node', 'entity' => $node));
+}
+
+/**
+ * Implements hook_user_insert().
+ *
+ * Attach every user created to the main department.
+ */
+function garmentbox_og_user_insert(&$edit, $account) {
+  $gid = variable_get('garmentbox_og_main_department');
+  if (!$gid) {
+    return;
+  }
+  og_group('node', $gid, array('entity' => $account->uid));
+}
