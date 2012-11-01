@@ -577,6 +577,34 @@ class openGizraOrders extends openGizraMigration {
   }
 }
 
+/**
+ * Migrate bubble nodes.
+ */
+class garmentBoxBubbles extends openGizraMigration {
+
+  public $csvColumns = array(
+    array('id', 'Unique ID'),
+    array('field_bubble_id', 'Bubble ID'),
+    array('title', 'Title'),
+    array('body', 'Text'),
+    array('field_css_selector', 'CSS selector'),
+    array('field_display_mode', 'Display mode'),
+  );
+
+  public $entityType = 'node';
+  public $bundle = 'bubble';
+
+  public function __construct() {
+    parent::__construct();
+
+    $this->addFieldMapping('field_bubble_id', 'field_bubble_id');
+    $this->addFieldMapping('title', 'title');
+    $this->addFieldMapping('body', 'body');
+    $this->addFieldMapping('field_css_selector', 'field_css_selector');
+    $this->addFieldMapping('field_display_mode', 'field_display_mode');
+  }
+}
+
 
 ///////////////////////////////
 // Field collections

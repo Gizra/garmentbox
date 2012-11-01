@@ -71,7 +71,7 @@ function garment_box_bubble_strongarm() {
           'weight' => '-5',
         ),
         'path' => array(
-          'weight' => '30',
+          'weight' => '40',
         ),
       ),
       'display' => array(),

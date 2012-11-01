@@ -5,3 +5,59 @@
  */
 
 include_once 'garment_box_bubble.features.inc';
+
+/**
+ * Implements hook_view_pre_render().
+ */
+function garment_box_bubble_views_pre_render(&$view) {
+  if (empty($view->result)) {
+    opengizra_bubble_manager('view_' . $view->name . '_empty');
+  }
+}
+
+/**
+ * Get and set bubbles.
+ */
+function garment_box_bubble_bubble_manager($id = NULL) {
+  $cache = &drupal_static(__FUNCTION__, array());
+  if ($id) {
+    // Register the ID.
+    $cache[$id] = TRUE;
+    return;
+  }
+
+  if (!$cache) {
+    return;
+  }
+
+  $ids = array_keys($cache);
+
+  // Get all nodes with the given IDs
+  $query = new EntityFieldQuery;
+  $result = $query->fieldCondition('field_bubble_id', 'value', $ids, 'IN');
+
+  if (empty($result['node'])) {
+    return;
+  }
+
+
+  // Add the bubble.
+  //drupal_add_js();
+
+
+  $nodes = node_load_multiple(array_keys($result['node']));
+  foreach ($nodes as $node) {
+    $settings[$node->nid] = $wrapper->body->value();
+  }
+  $settings = array();
+
+  // Add the JS settings.
+  // drupal_add_js($settings);
+}
+
+/**
+ * Implements hook_page_build().
+ */
+function garment_box_bubble_page_build(&$page) {
+  garment_box_bubble_bubble_manager();
+}

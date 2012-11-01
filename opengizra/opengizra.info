@@ -93,3 +93,4 @@ dependencies[] = opengizra_season
 dependencies[] = opengizra_task
 dependencies[] = opengizra_vendor
 dependencies[] = opengizra_og
+dependencies[] = garment_box_bubble
