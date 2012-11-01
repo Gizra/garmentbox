@@ -55,11 +55,16 @@ function garment_box_bubble_bubble_manager($id = NULL) {
     $beautytip = array(
       'cssSelect' => $wrapper->field_css_selector->value(),
       'text' => $bubble_text,
+      'trigger' => 'none',
     );
 
     switch ($wrapper->field_display_mode->value()) {
       case 'hover':
-        $beautytip['trigger'] = array('mouseover');
+        $beautytip['trigger'] = 'mouseover';
+        break;
+
+      case 'open':
+        $beautytip['trigger'] = 'now';
         break;
     }
 
@@ -74,4 +79,30 @@ function garment_box_bubble_bubble_manager($id = NULL) {
  */
 function garment_box_bubble_page_build(&$page) {
   garment_box_bubble_bubble_manager();
+}
+
+/**
+ * Implements hook_init().
+ *
+ * Add the generel help bubbles to pages.
+ */
+function garment_box_bubble_init() {
+  $node_pages = array('season/%');
+
+  $node = menu_get_object();
+  if (!$node) {
+    $item = menu_get_item();
+
+    foreach ($node_pages as $node_page) {
+      if (substr($item['path'], 0, strlen($node_page)) == $node_page) {
+        $node = $item['map'][1]->data;
+        break;
+      }
+    }
+  }
+  if (empty($node)) {
+    return;
+  }
+
+  garment_box_bubble_bubble_manager($node->type . '_help');
 }
