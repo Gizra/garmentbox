@@ -42,7 +42,8 @@ function garment_box_bubble_bubble_manager($id = NULL) {
   }
 
   $beautytips = array();
-
+  // List of selectors that should be triggered to show their bubbles upon load.
+  $settings = array('opened_selectors' => array());
   $nodes = node_load_multiple(array_keys($result['node']));
   foreach ($nodes as $node) {
     $wrapper = entity_metadata_wrapper('node', $node);
@@ -60,11 +61,11 @@ function garment_box_bubble_bubble_manager($id = NULL) {
 
     switch ($wrapper->field_display_mode->value()) {
       case 'hover':
-        $beautytip['trigger'] = 'mouseover';
+        $beautytip['trigger'] = 'hover';
         break;
 
       case 'open':
-        $beautytip['trigger'] = 'now';
+        $settings['opened_selectors'][] = $wrapper->field_css_selector->value();
         break;
     }
 
@@ -72,6 +73,10 @@ function garment_box_bubble_bubble_manager($id = NULL) {
   }
 
   beautytips_add_beautytips($beautytips);
+  if (!empty($settings['opened_selectors'])) {
+    drupal_add_js(array('garment_box_bubble' => $settings), 'setting');
+    drupal_add_js(drupal_get_path('module', 'garment_box_bubble') . '/js/garment_box_bubble.js', 'file');
+  }
 }
 
 /**
