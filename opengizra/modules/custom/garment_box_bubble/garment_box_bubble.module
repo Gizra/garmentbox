@@ -11,7 +11,7 @@ include_once 'garment_box_bubble.features.inc';
  */
 function garment_box_bubble_views_pre_render(&$view) {
   if (empty($view->result)) {
-    opengizra_bubble_manager('view_' . $view->name . '_empty');
+    garment_box_bubble_bubble_manager('view_' . $view->name . '_empty');
   }
 }
 
@@ -34,25 +34,39 @@ function garment_box_bubble_bubble_manager($id = NULL) {
 
   // Get all nodes with the given IDs
   $query = new EntityFieldQuery;
-  $result = $query->fieldCondition('field_bubble_id', 'value', $ids, 'IN');
+  $result = $query->fieldCondition('field_bubble_id', 'value', $ids, 'IN')
+    ->execute();
 
   if (empty($result['node'])) {
     return;
   }
 
-
-  // Add the bubble.
-  //drupal_add_js();
-
+  $beautytips = array();
 
   $nodes = node_load_multiple(array_keys($result['node']));
   foreach ($nodes as $node) {
-    $settings[$node->nid] = $wrapper->body->value();
-  }
-  $settings = array();
+    $wrapper = entity_metadata_wrapper('node', $node);
 
-  // Add the JS settings.
-  // drupal_add_js($settings);
+    $bubble_text = $wrapper->body->value->value();
+    if ($wrapper->label()) {
+      $bubble_text = '<h3>' . $wrapper->label() . '</h3>' . $bubble_text;
+    }
+
+    $beautytip = array(
+      'cssSelect' => $wrapper->field_css_selector->value(),
+      'text' => $bubble_text,
+    );
+
+    switch ($wrapper->field_display_mode->value()) {
+      case 'hover':
+        $beautytip['trigger'] = array('mouseover');
+        break;
+    }
+
+    $beautytips['garment_box_bubble_' . $node->nid] = $beautytip;
+  }
+
+  beautytips_add_beautytips($beautytips);
 }
 
 /**

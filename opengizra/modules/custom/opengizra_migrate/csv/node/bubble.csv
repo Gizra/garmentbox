@@ -1,2 +1,2 @@
 Unique ID,Bubble ID,Title,Text,CSS selector,Display mode
-bubble1,test1,A title,Blah,input,hover
+bubble1,view_task_list_empty,,Create a new task,.pane-prepopulate-link a,hover
