@@ -33,8 +33,10 @@ function garment_box_bubble_bubble_manager($id = NULL) {
   $ids = array_keys($cache);
 
   // Get all nodes with the given IDs
-  $query = new EntityFieldQuery;
-  $result = $query->fieldCondition('field_bubble_id', 'value', $ids, 'IN')
+  $query = new EntityFieldQuery();
+  $result = $query->entityCondition('entity_type', 'node')
+    ->propertyCondition('type', 'bubble')
+    ->fieldCondition('field_bubble_id', 'value', $ids, 'IN')
     ->execute();
 
   if (empty($result['node'])) {
@@ -48,14 +50,9 @@ function garment_box_bubble_bubble_manager($id = NULL) {
   foreach ($nodes as $node) {
     $wrapper = entity_metadata_wrapper('node', $node);
 
-    $bubble_text = $wrapper->body->value->value();
-    if ($wrapper->label()) {
-      $bubble_text = '<h3>' . $wrapper->label() . '</h3>' . $bubble_text;
-    }
-
     $beautytip = array(
       'cssSelect' => $wrapper->field_css_selector->value(),
-      'text' => $bubble_text,
+      'text' => $wrapper->body->value->value(),
       'trigger' => 'none',
     );
 
@@ -89,9 +86,10 @@ function garment_box_bubble_page_build(&$page) {
 /**
  * Implements hook_init().
  *
- * Add the generel help bubbles to pages.
+ * Add the general help bubbles to pages.
  */
 function garment_box_bubble_init() {
+  // TODO: Add other pages that should have help bubbles.
   $node_pages = array('season/%');
 
   $node = menu_get_object();
