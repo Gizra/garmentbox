@@ -327,6 +327,10 @@ function opengizra_season_views_default_views() {
     'calculation' => FALSE,
   );
   $handler->display->display_options['fields']['field_wholesale_price']['field_api_classes'] = 0;
+  /* Sort criterion: Content: Title */
+  $handler->display->display_options['sorts']['title']['id'] = 'title';
+  $handler->display->display_options['sorts']['title']['table'] = 'node';
+  $handler->display->display_options['sorts']['title']['field'] = 'title';
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
