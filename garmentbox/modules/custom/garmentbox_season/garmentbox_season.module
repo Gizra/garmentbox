@@ -14,3 +14,82 @@ function garmentbox_season_ctools_plugin_directory($module, $plugin) {
     return 'plugins/' . $plugin;
   }
 }
+
+
+/**
+ * Implements hook_init().
+ */
+function garmentbox_season_init() {
+  global $user;
+  if (empty($user->uid)) {
+    return;
+  }
+
+  if (drupal_is_front_page()) {
+    _garmentbox_season_redirect_to_season();
+  }
+
+  $node = menu_get_object();
+  $item = menu_get_item();
+  if (!$node) {
+    if (substr($item['path'], 0, 8) == 'season/%') {
+      $node = $item['map'][1]->data;
+    }
+  }
+
+  if (!$node || $node->type != 'season') {
+    return;
+  }
+  // Redirect from a season page to the season's items tab if there are no
+  // items.
+  if (!_garmentbox_season_count_view_rows('item_variants', $node->nid)) {
+    if ($item['path'] != 'season/%/items') {
+      drupal_goto("season/{$node->nid}/items");
+    }
+  }
+  // Redirect from a season page to the season's tasks tab if there are no
+  // tasks.
+  elseif(!_garmentbox_season_count_view_rows('task_list', $node->nid)) {
+    if ($item['path'] != 'node/%') {
+      drupal_goto("season/{$node->nid}");
+    }
+  }
+}
+
+/**
+ * Redirect from the front page to a season page.
+ */
+function _garmentbox_season_redirect_to_season() {
+  // Find the last changed season.
+  $query = new EntityFieldQuery();
+  $result = $query->entityCondition('entity_type', 'node')
+    ->propertyCondition('type', 'season')
+    ->propertyCondition('status', NODE_PUBLISHED)
+    ->propertyOrderBy('changed', 'DESC')
+    ->range(0, 1)
+    ->execute();
+
+  if (empty($result)) {
+    return;
+  }
+
+  $nid = key($result['node']);
+  drupal_goto("season/$nid");
+}
+
+/**
+ * Count the amount of rows on a season related view.
+ *
+ * @param $view_name
+ *   The view name.
+ * @param $nid
+ *   Season NID.
+ *
+ * @return
+ *   The amount of rows on the view.
+ */
+function _garmentbox_season_count_view_rows($view_name, $nid) {
+  $view = views_get_view($view_name);
+  $view->preview('panel_pane_1', array($nid));
+  return $view->total_rows;
+}
