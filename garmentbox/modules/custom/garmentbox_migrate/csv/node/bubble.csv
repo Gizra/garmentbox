@@ -1,4 +1,3 @@
 Unique ID,Bubble ID,Title,Text,CSS selector,Display mode
-bubble1,view_task_list_empty,bubble1,Create a new task,.pane-prepopulate-link a,hover
-bubble2,season_help,bubble2,Open bubble,h1,open
-bubble3,season_help,bubble3,Closed bubble,img,closed
+bubble1,view_task_list_empty,No tasks,Create a new task,.pane-prepopulate-link a,open
+bubble2,view_item_variants_empty,No items,"You have no items, click to add the first item",.pane-prepopulate-link a,open

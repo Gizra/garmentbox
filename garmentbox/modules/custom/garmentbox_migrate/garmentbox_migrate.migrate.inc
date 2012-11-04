@@ -598,7 +598,6 @@ class garmentBoxBubbles extends garmentboxMigration {
     parent::__construct();
 
     $this->addFieldMapping('field_bubble_id', 'field_bubble_id');
-    $this->addFieldMapping('title', 'title');
     $this->addFieldMapping('body', 'body');
     $this->addFieldMapping('field_css_selector', 'field_css_selector');
     $this->addFieldMapping('field_display_mode', 'field_display_mode');
