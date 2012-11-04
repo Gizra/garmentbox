@@ -79,13 +79,27 @@ function garmentbox_item_field_formatter_view($entity_type, $entity, $field, $in
 /**
  * Implements hook_form_FORM_ID_alter().
  *
- * Remove mass measurement units from the item variant BOM form.
+ * Hiding the fields: bill of materials & bill of labour.
  */
 function garmentbox_item_form_item_variant_node_form_alter(&$form, $form_state) {
+  $form['field_bol_info']['#access'] = FALSE;
+  $form['field_bom_info']['#access'] = FALSE;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Remove mass measurement units from the item variant BOM form.
+ */
+function garmentbox_item_form_field_collection_item_form_alter(&$form, $form_state) {
+  if ($form['#bundle'] != 'field_bom_info') {
+    return;
+  }
+
   $mass_units = garmentbox_material_get_units('mass');
-  foreach (array_keys($form['field_bom_info'][LANGUAGE_NONE][0]['field_unit'][LANGUAGE_NONE]['#options']) as $tid) {
+  foreach (array_keys($form['field_unit'][LANGUAGE_NONE]['#options']) as $tid) {
     if (in_array($tid, $mass_units)) {
-      unset($form['field_bom_info'][LANGUAGE_NONE][0]['field_unit'][LANGUAGE_NONE]['#options'][$tid]);
+      unset($form['field_unit'][LANGUAGE_NONE]['#options'][$tid]);
     }
   }
 }
