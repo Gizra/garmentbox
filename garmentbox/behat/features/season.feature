@@ -19,7 +19,7 @@ Feature: Test Season page
   Scenario: Content is shown on the season task list itself.
     Given I am logged in as a user with the "authenticated user" role
     And I am on a "season" page titled "Autumn-Winter 2013 Women"
-    Then I should see a table titled "Task list / Item 19" with the following <contents>:
+    Then I should see a table titled "Task list" with the following <contents>:
     | Summary             | Status      | Assignee | Replies | Last updated | Created  | Actions |
     | First task          | Open        | <ignore> | 0       | <ignore>     | <ignore> | edit    |
     And I should see "Total open tasks: 3"

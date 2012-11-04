@@ -19,7 +19,7 @@ Feature: Test Item page
   Scenario: Content is shown on the task list.
     Given I am logged in as a user with the "authenticated user" role
     And I am on a "item" page titled "V-neck shirt"
-    Then I should see a table titled "Task list / Item 30" with the following <contents>:
+    Then I should see a table titled "Task list" with the following <contents>:
     | Summary             | Status      | Assignee | Replies | Last updated | Created  | Actions |
     | Fix marker          | Needs work  | <ignore> | 0       | <ignore>     | <ignore> | edit    |
     And I should see "Total open tasks: 2"
