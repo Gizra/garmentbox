@@ -88,6 +88,28 @@ function garmentbox_item_form_item_variant_node_form_alter(&$form, $form_state) 
 
 /**
  * Implements hook_form_FORM_ID_alter().
+ */
+function garmentbox_item_form_item_node_form_alter(&$form, &$form_state) {
+  $form['actions']['submit']['#value'] = t('Save and add an item variation');
+}
+
+/**
+ * Implements hook_node_insert().
+ *
+ * Redirect to variant creation after an item was added.
+ */
+function garmentbox_item_node_insert($node) {
+  if ($node->type != 'item') {
+    return;
+  }
+
+  $options = array('query' => array('field_item' => $node->nid));
+  $url = url('node/add/item-variant', $options);
+  $_GET['destination'] = ltrim($url, '/');
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
  *
  * Remove mass measurement units from the item variant BOM form.
  */
