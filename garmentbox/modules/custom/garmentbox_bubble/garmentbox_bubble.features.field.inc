@@ -240,7 +240,7 @@ function garmentbox_bubble_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-bubble-field_display_node'.
+  // Exported field: 'node-bubble-field_display_mode'.
   $fields['node-bubble-field_display_mode'] = array(
     'field_config' => array(
       'active' => '1',
@@ -315,7 +315,7 @@ function garmentbox_bubble_field_default_fields() {
   t('Bubble text');
   t('Bubbles will be selected to be added to a page according to this ID.');
   t('CSS selector');
-  t('Display node');
+  t('Display mode');
   t('ID');
 
   return $fields;
