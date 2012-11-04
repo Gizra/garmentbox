@@ -32,7 +32,7 @@ function garmentbox_season_init() {
   $node = menu_get_object();
   $item = menu_get_item();
   if (!$node) {
-    if (substr($item['path'], 0, 8) == 'season/%') {
+    if (substr($item['path'], 0, 8) == 'season/%' && !empty($item['map'][1]->data)) {
       $node = $item['map'][1]->data;
     }
   }
