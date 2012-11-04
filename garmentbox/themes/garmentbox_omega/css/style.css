@@ -554,7 +554,7 @@ section.content h2.pane-title {
 }
 
 /* line 6, ../sass/partials/layout/_buttons.scss */
-#add-task a {
+#add-task.secondary-button a {
   float: right;
   border: 1px solid #60636a;
   border-radius: 5px;
@@ -579,11 +579,11 @@ section.content h2.pane-title {
   /* IE6-9 */
 }
 /* line 20, ../sass/_mixins.scss */
-#add-task a:hover {
+#add-task.secondary-button a:hover {
   text-decoration: none;
 }
 /* line 60, ../sass/_mixins.scss */
-#add-task a:before {
+#add-task.secondary-button a:before {
   content: url("../images/gray-plus.png");
   margin-right: 8px;
 }
