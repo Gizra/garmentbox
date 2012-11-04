@@ -499,6 +499,11 @@ class garmentboxInventoryLines extends garmentboxMigration {
     'garmentboxInventoryTypeTerms',
   );
 
+  protected $dateFields = array(
+    'field_production_start_date',
+    'field_delivery_date'
+  );
+
   public function __construct() {
     parent::__construct();
 
@@ -626,6 +631,10 @@ class garmentboxCollectionsFieldStatusInfo extends garmentboxFieldCollectionMigr
   public $dependencies = array(
     'garmentboxSeasonStatusTerms',
     'garmentboxSeasons',
+  );
+
+  protected $dateFields = array(
+    'field_date',
   );
 
   public function __construct() {

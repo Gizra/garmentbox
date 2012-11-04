@@ -43,5 +43,17 @@ abstract class garmentboxMigration extends Migration {
 
   function prepareRow($row) {
     $row->uid = 1;
+
+    // Set a default timezone on all date fields, assuming the imported data
+    // is in the site's timezone instead of the default UTC.
+    if (!empty($this->dateFields)) {
+      foreach ($this->dateFields as $date_field) {
+        $date_data = array(
+          'from' => $row->{$date_field},
+          'timezone' => date_default_timezone_get(),
+        );
+        $row->{$date_field} = drupal_json_encode($date_data);
+      }
+    }
   }
 }

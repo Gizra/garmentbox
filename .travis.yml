@@ -23,7 +23,7 @@ before_script:
   # Create a behat configuration file.
   - cd garmentbox/behat
   - cp behat.local.yml.travis behat.local.yml
-  
+
   # Create Drush alias.
   - cp aliases.drushrc.php ~/.drush/
   - composer install
