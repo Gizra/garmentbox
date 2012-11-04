@@ -1,0 +1,136 @@
+<?php
+/**
+ * @file
+ * Code for the Garmentbox General feature.
+ */
+
+include_once 'garmentbox_general.features.inc';
+
+/**
+ * Implements hook_init().
+ */
+function garmentbox_general_init() {
+  if (($node = menu_get_object()) && $nids = garmentbox_general_get_node_hierarchy($node)) {
+    $breadcrumb[] = l(t('Home'), '<front>');
+    foreach ($nids as $nid => $title) {
+      $breadcrumb[] = l($title, 'node/' . $nid);
+    }
+    drupal_set_breadcrumb($breadcrumb);
+  }
+}
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function garmentbox_general_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'ctools') {
+    return 'plugins/' . $plugin;
+  }
+}
+
+
+/**
+ * Get the hierachy for a node.
+ *
+ * @todo: Move to general module.
+ *
+ * @param $node
+ *   The node object to check the hierachy.
+ *
+ * @return
+ *   Array keyed with node IDs and the node title as value, sorted by
+ *   hierarchy. If no hierarchy found returns FALSE.
+ */
+function garmentbox_general_get_node_hierarchy($node, &$nids = array()) {
+  if ($nids === FALSE) {
+    // We reached a content type that has no hierarchy so break here.
+    return;
+  }
+  if ($node->type == 'season') {
+    // Node is top most, so return early.
+    $nids[$node->nid] = $node->title;
+    return $nids;
+  }
+
+  $field_name = FALSE;
+
+  $wrapper = entity_metadata_wrapper('node', $node);
+  switch ($node->type) {
+    case 'item':
+      $field_name = 'field_season';
+      break;
+
+    case 'item_variant':
+      $field_name = 'field_item';
+      break;
+
+    case 'task':
+      $field_name = 'field_entity_reference';
+      break;
+
+    case 'pattern':
+      $field_name = 'field_pattern_entity_reference';
+      break;
+
+    case 'pattern_task':
+      $field_name = 'field_pattern';
+      break;
+  }
+
+  if (!$field_name) {
+    $nids = FALSE;
+    return;
+  }
+
+  $referenced_node = $wrapper->{$field_name}->value();
+  $nids[$referenced_node->nid] = $referenced_node->title;
+  garmentbox_general_get_node_hierarchy($referenced_node, $nids);
+
+  return array_reverse($nids, TRUE);
+}
+
+/**
+ * Render node as a mini panel.
+ *
+ * @param $node
+ *   The node to pass to the mini panel.
+ *
+ *  @param $mini_name
+ *    The mini panel name that his rendered html will replace the node rendered
+ *    html.
+ */
+function garmentbox_general_render_node_as_mini_panel($node, $mini_name) {
+  ctools_include('context');
+  $mini = panels_mini_load($mini_name);
+  $contexts = array();
+
+  foreach ($mini->requiredcontexts as $key => $required_context) {
+    $id = 'requiredcontext_' . $mini->requiredcontexts[$key]['name'] . '_' . $mini->requiredcontexts[$key]['id'];
+    $contexts[$id] = ctools_context_create('node', $node);
+  }
+
+  $context = ctools_context_match_required_contexts($mini->requiredcontexts, $contexts);
+  $mini->context = $mini->display->context = ctools_context_load_contexts($mini, FALSE, $context);
+  return panels_render_display($mini->display);
+}
+
+/**
+ * Implements hook_field_access().
+ *
+ * Hide the reference hierarchy field.
+ */
+function garmentbox_general_field_access($op, $field, $entity_type, $entity, $account) {
+  if (!empty($field['field_name']) && $field['field_name'] == 'field_reference_hierarchy') {
+    return FALSE;
+  }
+}
+
+/**
+ * Implements hook_entity_info_alter()
+ */
+function garmentbox_general_entity_info_alter(&$entity_info) {
+  $entity_info['node']['view modes']['garmentbox_header'] = array(
+    'label' => t('Garmentbox header'),
+    'custom settings' => TRUE,
+  );
+}

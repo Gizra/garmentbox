@@ -1,0 +1,15 @@
+name = Garmentbox BOL
+description = Garmentbox Bill of Labor
+core = 7.x
+package = Features
+php = 5.2.4
+dependencies[] = commerce_price
+dependencies[] = entityreference
+dependencies[] = features
+dependencies[] = field_collection
+dependencies[] = taxonomy
+features[features_api][] = api:1
+features[field][] = field_collection_item-field_bol_info-field_bol_term
+features[field][] = field_collection_item-field_bol_info-field_price
+features[field][] = node-item_variant-field_bol_info
+features[taxonomy][] = bol

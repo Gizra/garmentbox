@@ -10,7 +10,7 @@ cd $ROOT
 
 # Build the profile itself.
 (
-  cd opengizra
+  cd garmentbox
   $DRUSH make --no-core --contrib-destination drupal-org.make .
   cd ..
 )
@@ -27,7 +27,7 @@ cd $ROOT
   rm -Rf www || true
 
   # Build core.
-  $DRUSH make opengizra/drupal-org-core.make www
+  $DRUSH make garmentbox/drupal-org-core.make www
 
   # Restore the sites directory.
   if [ -d sites-backup ]; then
@@ -36,5 +36,5 @@ cd $ROOT
   fi
 
   # Move the profile in place.
-  ln -s ../../opengizra www/profiles/opengizra
+  ln -s ../../garmentbox www/profiles/garmentbox
 )

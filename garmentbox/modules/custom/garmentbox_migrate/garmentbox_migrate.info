@@ -1,0 +1,12 @@
+name = "garmentbox migration"
+description = "Populate the garmentbox content."
+package = "garmentbox"
+core = 7.x
+dependencies[] = migrate
+dependencies[] = migrate_extras
+dependencies[] = commerce_migrate
+files[] = garmentbox_migrate.migrate.inc
+
+files[] = includes/garmentbox_migrate.migrate.entity.inc
+files[] = includes/garmentbox_migrate.migrate.field_collection.inc
+files[] = includes/garmentbox_migrate.migrate.field_collection_destination.inc

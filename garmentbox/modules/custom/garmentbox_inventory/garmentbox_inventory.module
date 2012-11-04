@@ -1,0 +1,122 @@
+<?php
+/**
+ * @file
+ * Code for the Garmentbox Inventory feature.
+ */
+
+include_once 'garmentbox_inventory.features.inc';
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function garmentbox_inventory_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'ctools') {
+    return 'plugins/' . $plugin;
+  }
+}
+
+/**
+ * Implements hook_field_access().
+ *
+ * Hide date fields from inventory form.
+ */
+function garmentbox_inventory_field_access($op, $field, $entity_type, $entity, $account) {
+  if ($op != 'edit') {
+    return;
+  }
+
+  $field_names = array(
+    'field_production_start_date',
+    'field_delivery_date',
+    'field_inventory_status',
+  );
+  if (!empty($field['field_name']) && in_array($field['field_name'],$field_names)) {
+    return FALSE;
+  }
+}
+
+/**
+ * Implements hook_entity_info_alter().
+ *
+ * Add the controller information on the entity. Note that you can also
+ * add the controller on the bundle level.
+ */
+function garmentbox_inventory_entity_info_alter(&$entity_info) {
+  $entity_info['node']['bundles']['inventory_line']['inline entity form'] = array(
+    'controller' => 'NodeInventoryLineInlineEntityFormController',
+  );
+}
+
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Order form.
+ */
+function garmentbox_inventory_form_order_node_form_alter(&$form, $form_state) {
+  $subform = &$form['field_inventory_line_inline'][LANGUAGE_NONE]['form'];
+
+  // _garmentbox_inventory_form_hide_fields($subform, $form_state);
+  _garmentbox_inventory_form_saleble_inventory_type($subform, $form_state);
+  _garmentbox_inventory_form_price($form, $form_state);
+}
+
+/**
+ * Hide all fields if Item variant is not selected.
+ */
+function _garmentbox_inventory_form_hide_fields(&$form, $form_state) {
+  $elements = array(
+    'field_quantity_info',
+    'field_inventory_type',
+    'field_price',
+    'actions',
+  );
+
+  $states = array(
+    '#states' => array(
+      'invisible' => array(
+        ':input[name="field_inventory_line_inline[und][form][field_item_variant][und]"]' => array('value' => '_none'),
+      ),
+    ),
+  );
+
+  foreach ($elements as $element) {
+    $form[$element] += $states;
+  }
+}
+
+
+/**
+ * Show only "In warehouse" inventory type.
+ */
+function _garmentbox_inventory_form_saleble_inventory_type(&$form, $form_state) {
+  $tids = $form['field_inventory_type'][LANGUAGE_NONE]['#options'];
+  unset($tids['_none']);
+
+  $terms = taxonomy_term_load_multiple(array_keys($tids));
+  foreach ($terms as $term) {
+    $wrapper = entity_metadata_wrapper('taxonomy_term', $term);
+    if (!$wrapper->field_in_warehouse->value()) {
+      unset($form['field_inventory_type'][LANGUAGE_NONE]['#options'][$term->tid]);
+    }
+  }
+}
+
+
+/**
+ * Set the price field to required and add calcualted price.
+ */
+function _garmentbox_inventory_form_price(&$form, $form_state) {
+}
+
+function garmentbox_inventory_is_inventory_item_ordered($nid) {
+  $query = new EntityFieldQuery();
+  $result = $query->entityCondition('entity_type', 'node')
+    ->propertyCondition('type', 'order')
+    ->propertyCondition('status', NODE_PUBLISHED)
+    ->fieldCondition('field_inventory_line_inline', 'target_id', $nid)
+    ->range(0, 1)
+    ->execute();
+
+  return !empty($result);
+}

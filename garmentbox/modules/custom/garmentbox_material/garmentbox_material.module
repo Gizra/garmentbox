@@ -1,0 +1,90 @@
+<?php
+/**
+ * @file
+ * Code for the Garmentbox material feature.
+ */
+
+include_once 'garmentbox_material.features.inc';
+
+/**
+ * Implements hook_field_attach_form().
+ */
+function garmentbox_material_field_attach_form($entity_type, $entity, &$form, &$form_state, $langcode) {
+  if ($entity_type != 'field_collection_item') {
+    return;
+  }
+
+  list(,, $bundle) = entity_extract_ids($entity_type, $entity);
+  if ($bundle != 'field_source_info') {
+    return;
+  }
+
+  $mass_terms = garmentbox_material_get_units('mass');
+
+  // Check if we are in a node context, or directly inside a field
+  // collection.
+  $key = !empty($form_state['node']) ? 'field_source_info[und][0][field_unit][und]' : 'field_unit[und]';
+  $mass_inputs = array();
+  foreach ($mass_terms as $tid) {
+    $mass_inputs[] = array(':input[name="' . $key . '"]' => array('value' => $tid));
+  }
+  $state = array(
+    '#states' => array(
+      'visible' => array($mass_inputs),
+    ),
+  );
+
+  $form['field_length'] += $state;
+  $form['field_length_unit'] += $state;
+
+  $form['field_length']['#element_validate'][] = 'garmentbox_material_length_validate';
+  $form['field_length_unit']['#element_validate'][] = 'garmentbox_material_length_validate';
+
+  // Remove non-length units from the length_unit field.
+  $length_terms = garmentbox_material_get_units('length');
+  foreach (array_keys($form['field_length_unit'][LANGUAGE_NONE]['#options']) as $tid) {
+    if (!in_array($tid, $length_terms)) {
+      unset($form['field_length_unit'][LANGUAGE_NONE]['#options'][$tid]);
+    }
+  }
+}
+
+/**
+ * Element validate; Make length and unit-length required.
+ *
+ * If the selected unit is of mass type (e.g. Kilogram), we need to make
+ * those fields required.
+ */
+function garmentbox_material_length_validate($element, &$form_state) {
+  $values = !empty($form_state['values']['field_source_info']) ? $form_state['values']['field_source_info'][LANGUAGE_NONE][0] : $form_state['values'];
+  $mass_terms = garmentbox_material_get_units('mass');
+  if (!in_array($values['field_unit'][LANGUAGE_NONE], $mass_terms)) {
+    return;
+  }
+  $field_name = $element[LANGUAGE_NONE]['#field_name'];
+  $value_key = !empty($element[LANGUAGE_NONE]['#value_key']) ? $element[LANGUAGE_NONE]['#value_key'] : 'value';
+  if (empty($values[$field_name][LANGUAGE_NONE][0][$value_key])) {
+    form_error($element, t('@name is required.', array('@name' => $element[LANGUAGE_NONE]['#title'])));
+  }
+}
+
+/**
+ * Retrieve unit terms of a specific type.
+ *
+ * @param $type
+ *   The measurment units type. E.g. 'mass' / 'length'.
+ *
+ * @return
+ *   Array of terms.
+ */
+function garmentbox_material_get_units($type) {
+  // Fetch all mass unit types.
+  $vocabulary = taxonomy_vocabulary_machine_name_load('measurement_units');
+  $query = new EntityFieldQuery();
+  $result = $query->entityCondition('entity_type', 'taxonomy_term')
+    ->fieldCondition('field_unit_type', 'value', $type)
+    ->propertyCondition('vid', $vocabulary->vid)
+    ->execute();
+
+  return !$result ? array() : array_keys($result['taxonomy_term']);
+}

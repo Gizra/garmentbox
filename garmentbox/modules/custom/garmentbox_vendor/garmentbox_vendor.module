@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Garmentbox Vendor feature.
+ */
+
+include_once 'garmentbox_vendor.features.inc';

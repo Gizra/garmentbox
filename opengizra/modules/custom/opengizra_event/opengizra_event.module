@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the Opengizra Event feature.
- */
-
-include_once 'opengizra_event.features.inc';

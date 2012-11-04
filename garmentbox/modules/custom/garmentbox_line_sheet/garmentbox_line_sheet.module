@@ -1,0 +1,51 @@
+<?php
+/**
+ * @file
+ * Code for the Garmentbox Line Sheet feature.
+ */
+
+include_once 'garmentbox_line_sheet.features.inc';
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function garmentbox_line_sheet_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'ctools') {
+    return 'plugins/' . $plugin;
+  }
+}
+
+/**
+ * Get all flagged content in a flag.
+ *
+ * We don't use flag_get_flagged_content() as we want to filter by
+ * season.
+ *
+ * @param $flag_name
+ *   The flag name for which to retrieve flagged content.
+ * @param $node
+ *   The season node.
+ */
+function garmentbox_line_sheet_flag_get_flagged_content($flag_name, $node) {
+  $field = field_info_field('field_reference_hierarchy');
+  $table_name = _field_sql_storage_tablename($field);
+
+  $return = array();
+  $flag = flag_get_flag($flag_name);
+  $query = db_select('flag_content', 'fc');
+  $query->innerJoin($table_name, 'hierarchy', 'fc.content_id = hierarchy.entity_id');
+
+  $query
+    ->fields('fc')
+    ->condition('fc.fid', $flag->fid)
+    ->condition('fc.content_type', 'node')
+    ->condition('hierarchy.field_reference_hierarchy_target_id', $node->nid)
+    ->condition('hierarchy.entity_type', 'node')
+    ->execute();
+
+  $result = $query->execute();
+  foreach ($result as $row) {
+    $return[] = $row;
+  }
+  return $return;
+}

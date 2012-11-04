@@ -37,14 +37,14 @@ Icon?
 ehthumbs.db
 Thumbs.db
 
-# Opengizra #
+# Garmentbox #
 #############
-opengizra/modules/contrib
-opengizra/1/modules
-opengizra/themes/contrib
-opengizra/libraries
+garmentbox/modules/contrib
+garmentbox/1/modules
+garmentbox/themes/contrib
+garmentbox/libraries
 www
-opengizra/themes/opengizra_omega/.sass-cache/
+garmentbox/themes/garmentbox_omega/.sass-cache/
 install.sh
 
 # Aptana #
@@ -53,8 +53,8 @@ install.sh
 .settings/
 
 # Behat
-opengizra/behat/vendor/
+garmentbox/behat/vendor/
 behat.local.yml
-opengizra/behat/bin
-opengizra/behat/composer.lock
-opengizra/behat/composer.phar
+garmentbox/behat/bin
+garmentbox/behat/composer.lock
+garmentbox/behat/composer.phar

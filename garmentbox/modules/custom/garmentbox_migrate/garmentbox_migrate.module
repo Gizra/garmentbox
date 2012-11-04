@@ -1,0 +1,11 @@
+<?php
+
+/**
+ * Implements hook_migrate_api().
+ */
+function garmentbox_migrate_migrate_api() {
+  $api = array(
+    'api' => 2,
+  );
+  return $api;
+}
