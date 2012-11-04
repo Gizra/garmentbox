@@ -127,6 +127,32 @@ function garmentbox_item_form_field_collection_item_form_alter(&$form, $form_sta
 }
 
 /**
+ * Implements hook_init().
+ *
+ * Add a bubble selector for items without variants.
+ */
+function garmentbox_item_init() {
+  $node = menu_get_object();
+  if (!$node || $node->type != 'item') {
+    return;
+  }
+
+  // Count the item's variants.
+  $query = new EntityFieldQuery();
+  $count = $query
+      ->entityCondition('entity_type', 'node')
+      ->propertyCondition('type', 'item_variant')
+      ->propertyCondition('status', NODE_PUBLISHED)
+      ->fieldCondition('field_item', 'target_id', $node->nid)
+      ->count()
+      ->execute();
+
+  if (!$count) {
+    garmentbox_bubble_bubble_manager('item_without_variants');
+  }
+}
+
+/**
  * Fetch variant's main material.
  *
  * @param $node
