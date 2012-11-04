@@ -97,7 +97,7 @@ function garmentbox_bubble_init() {
     $item = menu_get_item();
 
     foreach ($node_pages as $node_page) {
-      if (substr($item['path'], 0, strlen($node_page)) == $node_page) {
+      if (substr($item['path'], 0, strlen($node_page)) == $node_page && !empty($item['map'][1]->data)) {
         $node = $item['map'][1]->data;
         break;
       }
