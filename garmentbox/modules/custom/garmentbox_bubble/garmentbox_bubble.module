@@ -36,6 +36,7 @@ function garmentbox_bubble_bubble_manager($id = NULL) {
   $query = new EntityFieldQuery();
   $result = $query->entityCondition('entity_type', 'node')
     ->propertyCondition('type', 'bubble')
+    ->propertyCondition('status', NODE_PUBLISHED)
     ->fieldCondition('field_bubble_id', 'value', $ids, 'IN')
     ->execute();
 
@@ -54,6 +55,7 @@ function garmentbox_bubble_bubble_manager($id = NULL) {
       'cssSelect' => $wrapper->field_css_selector->value(),
       'text' => $wrapper->body->value->value(),
       'trigger' => 'none',
+      'closeWhenOthersOpen' => FALSE,
     );
 
     switch ($wrapper->field_display_mode->value()) {

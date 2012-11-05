@@ -149,7 +149,7 @@ function garmentbox_season_default_page_manager_handlers() {
       'settings' => NULL,
     );
     $pane->css = array(
-      'css_id' => '',
+      'css_id' => 'add-task',
       'css_class' => 'primary-button',
     );
     $pane->extras = array();
@@ -495,7 +495,7 @@ function garmentbox_season_default_page_manager_pages() {
       'settings' => NULL,
     );
     $pane->css = array(
-      'css_id' => '',
+      'css_id' => 'add-item',
       'css_class' => 'primary-button',
     );
     $pane->extras = array();

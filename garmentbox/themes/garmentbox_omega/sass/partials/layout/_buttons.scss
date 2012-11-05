@@ -3,7 +3,7 @@
   @include primary-button;
 }
 
-#add-task a {
+#add-task.secondary-button a {
   float: right; //LTR
   @include secondary-button;
 }

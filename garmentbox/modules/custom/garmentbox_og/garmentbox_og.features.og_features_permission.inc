@@ -29,16 +29,16 @@ function garmentbox_og_og_features_default_permissions() {
   // Exported og permission: 'node:department:create customer content'
   $permissions['node:department:create customer content'] = array(
     'roles' => array(
-      'member' => 'member',
       'administrator member' => 'administrator member',
+      'member' => 'member',
     ),
   );
 
   // Exported og permission: 'node:department:create event content'
   $permissions['node:department:create event content'] = array(
     'roles' => array(
-      'administrator member' => 'administrator member',
       'member' => 'member',
+      'administrator member' => 'administrator member',
     ),
   );
 
@@ -69,8 +69,8 @@ function garmentbox_og_og_features_default_permissions() {
   // Exported og permission: 'node:department:create material content'
   $permissions['node:department:create material content'] = array(
     'roles' => array(
-      'administrator member' => 'administrator member',
       'member' => 'member',
+      'administrator member' => 'administrator member',
     ),
   );
 
@@ -85,8 +85,8 @@ function garmentbox_og_og_features_default_permissions() {
   // Exported og permission: 'node:department:create page content'
   $permissions['node:department:create page content'] = array(
     'roles' => array(
-      'member' => 'member',
       'administrator member' => 'administrator member',
+      'member' => 'member',
     ),
   );
 
@@ -117,8 +117,8 @@ function garmentbox_og_og_features_default_permissions() {
   // Exported og permission: 'node:department:create task content'
   $permissions['node:department:create task content'] = array(
     'roles' => array(
-      'member' => 'member',
       'administrator member' => 'administrator member',
+      'member' => 'member',
     ),
   );
 
@@ -157,16 +157,16 @@ function garmentbox_og_og_features_default_permissions() {
   // Exported og permission: 'node:department:update any event content'
   $permissions['node:department:update any event content'] = array(
     'roles' => array(
-      'administrator member' => 'administrator member',
       'member' => 'member',
+      'administrator member' => 'administrator member',
     ),
   );
 
   // Exported og permission: 'node:department:update any inventory_line content'
   $permissions['node:department:update any inventory_line content'] = array(
     'roles' => array(
-      'member' => 'member',
       'administrator member' => 'administrator member',
+      'member' => 'member',
     ),
   );
 
@@ -197,8 +197,8 @@ function garmentbox_og_og_features_default_permissions() {
   // Exported og permission: 'node:department:update any order content'
   $permissions['node:department:update any order content'] = array(
     'roles' => array(
-      'member' => 'member',
       'administrator member' => 'administrator member',
+      'member' => 'member',
     ),
   );
 
@@ -213,16 +213,16 @@ function garmentbox_og_og_features_default_permissions() {
   // Exported og permission: 'node:department:update any pattern content'
   $permissions['node:department:update any pattern content'] = array(
     'roles' => array(
-      'administrator member' => 'administrator member',
       'member' => 'member',
+      'administrator member' => 'administrator member',
     ),
   );
 
   // Exported og permission: 'node:department:update any pattern_task content'
   $permissions['node:department:update any pattern_task content'] = array(
     'roles' => array(
-      'member' => 'member',
       'administrator member' => 'administrator member',
+      'member' => 'member',
     ),
   );
 
@@ -253,8 +253,8 @@ function garmentbox_og_og_features_default_permissions() {
   // Exported og permission: 'node:department:update own address content'
   $permissions['node:department:update own address content'] = array(
     'roles' => array(
-      'member' => 'member',
       'administrator member' => 'administrator member',
+      'member' => 'member',
     ),
   );
 
@@ -277,8 +277,8 @@ function garmentbox_og_og_features_default_permissions() {
   // Exported og permission: 'node:department:update own event content'
   $permissions['node:department:update own event content'] = array(
     'roles' => array(
-      'member' => 'member',
       'administrator member' => 'administrator member',
+      'member' => 'member',
     ),
   );
 
@@ -309,8 +309,8 @@ function garmentbox_og_og_features_default_permissions() {
   // Exported og permission: 'node:department:update own material content'
   $permissions['node:department:update own material content'] = array(
     'roles' => array(
-      'member' => 'member',
       'administrator member' => 'administrator member',
+      'member' => 'member',
     ),
   );
 
@@ -333,8 +333,8 @@ function garmentbox_og_og_features_default_permissions() {
   // Exported og permission: 'node:department:update own pattern content'
   $permissions['node:department:update own pattern content'] = array(
     'roles' => array(
-      'member' => 'member',
       'administrator member' => 'administrator member',
+      'member' => 'member',
     ),
   );
 
@@ -365,8 +365,8 @@ function garmentbox_og_og_features_default_permissions() {
   // Exported og permission: 'node:department:update own vendor content'
   $permissions['node:department:update own vendor content'] = array(
     'roles' => array(
-      'member' => 'member',
       'administrator member' => 'administrator member',
+      'member' => 'member',
     ),
   );
 

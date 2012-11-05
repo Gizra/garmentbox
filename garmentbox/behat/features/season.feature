@@ -29,8 +29,8 @@ Feature: Test Season page
     Given I am logged in as a user with the "authenticated user" role
     And I am on a "season" page titled "Autumn-Winter 2013 Women", in the tab "items"
     Then I should see a table titled "V-neck shirt" with the following <contents>:
-    |         | Variant            | Main material | Status | Retail price | Wholesale price |
-    | <image> | Lines v-neck shirt | <image>       | Draft  | $80.00       | $55.00          |
+    |         | Variant            | Main material | Status     | Retail price | Wholesale price |
+    | <image> | Black v-neck shirt | <image>       | Needs work | $100.00      | $70.00          |
 
   @api
   Scenario: Correct content is shown on the season inventory list.
@@ -49,8 +49,8 @@ Feature: Test Season page
     Given I am logged in as a user with the "authenticated user" role
     And I am on a "season" page titled "Autumn-Winter 2013 Women", in the tab "orders"
     Then I should see a table titled "Orders" with the following <contents>:
-    | Order   | Customer | Total price | Total items | Last delivery date  | Next delivery date    | Status  |
-    | order1  | Gap      | N/A         | 49          | N/A                 | Wed, 2013-05-29 21:00 | New     |
+    | Order   | Customer | Total price | Total items | Last delivery date  | Next delivery date | Status  |
+    | order1  | Gap      | N/A         | 49          | N/A                 | <date> 5/30/2013   | New     |
     And the order "order1" should have these <inventory lines>
     | Variation           | Small | Medium  | Large | Total | Status              |
     | Black v-neck shirt  | 0     | 6       | 5     | 11    | Current production  |
