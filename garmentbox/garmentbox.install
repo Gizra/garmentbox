@@ -27,6 +27,8 @@ function garmentbox_install() {
 
   // Enable the node edit panel.
   variable_set('page_manager_node_edit_disabled', FALSE);
+
+  variable_set('additional_settings__active_tab_production_order', 'edit-auto-nodetitle');
 }
 
 /**
