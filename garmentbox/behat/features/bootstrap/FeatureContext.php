@@ -263,4 +263,29 @@ class FeatureContext extends DrupalContext {
       throw new \Exception("Image not accessible. URL: $image_url");
     }*/
   }
+
+  /**
+   * @Given /^I go to create "([^"]*)" node page$/
+   */
+  public function iGoToCreateNodePage($node_type) {
+    $path = 'node/add/' . $node_type;
+    return new Given("I am at \"$path\"");
+  }
+
+  /**
+   * @When /^I visit the front page$/
+   */
+  public function iVisitTheFrontPage() {
+    return new Given("I am at \"/\"");
+  }
+
+  /**
+   * @Then /^I should be on a page titled "([^"]*)"$/
+   */
+  public function iShouldBeOnAPageTitled($expected_title) {
+    $title = $this->getSession()->getPage()->find('css', 'head title')->getText();
+    if ($title != $expected_title) {
+      throw new \Exception("Expected title '$expected_title', found instead '$title'.");
+    }
+  }
 }

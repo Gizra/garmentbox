@@ -59,7 +59,7 @@ function garmentbox_season_default_page_manager_handlers() {
     ),
   );
   $display->cache = array();
-  $display->title = '';
+  $display->title = '%node:title-field - Tasks';
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass();
@@ -248,7 +248,7 @@ function garmentbox_season_default_page_manager_pages() {
     ),
   );
   $display->cache = array();
-  $display->title = '';
+  $display->title = '%node:title-field - Inventory';
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass();
@@ -405,7 +405,7 @@ function garmentbox_season_default_page_manager_pages() {
     ),
   );
   $display->cache = array();
-  $display->title = '';
+  $display->title = '%node:title-field - Items';
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass();
@@ -588,7 +588,7 @@ function garmentbox_season_default_page_manager_pages() {
     ),
   );
   $display->cache = array();
-  $display->title = '';
+  $display->title = '%node:title-field - Orders';
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass();

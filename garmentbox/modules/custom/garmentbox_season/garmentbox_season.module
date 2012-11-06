@@ -28,32 +28,6 @@ function garmentbox_season_init() {
   if (drupal_is_front_page()) {
     _garmentbox_season_redirect_to_season();
   }
-
-  $node = menu_get_object();
-  $item = menu_get_item();
-  if (!$node) {
-    if (substr($item['path'], 0, 8) == 'season/%' && !empty($item['map'][1]->data)) {
-      $node = $item['map'][1]->data;
-    }
-  }
-
-  if (!$node || $node->type != 'season') {
-    return;
-  }
-  // Redirect from a season page to the season's items tab if there are no
-  // items.
-  if (!_garmentbox_season_count_view_rows('item_variants', $node->nid)) {
-    if ($item['path'] != 'season/%/items') {
-      drupal_goto("season/{$node->nid}/items");
-    }
-  }
-  // Redirect from a season page to the season's tasks tab if there are no
-  // tasks.
-  elseif(!_garmentbox_season_count_view_rows('task_list', $node->nid)) {
-    if ($item['path'] != 'node/%') {
-      drupal_goto("season/{$node->nid}");
-    }
-  }
 }
 
 /**
@@ -74,7 +48,15 @@ function _garmentbox_season_redirect_to_season() {
   }
 
   $nid = key($result['node']);
-  drupal_goto("season/$nid");
+
+  // Redirect from a season page to the season's items tab if there are no
+  // items, otherwise redirecr to the tasks tab.
+  if (!_garmentbox_season_count_view_rows('item_variants', $nid)) {
+    drupal_goto("season/$nid/items");
+  }
+  else {
+    drupal_goto("season/$nid");
+  }
 }
 
 /**
