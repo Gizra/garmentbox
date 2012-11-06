@@ -303,29 +303,6 @@ function garmentbox_standard_install() {
   );
   field_create_instance($instance);
 
-   // FIXME:
-  // We need to build the taxonomy vocabulary, because they are not built
-  // by features on time.
-  $vocab_info = array(
-    'season_status' => 'Season status',
-    'item_status' => 'Item status',
-    'size' => 'Size',
-    'task_status' => 'Task status',
-    'bol' => 'Bill of Labor',
-    'inventory_type' => 'Inventory type',
-  );
-
-  foreach ($vocab_info as $machine_name => $name) {
-    $vocabulary = (object) array(
-      'machine_name' => $machine_name,
-      'name' => $name,
-      'description' => '',
-      'help' => '',
-    );
-    taxonomy_vocabulary_save($vocabulary);
-  }
-
-
   // Create an image field named "Image", enabled for the 'article' content type.
   // Many of the following values will be defaulted, they're included here as an illustrative examples.
   // See http://api.drupal.org/api/function/field_create_field/7
