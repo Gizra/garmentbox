@@ -1009,6 +1009,100 @@ function garmentbox_item_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-item_variant-field_factory'.
+  $fields['node-item_variant-field_factory'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_factory',
+      'foreign keys' => array(
+        'node' => array(
+          'columns' => array(
+            'target_id' => 'nid',
+          ),
+          'table' => 'node',
+        ),
+      ),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'entityreference',
+      'settings' => array(
+        'handler' => 'base',
+        'handler_settings' => array(
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 0,
+            ),
+          ),
+          'sort' => array(
+            'type' => 'none',
+          ),
+          'target_bundles' => array(
+            'factory' => 'factory',
+          ),
+        ),
+        'target_type' => 'node',
+      ),
+      'translatable' => '0',
+      'type' => 'entityreference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'item_variant',
+      'default_value' => NULL,
+      'default_value_function' => '',
+      'deleted' => '0',
+      'description' => 'The producer of this variant.',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => FALSE,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => 13,
+        ),
+        'garmentbox_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_factory',
+      'label' => 'Factory',
+      'required' => 0,
+      'settings' => array(
+        'behaviors' => array(
+          'prepopulate' => array(
+            'status' => 0,
+          ),
+        ),
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
+        'weight' => '13',
+      ),
+    ),
+  );
+
   // Exported field: 'node-item_variant-field_images'.
   $fields['node-item_variant-field_images'] = array(
     'field_config' => array(
@@ -1699,6 +1793,7 @@ function garmentbox_item_field_default_fields() {
   t('A specific material source.');
   t('Bill of materials');
   t('Body');
+  t('Factory');
   t('Image');
   t('Images');
   t('Item');
@@ -1711,6 +1806,7 @@ function garmentbox_item_field_default_fields() {
   t('Size');
   t('Size info');
   t('Status');
+  t('The producer of this variant.');
   t('Title');
   t('Unit');
   t('Wholesale price');

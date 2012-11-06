@@ -5,3 +5,15 @@
  */
 
 include_once 'garmentbox_factory.features.inc';
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form_state) {
+  if ($form['nid']['#value']) {
+    return;
+  }
+
+  $form['field_order_status']['#access'] = FALSE;
+  $form['field_delivery_date']['#access'] = TRUE;
+}

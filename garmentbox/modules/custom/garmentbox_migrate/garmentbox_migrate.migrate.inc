@@ -433,6 +433,7 @@ class garmentboxItemVariants extends garmentboxMigration {
     array('field_item_status', 'Status'),
     array('field_retail_price', 'Retail price'),
     array('field_wholesale_price', 'Wholesale price'),
+    array('field_factory', 'Factory'),
   );
 
   public $entityType = 'node';
@@ -442,11 +443,13 @@ class garmentboxItemVariants extends garmentboxMigration {
     'garmentboxDepartments',
     'garmentboxItems',
     'garmentboxItemStatusTerms',
+    'garmentboxFactories',
   );
 
   public function __construct() {
     parent::__construct();
     $this->addFieldMapping('body', 'body');
+
     $this
       ->addFieldMapping('field_item', 'field_item')
       ->sourceMigration('garmentboxItems');
@@ -467,6 +470,10 @@ class garmentboxItemVariants extends garmentboxMigration {
     $this->addFieldMapping('field_retail_price', 'field_retail_price');
 
     $this->addFieldMapping('field_wholesale_price', 'field_wholesale_price');
+
+    $this
+      ->addFieldMapping('field_factory', 'field_factory')
+      ->sourceMigration('garmentboxFactories');
   }
 
   function prepareRow($row) {
@@ -585,7 +592,7 @@ class garmentboxOrders extends garmentboxMigration {
 /**
  * Migrate bubble nodes.
  */
-class garmentBoxBubbles extends garmentboxMigration {
+class garmentboxBubbles extends garmentboxMigration {
 
   public $csvColumns = array(
     array('id', 'Unique ID'),
@@ -612,7 +619,7 @@ class garmentBoxBubbles extends garmentboxMigration {
 /**
  * Migrate factory nodes.
  */
-class garmentBoxFactories extends garmentboxMigration {
+class garmentboxFactories extends garmentboxMigration {
 
   public $csvColumns = array(
     array('id', 'Unique ID'),
