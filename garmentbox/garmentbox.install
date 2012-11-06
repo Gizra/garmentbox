@@ -25,6 +25,8 @@ function garmentbox_install() {
   variable_set('date_first_day', 1);
   variable_set('date_format_medium', 'D, Y-m-d H:i');
 
+  // Enable the node edit panel.
+  variable_set('page_manager_node_edit_disabled', FALSE);
 }
 
 /**
