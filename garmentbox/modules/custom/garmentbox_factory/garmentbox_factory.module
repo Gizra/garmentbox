@@ -7,6 +7,15 @@
 include_once 'garmentbox_factory.features.inc';
 
 /**
+ * Implements hook_ctools_plugin_directory().
+ */
+function garmentbox_factory_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'ctools') {
+    return 'plugins/' . $plugin;
+  }
+}
+
+/**
  * Implements hook_form_FORM_ID_alter().
  */
 function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form_state) {

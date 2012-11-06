@@ -6,7 +6,7 @@
 $plugin = array(
   'title' => t('Production order items'),
   'description' => t("Display a form for selecting the production order's items."),
-  'required context' => new ctools_context_required(t('Node'), 'node'),
+  'required context' => new ctools_context_optional(t('Node'), 'node'),
   'category' => t('Garmentbox Factory'),
 );
 
@@ -14,15 +14,13 @@ $plugin = array(
  * Render callback.
  */
 function garmentbox_factory_production_order_items_content_type_render($subtype, $conf, $args, $context) {
-  if (empty($context->data)) {
-    return FALSE;
-  }
-
   $block = new stdClass();
   $block->module = 'garmentbox_factory';
   $block->title = '';
 
   $node = $context->data;
+
+  $block->content = 'asfd';
   return $block;
 }
 
