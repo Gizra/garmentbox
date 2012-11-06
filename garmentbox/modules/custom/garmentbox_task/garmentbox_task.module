@@ -102,6 +102,16 @@ function garmentbox_task_comment_insert($comment) {
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Assign new tasks to the current user by default.
+ */
+function garmentbox_task_form_task_node_form_alter(&$form, &$form_state) {
+  global $user;
+  $form['field_task_assignee'][LANGUAGE_NONE]['#default_value'] = $user->uid;
+}
+
+/**
  * Return all the fields the exist in the comment and in the node.
  */
 function garmentbox_task_intersect_fields($comment, $node) {

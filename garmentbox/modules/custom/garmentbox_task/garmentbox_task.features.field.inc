@@ -211,9 +211,16 @@ function garmentbox_task_field_default_fields() {
               'status' => 1,
             ),
           ),
+          'referenceable_roles' => array(
+            2 => 0,
+            3 => 0,
+          ),
+          'referenceable_status' => array(
+            'active' => 'active',
+            'blocked' => 0,
+          ),
           'sort' => array(
             'direction' => 'ASC',
-            'field' => 'property',
             'property' => 'name',
             'type' => 'property',
           ),
@@ -833,9 +840,16 @@ function garmentbox_task_field_default_fields() {
               'status' => 1,
             ),
           ),
+          'referenceable_roles' => array(
+            2 => 0,
+            3 => 0,
+          ),
+          'referenceable_status' => array(
+            'active' => 'active',
+            'blocked' => 0,
+          ),
           'sort' => array(
             'direction' => 'ASC',
-            'field' => 'property',
             'property' => 'name',
             'type' => 'property',
           ),
@@ -879,12 +893,13 @@ function garmentbox_task_field_default_fields() {
       'entity_type' => 'node',
       'field_name' => 'field_task_assignee',
       'label' => 'Assignee',
-      'required' => 0,
+      'required' => 1,
       'settings' => array(
         'behaviors' => array(
           'prepopulate' => array(
             'action' => 'none',
             'fallback' => 'none',
+            'og_context' => 0,
             'skip_perm' => '0',
             'status' => 1,
           ),
