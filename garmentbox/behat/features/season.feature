@@ -57,3 +57,27 @@ Feature: Test Season page
     | Grey v-neck shirt   | 5     | 0       | 10    | 15    | Consignment         |
     | Lines v-neck shirt  | 5     | 7       | 10    | 22    | Sent / Sold         |
     | Lines v-neck shirt  | 1     | 0       | 0     | 1     | Future production   |
+
+  @api
+  Scenario: Verify redirections from the front page to the season items tab.
+    Given I am logged in as a user with the "authenticated user" role
+    And I go to create "season" node page
+    And I fill in "Title" with "Test season"
+    And I press "Save"
+    When I visit the front page
+    Then I should be on a page titled "Test season - Items | Site-Install"
+
+  @api
+  Scenario: Verify redirections from the front page to the season tasks tab.
+    Given I am logged in as a user with the "authenticated user" role
+    And I go to create "season" node page
+    When I fill in "Title" with "Test season 2"
+    And I press "Save"
+    And I click "Items"
+    And I click "Add new item"
+    And I fill in "Title" with "Test item"
+    And I press "Save"
+    And I fill in "Title" with "Test item variant"
+    And I press "Save"
+    When I visit the front page
+    Then I should be on a page titled "Test season 2 - Tasks | Site-Install"
