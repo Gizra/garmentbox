@@ -56,6 +56,10 @@ function garmentbox_bubble_bubble_manager($id = NULL) {
       'text' => $wrapper->body->value->value(),
       'trigger' => 'none',
       'closeWhenOthersOpen' => FALSE,
+      // Make sure the bubbles are under the overlay.
+      'textzIndex' => 299,
+      'boxzIndex' => 298,
+      'wrapperzIndex' => 297,
     );
 
     switch ($wrapper->field_display_mode->value()) {
