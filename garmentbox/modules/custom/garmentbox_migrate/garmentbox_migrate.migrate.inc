@@ -609,6 +609,19 @@ class garmentBoxBubbles extends garmentboxMigration {
   }
 }
 
+/**
+ * Migrate factory nodes.
+ */
+class garmentBoxFactories extends garmentboxMigration {
+
+  public $csvColumns = array(
+    array('id', 'Unique ID'),
+    array('title', 'Title'),
+  );
+
+  public $entityType = 'node';
+  public $bundle = 'factory';
+}
 
 ///////////////////////////////
 // Field collections
