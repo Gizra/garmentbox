@@ -20,8 +20,9 @@ function garmentbox_factory_production_order_items_content_type_render($subtype,
 
   $node = $context->data;
 
-  $block->content = 'asfd';
-  return $block;
+  $factory_nid = 5;
+
+
 }
 
 /**
@@ -30,3 +31,5 @@ function garmentbox_factory_production_order_items_content_type_render($subtype,
 function garmentbox_factory_production_order_items_content_type_edit_form($form, &$form_state) {
   return $form;
 }
+
+

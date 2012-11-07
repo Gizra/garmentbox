@@ -27,8 +27,6 @@ function garmentbox_install() {
 
   // Enable the node edit panel.
   variable_set('page_manager_node_edit_disabled', FALSE);
-
-  variable_set('additional_settings__active_tab_production_order', 'edit-auto-nodetitle');
 }
 
 /**
@@ -93,7 +91,7 @@ function garmentbox_standard_install() {
 
   // Enable some standard blocks.
   $default_theme = variable_get('theme_default', 'bartik');
-  $admin_theme = 'seven';
+
   $values = array(
     array(
       'module' => 'system',
@@ -142,36 +140,6 @@ function garmentbox_standard_install() {
       'status' => 1,
       'weight' => 0,
       'region' => 'help',
-      'pages' => '',
-      'cache' => -1,
-    ),
-    array(
-      'module' => 'system',
-      'delta' => 'main',
-      'theme' => $admin_theme,
-      'status' => 1,
-      'weight' => 0,
-      'region' => 'content',
-      'pages' => '',
-      'cache' => -1,
-    ),
-    array(
-      'module' => 'system',
-      'delta' => 'help',
-      'theme' => $admin_theme,
-      'status' => 1,
-      'weight' => 0,
-      'region' => 'help',
-      'pages' => '',
-      'cache' => -1,
-    ),
-    array(
-      'module' => 'user',
-      'delta' => 'login',
-      'theme' => $admin_theme,
-      'status' => 1,
-      'weight' => 10,
-      'region' => 'content',
       'pages' => '',
       'cache' => -1,
     ),
@@ -412,15 +380,6 @@ function garmentbox_standard_install() {
 
   // Update the menu router information.
   menu_rebuild();
-
-  // Enable the admin theme.
-  db_update('system')
-    ->fields(array('status' => 1))
-    ->condition('type', 'theme')
-    ->condition('name', 'seven')
-    ->execute();
-  variable_set('admin_theme', 'seven');
-  variable_set('node_admin_theme', '1');
 
   node_access_rebuild(TRUE);
 }
