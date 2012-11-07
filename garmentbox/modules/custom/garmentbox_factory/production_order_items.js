@@ -15,6 +15,17 @@ Drupal.behaviors.GarmentboxOrderItems = {
       var id = $(event.currentTarget).parents('tr').attr('id');
       $(event.currentTarget).parents('table').find('tr[ref="' + id + '"]').toggle();
     });
+
+    $('tr.expandable input[type="checkbox"]').change(function(event) {
+      var id = $(event.currentTarget).parents('tr').attr('id');
+      var checkboxes = $(event.currentTarget).parents('table').find('tr[ref="' + id + '"] input[type="checkbox"]');
+      if($(event.currentTarget).attr('checked')) {
+        checkboxes.attr('checked', 'checked');
+      }
+      else {
+        checkboxes.removeAttr('checked');
+      }
+    });
   }
 };
 

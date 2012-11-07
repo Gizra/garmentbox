@@ -47,10 +47,11 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
 
   $settings = array('url' => url($_GET['q'], array('absolute' => TRUE)));
   drupal_add_js(array('garmentbox_factory' => $settings), 'setting');
-
-  $form['#submit'][] = 'garmentbox_factory_form_production_order_node_form_submit';
 }
 
+/**
+ *
+ */
 function garmentbox_factory_get_factory_items($nid) {
   $query = new EntityFieldQuery();
   $result = $query
@@ -184,13 +185,13 @@ function garmentbox_factory_production_order_items($nid) {
     $row['data'][] = l(t('Add more items'), '');
     $table[] = $row;
 
-    foreach ($variant['lines'] as $inventory_line) {
+    foreach ($variant['lines'] as $inventory_line_nid => $inventory_line) {
       $row = array(
         'data' => array(),
         'ref' => 'variant-' . $variant_nid,
         'class' => array('hidden'),
       );
-      $row['data'][] = '';
+      $row['data'][] = "<input type=\"checkbox\" name=\"production_order_inventory_lines[$inventory_line_nid]\" value=\"$inventory_line_nid\" checked=\"checked\" disabled=\"disabled\" />";
       $row['data'][] = '<label>' . t('Customer') . '</label>' . $inventory_line['customer'];
       $row['data'][] = _garmentbox_factory_production_order_items_format_sizes($inventory_line['sizes']);
       $row['data'][] = '';
@@ -217,6 +218,9 @@ function garmentbox_factory_production_order_items($nid) {
   return theme('table', $variables);
 }
 
+/**
+ *
+ */
 function _garmentbox_factory_production_order_items_format_sizes($sizes) {
   $items = array();
   foreach ($sizes as $tid => $value) {
@@ -229,9 +233,15 @@ function _garmentbox_factory_production_order_items_format_sizes($sizes) {
 }
 
 /**
- *
+ * Implements hook_node_insert().
  */
-function garmentbox_factory_form_production_order_node_form_submit(&$form, &$form_state) {
-  dpm($form_state['values']);
-  return FALSE;
+function garmentbox_factory_node_insert($node) {
+  if ($node->type != 'production_order') {
+    return;
+  }
+
+  foreach ($node->production_order_variants as $variant_nid) {
+
+  }
+  dpm($node);
 }
