@@ -31,7 +31,14 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
 
   $factory_nid = $form['field_factory'][LANGUAGE_NONE]['#default_value'];
   $item_variant_nids = garmentbox_factory_get_factory_items($factory_nid);
-  $inventory_lines_nids = garmentbox_factory_get_factory_inventory_lines($item_variant_nids);
+
+  if (!$form['nid']['#value']) {
+    $inventory_lines_nids = garmentbox_factory_get_production_order_inventory_lines($item_variant_nids);
+  }
+  else {
+    $inventory_lines_nids = garmentbox_factory_get_production_order_inventory_lines($form['nid']['#value']);
+  }
+
   $raw_data = garmentbox_factory_production_order_items_data($item_variant_nids, $inventory_lines_nids);
 
   // Dummy inputs, that will actually be added manually inside
@@ -88,20 +95,27 @@ function garmentbox_factory_get_factory_items($nid) {
 
 /**
  * @param $nids
- *   Item variants NIDs.
+ *   Item variants NIDs or a production order nid.
  *
  * @return
  *   Array of inventory lines NIDs.
  */
-function garmentbox_factory_get_factory_inventory_lines($nids) {
+function garmentbox_factory_get_production_order_inventory_lines($nids) {
   $query = new EntityFieldQuery();
-  $result = $query
+  $query
     ->entityCondition('entity_type', 'node')
     ->propertyCondition('type', 'inventory_line')
-    ->propertyCondition('status', NODE_PUBLISHED)
-    ->fieldCondition('field_item_variant', 'target_id', $nids, 'IN')
-    ->fieldOrderBy('field_item_variant', 'target_id')
-    ->execute();
+    ->propertyCondition('status', NODE_PUBLISHED);
+
+  if (is_array($nids)) {
+    $query->fieldCondition('field_item_variant', 'target_id', $nids, 'IN');
+  }
+  else {
+    $query->fieldCondition('field_production_order', 'target_id', $nids);
+  }
+
+  $query->fieldOrderBy('field_item_variant', 'target_id');
+  $result = $query->execute();
 
   return !empty($result['node']) ? array_keys($result['node']) : array();
 }
@@ -150,7 +164,8 @@ function garmentbox_factory_production_order_items($raw_data) {
         checked=\"checked\"
       />";
       $row['data'][] = $checkbox;
-      $row['data'][] = t('<b>Customer</b> !customer', array('!customer' => $inventory_line['customer']));
+      $customer = $inventory_line['customer'] ? $inventory_line['customer'] : t('N/A');
+      $row['data'][] = t('<b>Customer</b> !customer', array('!customer' => $customer));
       $row['data'][] = _garmentbox_factory_production_order_items_format_sizes($inventory_line['sizes']);
       $row['data'][] = '';
       $row['data'][] = commerce_currency_format($variant['item_price'] * $inventory_line['items_count'], commerce_default_currency());
@@ -194,7 +209,7 @@ function garmentbox_factory_production_order_items_data($item_variants_nids, $in
     $data[$variant_nid]['lines'][$inventory_line->nid] = array(
       'sizes' => array(),
       'items_count' => 0,
-      'customer' => t('N/A'),
+      'customer' => '',
     );
 
     foreach ($wrapper->field_quantity_info as $quantity_wrapper) {
@@ -219,7 +234,7 @@ function garmentbox_factory_production_order_items_data($item_variants_nids, $in
     ->execute();
 
   if (empty($result['node'])) {
-    return;
+    return $data;
   }
 
   $orders = node_load_multiple(array_keys($result['node']));
