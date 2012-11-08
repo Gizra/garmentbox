@@ -389,6 +389,22 @@ html.js fieldset.collapsible.collapsed .fieldset-legend {
   right: 0;
 }
 
+/* line 1, ../sass/partials/widget/_form.scss */
+input.triple-checkbox {
+  background: url("../images/checkboxes.png") no-repeat;
+  width: 12px;
+  height: 13px;
+  -webkit-appearance: none;
+}
+/* line 7, ../sass/partials/widget/_form.scss */
+input.triple-checkbox.partially-checked {
+  background-position: -12px;
+}
+/* line 11, ../sass/partials/widget/_form.scss */
+input.triple-checkbox.checked {
+  background-position: -24px;
+}
+
 /* line 1, ../sass/partials/layout/_header.scss */
 #header {
   background: url("../images/header-bg.png") repeat-x;
