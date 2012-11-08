@@ -32,15 +32,29 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
   $factory_nid = $form['field_factory'][LANGUAGE_NONE]['#default_value'];
   $item_variant_nids = garmentbox_factory_get_factory_items($factory_nid);
   $inventory_lines_nids = garmentbox_factory_get_factory_inventory_lines($item_variant_nids);
+  $raw_data = garmentbox_factory_production_order_items_data($item_variant_nids, $inventory_lines_nids);
 
+  // Dummy inputs, that will actually be added manually inside
+  // inventory_lines_table as checkboxes.
   $form['production_order_inventory_lines'] = array(
     '#type' => 'hidden',
     '#options' => drupal_map_assoc($inventory_lines_nids),
   );
 
-  $form['items'] = array(
+  $variables = array(
+    'rows' => garmentbox_factory_production_order_items($raw_data),
+    'header' => array(
+      '',
+      t('Item variation'),
+      t('Quantity / Size'),
+      t('Fabric'),
+      t('Production cost'),
+      '',
+    ),
+  );
+  $form['inventory_lines_table'] = array(
     '#type' => 'markup',
-    '#markup' => garmentbox_factory_production_order_items($item_variant_nids, $inventory_lines_nids),
+    '#markup' => theme('table', $variables),
     '#weight' => 50,
   );
 
@@ -93,90 +107,15 @@ function garmentbox_factory_get_factory_inventory_lines($nids) {
 }
 
 /**
- * Render the production order items table.
- *
- * @param $nid
- *   A prodution order NID.
+ * @param $raw_data
+ *   A prodution order inventory lines data.
  *
  * @return
- *   Rendered table.
+ *   The production order items table.
  */
-function garmentbox_factory_production_order_items($item_variants_nids, $inventory_lines_nids) {
-  // Fetch item variants of a factory.
-  $vocabulary = taxonomy_vocabulary_machine_name_load('size');
-  $size_tree = taxonomy_get_tree($vocabulary->vid);
-
-  $variants = array();
-  foreach ($item_variants_nids as $variant_nid) {
-    $wrapper = entity_metadata_wrapper('node', $variant_nid);
-    $variants[$variant_nid] = array(
-      'sizes' => array(),
-      'title' => $wrapper->label(),
-      'lines' => array(),
-      'item_price' => garmentbox_bom_get_variant_bom_price($variant_nid) + garmentbox_bol_get_variant_bol_price($variant_nid),
-      'items_count' => 0,
-    );
-
-    foreach ($size_tree as $term) {
-      $variants[$variant_nid]['sizes'][$term->tid] = 0;
-    }
-  }
-
-  // Fetch inventory lines of a factory.
-  foreach (node_load_multiple($inventory_lines_nids) as $inventory_line) {
-    $wrapper = entity_metadata_wrapper('node', $inventory_line);
-
-    $variant_nid = $wrapper->field_item_variant->getIdentifier();
-
-    $variants[$variant_nid]['lines'][$inventory_line->nid] = array(
-      'sizes' => array(),
-      'items_count' => 0,
-      'customer' => t('N/A'),
-    );
-
-    foreach ($wrapper->field_quantity_info as $quantity_wrapper) {
-      $size_tid = $quantity_wrapper->field_size->getIdentifier();
-      $quantity = $quantity_wrapper->field_quantity->value();
-
-      $variants[$variant_nid]['sizes'][$size_tid] += $quantity;
-      $variants[$variant_nid]['items_count'] += $quantity;
-      $variants[$variant_nid]['lines'][$inventory_line->nid]['sizes'][$size_tid] = $quantity;
-      $variants[$variant_nid]['lines'][$inventory_line->nid]['items_count'] += $quantity;
-    }
-  }
-
-  // Fetch inventory lines of a factory.
-  $query = new EntityFieldQuery();
-  $result = $query
-    ->entityCondition('entity_type', 'node')
-    ->propertyCondition('type', 'order')
-    ->propertyCondition('status', NODE_PUBLISHED)
-    // ->fieldCondition('field_inventory_line_inline', 'target_id', array_keys($inventory_lines), 'IN')
-    ->fieldOrderBy('field_inventory_line_inline', 'target_id')
-    ->execute();
-
-  if (empty($result['node'])) {
-    return;
-  }
-
-  $orders = node_load_multiple(array_keys($result['node']));
-  foreach ($orders as $order) {
-    $wrapper = entity_metadata_wrapper('node', $order);
-    $order_link = l($wrapper->field_customer->label(), 'node/' . $order->nid);
-
-    foreach ($wrapper->field_inventory_line_inline as $inventory_line_wrapper) {
-      $variant_nid = $inventory_line_wrapper->field_item_variant->getIdentifier();
-      $inventory_line_nid = $inventory_line_wrapper->getIdentifier();
-      // The order might have variants of different factories. Only consider
-      // variants that were selected before.
-      if (!empty($variants[$variant_nid])) {
-        $variants[$variant_nid]['lines'][$inventory_line_nid]['customer'] = $order_link;
-      }
-    }
-  }
-
+function garmentbox_factory_production_order_items($raw_data) {
   $table = array();
-  foreach ($variants as $variant_nid => $variant) {
+  foreach ($raw_data as $variant_nid => $variant) {
     if (!$variant['lines']) {
       continue;
     }
@@ -219,26 +158,94 @@ function garmentbox_factory_production_order_items($item_variants_nids, $invento
       $table[] = $row;
     }
   }
-
-  $header = array(
-    '',
-    t('Item variation'),
-    t('Quantity / Size'),
-    t('Fabric'),
-    t('Production cost'),
-    '',
-  );
-
-  $variables = array(
-    'header' => $header,
-    'rows' => $table,
-  );
-
-  return theme('table', $variables);
+  return $table;
 }
 
 /**
  *
+ */
+function garmentbox_factory_production_order_items_data($item_variants_nids, $inventory_lines_nids) {
+  // Fetch item variants of a factory.
+  $vocabulary = taxonomy_vocabulary_machine_name_load('size');
+  $size_tree = taxonomy_get_tree($vocabulary->vid);
+
+  $data = array();
+  foreach ($item_variants_nids as $variant_nid) {
+    $wrapper = entity_metadata_wrapper('node', $variant_nid);
+    $data[$variant_nid] = array(
+      'sizes' => array(),
+      'title' => $wrapper->label(),
+      'lines' => array(),
+      'item_price' => garmentbox_bom_get_variant_bom_price($variant_nid) + garmentbox_bol_get_variant_bol_price($variant_nid),
+      'items_count' => 0,
+    );
+
+    foreach ($size_tree as $term) {
+      $data[$variant_nid]['sizes'][$term->tid] = 0;
+    }
+  }
+
+  // Fetch inventory lines of a factory.
+  foreach (node_load_multiple($inventory_lines_nids) as $inventory_line) {
+    $wrapper = entity_metadata_wrapper('node', $inventory_line);
+
+    $variant_nid = $wrapper->field_item_variant->getIdentifier();
+
+    $data[$variant_nid]['lines'][$inventory_line->nid] = array(
+      'sizes' => array(),
+      'items_count' => 0,
+      'customer' => t('N/A'),
+    );
+
+    foreach ($wrapper->field_quantity_info as $quantity_wrapper) {
+      $size_tid = $quantity_wrapper->field_size->getIdentifier();
+      $quantity = $quantity_wrapper->field_quantity->value();
+
+      $data[$variant_nid]['sizes'][$size_tid] += $quantity;
+      $data[$variant_nid]['items_count'] += $quantity;
+      $data[$variant_nid]['lines'][$inventory_line->nid]['sizes'][$size_tid] = $quantity;
+      $data[$variant_nid]['lines'][$inventory_line->nid]['items_count'] += $quantity;
+    }
+  }
+
+  // Fetch inventory lines of a factory.
+  $query = new EntityFieldQuery();
+  $result = $query
+    ->entityCondition('entity_type', 'node')
+    ->propertyCondition('type', 'order')
+    ->propertyCondition('status', NODE_PUBLISHED)
+    ->fieldCondition('field_inventory_line_inline', 'target_id', $inventory_lines_nids, 'IN')
+    ->fieldOrderBy('field_inventory_line_inline', 'target_id')
+    ->execute();
+
+  if (empty($result['node'])) {
+    return;
+  }
+
+  $orders = node_load_multiple(array_keys($result['node']));
+  foreach ($orders as $order) {
+    $wrapper = entity_metadata_wrapper('node', $order);
+    $order_link = l($wrapper->field_customer->label(), 'node/' . $order->nid);
+
+    foreach ($wrapper->field_inventory_line_inline as $inventory_line_wrapper) {
+      $variant_nid = $inventory_line_wrapper->field_item_variant->getIdentifier();
+      $inventory_line_nid = $inventory_line_wrapper->getIdentifier();
+      // The order might have variants of different factories. Only consider
+      // variants that were selected before.
+      if (!empty($data[$variant_nid])) {
+        $data[$variant_nid]['lines'][$inventory_line_nid]['customer'] = $order_link;
+      }
+    }
+  }
+
+  return $data;
+}
+
+/**
+ * Format a "Sizes data" cell.
+ *
+ * @param $sizes
+ *   Array of quantities per size TID.
  */
 function _garmentbox_factory_production_order_items_format_sizes($sizes) {
   $items = array();
