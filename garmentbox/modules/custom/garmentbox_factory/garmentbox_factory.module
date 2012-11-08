@@ -43,6 +43,8 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
 
   // Dummy inputs, that will actually be added manually inside
   // inventory_lines_table as checkboxes.
+  // Add an option to select no lines.
+  $inventory_lines_nids[''] = '';
   $form['production_order_inventory_lines'] = array(
     '#type' => 'hidden',
     '#options' => drupal_map_assoc($inventory_lines_nids),
@@ -147,7 +149,10 @@ function garmentbox_factory_production_order_items($raw_data) {
     $row['data'][] = _garmentbox_factory_production_order_items_format_sizes($variant['sizes']);
     $row['data'][] = garmentbox_item_get_main_material_icon($variant_nid);
     $row['data'][] = commerce_currency_format($variant['item_price'] * $variant['items_count'], commerce_default_currency());
-    $row['data'][] = l(t('Add more items'), '');
+    $row['data'][] = array(
+      'data' => l(t('Add more items'), ''),
+      'class' => array('add-item'),
+    );
     $table[] = $row;
 
     foreach ($variant['lines'] as $inventory_line_nid => $inventory_line) {
@@ -172,6 +177,20 @@ function garmentbox_factory_production_order_items($raw_data) {
       $row['data'][] = '';
       $table[] = $row;
     }
+
+    // Add an hidden "Add more items" row.
+    $row = array(
+      'data' => array(),
+      'ref' => 'variant-' . $variant_nid,
+      'class' => array('hidden', 'new-inventory-line'),
+    );
+    $row['data'][] = '';
+    $row['data'][] = '';
+    $row['data'][] = _garmentbox_factory_production_order_items_format_sizes($variant_nid);
+    $row['data'][] = '';
+    $row['data'][] = t('N/A');
+    $row['data'][] = '';
+    $table[] = $row;
   }
   return $table;
 }
@@ -180,7 +199,10 @@ function garmentbox_factory_production_order_items($raw_data) {
  *
  */
 function garmentbox_factory_production_order_items_data($item_variants_nids, $inventory_lines_nids) {
-  // Fetch item variants of a factory.
+  if (!$inventory_lines_nids) {
+    return array();
+  }
+
   $vocabulary = taxonomy_vocabulary_machine_name_load('size');
   $size_tree = taxonomy_get_tree($vocabulary->vid);
 
@@ -263,13 +285,28 @@ function garmentbox_factory_production_order_items_data($item_variants_nids, $in
  *   Array of quantities per size TID.
  */
 function _garmentbox_factory_production_order_items_format_sizes($sizes) {
+  $vocabulary = taxonomy_vocabulary_machine_name_load('size');
+  $size_tree = taxonomy_get_tree($vocabulary->vid);
+
+  $nid = !is_array($sizes) ? $sizes : 0;
+
   $items = array();
-  foreach ($sizes as $tid => $value) {
-    $term = taxonomy_term_load($tid);
-    $label = '<label>' . $term->name . '</label>';
-    $amount = '<span>' . $value . '</span>';
-    $items[] = $label . $amount;
+  foreach ($size_tree as $term) {
+    $item = '<label>' . $term->name . '</label>';
+
+    if (!$nid) {
+      $quantity = !empty($sizes[$term->tid]) ? $sizes[$term->tid] : 0;
+      $item .= '<span>' . $quantity . '</span>';
+    }
+    else {
+      $item .= "<input
+        name=\"variant_inventory[]\"
+      />";
+    }
+
+    $items[] = $item;
   }
+
   return theme('item_list', array('items' => $items, 'attributes' => array('class' => array('size-info'))));
 }
 
@@ -283,10 +320,32 @@ function garmentbox_factory_node_insert($node) {
   if ($node->type != 'production_order') {
     return;
   }
-
+dpm($node);
   foreach ($node->production_order_inventory_lines as $nid) {
     $wrapper = entity_metadata_wrapper('node', $nid);
     $wrapper->field_production_order->set($node->nid);
     $wrapper->save();
+  }
+}
+
+/**
+ * Implements hook_node_update().
+ *
+ * When a production order is created, Set the production order reference on
+ * the related inventory line nodes.
+ */
+function garmentbox_factory_node_update($node) {
+  if ($node->type != 'production_order') {
+    return;
+  }
+
+  // Remove references form removed inventory lines.
+  $stored_inventory_lines = garmentbox_factory_get_production_order_inventory_lines($node->nid);
+  foreach($stored_inventory_lines as $nid) {
+    if (empty($node->production_order_inventory_lines[$nid])) {
+      $wrapper = entity_metadata_wrapper('node', $nid);
+      $wrapper->field_production_order->set(NULL);
+      $wrapper->save();
+    }
   }
 }
