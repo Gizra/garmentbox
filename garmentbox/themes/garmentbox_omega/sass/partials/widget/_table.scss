@@ -213,6 +213,27 @@ table {
       background-image: url("../images/expand.gif");
     }
   }
+
+  ul.size-info {
+    margin: 0;
+
+    li {
+      float: left; //LTR
+      margin-left: 20px; //LTR
+
+      &:first-child {
+        margin-left: 0; //LTR
+      }
+    }
+
+    label, span {
+      float: left; //LTR
+    }
+
+    span {
+      margin-left: 5px; //LTR
+    }
+  }
 }
 
 html.js fieldset.collapsible {

@@ -263,14 +263,35 @@ table .expander {
 table .expander.collapsed {
   background-image: url("../images/expand.gif");
 }
-
+/* line 217, ../sass/partials/widget/_table.scss */
+table ul.size-info {
+  margin: 0;
+}
 /* line 220, ../sass/partials/widget/_table.scss */
+table ul.size-info li {
+  float: left;
+  margin-left: 20px;
+}
+/* line 224, ../sass/partials/widget/_table.scss */
+table ul.size-info li:first-child {
+  margin-left: 0;
+}
+/* line 229, ../sass/partials/widget/_table.scss */
+table ul.size-info label, table ul.size-info span {
+  float: left;
+}
+/* line 233, ../sass/partials/widget/_table.scss */
+table ul.size-info span {
+  margin-left: 5px;
+}
+
+/* line 241, ../sass/partials/widget/_table.scss */
 html.js fieldset.collapsible .fieldset-legend {
   background: url("../images/contract.gif") no-repeat;
   padding-left: 20px;
   margin-left: 10px;
 }
-/* line 226, ../sass/partials/widget/_table.scss */
+/* line 247, ../sass/partials/widget/_table.scss */
 html.js fieldset.collapsible.collapsed .fieldset-legend {
   background-image: url("../images/expand.gif");
 }

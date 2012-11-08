@@ -211,7 +211,7 @@ function garmentbox_factory_production_order_items($item_variants_nids, $invento
         checked=\"checked\"
       />";
       $row['data'][] = $checkbox;
-      $row['data'][] = '<label>' . t('Customer') . '</label>' . $inventory_line['customer'];
+      $row['data'][] = t('<b>Customer</b> !customer', array('!customer' => $inventory_line['customer']));
       $row['data'][] = _garmentbox_factory_production_order_items_format_sizes($inventory_line['sizes']);
       $row['data'][] = '';
       $row['data'][] = commerce_currency_format($variant['item_price'] * $inventory_line['items_count'], commerce_default_currency());
@@ -248,19 +248,23 @@ function _garmentbox_factory_production_order_items_format_sizes($sizes) {
     $amount = '<span>' . $value . '</span>';
     $items[] = $label . $amount;
   }
-  return theme('item_list', array('items' => $items));;
+  return theme('item_list', array('items' => $items, 'attributes' => array('class' => array('size-info'))));
 }
 
 /**
  * Implements hook_node_insert().
+ *
+ * When a production order is created, Set the production order reference on
+ * the related inventory line nodes.
  */
 function garmentbox_factory_node_insert($node) {
   if ($node->type != 'production_order') {
     return;
   }
 
-  // foreach ($node->production_order_variants as $variant_nid) {
-//
-  // }
-  dpm($node);
+  foreach ($node->production_order_inventory_lines as $nid) {
+    $wrapper = entity_metadata_wrapper('node', $nid);
+    $wrapper->field_production_order->set($node->nid);
+    $wrapper->save();
+  }
 }
