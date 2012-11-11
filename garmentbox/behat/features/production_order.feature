@@ -4,8 +4,10 @@ Feature: Test production order flow
   @api @wip
   Scenario: Viewing the add production-order page, with different Queantity/ Size.
     Given I am logged in as a user with the "authenticated user" role
-    When I visit "node/add/production-order"
-    Then I should see a table with the following <contents>:
+    And I am on a "season" page titled "Autumn-Winter 2013 Women"
+    And I click "Production Orders"
+    When I click "Add new production order"
+    Then I should see a table identified "inventory-lines-table" with the following <contents>:
     | Include in order   | Item variation         | Quantity / Size                             | Fabric  | Production cost | Add more items  |
     | <checkbox checked> | Grey v-neck shirt      | Small 18 Medium 20 Large 42                 | <image> | <ignore>        | Add more items  |
     | <checkbox checked> | Lines v-neck shirt     | Small 37 Medium 26 Large 29                 | <image> | <ignore>        | Add more items  |
