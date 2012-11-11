@@ -1,7 +1,7 @@
 Feature: Test production order flow
   Test the addition and edit forms of production order nodes.
 
-  @api
+  @api @wip
   Scenario: Viewing the add production-order page, with different Queantity/ Size.
     Given I am logged in as a user with the "authenticated user" role
     When I visit "node/add/production-order"
@@ -45,7 +45,7 @@ Feature: Test production order flow
     Given I am logged in as a user with the "authenticated user" role
     And I visit "node/add/production-order"
     And I click "Grey v-neck shirt"
-    And I uncheck "76"
+    And I uncheck "Include in order" of table row "Customer Salty moda"
     And I fill "Small" with "2"
     When I click "edit"
     And I click "Grey v-neck shirt"
