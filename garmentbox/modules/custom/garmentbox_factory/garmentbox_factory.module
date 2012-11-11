@@ -30,7 +30,8 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
   }
 
   $factory_nid = $form['field_factory'][LANGUAGE_NONE]['#default_value'];
-  $item_variant_nids = garmentbox_factory_get_factory_items($factory_nid);
+  $season_nid = $form['field_season'][LANGUAGE_NONE]['#default_value'][0];
+  $item_variant_nids = garmentbox_factory_get_factory_item_variants($season_nid, $factory_nid);
 
   if (!$form['nid']['#value']) {
     $inventory_lines_nids = garmentbox_factory_get_production_order_inventory_lines($item_variant_nids);
@@ -119,19 +120,22 @@ function garmentbox_factory_form_production_order_node_form_validate(&$form, &$f
 }
 
 /**
- * @param $nid
+ * @param $factory_nid
  *   Factory NID.
+ * @param $season_nid
+ *   Season NID.
  *
  * @return
  *   Array of item variants NIDs.
  */
-function garmentbox_factory_get_factory_items($nid) {
+function garmentbox_factory_get_factory_item_variants($season_nid, $factory_nid) {
   $query = new EntityFieldQuery();
   $result = $query
     ->entityCondition('entity_type', 'node')
     ->propertyCondition('type', 'item_variant')
     ->propertyCondition('status', NODE_PUBLISHED)
-    ->fieldCondition('field_factory', 'target_id', $nid)
+    ->fieldCondition('field_factory', 'target_id', $factory_nid)
+    ->fieldCondition('field_reference_hierarchy', 'target_id', $season_nid)
     ->propertyOrderBy('title')
     ->execute();
 
@@ -153,6 +157,9 @@ function garmentbox_factory_get_production_order_inventory_lines($nids) {
     ->propertyCondition('status', NODE_PUBLISHED);
 
   if (is_array($nids)) {
+    if (!$nids) {
+      return array();
+    }
     $query->fieldCondition('field_item_variant', 'target_id', $nids, 'IN');
   }
   else {
@@ -242,8 +249,8 @@ function garmentbox_factory_production_order_items($raw_data) {
     'class' => array('hidden', 'new-inventory-line', 'other-variant'),
   );
   $row['data'][] = '';
-  $row['data'][] = $variant['title'];
-  $row['data'][] = _garmentbox_factory_production_order_items_format_sizes($variant_nid);
+  $row['data'][] = 'variants';
+  $row['data'][] = 'sizes';//_garmentbox_factory_production_order_items_format_sizes($variant_nid);
   $row['data'][] = '';
   $row['data'][] = t('N/A');
   $row['data'][] = '';
