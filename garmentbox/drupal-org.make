@@ -126,9 +126,6 @@ projects[views_bulk_operations][version] = "3.0-rc1"
 projects[fontyourface][subdir] = "contrib"
 projects[fontyourface][version] = "2.4"
 
-projects[title][subdir] = "contrib"
-projects[title][version] = "1.0-alpha4"
-
 projects[image_delta_formatter][subdir] = "contrib"
 projects[image_delta_formatter][version] = "1.x-dev"
 

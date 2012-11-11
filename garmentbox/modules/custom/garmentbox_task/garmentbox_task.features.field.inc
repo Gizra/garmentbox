@@ -211,16 +211,9 @@ function garmentbox_task_field_default_fields() {
               'status' => 1,
             ),
           ),
-          'referenceable_roles' => array(
-            2 => 0,
-            3 => 0,
-          ),
-          'referenceable_status' => array(
-            'active' => 'active',
-            'blocked' => 0,
-          ),
           'sort' => array(
             'direction' => 'ASC',
+            'field' => 'property',
             'property' => 'name',
             'type' => 'property',
           ),
@@ -840,16 +833,9 @@ function garmentbox_task_field_default_fields() {
               'status' => 1,
             ),
           ),
-          'referenceable_roles' => array(
-            2 => 0,
-            3 => 0,
-          ),
-          'referenceable_status' => array(
-            'active' => 'active',
-            'blocked' => 0,
-          ),
           'sort' => array(
             'direction' => 'ASC',
+            'field' => 'property',
             'property' => 'name',
             'type' => 'property',
           ),

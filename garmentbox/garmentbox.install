@@ -297,7 +297,6 @@ function garmentbox_standard_install() {
   );
   field_create_field($field);
 
-
   // Many of the following values will be defaulted, they're included here as an illustrative examples.
   // See http://api.drupal.org/api/function/field_create_instance/7
   $instance = array(
@@ -353,6 +352,16 @@ function garmentbox_standard_install() {
     'access overlay',
     filter_permission_name($filtered_html_format),
   );
+
+  // Add content permissions.
+  foreach (array_keys(node_type_get_types()) as $content_type) {
+    $permissions[] = "create $content_type content";
+    $permissions[] = "edit any $content_type content";
+    $permissions[] = "edit own $content_type content";
+    $permissions[] = "delete any $content_type content";
+    $permissions[] = "delete own $content_type content";
+  }
+
   user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, $permissions);
 
   // Create a default role for site administrators, with all available permissions assigned.
