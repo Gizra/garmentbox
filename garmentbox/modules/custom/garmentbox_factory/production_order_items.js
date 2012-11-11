@@ -8,7 +8,8 @@ Drupal.behaviors.GarmentboxOrderItems = {
     var object = this;
 
     $(context).find('.form-item-field-factory-und select').change(function(event) {
-      window.location = Drupal.settings.garmentbox_factory.url + '?field_factory=' + $(event.currentTarget).val();
+      // The URL already has "?field_season=x" attached to it.
+      window.location = Drupal.settings.garmentbox_factory.url + '&field_factory=' + $(event.currentTarget).val();
     });
 
     // Toggle inventory lines rows.

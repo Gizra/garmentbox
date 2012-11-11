@@ -76,7 +76,13 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
     drupal_get_path('module', 'garmentbox_factory') . '/production_order_items.js',
   );
 
-  $settings = array('url' => url($_GET['q'], array('absolute' => TRUE)));
+  $options = array(
+    'absolute' => TRUE,
+    'query' => array(
+      'field_season' => $_GET['field_season'],
+    )
+  );
+  $settings = array('url' => url($_GET['q'], $options));
   drupal_add_js(array('garmentbox_factory' => $settings), 'setting');
 
   // Validation for the custom quantity fields.
