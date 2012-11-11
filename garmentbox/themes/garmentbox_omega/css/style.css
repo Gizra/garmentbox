@@ -426,45 +426,44 @@ input.triple-checkbox.checked {
   background-position: -24px;
 }
 
-/* line 1, ../sass/partials/layout/_header.scss */
-#header {
+/* line 2, ../sass/partials/layout/_header.scss */
+header#header {
   background: url("../images/header-bg.png") repeat-x;
   height: 38px;
   padding-top: 14px;
 }
-/* line 6, ../sass/partials/layout/_header.scss */
-#header #block-search-form {
+/* line 7, ../sass/partials/layout/_header.scss */
+header#header #block-search-form {
   display: none;
 }
-/* line 10, ../sass/partials/layout/_header.scss */
-#header .region-header {
+/* line 11, ../sass/partials/layout/_header.scss */
+header#header .region-header {
   float: right;
 }
-/* line 13, ../sass/partials/layout/_header.scss */
-#header .region-header #block-system-user-menu ul {
+/* line 14, ../sass/partials/layout/_header.scss */
+header#header .region-header #block-system-user-menu ul {
   padding: 0;
   margin: 0;
 }
-/* line 17, ../sass/partials/layout/_header.scss */
-#header .region-header #block-system-user-menu ul li {
+/* line 18, ../sass/partials/layout/_header.scss */
+header#header .region-header #block-system-user-menu ul li {
   list-style-type: none;
   list-style-image: none;
   display: block;
   float: left;
   font-size: 11px;
 }
-
-/* line 28, ../sass/partials/layout/_header.scss */
-#title {
+/* line 29, ../sass/partials/layout/_header.scss */
+header#title {
   background: url("../images/title-bg.png") repeat-x;
   height: 68px;
 }
-/* line 32, ../sass/partials/layout/_header.scss */
-#title * {
+/* line 33, ../sass/partials/layout/_header.scss */
+header#title * {
   font-family: Dosis, Arial, Helvetica, sans-serif;
 }
-/* line 36, ../sass/partials/layout/_header.scss */
-#title h1 {
+/* line 37, ../sass/partials/layout/_header.scss */
+header#title h1 {
   font-weight: normal;
   float: left;
   margin: 0;
@@ -473,8 +472,8 @@ input.triple-checkbox.checked {
   text-shadow: 0 1px #cadcdc;
   font-size: 40px;
 }
-/* line 46, ../sass/partials/layout/_header.scss */
-#title .tabs {
+/* line 47, ../sass/partials/layout/_header.scss */
+header#title .tabs {
   border: none;
   padding: 0;
   margin: 0;
@@ -482,8 +481,8 @@ input.triple-checkbox.checked {
   margin-top: 32px;
   margin-left: 5px;
 }
-/* line 54, ../sass/partials/layout/_header.scss */
-#title .tabs a {
+/* line 55, ../sass/partials/layout/_header.scss */
+header#title .tabs a {
   background-color: transparent;
   border: none;
   text-transform: lowercase;
@@ -492,34 +491,33 @@ input.triple-checkbox.checked {
   padding: 0;
   font-size: 13px;
 }
-/* line 65, ../sass/partials/layout/_header.scss */
-#title .field-name-field-item-status, #title .field-name-field-season-status {
+/* line 66, ../sass/partials/layout/_header.scss */
+header#title .field-name-field-item-status, header#title .field-name-field-season-status {
   float: right;
   margin-top: 10px;
 }
-/* line 69, ../sass/partials/layout/_header.scss */
-#title .field-name-field-item-status .field-label, #title .field-name-field-season-status .field-label {
+/* line 70, ../sass/partials/layout/_header.scss */
+header#title .field-name-field-item-status .field-label, header#title .field-name-field-season-status .field-label {
   color: #c4eeed;
   text-transform: lowercase;
 }
-/* line 74, ../sass/partials/layout/_header.scss */
-#title .field-name-field-item-status .field-item, #title .field-name-field-season-status .field-item {
+/* line 75, ../sass/partials/layout/_header.scss */
+header#title .field-name-field-item-status .field-item, header#title .field-name-field-season-status .field-item {
   color: #f6fafb;
   text-transform: uppercase;
   font-size: 20px;
 }
-
-/* line 83, ../sass/partials/layout/_header.scss */
-.node-type-item #title, .node-type-item-variant #title {
+/* line 84, ../sass/partials/layout/_header.scss */
+header .node-type-item #title, header .node-type-item-variant #title {
   background: url("../images/title-large-bg.png") repeat-x;
   height: 86px;
 }
-/* line 87, ../sass/partials/layout/_header.scss */
-.node-type-item #title .field-name-field-item-status, .node-type-item-variant #title .field-name-field-item-status {
+/* line 88, ../sass/partials/layout/_header.scss */
+header .node-type-item #title .field-name-field-item-status, header .node-type-item-variant #title .field-name-field-item-status {
   margin-top: 22px;
 }
-/* line 91, ../sass/partials/layout/_header.scss */
-.node-type-item #title .field-name-field-image, .node-type-item #title .field-name-field-images, .node-type-item-variant #title .field-name-field-image, .node-type-item-variant #title .field-name-field-images {
+/* line 92, ../sass/partials/layout/_header.scss */
+header .node-type-item #title .field-name-field-image, header .node-type-item #title .field-name-field-images, header .node-type-item-variant #title .field-name-field-image, header .node-type-item-variant #title .field-name-field-images {
   margin-top: 7px;
   margin-right: 10px;
   background: url("../images/header-thumbnail-bg.png") repeat-x;
@@ -527,8 +525,8 @@ input.triple-checkbox.checked {
   width: 57px;
   height: 77px;
 }
-/* line 99, ../sass/partials/layout/_header.scss */
-.node-type-item #title .field-name-field-image img, .node-type-item #title .field-name-field-images img, .node-type-item-variant #title .field-name-field-image img, .node-type-item-variant #title .field-name-field-images img {
+/* line 100, ../sass/partials/layout/_header.scss */
+header .node-type-item #title .field-name-field-image img, header .node-type-item #title .field-name-field-images img, header .node-type-item-variant #title .field-name-field-image img, header .node-type-item-variant #title .field-name-field-images img {
   margin: 3px auto;
   display: block;
 }
