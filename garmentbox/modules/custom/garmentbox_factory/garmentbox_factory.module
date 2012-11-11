@@ -49,6 +49,11 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
     '#type' => 'hidden',
     '#options' => drupal_map_assoc($inventory_lines_nids),
   );
+  // Add dummy inputs for the "Add more items" size fields.
+  $form['variant_new_inventory'] = array(
+    '#type' => 'hidden',
+  );
+  $form_state['item_variants'] = $item_variant_nids;
 
   $variables = array(
     'rows' => garmentbox_factory_production_order_items($raw_data),
@@ -73,6 +78,31 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
 
   $settings = array('url' => url($_GET['q'], array('absolute' => TRUE)));
   drupal_add_js(array('garmentbox_factory' => $settings), 'setting');
+
+  $form['#validate'][] = 'garmentbox_factory_form_production_order_node_form_validate';
+}
+
+/**
+ * Validate handler.
+ *
+ * Validate the new inventory forms manually.
+ */
+function garmentbox_factory_form_production_order_node_form_validate(&$form, &$form_state) {
+  foreach ($form_state['values']['variant_new_inventory'] as $nid => $size_data) {
+    foreach ($size_data as $tid => $quantity) {
+      if (!$quantity) {
+        continue;
+      }
+
+      // Make sure the quantity is a positive integer.
+      if (!is_numeric($quantity) || (int)$quantity != $quantity || $quantity < 0) {
+        // TODO: When this error is applied, it causes the following notice on
+        // the next refresh on node/add/production-prder:
+        // Notice: Array to string conversion in drupal_attributes() (line 2303 of [...]/www/includes/common.inc).
+        form_set_error('', t('Quantity must be a positive integer.'));
+      }
+    }
+  }
 }
 
 /**
@@ -185,7 +215,7 @@ function garmentbox_factory_production_order_items($raw_data) {
       'class' => array('hidden', 'new-inventory-line'),
     );
     $row['data'][] = '';
-    $row['data'][] = '';
+    $row['data'][] = $variant['title'];
     $row['data'][] = _garmentbox_factory_production_order_items_format_sizes($variant_nid);
     $row['data'][] = '';
     $row['data'][] = t('N/A');
@@ -300,7 +330,8 @@ function _garmentbox_factory_production_order_items_format_sizes($sizes) {
     }
     else {
       $item .= "<input
-        name=\"variant_inventory[]\"
+        name=\"variant_new_inventory[$nid][$term->tid]\"
+        size=\"4\"
       />";
     }
 
@@ -320,12 +351,65 @@ function garmentbox_factory_node_insert($node) {
   if ($node->type != 'production_order') {
     return;
   }
-dpm($node);
+
   foreach ($node->production_order_inventory_lines as $nid) {
     $wrapper = entity_metadata_wrapper('node', $nid);
     $wrapper->field_production_order->set($node->nid);
     $wrapper->save();
   }
+
+  // Handle creation of new inventory lines.
+  foreach ($node->variant_new_inventory as $item_variant_nid => $quantity_info) {
+    // Check if the variant's has any non-zero quantity.
+    $create_inventory_line = FALSE;
+    foreach ($quantity_info as $quantity) {
+      if ($quantity) {
+        $create_inventory_line = TRUE;
+      }
+    }
+
+    if ($create_inventory_line) {
+      garmentbox_factory_create_inventory_line($node->nid, $item_variant_nid, $quantity_info);
+    }
+  }
+}
+
+/**
+ * Create a custom inventory line (Through the production order form).
+ *
+ * @param $production_order_nid
+ *   Attach the inventory line to this production order.
+ * @param $item_variant_nid
+ *   The inventory line's item variant.
+ * @param $quantity_info
+ *   Array of quantities keyed by size TID. A new field_quantity_info item will
+ *   be created for each entry.
+ */
+function garmentbox_factory_create_inventory_line($production_order_nid, $item_variant_nid, $quantity_info) {
+  $node = new stdClass();
+  $node->type = 'inventory_line';
+  $node->language = LANGUAGE_NONE;
+  node_object_prepare($node);
+
+  $wrapper = entity_metadata_wrapper('node', $node);
+  $wrapper->field_production_order->set($production_order_nid);
+  $wrapper->field_item_variant->set($item_variant_nid);
+
+  // Create field collection items for the quantity info items.
+  foreach ($quantity_info as $tid => $quantity) {
+    if (!$quantity) {
+      continue;
+    }
+
+    $field_collection_item = entity_create('field_collection_item', array('field_name' => 'field_quantity_info'));
+    $field_collection_item->setHostEntity('node', $node);
+    $item_wrapper = entity_metadata_wrapper('field_collection_item', $field_collection_item);
+    $item_wrapper->field_quantity->set($quantity);
+    $item_wrapper->field_size->set($tid);
+    $item_wrapper->save();
+  }
+
+  $wrapper->save();
 }
 
 /**
@@ -339,7 +423,7 @@ function garmentbox_factory_node_update($node) {
     return;
   }
 
-  // Remove references form removed inventory lines.
+  // Remove references from removed inventory lines.
   $stored_inventory_lines = garmentbox_factory_get_production_order_inventory_lines($node->nid);
   foreach($stored_inventory_lines as $nid) {
     if (empty($node->production_order_inventory_lines[$nid])) {
