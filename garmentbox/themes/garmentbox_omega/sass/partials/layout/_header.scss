@@ -79,28 +79,28 @@ header {
       }
     }
   }
+}
 
-  // Large title strip.
-  .node-type-item #title, .node-type-item-variant #title {
-    background: url("../images/title-large-bg.png") repeat-x;
-    height: 86px;
+// Large title strip.
+.node-type-item #title, .node-type-item-variant #title {
+  background: url("../images/title-large-bg.png") repeat-x;
+  height: 86px;
 
-    .field-name-field-item-status {
-      margin-top: 22px;
-    }
+  .field-name-field-item-status {
+    margin-top: 22px;
+  }
 
-    .field-name-field-image, .field-name-field-images {
-      margin-top: 7px;
-      margin-right: 10px; //LTR
-      background: url("../images/header-thumbnail-bg.png") repeat-x;
-      float: left; //LTR
-      width: 57px;
-      height: 77px;
+  .field-name-field-image, .field-name-field-images {
+    margin-top: 7px;
+    margin-right: 10px; //LTR
+    background: url("../images/header-thumbnail-bg.png") repeat-x;
+    float: left; //LTR
+    width: 57px;
+    height: 77px;
 
-      img {
-        margin: 3px auto;
-        display: block;
-      }
+    img {
+      margin: 3px auto;
+      display: block;
     }
   }
 }
