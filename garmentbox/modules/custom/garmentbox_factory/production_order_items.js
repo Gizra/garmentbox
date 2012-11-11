@@ -50,7 +50,7 @@ Drupal.behaviors.GarmentboxOrderItems = {
     });
 
     // Show the "Add more items" row.
-    $(context).find('.add-item a').click(function(event) {
+    $(context).find('.add-inventory-line a').click(function(event) {
       event.preventDefault();
       var id = $(event.currentTarget).parents('tr').attr('id');
       var table = $(event.currentTarget).parents('table');

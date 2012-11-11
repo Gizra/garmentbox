@@ -58,12 +58,12 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
   $variables = array(
     'rows' => garmentbox_factory_production_order_items($raw_data),
     'header' => array(
-      '',
+      t('Include in order'),
       t('Item variation'),
       t('Quantity / Size'),
       t('Fabric'),
       t('Production cost'),
-      '',
+      t('Add more items'),
     ),
   );
   $form['inventory_lines_table'] = array(
@@ -79,7 +79,14 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
   $settings = array('url' => url($_GET['q'], array('absolute' => TRUE)));
   drupal_add_js(array('garmentbox_factory' => $settings), 'setting');
 
+  // Validation for the custom quantity fields.
   $form['#validate'][] = 'garmentbox_factory_form_production_order_node_form_validate';
+
+  $form['add_variant_button'] = array(
+    '#type' => 'markup',
+    '#markup' => l(t('Add a variant'), '', array('attributes' => array('id' => 'add-variant'))),
+    '#weight' => 55,
+  );
 }
 
 /**
@@ -181,7 +188,7 @@ function garmentbox_factory_production_order_items($raw_data) {
     $row['data'][] = commerce_currency_format($variant['item_price'] * $variant['items_count'], commerce_default_currency());
     $row['data'][] = array(
       'data' => l(t('Add more items'), ''),
-      'class' => array('add-item'),
+      'class' => array('add-inventory-line'),
     );
     $table[] = $row;
 
@@ -222,6 +229,20 @@ function garmentbox_factory_production_order_items($raw_data) {
     $row['data'][] = '';
     $table[] = $row;
   }
+
+  // "Add more items of another variation" row.
+  $row = array(
+    'data' => array(),
+    'class' => array('hidden', 'new-inventory-line', 'other-variant'),
+  );
+  $row['data'][] = '';
+  $row['data'][] = $variant['title'];
+  $row['data'][] = _garmentbox_factory_production_order_items_format_sizes($variant_nid);
+  $row['data'][] = '';
+  $row['data'][] = t('N/A');
+  $row['data'][] = '';
+  $table[] = $row;
+
   return $table;
 }
 
@@ -312,7 +333,7 @@ function garmentbox_factory_production_order_items_data($item_variants_nids, $in
  * Format a "Sizes data" cell.
  *
  * @param $sizes
- *   Array of quantities per size TID.
+ *   Array of quantities per size TID, or an item variant NID.
  */
 function _garmentbox_factory_production_order_items_format_sizes($sizes) {
   $vocabulary = taxonomy_vocabulary_machine_name_load('size');
