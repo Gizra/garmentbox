@@ -43,6 +43,7 @@ function garmentbox_factory_field_default_fields() {
           ),
           'sort' => array(
             'direction' => 'ASC',
+            'field' => 'field_postal_address:country',
             'property' => 'title',
             'type' => 'property',
           ),
