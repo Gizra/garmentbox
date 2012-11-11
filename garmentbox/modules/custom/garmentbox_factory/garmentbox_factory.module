@@ -22,15 +22,21 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
   $form['field_order_status']['#access'] = FALSE;
   $form['field_delivery_date']['#access'] = TRUE;
 
+  if (empty($form['field_season'][LANGUAGE_NONE]['#default_value'][0])) {
+    return;
+  }
+  $season_nid = $form['field_season'][LANGUAGE_NONE]['#default_value'][0];
+
   // Set a default factory.
   if (!$form['field_factory'][LANGUAGE_NONE]['#default_value']) {
-    $options = $form['field_factory'][LANGUAGE_NONE]['#options'];
-    end($options);
-    $form['field_factory'][LANGUAGE_NONE]['#default_value'] = key($options);
+    $form['field_factory'][LANGUAGE_NONE]['#options'];
+    // Remove the "none" option.
+    if (!empty($form['field_factory'][LANGUAGE_NONE]['#options']['_none'])) {
+      unset($form['field_factory'][LANGUAGE_NONE]['#options']['_none']);
+    }
+    $form['field_factory'][LANGUAGE_NONE]['#default_value'] = key($form['field_factory'][LANGUAGE_NONE]['#options']);
   }
-
   $factory_nid = $form['field_factory'][LANGUAGE_NONE]['#default_value'];
-  $season_nid = $form['field_season'][LANGUAGE_NONE]['#default_value'][0];
   $item_variant_nids = garmentbox_factory_get_factory_item_variants($season_nid, $factory_nid);
 
   if (!$form['nid']['#value']) {
@@ -66,6 +72,7 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
       t('Production cost'),
       t('Add more items'),
     ),
+    'attributes' => array('id' => 'inventory-lines-table'),
   );
   $form['inventory_lines_table'] = array(
     '#type' => 'markup',
