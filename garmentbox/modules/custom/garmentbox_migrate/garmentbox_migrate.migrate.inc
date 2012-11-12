@@ -338,6 +338,12 @@ class garmentboxMaterials extends garmentboxMigration {
     array('body', 'Body'),
     array('field_nick_name', 'Nick name'),
     array('field_images', 'Images'),
+    array('field_material_type', 'Material type'),
+    array('field_length', 'Length'),
+    array('field_width', 'Width'),
+    array('field_radius', 'Radius'),
+    array('field_washing_instructions', 'Washing instructions'),
+    array('field_fabric_content', 'Fabric content'),
   );
 
   public $entityType = 'node';
@@ -354,14 +360,23 @@ class garmentboxMaterials extends garmentboxMigration {
 
     $this->addFieldMapping('body', 'body');
     $this->addFieldMapping('field_nick_name', 'field_nick_name');
-
     $this->addFieldMapping('field_images', 'field_images');
+
     $this
       ->addFieldMapping('field_images:file_replace')
       ->defaultValue(FILE_EXISTS_REPLACE);
     $this
       ->addFieldMapping('field_images:source_dir')
       ->defaultValue(drupal_get_path('module', 'garmentbox_migrate') . '/images');
+    $this
+      ->addFieldMapping('field_material_type', 'field_material_type')
+      ->sourceMigration('garmentboxMaterialTypeTerms');
+
+    $this->addFieldMapping('field_length', 'field_length');
+    $this->addFieldMapping('field_width', 'field_width');
+    $this->addFieldMapping('field_radius', 'field_radius');
+    $this->addFieldMapping('field_washing_instructions', 'field_washing_instructions');
+    $this->addFieldMapping('field_fabric_content', 'field_fabric_content');
   }
 }
 
