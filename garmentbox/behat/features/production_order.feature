@@ -15,7 +15,9 @@ Feature: Test production order flow
   @javascript
   Scenario: Viewing the add production-order page with detailed variant information.
     Given I am logged in as a user with the "authenticated user" role
-    When I visit "node/add/production-order"
+    And I am on a "season" page titled "Autumn-Winter 2013 Women"
+    And I click "Production Orders"
+    When I click "Add new production order"
     And I click "Grey v-neck shirt"
     And I click "Add more items" under the item "Grey v-neck shirt"
     Then I should see a table with the following <contents>:
@@ -33,7 +35,9 @@ Feature: Test production order flow
   @javascript
   Scenario: Testing price re-calculation.
     Given I am logged in as a user with the "authenticated user" role
-    When I visit "node/add/production-order"
+    And I am on a "season" page titled "Autumn-Winter 2013 Women"
+    And I click "Production Orders"
+    When I click "Add new production order"
     And I click "Grey v-neck shirt"
     And I uncheck "Include in order" of table row "Customer Salty moda"
     And I fill "Small" with "2"
@@ -45,7 +49,9 @@ Feature: Test production order flow
   @api
   Scenario: Testing production order creation and editing.
     Given I am logged in as a user with the "authenticated user" role
-    And I visit "node/add/production-order"
+    And I am on a "season" page titled "Autumn-Winter 2013 Women"
+    And I click "Production Orders"
+    And I click "Add new production order"
     And I click "Grey v-neck shirt"
     And I uncheck "Include in order" of table row "Customer Salty moda"
     And I fill "Small" with "2"
