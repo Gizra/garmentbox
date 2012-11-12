@@ -143,7 +143,7 @@ function garmentbox_inventory_summary_content_type_render($subtype, $conf, $args
       $info['quantity'] = !empty($info['quantity']) ? $info['quantity'] : 0;
       $info['ordered'] = !empty($info['ordered']) ? $info['ordered'] : 0;
 
-      $quantity = $quantity_wrapper->field_quantity->value();
+      $quantity = $quantity_wrapper->field_quantity_integer->value();
 
       $info['quantity'] += $quantity;
       if ($is_ordered) {

@@ -10,25 +10,21 @@
 function garmentbox_inventory_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'field_collection_item-field_quantity_info-field_quantity'.
-  $fields['field_collection_item-field_quantity_info-field_quantity'] = array(
+  // Exported field: 'field_collection_item-field_quantity_info-field_quantity-integer'.
+  $fields['field_collection_item-field_quantity_info-field_quantity_integer'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_quantity',
+      'field_name' => 'field_quantity_integer',
       'foreign keys' => array(),
       'indexes' => array(),
       'locked' => '0',
       'module' => 'number',
-      'settings' => array(
-        'decimal_separator' => '.',
-        'precision' => '10',
-        'scale' => '2',
-      ),
+      'settings' => array(),
       'translatable' => '0',
-      'type' => 'number_decimal',
+      'type' => 'number_integer',
     ),
     'field_instance' => array(
       'bundle' => 'field_quantity_info',
@@ -39,18 +35,13 @@ function garmentbox_inventory_field_default_fields() {
         'default' => array(
           'label' => 'above',
           'module' => 'number',
-          'settings' => array(
-            'decimal_separator' => '.',
-            'prefix_suffix' => TRUE,
-            'scale' => 2,
-            'thousand_separator' => ' ',
-          ),
-          'type' => 'number_decimal',
+          'settings' => array(),
+          'type' => 'number_integer',
           'weight' => 0,
         ),
       ),
       'entity_type' => 'field_collection_item',
-      'field_name' => 'field_quantity',
+      'field_name' => 'field_quantity_integer',
       'label' => 'Quantity',
       'required' => 0,
       'settings' => array(
