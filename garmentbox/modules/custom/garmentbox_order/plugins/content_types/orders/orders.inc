@@ -41,7 +41,7 @@ function garmentbox_order_orders_content_type_render($subtype, $conf, $args, $co
   $query->innerJoin('field_data_field_inventory_type', 'fit', 'fit.entity_id = n.nid');
   $query->innerJoin('taxonomy_term_data', 'td', 'td.tid = fit.field_inventory_type_target_id');
   $query->leftJoin('field_data_field_quantity_info', 'fqi', 'fqi.entity_id = n.nid');
-  $query->innerJoin('field_data_field_quantity', 'fq', 'fq.entity_id = fqi.field_quantity_info_value');
+  $query->innerJoin('field_data_field_quantity_integer', 'fq', 'fq.entity_id = fqi.field_quantity_info_value');
   $query->innerJoin('field_data_field_size', 'fsz', 'fsz.entity_id = fqi.field_quantity_info_value');
   $query->leftJoin('field_data_field_delivery_date', 'fdd', 'fdd.entity_id = n.nid');
   $query->innerJoin('field_data_field_order_status', 'fos', 'fos.entity_id = n_order.nid');
@@ -57,7 +57,7 @@ function garmentbox_order_orders_content_type_render($subtype, $conf, $args, $co
   $query->addField('n_variant', 'title', 'variant');
   $query->addField('td', 'name', 'type');
   $query->addField('fsz', 'field_size_target_id', 'size_tid');
-  $query->addField('fq', 'field_quantity_value', 'quantity');
+  $query->addField('fq', 'field_quantity_integer_value', 'quantity');
   $query->addExpression('UNIX_TIMESTAMP(fdd.field_delivery_date_value)', 'delivery_date');
 
   $query
