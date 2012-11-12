@@ -307,7 +307,7 @@ function garmentbox_factory_production_order_items_data($item_variants_nids, $in
 
     foreach ($wrapper->field_quantity_info as $quantity_wrapper) {
       $size_tid = $quantity_wrapper->field_size->getIdentifier();
-      $quantity = $quantity_wrapper->field_quantity->value();
+      $quantity = $quantity_wrapper->field_quantity_integer->value();
 
       $data[$variant_nid]['sizes'][$size_tid] += $quantity;
       $data[$variant_nid]['items_count'] += $quantity;
@@ -445,7 +445,7 @@ function garmentbox_factory_create_inventory_line($production_order_nid, $item_v
     $field_collection_item = entity_create('field_collection_item', array('field_name' => 'field_quantity_info'));
     $field_collection_item->setHostEntity('node', $node);
     $item_wrapper = entity_metadata_wrapper('field_collection_item', $field_collection_item);
-    $item_wrapper->field_quantity->set($quantity);
+    $item_wrapper->field_quantity_integer->set($quantity);
     $item_wrapper->field_size->set($tid);
     $item_wrapper->save();
   }
