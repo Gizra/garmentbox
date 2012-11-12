@@ -959,7 +959,7 @@ function garmentbox_og_field_default_fields() {
         'module' => 'og',
         'settings' => array(),
         'type' => 'og_complex',
-        'weight' => 31,
+        'weight' => '6',
       ),
     ),
   );
