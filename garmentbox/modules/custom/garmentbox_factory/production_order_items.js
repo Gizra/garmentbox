@@ -17,7 +17,7 @@ Drupal.behaviors.GarmentboxOrderItems = {
       event.preventDefault();
 
       var id = $(event.currentTarget).parents('tr').attr('id');
-      $(event.currentTarget).parents('table').find('tr.inventory-line[ref="' + id + '"]').toggle();
+      $(event.currentTarget).parents('table').find('tr.inventory-line[ref="' + id + '"]').toggle().toggleClass('hidden');
     });
 
     // Handle item variant checkbox.
@@ -60,12 +60,12 @@ Drupal.behaviors.GarmentboxOrderItems = {
 
       if ($(event.currentTarget).hasClass('opened')) {
         // TODO: Enable the inputs.
-        newLine.show();
+        newLine.show().removeClass('hidden');
         $(event.currentTarget).text(Drupal.t('Cancel'));
       }
       else {
         // TODO: Disable the inputs.
-        newLine.hide();
+        newLine.hide().addClass('hidden');;
         $(event.currentTarget).text(Drupal.t('Add more items'));
       }
     });

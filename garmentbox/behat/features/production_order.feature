@@ -15,25 +15,28 @@ Feature: Test production order flow
     | <checkbox> checked | Grey v-neck shirt      | Small 18 Medium 20 Large 42                 | <image> | $4,000.00       | Add more items  |
     | <checkbox> checked | Lines v-neck shirt     | Small 28 Medium 26 Large 29                 | <image> | $2,199.50       | Add more items  |
 
-  @javascript
+  @javascript @wip
   Scenario: Viewing the add production-order page with detailed variant information.
-    Given I am logged in as a user with the "authenticated user" role
-    And I am on a "season" page titled "Autumn-Winter 2013 Women"
+    Given I visit the front page
+    And I fill in "Username" with "dummyuser"
+    And I fill in "Password" with "dummyuser"
+    And I press "Log in"
+    And I visit "season/24"
     And I click "Production Orders"
     When I click "Add new production order"
     And I click "Grey v-neck shirt"
-    And I click "Add more items" under the item "Grey v-neck shirt"
-    Then I should see a table with the following <contents>:
-    | Include in order   | Item variation         | Quantity / Size                             | Fabric  | Production cost | Add more items  |
-    | <checkbox> checked | Grey v-neck shirt      | Small 18 Medium 20 Large 42                 | <image> | $4,000.00       | Cancel          |
-    | <checkbox> checked | Customer Salty moda    | Small 11 Medium 0 Large 5                   |         | $800.00         |                 |
-    | <checkbox> checked | Customer N/A           | Small 0 Medium 0 Large 7                    |         | $350.00         |                 |
-    | <checkbox> checked | Customer High Couture  | Small 1 Medium 0 Large 10                   |         | $1,050.00       |                 |
-    | <checkbox> checked | Customer N/A           | Small 0 Medium 2 Large 0                    |         | $100.00         |                 |
-    | <checkbox> checked | Customer Gap           | Small 5 Medium 0 Large 5                    |         | $750.00         |                 |
-    | <checkbox> checked | Customer N/A           | Small 0 Medium 12 Large 0                   |         | $600.00         |                 |
-    | <checkbox> checked | Customer N/A           | Small 1 Medium 6 Large 0                    |         | $350.00         |                 |
-    | <checkbox> checked | Grey v-neck shirt      | Small <input> Medium <input> Large <input>  |         | N/A             |                 |
+    And I click "Add more items"
+    Then I should see a table identified "inventory-lines-table" with the following <contents>:
+    | Include in order    | Item variation         | Quantity / Size                             | Fabric  | Production cost | Add more items  |
+    | <checkbox> checked  | Grey v-neck shirt      | Small 18 Medium 20 Large 42                 | <image> | $4,000.00       | Cancel          |
+    | <checkbox> checked  | Customer Salty moda    | Small 11 Medium 0 Large 5                   |         | $800.00         |                 |
+    | <checkbox> checked  | Customer N/A           | Small 0 Medium 0 Large 7                    |         | $350.00         |                 |
+    | <checkbox> checked  | Customer High Couture  | Small 1 Medium 0 Large 10                   |         | $1,050.00       |                 |
+    | <checkbox> checked  | Customer N/A           | Small 0 Medium 2 Large 0                    |         | $100.00         |                 |
+    | <checkbox> checked  | Customer Gap           | Small 5 Medium 0 Large 5                    |         | $750.00         |                 |
+    | <checkbox> checked  | Customer N/A           | Small 0 Medium 12 Large 0                   |         | $600.00         |                 |
+    | <checkbox> checked  | Customer N/A           | Small 1 Medium 6 Large 0                    |         | $350.00         |                 |
+    |                     | Grey v-neck shirt      | Small <input> Medium <input> Large <input>  |         | N/A             |                 |
 
   @javascript
   Scenario: Testing price re-calculation.

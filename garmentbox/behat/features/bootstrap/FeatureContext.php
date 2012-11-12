@@ -349,7 +349,7 @@ class FeatureContext extends DrupalContext {
   /**
    *
    */
- private static function findTableCellByColumTitleAndRowValue($table_element, $column_title, $value_contained) {
+  private static function findTableCellByColumTitleAndRowValue($table_element, $column_title, $value_contained) {
     // Find the column index.
     $column_index = 0;
     foreach ($table_element->findAll('css', 'thead th') as $index => $th) {
@@ -380,5 +380,12 @@ class FeatureContext extends DrupalContext {
     if (!$row_found) {
       throw new \Exception("No cell containing '$value_contained' was found.");
     }
+  }
+
+  /**
+   * @Given /^I wait a couple of seconds$/
+   */
+  public function iWaitACoupleOfSeconds() {
+    sleep(10);
   }
 }
