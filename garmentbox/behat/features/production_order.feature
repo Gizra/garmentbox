@@ -3,14 +3,18 @@ Feature: Test production order flow
 
   @javascript
   Scenario: Viewing the add production-order page, with different Quantity/ Size.
-    Given I am logged in as a user with the "authenticated user" role
-    And I am on a "season" page titled "Autumn-Winter 2013 Women"
+    Given I visit the front page
+    And I fill in "Username" with "dummyuser"
+    And I fill in "Password" with "dummyuser"
+    And I press "Log in"
+    And I visit "season/24"
     And I click "Production Orders"
     When I click "Add new production order"
+    And I wait until the page is loaded
     Then I should see a table identified "inventory-lines-table" with the following <contents>:
     | Include in order   | Item variation         | Quantity / Size                             | Fabric  | Production cost | Add more items  |
     | <checkbox> checked | Grey v-neck shirt      | Small 18 Medium 20 Large 42                 | <image> | $4,000.00       | Add more items  |
-    | <checkbox> checked | Lines v-neck shirt     | Small 37 Medium 26 Large 29                 | <image> | $2,438.00       | Add more items  |
+    | <checkbox> checked | Lines v-neck shirt     | Small 28 Medium 26 Large 29                 | <image> | $2,199.50       | Add more items  |
 
   @javascript
   Scenario: Viewing the add production-order page with detailed variant information.
@@ -52,7 +56,6 @@ Feature: Test production order flow
     And I am on a "season" page titled "Autumn-Winter 2013 Women"
     And I click "Production Orders"
     And I click "Add new production order"
-    And I click "Grey v-neck shirt"
     And I uncheck "Include in order" in row containing "Customer Salty moda" of table "inventory-lines-table"
     And I fill "Small" with "2"
     When I click "edit"

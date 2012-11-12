@@ -99,10 +99,10 @@ class FeatureContext extends DrupalContext {
   /**
    * @Then /^I should see a table identified "([^"]*)" with the following <contents>:$/
    */
-  public function iShouldSeeATableIdentifiedWithTheFollowingContents($id, TableNode $expected_table) {
+  public function iShouldSeeATableIdentifiedWithTheFollowingContents($table_id, TableNode $expected_table) {
     $page = $this->getSession()->getPage();
     // Find the container of the table with the correct pane title
-    $table_element = $page->find('css', "table#$id");
+    $table_element = $page->find('css', "table#$table_id");
     $this->compareTable($table_element, $expected_table);
   }
 
@@ -178,7 +178,7 @@ class FeatureContext extends DrupalContext {
     $this->compareTableRow($element_head->findAll('css', 'th'), $expected_head_row);
 
     // Compare the rows.
-    foreach ($table_element->findAll('css', 'tbody tr') as $i => $row) {
+    foreach ($table_element->findAll('xpath', "//tbody/tr[not(contains(@class, 'hidden'))]") as $i => $row) {
       if (empty($expected_rows[$i])) {
         break;
       }
@@ -231,8 +231,7 @@ class FeatureContext extends DrupalContext {
           }
 
           if ($words[1] == 'checked') {
-            $checkbox = $cell->find('xpath', "//input[@type='checkbox' and @checked='checked']");
-            if (empty($checkbox)) {
+            if (!$checkbox->getAttribute('checked')) {
               throw new \Exception('Checkbox found but is not checked.');
             }
           }
@@ -336,4 +335,50 @@ class FeatureContext extends DrupalContext {
     }
   }
 
+  /**
+   * @Given /^I uncheck "([^"]*)" in row containing "([^"]*)" of table "([^"]*)"$/
+   */
+  public function iUncheckInRowContainingOfTable($column_title, $value_contained, $table_id) {
+    $page = $this->getSession()->getPage();
+    $table_element = $page->find('css', "table#$table_id");
+
+    $cell = self::findTableCellByColumTitleAndRowValue($table_element, $column_title, $value_contained);
+    // TODO: Uncheck checkbox in cell.
+  }
+
+  /**
+   *
+   */
+ private static function findTableCellByColumTitleAndRowValue($table_element, $column_title, $value_contained) {
+    // Find the column index.
+    $column_index = 0;
+    foreach ($table_element->findAll('css', 'thead th') as $index => $th) {
+      if (self::getText($th->getHtml()) == $column_title) {
+        $column_index = $index + 1;
+        break;
+      }
+    }
+    if (!$column_index) {
+      throw new \Exception("No column titled '$column_title' was found.");
+    }
+
+    // Find the row containing $value_contained.
+    $row_found = FALSE;
+    foreach ($table_element->findAll('css', 'tbody tr') as $index => $tr) {
+      foreach ($tr->findAll('css', 'td') as $td) {
+        if (self::getText($td->getHtml()) == $value_contained) {
+          $row_found = TRUE;
+        }
+      }
+
+      if ($row_found) {
+        $td = $tr->find('xpath', "//td[$column_index]");
+        return $td;
+      }
+    }
+
+    if (!$row_found) {
+      throw new \Exception("No cell containing '$value_contained' was found.");
+    }
+  }
 }
