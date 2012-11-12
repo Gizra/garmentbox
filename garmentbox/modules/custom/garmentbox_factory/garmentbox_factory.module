@@ -311,7 +311,12 @@ function garmentbox_factory_production_order_items_data($item_variants_nids, $in
 
       $data[$variant_nid]['sizes'][$size_tid] += $quantity;
       $data[$variant_nid]['items_count'] += $quantity;
-      $data[$variant_nid]['lines'][$inventory_line->nid]['sizes'][$size_tid] = $quantity;
+
+      if (empty($data[$variant_nid]['lines'][$inventory_line->nid]['sizes'][$size_tid])) {
+        $data[$variant_nid]['lines'][$inventory_line->nid]['sizes'][$size_tid] = 0;
+      }
+
+      $data[$variant_nid]['lines'][$inventory_line->nid]['sizes'][$size_tid] += $quantity;
       $data[$variant_nid]['lines'][$inventory_line->nid]['items_count'] += $quantity;
     }
   }
