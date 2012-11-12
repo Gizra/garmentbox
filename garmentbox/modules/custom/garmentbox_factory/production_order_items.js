@@ -39,6 +39,17 @@ Drupal.behaviors.GarmentboxOrderItems = {
       object.updateVariantCost(checkbox.parents('table'), id);
     });
 
+    // Update the item price and quantity as the "Add more items" inputs get
+    // changed.
+    $(context).find('input.new-inventory-items').change(function(event) {
+      var id = $(event.currentTarget).parents('tr').attr('ref');
+      object.updateVariantCost($(event.currentTarget).parents('table'), id);
+    });
+    $(context).find('input.new-inventory-items').keyup(function(event) {
+      var id = $(event.currentTarget).parents('tr').attr('ref');
+      object.updateVariantCost($(event.currentTarget).parents('table'), id);
+    });
+
     // Determine the class of the variants' checkboxes.
     $(context).find('tr.inventory-line input[type="checkbox"]').change(function(event) {
       var table = $(event.currentTarget).parents('table');
@@ -112,6 +123,15 @@ Drupal.behaviors.GarmentboxOrderItems = {
     // Count the items on checked inventory lines.
     table.find('tr.inventory-line[ref="' + id + '"] td:first-child input[type="checkbox"]:checked').each(function(i, element) {
       items_count += Drupal.settings.garmentbox_factory.inventory_lines_data[variant_nid].lines[$(element).val()].items_count;
+    });
+
+    // Count also the custom inventory inputs.
+    table.find('tr.new-inventory-line[ref="' + id + '"] input.new-inventory-items').each(function(i, element) {
+      var count = parseInt($(element).val());
+
+      if (!isNaN(count) && count >= 0) {
+        items_count += count;
+      }
     });
 
     var total_price = items_count * item_price;

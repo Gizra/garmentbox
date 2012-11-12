@@ -378,7 +378,9 @@ function _garmentbox_factory_production_order_items_format_sizes($sizes) {
 
   $items = array();
   foreach ($size_tree as $term) {
-    $item = '<label>' . $term->name . '</label>';
+    $id = $nid ? "size-$nid-$term->tid" : '';
+
+    $item = "<label for=\"$id\">" . $term->name . '</label>';
 
     if (!$nid) {
       $quantity = !empty($sizes[$term->tid]) ? $sizes[$term->tid] : 0;
@@ -388,6 +390,8 @@ function _garmentbox_factory_production_order_items_format_sizes($sizes) {
       $item .= "<input
         name=\"variant_new_inventory[$nid][$term->tid]\"
         size=\"4\"
+        id=\"$id\"
+        class=\"new-inventory-items\"
       />";
     }
 
