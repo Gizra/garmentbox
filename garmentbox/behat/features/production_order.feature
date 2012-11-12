@@ -13,7 +13,7 @@ Feature: Test production order flow
     Then I should see a table identified "inventory-lines-table" with the following <contents>:
     | Include in order   | Item variation         | Quantity / Size             | Fabric  | Production cost | Add more items  |
     | <checkbox> checked | Grey v-neck shirt      | Small 18 Medium 20 Large 42 | <image> | $4,000.00       | Add more items  |
-    | <checkbox> checked | Lines v-neck shirt     | Small 31 Medium 26 Large 29 | <image> | $2,199.50       | Add more items  |
+    | <checkbox> checked | Lines v-neck shirt     | Small 37 Medium 26 Large 29 | <image> | $2,438.00       | Add more items  |
 
   @javascript
   Scenario: Viewing the add production-order page with detailed variant information.
@@ -31,9 +31,9 @@ Feature: Test production order flow
     | <checkbox> checked  | Grey v-neck shirt      | Small 18 Medium 20 Large 42  | <image> | $4,000.00       | Cancel          |
     | <checkbox> checked  | Customer Salty moda    | Small 11 Medium 0 Large 5    |         | $800.00         |                 |
     | <checkbox> checked  | Customer N/A           | Small 0 Medium 0 Large 7     |         | $350.00         |                 |
-    | <checkbox> checked  | Customer High Couture  | Small 1 Medium 0 Large 10    |         | $1,050.00       |                 |
+    | <checkbox> checked  | Customer High Couture  | Small 1 Medium 0 Large 20    |         | $1,050.00       |                 |
     | <checkbox> checked  | Customer N/A           | Small 0 Medium 2 Large 0     |         | $100.00         |                 |
-    | <checkbox> checked  | Customer Gap           | Small 5 Medium 0 Large 5     |         | $750.00         |                 |
+    | <checkbox> checked  | Customer Gap           | Small 5 Medium 0 Large 10    |         | $750.00         |                 |
     | <checkbox> checked  | Customer N/A           | Small 0 Medium 12 Large 0    |         | $600.00         |                 |
     | <checkbox> checked  | Customer N/A           | Small 1 Medium 6 Large 0     |         | $350.00         |                 |
     |                     | Grey v-neck shirt      | Small Medium Large           |         | N/A             |                 |
