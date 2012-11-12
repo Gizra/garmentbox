@@ -99,14 +99,14 @@ function garmentbox_item_field_default_fields() {
     ),
   );
 
-  // Exported field: 'field_collection_item-field_bom_info-field_quantity'.
-  $fields['field_collection_item-field_bom_info-field_quantity'] = array(
+  // Exported field: 'field_collection_item-field_bom_info-field_quantity_decimal'.
+  $fields['field_collection_item-field_bom_info-field_quantity_decimal'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_quantity',
+      'field_name' => 'field_quantity_decimal',
       'foreign keys' => array(),
       'indexes' => array(),
       'locked' => '0',
@@ -139,7 +139,7 @@ function garmentbox_item_field_default_fields() {
         ),
       ),
       'entity_type' => 'field_collection_item',
-      'field_name' => 'field_quantity',
+      'field_name' => 'field_quantity_decimal',
       'label' => 'Quantity',
       'required' => 0,
       'settings' => array(
