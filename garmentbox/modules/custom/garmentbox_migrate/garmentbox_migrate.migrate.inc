@@ -99,6 +99,28 @@ class garmentboxInventoryTypeTerms extends garmentboxMigration {
 }
 
 /**
+ * Migrate material type terms.
+ */
+class garmentboxMaterialTypeTerms extends garmentboxMigration {
+
+  public $csvColumns = array(
+    array('id', 'Unique ID'),
+    array('name', 'Name'),
+    array('field_unit_type', 'Type'),
+  );
+
+  public $entityType = 'taxonomy_term';
+  public $bundle = 'material_types';
+
+  public function __construct() {
+    parent::__construct();
+    $this->addFieldMapping('field_unit_type', 'field_unit_type');
+    $this->addFieldMapping('field_conversion_ratio', 'field_conversion_ratio');
+  }
+}
+
+
+/**
  * Migrate measurement unit terms.
  */
 class garmentboxMeasurementUnitTerms extends garmentboxMigration {
