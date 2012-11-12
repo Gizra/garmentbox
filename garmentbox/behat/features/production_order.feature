@@ -10,7 +10,6 @@ Feature: Test production order flow
     And I visit "season/24"
     And I click "Production Orders"
     When I click "Add new production order"
-    And I wait until the page is loaded
     Then I should see a table identified "inventory-lines-table" with the following <contents>:
     | Include in order   | Item variation         | Quantity / Size                             | Fabric  | Production cost | Add more items  |
     | <checkbox> checked | Grey v-neck shirt      | Small 18 Medium 20 Large 42                 | <image> | $4,000.00       | Add more items  |
