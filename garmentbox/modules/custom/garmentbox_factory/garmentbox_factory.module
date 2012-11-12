@@ -47,7 +47,6 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
   }
 
   $raw_data = garmentbox_factory_production_order_items_data($item_variant_nids, $inventory_lines_nids);
-
   // Dummy inputs, that will actually be added manually inside
   // inventory_lines_table as checkboxes.
   // Add an option to select no lines.
@@ -90,7 +89,11 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
       'field_season' => $_GET['field_season'],
     )
   );
-  $settings = array('url' => url($_GET['q'], $options));
+
+  $settings = array(
+    'url' => url($_GET['q'], $options),
+    'inventory_lines_data' => $raw_data,
+  );
   drupal_add_js(array('garmentbox_factory' => $settings), 'setting');
 
   // Validation for the custom quantity fields.
@@ -205,7 +208,10 @@ function garmentbox_factory_production_order_items($raw_data) {
     );
     $row['data'][] = _garmentbox_factory_production_order_items_format_sizes($variant['sizes']);
     $row['data'][] = garmentbox_item_get_main_material_icon($variant_nid);
-    $row['data'][] = commerce_currency_format($variant['item_price'] * $variant['items_count'], commerce_default_currency());
+    $row['data'][] = array(
+      'data' => t('N/A'),
+      'class' => array('item-price'),
+    );
     $row['data'][] = array(
       'data' => l(t('Add more items'), ''),
       'class' => array('add-inventory-line'),
@@ -257,7 +263,7 @@ function garmentbox_factory_production_order_items($raw_data) {
   );
   $row['data'][] = '';
   $row['data'][] = 'variants';
-  $row['data'][] = 'sizes';//_garmentbox_factory_production_order_items_format_sizes($variant_nid);
+  $row['data'][] = '';;
   $row['data'][] = '';
   $row['data'][] = t('N/A');
   $row['data'][] = '';
@@ -281,11 +287,9 @@ function garmentbox_factory_production_order_items_data($item_variants_nids, $in
   foreach ($item_variants_nids as $variant_nid) {
     $wrapper = entity_metadata_wrapper('node', $variant_nid);
     $data[$variant_nid] = array(
-      'sizes' => array(),
       'title' => $wrapper->label(),
       'lines' => array(),
       'item_price' => garmentbox_bom_get_variant_bom_price($variant_nid) + garmentbox_bol_get_variant_bol_price($variant_nid),
-      'items_count' => 0,
     );
 
     foreach ($size_tree as $term) {
@@ -309,15 +313,19 @@ function garmentbox_factory_production_order_items_data($item_variants_nids, $in
       $size_tid = $quantity_wrapper->field_size->getIdentifier();
       $quantity = $quantity_wrapper->field_quantity_integer->value();
 
-      $data[$variant_nid]['sizes'][$size_tid] += $quantity;
-      $data[$variant_nid]['items_count'] += $quantity;
-
       if (empty($data[$variant_nid]['lines'][$inventory_line->nid]['sizes'][$size_tid])) {
         $data[$variant_nid]['lines'][$inventory_line->nid]['sizes'][$size_tid] = 0;
       }
 
       $data[$variant_nid]['lines'][$inventory_line->nid]['sizes'][$size_tid] += $quantity;
       $data[$variant_nid]['lines'][$inventory_line->nid]['items_count'] += $quantity;
+    }
+  }
+
+  // Cleanup empty item variants.
+  foreach ($data as $nid => $variant) {
+    if (empty($variant['lines'])) {
+      unset($data[$nid]);
     }
   }
 
@@ -351,6 +359,8 @@ function garmentbox_factory_production_order_items_data($item_variants_nids, $in
     }
   }
 
+
+
   return $data;
 }
 
@@ -372,7 +382,7 @@ function _garmentbox_factory_production_order_items_format_sizes($sizes) {
 
     if (!$nid) {
       $quantity = !empty($sizes[$term->tid]) ? $sizes[$term->tid] : 0;
-      $item .= '<span>' . $quantity . '</span>';
+      $item .= "<span ref=\"tid-$term->tid\">" . $quantity . '</span>';
     }
     else {
       $item .= "<input

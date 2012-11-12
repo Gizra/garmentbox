@@ -1,7 +1,7 @@
 (function ($) {
 
 /**
- *
+ * Production order inventory lines widget behaviors.
  */
 Drupal.behaviors.GarmentboxOrderItems = {
   attach: function (context) {
@@ -35,6 +35,8 @@ Drupal.behaviors.GarmentboxOrderItems = {
       else {
         checkboxes.removeAttr('checked');
       }
+
+      object.updateVariantCost(checkbox.parents('table'), id);
     });
 
     // Determine the class of the variants' checkboxes.
@@ -43,11 +45,14 @@ Drupal.behaviors.GarmentboxOrderItems = {
       var id = $(event.currentTarget).parents('tr').attr('ref');
 
       object.updateVariantCheckbox(table.find('#' + id + ' input[type="checkbox"]'));
+      object.updateVariantCost(table, id);
     });
 
     // Update the variant checkboxes on load.
     $(context).find('.triple-checkbox').each(function(index, checkbox) {
       object.updateVariantCheckbox($(checkbox));
+      var id = $(checkbox).parents('tr').attr('id');
+      object.updateVariantCost($(checkbox).parents('table'), id);
     });
 
     // Show the "Add more items" row.
@@ -71,6 +76,8 @@ Drupal.behaviors.GarmentboxOrderItems = {
     });
   },
 
+  // Update the "triple checkbox" on item-variant rows when thier inevntory
+  // lines change.
   updateVariantCheckbox: function(variantCheckbox) {
     var id = variantCheckbox.parents('tr').attr('id');
     var table = variantCheckbox.parents('table');
@@ -94,6 +101,21 @@ Drupal.behaviors.GarmentboxOrderItems = {
       variantCheckbox.attr('checked', 'checked');
       variantCheckbox.addClass('partially-checked');
     }
+  },
+
+  // Re-calculate variant production cost as inventory lines change.
+  updateVariantCost: function(table, id) {
+    var variant_nid = id.substring(8);
+    var item_price = Drupal.settings.garmentbox_factory.inventory_lines_data[variant_nid].item_price / 100;
+    var items_count = 0;
+
+    // Count the items on checked inventory lines.
+    table.find('tr.inventory-line[ref="' + id + '"] td:first-child input[type="checkbox"]:checked').each(function(i, element) {
+      items_count += Drupal.settings.garmentbox_factory.inventory_lines_data[variant_nid].lines[$(element).val()].items_count;
+    });
+
+    var total_price = items_count * item_price;
+    table.find('tr#' + id + ' .item-price').text('$' + total_price.toFixed(2));
   }
 };
 
