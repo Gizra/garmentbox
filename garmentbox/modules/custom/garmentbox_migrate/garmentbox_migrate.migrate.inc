@@ -346,6 +346,7 @@ class garmentboxMaterials extends garmentboxMigration {
   public $dependencies = array(
     'garmentboxDepartments',
     'garmentboxVendors',
+    'garmentboxMaterialTypeTerms',
   );
 
   public function __construct() {
