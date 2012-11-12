@@ -17,7 +17,8 @@ class FeatureContext extends DrupalContext {
       case 'season':
       case 'item':
         $table = 'node';
-        $id = 'nid';
+        $id_column = 'nid';
+        $title_column = 'title';
         $path = "$page_type/%";
         $type = str_replace('-', '_', $page_type);
         break;
@@ -26,24 +27,33 @@ class FeatureContext extends DrupalContext {
         throw new \Exception("Unknown page type '$page_type'.");
     }
 
-    $path .= "/$subpage";
-
-    //TODO: The title and type should be properly escaped.
-    $query = "\"
-      SELECT $id AS identifier
-      FROM $table
-      WHERE title = '$title'
-      AND type = '$type'
-    \"";
-
-    $result = $this->getDriver()->drush('sql-query', array($query));
-    $id = trim(substr($result, strlen('identifier')));
-
+    $id = $this->getEntityId($title, $table, $id_column, $title_column, $type);
     if (!$id) {
       throw new \Exception("No $page_type with title '$title' was found.");
     }
+
+    $path .= "/$subpage";
     $path = str_replace('%', $id, $path);
     return new Given("I am at \"$path\"");
+  }
+
+  /**
+   * Find entity ID by title.
+   */
+  private function getEntityId($title, $table = 'node', $id_column = 'nid', $title_column = 'title', $type = NULL) {
+    //TODO: The title and type should be properly escaped.
+    $query = "\"
+      SELECT $id_column AS identifier
+      FROM $table
+      WHERE $title_column = '$title'
+    ";
+    if ($type) {
+      $query .= "AND type = '$type'";
+    }
+    $query .= " LIMIT 1\"";
+
+    $result = $this->getDriver()->drush('sql-query', array($query));
+    return trim(substr($result, strlen('identifier')));
   }
 
   /**
@@ -83,7 +93,7 @@ class FeatureContext extends DrupalContext {
       throw new \Exception("No table was found inside the pane titled '$title'.");
     }
 
-    self::compareTable($table_element, $expected_table);
+    $this->compareTable($table_element, $expected_table);
   }
 
   /**
@@ -93,7 +103,7 @@ class FeatureContext extends DrupalContext {
     $page = $this->getSession()->getPage();
     // Find the container of the table with the correct pane title
     $table_element = $page->find('css', "table#$id");
-    self::compareTable($table_element, $expected_table);
+    $this->compareTable($table_element, $expected_table);
   }
 
 
@@ -111,7 +121,7 @@ class FeatureContext extends DrupalContext {
     if (!$table_element) {
       throw new \Exception("The inventory lines table of order '$order_title' was not found.");
     }
-    self::compareTable($table_element, $expected_table);
+    $this->compareTable($table_element, $expected_table);
   }
 
   /**
@@ -160,19 +170,19 @@ class FeatureContext extends DrupalContext {
    * @param $expected_table
    *   TableNode containing the expected table.
    */
-  private static function compareTable($table_element, TableNode $expected_table) {
+  private function compareTable($table_element, TableNode $expected_table) {
     $element_head = $table_element->find('css', 'thead');
     $expected_rows = $expected_table->getRows();
     $expected_head_row = array_shift($expected_rows);
     // Compare the table header.
-    self::compareTableRow($element_head->findAll('css', 'th'), $expected_head_row);
+    $this->compareTableRow($element_head->findAll('css', 'th'), $expected_head_row);
 
     // Compare the rows.
     foreach ($table_element->findAll('css', 'tbody tr') as $i => $row) {
       if (empty($expected_rows[$i])) {
         break;
       }
-      self::compareTableRow($row->findAll('css', 'td'), $expected_rows[$i]);
+      $this->compareTableRow($row->findAll('css', 'td'), $expected_rows[$i]);
     }
   }
 
@@ -184,7 +194,7 @@ class FeatureContext extends DrupalContext {
    * @param $expected_row
    *   One row from the TableNode object.
    */
-  private static function compareTableRow($cells, $expected_row) {
+  private function compareTableRow($cells, $expected_row) {
     foreach ($cells as $i => $cell) {
       if (!array_key_exists($i, $expected_row)) {
         throw new \Exception("Unexpected cell with text '{$cell->getText()}'.");
@@ -211,6 +221,20 @@ class FeatureContext extends DrupalContext {
           $time = strtotime($content);
           if ($expected_time != $time) {
             throw new \Exception("Found '$time' instead of '$expected_time'.");
+          }
+          break;
+
+        case '<checkbox>':
+          $checkbox = $cell->find('xpath', "//input[@type='checkbox']");
+          if (!$checkbox) {
+            throw new \Exception('Expected checkbox not found.');
+          }
+
+          if ($words[1] == 'checked') {
+            $checkbox = $cell->find('xpath', "//input[@type='checkbox' and @checked='checked']");
+            if (empty($checkbox)) {
+              throw new \Exception('Checkbox found but is not checked.');
+            }
           }
           break;
 
@@ -299,4 +323,17 @@ class FeatureContext extends DrupalContext {
       throw new \Exception("Expected title '$expected_title', found instead '$title'.");
     }
   }
+
+  /**
+   * @Then /^the URL query "([^"]*)" should have the id of "([^"]*)"$/
+   */
+  public function theUrlQueryShouldHaveTheIdOf($query_key, $node_title) {
+    $nid = self::getEntityId($node_title);
+    $query = "$query_key=$nid";
+
+    if (!strstr($this->getSession()->getCurrentUrl(), $query)) {
+      throw new \Exception("The URL doesn't contain '$query'.");
+    }
+  }
+
 }

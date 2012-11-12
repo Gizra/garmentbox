@@ -1,16 +1,16 @@
 Feature: Test production order flow
   Test the addition and edit forms of production order nodes.
 
-  @api @wip
-  Scenario: Viewing the add production-order page, with different Queantity/ Size.
+  @javascript
+  Scenario: Viewing the add production-order page, with different Quantity/ Size.
     Given I am logged in as a user with the "authenticated user" role
     And I am on a "season" page titled "Autumn-Winter 2013 Women"
     And I click "Production Orders"
     When I click "Add new production order"
     Then I should see a table identified "inventory-lines-table" with the following <contents>:
     | Include in order   | Item variation         | Quantity / Size                             | Fabric  | Production cost | Add more items  |
-    | <checkbox checked> | Grey v-neck shirt      | Small 18 Medium 20 Large 42                 | <image> | <ignore>        | Add more items  |
-    | <checkbox checked> | Lines v-neck shirt     | Small 37 Medium 26 Large 29                 | <image> | <ignore>        | Add more items  |
+    | <checkbox> checked | Grey v-neck shirt      | Small 18 Medium 20 Large 42                 | <image> | <ignore>        | Add more items  |
+    | <checkbox> checked | Lines v-neck shirt     | Small 37 Medium 26 Large 29                 | <image> | <ignore>        | Add more items  |
 
   @javascript
   Scenario: Viewing the add production-order page with detailed variant information.
@@ -56,6 +56,7 @@ Feature: Test production order flow
   @api
   Scenario: Test URL generation for create link.
     Given I am logged in as a user with the "authenticated user" role
-    And I visit "Season 1"
-    And I click "Add Production order"
-    Then "field_season" should be...
+    And I am on a "season" page titled "Autumn-Winter 2013 Women"
+    And I click "Production Orders"
+    When I click "Add new production order"
+    Then the URL query "field_season" should have the id of "Autumn-Winter 2013 Women"

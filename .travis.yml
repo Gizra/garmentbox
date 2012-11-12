@@ -30,5 +30,11 @@ before_script:
 
 script:
   - sudo drush @garmentbox runserver --server=builtin 80 &
+
+  # Run selenium.
+  - wget http://selenium.googlecode.com/files/selenium-server-standalone-2.25.0.jar
+  - java -jar selenium-server-standalone-2.25.0.jar -p 4444 &
+  - sleep 5
+
   - ./bin/behat
 
