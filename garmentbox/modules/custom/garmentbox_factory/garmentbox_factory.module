@@ -56,21 +56,17 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
   $factory_nid = $form['field_factory'][LANGUAGE_NONE]['#default_value'];
   $item_variant_nids = garmentbox_factory_get_factory_item_variants($season_nid, $factory_nid);
 
-  if (!$form['nid']['#value']) {
-    $inventory_lines_nids = garmentbox_factory_get_production_order_inventory_lines($item_variant_nids);
-  }
-  else {
-    $inventory_lines_nids = garmentbox_factory_get_production_order_inventory_lines($form['nid']['#value']);
-  }
+  $node = $form['#node'];
+  $inventory_line_nids = empty($node->nid) ? garmentbox_factory_get_production_order_inventory_lines($item_variant_nids) : garmentbox_factory_get_production_order_inventory_lines($node->nid);
 
-  $raw_data = garmentbox_factory_production_order_items_data($item_variant_nids, $inventory_lines_nids);
+  $raw_data = garmentbox_factory_production_order_items_data($item_variant_nids, $inventory_line_nids);
   // Dummy inputs, that will actually be added manually inside
   // inventory_lines_table as checkboxes.
   // Add an option to select no lines.
-  $inventory_lines_nids[''] = '';
+  $inventory_line_nids[''] = '';
   $form['production_order_inventory_lines'] = array(
     '#type' => 'hidden',
-    '#options' => drupal_map_assoc($inventory_lines_nids),
+    '#options' => drupal_map_assoc($inventory_line_nids),
   );
   // Add dummy inputs for the "Add more items" size fields.
   $form['variant_new_inventory'] = array(
@@ -173,6 +169,8 @@ function garmentbox_factory_get_factory_item_variants($season_nid, $factory_nid)
 }
 
 /**
+ * Fetch the inventory lines related to the given item variants.
+ *
  * @param $nids
  *   Item variants node IDs or a production order nid.
  *
@@ -203,6 +201,8 @@ function garmentbox_factory_get_production_order_inventory_lines($nids) {
 }
 
 /**
+ * Build the rows for the inventory items table.
+ *
  * @param $raw_data
  *   A prodution order inventory lines data.
  *
@@ -293,18 +293,22 @@ function garmentbox_factory_production_order_items($raw_data) {
 }
 
 /**
+ * Fetch the raw data for the inventory lines selecting widget.
  *
+ * @param $item_variant_nids
+ *   Item variants of the current season and factory.
+ * @param $inventory_line_nids
+ *   TODO ?
+ *
+ * @return
+ *   Inventory lines data grouped by item-variant.
  */
-function garmentbox_factory_production_order_items_data($item_variants_nids, $inventory_lines_nids) {
-  if (!$inventory_lines_nids) {
-    return array();
-  }
-
+function garmentbox_factory_production_order_items_data($item_variant_nids, $inventory_line_nids) {
   $vocabulary = taxonomy_vocabulary_machine_name_load('size');
   $size_tree = taxonomy_get_tree($vocabulary->vid);
 
   $data = array();
-  foreach ($item_variants_nids as $variant_nid) {
+  foreach ($item_variant_nids as $variant_nid) {
     $wrapper = entity_metadata_wrapper('node', $variant_nid);
     $data[$variant_nid] = array(
       'title' => $wrapper->label(),
@@ -318,7 +322,7 @@ function garmentbox_factory_production_order_items_data($item_variants_nids, $in
   }
 
   // Fetch inventory lines of a factory.
-  foreach (node_load_multiple($inventory_lines_nids) as $inventory_line) {
+  foreach (node_load_multiple($inventory_line_nids) as $inventory_line) {
     $wrapper = entity_metadata_wrapper('node', $inventory_line);
 
     $variant_nid = $wrapper->field_item_variant->getIdentifier();
