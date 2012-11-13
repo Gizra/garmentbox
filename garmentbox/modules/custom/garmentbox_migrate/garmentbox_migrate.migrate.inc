@@ -798,7 +798,7 @@ class garmentboxCollectionsFieldBomInfo extends garmentboxFieldCollectionMigrati
     array('host_entity_id', 'Item variant'),
     array('field_material_item', 'Material source'),
     array('field_unit', 'Unit'),
-    array('field_quantity', 'Quantity'),
+    array('field_quantity_decimal', 'Quantity'),
   );
 
   public $entityType = 'field_collection_item';
@@ -826,7 +826,7 @@ class garmentboxCollectionsFieldBomInfo extends garmentboxFieldCollectionMigrati
       ->addFieldMapping('field_unit', 'field_unit')
       ->sourceMigration('garmentboxMeasurementUnitTerms');
 
-    $this->addFieldMapping('field_quantity', 'field_quantity');
+    $this->addFieldMapping('field_quantity_decimal', 'field_quantity_decimal');
   }
 }
 
@@ -872,7 +872,7 @@ class garmentboxCollectionsFieldQuantityInfo extends garmentboxFieldCollectionMi
     array('id', 'Unique ID'),
     array('host_entity_id', 'Inventory line'),
     array('field_size', 'Size'),
-    array('field_quantity', 'Quantity'),
+    array('field_quantity_integer', 'Quantity'),
   );
 
   public $entityType = 'field_collection_item';
@@ -894,6 +894,6 @@ class garmentboxCollectionsFieldQuantityInfo extends garmentboxFieldCollectionMi
       ->addFieldMapping('field_size', 'field_size')
       ->sourceMigration('garmentboxSizeTerms');
 
-    $this->addFieldMapping('field_quantity', 'field_quantity');
+    $this->addFieldMapping('field_quantity_integer', 'field_quantity_integer');
   }
 }

@@ -143,7 +143,7 @@ function garmentbox_bom_get_material_price($collection_item) {
   $bom_unit_conversion = !empty($wrapper->field_unit->field_conversion_ratio) ? $wrapper->field_unit->field_conversion_ratio->value() : 1;
 
   $length_price = garmentbox_bom_get_length_price($m_price['amount'], $m_unit, $m_length, $m_length_unit_conversion / $bom_unit_conversion);
-  $bom_quantity = $wrapper->field_quantity->value();
+  $bom_quantity = $wrapper->field_quantity_decimal->value();
   return $length_price * $bom_quantity;
 }
 
