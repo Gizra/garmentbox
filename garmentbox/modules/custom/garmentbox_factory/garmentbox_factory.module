@@ -444,7 +444,7 @@ function garmentbox_factory_node_insert($node) {
 
   foreach ($node->production_order_inventory_lines as $nid) {
     $wrapper = entity_metadata_wrapper('node', $nid);
-    $wrapper->field_production_order->set($node->nid);
+    // $wrapper->field_production_order->set($node->nid);
     $wrapper->save();
   }
 
@@ -465,6 +465,21 @@ function garmentbox_factory_node_insert($node) {
 }
 
 /**
+ * Implements hook_node_presave().
+ *
+ * Attach inventory lines to a production order through the hierarchy field.
+ */
+function garmentbox_factory_node_presave($node) {
+  if ($node->type != 'production_order' && $node->type != 'inventory_line') {
+    return;
+  }
+
+  $wrapper = entity_metadata_wrapper('node', $node);
+  $nids = array_keys(garmentbox_general_get_node_hierarchy($node));
+  $wrapper->field_reference_hierarchy->set($nids);
+}
+
+/**
  * Create a custom inventory line (Through the production order form).
  *
  * @param $production_order_nid
@@ -482,7 +497,7 @@ function garmentbox_factory_create_inventory_line($production_order_nid, $item_v
   node_object_prepare($node);
 
   $wrapper = entity_metadata_wrapper('node', $node);
-  $wrapper->field_production_order->set($production_order_nid);
+  // $wrapper->field_production_order->set($production_order_nid);
   $wrapper->field_item_variant->set($item_variant_nid);
 
   // Create field collection items for the quantity info items.
@@ -518,7 +533,7 @@ function garmentbox_factory_node_update($node) {
   foreach($stored_inventory_lines as $nid) {
     if (empty($node->production_order_inventory_lines[$nid])) {
       $wrapper = entity_metadata_wrapper('node', $nid);
-      $wrapper->field_production_order->set(NULL);
+      // $wrapper->field_production_order->set(NULL);
       $wrapper->save();
     }
   }

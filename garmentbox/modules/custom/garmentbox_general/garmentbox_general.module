@@ -57,6 +57,7 @@ function garmentbox_general_get_node_hierarchy($node, &$nids = array()) {
   $wrapper = entity_metadata_wrapper('node', $node);
   switch ($node->type) {
     case 'item':
+    case 'production_order':
       $field_name = 'field_season';
       break;
 
