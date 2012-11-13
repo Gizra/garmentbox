@@ -148,13 +148,15 @@ function garmentbox_factory_form_production_order_node_form_validate(&$form, &$f
 }
 
 /**
+ * Fetch the item-variants of a given season and factory.
+ *
  * @param $factory_nid
- *   Factory NID.
+ *   Factory node ID.
  * @param $season_nid
- *   Season NID.
+ *   Season node ID.
  *
  * @return
- *   Array of item variants NIDs.
+ *   Array of item variants node IDs.
  */
 function garmentbox_factory_get_factory_item_variants($season_nid, $factory_nid) {
   $query = new EntityFieldQuery();
@@ -172,10 +174,10 @@ function garmentbox_factory_get_factory_item_variants($season_nid, $factory_nid)
 
 /**
  * @param $nids
- *   Item variants NIDs or a production order nid.
+ *   Item variants node IDs or a production order nid.
  *
  * @return
- *   Array of inventory lines NIDs.
+ *   Array of inventory lines node IDs.
  */
 function garmentbox_factory_get_production_order_inventory_lines($nids) {
   $query = new EntityFieldQuery();
@@ -386,7 +388,7 @@ function garmentbox_factory_production_order_items_data($item_variants_nids, $in
  * Format a "Sizes data" cell.
  *
  * @param $sizes
- *   Array of quantities per size TID, or an item variant NID.
+ *   Array of quantities per size term ID, or an item variant node ID.
  */
 function _garmentbox_factory_production_order_items_format_sizes($sizes) {
   $vocabulary = taxonomy_vocabulary_machine_name_load('size');
@@ -460,7 +462,7 @@ function garmentbox_factory_node_insert($node) {
  * @param $item_variant_nid
  *   The inventory line's item variant.
  * @param $quantity_info
- *   Array of quantities keyed by size TID. A new field_quantity_info item will
+ *   Array of quantities keyed by size term ID. A new field_quantity_info item will
  *   be created for each entry.
  */
 function garmentbox_factory_create_inventory_line($production_order_nid, $item_variant_nid, $quantity_info) {
