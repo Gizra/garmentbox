@@ -64,7 +64,7 @@ Feature: Test production order flow
     And I click "Grey v-neck shirt"
     Then the "Include in order" checkbox in row containing "Customer Salty moda" of table "inventory-lines-table" should be unchecked
 
-  @javascript
+  @api
   Scenario: Adding an inventory line to a production order and checking that it's not available to other orders.
     Given I am logged in as a user with the "authenticated user" role
     And I am on a "season" page titled "Autumn-Winter 2013 Women"
@@ -72,11 +72,9 @@ Feature: Test production order flow
     And I click "Add new production order"
     And I uncheck "Include in order" in row containing "Customer Salty moda" of table "inventory-lines-table"
     And I click "Save"
-    And I click "Grey v-neck shirt"
     When I am on a "season" page titled "Autumn-Winter 2013 Women"
     And I click "Production Orders"
     And I click "Add new production order"
-    And I click "Grey v-neck shirt"
     Then the table "inventory-lines-table" should have the following <contents>:
     | Include in order    | Item variation         | Quantity / Size            | Fabric  | Production cost | Add more items  |
     | <checkbox> checked  | Grey v-neck shirt      | Small 11 Medium 0 Large 5  | <image> | $800.00         | Add more items  |
