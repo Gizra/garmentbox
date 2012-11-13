@@ -22,7 +22,6 @@ features[field][] = node-factory-field_address
 features[field][] = node-factory-field_contact_name
 features[field][] = node-factory-field_email
 features[field][] = node-factory-field_phone
-features[field][] = node-inventory_line-field_production_order
 features[field][] = node-production_order-field_delivery_date
 features[field][] = node-production_order-field_factory
 features[field][] = node-production_order-field_order_status

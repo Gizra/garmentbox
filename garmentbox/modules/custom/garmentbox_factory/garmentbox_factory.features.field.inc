@@ -333,104 +333,6 @@ function garmentbox_factory_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-inventory_line-field_production_order'.
-  $fields['node-inventory_line-field_production_order'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_production_order',
-      'foreign keys' => array(
-        'node' => array(
-          'columns' => array(
-            'target_id' => 'nid',
-          ),
-          'table' => 'node',
-        ),
-      ),
-      'indexes' => array(
-        'target_id' => array(
-          0 => 'target_id',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'entityreference',
-      'settings' => array(
-        'handler' => 'base',
-        'handler_settings' => array(
-          'behaviors' => array(
-            'views-select-list' => array(
-              'status' => 0,
-            ),
-          ),
-          'sort' => array(
-            'type' => 'none',
-          ),
-          'target_bundles' => array(
-            'production_order' => 'production_order',
-          ),
-        ),
-        'target_type' => 'node',
-      ),
-      'translatable' => '0',
-      'type' => 'entityreference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'inventory_line',
-      'default_value' => NULL,
-      'default_value_function' => '',
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'entityreference',
-          'settings' => array(
-            'link' => FALSE,
-          ),
-          'type' => 'entityreference_label',
-          'weight' => 9,
-        ),
-        'garmentbox_header' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-        'teaser' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'field_production_order',
-      'label' => 'Production order',
-      'required' => 0,
-      'settings' => array(
-        'behaviors' => array(
-          'prepopulate' => array(
-            'status' => 0,
-          ),
-        ),
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'entityreference',
-        'settings' => array(
-          'match_operator' => 'CONTAINS',
-          'path' => '',
-          'size' => '60',
-        ),
-        'type' => 'entityreference_autocomplete',
-        'weight' => '41',
-      ),
-    ),
-  );
-
   // Exported field: 'node-production_order-field_delivery_date'.
   $fields['node-production_order-field_delivery_date'] = array(
     'field_config' => array(
@@ -752,6 +654,7 @@ function garmentbox_factory_field_default_fields() {
           ),
           'sort' => array(
             'direction' => 'ASC',
+            'field' => 'field_postal_address:country',
             'property' => 'title',
             'type' => 'property',
           ),
@@ -828,7 +731,6 @@ function garmentbox_factory_field_default_fields() {
   t('Expected delivery date');
   t('Factory');
   t('Phone');
-  t('Production order');
   t('Season');
   t('Status');
 

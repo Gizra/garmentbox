@@ -362,7 +362,7 @@ function garmentbox_factory_production_order_items_data($item_variant_nids, $inv
     }
   }
 
-  // Cleanup empty item variants.
+  // Remove item variants that have no inventory lines.
   foreach ($data as $nid => $variant) {
     if (empty($variant['lines'])) {
       unset($data[$nid]);
