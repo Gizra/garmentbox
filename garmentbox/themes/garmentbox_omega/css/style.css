@@ -565,3 +565,10 @@ li {
 
 .item-list ul li {
   margin: 0; }
+
+.content .panel-col-first {
+  float: left;
+  width: 50%; }
+.content .panel-col-last {
+  float: left;
+  width: 49.9%; }
