@@ -38,19 +38,20 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
   // The field is disabled in garmentbox_inventory_field_access().
   $form['field_delivery_date']['#access'] = TRUE;
 
-  if (empty($form['field_season'][LANGUAGE_NONE]['#default_value'][0])) {
-    return;
-  }
   $season_nid = $form['field_season'][LANGUAGE_NONE]['#default_value'][0];
 
-  // Set a default factory.
+  // Set a default factory, if the node is new, and no factory given in the URL.
   if (!$form['field_factory'][LANGUAGE_NONE]['#default_value']) {
-    $form['field_factory'][LANGUAGE_NONE]['#options'];
-    // Remove the "none" option.
-    if (!empty($form['field_factory'][LANGUAGE_NONE]['#options']['_none'])) {
-      unset($form['field_factory'][LANGUAGE_NONE]['#options']['_none']);
+    // Find the first factory node ID.
+    foreach (array_keys($form['field_factory'][LANGUAGE_NONE]['#options']) as $key) {
+      if (is_numeric($key)) {
+        break;
+      }
     }
-    $form['field_factory'][LANGUAGE_NONE]['#default_value'] = key($form['field_factory'][LANGUAGE_NONE]['#options']);
+    if (empty($key)) {
+      return;
+    }
+    $form['field_factory'][LANGUAGE_NONE]['#default_value'] = $key;
   }
   $factory_nid = $form['field_factory'][LANGUAGE_NONE]['#default_value'];
   $item_variant_nids = garmentbox_factory_get_factory_item_variants($season_nid, $factory_nid);
