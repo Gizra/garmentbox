@@ -28,7 +28,28 @@ function garmentbox_omega_preprocess_page(&$variables) {
  * Node preprocess.
  */
 function garmentbox_omega_preprocess_node(&$variables) {
-  if ($variables['view_mode'] == 'garmentbox_header') {
+  $node = $variables['node'];
+  $view_mode = $variables['view_mode'] != 'full' ? $variables['view_mode'] : '';
+
+  if ($view_mode == 'garmentbox_header') {
     $variables['display_submitted'] = FALSE;
   }
+
+  // Preprocess nodes by generic function names. 'Full' display node as the
+  // default.
+  $view_mode = $view_mode == 'full' ? '' : '_' . $view_mode;
+  $preprocess_function = "garmentbox_omega_preprocess_{$node->type}_node{$view_mode}";
+  if (function_exists($preprocess_function)) {
+    $preprocess_function($variables);
+  }
+}
+
+/**
+ * Material node page header preprocess.
+ *
+ * @see garmentbox_omega_preprocess_node().
+ */
+function garmentbox_omega_preprocess_material_node_garmentbox_header(&$variables) {
+  // Add variables to create the "Add material" button.
+  // TODO
 }
