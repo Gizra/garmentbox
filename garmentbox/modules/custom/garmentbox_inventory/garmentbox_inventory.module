@@ -19,6 +19,7 @@ function garmentbox_inventory_ctools_plugin_directory($module, $plugin) {
  * Implements hook_field_access().
  *
  * Hide date fields from inventory form.
+ * TODO Why do we do that?
  */
 function garmentbox_inventory_field_access($op, $field, $entity_type, $entity, $account) {
   if ($op != 'edit') {
