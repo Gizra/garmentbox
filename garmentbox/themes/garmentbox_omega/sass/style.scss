@@ -40,6 +40,14 @@ li {
   .panel-col-last {
     float: left;
     width: 49.9%;
+
+    .jcarousel-skin-default .jcarousel-container-horizontal .jcarousel-clip-horizontal {
+      width: 414px;
+
+      ul li {
+        height: 213px;
+      }
+    }
   }
 }
 

@@ -572,3 +572,7 @@ li {
 .content .panel-col-last {
   float: left;
   width: 49.9%; }
+  .content .panel-col-last .jcarousel-skin-default .jcarousel-container-horizontal .jcarousel-clip-horizontal {
+    width: 414px; }
+    .content .panel-col-last .jcarousel-skin-default .jcarousel-container-horizontal .jcarousel-clip-horizontal ul li {
+      height: 213px; }
