@@ -90,23 +90,29 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
     '#attributes' => array('id' => 'inventory-lines-table'),
   );
 
-  $form['#attached']['js'] = array(
-    drupal_get_path('module', 'garmentbox_factory') . '/production_order_items.js',
-  );
-  format_number_add_js();
-
   $options = array(
     'absolute' => TRUE,
     'query' => array(
       'field_season' => $_GET['field_season'],
-    )
+    ),
   );
-
   $settings = array(
     'url' => url($_GET['q'], $options),
     'inventory_lines_data' => $raw_data,
   );
-  drupal_add_js(array('garmentbox_factory' => $settings), 'setting');
+
+  $form['#attached']['js'] = array(
+    drupal_get_path('module', 'garmentbox_factory') . '/production_order_items.js',
+    array(
+      'data' => array('garmentbox_factory' => $settings),
+      'type' => 'setting',
+    ),
+    drupal_get_path('module', 'format_number') . '/format_number.js',
+    array(
+      'data' => array('format_number' => format_number_get_options()),
+      'type' => 'setting',
+    ),
+  );
 
   // Validation for the custom quantity fields.
   $form['#validate'][] = 'garmentbox_factory_form_production_order_node_form_validate';
