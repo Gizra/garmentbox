@@ -71,14 +71,19 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
   );
   $form_state['item_variants'] = $item_variant_nids;
 
-  $header = array(
-    t('Include in order'),
-    t('Item variation'),
-    t('Quantity / Size'),
-    t('Fabric'),
-    t('Production cost'),
-    t('Add more items'),
-  );
+  $vocabulary = taxonomy_vocabulary_machine_name_load('size');
+  $header = array();
+  $header[] = t('Include in order');
+  $header[] = t('Item variation');
+  foreach (taxonomy_get_tree($vocabulary->vid) as $term) {
+    $header[] = $term->name;
+  }
+  $header[] = t('Fabric');
+  $header[] = t('Production cost');
+  $header[] = t('Add more items');
+
+  // $header[] = t('Quantity / Size');
+
   $form['inventory_lines_table'] = array(
     '#theme' => 'table',
     '#rows' => garmentbox_factory_production_order_items($raw_data),
@@ -200,6 +205,9 @@ function garmentbox_factory_get_production_order_inventory_lines($item_variant_n
  *   The production order items table.
  */
 function garmentbox_factory_production_order_items($raw_data) {
+  $vocabulary = taxonomy_vocabulary_machine_name_load('size');
+  $size_tree = taxonomy_get_tree($vocabulary->vid);
+
   $table = array();
   foreach ($raw_data as $variant_nid => $variant) {
     if (!$variant['lines']) {
@@ -222,7 +230,12 @@ function garmentbox_factory_production_order_items($raw_data) {
       'data' => l($variant['title'], ''),
       'class' => array('item-title'),
     );
-    $row['data'][] = _garmentbox_factory_production_order_items_format_sizes($variant['sizes']);
+    foreach ($size_tree as $term) {
+      $row['data'][] = array(
+        'data' => t('N/A'),
+        'class' => array('size-quantity'),
+      );
+    }
     $row['data'][] = garmentbox_item_get_main_material_icon($variant_nid);
     $row['data'][] = array(
       'data' => t('N/A'),
@@ -253,7 +266,10 @@ function garmentbox_factory_production_order_items($raw_data) {
       $row['data'][] = theme('checkbox', $variables);
       $customer = $inventory_line['customer'] ? $inventory_line['customer'] : t('N/A');
       $row['data'][] = t('<b>Customer</b> !customer', array('!customer' => $customer));
-      $row['data'][] = _garmentbox_factory_production_order_items_format_sizes($inventory_line['sizes']);
+      foreach ($size_tree as $term) {
+        $row['data'][] =  empty($inventory_line['sizes'][$term->tid]) ? '' : $inventory_line['sizes'][$term->tid];
+      }
+
       $row['data'][] = '';
       $row['data'][] = commerce_currency_format($variant['item_price'] * $inventory_line['items_count'], commerce_default_currency());
       $row['data'][] = '';
@@ -268,7 +284,11 @@ function garmentbox_factory_production_order_items($raw_data) {
     );
     $row['data'][] = '';
     $row['data'][] = $variant['title'];
-    $row['data'][] = _garmentbox_factory_production_order_items_format_sizes($variant_nid);
+
+    $inputs = _garmentbox_factory_production_order_items_sizes_inputs($variant_nid);
+    foreach ($size_tree as $term) {
+      $row['data'][] = empty($inputs[$term->tid]) ? '' : $inputs[$term->tid];
+    }
     $row['data'][] = '';
     $row['data'][] = t('N/A');
     $row['data'][] = '';
@@ -307,9 +327,6 @@ function garmentbox_factory_production_order_items_data($item_variant_nids, $inv
     return array();
   }
 
-  $vocabulary = taxonomy_vocabulary_machine_name_load('size');
-  $size_tree = taxonomy_get_tree($vocabulary->vid);
-
   $data = array();
   foreach ($item_variant_nids as $variant_nid) {
     $wrapper = entity_metadata_wrapper('node', $variant_nid);
@@ -318,10 +335,6 @@ function garmentbox_factory_production_order_items_data($item_variant_nids, $inv
       'lines' => array(),
       'item_price' => garmentbox_item_get_variant_price($variant_nid),
     );
-
-    foreach ($size_tree as $term) {
-      $data[$variant_nid]['sizes'][$term->tid] = 0;
-    }
   }
 
   // Fetch inventory lines of a factory.
@@ -389,53 +402,33 @@ function garmentbox_factory_production_order_items_data($item_variant_nids, $inv
     }
   }
 
-
-
   return $data;
 }
 
 /**
- * Format a "Sizes data" cell.
+ * Build a mini inventory line form.
  *
- * @param $sizes
- *   Array of quantities per size term ID, or an item variant node ID.
+ * @param $nid
+ *   Item variant node ID.
  */
-function _garmentbox_factory_production_order_items_format_sizes($sizes) {
-  $vocabulary = taxonomy_vocabulary_machine_name_load('size');
-  $size_tree = taxonomy_get_tree($vocabulary->vid);
-
-  $nid = !is_array($sizes) ? $sizes : 0;
-
+function _garmentbox_factory_production_order_items_sizes_inputs($nid) {
+  $wrapper = entity_metadata_wrapper('node', $nid);
   $items = array();
-  foreach ($size_tree as $term) {
-    $id = $nid ? "size-$nid-$term->tid" : '';
-
-    $item = "<label for=\"$id\">" . $term->name . '</label>';
-
-    if (!$nid) {
-      $quantity = !empty($sizes[$term->tid]) ? $sizes[$term->tid] : 0;
-      $item .= "<span ref=\"tid-$term->tid\">" . $quantity . '</span>';
-    }
-    else {
-      $variables = array(
-        'element' => array(
-          '#attributes' => array(
-            'name' => "variant_new_inventory[$nid][$term->tid]",
-            'size' => 4,
-            'id' => $id,
-            'class' => array('new-inventory-items'),
-          ),
-          '#autocomplete_path' => '',
+  foreach ($wrapper->field_size_info as $item_wrapper) {
+    $tid = $item_wrapper->field_size->getIdentifier();
+    $variables = array(
+      'element' => array(
+        '#attributes' => array(
+          'name' => "variant_new_inventory[$nid][$tid]",
+          'size' => 4,
+          'class' => array('new-inventory-items'),
         ),
-
-      );
-      $item .= theme('textfield', $variables);
-    }
-
-    $items[] = $item;
+        '#autocomplete_path' => '',
+      ),
+    );
+    $items[$tid] = theme('textfield', $variables);
   }
-
-  return theme('item_list', array('items' => $items, 'attributes' => array('class' => array('size-info'))));
+  return $items;
 }
 
 /**
