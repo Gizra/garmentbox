@@ -303,6 +303,10 @@ function garmentbox_factory_production_order_items($raw_data) {
  *   Inventory lines data grouped by item-variant.
  */
 function garmentbox_factory_production_order_items_data($item_variant_nids, $inventory_line_nids) {
+  if (empty($item_variant_nids)) {
+    return array();
+  }
+
   $vocabulary = taxonomy_vocabulary_machine_name_load('size');
   $size_tree = taxonomy_get_tree($vocabulary->vid);
 
@@ -352,6 +356,9 @@ function garmentbox_factory_production_order_items_data($item_variant_nids, $inv
     }
   }
 
+  if (empty($inventory_line_nids)) {
+    return $data;
+  }
   // Fetch inventory lines of a factory.
   $query = new EntityFieldQuery();
   $result = $query
