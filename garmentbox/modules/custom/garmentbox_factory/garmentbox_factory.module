@@ -74,22 +74,20 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
   );
   $form_state['item_variants'] = $item_variant_nids;
 
-  $variables = array(
-    'rows' => garmentbox_factory_production_order_items($raw_data),
-    'header' => array(
-      t('Include in order'),
-      t('Item variation'),
-      t('Quantity / Size'),
-      t('Fabric'),
-      t('Production cost'),
-      t('Add more items'),
-    ),
-    'attributes' => array('id' => 'inventory-lines-table'),
+  $header = array(
+    t('Include in order'),
+    t('Item variation'),
+    t('Quantity / Size'),
+    t('Fabric'),
+    t('Production cost'),
+    t('Add more items'),
   );
   $form['inventory_lines_table'] = array(
-    '#type' => 'markup',
-    '#markup' => theme('table', $variables),
+    '#theme' => 'table',
+    '#rows' => garmentbox_factory_production_order_items($raw_data),
+    '#header' => $header,
     '#weight' => 50,
+    '#attributes' => array('id' => 'inventory-lines-table'),
   );
 
   $form['#attached']['js'] = array(
@@ -359,7 +357,7 @@ function garmentbox_factory_production_order_items_data($item_variant_nids, $inv
     ->entityCondition('entity_type', 'node')
     ->propertyCondition('type', 'order')
     ->propertyCondition('status', NODE_PUBLISHED)
-    ->fieldCondition('field_inventory_line_inline', 'target_id', $inventory_lines_nids, 'IN')
+    ->fieldCondition('field_inventory_line_inline', 'target_id', $inventory_line_nids, 'IN')
     ->fieldOrderBy('field_inventory_line_inline', 'target_id')
     ->execute();
 
