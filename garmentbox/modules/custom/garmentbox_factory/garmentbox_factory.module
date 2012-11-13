@@ -312,7 +312,7 @@ function garmentbox_factory_production_order_items_data($item_variant_nids, $inv
     $data[$variant_nid] = array(
       'title' => $wrapper->label(),
       'lines' => array(),
-      'item_price' => garmentbox_bom_get_variant_bom_price($variant_nid) + garmentbox_bol_get_variant_bol_price($variant_nid),
+      'item_price' => garmentbox_item_get_variant_price($variant_nid),
     );
 
     foreach ($size_tree as $term) {
