@@ -82,6 +82,7 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
   $form['#attached']['js'] = array(
     drupal_get_path('module', 'garmentbox_factory') . '/production_order_items.js',
   );
+  format_number_add_js();
 
   $options = array(
     'absolute' => TRUE,

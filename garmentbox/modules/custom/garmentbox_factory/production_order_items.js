@@ -135,7 +135,7 @@ Drupal.behaviors.GarmentboxOrderItems = {
     });
 
     var total_price = items_count * item_price;
-    table.find('tr#' + id + ' .item-price').text('$' + total_price.toFixed(2));
+    table.find('tr#' + id + ' .item-price').text('$' + Drupal.formatNumber(total_price, 2));
   }
 };
 
