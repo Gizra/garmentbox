@@ -11,6 +11,7 @@ dependencies[] = field_collection
 dependencies[] = field_group
 dependencies[] = garmentbox_og
 dependencies[] = image
+dependencies[] = image_delta_formatter
 dependencies[] = list
 dependencies[] = multiupload_imagefield_widget
 dependencies[] = number
