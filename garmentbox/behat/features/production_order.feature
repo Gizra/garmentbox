@@ -10,7 +10,7 @@ Feature: Test production order flow
     And I visit "season/24"
     And I click "Production Orders"
     When I click "Add new production order"
-    Then I should see a table identified "inventory-lines-table" with the following <contents>:
+    Then the table "inventory-lines-table" should have the following <contents>:
     | Include in order   | Item variation         | Quantity / Size             | Fabric  | Production cost | Add more items  |
     | <checkbox> checked | Grey v-neck shirt      | Small 18 Medium 20 Large 42 | <image> | $4,000.00       | Add more items  |
     | <checkbox> checked | Lines v-neck shirt     | Small 37 Medium 26 Large 29 | <image> | $2,438.00       | Add more items  |
@@ -26,7 +26,7 @@ Feature: Test production order flow
     When I click "Add new production order"
     And I click "Grey v-neck shirt"
     And I click "Add more items"
-    Then I should see a table identified "inventory-lines-table" with the following <contents>:
+    Then the table "inventory-lines-table" should have the following <contents>:
     | Include in order    | Item variation         | Quantity / Size              | Fabric  | Production cost | Add more items  |
     | <checkbox> checked  | Grey v-neck shirt      | Small 18 Medium 20 Large 42  | <image> | $4,000.00       | Cancel          |
     | <checkbox> checked  | Customer Salty moda    | Small 11 Medium 0 Large 5    |         | $800.00         |                 |
@@ -77,7 +77,7 @@ Feature: Test production order flow
     And I click "Production Orders"
     And I click "Add new production order"
     And I click "Grey v-neck shirt"
-    Then I should see a table identified "inventory-lines-table" with the following <contents>:
+    Then the table "inventory-lines-table" should have the following <contents>:
     | Include in order    | Item variation         | Quantity / Size            | Fabric  | Production cost | Add more items  |
     | <checkbox> checked  | Grey v-neck shirt      | Small 11 Medium 0 Large 5  | <image> | $800.00         | Add more items  |
     | <checkbox> checked  | Customer Salty moda    | Small 11 Medium 0 Large 5  |         | $800.00         |                 |

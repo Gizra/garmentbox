@@ -97,15 +97,14 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
-   * @Then /^I should see a table identified "([^"]*)" with the following <contents>:$/
+   * @Then /^the table "([^"]*)" should have the following <contents>:$/
    */
-  public function iShouldSeeATableIdentifiedWithTheFollowingContents($table_id, TableNode $expected_table) {
+  public function theTableShouldHaveTheFollowingContents($table_id, TableNode $expected_table) {
     $page = $this->getSession()->getPage();
     // Find the container of the table with the correct pane title
     $table_element = $page->find('css', "table#$table_id");
     $this->compareTable($table_element, $expected_table);
   }
-
 
   /**
    * @Given /^the order "([^"]*)" should have these <inventory lines>$/
