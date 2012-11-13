@@ -802,7 +802,7 @@ function garmentbox_factory_field_default_fields() {
         'behaviors' => array(
           'prepopulate' => array(
             'action' => 'hide',
-            'fallback' => 'form_error',
+            'fallback' => 'redirect',
             'og_context' => 0,
             'skip_perm' => '0',
             'status' => 1,
