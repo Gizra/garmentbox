@@ -390,18 +390,5 @@ function garmentbox_standard_install() {
   menu_rebuild();
 
   node_access_rebuild(TRUE);
-
-  // Create a dummy user.
-  $fields = array(
-    'name' => 'dummyuser',
-    'mail' => 'dummyuser@example.com',
-    'pass' => 'dummyuser',
-    'status' => 1,
-    'init' => 'email address',
-    'roles' => array(
-      DRUPAL_AUTHENTICATED_RID => 'authenticated user',
-    ),
-  );
-  $account = user_save('', $fields);
 }
 

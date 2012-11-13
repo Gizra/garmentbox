@@ -1,6 +1,50 @@
 <?php
 
 ///////////////////////////////
+// Users
+
+/**
+ * Migrate Season status terms.
+ */
+class GarmentboxUsers extends Migration {
+  /**
+   * Map the field and properties to the CSV header.
+   */
+  public $csvColumns = array(
+    array('id', 'Unique ID'),
+    array('name', 'Username'),
+    array('pass', 'Password'),
+    array('mail', 'Email'),
+    array('role', 'Role'),
+  );
+
+  public $entityType = 'user';
+
+  public function __construct() {
+    parent::__construct();
+    $this->description = t('Import users from a CSV file.');
+
+    $this->addFieldMapping('name', 'name');
+    $this->addFieldMapping('pass', 'pass');
+    $this->addFieldMapping('role', 'role');
+
+    // Create a map object for tracking the relationships between source rows
+    $key = array(
+      'id' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+    );
+    $this->map = new MigrateSQLMap($this->machineName, $key, MigrateDestinationUser::getKeySchema());
+
+    // Create a MigrateSource object.
+    $this->source = new MigrateSourceCSV(drupal_get_path('module', 'garmentbox_migrate') . '/csv/' . $this->entityType . '/user.csv', $this->csvColumns, array('header_rows' => 1));
+    $this->destination = new MigrateDestinationUser();
+  }
+}
+
+///////////////////////////////
 // Terms
 
 /**
