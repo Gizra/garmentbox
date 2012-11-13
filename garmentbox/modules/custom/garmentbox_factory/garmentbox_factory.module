@@ -55,10 +55,7 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
   }
   $factory_nid = $form['field_factory'][LANGUAGE_NONE]['#default_value'];
   $item_variant_nids = garmentbox_factory_get_factory_item_variants($season_nid, $factory_nid);
-
-  $node = $form['#node'];
-  $inventory_line_nids = empty($node->nid) ? garmentbox_factory_get_production_order_inventory_lines($item_variant_nids) : garmentbox_factory_get_production_order_inventory_lines($node->nid);
-
+  $inventory_line_nids = garmentbox_factory_get_production_order_inventory_lines($item_variant_nids);
   $raw_data = garmentbox_factory_production_order_items_data($item_variant_nids, $inventory_line_nids);
   // Dummy inputs, that will actually be added manually inside
   // inventory_lines_table as checkboxes.
@@ -118,7 +115,6 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
   $form['#validate'][] = 'garmentbox_factory_form_production_order_node_form_validate';
 
   $form['add_variant_button'] = array(
-    '#type' => 'markup',
     '#markup' => l(t('Add a variant'), '', array('attributes' => array('id' => 'add-variant'))),
     '#weight' => 55,
   );
@@ -176,30 +172,20 @@ function garmentbox_factory_get_factory_item_variants($season_nid, $factory_nid)
  * Fetch the inventory lines related to the given item variants.
  *
  * @param $nids
- *   Item variants node IDs or a production order nid.
+ *   Item variant node IDs.
  *
  * @return
  *   Array of inventory lines node IDs.
  */
-function garmentbox_factory_get_production_order_inventory_lines($nids) {
+function garmentbox_factory_get_production_order_inventory_lines($item_variant_nids) {
   $query = new EntityFieldQuery();
-  $query
+  $result = $query
     ->entityCondition('entity_type', 'node')
     ->propertyCondition('type', 'inventory_line')
-    ->propertyCondition('status', NODE_PUBLISHED);
-
-  if (is_array($nids)) {
-    if (!$nids) {
-      return array();
-    }
-    $query->fieldCondition('field_item_variant', 'target_id', $nids, 'IN');
-  }
-  else {
-    $query->fieldCondition('field_production_order', 'target_id', $nids);
-  }
-
-  $query->fieldOrderBy('field_item_variant', 'target_id');
-  $result = $query->execute();
+    ->propertyCondition('status', NODE_PUBLISHED)
+    ->fieldCondition('field_item_variant', 'target_id', $item_variant_nids, 'IN')
+    ->fieldOrderBy('field_item_variant', 'target_id')
+    ->execute();
 
   return !empty($result['node']) ? array_keys($result['node']) : array();
 }
@@ -217,6 +203,7 @@ function garmentbox_factory_production_order_items($raw_data) {
   $table = array();
   foreach ($raw_data as $variant_nid => $variant) {
     if (!$variant['lines']) {
+      // Variant doesn't have inventory lines.
       continue;
     }
 
@@ -225,7 +212,12 @@ function garmentbox_factory_production_order_items($raw_data) {
       'id' => 'variant-' . $variant_nid,
       'class' => array('expandable'),
     );
-    $row['data'][] = '<input type="checkbox" class="triple-checkbox" />';
+    $variables = array(
+      'element' => array(
+        '#attributes' => array('class' => array('triple-checkbox')),
+      ),
+    );
+    $row['data'][] = theme('checkbox', $variables);
     $row['data'][] = array(
       'data' => l($variant['title'], ''),
       'class' => array('item-title'),
@@ -249,13 +241,16 @@ function garmentbox_factory_production_order_items($raw_data) {
         'class' => array('hidden', 'inventory-line'),
       );
 
-      $checkbox = "<input
-        type=\"checkbox\"
-        name=\"production_order_inventory_lines[$inventory_line_nid]\"
-        value=\"$inventory_line_nid\"
-        checked=\"checked\"
-      />";
-      $row['data'][] = $checkbox;
+      $variables = array(
+        'element' => array(
+          '#attributes' => array(
+            'name' => "production_order_inventory_lines[$inventory_line_nid]",
+            'value' => $inventory_line_nid,
+            'checked' => 'checked',
+          ),
+        ),
+      );
+      $row['data'][] = theme('checkbox', $variables);
       $customer = $inventory_line['customer'] ? $inventory_line['customer'] : t('N/A');
       $row['data'][] = t('<b>Customer</b> !customer', array('!customer' => $customer));
       $row['data'][] = _garmentbox_factory_production_order_items_format_sizes($inventory_line['sizes']);
@@ -415,12 +410,19 @@ function _garmentbox_factory_production_order_items_format_sizes($sizes) {
       $item .= "<span ref=\"tid-$term->tid\">" . $quantity . '</span>';
     }
     else {
-      $item .= "<input
-        name=\"variant_new_inventory[$nid][$term->tid]\"
-        size=\"4\"
-        id=\"$id\"
-        class=\"new-inventory-items\"
-      />";
+      $variables = array(
+        'element' => array(
+          '#attributes' => array(
+            'name' => "variant_new_inventory[$nid][$term->tid]",
+            'size' => 4,
+            'id' => $id,
+            'class' => array('new-inventory-items'),
+          ),
+          '#autocomplete_path' => '',
+        ),
+
+      );
+      $item .= theme('textfield', $variables);
     }
 
     $items[] = $item;
