@@ -273,6 +273,12 @@ class FeatureContext extends DrupalContext {
           }
           break;
 
+        case '<input>':
+          if (!$cell->find('css', 'input')) {
+            throw new \Exception('Expected input element not found.');
+          }
+          break;
+
         default:
           if ($content != $expected_row[$i]) {
             throw new \Exception("Found '$content' instead of '{$expected_row[$i]}'.");
@@ -372,20 +378,34 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
-   * @Given /^I uncheck "([^"]*)" in row containing "([^"]*)" of table "([^"]*)"$/
+   * @Given /^I uncheck "([^"]*)" in row containing "([^"]*)" in table "([^"]*)"$/
    */
-  public function iUncheckInRowContainingOfTable($column_title, $value_contained, $table_id) {
+  public function iUncheckInRowContainingOfTable($column_title, $value_in_row, $table_id) {
     $page = $this->getSession()->getPage();
     $table_element = $page->find('css', "table#$table_id");
 
-    $cell = self::findTableCellByColumTitleAndRowValue($table_element, $column_title, $value_contained);
-    // TODO: Uncheck checkbox in cell.
+    $cell = self::findTableCellByColumTitleAndRowValue($table_element, $column_title, $value_in_row);
+    $checkbox = $cell->find('xpath', "//input[@type='checkbox']");
+    $checkbox->click();
   }
 
   /**
-   *
+   * @Given /^I fill in "([^"]*)" with "([^"]*)" in row containing "([^"]*)" in table "([^"]*)"$/
    */
-  private static function findTableCellByColumTitleAndRowValue($table_element, $column_title, $value_contained) {
+  public function iFillInWithInRowContainingOfTable($column_title, $content, $value_in_row, $table_id) {
+    $page = $this->getSession()->getPage();
+    $table_element = $page->find('css', "table#$table_id");
+
+    $cell = self::findTableCellByColumTitleAndRowValue($table_element, $column_title, $value_in_row);
+    $input = $cell->find('css', 'input');
+    $input->setValue($content);
+  }
+
+
+  /**
+   * "Triangulate" a table cell by header and row content.
+   */
+  private static function findTableCellByColumTitleAndRowValue($table_element, $column_title, $value_in_row) {
     // Find the column index.
     $column_index = 0;
     foreach ($table_element->findAll('css', 'thead th') as $index => $th) {
@@ -402,7 +422,7 @@ class FeatureContext extends DrupalContext {
     $row_found = FALSE;
     foreach ($table_element->findAll('css', 'tbody tr') as $index => $tr) {
       foreach ($tr->findAll('css', 'td') as $td) {
-        if (self::getText($td->getHtml()) == $value_contained) {
+        if (self::getText($td->getHtml()) == $value_in_row) {
           $row_found = TRUE;
         }
       }
@@ -414,14 +434,33 @@ class FeatureContext extends DrupalContext {
     }
 
     if (!$row_found) {
-      throw new \Exception("No cell containing '$value_contained' was found.");
+      throw new \Exception("No cell containing '$value_in_row' was found.");
     }
   }
 
   /**
-   * @Given /^I wait a couple of seconds$/
+   * @Then /^the "([^"]*)" column of "([^"]*)" should be "([^"]*)"$/
    */
-  public function iWaitACoupleOfSeconds() {
-    sleep(10);
+  public function theColumnOfShouldBe($column_title, $value_in_row, $content) {
+    $page = $this->getSession()->getPage();
+    $table_element = $page->find('css', "table#$table_id");
+
+    $cell = self::findTableCellByColumTitleAndRowValue($table_element, $column_title, $value_in_row);
+    $input = $cell->find('css', 'input');
+    $input->setValue($content);
+  }
+
+  /**
+   * @Then /^the "([^"]*)" column of "([^"]*)" in table "([^"]*)" should be "([^"]*)"$/
+   */
+  public function theColumnOfInTableShouldBe($column_title, $value_in_row, $table_id, $content) {
+    $page = $this->getSession()->getPage();
+    $table_element = $page->find('css', "table#$table_id");
+
+    $cell = self::findTableCellByColumTitleAndRowValue($table_element, $column_title, $value_in_row);
+    $found = $cell->getText();
+    if ($found != $content) {
+      throw new \Exception("Found '$found' instead of '$content'.");
+    }
   }
 }

@@ -23,30 +23,30 @@ Feature: Test production order flow
     And I click "Lines v-neck shirt"
     And I click "Add more items"
     Then the table "inventory-lines-table" should have the following <contents>:
-    | Include in order    | Item variation         | Small  | Medium  | Large | Fabric  | Production cost | Add more items  |
-    | <checkbox> checked  | Grey v-neck shirt      | 18     | 20      | 42    | <image> | $4,000.00       | Cancel          |
-    | <checkbox> checked  | Customer Salty moda    | 11     |         | 5     |         | $800.00         |                 |
-    | <checkbox> checked  | Customer N/A           |        |         | 7     |         | $350.00         |                 |
-    | <checkbox> checked  | Customer High Couture  | 1      |         | 20    |         | $1,050.00       |                 |
-    | <checkbox> checked  | Customer N/A           |        | 2       |       |         | $100.00         |                 |
-    | <checkbox> checked  | Customer Gap           | 5      |         | 10    |         | $750.00         |                 |
-    | <checkbox> checked  | Customer N/A           |        | 12      |       |         | $600.00         |                 |
-    | <checkbox> checked  | Customer N/A           | 1      | 6       |       |         | $350.00         |                 |
-    |                     | Grey v-neck shirt      |        |         |       |         | N/A             |                 |
+    | Include in order    | Item variation         | Small   | Medium  | Large   | Fabric  | Production cost | Add more items  |
+    | <checkbox> checked  | Grey v-neck shirt      | 18      | 20      | 42      | <image> | $4,000.00       | Cancel          |
+    | <checkbox> checked  | Customer Salty moda    | 11      |         | 5       |         | $800.00         |                 |
+    | <checkbox> checked  | Customer N/A           |         |         | 7       |         | $350.00         |                 |
+    | <checkbox> checked  | Customer High Couture  | 1       |         | 20      |         | $1,050.00       |                 |
+    | <checkbox> checked  | Customer N/A           |         | 2       |         |         | $100.00         |                 |
+    | <checkbox> checked  | Customer Gap           | 5       |         | 10      |         | $750.00         |                 |
+    | <checkbox> checked  | Customer N/A           |         | 12      |         |         | $600.00         |                 |
+    | <checkbox> checked  | Customer N/A           | 1       | 6       |         |         | $350.00         |                 |
+    |                     | New items              | <input> | <input> | <input> |         | N/A             |                 |
 
   @javascript @wip
   Scenario: Testing price re-calculation.
-    Given I am logged in as a user with the "authenticated user" role
-    And I am on a "season" page titled "Autumn-Winter 2013 Women"
+    Given I visit "season/24"
     And I click "Production Orders"
-    When I click "Add new production order"
+    And I click "Add new production order"
     And I click "Grey v-neck shirt"
-    And I uncheck "Include in order" of table row "Customer Salty moda"
-    And I fill "Small" with "2"
-    Then the "production cost" column of "Grey v-neck shirt" should be "$3,300.00"
-    And the "production cost" column of "New item" should be "$100.00"
-    And the "Total items" count should be "xx"
-    And the "Total price" count should be "xx"
+    When I uncheck "Include in order" in row containing "Customer Salty moda" in table "inventory-lines-table"
+    And I click "Add more items"
+    And I fill in "Small" with "2" in row containing "New items" in table "inventory-lines-table"
+    Then the "Production cost" column of "Grey v-neck shirt" in table "inventory-lines-table" should be "$3,300.00"
+    And the "Production cost" column of "New items" in table "inventory-lines-table" should be "$100.00"
+    And the "Total items" value should be "199"
+    And the "Production price" value should be "$7,501.00"
 
   @api
   Scenario: Testing production order creation and editing.

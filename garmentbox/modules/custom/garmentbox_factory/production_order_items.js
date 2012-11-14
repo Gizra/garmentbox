@@ -5,7 +5,8 @@
  */
 Drupal.behaviors.GarmentboxOrderItems = {
   attach: function (context) {
-    var object = this;
+    this.context = context;
+    var self = this;
 
     $(context).find('.form-item-field-factory-und select').change(function(event) {
       // The URL already has "?field_season=x" attached to it.
@@ -16,15 +17,15 @@ Drupal.behaviors.GarmentboxOrderItems = {
     $(context).find('tr.expandable .item-title a').click(function(event) {
       event.preventDefault();
 
-      var id = $(event.currentTarget).parents('tr').attr('id');
-      $(event.currentTarget).parents('table').find('tr.inventory-line[ref="' + id + '"]').toggle().toggleClass('hidden');
+      var rowId = $(event.currentTarget).parents('tr').attr('id');
+      $(event.currentTarget).parents('table').find('tr.inventory-line[ref="' + rowId + '"]').toggle().toggleClass('hidden');
     });
 
     // Handle item variant checkbox.
     $(context).find('tr.expandable input[type="checkbox"]').change(function(event) {
       var checkbox = $(event.currentTarget);
-      var id = checkbox.parents('tr').attr('id');
-      var checkboxes = checkbox.parents('table').find('tr[ref="' + id + '"] input[type="checkbox"]');
+      var rowId = checkbox.parents('tr').attr('id');
+      var checkboxes = checkbox.parents('table').find('tr[ref="' + rowId + '"] input[type="checkbox"]');
 
       checkbox.removeClass('checked partially-checked not-checked');
 
@@ -36,42 +37,41 @@ Drupal.behaviors.GarmentboxOrderItems = {
         checkboxes.removeAttr('checked');
       }
 
-      object.updateVariant(checkbox.parents('table'), id);
+      self.updateTotals();
     });
 
     // Update the item price and quantity as the "Add more items" inputs get
     // changed.
     $(context).find('input.new-inventory-items').change(function(event) {
-      var id = $(event.currentTarget).parents('tr').attr('ref');
-      object.updateVariant($(event.currentTarget).parents('table'), id);
+      self.updateTotals();
     });
+
     $(context).find('input.new-inventory-items').keyup(function(event) {
-      var id = $(event.currentTarget).parents('tr').attr('ref');
-      object.updateVariant($(event.currentTarget).parents('table'), id);
+      self.updateTotals();
     });
 
     // Determine the class of the variants' checkboxes.
     $(context).find('tr.inventory-line input[type="checkbox"]').change(function(event) {
       var table = $(event.currentTarget).parents('table');
-      var id = $(event.currentTarget).parents('tr').attr('ref');
+      var rowId = $(event.currentTarget).parents('tr').attr('ref');
 
-      object.updateVariantCheckbox(table.find('#' + id + ' input[type="checkbox"]'));
-      object.updateVariant(table, id);
+      self.updateVariantCheckbox(table.find('#' + rowId + ' input[type="checkbox"]'));
+      self.updateTotals();
     });
 
     // Update the variant checkboxes on load.
     $(context).find('.triple-checkbox').each(function(index, checkbox) {
-      object.updateVariantCheckbox($(checkbox));
-      var id = $(checkbox).parents('tr').attr('id');
-      object.updateVariant($(checkbox).parents('table'), id);
+      self.updateVariantCheckbox($(checkbox));
     });
+    // Update the totals on load.
+    self.updateTotals();
 
     // Show the "Add more items" row.
     $(context).find('.add-inventory-line a').click(function(event) {
       event.preventDefault();
-      var id = $(event.currentTarget).parents('tr').attr('id');
+      var rowId = $(event.currentTarget).parents('tr').attr('id');
       var table = $(event.currentTarget).parents('table');
-      var newLine = table.find('tr.new-inventory-line[ref="' + id + '"]');
+      var newLine = table.find('tr.new-inventory-line[ref="' + rowId + '"]');
       $(event.currentTarget).toggleClass('opened');
 
       if ($(event.currentTarget).hasClass('opened')) {
@@ -90,10 +90,10 @@ Drupal.behaviors.GarmentboxOrderItems = {
   // Update the "triple checkbox" on item-variant rows when thier inevntory
   // lines change.
   updateVariantCheckbox: function(variantCheckbox) {
-    var id = variantCheckbox.parents('tr').attr('id');
+    var rowId = variantCheckbox.parents('tr').attr('id');
     var table = variantCheckbox.parents('table');
-    var checked = table.find('tr[ref="' + id + '"] input[type="checkbox"]:checked').length;
-    var total = table.find('tr[ref="' + id + '"] input[type="checkbox"]').length;
+    var checked = table.find('tr[ref="' + rowId + '"] input[type="checkbox"]:checked').length;
+    var total = table.find('tr[ref="' + rowId + '"] input[type="checkbox"]').length;
 
     variantCheckbox.removeClass('checked partially-checked not-checked');
 
@@ -114,57 +114,76 @@ Drupal.behaviors.GarmentboxOrderItems = {
     }
   },
 
-  // Re-calculate variant production cost as inventory lines change.
-  updateVariant: function(table, row_id) {
-    var variant_nid = row_id.substring(8);
+  // Update the table wide totals.
+  updateTotals: function() {
+    var self = this;
+    var table = $(this.context).find('table#inventory-lines-table');
+    var totalItems = 0;
+    var totalPrice = 0;
+    table.find('tr.expandable').each(function(i, element) {
+      var rowId = $(element).attr('id');
+      var variantNid = rowId.substring(8);
+      var result = self.updateVariant(table, rowId, variantNid);
+      totalItems += result.items;
+      totalPrice += result.price;
+    });
 
+    // Set the values on "Total items" and "Total production price".
+    $(this.context).find('#edit-total-items').val(totalItems);
+    $(this.context).find('#edit-production-price').val('$' + Drupal.formatNumber(totalPrice, 2));
+  },
+
+  // Re-calculate variant production cost as inventory lines change.
+  updateVariant: function(table, rowId, variantNid) {
     // Update the production cost and quantities.
-    var item_price = Drupal.settings.garmentbox_factory.inventory_lines_data[variant_nid].item_price / 100;
-    var items_count = 0;
-    var variant_sizes = {};
+    var itemPrice = Drupal.settings.garmentbox_factory.inventory_lines_data[variantNid].item_price / 100;
+    var itemsCount = 0;
+    var variantSizes = {};
     // Sum the items on checked inventory lines.
-    table.find('tr.inventory-line[ref="' + row_id + '"] td:first-child input[type="checkbox"]:checked').each(function(i, element) {
+    table.find('tr.inventory-line[ref="' + rowId + '"] td:first-child input[type="checkbox"]:checked').each(function(i, element) {
       // Sum the inventory lines items counts.
-      var line_nid = $(element).val();
-      var line_data = Drupal.settings.garmentbox_factory.inventory_lines_data[variant_nid].lines[line_nid];
-      items_count += line_data.items_count;
+      var lineNid = $(element).val();
+      var lineData = Drupal.settings.garmentbox_factory.inventory_lines_data[variantNid].lines[lineNid];
+      itemsCount += lineData.items_count;
 
       // Sum the per size items counts.
-      for (var key in line_data.sizes) {
-        if (isNaN(variant_sizes[key])) {
-          variant_sizes[key] = 0;
+      for (var key in lineData.sizes) {
+        if (isNaN(variantSizes[key])) {
+          variantSizes[key] = 0;
         }
-
-        variant_sizes[key] += line_data.sizes[key];
+        variantSizes[key] += lineData.sizes[key];
       }
     });
 
     // Sum also the custom inventory inputs.
-    table.find('tr.new-inventory-line[ref="' + row_id + '"] input.new-inventory-items').each(function(i, element) {
+    table.find('tr.new-inventory-line[ref="' + rowId + '"] input.new-inventory-items').each(function(i, element) {
       var count = parseInt($(element).val());
       var tid = $(element).data('tid');
 
       if (!isNaN(count) && count >= 0) {
-        items_count += count;
+        itemsCount += count;
 
         // Add the count to the per size items counts.
-        if (isNaN(variant_sizes[tid])) {
-          variant_sizes[tid] = 0;
+        if (isNaN(variantSizes[tid])) {
+          variantSizes[tid] = 0;
         }
-        variant_sizes[tid] += count;
+        variantSizes[tid] += count;
       }
     });
-    var total_price = items_count * item_price;
-    var variantRow = table.find('tr#' + row_id);
-    variantRow.find('.item-price').text('$' + Drupal.formatNumber(total_price, 2));
+    var totalPrice = itemsCount * itemPrice;
+    var variantRow = table.find('tr#' + rowId);
+    variantRow.find('.item-price').text('$' + Drupal.formatNumber(totalPrice, 2));
 
     // Set the variant quantities.
     // Remove the existing  quantities.
     variantRow.find('.size-quantity').text('');
     // Re-set the quantities.
-    for (var tid in variant_sizes) {
-      variantRow.find('td[data-tid="' + tid + '"]').text(variant_sizes[tid]);
+    for (var tid in variantSizes) {
+      variantRow.find('td[data-tid="' + tid + '"]').text(variantSizes[tid]);
     }
+
+    // Return the variant totals for summing them in the grand total.
+    return {items: itemsCount, price: totalPrice};
   }
 };
 
