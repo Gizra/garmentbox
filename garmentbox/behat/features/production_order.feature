@@ -45,8 +45,8 @@ Feature: Test production order flow
     And I fill in "Small" with "2" in row containing "New items" in table "inventory-lines-table"
     Then the "Production cost" column of "Grey v-neck shirt" in table "inventory-lines-table" should be "$3,300.00"
     And the "Production cost" column of "New items" in table "inventory-lines-table" should be "$100.00"
-    And the "Total items" value should be "199"
-    And the "Production price" value should be "$7,501.00"
+    And the "Total items" input should have the value "199"
+    And the "Production price" input should have the value "$7,501.00"
 
   @api
   Scenario: Testing production order creation and editing.

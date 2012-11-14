@@ -120,6 +120,7 @@ Drupal.behaviors.GarmentboxOrderItems = {
     var table = $(this.context).find('table#inventory-lines-table');
     var totalItems = 0;
     var totalPrice = 0;
+    // Trigger the variants' update, and sum the results.
     table.find('tr.expandable').each(function(i, element) {
       var rowId = $(element).attr('id');
       var variantNid = rowId.substring(8);
@@ -155,13 +156,16 @@ Drupal.behaviors.GarmentboxOrderItems = {
       }
     });
 
+    var newItemsCount = 0;
     // Sum also the custom inventory inputs.
     table.find('tr.new-inventory-line[ref="' + rowId + '"] input.new-inventory-items').each(function(i, element) {
       var count = parseInt($(element).val());
+
       var tid = $(element).data('tid');
 
       if (!isNaN(count) && count >= 0) {
         itemsCount += count;
+        newItemsCount += count;
 
         // Add the count to the per size items counts.
         if (isNaN(variantSizes[tid])) {
@@ -170,9 +174,15 @@ Drupal.behaviors.GarmentboxOrderItems = {
         variantSizes[tid] += count;
       }
     });
+
+    // Update the "Production price" of the custom row.
+    var totalCustomItemPrice = newItemsCount * itemPrice;
+    var customRowPrice = table.find('tr.new-inventory-line[ref="' + rowId + '"] td.production-price');
+    customRowPrice.text('$' + Drupal.formatNumber(totalCustomItemPrice, 2));
+
     var totalPrice = itemsCount * itemPrice;
     var variantRow = table.find('tr#' + rowId);
-    variantRow.find('.item-price').text('$' + Drupal.formatNumber(totalPrice, 2));
+    variantRow.find('.production-price').text('$' + Drupal.formatNumber(totalPrice, 2));
 
     // Set the variant quantities.
     // Remove the existing  quantities.
@@ -181,6 +191,8 @@ Drupal.behaviors.GarmentboxOrderItems = {
     for (var tid in variantSizes) {
       variantRow.find('td[data-tid="' + tid + '"]').text(variantSizes[tid]);
     }
+
+
 
     // Return the variant totals for summing them in the grand total.
     return {items: itemsCount, price: totalPrice};

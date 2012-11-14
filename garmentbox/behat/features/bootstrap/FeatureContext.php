@@ -463,4 +463,19 @@ class FeatureContext extends DrupalContext {
       throw new \Exception("Found '$found' instead of '$content'.");
     }
   }
+
+  /**
+   * @Given /^the "([^"]*)" input should have the value "([^"]*)"$/
+   */
+  public function theInputShouldHaveTheValue($label, $value) {
+    $page = $this->getSession()->getPage();
+    $input = $page->find('xpath', "//label[.=\"$label \"]/../input");
+    if (!$input) {
+      throw new \Exception("An label with the value '$label' was not found.");
+    }
+    $found = $input->getValue();
+    if ($found != $value) {
+      throw new \Exception("Found '$found' instead of '$value'.");
+    }
+  }
 }

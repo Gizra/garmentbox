@@ -123,7 +123,7 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
   );
 
   $form['total_items'] = array(
-    '#title' => t('Total Items'),
+    '#title' => t('Total items'),
     '#type' => 'textfield',
     '#disabled' => TRUE,
     '#size' => 10,
@@ -254,7 +254,7 @@ function garmentbox_factory_production_order_items($raw_data) {
     $row['data'][] = garmentbox_item_get_main_material_icon($variant_nid);
     $row['data'][] = array(
       'data' => t('N/A'),
-      'class' => array('item-price'),
+      'class' => array('production-price'),
     );
     $row['data'][] = array(
       'data' => l(t('Add more items'), ''),
@@ -305,7 +305,10 @@ function garmentbox_factory_production_order_items($raw_data) {
       $row['data'][] = empty($inputs[$term->tid]) ? '' : $inputs[$term->tid];
     }
     $row['data'][] = '';
-    $row['data'][] = t('N/A');
+    $row['data'][] = array(
+      'data' => t('N/A'),
+      'class' => array('production-price'),
+    );
     $row['data'][] = '';
     $table[] = $row;
   }
