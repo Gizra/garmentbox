@@ -15,7 +15,6 @@ class GarmentboxUsers extends Migration {
     array('name', 'Username'),
     array('pass', 'Password'),
     array('mail', 'Email'),
-    array('role', 'Role'),
   );
 
   public $entityType = 'user';
@@ -26,7 +25,11 @@ class GarmentboxUsers extends Migration {
 
     $this->addFieldMapping('name', 'name');
     $this->addFieldMapping('pass', 'pass');
-    $this->addFieldMapping('role', 'role');
+    $this->addFieldMapping('mail', 'mail');
+    $this->addFieldMapping('roles')
+         ->defaultValue(DRUPAL_AUTHENTICATED_RID);
+    $this->addFieldMapping('status')
+         ->defaultValue(TRUE);
 
     // Create a map object for tracking the relationships between source rows
     $key = array(

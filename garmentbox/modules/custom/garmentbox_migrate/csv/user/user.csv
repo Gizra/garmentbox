@@ -1,2 +1,2 @@
-Unique ID,Username,Password,Email,Role
-user1,user,user,user@example.com,DRUPAL_AUTHENTICATED_RID
+Unique ID,Username,Password,Email
+user1,user,user,user@example.com
