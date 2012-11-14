@@ -8,6 +8,43 @@ use Guzzle\Service\Client;
 require 'vendor/autoload.php';
 
 class FeatureContext extends DrupalContext {
+
+  /**
+   * Initializes context.
+   *
+   * Every scenario gets its own context object.
+   *
+   * @param array $parameters.
+   *   Context parameters (set them up through behat.yml or behat.local.yml).
+   */
+  public function __construct(array $parameters) {
+    if (isset($parameters['drupal_users'])) {
+      $this->drupal_users = $parameters['drupal_users'];
+    }
+  }
+
+  /**
+   * Authenticates a user with password from configuration.
+   *
+   * @Given /^I am logged in as "([^"]*)"$/
+   */
+  public function iAmLoggedInAs($username) {
+    try {
+      $password = $this->drupal_users[$username];
+    } catch (Exception $e) {
+      throw new Exception("Password not found for '$username'.");
+    }
+
+    // Log in.
+    // Go to the user page.
+    $element = $this->getSession()->getPage();
+    $this->getSession()->visit($this->locatePath('/user'));
+    $element->fillField('Username', $username);
+    $element->fillField('Password', $password);
+    $submit = $element->findButton('Log in');
+    $submit->click();
+  }
+
   /**
    * @Given /^I am on a "([^"]*)" page titled "([^"]*)"(?:, in the tab "([^"]*)"|)$/
    */

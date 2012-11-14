@@ -1,27 +1,22 @@
 Feature: Test production order flow
   Test the addition and edit forms of production order nodes.
 
+  Background:
+    Given I am logged in as "user"
+
   @javascript
   Scenario: Viewing the add production-order page, with different Quantity/ Size.
-    Given I visit the front page
-    And I fill in "Username" with "dummyuser"
-    And I fill in "Password" with "dummyuser"
-    And I press "Log in"
-    And I visit "season/24"
+    Given I visit "season/24"
     And I click "Production Orders"
     When I click "Add new production order"
     Then the table "inventory-lines-table" should have the following <contents>:
-    | Include in order   | Item variation         | Quantity / Size             | Fabric  | Production cost | Add more items  |
-    | <checkbox> checked | Grey v-neck shirt      | Small 18 Medium 20 Large 42 | <image> | $4,000.00       | Add more items  |
-    | <checkbox> checked | Lines v-neck shirt     | Small 37 Medium 26 Large 29 | <image> | $2,438.00       | Add more items  |
+    | Include in order   | Item variation         | Small | Medium  | Large | Fabric  | Production cost | Add more items  |
+    | <checkbox> checked | Grey v-neck shirt      | 18    | 20      | 42    | <image> | $4,000.00       | Add more items  |
+    | <checkbox> checked | Lines v-neck shirt     | 37    | 26      | 29    | <image> | $2,438.00       | Add more items  |
 
   @javascript
   Scenario: Viewing the add production-order page with detailed variant information.
-    Given I visit the front page
-    And I fill in "Username" with "dummyuser"
-    And I fill in "Password" with "dummyuser"
-    And I press "Log in"
-    And I visit "season/24"
+    Given I visit "season/24"
     And I click "Production Orders"
     When I click "Add new production order"
     And I click "Grey v-neck shirt"

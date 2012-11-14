@@ -475,8 +475,12 @@ function garmentbox_factory_node_presave($node) {
   }
 
   $wrapper = entity_metadata_wrapper('node', $node);
-  $nids = array_keys(garmentbox_general_get_node_hierarchy($node));
-  $wrapper->field_reference_hierarchy->set($nids);
+  $nodes = garmentbox_general_get_node_hierarchy($node);
+  if (empty($nodes)) {
+    return;
+  }
+
+  $wrapper->field_reference_hierarchy->set(array_keys($nodes));
 }
 
 /**
