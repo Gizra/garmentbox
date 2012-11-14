@@ -50,6 +50,11 @@ function garmentbox_general_prepopulate_link_content_type_render($subtype, $conf
       $link_text = t('Add new item');
       break;
 
+    case 'material':
+      $field_name = '';
+      $link_text = t('Add new material');
+      break;
+
     default:
       return;
   }
