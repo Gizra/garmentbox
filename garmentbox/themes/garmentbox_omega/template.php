@@ -62,7 +62,6 @@ function garmentbox_omega_preprocess_material_node_garmentbox_header(&$variables
  * @see garmentbox_omega_preprocess_node()
  */
 function garmentbox_omega_preprocess_material_node(&$variables) {
-  $variables['theme_hook_suggestions'][] = 'node__material_page';
   $content = &$variables['content'];
 
   $hidden_fields = array('og_group_ref', 'body', 'field_images', 'field_nick_name', 'field_source_info');
