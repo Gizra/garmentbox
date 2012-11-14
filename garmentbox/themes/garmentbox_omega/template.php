@@ -59,7 +59,7 @@ function garmentbox_omega_preprocess_material_node_garmentbox_header(&$variables
 /**
  * Material node preprocess.
  *
- * @see garmentbox_omega_preprocess_node()
+ * @see garmentbox_omega_preprocess_node().
  */
 function garmentbox_omega_preprocess_material_node(&$variables) {
   $content = &$variables['content'];
