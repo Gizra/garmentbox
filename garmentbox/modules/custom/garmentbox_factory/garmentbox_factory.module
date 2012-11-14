@@ -232,8 +232,9 @@ function garmentbox_factory_production_order_items($raw_data) {
     );
     foreach ($size_tree as $term) {
       $row['data'][] = array(
-        'data' => t('N/A'),
+        'data' => t('-'),
         'class' => array('size-quantity'),
+        'data-tid' => $term->tid,
       );
     }
     $row['data'][] = garmentbox_item_get_main_material_icon($variant_nid);
@@ -422,6 +423,7 @@ function _garmentbox_factory_production_order_items_sizes_inputs($nid) {
           'name' => "variant_new_inventory[$nid][$tid]",
           'size' => 4,
           'class' => array('new-inventory-items'),
+          'data-tid' => $tid,
         ),
         '#autocomplete_path' => '',
       ),

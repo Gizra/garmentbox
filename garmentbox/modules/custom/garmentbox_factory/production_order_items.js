@@ -36,18 +36,18 @@ Drupal.behaviors.GarmentboxOrderItems = {
         checkboxes.removeAttr('checked');
       }
 
-      object.updateVariantCost(checkbox.parents('table'), id);
+      object.updateVariant(checkbox.parents('table'), id);
     });
 
     // Update the item price and quantity as the "Add more items" inputs get
     // changed.
     $(context).find('input.new-inventory-items').change(function(event) {
       var id = $(event.currentTarget).parents('tr').attr('ref');
-      object.updateVariantCost($(event.currentTarget).parents('table'), id);
+      object.updateVariant($(event.currentTarget).parents('table'), id);
     });
     $(context).find('input.new-inventory-items').keyup(function(event) {
       var id = $(event.currentTarget).parents('tr').attr('ref');
-      object.updateVariantCost($(event.currentTarget).parents('table'), id);
+      object.updateVariant($(event.currentTarget).parents('table'), id);
     });
 
     // Determine the class of the variants' checkboxes.
@@ -56,14 +56,14 @@ Drupal.behaviors.GarmentboxOrderItems = {
       var id = $(event.currentTarget).parents('tr').attr('ref');
 
       object.updateVariantCheckbox(table.find('#' + id + ' input[type="checkbox"]'));
-      object.updateVariantCost(table, id);
+      object.updateVariant(table, id);
     });
 
     // Update the variant checkboxes on load.
     $(context).find('.triple-checkbox').each(function(index, checkbox) {
       object.updateVariantCheckbox($(checkbox));
       var id = $(checkbox).parents('tr').attr('id');
-      object.updateVariantCost($(checkbox).parents('table'), id);
+      object.updateVariant($(checkbox).parents('table'), id);
     });
 
     // Show the "Add more items" row.
@@ -115,27 +115,51 @@ Drupal.behaviors.GarmentboxOrderItems = {
   },
 
   // Re-calculate variant production cost as inventory lines change.
-  updateVariantCost: function(table, id) {
-    var variant_nid = id.substring(8);
+  updateVariant: function(table, row_id) {
+    var variant_nid = row_id.substring(8);
+
+    // Update the production cost and quantities.
     var item_price = Drupal.settings.garmentbox_factory.inventory_lines_data[variant_nid].item_price / 100;
     var items_count = 0;
+    var variant_sizes = {};
+    // Sum the items on checked inventory lines.
+    table.find('tr.inventory-line[ref="' + row_id + '"] td:first-child input[type="checkbox"]:checked').each(function(i, element) {
+      // Sum the inventory lines items counts.
+      var line_nid = $(element).val();
+      var line_data = Drupal.settings.garmentbox_factory.inventory_lines_data[variant_nid].lines[line_nid];
+      items_count += line_data.items_count;
 
-    // Count the items on checked inventory lines.
-    table.find('tr.inventory-line[ref="' + id + '"] td:first-child input[type="checkbox"]:checked').each(function(i, element) {
-      items_count += Drupal.settings.garmentbox_factory.inventory_lines_data[variant_nid].lines[$(element).val()].items_count;
-    });
+      // Sum the per size items counts.
+      for (var key in line_data.sizes) {
+        if (isNaN(variant_sizes[key])) {
+          variant_sizes[key] = 0;
+        }
 
-    // Count also the custom inventory inputs.
-    table.find('tr.new-inventory-line[ref="' + id + '"] input.new-inventory-items').each(function(i, element) {
-      var count = parseInt($(element).val());
-
-      if (!isNaN(count) && count >= 0) {
-        items_count += count;
+        variant_sizes[key] += line_data.sizes[key];
       }
     });
 
+    // Sum also the custom inventory inputs.
+    table.find('tr.new-inventory-line[ref="' + row_id + '"] input.new-inventory-items').each(function(i, element) {
+      var count = parseInt($(element).val());
+      var tid = $(element).data('tid');
+
+      if (!isNaN(count) && count >= 0) {
+        items_count += count;
+
+        // Add the count to the per size items counts.
+        if (isNaN(variant_sizes[tid])) {
+          variant_sizes[tid] = 0;
+        }
+        variant_sizes[tid] += count;
+      }
+    });
     var total_price = items_count * item_price;
-    table.find('tr#' + id + ' .item-price').text('$' + Drupal.formatNumber(total_price, 2));
+    var variantRow = table.find('tr#' + row_id);
+    variantRow.find('.item-price').text('$' + Drupal.formatNumber(total_price, 2));
+    for (var tid in variant_sizes) {
+      variantRow.find('td[data-tid="' + tid + '"]').text(variant_sizes[tid]);
+    }
   }
 };
 
