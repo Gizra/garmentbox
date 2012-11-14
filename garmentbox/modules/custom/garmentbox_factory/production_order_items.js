@@ -157,6 +157,11 @@ Drupal.behaviors.GarmentboxOrderItems = {
     var total_price = items_count * item_price;
     var variantRow = table.find('tr#' + row_id);
     variantRow.find('.item-price').text('$' + Drupal.formatNumber(total_price, 2));
+
+    // Set the variant quantities.
+    // Remove the existing  quantities.
+    variantRow.find('.size-quantity').text('');
+    // Re-set the quantities.
     for (var tid in variant_sizes) {
       variantRow.find('td[data-tid="' + tid + '"]').text(variant_sizes[tid]);
     }
