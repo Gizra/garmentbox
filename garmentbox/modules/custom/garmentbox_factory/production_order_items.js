@@ -85,6 +85,14 @@ Drupal.behaviors.GarmentboxOrderItems = {
         $(event.currentTarget).text(Drupal.t('Add more items'));
       }
     });
+
+
+    // Show the "Add a variant" row.
+    var tableBody = $(context).find('table#inventory-lines-table tbody');
+    $(context).find('a#add-variant').click(function(event) {
+      event.preventDefault();
+      table.find('tr.other-variant.hidden').clone().appendTo(tableBody).removeClass('hidden');
+    });
   },
 
   // Update the "triple checkbox" on item-variant rows when thier inevntory
