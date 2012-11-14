@@ -770,7 +770,7 @@ function garmentbox_factory_field_default_fields() {
     'field_instance' => array(
       'bundle' => 'production_order',
       'default_value' => NULL,
-      'default_value_function' => '',
+      'default_value_function' => 'entityreference_prepopulate_field_default_value',
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -803,7 +803,11 @@ function garmentbox_factory_field_default_fields() {
       'settings' => array(
         'behaviors' => array(
           'prepopulate' => array(
-            'status' => 0,
+            'action' => 'hide',
+            'fallback' => 'redirect',
+            'og_context' => 0,
+            'skip_perm' => '0',
+            'status' => 1,
           ),
         ),
         'user_register_form' => FALSE,
