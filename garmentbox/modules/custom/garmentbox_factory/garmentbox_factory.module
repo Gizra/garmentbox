@@ -203,8 +203,12 @@ function garmentbox_factory_get_factory_item_variants($season_nid, $factory_nid)
 function garmentbox_factory_get_production_order_inventory_lines($item_variant_nids, $production_order_nid = NULL) {
   $nids = array();
 
+  $term = taxonomy_get_term_by_name('Future production', 'inventory_type');
+  $tid = key($term);
+
   $query = db_select('node', 'n');
   $query->innerJoin('field_data_field_item_variant', 'iv', 'iv.entity_id = n.nid');
+  $query->innerJoin('field_data_field_inventory_type', 'it', 'it.entity_id = n.nid');
   // Left joining on production order for fetching also lines without prodiction
   // order.
   $query->leftJoin('field_data_field_production_order', 'po', 'po.entity_id = n.nid');
@@ -214,6 +218,7 @@ function garmentbox_factory_get_production_order_inventory_lines($item_variant_n
     ->condition('n.status', NODE_PUBLISHED)
     ->condition('iv.entity_type', 'node')
     ->condition('iv.field_item_variant_target_id', $item_variant_nids, 'IN')
+    ->condition('it.entity_type', 'node')
     // Fetch either the lines that are attached to the current production order,
     // or the lines that are not attached to any production order.
     ->condition(db_or()
@@ -221,7 +226,12 @@ function garmentbox_factory_get_production_order_inventory_lines($item_variant_n
         ->condition('po.entity_type', 'node')
         ->condition('po.field_production_order_target_id', $production_order_nid)
       )
-      ->condition('po.field_production_order_target_id', NULL, 'IS NULL')
+      // When fetching an inventory line that is not attached to the production
+      // order, check that its type is 'Future production'.
+      ->condition(db_and()
+        ->condition('po.field_production_order_target_id', NULL, 'IS NULL')
+        ->condition('it.field_inventory_type_target_id', $tid)
+      )
     );
 
   $result = $query->execute();
