@@ -386,7 +386,7 @@ class FeatureContext extends DrupalContext {
 
     $cell = self::findTableCellByColumTitleAndRowValue($table_element, $column_title, $value_in_row);
     $checkbox = $cell->find('xpath', "//input[@type='checkbox']");
-    $checkbox->click();
+    $checkbox->uncheck();
   }
 
   /**
@@ -478,4 +478,22 @@ class FeatureContext extends DrupalContext {
       throw new \Exception("Found '$found' instead of '$value'.");
     }
   }
+
+  /**
+   * @Then /^the "([^"]*)" checkbox in row containing "([^"]*)" in table "([^"]*)" should be unchecked$/
+   */
+  public function theCheckboxInRowContainingInTableShouldBeUnchecked($column_title, $value_in_row, $table_id) {
+    $page = $this->getSession()->getPage();
+    $table_element = $page->find('css', "table#$table_id");
+
+    $cell = self::findTableCellByColumTitleAndRowValue($table_element, $column_title, $value_in_row);
+    $checkbox = $cell->find('xpath', "//input[@type='checkbox']");
+    if (!$checkbox) {
+      throw new \Exception('No such checkbox found.');
+    }
+    if ($checkbox->getAttribute('checked')) {
+      throw new \Exception('Checkbox is checked.');
+    }
+  }
+
 }
