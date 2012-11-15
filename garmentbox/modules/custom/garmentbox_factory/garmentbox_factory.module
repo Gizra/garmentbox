@@ -334,10 +334,21 @@ function garmentbox_factory_production_order_items($raw_data) {
     $row = array(
       'data' => array(),
       'ref' => 'variant-' . $variant_nid,
-      'class' => array('hidden', 'new-inventory-line'),
+      'class' => array('disabled', 'new-inventory-line'),
     );
-    $row['data'][] = '';
-    $row['data'][] = t('New items');
+
+    $variables = array(
+      'element' => array(
+        '#attributes' => array(
+          'name' => "include_new_inventory_line[$variant_nid]",
+          'value' => $variant_nid,
+          'class' => array('add-inventory-line'),
+        ),
+      ),
+    );
+    $row['data'][] = theme('checkbox', $variables);
+
+    $row['data'][] = t('@item - Extra items', array('@item' => $variant['title']));
 
     $inputs = _garmentbox_factory_production_order_items_sizes_inputs($variant_nid);
     foreach ($size_tree as $term) {

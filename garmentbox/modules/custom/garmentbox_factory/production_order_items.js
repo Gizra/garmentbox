@@ -25,7 +25,8 @@ Drupal.behaviors.GarmentboxOrderItems = {
     $(context).find('tr.expandable input[type="checkbox"]').change(function(event) {
       var checkbox = $(event.currentTarget);
       var rowId = checkbox.parents('tr').attr('id');
-      var checkboxes = checkbox.parents('table').find('tr[ref="' + rowId + '"] input[type="checkbox"]');
+      var table = checkbox.parents('table');
+      var checkboxes = table.find('tr.inventory-line[ref="' + rowId + '"] input[type="checkbox"]');
 
       checkbox.removeClass('checked partially-checked not-checked');
 
@@ -35,6 +36,10 @@ Drupal.behaviors.GarmentboxOrderItems = {
       }
       else {
         checkboxes.removeAttr('checked');
+        // When unchecking, uncheck also the "New item" checkbox.
+        var row = table.find('tr.new-inventory-line[ref="' + rowId + '"]');
+        row.find('input[type="checkbox"]').removeAttr('checked');
+        row.find('input.new-inventory-items').attr('disabled', 'disabled');
       }
 
       self.updateTotals();
@@ -66,24 +71,22 @@ Drupal.behaviors.GarmentboxOrderItems = {
     // Update the totals on load.
     self.updateTotals();
 
-    // Show the "Add more items" row.
-    $(context).find('.add-inventory-line a').click(function(event) {
-      event.preventDefault();
-      var rowId = $(event.currentTarget).parents('tr').attr('id');
-      var table = $(event.currentTarget).parents('table');
-      var newLine = table.find('tr.new-inventory-line[ref="' + rowId + '"]');
-      $(event.currentTarget).toggleClass('opened');
+    // Disble the "Extra items" row on load.
+    $(context).find('input.new-inventory-items').attr('disabled', 'disabled');
 
-      if ($(event.currentTarget).hasClass('opened')) {
-        // TODO: Enable the inputs.
-        newLine.show().removeClass('hidden');
-        $(event.currentTarget).text(Drupal.t('Cancel'));
+    // Enable the "Extra items" row.
+    $(context).find('.add-inventory-line').change(function(event) {
+      var row = $(event.currentTarget).parents('tr');
+      var rowId = row.attr('id');
+      var table = $(event.currentTarget).parents('table');
+
+      if ($(event.currentTarget).attr('checked')) {
+        row.find('input.new-inventory-items').removeAttr('disabled');
       }
       else {
-        // TODO: Disable the inputs.
-        newLine.hide().addClass('hidden');;
-        $(event.currentTarget).text(Drupal.t('Add more items'));
+        row.find('input.new-inventory-items').attr('disabled', 'disabled');
       }
+      self.updateTotals();
     });
   },
 
@@ -92,8 +95,8 @@ Drupal.behaviors.GarmentboxOrderItems = {
   updateVariantCheckbox: function(variantCheckbox) {
     var rowId = variantCheckbox.parents('tr').attr('id');
     var table = variantCheckbox.parents('table');
-    var checked = table.find('tr[ref="' + rowId + '"] input[type="checkbox"]:checked').length;
-    var total = table.find('tr[ref="' + rowId + '"] input[type="checkbox"]').length;
+    var checked = table.find('tr.inventory-line[ref="' + rowId + '"] input[type="checkbox"]:checked').length;
+    var total = table.find('tr.inventory-line[ref="' + rowId + '"] input[type="checkbox"]').length;
 
     variantCheckbox.removeClass('checked partially-checked not-checked');
 
@@ -159,19 +162,21 @@ Drupal.behaviors.GarmentboxOrderItems = {
     var newItemsCount = 0;
     // Sum also the custom inventory inputs.
     table.find('tr.new-inventory-line[ref="' + rowId + '"] input.new-inventory-items').each(function(i, element) {
-      var count = parseInt($(element).val());
+      if (!$(element).attr('disabled')) {
+        var count = parseInt($(element).val());
 
-      var tid = $(element).data('tid');
+        var tid = $(element).data('tid');
 
-      if (!isNaN(count) && count >= 0) {
-        itemsCount += count;
-        newItemsCount += count;
+        if (!isNaN(count) && count >= 0) {
+          itemsCount += count;
+          newItemsCount += count;
 
-        // Add the count to the per size items counts.
-        if (isNaN(variantSizes[tid])) {
-          variantSizes[tid] = 0;
+          // Add the count to the per size items counts.
+          if (isNaN(variantSizes[tid])) {
+            variantSizes[tid] = 0;
+          }
+          variantSizes[tid] += count;
         }
-        variantSizes[tid] += count;
       }
     });
 
