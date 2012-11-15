@@ -17,6 +17,7 @@ features[variable][] = pathauto_node_page_pattern
 features[variable][] = pathauto_node_pattern
 features[variable][] = pathauto_node_pattern_pattern
 features[variable][] = pathauto_node_pattern_task_pattern
+features[variable][] = pathauto_node_production_order_pattern
 features[variable][] = pathauto_node_season_pattern
 features[variable][] = pathauto_node_task_pattern
 features[variable][] = pathauto_node_vendor_pattern
