@@ -57,7 +57,7 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
   }
   $factory_nid = $form['field_factory'][LANGUAGE_NONE]['#default_value'];
   $item_variant_nids = garmentbox_factory_get_factory_item_variants($season_nid, $factory_nid);
-  $inventory_line_nids = garmentbox_factory_get_production_order_inventory_lines($item_variant_nids, $production_order_nid);
+  $inventory_line_nids = garmentbox_factory_get_item_variants_inventory_lines($item_variant_nids, $production_order_nid);
   $raw_data = garmentbox_factory_production_order_items_data($production_order_nid ? 'edit' : 'create', $item_variant_nids, $inventory_line_nids);
   // Dummy inputs, that will actually be added manually inside
   // inventory_lines_table as checkboxes.
@@ -200,7 +200,7 @@ function garmentbox_factory_get_factory_item_variants($season_nid, $factory_nid)
  * @return
  *   Array of inventory lines node IDs.
  */
-function garmentbox_factory_get_production_order_inventory_lines($item_variant_nids, $production_order_nid = NULL) {
+function garmentbox_factory_get_item_variants_inventory_lines($item_variant_nids, $production_order_nid = NULL) {
   $nids = array();
 
   $term = taxonomy_get_term_by_name('Future production', 'inventory_type');
@@ -232,7 +232,8 @@ function garmentbox_factory_get_production_order_inventory_lines($item_variant_n
         ->condition('po.field_production_order_target_id', NULL, 'IS NULL')
         ->condition('it.field_inventory_type_target_id', $tid)
       )
-    );
+    )
+    ->orderBy('n.nid');
 
   $result = $query->execute();
   foreach ($result as $row) {
@@ -240,6 +241,27 @@ function garmentbox_factory_get_production_order_inventory_lines($item_variant_n
   }
 
   return $nids;
+}
+
+/**
+ * Fetch the inventory lines attached to a given production order node.
+ *
+ * @param $nid
+ *   A prodution order node ID.
+ *
+ * @return
+ *   Array of inventory lines node IDs.
+ */
+function garmentbox_factory_get_production_order_inventory_lines($nid) {
+  $query = new EntityFieldQuery();
+  $result = $query
+    ->entityCondition('entity_type', 'node')
+    ->propertyCondition('type', 'inventory_line')
+    ->propertyCondition('status', NODE_PUBLISHED)
+    ->fieldCondition('field_production_order', 'target_id', $nid)
+    ->execute();
+
+  return !empty($result['node']) ? array_keys($result['node']) : array();
 }
 
 /**
@@ -497,55 +519,22 @@ function _garmentbox_factory_production_order_items_sizes_inputs($nid) {
 }
 
 /**
- * Implements hook_node_insert().
- *
- * When a production order is created, Set the production order reference on
- * the related inventory line nodes.
- */
-function garmentbox_factory_node_insert($node) {
-  if ($node->type != 'production_order') {
-    return;
-  }
-
-  foreach ($node->production_order_inventory_lines as $nid) {
-    $wrapper = entity_metadata_wrapper('node', $nid);
-    $wrapper->field_production_order->set($node->nid);
-    $wrapper->save();
-  }
-
-  // Handle creation of new inventory lines.
-  foreach ($node->variant_new_inventory as $item_variant_nid => $quantity_info) {
-    // Check if the variant's has any non-zero quantity.
-    $create_inventory_line = FALSE;
-    foreach ($quantity_info as $quantity) {
-      if ($quantity) {
-        $create_inventory_line = TRUE;
-      }
-    }
-
-    if ($create_inventory_line) {
-      garmentbox_factory_create_inventory_line($node->nid, $item_variant_nid, $quantity_info);
-    }
-  }
-}
-
-/**
  * Implements hook_node_presave().
  *
+ * When a production order is created or updated, Set the production order
+ * reference on the related inventory line nodes.
  * Attach inventory lines to a production order through the hierarchy field.
  */
 function garmentbox_factory_node_presave($node) {
   if ($node->type != 'production_order' && $node->type != 'inventory_line') {
     return;
   }
-
+  // Set the reference hierarchy.
   $wrapper = entity_metadata_wrapper('node', $node);
   $nodes = garmentbox_general_get_node_hierarchy($node);
-  if (empty($nodes)) {
-    return;
+  if (!empty($nodes)) {
+    $wrapper->field_reference_hierarchy->set(array_keys($nodes));
   }
-
-  $wrapper->field_reference_hierarchy->set(array_keys($nodes));
 }
 
 /**
@@ -566,8 +555,13 @@ function garmentbox_factory_create_inventory_line($production_order_nid, $item_v
   node_object_prepare($node);
 
   $wrapper = entity_metadata_wrapper('node', $node);
-  // $wrapper->field_production_order->set($production_order_nid);
+  $wrapper->field_production_order->set($production_order_nid);
   $wrapper->field_item_variant->set($item_variant_nid);
+
+  // Set the inventory line type to 'Current production'.
+  $term = taxonomy_get_term_by_name('Current production', 'inventory_type');
+  $tid = key($term);
+  $wrapper->field_inventory_type->set($tid);
 
   // Create field collection items for the quantity info items.
   foreach ($quantity_info as $tid => $quantity) {
@@ -587,15 +581,19 @@ function garmentbox_factory_create_inventory_line($production_order_nid, $item_v
 }
 
 /**
- * Implements hook_node_update().
+ * Implements hook_node_delete().
  *
- * When a production order is created, Set the production order reference on
- * the related inventory line nodes.
+ * When a production order is deleted, remove the reference from attached
+ * inventory lines and set their type to 'Future production'.
  */
-function garmentbox_factory_node_update($node) {
+function garmentbox_factory_node_delete($node) {
   if ($node->type != 'production_order') {
     return;
   }
+
+  // Set the type of removed inventory lines to 'Future production'.
+  $term = taxonomy_get_term_by_name('Future production', 'inventory_type');
+  $tid = key($term);
 
   // Remove references from removed inventory lines.
   $stored_inventory_lines = garmentbox_factory_get_production_order_inventory_lines($node->nid);
@@ -603,7 +601,79 @@ function garmentbox_factory_node_update($node) {
     if (empty($node->production_order_inventory_lines[$nid])) {
       $wrapper = entity_metadata_wrapper('node', $nid);
       $wrapper->field_production_order->set(NULL);
+      $wrapper->field_inventory_type->set($tid);
       $wrapper->save();
+    }
+  }
+}
+
+/**
+ * Implements hook_node_insert().
+ *
+ * When a production order is created, Set the production order reference on
+ * the related inventory line nodes.
+ */
+function garmentbox_factory_node_insert($node) {
+  if ($node->type == 'production_order') {
+    garmentbox_factory_update_production_order($node);
+  }
+}
+
+/**
+ * Implements hook_node_update().
+ */
+function garmentbox_factory_node_update($node) {
+  if ($node->type == 'production_order') {
+    garmentbox_factory_update_production_order($node);
+  }
+}
+
+/**
+ * Update the inventory lines attached to a production order when it's created
+ * or changed.
+ *
+ * @param $node
+ *   The production order node.
+ */
+function garmentbox_factory_update_production_order($node) {
+  // If the node already exists, start by removing inventory lines references
+  // that are no longer relevant.
+  // Set the type of removed inventory lines to 'Future production'.
+  $term = taxonomy_get_term_by_name('Future production', 'inventory_type');
+  $tid = key($term);
+  $attached_inventory_lines = garmentbox_factory_get_production_order_inventory_lines($node->nid);
+  foreach($attached_inventory_lines as $nid) {
+    if (empty($node->production_order_inventory_lines[$nid])) {
+      $wrapper = entity_metadata_wrapper('node', $nid);
+      $wrapper->field_production_order->set(NULL);
+      $wrapper->field_inventory_type->set($tid);
+      $wrapper->save();
+    }
+  }
+
+  // Set the type of attached inventory lines to 'Current production'.
+  $term = taxonomy_get_term_by_name('Current production', 'inventory_type');
+  $tid = key($term);
+
+  foreach ($node->production_order_inventory_lines as $nid) {
+    $wrapper = entity_metadata_wrapper('node', $nid);
+    $wrapper->field_production_order->set($node->nid);
+    $wrapper->field_inventory_type->set($tid);
+    $wrapper->save();
+  }
+
+  // Handle creation of new inventory lines.
+  foreach ($node->variant_new_inventory as $item_variant_nid => $quantity_info) {
+    // Check if the variant's has any non-zero quantity.
+    $create_inventory_line = FALSE;
+    foreach ($quantity_info as $quantity) {
+      if ($quantity) {
+        $create_inventory_line = TRUE;
+      }
+    }
+
+    if ($create_inventory_line) {
+      garmentbox_factory_create_inventory_line($node->nid, $item_variant_nid, $quantity_info);
     }
   }
 }
