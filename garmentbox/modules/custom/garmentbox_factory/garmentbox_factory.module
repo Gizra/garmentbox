@@ -119,10 +119,10 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
   // Validation for the custom quantity fields.
   $form['#validate'][] = 'garmentbox_factory_form_production_order_node_form_validate';
 
-  $form['add_variant_button'] = array(
-    '#markup' => l(t('Add a variant'), '', array('attributes' => array('id' => 'add-variant'))),
-    '#weight' => 55,
-  );
+  // $form['add_variant_button'] = array(
+    // '#markup' => l(t('Add a variant'), '', array('attributes' => array('id' => 'add-variant'))),
+    // '#weight' => 55,
+  // );
 
   $form['total_items'] = array(
     '#title' => t('Total items'),

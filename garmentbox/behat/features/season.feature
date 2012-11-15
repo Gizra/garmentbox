@@ -32,17 +32,18 @@ Feature: Test Season page
     |         | Variant            | Main material | Status     | Retail price | Wholesale price |
     | <image> | Black v-neck shirt | <image>       | Needs work | $100.00      | $70.00          |
 
-  @api
+  @javascript
   Scenario: Correct content is shown on the season inventory list.
-    Given I am logged in as a user with the "authenticated user" role
-    And I am on a "season" page titled "Autumn-Winter 2013 Women", in the tab "inventory"
+    Given I am logged in as "user"
+    And I visit "season/24/inventory"
+    When I click the row of "Lines v-neck shirt - Total"
     Then I should see a table titled "Inventory summary" with the following <contents>:
-    | Variation                   | Small                           | Medium                                        | Large                                 | Type                                                      |
-    | Lines v-neck shirt - Total  | 19 Stock 9 Available 13 Ordered | 7 Stock 0 Available 10 Ordered 7 Future stock | 8 Stock 8 Available 11 Future stock   | All types Except of Consignment, Defective, Sent / Sold.  |
-    | Lines v-neck shirt          | 15 10 Ordered                   | 9 9 Ordered                                   | 10 10 Ordered                         | Sent / Sold                                               |
-    | Lines v-neck shirt          | 19 10 Ordered                   | 7 7 Ordered                                   | 8                                     | Regular stock                                             |
-    | Lines v-neck shirt          | 1 1 Ordered                     | 7                                             | 7                                     | Future production                                         |
-    | Lines v-neck shirt          | 2 2 Ordered                     | 3 3 Ordered                                   | 4                                     | Current production                                        |
+    | Variation                   | Small               | Medium                                          | Large                                           | Type                                                      |
+    | Lines v-neck shirt - Total  | 0 Stock 0 Available | 12 Stock 0 Available 17 Ordered 7 Future stock  | 22 Stock 17 Available 6 Ordered 11 Future stock | All types Except of Consignment, Defective, Sent / Sold.  |
+    | Lines v-neck shirt          | 0                   | 19 14 Ordered                                   | 15 15 Ordered                                   | Sent / Sold                                               |
+    | Lines v-neck shirt          | 0                   | 12 12 Ordered                                   | 22 5 Ordered                                    | Regular stock                                             |
+    | Lines v-neck shirt          | 0                   | 9 1 Ordered                                     | 7                                               | Future production                                         |
+    | Lines v-neck shirt          | 0                   | 4 4 Ordered                                     | 5 1 Ordered                                     | Current production                                        |
 
   @api
   Scenario: Correct content is shown on the season orders list.
@@ -55,8 +56,8 @@ Feature: Test Season page
     | Variation           | Small | Medium  | Large | Total | Status              |
     | Black v-neck shirt  | 0     | 6       | 5     | 11    | Current production  |
     | Grey v-neck shirt   | 5     | 0       | 10    | 15    | Consignment         |
-    | Lines v-neck shirt  | 5     | 7       | 10    | 22    | Sent / Sold         |
-    | Lines v-neck shirt  | 1     | 0       | 0     | 1     | Future production   |
+    | Lines v-neck shirt  | 0     | 12      | 10    | 22    | Sent / Sold         |
+    | Lines v-neck shirt  | 0     | 1       | 0     | 1     | Future production   |
 
   @api
   Scenario: Verify redirections from the front page to the season items tab.

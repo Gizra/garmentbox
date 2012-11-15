@@ -25,7 +25,7 @@ Feature: Test Item page
     | Fix marker          | Needs work  | <ignore> | 0       | <ignore>     | <ignore> | edit    |
     And I should see "Total open tasks: 2"
 
-  @javascript @ww
+  @javascript
   Scenario: Correct content is shown on the item inventory list.
     Given I am logged in as "user"
     And I visit "/item/35"
