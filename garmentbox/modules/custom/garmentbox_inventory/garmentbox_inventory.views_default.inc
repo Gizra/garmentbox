@@ -301,6 +301,33 @@ function garmentbox_inventory_views_default_views() {
   $handler->display->display_options['fields']['field_in_warehouse']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_in_warehouse']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_in_warehouse']['field_api_classes'] = 0;
+  /* Field: Content: Production order */
+  $handler->display->display_options['fields']['field_production_order']['id'] = 'field_production_order';
+  $handler->display->display_options['fields']['field_production_order']['table'] = 'field_data_field_production_order';
+  $handler->display->display_options['fields']['field_production_order']['field'] = 'field_production_order';
+  $handler->display->display_options['fields']['field_production_order']['label'] = 'Production ordered';
+  $handler->display->display_options['fields']['field_production_order']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['field_production_order']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_production_order']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_production_order']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_production_order']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_production_order']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_production_order']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_production_order']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_production_order']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_production_order']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['field_production_order']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_production_order']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_production_order']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_production_order']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['field_production_order']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_production_order']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['field_production_order']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_production_order']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['field_production_order']['settings'] = array(
+    'link' => 1,
+  );
+  $handler->display->display_options['fields']['field_production_order']['field_api_classes'] = 0;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
