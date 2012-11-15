@@ -19,7 +19,6 @@ Feature: Test production order flow
     And I click "Production Orders"
     When I click "Add new production order"
     And I click "Grey v-neck shirt"
-    And I click "Lines v-neck shirt"
     And I click "Add more items"
     Then the table "inventory-lines-table" should have the following <contents>:
     | Include in order    | Item variation         | Small   | Medium  | Large   | Fabric  | Production cost | Add more items  |
@@ -55,7 +54,6 @@ Feature: Test production order flow
     And I click "Production order"
     When I click "Edit"
     Then the "Include in order" checkbox in row containing "Customer High Couture" in table "inventory-lines-table" should be unchecked
-                |
 
   @api
   Scenario: Test URL generation for create link.

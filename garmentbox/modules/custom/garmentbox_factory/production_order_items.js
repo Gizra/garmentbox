@@ -85,14 +85,6 @@ Drupal.behaviors.GarmentboxOrderItems = {
         $(event.currentTarget).text(Drupal.t('Add more items'));
       }
     });
-
-
-    // Show the "Add a variant" row.
-    var tableBody = $(context).find('table#inventory-lines-table tbody');
-    $(context).find('a#add-variant').click(function(event) {
-      event.preventDefault();
-      table.find('tr.other-variant.hidden').clone().appendTo(tableBody).removeClass('hidden');
-    });
   },
 
   // Update the "triple checkbox" on item-variant rows when thier inevntory
@@ -199,8 +191,6 @@ Drupal.behaviors.GarmentboxOrderItems = {
     for (var tid in variantSizes) {
       variantRow.find('td[data-tid="' + tid + '"]').text(variantSizes[tid]);
     }
-
-
 
     // Return the variant totals for summing them in the grand total.
     return {items: itemsCount, price: totalPrice};
