@@ -132,6 +132,10 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
  * Validate the new inventory forms manually.
  */
 function garmentbox_factory_form_production_order_node_form_validate(&$form, &$form_state) {
+  if (empty($form_state['values']['variant_new_inventory'])) {
+    return;
+  }
+
   foreach ($form_state['values']['variant_new_inventory'] as $nid => $size_data) {
     foreach ($size_data as $tid => $quantity) {
       if (!$quantity) {
