@@ -118,18 +118,6 @@ function garmentbox_material_views_default_views() {
   $handler->display->display_options['fields']['title']['empty_zero'] = 0;
   $handler->display->display_options['fields']['title']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['title']['link_to_node'] = 1;
-  /* Contextual filter: Field collection item: Material item (field_material_item) */
-  $handler->display->display_options['arguments']['field_material_item_target_id']['id'] = 'field_material_item_target_id';
-  $handler->display->display_options['arguments']['field_material_item_target_id']['table'] = 'field_data_field_material_item';
-  $handler->display->display_options['arguments']['field_material_item_target_id']['field'] = 'field_material_item_target_id';
-  $handler->display->display_options['arguments']['field_material_item_target_id']['relationship'] = 'field_material_item_target_id';
-  $handler->display->display_options['arguments']['field_material_item_target_id']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['field_material_item_target_id']['default_argument_skip_url'] = 0;
-  $handler->display->display_options['arguments']['field_material_item_target_id']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_material_item_target_id']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_material_item_target_id']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['field_material_item_target_id']['break_phrase'] = 0;
-  $handler->display->display_options['arguments']['field_material_item_target_id']['not'] = 0;
 
   /* Display: Content pane */
   $handler = $view->new_display('panel_pane', 'Content pane', 'panel_pane_1');
