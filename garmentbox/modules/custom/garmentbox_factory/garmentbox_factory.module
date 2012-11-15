@@ -459,7 +459,7 @@ function garmentbox_factory_production_order_items_data($op, $item_variant_nids,
       $inventory_line_nid = $inventory_line_wrapper->getIdentifier();
       // The order might have variants of different factories. Only consider
       // variants that were selected before.
-      if (!empty($data[$variant_nid])) {
+      if (!empty($data[$variant_nid]['lines'][$inventory_line_nid])) {
         $data[$variant_nid]['lines'][$inventory_line_nid]['customer'] = $order_link;
       }
     }
