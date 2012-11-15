@@ -304,7 +304,8 @@ html.js fieldset.collapsible.collapsed .fieldset-legend {
     margin: 0;
     float: left;
     margin-top: 32px;
-    margin-left: 5px; }
+    margin-left: 5px;
+    max-width: 990px; }
     #title .tabs a {
       background-color: transparent;
       border: none;
@@ -413,6 +414,48 @@ section.content {
   #add-task.secondary-button a:before {
     content: url("../images/gray-plus.png");
     margin-right: 8px; }
+
+.node-type-material .pane-node-field-source-info {
+  position: relative;
+  margin-top: 40px; }
+  .node-type-material .pane-node-field-source-info table {
+    width: 100%; }
+    .node-type-material .pane-node-field-source-info table .field_collection_item_operations {
+      width: 85px; }
+    .node-type-material .pane-node-field-source-info table .field_price {
+      width: 150px; }
+  .node-type-material .pane-node-field-source-info .action-links li {
+    list-style-type: none; }
+    .node-type-material .pane-node-field-source-info .action-links li a {
+      position: absolute;
+      right: 0;
+      top: 15px;
+      border: 1px solid #60636a;
+      border-radius: 5px;
+      padding: 5px 8px;
+      color: #27282d;
+      border-color: #636468;
+      background: #acb4b4;
+      /* Old browsers */
+      background: -moz-linear-gradient(top, #acb4b4 0%, #bdd5d5 4%, #a7c7c7 8%, #97bdbd 27%, #94bbbb 35%, #93baba 77%, #8fb4b4 100%);
+      /* FF3.6+ */
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #acb4b4), color-stop(4%, #bdd5d5), color-stop(8%, #a7c7c7), color-stop(27%, #97bdbd), color-stop(35%, #94bbbb), color-stop(77%, #93baba), color-stop(100%, #8fb4b4));
+      /* Chrome,Safari4+ */
+      background: -webkit-linear-gradient(top, #acb4b4 0%, #bdd5d5 4%, #a7c7c7 8%, #97bdbd 27%, #94bbbb 35%, #93baba 77%, #8fb4b4 100%);
+      /* Chrome10+,Safari5.1+ */
+      background: -o-linear-gradient(top, #acb4b4 0%, #bdd5d5 4%, #a7c7c7 8%, #97bdbd 27%, #94bbbb 35%, #93baba 77%, #8fb4b4 100%);
+      /* Opera 11.10+ */
+      background: -ms-linear-gradient(top, #acb4b4 0%, #bdd5d5 4%, #a7c7c7 8%, #97bdbd 27%, #94bbbb 35%, #93baba 77%, #8fb4b4 100%);
+      /* IE10+ */
+      background: linear-gradient(to bottom, #acb4b4 0%, #bdd5d5 4%, #a7c7c7 8%, #97bdbd 27%, #94bbbb 35%, #93baba 77%, #8fb4b4 100%);
+      /* W3C */
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#acb4b4', endColorstr='#8fb4b4',GradientType=0 );
+      /* IE6-9 */ }
+      .node-type-material .pane-node-field-source-info .action-links li a:hover {
+        text-decoration: none; }
+      .node-type-material .pane-node-field-source-info .action-links li a:before {
+        content: url("../images/gray-plus.png");
+        margin-right: 8px; }
 
 .node-type-item-variant .pane-item-variant-summary {
   border-bottom: 1px solid #d1d1d1;
@@ -568,10 +611,11 @@ li {
 
 .content .panel-col-first {
   float: left;
-  width: 50%; }
+  width: 49.5%; }
 .content .panel-col-last {
   float: left;
-  width: 49.9%; }
+  width: 49.5%;
+  margin-left: 1%; }
   .content .panel-col-last .jcarousel-skin-default .jcarousel-container-horizontal .jcarousel-clip-horizontal {
     width: 414px; }
     .content .panel-col-last .jcarousel-skin-default .jcarousel-container-horizontal .jcarousel-clip-horizontal ul li {

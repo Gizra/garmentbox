@@ -38,7 +38,9 @@ function garmentbox_material_material_links_content_type_render($subtype, $conf,
   foreach ($nodes as $node) {
     $wrapper = entity_metadata_wrapper('node', $node);
     $title = $wrapper->field_nick_name->value() ? $wrapper->field_nick_name->value() : $node->title ;
-    $items[] = l($title, "material/" . $node->nid);
+    // Mark current node's tab.
+    $options = $node->nid == $nid ? array('attributes' => array('class' => 'active')) : array();
+    $items[] = l($title, "material/" . $node->nid, $options);
   }
 
   $block->content = theme('item_list', array('items' => $items));

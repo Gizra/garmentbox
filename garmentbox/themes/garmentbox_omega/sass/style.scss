@@ -34,12 +34,13 @@ li {
 
   .panel-col-first {
     float: left;
-    width: 50%;
+    width: 49.5%;
   }
 
   .panel-col-last {
     float: left;
-    width: 49.9%;
+    width: 49.5%;
+    margin-left: 1%;
 
     .jcarousel-skin-default .jcarousel-container-horizontal .jcarousel-clip-horizontal {
       width: 414px;
