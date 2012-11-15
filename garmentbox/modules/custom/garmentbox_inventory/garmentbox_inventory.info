@@ -27,6 +27,7 @@ features[field][] = node-inventory_line-field_delivery_date
 features[field][] = node-inventory_line-field_inventory_type
 features[field][] = node-inventory_line-field_item_variant
 features[field][] = node-inventory_line-field_price
+features[field][] = node-inventory_line-field_production_order
 features[field][] = node-inventory_line-field_production_start_date
 features[field][] = node-inventory_line-field_quantity_info
 features[field][] = node-inventory_line-field_reference_hierarchy
