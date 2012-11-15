@@ -54,6 +54,9 @@ function garmentbox_omega_preprocess_material_node_garmentbox_header(&$variables
 
   $content = &$variables['content'];
   $content['add_material_link'] = l('Add new material', 'node/add/material');
+
+  // Display title instead of nickname.
+  $content['field_nick_name'][0]['#markup'] = $variables['title'];
 }
 
 /**

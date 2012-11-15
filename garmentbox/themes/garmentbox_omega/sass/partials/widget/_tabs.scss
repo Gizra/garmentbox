@@ -1,11 +1,13 @@
 .panel-pane.tabs ul {
   margin: 20px 0 0;
+  max-width: 990px;
 
   li {
     margin: 0;
     height: 36px;
     float: left; //LTR
     margin-right: 6px; //LTR
+    margin-top: 6px;
 
     a {
       background-color: white;

@@ -182,12 +182,14 @@ html.js fieldset.collapsible.collapsed .fieldset-legend {
   background-image: url("../images/expand.gif"); }
 
 .panel-pane.tabs ul {
-  margin: 20px 0 0; }
+  margin: 20px 0 0;
+  max-width: 990px; }
   .panel-pane.tabs ul li {
     margin: 0;
     height: 36px;
     float: left;
-    margin-right: 6px; }
+    margin-right: 6px;
+    margin-top: 6px; }
     .panel-pane.tabs ul li a {
       background-color: white;
       text-align: center;
@@ -304,8 +306,7 @@ html.js fieldset.collapsible.collapsed .fieldset-legend {
     margin: 0;
     float: left;
     margin-top: 32px;
-    margin-left: 5px;
-    max-width: 990px; }
+    margin-left: 5px; }
     #title .tabs a {
       background-color: transparent;
       border: none;
