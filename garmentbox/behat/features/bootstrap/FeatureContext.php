@@ -496,4 +496,15 @@ class FeatureContext extends DrupalContext {
     }
   }
 
+  /**
+   * @When /^I click the row of "([^"]*)"$/
+   */
+  public function iClickTheRowOf($value_in_row) {
+    $page = $this->getSession()->getPage();
+    $row = $page->find('xpath', "//td[.='$value_in_row']/..");
+    if (!$row) {
+      throw new \Exception("A row containing '$value_in_row' was not found.");
+    }
+    $row->click();
+  }
 }
