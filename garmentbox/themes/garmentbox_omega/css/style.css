@@ -457,6 +457,8 @@ section.content {
       .node-type-material .pane-node-field-source-info .action-links li a:before {
         content: url("../images/gray-plus.png");
         margin-right: 8px; }
+.node-type-material .primary-button#material-add a {
+  margin-top: 6px; }
 
 .node-type-item-variant .pane-item-variant-summary {
   border-bottom: 1px solid #d1d1d1;
