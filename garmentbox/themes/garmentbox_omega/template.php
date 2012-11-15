@@ -70,8 +70,8 @@ function garmentbox_omega_preprocess_material_node(&$variables) {
   $hidden_fields = array('og_group_ref', 'body', 'field_images', 'field_nick_name', 'field_source_info', 'field_material_type');
   $wrapper = entity_metadata_wrapper('node', $variables['nid']);
   foreach (array('length', 'width', 'radius') as $measurement) {
-    // Hide disabled measurements by material type.
-    if (!$wrapper->field_material_type->{'field_has_' . $measurement}->value()) {
+    if (!$wrapper->field_material_type->{"field_has_$measurement"}->value()) {
+      // Hide disabled measurements by material type.
       $hidden_fields[] = "field_$measurement";
     }
   }
