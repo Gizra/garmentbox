@@ -73,7 +73,6 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
   }
   $header[] = t('Fabric');
   $header[] = t('Production cost');
-  $header[] = t('Add more items');
 
   $form['inventory_lines_table'] = array(
     '#theme' => 'table',
@@ -297,10 +296,6 @@ function garmentbox_factory_production_order_items($raw_data) {
       'data' => t('N/A'),
       'class' => array('production-price'),
     );
-    $row['data'][] = array(
-      'data' => l(t('Add more items'), ''),
-      'class' => array('add-inventory-line'),
-    );
     $table[] = $row;
 
     foreach ($variant['lines'] as $inventory_line_nid => $inventory_line) {
@@ -332,7 +327,6 @@ function garmentbox_factory_production_order_items($raw_data) {
 
       $row['data'][] = '';
       $row['data'][] = commerce_currency_format($variant['item_price'] * $inventory_line['items_count'], commerce_default_currency());
-      $row['data'][] = '';
       $table[] = $row;
     }
 
@@ -354,7 +348,6 @@ function garmentbox_factory_production_order_items($raw_data) {
       'data' => t('N/A'),
       'class' => array('production-price'),
     );
-    $row['data'][] = '';
     $table[] = $row;
   }
 
