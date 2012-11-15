@@ -40,6 +40,8 @@ function garmentbox_inventory_views_default_views() {
     'title_1' => 'title_1',
     'field_include_in_total' => 'field_include_in_total',
     'field_in_warehouse' => 'field_in_warehouse',
+    'field_production_order' => 'field_production_order',
+    'field_customer' => 'field_customer',
   );
   $handler->display->display_options['style_options']['default'] = 'title';
   $handler->display->display_options['style_options']['info'] = array(
@@ -90,6 +92,20 @@ function garmentbox_inventory_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
+    'field_production_order' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_customer' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
   );
   $handler->display->display_options['style_options']['override'] = 1;
   $handler->display->display_options['style_options']['sticky'] = 0;
@@ -121,6 +137,29 @@ function garmentbox_inventory_views_default_views() {
   $handler->display->display_options['relationships']['field_inventory_type_target_id']['table'] = 'field_data_field_inventory_type';
   $handler->display->display_options['relationships']['field_inventory_type_target_id']['field'] = 'field_inventory_type_target_id';
   $handler->display->display_options['relationships']['field_inventory_type_target_id']['required'] = 1;
+  /* Field: Content: Nid */
+  $handler->display->display_options['fields']['nid_1']['id'] = 'nid_1';
+  $handler->display->display_options['fields']['nid_1']['table'] = 'node';
+  $handler->display->display_options['fields']['nid_1']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid_1']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['nid_1']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['nid_1']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['nid_1']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['nid_1']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['nid_1']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['nid_1']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['nid_1']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['nid_1']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['nid_1']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['nid_1']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['nid_1']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['nid_1']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['nid_1']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['nid_1']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['nid_1']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['nid_1']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['nid_1']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['nid_1']['link_to_node'] = 0;
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -328,6 +367,33 @@ function garmentbox_inventory_views_default_views() {
     'link' => 1,
   );
   $handler->display->display_options['fields']['field_production_order']['field_api_classes'] = 0;
+  /* Field: Content: Customer */
+  $handler->display->display_options['fields']['field_customer']['id'] = 'field_customer';
+  $handler->display->display_options['fields']['field_customer']['table'] = 'field_data_field_customer';
+  $handler->display->display_options['fields']['field_customer']['field'] = 'field_customer';
+  $handler->display->display_options['fields']['field_customer']['relationship'] = 'reverse_field_inventory_line_inline_node';
+  $handler->display->display_options['fields']['field_customer']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['field_customer']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_customer']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_customer']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_customer']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_customer']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_customer']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_customer']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_customer']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_customer']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['field_customer']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_customer']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_customer']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_customer']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['field_customer']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_customer']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['field_customer']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_customer']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['field_customer']['settings'] = array(
+    'link' => 0,
+  );
+  $handler->display->display_options['fields']['field_customer']['field_api_classes'] = 0;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
