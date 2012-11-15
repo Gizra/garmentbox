@@ -38,6 +38,8 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
   // The field is disabled in garmentbox_inventory_field_access().
   $form['field_delivery_date']['#access'] = TRUE;
 
+  $production_order_nid = empty($form['#node']->nid) ? NULL : $form['#node']->nid;
+
   $season_nid = $form['field_season'][LANGUAGE_NONE]['#default_value'][0];
 
   // Set a default factory, if the node is new, and no factory given in the URL.
@@ -55,8 +57,8 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
   }
   $factory_nid = $form['field_factory'][LANGUAGE_NONE]['#default_value'];
   $item_variant_nids = garmentbox_factory_get_factory_item_variants($season_nid, $factory_nid);
-  $inventory_line_nids = garmentbox_factory_get_production_order_inventory_lines($item_variant_nids);
-  $raw_data = garmentbox_factory_production_order_items_data($item_variant_nids, $inventory_line_nids);
+  $inventory_line_nids = garmentbox_factory_get_production_order_inventory_lines($item_variant_nids, $production_order_nid);
+  $raw_data = garmentbox_factory_production_order_items_data($production_order_nid ? 'edit' : 'create', $item_variant_nids, $inventory_line_nids);
   // Dummy inputs, that will actually be added manually inside
   // inventory_lines_table as checkboxes.
   // Add an option to select no lines.
@@ -93,7 +95,7 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
   $options = array(
     'absolute' => TRUE,
     'query' => array(
-      'field_season' => $_GET['field_season'],
+      'field_season' => $season_nid,
     ),
   );
   $settings = array(
@@ -156,7 +158,7 @@ function garmentbox_factory_form_production_order_node_form_validate(&$form, &$f
         // TODO: When this error is applied, it causes the following notice on
         // the next refresh on node/add/production-prder:
         // Notice: Array to string conversion in drupal_attributes() (line 2303 of [...]/www/includes/common.inc).
-        form_set_error('', t('Quantity must be a positive integer.'));
+        form_set_error('variant_new_inventory', t('Quantity must be a positive integer.'));
       }
     }
   }
@@ -192,21 +194,42 @@ function garmentbox_factory_get_factory_item_variants($season_nid, $factory_nid)
  *
  * @param $nids
  *   Item variant node IDs.
+ * @param $production_order_nid
+ *   The production order being editted.
  *
  * @return
  *   Array of inventory lines node IDs.
  */
-function garmentbox_factory_get_production_order_inventory_lines($item_variant_nids) {
-  $query = new EntityFieldQuery();
-  $result = $query
-    ->entityCondition('entity_type', 'node')
-    ->propertyCondition('type', 'inventory_line')
-    ->propertyCondition('status', NODE_PUBLISHED)
-    ->fieldCondition('field_item_variant', 'target_id', $item_variant_nids, 'IN')
-    ->fieldOrderBy('field_item_variant', 'target_id')
-    ->execute();
+function garmentbox_factory_get_production_order_inventory_lines($item_variant_nids, $production_order_nid = NULL) {
+  $nids = array();
 
-  return !empty($result['node']) ? array_keys($result['node']) : array();
+  $query = db_select('node', 'n');
+  $query->innerJoin('field_data_field_item_variant', 'iv', 'iv.entity_id = n.nid');
+  // Left joining on production order for fetching also lines without prodiction
+  // order.
+  $query->leftJoin('field_data_field_production_order', 'po', 'po.entity_id = n.nid');
+  $query->addField('n', 'nid');
+  $query
+    ->condition('n.type', 'inventory_line')
+    ->condition('n.status', NODE_PUBLISHED)
+    ->condition('iv.entity_type', 'node')
+    ->condition('iv.field_item_variant_target_id', $item_variant_nids, 'IN')
+    // Fetch either the lines that are attached to the current production order,
+    // or the lines that are not attached to any production order.
+    ->condition(db_or()
+      ->condition(db_and()
+        ->condition('po.entity_type', 'node')
+        ->condition('po.field_production_order_target_id', $production_order_nid)
+      )
+      ->condition('po.field_production_order_target_id', NULL, 'IS NULL')
+    );
+
+  $result = $query->execute();
+  foreach ($result as $row) {
+    $nids[] = $row->nid;
+  }
+
+  return $nids;
 }
 
 /**
@@ -274,10 +297,14 @@ function garmentbox_factory_production_order_items($raw_data) {
           '#attributes' => array(
             'name' => "production_order_inventory_lines[$inventory_line_nid]",
             'value' => $inventory_line_nid,
-            'checked' => 'checked',
           ),
         ),
       );
+      // Determine whether the checkbox is checked.
+      if ($inventory_line['checked']) {
+        $variables['element']['#attributes']['checked'] = 'checked';
+      }
+
       $row['data'][] = theme('checkbox', $variables);
       $customer = $inventory_line['customer'] ? $inventory_line['customer'] : t('N/A');
       $row['data'][] = t('<b>Customer</b> !customer', array('!customer' => $customer));
@@ -332,15 +359,17 @@ function garmentbox_factory_production_order_items($raw_data) {
 /**
  * Fetch the raw data for the inventory lines selecting widget.
  *
+ * @param $op
+ *   Operation - 'create' or 'edit'.
  * @param $item_variant_nids
  *   Item variants of the current season and factory.
  * @param $inventory_line_nids
- *   TODO ?
+ *   The inventory lines related to the given item variants.
  *
  * @return
  *   Inventory lines data grouped by item-variant.
  */
-function garmentbox_factory_production_order_items_data($item_variant_nids, $inventory_line_nids) {
+function garmentbox_factory_production_order_items_data($op, $item_variant_nids, $inventory_line_nids) {
   if (empty($item_variant_nids)) {
     return array();
   }
@@ -358,14 +387,20 @@ function garmentbox_factory_production_order_items_data($item_variant_nids, $inv
   // Fetch inventory lines of a factory.
   foreach (node_load_multiple($inventory_line_nids) as $inventory_line) {
     $wrapper = entity_metadata_wrapper('node', $inventory_line);
-
     $variant_nid = $wrapper->field_item_variant->getIdentifier();
 
     $data[$variant_nid]['lines'][$inventory_line->nid] = array(
       'sizes' => array(),
       'items_count' => 0,
       'customer' => '',
+      'checked' => TRUE,
     );
+
+    // When creating a new order, all lines are checked by default. When
+    // editting, only lines that are already attached are checked.
+    if($op == 'edit') {
+      $data[$variant_nid]['lines'][$inventory_line->nid]['checked'] = !empty($inventory_line->field_production_order);
+    }
 
     foreach ($wrapper->field_quantity_info as $quantity_wrapper) {
       $size_tid = $quantity_wrapper->field_size->getIdentifier();
@@ -464,7 +499,7 @@ function garmentbox_factory_node_insert($node) {
 
   foreach ($node->production_order_inventory_lines as $nid) {
     $wrapper = entity_metadata_wrapper('node', $nid);
-    // $wrapper->field_production_order->set($node->nid);
+    $wrapper->field_production_order->set($node->nid);
     $wrapper->save();
   }
 
@@ -557,7 +592,7 @@ function garmentbox_factory_node_update($node) {
   foreach($stored_inventory_lines as $nid) {
     if (empty($node->production_order_inventory_lines[$nid])) {
       $wrapper = entity_metadata_wrapper('node', $nid);
-      // $wrapper->field_production_order->set(NULL);
+      $wrapper->field_production_order->set(NULL);
       $wrapper->save();
     }
   }
