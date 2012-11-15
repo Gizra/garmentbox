@@ -161,6 +161,7 @@ Drupal.behaviors.GarmentboxOrderItems = {
 
     var newItemsCount = 0;
     // Sum also the custom inventory inputs.
+    var updateExtraItemPrice = true;
     table.find('tr.new-inventory-line[ref="' + rowId + '"] input.new-inventory-items').each(function(i, element) {
       if (!$(element).attr('disabled')) {
         var count = parseInt($(element).val());
@@ -178,12 +179,18 @@ Drupal.behaviors.GarmentboxOrderItems = {
           variantSizes[tid] += count;
         }
       }
+      else {
+        // When the inputs are disabled, don't update their total price.
+        updateExtraItemPrice = false;
+      }
     });
 
-    // Update the "Production price" of the custom row.
-    var totalCustomItemPrice = newItemsCount * itemPrice;
-    var customRowPrice = table.find('tr.new-inventory-line[ref="' + rowId + '"] td.production-price');
-    customRowPrice.text('$' + Drupal.formatNumber(totalCustomItemPrice, 2));
+    if (updateExtraItemPrice) {
+      // Update the "Production price" of the custom row.
+      var totalCustomItemPrice = newItemsCount * itemPrice;
+      var customRowPrice = table.find('tr.new-inventory-line[ref="' + rowId + '"] td.production-price');
+      customRowPrice.text('$' + Drupal.formatNumber(totalCustomItemPrice, 2));
+    }
 
     var totalPrice = itemsCount * itemPrice;
     var variantRow = table.find('tr#' + rowId);

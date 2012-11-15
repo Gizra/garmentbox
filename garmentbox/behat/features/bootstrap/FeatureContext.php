@@ -266,7 +266,7 @@ class FeatureContext extends DrupalContext {
             throw new \Exception('Expected checkbox not found.');
           }
 
-          if ($words[1] == 'checked') {
+          if (!empty($words[1]) && $words[1] == 'checked') {
             if (!$checkbox->getAttribute('checked')) {
               throw new \Exception('Checkbox found but is not checked.');
             }
@@ -378,16 +378,34 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
-   * @Given /^I uncheck "([^"]*)" in row containing "([^"]*)" in table "([^"]*)"$/
+   * @Given /^I (uncheck|check) "([^"]*)" in row containing "([^"]*)" in table "([^"]*)"$/
    */
-  public function iUncheckInRowContainingOfTable($column_title, $value_in_row, $table_id) {
+  public function iUncheckInRowContainingOfTable($check, $column_title, $value_in_row, $table_id) {
     $page = $this->getSession()->getPage();
     $table_element = $page->find('css', "table#$table_id");
 
     $cell = self::findTableCellByColumTitleAndRowValue($table_element, $column_title, $value_in_row);
     $checkbox = $cell->find('xpath', "//input[@type='checkbox']");
-    $checkbox->uncheck();
+    if ($check == 'check') {
+      $checkbox->check();
+    }
+    else {
+      $checkbox->uncheck();
+    }
   }
+
+  /**
+   * @When /^I click "([^"]*)" in row containing "([^"]*)" in table "([^"]*)"$/
+   */
+  public function iClickInRowContainingInTable($column_title, $value_in_row, $table_id) {
+    $page = $this->getSession()->getPage();
+    $table_element = $page->find('css', "table#$table_id");
+
+    $cell = self::findTableCellByColumTitleAndRowValue($table_element, $column_title, $value_in_row);
+    $element = $cell->find('xpath', "//input");
+    $element->click();
+  }
+
 
   /**
    * @Given /^I fill in "([^"]*)" with "([^"]*)" in row containing "([^"]*)" in table "([^"]*)"$/

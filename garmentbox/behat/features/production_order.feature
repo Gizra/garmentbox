@@ -8,9 +8,10 @@ Feature: Test production order flow
     And I click "Production Orders"
     When I click "Add new production order"
     Then the table "inventory-lines-table" should have the following <contents>:
-    | Include in order   | Item variation         | Small | Medium  | Large | Fabric  | Production cost | Add more items  |
-    | <checkbox> checked | Grey v-neck shirt      | 1     | 2       | 20    | <image> | $1,150.00       | Add more items  |
-    | <checkbox> checked | Lines v-neck shirt     |       | 8       | 7     | <image> | $397.50         | Add more items  |
+    | Include in order   | Item variation                   | Small   | Medium  | Large   | Fabric  | Production cost |
+    | <checkbox> checked | Grey v-neck shirt                | 1       | 2       | 20      | <image> | $1,150.00       |
+    | <checkbox>         | Grey v-neck shirt - Extra items  | <input> | <input> | <input> |         | $0.00           |
+    | <checkbox> checked | Lines v-neck shirt               |         | 8       | 7       | <image> | $397.50         |
 
   @javascript
   Scenario: Viewing the add production-order page with detailed variant information.
@@ -19,15 +20,15 @@ Feature: Test production order flow
     And I click "Production Orders"
     When I click "Add new production order"
     And I click "Grey v-neck shirt"
-    And I click "Add more items"
+    When I check "Include in order" in row containing "Grey v-neck shirt - Extra items" in table "inventory-lines-table"
     Then the table "inventory-lines-table" should have the following <contents>:
-    | Include in order    | Item variation         | Small   | Medium  | Large   | Fabric  | Production cost | Add more items  |
-    | <checkbox> checked  | Grey v-neck shirt      | 1       | 2       | 20      | <image> | $1,150.00       | Cancel          |
-    | <checkbox> checked  | Customer High Couture  | 1       |         | 20      |         | $1,050.00       |                 |
-    | <checkbox> checked  | Customer N/A           |         | 2       |         |         | $100.00         |                 |
-    |                     | New items              | <input> | <input> | <input> |         | $0.00           |                 |
+    | Include in order    | Item variation                  | Small   | Medium  | Large   | Fabric  | Production cost |
+    | <checkbox> checked  | Grey v-neck shirt               | 1       | 2       | 20      | <image> | $1,150.00       |
+    | <checkbox> checked  | Customer High Couture           | 1       |         | 20      |         | $1,050.00       |
+    | <checkbox> checked  | Customer N/A                    |         | 2       |         |         | $100.00         |
+    | <checkbox>          | Grey v-neck shirt - Extra items | <input> | <input> | <input> |         | $0.00           |
 
-  @javascript
+  @javascript @wip
   Scenario: Testing price re-calculation.
     Given I am logged in as "user"
     And I visit "season/24"
@@ -35,10 +36,10 @@ Feature: Test production order flow
     And I click "Add new production order"
     And I click "Grey v-neck shirt"
     When I uncheck "Include in order" in row containing "Customer High Couture" in table "inventory-lines-table"
-    And I click "Add more items"
-    And I fill in "Small" with "2" in row containing "New items" in table "inventory-lines-table"
+    When I click "Include in order" in row containing "Grey v-neck shirt - Extra items" in table "inventory-lines-table"
+    And I fill in "Small" with "2" in row containing "Grey v-neck shirt - Extra items" in table "inventory-lines-table"
     Then the "Production cost" column of "Grey v-neck shirt" in table "inventory-lines-table" should be "$200.00"
-    And the "Production cost" column of "New items" in table "inventory-lines-table" should be "$100.00"
+    And the "Production cost" column of "Grey v-neck shirt - Extra items" in table "inventory-lines-table" should be "$100.00"
     And the "Total items" input should have the value "42"
     And the "Production price" input should have the value "$1,586.50"
 
