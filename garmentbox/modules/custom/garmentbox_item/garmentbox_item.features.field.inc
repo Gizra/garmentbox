@@ -10,14 +10,14 @@
 function garmentbox_item_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'field_collection_item-field_bom_info-field_material_item'.
-  $fields['field_collection_item-field_bom_info-field_material_item'] = array(
+  // Exported field: 'field_collection_item-field_bom_info-field_source_info_ref'.
+  $fields['field_collection_item-field_bom_info-field_source_info_ref'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_material_item',
+      'field_name' => 'field_source_info_ref',
       'foreign keys' => array(
         'field_collection_item' => array(
           'columns' => array(
@@ -75,7 +75,7 @@ function garmentbox_item_field_default_fields() {
         ),
       ),
       'entity_type' => 'field_collection_item',
-      'field_name' => 'field_material_item',
+      'field_name' => 'field_source_info_ref',
       'label' => 'Material item',
       'required' => 1,
       'settings' => array(

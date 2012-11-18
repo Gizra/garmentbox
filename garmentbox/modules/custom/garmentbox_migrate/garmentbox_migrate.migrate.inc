@@ -796,7 +796,7 @@ class garmentboxCollectionsFieldBomInfo extends garmentboxFieldCollectionMigrati
   public $csvColumns = array(
     array('id', 'Unique ID'),
     array('host_entity_id', 'Item variant'),
-    array('field_material_item', 'Material source'),
+    array('field_source_info_ref', 'Material source'),
     array('field_unit', 'Unit'),
     array('field_quantity_decimal', 'Quantity'),
   );
@@ -819,7 +819,7 @@ class garmentboxCollectionsFieldBomInfo extends garmentboxFieldCollectionMigrati
       ->sourceMigration('garmentboxItemVariants');
 
     $this
-      ->addFieldMapping('field_material_item', 'field_material_item')
+      ->addFieldMapping('field_source_info_ref', 'field_source_info_ref')
       ->sourceMigration('garmentboxCollectionsFieldSourceInfo');
 
     $this

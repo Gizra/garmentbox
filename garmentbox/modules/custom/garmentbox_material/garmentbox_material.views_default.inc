@@ -54,10 +54,10 @@ function garmentbox_material_views_default_views() {
   $handler->display->display_options['relationships']['field_bom_info_node']['field'] = 'field_bom_info_node';
   $handler->display->display_options['relationships']['field_bom_info_node']['required'] = 1;
   /* Relationship: Entity Reference: Referenced Entity */
-  $handler->display->display_options['relationships']['field_material_item_target_id']['id'] = 'field_material_item_target_id';
-  $handler->display->display_options['relationships']['field_material_item_target_id']['table'] = 'field_data_field_material_item';
-  $handler->display->display_options['relationships']['field_material_item_target_id']['field'] = 'field_material_item_target_id';
-  $handler->display->display_options['relationships']['field_material_item_target_id']['required'] = 1;
+  $handler->display->display_options['relationships']['field_source_info_ref_target_id']['id'] = 'field_source_info_ref_target_id';
+  $handler->display->display_options['relationships']['field_source_info_ref_target_id']['table'] = 'field_data_field_source_info_ref';
+  $handler->display->display_options['relationships']['field_source_info_ref_target_id']['field'] = 'field_source_info_ref_target_id';
+  $handler->display->display_options['relationships']['field_source_info_ref_target_id']['required'] = 1;
   /* Field: Content: Images */
   $handler->display->display_options['fields']['field_images']['id'] = 'field_images';
   $handler->display->display_options['fields']['field_images']['table'] = 'field_data_field_images';
@@ -122,13 +122,38 @@ function garmentbox_material_views_default_views() {
   /* Display: Content pane */
   $handler = $view->new_display('panel_pane', 'Content pane', 'panel_pane_1');
   $handler->display->display_options['argument_input'] = array(
-    'field_material_item_target_id' => array(
-      'type' => 'context',
-      'context' => 'entity:node.nid',
+    'nid' => array(
+      'type' => 'wildcard',
+      'context' => 'entity:comment.field_task_assignee',
       'context_optional' => 0,
       'panel' => '0',
       'fixed' => '',
-      'label' => 'Field collection item: Material item (field_material_item)',
+      'label' => 'Content: Nid',
+    ),
+  );
+
+  /* Display: Material item variants */
+  $handler = $view->new_display('panel_pane', 'Material item variants', 'material_item_variants');
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Field collection item: Field collection item ID */
+  $handler->display->display_options['arguments']['item_id']['id'] = 'item_id';
+  $handler->display->display_options['arguments']['item_id']['table'] = 'field_collection_item';
+  $handler->display->display_options['arguments']['item_id']['field'] = 'item_id';
+  $handler->display->display_options['arguments']['item_id']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['item_id']['default_argument_skip_url'] = 0;
+  $handler->display->display_options['arguments']['item_id']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['item_id']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['item_id']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['item_id']['break_phrase'] = 1;
+  $handler->display->display_options['arguments']['item_id']['not'] = 0;
+  $handler->display->display_options['argument_input'] = array(
+    'item_id' => array(
+      'type' => 'none',
+      'context' => 'entity:comment.field_task_assignee',
+      'context_optional' => 0,
+      'panel' => '0',
+      'fixed' => '',
+      'label' => 'Field collection item: Field collection item ID',
     ),
   );
   $export['material'] = $view;
