@@ -9,6 +9,7 @@ dependencies[] = entityreference
 dependencies[] = features
 dependencies[] = field_group
 dependencies[] = format_number
+dependencies[] = garmentbox_og
 dependencies[] = og_ui
 dependencies[] = options
 dependencies[] = page_manager
