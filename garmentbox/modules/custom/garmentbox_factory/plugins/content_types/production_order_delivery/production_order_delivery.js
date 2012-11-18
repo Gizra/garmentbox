@@ -14,12 +14,9 @@ Drupal.behaviors.GarmentboxOrderItems = {
     });
 
     // Recalculate values when the received quantity is updated.
-    table.find('tr.received input').change(function(event) {
-      self.updateDeliveryData(context);
-    });
-    table.find('tr.received input').keyup(function(event) {
-      self.updateDeliveryData(context);
-    });
+    table.find('tr.received input, tr.defective input')
+      .change(function(event) { self.updateDeliveryData(context); })
+      .keyup(function(event) { self.updateDeliveryData(context); });
   },
 
   // Show and hide varation sub-rows depending on the "Received" checkbox state.
@@ -71,12 +68,11 @@ Drupal.behaviors.GarmentboxOrderItems = {
       // Sum the row quantity.
       var items_count = 0;
       row.find(query).each(function(i, element) {
-        var quantity = parseInt($(element).val());
+        var quantity = $(element).is('input') ? parseInt($(element).val()) : $(element).text();
         if (!isNaN(quantity) && quantity >= 0) {
           items_count += quantity;
         }
       });
-      console.log(items_count);
       var price = items_count * item_price;
       row.find('td.price').text('$' + Drupal.formatNumber(price, 2));
     }
