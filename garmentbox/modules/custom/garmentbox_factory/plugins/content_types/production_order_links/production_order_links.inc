@@ -25,7 +25,7 @@ function garmentbox_factory_production_order_links_content_type_render($subtype,
 
   $items = array();
   $items[] = l(t('Main'), "node/$nid");
-  $items[] = l(t('Production delivery'), "production-orders/$nid/delivery");
+  $items[] = l(t('Production delivery'), "production-order/$nid/delivery");
 
   $block->content = theme('item_list', array('items' => $items));
   return $block;
