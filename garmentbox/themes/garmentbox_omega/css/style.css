@@ -459,6 +459,16 @@ section.content {
         margin-right: 8px; }
 .node-type-material .primary-button#material-add a {
   margin-top: 6px; }
+.node-type-material .field-name-field-washing-instructions::after, .node-type-material .field-name-field-fabric-content::after,
+.node-type-material .field-name-field-radius::after, .node-type-material .field-name-field-width::after, .node-type-material .field-name-field-length::after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden; }
+.node-type-material .field-name-field-washing-instructions .field-label, .node-type-material .field-name-field-fabric-content .field-label,
+.node-type-material .field-name-field-radius .field-label, .node-type-material .field-name-field-width .field-label, .node-type-material .field-name-field-length .field-label {
+  float: left; }
 
 .node-type-item-variant .pane-item-variant-summary {
   border-bottom: 1px solid #d1d1d1;

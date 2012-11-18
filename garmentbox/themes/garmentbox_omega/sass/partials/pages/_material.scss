@@ -32,5 +32,14 @@
     margin-top: 6px;
   }
 
+  .field-name-field-washing-instructions, .field-name-field-fabric-content,
+  .field-name-field-radius, .field-name-field-width, .field-name-field-length {
+    @include cleafix;
+
+    .field-label {
+      float: left; //LTR
+    }
+  }
+
 }
 
