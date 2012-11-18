@@ -43,7 +43,7 @@ Feature: Test production order flow
     And the "Total items" input should have the value "42"
     And the "Production price" input should have the value "$1,586.50"
 
-  @api @wip
+  @api
   Scenario: Adding an inventory line to a production order and checking that it's not available to other orders.
     Given I am logged in as a user with the "authenticated user" role
     And I am on a "season" page titled "Autumn-Winter 2013 Women"
