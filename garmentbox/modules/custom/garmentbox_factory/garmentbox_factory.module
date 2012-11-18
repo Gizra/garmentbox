@@ -643,6 +643,9 @@ function garmentbox_factory_update_production_order($node) {
     $wrapper->save();
   }
 
+  if (empty($node->variant_new_inventory)) {
+    return;
+  }
   // Handle creation of new inventory lines.
   foreach ($node->variant_new_inventory as $item_variant_nid => $quantity_info) {
     // Check if the variant's has any non-zero quantity.

@@ -28,7 +28,7 @@ Feature: Test production order flow
     | <checkbox> checked  | Customer N/A                    |         | 2       |         |         | $100.00         |
     | <checkbox>          | Grey v-neck shirt - Extra items | <input> | <input> | <input> |         | $0.00           |
 
-  @javascript @wip
+  @javascript
   Scenario: Testing price re-calculation.
     Given I am logged in as "user"
     And I visit "season/24"
@@ -44,7 +44,7 @@ Feature: Test production order flow
     And the "Production price" input should have the value "$1,586.50"
 
   @api
-  Scenario: ding an inventory line to a production order and checking that it's not available to other orders.
+  Scenario: Adding an inventory line to a production order and checking that it's not available to other orders.
     Given I am logged in as a user with the "authenticated user" role
     And I am on a "season" page titled "Autumn-Winter 2013 Women"
     And I click "Production Orders"
