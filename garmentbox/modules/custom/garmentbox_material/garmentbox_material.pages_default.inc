@@ -116,14 +116,14 @@ function garmentbox_material_default_page_manager_handlers() {
     $pane = new stdClass();
     $pane->pid = 'new-3';
     $pane->panel = 'content_last';
-    $pane->type = 'views_panes';
-    $pane->subtype = 'material-panel_pane_1';
+    $pane->type = 'material_items';
+    $pane->subtype = 'material_items';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
-      'context' => array(
-        0 => 'argument_entity_id:node_1',
-      ),
+      'context' => 'argument_entity_id:node_1',
+      'override_title' => 0,
+      'override_title_text' => '',
     );
     $pane->cache = array();
     $pane->style = array(
@@ -137,6 +137,28 @@ function garmentbox_material_default_page_manager_handlers() {
     $display->panels['content_last'][0] = 'new-3';
     $pane = new stdClass();
     $pane->pid = 'new-4';
+    $pane->panel = 'content_last';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'material-panel_pane_1';
+    $pane->shown = FALSE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'context' => array(
+        0 => 'argument_entity_id:node_1',
+      ),
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 1;
+    $pane->locks = array();
+    $display->content['new-4'] = $pane;
+    $display->panels['content_last'][1] = 'new-4';
+    $pane = new stdClass();
+    $pane->pid = 'new-5';
     $pane->panel = 'content_last';
     $pane->type = 'entity_field';
     $pane->subtype = 'node:field_source_info';
@@ -166,12 +188,12 @@ function garmentbox_material_default_page_manager_handlers() {
     );
     $pane->css = array();
     $pane->extras = array();
-    $pane->position = 1;
+    $pane->position = 2;
     $pane->locks = array();
-    $display->content['new-4'] = $pane;
-    $display->panels['content_last'][1] = 'new-4';
+    $display->content['new-5'] = $pane;
+    $display->panels['content_last'][2] = 'new-5';
     $pane = new stdClass();
-    $pane->pid = 'new-5';
+    $pane->pid = 'new-6';
     $pane->panel = 'tabs';
     $pane->type = 'breadcrumbs';
     $pane->subtype = 'breadcrumbs';
@@ -190,10 +212,10 @@ function garmentbox_material_default_page_manager_handlers() {
     $pane->extras = array();
     $pane->position = 0;
     $pane->locks = array();
-    $display->content['new-5'] = $pane;
-    $display->panels['tabs'][0] = 'new-5';
+    $display->content['new-6'] = $pane;
+    $display->panels['tabs'][0] = 'new-6';
     $pane = new stdClass();
-    $pane->pid = 'new-6';
+    $pane->pid = 'new-7';
     $pane->panel = 'tabs';
     $pane->type = 'material_links';
     $pane->subtype = 'material_links';
@@ -215,10 +237,10 @@ function garmentbox_material_default_page_manager_handlers() {
     $pane->extras = array();
     $pane->position = 1;
     $pane->locks = array();
-    $display->content['new-6'] = $pane;
-    $display->panels['tabs'][1] = 'new-6';
+    $display->content['new-7'] = $pane;
+    $display->panels['tabs'][1] = 'new-7';
     $pane = new stdClass();
-    $pane->pid = 'new-7';
+    $pane->pid = 'new-8';
     $pane->panel = 'tabs';
     $pane->type = 'prepopulate_link';
     $pane->subtype = 'prepopulate_link';
@@ -241,8 +263,8 @@ function garmentbox_material_default_page_manager_handlers() {
     $pane->extras = array();
     $pane->position = 2;
     $pane->locks = array();
-    $display->content['new-7'] = $pane;
-    $display->panels['tabs'][2] = 'new-7';
+    $display->content['new-8'] = $pane;
+    $display->panels['tabs'][2] = 'new-8';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = 'new-1';
   $handler->conf['display'] = $display;
