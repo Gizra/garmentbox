@@ -53,12 +53,28 @@ function garmentbox_factory_production_order_delivery($form, &$form_state, $node
     $header[] = $term->name;
   }
   $header[] = t('Production price');
+
   $form['delivery_details'] = array(
     '#theme' => 'table',
     '#rows' => garmentbox_factory_production_order_delivery_rows($data),
     '#header' => $header,
     '#attributes' => array('id' => 'delivery-details'),
   );
+
+  $totals = array(
+    'total_items' => t('Total items'),
+    'production_cost' => t('Production cost'),
+    'total_items_new' => t('Total items new'),
+    'production_cost_new' => t('Production cost new'),
+  );
+  foreach ($totals as $name => $title) {
+    $form[$name] = array(
+      '#title' => $title,
+      '#type' => 'textfield',
+      '#disabled' => TRUE,
+      '#size' => 10,
+    );
+  }
 
   $form['#attached']['js'] = array(
     drupal_get_path('module', 'garmentbox_factory') . '/plugins/content_types/production_order_delivery/production_order_delivery.js',

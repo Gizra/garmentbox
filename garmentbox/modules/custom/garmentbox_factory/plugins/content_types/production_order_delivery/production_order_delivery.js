@@ -42,10 +42,17 @@ Drupal.behaviors.GarmentboxOrderItems = {
       for (tid in Drupal.settings.garmentbox_factory.delivery_data[nid].sizes) {
         var original = Drupal.settings.garmentbox_factory.delivery_data[nid].sizes[tid];
         var received = table.find('tr.received[ref="variant-' + nid + '"] td[data-tid="' + tid + '"] input').val();
+
         var extrasCell = table.find('tr.extras td[data-tid="' + tid + '"]');
         extrasCell.text('');
         if (received > original) {
           extrasCell.text(received - original);
+        }
+
+        var missingCell = table.find('tr.missing td[data-tid="' + tid + '"]');
+        missingCell.text('');
+        if (original > received) {
+          missingCell.text(original - received);
         }
       }
       this.updateVariantPrice(context, nid);
