@@ -1,0 +1,45 @@
+.node-type-material {
+
+  .pane-node-field-source-info {
+    position: relative;
+    margin-top: 40px;
+
+    table {
+      width: 100%;
+
+      .field_collection_item_operations {
+        width: 85px;
+      }
+
+      .field_price {
+        width: 150px;
+      }
+    }
+
+    .action-links li {
+      list-style-type: none;
+
+      a {
+        position: absolute;
+        right: 0; //LTR
+        top: 15px;
+        @include secondary-button;
+      }
+    }
+  }
+
+  .primary-button#material-add a{
+    margin-top: 6px;
+  }
+
+  .field-name-field-washing-instructions, .field-name-field-fabric-content,
+  .field-name-field-radius, .field-name-field-width, .field-name-field-length {
+    @include cleafix;
+
+    .field-label {
+      float: left; //LTR
+    }
+  }
+
+}
+

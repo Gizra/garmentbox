@@ -6,6 +6,16 @@
 
 include_once 'garmentbox_material.features.inc';
 
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function garmentbox_material_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'ctools') {
+    return 'plugins/' . $plugin;
+  }
+}
+
 /**
  * Implements hook_field_attach_form().
  */

@@ -16,6 +16,7 @@ class FeatureContext extends DrupalContext {
       case 'item-variant':
       case 'season':
       case 'item':
+      case 'material':
         $table = 'node';
         $id = 'nid';
         $path = "$page_type/%";

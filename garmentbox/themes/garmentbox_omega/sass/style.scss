@@ -29,3 +29,27 @@ li {
 .item-list ul li {
   margin: 0;
 }
+
+.content {
+
+  .panel-col-first {
+    float: left; //LTR
+    width: 49.5%;
+  }
+
+  .panel-col-last {
+    float: left; //LTR
+    width: 49.5%;
+    margin-left: 1%; //LTR
+
+    .jcarousel-skin-default .jcarousel-container-horizontal .jcarousel-clip-horizontal {
+      width: 414px;
+
+      ul li {
+        height: 213px;
+      }
+    }
+  }
+}
+
+
