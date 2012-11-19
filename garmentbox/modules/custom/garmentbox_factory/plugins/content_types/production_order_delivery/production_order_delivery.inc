@@ -62,8 +62,8 @@ function garmentbox_factory_production_order_delivery($form, &$form_state, $node
   );
 
   $totals = array(
-    'total_items' => t('Total items'),
-    'production_cost' => t('Production cost'),
+    // 'total_items' => t('Total items'),
+    // 'production_cost' => t('Production cost'),
     'total_items_new' => t('Total items new'),
     'production_cost_new' => t('Production cost new'),
   );
@@ -75,6 +75,11 @@ function garmentbox_factory_production_order_delivery($form, &$form_state, $node
       '#size' => 10,
     );
   }
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save'),
+  );
 
   $form['#attached']['js'] = array(
     drupal_get_path('module', 'garmentbox_factory') . '/plugins/content_types/production_order_delivery/production_order_delivery.js',
@@ -115,9 +120,9 @@ function garmentbox_factory_production_order_delivery_rows($data) {
       ),
     );
     // Determine whether the checkbox is checked.
-    // if ($inventory_line['checked']) {
-    $variables['element']['#attributes']['checked'] = 'checked';
-    // }
+    if ($variant_data['checked']) {
+      $variables['element']['#attributes']['checked'] = 'checked';
+    }
 
     $row = garmentbox_factory_production_order_delivery_row($variant_nid, NULL, t('Original'), $variant_data);
     // Rewrite row settings.
@@ -130,7 +135,7 @@ function garmentbox_factory_production_order_delivery_rows($data) {
       'class' => array('received'),
     );
     $row['data'][1] = $variant_data['title'];
-    $row['data'][6] = commerce_currency_format($variant_data['item_price'] * $variant_data['items_count'], commerce_default_currency());
+    $row['data'][6] = commerce_currency_format($variant_data['item_price'] * $variant_data['items_count']['original'], commerce_default_currency());
     $rows[] = $row;
 
     $rows[] = garmentbox_factory_production_order_delivery_row($variant_nid, 'received', t('Received'), $variant_data, 'received_inventory');
@@ -214,16 +219,28 @@ function garmentbox_factory_production_order_delivery_get_data($node) {
   $vocabulary = taxonomy_vocabulary_machine_name_load('size');
   $size_tree = taxonomy_get_tree($vocabulary->vid);
 
+  // TODO: Will this work when viewing the page translated?
+  $current_prooduction_tid = key(taxonomy_get_term_by_name(TERM_LABEL_CURRENT_PRODUCTION, 'inventory_type'));
+
   foreach(garmentbox_factory_get_production_order_inventory_lines($node->nid) as $nid) {
     $wrapper = entity_metadata_wrapper('node', $nid);
     $variant_nid = $wrapper->field_item_variant->getIdentifier();
+
+    $received = $wrapper->field_inventory_type->getIdentifier() != $current_prooduction_tid;
 
     if (empty($data[$variant_nid])) {
       $data[$variant_nid] = array(
         'sizes' => array(),
         'item_price' => garmentbox_item_get_variant_price($variant_nid),
         'title' => $wrapper->field_item_variant->label(),
-        'items_count' => 0,
+        'checked' => $received,
+        'items_count' => array(
+          'original' => 0,
+          'received' => 0,
+          'defective' => 0,
+          'extras' => 0,
+          'missing' => 0,
+        ),
       );
       // Create a placeholder for all sizes on the variant.
       foreach ($size_tree as $term) {
@@ -239,7 +256,7 @@ function garmentbox_factory_production_order_delivery_get_data($node) {
       }
       $quantity = $quantity_wrapper->field_quantity_integer->value();
       $data[$variant_nid]['sizes'][$tid] += $quantity;
-      $data[$variant_nid]['items_count'] += $quantity;
+      $data[$variant_nid]['items_count']['original'] += $quantity;
     }
   }
 

@@ -540,7 +540,7 @@ function garmentbox_factory_create_inventory_line($production_order_nid, $item_v
   $wrapper->field_item_variant->set($item_variant_nid);
 
   // Set the inventory line type to 'Current production'.
-  $term = taxonomy_get_term_by_name('Current production', 'inventory_type');
+  $term = taxonomy_get_term_by_name(TERM_LABEL_CURRENT_PRODUCTION, 'inventory_type');
   $tid = key($term);
   $wrapper->field_inventory_type->set($tid);
 
@@ -633,7 +633,7 @@ function garmentbox_factory_update_production_order($node) {
   }
 
   // Set the type of attached inventory lines to 'Current production'.
-  $term = taxonomy_get_term_by_name('Current production', 'inventory_type');
+  $term = taxonomy_get_term_by_name(TERM_LABEL_CURRENT_PRODUCTION, 'inventory_type');
   $tid = key($term);
 
   foreach ($node->production_order_inventory_lines as $nid) {

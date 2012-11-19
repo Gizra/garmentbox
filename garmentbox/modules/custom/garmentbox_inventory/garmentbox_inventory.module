@@ -6,6 +6,8 @@
 
 include_once 'garmentbox_inventory.features.inc';
 
+define('TERM_LABEL_CURRENT_PRODUCTION', 'Current production');
+
 /**
  * Implements hook_ctools_plugin_directory().
  */
