@@ -40,17 +40,21 @@ Drupal.behaviors.GarmentboxOrderItems = {
     var table = $(context).find('table#delivery-details');
     for (nid in Drupal.settings.garmentbox_factory.delivery_data) {
       for (tid in Drupal.settings.garmentbox_factory.delivery_data[nid].sizes) {
-        var original = Drupal.settings.garmentbox_factory.delivery_data[nid].sizes[tid];
-        var received = table.find('tr.received[ref="variant-' + nid + '"] td[data-tid="' + tid + '"] input').val();
-
         var extrasCell = table.find('tr.extras td[data-tid="' + tid + '"]');
+        var missingCell = table.find('tr.missing td[data-tid="' + tid + '"]');
         extrasCell.text('');
+        missingCell.text('');
+
+        var original = Drupal.settings.garmentbox_factory.delivery_data[nid].sizes[tid];
+        var received = parseInt(table.find('tr.received[ref="variant-' + nid + '"] td[data-tid="' + tid + '"] input').val());
+        if (isNaN(received) || received < 0) {
+          continue;
+        }
+
         if (received > original) {
           extrasCell.text(received - original);
         }
 
-        var missingCell = table.find('tr.missing td[data-tid="' + tid + '"]');
-        missingCell.text('');
         if (original > received) {
           missingCell.text(original - received);
         }
