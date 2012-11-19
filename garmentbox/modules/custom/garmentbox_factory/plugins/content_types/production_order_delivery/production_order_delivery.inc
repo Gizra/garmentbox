@@ -22,7 +22,8 @@ function garmentbox_factory_production_order_delivery_content_type_render($subty
   $block = new stdClass();
   $block->module = 'garmentbox_factory';
   $block->title = t('Production Delivery');
-  $block->content = drupal_get_form('garmentbox_factory_production_order_delivery', $node);
+  $form = drupal_get_form('garmentbox_factory_production_order_delivery_form', $node);
+  $block->content = drupal_render($form);
   return $block;
 }
 
@@ -34,12 +35,94 @@ function garmentbox_factory_production_order_delivery_content_type_edit_form($fo
 }
 
 /**
+ * Theme the production order delivery form.
+ */
+function theme_garmentbox_factory_production_order_delivery_form($variables) {
+  $vocabulary = taxonomy_vocabulary_machine_name_load('size');
+  $size_tree = taxonomy_get_tree($vocabulary->vid);
+
+  $form = $variables['form'];
+  $rows = array();
+  foreach ($form['variants'] as $nid => $variant) {
+    if (!is_numeric($nid)) {
+      continue;
+    }
+    $row = array(
+      'data' => array(),
+      'id' => "variant-$nid",
+    );
+    $row['data'][] = array(
+      'data' => render($variant["received_variant_$nid"]),
+      'class' => array('received'),
+    );
+    $row['data'][] = render($variant['title']);
+    $row['data'][] = t('Original');
+    foreach ($size_tree as $term) {
+      $row['data'][] = render($variant['original'][$term->tid]);
+    }
+    $row['data'][] = '-';
+    $rows[] = $row;
+
+    $types = array(
+      'received' => t('Received'),
+      'defective' => t('Defective'),
+      'extras' => t('Extras'),
+      'missing' => t('Missing'),
+    );
+    foreach ($types as $type => $label) {
+      $row = array(
+        'data' => array('', ''),
+        'class' => array('hidden', $type),
+        'ref' => "variant-$nid",
+      );
+
+      $row['data'][] = $label;
+
+      $vocabulary = taxonomy_vocabulary_machine_name_load('size');
+      $size_tree = taxonomy_get_tree($vocabulary->vid);
+
+      foreach ($size_tree as $term) {
+        $row['data'][] = array(
+          'data' => render($variant[$type][$term->tid]),
+          'data-tid' => $term->tid,
+          'class' => array('size-quantity'),
+        );
+      }
+      $row['data'][] = array(
+        'data' => '-',
+        'class' => array('price'),
+      );
+
+      $rows[] = $row;
+    }
+  }
+
+  $header = array(t('Received'), t('Item Variation'), t('Type'));
+  $vocabulary = taxonomy_vocabulary_machine_name_load('size');
+  foreach (taxonomy_get_tree($vocabulary->vid) as $term) {
+    $header[] = $term->name;
+  }
+  $header[] = t('Production price');
+
+  $variables = array(
+    'header' => $header,
+    'rows' => $rows,
+    'attributes' => array(
+      'id' => 'delivery-details',
+    ),
+  );
+  $output = theme('table', $variables);
+  $output .= render($form['actions']);
+  return $output;
+}
+
+/**
  * Create the production order delivery update form.
  *
  * @param $node
  *   The production order node.
  */
-function garmentbox_factory_production_order_delivery($form, &$form_state, $node) {
+function garmentbox_factory_production_order_delivery_form($form, &$form_state, $node) {
   $wrapper = entity_metadata_wrapper('node', $node);
   $form['factory_details'] = array(
     '#markup' => t('Factory: @factory', array('@factory' => $wrapper->field_factory->label())),
@@ -47,23 +130,48 @@ function garmentbox_factory_production_order_delivery($form, &$form_state, $node
 
   // Create the delivery details table.
   $data = garmentbox_factory_production_order_delivery_get_data($node);
-  $vocabulary = taxonomy_vocabulary_machine_name_load('size');
-  $header = array(t('Received'), t('Item Variation'), t('Type'));
-  foreach (taxonomy_get_tree($vocabulary->vid) as $term) {
-    $header[] = $term->name;
-  }
-  $header[] = t('Production price');
 
-  $form['delivery_details'] = array(
-    '#theme' => 'table',
-    '#rows' => garmentbox_factory_production_order_delivery_rows($data),
-    '#header' => $header,
-    '#attributes' => array('id' => 'delivery-details'),
+  $vocabulary = taxonomy_vocabulary_machine_name_load('size');
+
+  $types = array(
+    'original' => t('Original'),
+    'received' => t('Received'),
+    'defective' => t('Defective'),
+    'extras' => t('Extras'),
+    'missing' => t('Missing'),
   );
+  foreach ($data as $nid => $item_variant) {
+    $form['variants'][$nid]["received_variant_{$nid}"] = array(
+      '#type' => 'checkbox',
+    );
+
+    $form['variants'][$nid]['title'] = array(
+      '#markup' => check_plain($item_variant['title']),
+    );
+    foreach ($types as $type => $label) {
+      foreach (taxonomy_get_tree($vocabulary->vid) as $term) {
+        $markup = '';
+        switch ($type) {
+          case 'original':
+            $form['variants'][$nid][$type][$term->tid] = array(
+              '#markup' => $item_variant['sizes'][$term->tid],
+            );
+            break;
+
+          case 'received':
+          case 'defective':
+            $form['variants'][$nid][$type][$term->tid]["{$type}_quantity_variant_{$nid}_tid_{$term->tid}"] = array(
+              '#type' => 'textfield',
+              '#default_value' => $type == 'defective' ? '' : $item_variant['sizes'][$term->tid],
+              '#size' => 4,
+            );
+            break;
+        }
+      }
+    }
+  }
 
   $totals = array(
-    // 'total_items' => t('Total items'),
-    // 'production_cost' => t('Production cost'),
     'total_items_new' => t('Total items new'),
     'production_cost_new' => t('Production cost new'),
   );
@@ -76,7 +184,7 @@ function garmentbox_factory_production_order_delivery($form, &$form_state, $node
     );
   }
 
-  $form['submit'] = array(
+  $form['actions'] = array(
     '#type' => 'submit',
     '#value' => t('Save'),
   );
@@ -94,56 +202,38 @@ function garmentbox_factory_production_order_delivery($form, &$form_state, $node
     ),
   );
 
+  $form_state['node'] = $node;
+  $form_state['data'] = $data;
+
   return $form;
 }
 
 /**
- * Build the rows for the order delivery table.
- *
- * @param $data
- *   The delivery raw data.
- *
- * @return
- *   Themed table.
+ * Submit handler for the delivery form.
  */
-function garmentbox_factory_production_order_delivery_rows($data) {
-  $rows = array();
-  foreach ($data as $variant_nid => $variant_data) {
-    // Create the 'Original' row.
-    $row = array('data' => array());
-    $variables = array(
-      'element' => array(
-        '#attributes' => array(
-          'name' => "inventory_line_received[$variant_nid]",
-          'value' => $variant_nid,
-        ),
-      ),
-    );
-    // Determine whether the checkbox is checked.
-    if ($variant_data['checked']) {
-      $variables['element']['#attributes']['checked'] = 'checked';
+function garmentbox_factory_production_order_delivery_form_submit($form, &$form_state) {
+  $production_order_node = $form_state['node'];
+
+  $current_prooduction_tid = key(taxonomy_get_term_by_name(TERM_LABEL_CURRENT_PRODUCTION, 'inventory_type'));
+  $regular_stock_tid = key(taxonomy_get_term_by_name(TERM_LABEL_REGULAR_STOCK, 'inventory_type'));
+
+  // Set inventory lines as received if their variant was checked as received.
+  foreach ($form_state['values']['item_variants_received'] as $item_variant_nid) {
+    if (!$item_variant_nid) {
+      continue;
     }
 
-    $row = garmentbox_factory_production_order_delivery_row($variant_nid, NULL, t('Original'), $variant_data);
-    // Rewrite row settings.
-    $row['class'] = array('expandable');
-    $row['id'] = $row['ref'];
-    unset($row['ref']);
-    // Rewrite the first and second cells.
-    $row['data'][0] = array(
-      'data' => theme('checkbox', $variables),
-      'class' => array('received'),
-    );
-    $row['data'][1] = $variant_data['title'];
-    $row['data'][6] = commerce_currency_format($variant_data['item_price'] * $variant_data['items_count']['original'], commerce_default_currency());
-    $rows[] = $row;
+    $inventory_line_nids = garmentbox_factory_get_production_order_inventory_lines($production_order_node->nid, $item_variant_nid);
+    foreach (node_load_multiple($inventory_line_nids) as $inventory_line_node) {
+      $wrapper = entity_metadata_wrapper('node', $inventory_line_node);
 
-    $rows[] = garmentbox_factory_production_order_delivery_row($variant_nid, 'received', t('Received'), $variant_data, 'received_inventory');
-    $rows[] = garmentbox_factory_production_order_delivery_row($variant_nid, 'defective', t('Defective'), NULL, 'defective_inventory');
-    $rows[] = garmentbox_factory_production_order_delivery_row($variant_nid, 'extras', t('Extras'));
-    $rows[] = garmentbox_factory_production_order_delivery_row($variant_nid, 'missing', t('Missing'));
+      // Set the "Current production" inventory lines type to "Regular stock".
+      if ($wrapper->field_inventory_type->getIdentifier() == $current_prooduction_tid) {
+        $wrapper->field_inventory_type->set($regular_stock_tid);
+        // $wrapper->save();
+      }
+    }
   }
-  return $rows;
 }
 
 /**
@@ -151,55 +241,17 @@ function garmentbox_factory_production_order_delivery_rows($data) {
  *
  * @param $nid
  *   The production order node ID.
- * @param $row_class
- *   Class to add to the row.
+ * @param $type
+ *   Row type.
  * @param $row_title
  *   The value of the "Type" column.
- * @param $variant_data
- *   The raw item variant data.
- * @param $input_name
- *   When not null, determines the name of the quantity inputs.
+ * @param $variant
+ *   The item variant form element.
  *
  * @return
  *   The table row.
  */
-function garmentbox_factory_production_order_delivery_row($nid, $row_class, $row_title, $variant_data = NULL, $input_name = NULL) {
-  $row = array(
-    'data' => array('', ''),
-    'class' => array('hidden', $row_class),
-    'ref' => "variant-$nid",
-  );
-
-  $row['data'][] = $row_title;
-
-  $vocabulary = taxonomy_vocabulary_machine_name_load('size');
-  $size_tree = taxonomy_get_tree($vocabulary->vid);
-  foreach ($size_tree as $term) {
-    $quantity = empty($variant_data['sizes'][$term->tid]) ? '' : $variant_data['sizes'][$term->tid];
-    if ($input_name) {
-      $variables = array(
-        'element' => array(
-          '#attributes' => array(
-            'name' => $input_name . "[$nid][$term->tid]",
-            'size' => 4,
-            'title' => $term->name,
-            'value' => $quantity,
-          ),
-          '#autocomplete_path' => '',
-        ),
-      );
-      $quantity = theme('textfield', $variables);
-    }
-    $row['data'][] = array(
-      'data' => $quantity,
-      'data-tid' => $term->tid,
-      'class' => array('size-quantity'),
-    );
-  }
-  $row['data'][] = array(
-    'data' => '-',
-    'class' => array('price'),
-  );
+function _garmentbox_factory_production_order_delivery_row($nid, $type, $row_title, $variant) {
 
   return $row;
 }

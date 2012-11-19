@@ -23,6 +23,18 @@ function garmentbox_factory_field_access($op, $field, $entity_type, $entity, $ac
 }
 
 /**
+ * Implements hook_theme().
+ */
+function garmentbox_factory_theme()
+{
+  return array(
+    'garmentbox_factory_production_order_delivery_form' => array(
+      'render element' => 'form'
+    ),
+  );
+}
+
+/**
  * Implements hook_form_FORM_ID_alter().
  */
 function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form_state) {
@@ -198,7 +210,7 @@ function garmentbox_factory_get_item_variants_inventory_lines($item_variant_nids
   $query = db_select('node', 'n');
   $query->innerJoin('field_data_field_item_variant', 'iv', 'iv.entity_id = n.nid');
   $query->innerJoin('field_data_field_inventory_type', 'it', 'it.entity_id = n.nid');
-  // Left joining on production order for fetching also lines without prodiction
+  // Left joining on production order for fetching also lines without production
   // order.
   $query->leftJoin('field_data_field_production_order', 'po', 'po.entity_id = n.nid');
   $query->addField('n', 'nid');
@@ -235,20 +247,27 @@ function garmentbox_factory_get_item_variants_inventory_lines($item_variant_nids
 /**
  * Fetch the inventory lines attached to a given production order node.
  *
- * @param $nid
+ * @param $production_order_nid
  *   A prodution order node ID.
+ * @param $item_variant_nid
+ *   An item variant node ID to filter the results.
  *
  * @return
  *   Array of inventory lines node IDs.
  */
-function garmentbox_factory_get_production_order_inventory_lines($nid) {
+function garmentbox_factory_get_production_order_inventory_lines($production_order_nid, $item_variant_nid = NULL) {
   $query = new EntityFieldQuery();
-  $result = $query
+  $query
     ->entityCondition('entity_type', 'node')
     ->propertyCondition('type', 'inventory_line')
     ->propertyCondition('status', NODE_PUBLISHED)
-    ->fieldCondition('field_production_order', 'target_id', $nid)
-    ->execute();
+    ->fieldCondition('field_production_order', 'target_id', $production_order_nid);
+
+  if ($item_variant_nid) {
+    // Filter by item variant.
+    $query->fieldCondition('field_item_variant', 'target_id', $item_variant_nid);
+  }
+  $result = $query->execute();
 
   return !empty($result['node']) ? array_keys($result['node']) : array();
 }
