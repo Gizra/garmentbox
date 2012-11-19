@@ -542,6 +542,8 @@ function garmentbox_factory_node_presave($node) {
  *
  * @param $production_order_nid
  *   Attach the inventory line to this production order.
+ * @param $origin_nid
+ *   Node ID to set as the origin of the inventory line.
  * @param $item_variant_nid
  *   The inventory line's item variant.
  * @param $quantity_info
@@ -550,7 +552,7 @@ function garmentbox_factory_node_presave($node) {
  * @param $type_term
  *   The name of the inventory type term.
  */
-function garmentbox_factory_create_inventory_line($production_order_nid, $item_variant_nid, $quantity_info, $type_term = INVENTORY_TYPE_CURRENT_PRODUCTION) {
+function garmentbox_factory_create_inventory_line($production_order_nid, $origin_nid, $item_variant_nid, $quantity_info, $type_term = INVENTORY_TYPE_CURRENT_PRODUCTION) {
   $node = new stdClass();
   $node->type = 'inventory_line';
   $node->language = LANGUAGE_NONE;
@@ -558,6 +560,7 @@ function garmentbox_factory_create_inventory_line($production_order_nid, $item_v
 
   $wrapper = entity_metadata_wrapper('node', $node);
   $wrapper->field_production_order->set($production_order_nid);
+  $wrapper->field_origin_entity->set($origin_nid);
   $wrapper->field_item_variant->set($item_variant_nid);
 
   // Set the inventory line type to 'Current production'.
