@@ -234,6 +234,8 @@ function garmentbox_factory_production_order_delivery_form_submit($form, &$form_
   $current_prooduction_tid = key(taxonomy_get_term_by_name(INVENTORY_TYPE_CURRENT_PRODUCTION, 'inventory_type'));
   $regular_stock_tid = key(taxonomy_get_term_by_name(INVENTORY_TYPE_REGULAR_STOCK, 'inventory_type'));
 
+  $data = garmentbox_factory_production_order_delivery_get_data($production_order_node);
+
   // Set inventory lines as received if their variant was checked as received.
   foreach (array_keys($form['variants']) as $item_variant_nid) {
     if (!is_numeric($item_variant_nid)) {
@@ -249,6 +251,32 @@ function garmentbox_factory_production_order_delivery_form_submit($form, &$form_
         $wrapper->field_inventory_type->set($regular_stock_tid);
         // $wrapper->save();
       }
+      else {
+        // If the current variant is already received continue to the next one.
+        continue 2;
+      }
+    }
+
+    // Check if new inventory lines should be created for the received items.
+    $extra_quantity_info = array();
+    $missing_quantity_info = array();
+    foreach ($size_tree as $term) {
+      $received = $form_state['values']["received_quantity_variant_{$item_variant_nid}_tid_{$term->tid}"];
+      $original = $data[$item_variant_nid]['sizes'][$term->tid];
+      if ($received > $original) {
+        $extra_quantity_info[$term->tid] = $received - $original;
+      }
+      if ($original > $received) {
+        $missing_quantity_info[$term->tid] = $original - $received;
+      }
+    }
+    // Create "Regular stock" inventory for extra items.
+    if ($extra_quantity_info) {
+      garmentbox_factory_create_inventory_line($production_order_node->nid, $item_variant_nid, $extra_quantity_info, INVENTORY_TYPE_REGULAR_STOCK);
+    }
+    // Create "Future production" inventory for missing items.
+    if ($missing_quantity_info) {
+      garmentbox_factory_create_inventory_line($production_order_node->nid, $item_variant_nid, $extra_quantity_info, INVENTORY_TYPE_FUTURE_PRODUCTION);
     }
 
     // Create an inventory for the defective items.
@@ -265,26 +293,6 @@ function garmentbox_factory_production_order_delivery_form_submit($form, &$form_
       garmentbox_factory_create_inventory_line($production_order_node->nid, $item_variant_nid, $quantity_info, INVENTORY_TYPE_DEFECTIVE);
     }
   }
-}
-
-/**
- * Build a delivery table row.
- *
- * @param $nid
- *   The production order node ID.
- * @param $type
- *   Row type.
- * @param $row_title
- *   The value of the "Type" column.
- * @param $variant
- *   The item variant form element.
- *
- * @return
- *   The table row.
- */
-function _garmentbox_factory_production_order_delivery_row($nid, $type, $row_title, $variant) {
-
-  return $row;
 }
 
 /**
