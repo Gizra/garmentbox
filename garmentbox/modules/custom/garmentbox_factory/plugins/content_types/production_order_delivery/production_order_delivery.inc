@@ -50,6 +50,7 @@ function theme_garmentbox_factory_production_order_delivery_form($variables) {
     $row = array(
       'data' => array(),
       'id' => "variant-$nid",
+      'class' => array('original'),
     );
     $row['data'][] = array(
       'data' => render($variant["received_variant_$nid"]),
@@ -58,9 +59,16 @@ function theme_garmentbox_factory_production_order_delivery_form($variables) {
     $row['data'][] = render($variant['title']);
     $row['data'][] = t('Original');
     foreach ($size_tree as $term) {
-      $row['data'][] = render($variant['original'][$term->tid]);
+      $row['data'][] = array(
+        'data' => render($variant['original'][$term->tid]),
+        'class' => array('size-quantity'),
+        'data-tid' => $term->tid,
+      );
     }
-    $row['data'][] = '-';
+    $row['data'][] = array(
+      'data' => '-',
+      'class' => array('price'),
+    );
     $rows[] = $row;
 
     $types = array(
@@ -107,12 +115,17 @@ function theme_garmentbox_factory_production_order_delivery_form($variables) {
   $variables = array(
     'header' => $header,
     'rows' => $rows,
-    'attributes' => array(
-      'id' => 'delivery-details',
-    ),
+    'attributes' => array('id' => 'delivery-details'),
   );
-  $output = theme('table', $variables);
+  hide($form['actions']);
+  hide($form['variants']);
+  hide($form['totals']);
+
+  $output = drupal_render_children($form);
+  $output .= theme('table', $variables);
+  $output .= render($form['totals']);
   $output .= render($form['actions']);
+
   return $output;
 }
 
@@ -134,11 +147,11 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
   $vocabulary = taxonomy_vocabulary_machine_name_load('size');
 
   $types = array(
-    'original' => t('Original'),
-    'received' => t('Received'),
-    'defective' => t('Defective'),
-    'extras' => t('Extras'),
-    'missing' => t('Missing'),
+    'original',
+    'received',
+    'defective',
+    'extras',
+    'missing',
   );
   foreach ($data as $nid => $item_variant) {
     $form['variants'][$nid]["received_variant_{$nid}"] = array(
@@ -148,7 +161,7 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
     $form['variants'][$nid]['title'] = array(
       '#markup' => check_plain($item_variant['title']),
     );
-    foreach ($types as $type => $label) {
+    foreach ($types as $type) {
       foreach (taxonomy_get_tree($vocabulary->vid) as $term) {
         $markup = '';
         switch ($type) {
@@ -162,6 +175,8 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
           case 'defective':
             $form['variants'][$nid][$type][$term->tid]["{$type}_quantity_variant_{$nid}_tid_{$term->tid}"] = array(
               '#type' => 'textfield',
+              '#title' => check_plain($term->name),
+              '#element_validate' => array('element_validate_integer_positive'),
               '#default_value' => $type == 'defective' ? '' : $item_variant['sizes'][$term->tid],
               '#size' => 4,
             );
@@ -176,7 +191,7 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
     'production_cost_new' => t('Production cost new'),
   );
   foreach ($totals as $name => $title) {
-    $form[$name] = array(
+    $form['totals'][$name] = array(
       '#title' => $title,
       '#type' => 'textfield',
       '#disabled' => TRUE,
@@ -203,7 +218,6 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
   );
 
   $form_state['node'] = $node;
-  $form_state['data'] = $data;
 
   return $form;
 }
@@ -212,14 +226,17 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
  * Submit handler for the delivery form.
  */
 function garmentbox_factory_production_order_delivery_form_submit($form, &$form_state) {
+  $vocabulary = taxonomy_vocabulary_machine_name_load('size');
+  $size_tree = taxonomy_get_tree($vocabulary->vid);
+
   $production_order_node = $form_state['node'];
 
-  $current_prooduction_tid = key(taxonomy_get_term_by_name(TERM_LABEL_CURRENT_PRODUCTION, 'inventory_type'));
-  $regular_stock_tid = key(taxonomy_get_term_by_name(TERM_LABEL_REGULAR_STOCK, 'inventory_type'));
+  $current_prooduction_tid = key(taxonomy_get_term_by_name(INVENTORY_TYPE_CURRENT_PRODUCTION, 'inventory_type'));
+  $regular_stock_tid = key(taxonomy_get_term_by_name(INVENTORY_TYPE_REGULAR_STOCK, 'inventory_type'));
 
   // Set inventory lines as received if their variant was checked as received.
-  foreach ($form_state['values']['item_variants_received'] as $item_variant_nid) {
-    if (!$item_variant_nid) {
+  foreach (array_keys($form['variants']) as $item_variant_nid) {
+    if (!is_numeric($item_variant_nid)) {
       continue;
     }
 
@@ -232,6 +249,20 @@ function garmentbox_factory_production_order_delivery_form_submit($form, &$form_
         $wrapper->field_inventory_type->set($regular_stock_tid);
         // $wrapper->save();
       }
+    }
+
+    // Create an inventory for the defective items.
+    $create_inventory_line = FALSE;
+    $quantity_info = array();
+    foreach ($size_tree as $term) {
+      $quantity = $form_state['values']["defective_quantity_variant_{$item_variant_nid}_tid_{$term->tid}"];
+      if ($quantity) {
+        $create_inventory_line = TRUE;
+      }
+      $quantity_info[$term->tid] = $quantity;
+    }
+    if ($create_inventory_line) {
+      garmentbox_factory_create_inventory_line($production_order_node->nid, $item_variant_nid, $quantity_info, INVENTORY_TYPE_DEFECTIVE);
     }
   }
 }
@@ -272,7 +303,7 @@ function garmentbox_factory_production_order_delivery_get_data($node) {
   $size_tree = taxonomy_get_tree($vocabulary->vid);
 
   // TODO: Will this work when viewing the page translated?
-  $current_prooduction_tid = key(taxonomy_get_term_by_name(TERM_LABEL_CURRENT_PRODUCTION, 'inventory_type'));
+  $current_prooduction_tid = key(taxonomy_get_term_by_name(INVENTORY_TYPE_CURRENT_PRODUCTION, 'inventory_type'));
 
   foreach(garmentbox_factory_get_production_order_inventory_lines($node->nid) as $nid) {
     $wrapper = entity_metadata_wrapper('node', $nid);

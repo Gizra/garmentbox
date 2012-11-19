@@ -68,10 +68,14 @@ Drupal.behaviors.GarmentboxOrderItems = {
   updateVariantPrice: function(context, nid) {
     var item_price = Drupal.settings.garmentbox_factory.delivery_data[nid].item_price / 100;
     var table = $(context).find('table#delivery-details');
-    var types = ['received', 'defective', 'extras', 'missing'];
+    var types = ['original', 'received', 'defective', 'extras', 'missing'];
 
     for (i in types) {
-      var row = table.find('tr.' + types[i] + '[ref="variant-' + nid + '"]');
+      var ref = 'ref';
+      if (types[i] == 'original') {
+        ref = 'id';
+      }
+      var row = table.find('tr.' + types[i] + '[' + ref + '="variant-' + nid + '"]');
       // Select the quantity from the input or from the td.
       var query = 'td.size-quantity';
       if (types[i] == 'received' || types[i] == 'defective') {

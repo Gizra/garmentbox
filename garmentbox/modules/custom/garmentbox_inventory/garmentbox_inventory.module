@@ -6,8 +6,9 @@
 
 include_once 'garmentbox_inventory.features.inc';
 
-define('TERM_LABEL_CURRENT_PRODUCTION', 'Current production');
-define('TERM_LABEL_REGULAR_STOCK', 'Regular stock');
+define('INVENTORY_TYPE_CURRENT_PRODUCTION', 'Current production');
+define('INVENTORY_TYPE_REGULAR_STOCK', 'Regular stock');
+define('INVENTORY_TYPE_DEFECTIVE', 'Defective');
 
 /**
  * Implements hook_ctools_plugin_directory().

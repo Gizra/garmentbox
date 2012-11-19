@@ -547,8 +547,10 @@ function garmentbox_factory_node_presave($node) {
  * @param $quantity_info
  *   Array of quantities keyed by size term ID. A new field_quantity_info item will
  *   be created for each entry.
+ * @param $type_term
+ *   The name of the inventory type term.
  */
-function garmentbox_factory_create_inventory_line($production_order_nid, $item_variant_nid, $quantity_info) {
+function garmentbox_factory_create_inventory_line($production_order_nid, $item_variant_nid, $quantity_info, $type_term = INVENTORY_TYPE_CURRENT_PRODUCTION) {
   $node = new stdClass();
   $node->type = 'inventory_line';
   $node->language = LANGUAGE_NONE;
@@ -559,7 +561,7 @@ function garmentbox_factory_create_inventory_line($production_order_nid, $item_v
   $wrapper->field_item_variant->set($item_variant_nid);
 
   // Set the inventory line type to 'Current production'.
-  $term = taxonomy_get_term_by_name(TERM_LABEL_CURRENT_PRODUCTION, 'inventory_type');
+  $term = taxonomy_get_term_by_name($type_term, 'inventory_type');
   $tid = key($term);
   $wrapper->field_inventory_type->set($tid);
 
@@ -652,7 +654,7 @@ function garmentbox_factory_update_production_order($node) {
   }
 
   // Set the type of attached inventory lines to 'Current production'.
-  $term = taxonomy_get_term_by_name(TERM_LABEL_CURRENT_PRODUCTION, 'inventory_type');
+  $term = taxonomy_get_term_by_name(INVENTORY_TYPE_CURRENT_PRODUCTION, 'inventory_type');
   $tid = key($term);
 
   foreach ($node->production_order_inventory_lines as $nid) {
