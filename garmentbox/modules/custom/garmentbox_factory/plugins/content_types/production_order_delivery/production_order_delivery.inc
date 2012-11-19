@@ -249,7 +249,7 @@ function garmentbox_factory_production_order_delivery_form_submit($form, &$form_
       // Set the "Current production" inventory lines type to "Regular stock".
       if ($wrapper->field_inventory_type->getIdentifier() == $current_prooduction_tid) {
         $wrapper->field_inventory_type->set($regular_stock_tid);
-        // $wrapper->save();
+        $wrapper->save();
       }
       else {
         // If the current variant is already received continue to the next one.
@@ -272,9 +272,10 @@ function garmentbox_factory_production_order_delivery_form_submit($form, &$form_
     }
     // Create "Regular stock" inventory for extra items.
     if ($extra_quantity_info) {
-      garmentbox_factory_create_inventory_line($production_order_node->nid, $item_variant_nid, $extra_quantity_info, INVENTORY_TYPE_REGULAR_STOCK);
+      garmentbox_factory_create_inventory_line(NULL, $item_variant_nid, $extra_quantity_info, INVENTORY_TYPE_REGULAR_STOCK);
     }
-    // Create "Future production" inventory for missing items.
+    // Create "Future production" inventory for missing items. (Attached to the
+    // current production order).
     if ($missing_quantity_info) {
       garmentbox_factory_create_inventory_line($production_order_node->nid, $item_variant_nid, $extra_quantity_info, INVENTORY_TYPE_FUTURE_PRODUCTION);
     }
@@ -290,7 +291,7 @@ function garmentbox_factory_production_order_delivery_form_submit($form, &$form_
       $quantity_info[$term->tid] = $quantity;
     }
     if ($create_inventory_line) {
-      garmentbox_factory_create_inventory_line($production_order_node->nid, $item_variant_nid, $quantity_info, INVENTORY_TYPE_DEFECTIVE);
+      garmentbox_factory_create_inventory_line(NULL, $item_variant_nid, $quantity_info, INVENTORY_TYPE_DEFECTIVE);
     }
   }
 }
