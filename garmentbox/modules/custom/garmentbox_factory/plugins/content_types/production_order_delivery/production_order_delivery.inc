@@ -145,6 +145,7 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
   $data = garmentbox_factory_production_order_delivery_get_data($node);
 
   $vocabulary = taxonomy_vocabulary_machine_name_load('size');
+  $size_tree = taxonomy_get_tree($vocabulary->vid);
 
   $types = array(
     'original',
@@ -154,6 +155,8 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
     'missing',
   );
   foreach ($data as $nid => $item_variant) {
+    $available_sizes = garmentbox_item_get_available_sizes($nid);
+
     $form['variants'][$nid]["received_variant_{$nid}"] = array(
       '#type' => 'checkbox',
     );
@@ -162,7 +165,12 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
       '#markup' => check_plain($item_variant['title']),
     );
     foreach ($types as $type) {
-      foreach (taxonomy_get_tree($vocabulary->vid) as $term) {
+      foreach ($size_tree as $term) {
+        // Ignore the term if it's not available to the item variant.
+        if (empty($available_sizes[$term->tid])) {
+          continue;
+        }
+
         $markup = '';
         switch ($type) {
           case 'original':
