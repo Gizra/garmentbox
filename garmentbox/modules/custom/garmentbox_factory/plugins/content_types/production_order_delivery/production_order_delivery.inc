@@ -93,7 +93,7 @@ function theme_garmentbox_factory_production_order_delivery_form($variables) {
         $row['data'][] = array(
           'data' => render($variant[$type][$term->tid]),
           'data-tid' => $term->tid,
-          'class' => array('size-quantity'),
+          'class' => array('size-quantity', 'hidden-label'),
         );
       }
       $row['data'][] = array(
