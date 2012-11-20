@@ -84,35 +84,50 @@ Drupal.behaviors.GarmentboxOrderItems = {
 
   // Update the production price of a specific variant.
   updateVariantPrice: function(context, nid) {
-    var item_price = Drupal.settings.garmentbox_factory.delivery_data[nid].item_price / 100;
+    var self = this;
+    var itemPrice = Drupal.settings.garmentbox_factory.delivery_data[nid].item_price / 100;
     var table = $(context).find('table#delivery-details');
     var types = ['original', 'received', 'defective', 'extras', 'missing'];
+    var rowId = 'variant-' + nid;
 
     for (i in types) {
       var ref = 'ref';
       if (types[i] == 'received') {
         ref = 'id';
       }
-      var row = table.find('tr.' + types[i] + '[' + ref + '="variant-' + nid + '"]');
-      // Select the quantity from the input or from the td.
-      var query = 'td.size-quantity';
-      if (types[i] == 'received' || types[i] == 'defective') {
-        query += ' input';
-      }
-      // Sum the row quantity.
-      var items_count = 0;
-      row.find(query).each(function(i, element) {
-        var quantity = $(element).is('input') ? $(element).val() : $(element).text();
-        quantity = parseInt(quantity);
-        if (!isNaN(quantity) && quantity >= 0) {
-          items_count += quantity;
-        }
-      });
-      var price = items_count * item_price;
-      row.find('td.price').text('$' + Drupal.formatNumber(price, 2));
+      var row = table.find('tr.' + types[i] + '[' + ref + '="' + rowId + '"]');
+      var itemsCount = this.updateRowPrice(row, itemPrice);
+
       // Save the variant's items count for the totals calculation.
-      Drupal.settings.garmentbox_factory.delivery_data[nid].items_count[types[i]] = items_count;
+      Drupal.settings.garmentbox_factory.delivery_data[nid].items_count[types[i]] = itemsCount;
     }
+
+    // Update the IL rows.
+    table.find('tr.line[ref="' + rowId + '"]').each(function(i, row) {
+      console.log(self.updateRowPrice($(row), itemPrice));
+    });
+  },
+
+  // Update the production price of a specific row.
+  updateRowPrice: function(row, itemPrice) {
+    // Select the quantity from the input or from the td.
+    var query = 'td.size-quantity';
+    if (row.hasClass('received') || row.hasClass('defective') || row.hasClass('line')) {
+      query += ' input';
+    }
+
+    // Sum the row quantity.
+    var itemsCount = 0;
+    row.find(query).each(function(i, element) {
+      var quantity = $(element).is('input') ? $(element).val() : $(element).text();
+      quantity = parseInt(quantity);
+      if (!isNaN(quantity) && quantity >= 0) {
+        itemsCount += quantity;
+      }
+    });
+    var price = itemsCount * itemPrice;
+    row.find('td.price').text('$' + Drupal.formatNumber(price, 2));
+    return itemsCount;
   },
 
   // Update the "Total items" and "Production cost" elements.
