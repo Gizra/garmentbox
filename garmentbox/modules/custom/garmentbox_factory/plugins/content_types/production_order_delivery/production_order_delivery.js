@@ -39,14 +39,15 @@ Drupal.behaviors.GarmentboxOrderItems = {
   updateDeliveryData: function(context) {
     var table = $(context).find('table#delivery-details');
     for (nid in Drupal.settings.garmentbox_factory.delivery_data) {
+      var rowId = 'variant-' + nid;
       for (tid in Drupal.settings.garmentbox_factory.delivery_data[nid].sizes) {
-        var extrasCell = table.find('tr.extras td[data-tid="' + tid + '"]');
-        var missingCell = table.find('tr.missing td[data-tid="' + tid + '"]');
+        var extrasCell = table.find('tr.extras[ref="' + rowId + '"] td[data-tid="' + tid + '"]');
+        var missingCell = table.find('tr.missing[ref="' + rowId + '"] td[data-tid="' + tid + '"]');
         extrasCell.text('');
         missingCell.text('');
 
         var original = Drupal.settings.garmentbox_factory.delivery_data[nid].sizes[tid];
-        var received = parseInt(table.find('tr.received[ref="variant-' + nid + '"] td[data-tid="' + tid + '"] input').val());
+        var received = parseInt(table.find('tr.received[ref="' + rowId + '"] td[data-tid="' + tid + '"] input').val());
         if (isNaN(received) || received < 0) {
           continue;
         }
