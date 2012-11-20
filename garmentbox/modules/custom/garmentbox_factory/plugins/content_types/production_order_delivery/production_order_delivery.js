@@ -64,7 +64,7 @@ Drupal.behaviors.GarmentboxOrderItems = {
         missingCell.text('');
 
         var original = Drupal.settings.garmentbox_factory.delivery_data[nid].sizes[tid];
-        var received = parseInt(table.find('tr.received[ref="' + rowId + '"] td[data-tid="' + tid + '"] input').val());
+        var received = parseInt(table.find('tr.received[id="' + rowId + '"] td[data-tid="' + tid + '"] input').val());
         if (isNaN(received) || received < 0) {
           continue;
         }
@@ -90,7 +90,7 @@ Drupal.behaviors.GarmentboxOrderItems = {
 
     for (i in types) {
       var ref = 'ref';
-      if (types[i] == 'original') {
+      if (types[i] == 'received') {
         ref = 'id';
       }
       var row = table.find('tr.' + types[i] + '[' + ref + '="variant-' + nid + '"]');
