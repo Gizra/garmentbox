@@ -44,65 +44,41 @@ function theme_garmentbox_factory_production_order_delivery_form($variables) {
   $form = $variables['form'];
   $rows = array();
   foreach ($form['variants'] as $nid => $variant) {
+    // Ignore FAPI settings.
     if (!is_numeric($nid)) {
       continue;
     }
-    $row = array(
-      'data' => array(),
-      'id' => "variant-$nid",
-      'class' => array('original'),
-    );
-    $row['data'][] = array(
+
+    $row = _garmentbox_factory_production_order_delivery_form_row($nid, 'received', t('Received'), NULL, $variant['received']);
+    // Override the first row's settings.
+    $row['id'] = "variant-$nid";
+    $row['class'] = array('received');
+    unset($row['ref']);
+    // Override the first cells.
+    $row['data'][0] = array(
       'data' => render($variant["received_variant_$nid"]),
       'class' => array('received'),
     );
-    $row['data'][] = render($variant['title']);
-    $row['data'][] = t('Original');
-    foreach ($size_tree as $term) {
-      $row['data'][] = array(
-        'data' => render($variant['original'][$term->tid]),
-        'class' => array('size-quantity'),
-        'data-tid' => $term->tid,
-      );
-    }
-    $row['data'][] = array(
-      'data' => '-',
-      'class' => array('price'),
-    );
+    $row['data'][1] = render($variant['title']);
     $rows[] = $row;
 
-    $types = array(
-      'received' => t('Received'),
-      'defective' => t('Defective'),
-      'extras' => t('Extras'),
-      'missing' => t('Missing'),
-    );
-    foreach ($types as $type => $label) {
-      $row = array(
-        'data' => array('', ''),
-        'class' => array('hidden', $type),
-        'ref' => "variant-$nid",
-      );
-
-      $row['data'][] = $label;
-
-      $vocabulary = taxonomy_vocabulary_machine_name_load('size');
-      $size_tree = taxonomy_get_tree($vocabulary->vid);
-
-      foreach ($size_tree as $term) {
-        $row['data'][] = array(
-          'data' => render($variant[$type][$term->tid]),
-          'data-tid' => $term->tid,
-          'class' => array('size-quantity', 'hidden-label'),
-        );
+    $row = _garmentbox_factory_production_order_delivery_form_row($nid, 'original', t('Original'), 'subrow', $variant['original']);
+    $row['data'][1] = render($variant['lines_expander']);
+    $rows[] = $row;
+    foreach ($variant['lines'] as $inventory_line_nid => $line) {
+      // Ignore FAPI settings.
+      if (!is_numeric($inventory_line_nid)) {
+        continue;
       }
-      $row['data'][] = array(
-        'data' => '-',
-        'class' => array('price'),
-      );
+      $wrapper = entity_metadata_wrapper('node', $inventory_line_nid);
+      $label = render($line["line_{$inventory_line_nid}_title_variant_{$nid}"]);
 
-      $rows[] = $row;
+      $rows[] = _garmentbox_factory_production_order_delivery_form_row($nid, 'line', $label, NULL, $line);
     }
+
+    $rows[] = _garmentbox_factory_production_order_delivery_form_row($nid, 'defective', t('Defective'), 'subrow', $variant['defective']);
+    $rows[] = _garmentbox_factory_production_order_delivery_form_row($nid, 'extras', t('Extras'), 'subrow');
+    $rows[] = _garmentbox_factory_production_order_delivery_form_row($nid, 'missing', t('Missing'), 'subrow');
   }
 
   $header = array(t('Received'), t('Item Variation'), t('Type'));
@@ -130,6 +106,50 @@ function theme_garmentbox_factory_production_order_delivery_form($variables) {
 }
 
 /**
+ * Build a row for the delivery form.
+ *
+ * @param $nid
+ *   Item variant node ID.
+ * @param $type
+ *   The row type.
+ * @param $label
+ *   The row label.
+ * @param $exrta_class
+ *   Extra class for the row.
+ * @param $quantity_info
+ *   The row's quantity information.
+ *
+ * @return
+ *   Table row.
+ */
+function _garmentbox_factory_production_order_delivery_form_row($nid, $type, $label, $extra_class, $quantity_info = NULL) {
+  $row = array(
+    'data' => array('', ''),
+    'class' => array('hidden', $type, $extra_class),
+    'ref' => "variant-$nid",
+  );
+
+  $row['data'][] = $label;
+
+  $vocabulary = taxonomy_vocabulary_machine_name_load('size');
+  $size_tree = taxonomy_get_tree($vocabulary->vid);
+
+  foreach ($size_tree as $term) {
+    $row['data'][] = array(
+      'data' => empty($quantity_info[$term->tid]) ? '' : render($quantity_info[$term->tid]),
+      'data-tid' => $term->tid,
+      'class' => array('size-quantity', 'hidden-label'),
+    );
+  }
+  $row['data'][] = array(
+    'data' => '-',
+    'class' => array('price'),
+  );
+
+  return $row;
+}
+
+/**
  * Create the production order delivery update form.
  *
  * @param $node
@@ -148,11 +168,9 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
   $size_tree = taxonomy_get_tree($vocabulary->vid);
 
   $types = array(
-    'original',
     'received',
+    'original',
     'defective',
-    'extras',
-    'missing',
   );
   foreach ($data as $nid => $item_variant) {
     $available_sizes = garmentbox_item_get_available_sizes($nid);
@@ -164,6 +182,12 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
     $form['variants'][$nid]['title'] = array(
       '#markup' => check_plain($item_variant['title']),
     );
+
+    // Add the lines expander link.
+    $form['variants'][$nid]['lines_expander'] = array(
+      '#markup' => l('', '', array('attributes' => array('class' => array('expander', 'collapsed')))),
+    );
+
     foreach ($types as $type) {
       foreach ($size_tree as $term) {
         // Ignore the term if it's not available to the item variant.
@@ -190,6 +214,31 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
             );
             break;
         }
+      }
+    }
+
+    // Add the inventory line
+    foreach ($data[$nid]['lines'] as $inventory_line_nid => $line) {
+      // Set the inventory line label.
+      $customer = empty($line['customer']) ? t('N/A') : $line['customer'];
+      $form['variants'][$nid]['lines'][$inventory_line_nid]["line_{$inventory_line_nid}_title_variant_{$nid}"] = array(
+        '#markup' => t('Customer: !customer', array('!customer' => $customer)),
+      );
+
+      foreach ($size_tree as $term) {
+        // Ignore the term if it's not available to the item variant.
+        if (empty($line['quantity'][$term->tid])) {
+          continue;
+        }
+
+        $form['variants'][$nid]['lines'][$inventory_line_nid][$term->tid]["line_{$inventory_line_nid}_quantity_variant_{$nid}_tid_{$term->tid}"] = array(
+          '#type' => 'textfield',
+          '#title' => check_plain($term->name),
+          '#element_validate' => array('element_validate_integer_positive'),
+          '#default_value' => $line['quantity'][$term->tid],
+          '#size' => 4,
+          '#disabled' => TRUE,
+        );
       }
     }
   }
@@ -329,9 +378,10 @@ function garmentbox_factory_production_order_delivery_get_data($node) {
 
   // TODO: Will this work when viewing the page translated?
   $current_prooduction_tid = key(taxonomy_get_term_by_name(INVENTORY_TYPE_CURRENT_PRODUCTION, 'inventory_type'));
-
-  foreach(garmentbox_factory_get_production_order_inventory_lines($node->nid) as $nid) {
+  $inventory_line_nids = garmentbox_factory_get_production_order_inventory_lines($node->nid);
+  foreach($inventory_line_nids as $nid) {
     $wrapper = entity_metadata_wrapper('node', $nid);
+    $line_nid = $wrapper->getIdentifier();
     $variant_nid = $wrapper->field_item_variant->getIdentifier();
 
     $received = $wrapper->field_inventory_type->getIdentifier() != $current_prooduction_tid;
@@ -342,6 +392,7 @@ function garmentbox_factory_production_order_delivery_get_data($node) {
         'item_price' => garmentbox_item_get_variant_price($variant_nid),
         'title' => $wrapper->field_item_variant->label(),
         'checked' => $received,
+        'lines' => array(),
         'items_count' => array(
           'original' => 0,
           'received' => 0,
@@ -358,13 +409,40 @@ function garmentbox_factory_production_order_delivery_get_data($node) {
 
     foreach ($wrapper->field_quantity_info as $quantity_wrapper) {
       $tid = $quantity_wrapper->field_size->getIdentifier();
+
       if (empty($data[$variant_nid]['sizes'][$tid])) {
         // Initialize the quantity counter.
         $data[$variant_nid]['sizes'][$tid] = 0;
       }
+
+      if (empty($data[$variant_nid]['lines'][$line_nid][$tid])) {
+        // Initialize the line specific quantity counter.
+        $data[$variant_nid]['lines'][$line_nid]['quantity'][$tid] = 0;
+      }
+
       $quantity = $quantity_wrapper->field_quantity_integer->value();
+      $data[$variant_nid]['lines'][$line_nid]['quantity'][$tid] += $quantity;
       $data[$variant_nid]['sizes'][$tid] += $quantity;
       $data[$variant_nid]['items_count']['original'] += $quantity;
+    }
+  }
+
+  $order_nids = garmentbox_factory_get_inventory_orders($inventory_line_nids);
+  if (empty($order_nids)) {
+    return $data;
+  }
+
+  foreach (node_load_multiple($order_nids) as $order_node) {
+    $wrapper = entity_metadata_wrapper('node', $order_node);
+    $order_link = l($wrapper->field_customer->label(), 'node/' . $order_node->nid);
+
+    foreach ($wrapper->field_inventory_line_inline as $inventory_line_wrapper) {
+      $variant_nid = $inventory_line_wrapper->field_item_variant->getIdentifier();
+      $inventory_line_nid = $inventory_line_wrapper->getIdentifier();
+
+      if (!empty($data[$variant_nid]['lines'][$inventory_line_nid])) {
+        $data[$variant_nid]['lines'][$inventory_line_nid]['customer'] = $order_link;
+      }
     }
   }
 

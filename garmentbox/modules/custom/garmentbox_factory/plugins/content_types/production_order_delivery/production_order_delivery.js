@@ -17,6 +17,21 @@ Drupal.behaviors.GarmentboxOrderItems = {
     table.find('tr.received input, tr.defective input')
       .change(function(event) { self.updateDeliveryData(context); })
       .keyup(function(event) { self.updateDeliveryData(context); });
+
+    // Show and hide IL when the original expander is toggled.
+    table.find('tr.original a.expander').click(function(event) {
+      event.preventDefault();
+      var expander = $(event.currentTarget);
+      var rowId = expander.parents('tr').attr('ref');
+      var rows = expander.parents('tbody').find('tr.line[ref="' + rowId + '"]');
+      if (expander.hasClass('collapsed')) {
+        rows.show().removeClass('hidden');
+      }
+      else {
+        rows.hide().addClass('hidden');
+      }
+      expander.toggleClass('collapsed');
+    });
   },
 
   // Show and hide varation sub-rows depending on the "Received" checkbox state.
@@ -24,12 +39,14 @@ Drupal.behaviors.GarmentboxOrderItems = {
     var self = this;
     $(context).find('table#delivery-details td.received input[type="checkbox"]').each(function(i, element) {
       var rowId = $(element).parents('tr').attr('id');
-      var rows = $(element).parents('tbody').find('tr[ref="' + rowId + '"]');
+      var tbody = $(element).parents('tbody');
       if($(element).attr('checked')) {
-        rows.show().removeClass('hidden');
+        // When showing, ignore the inventory-line rows.
+        tbody.find('tr.subrow[ref="' + rowId + '"]').show().removeClass('hidden');
       }
       else {
-        rows.hide().addClass('hidden');
+        // When hiding, hide all variant rows.
+        tbody.find('tr[ref="' + rowId + '"]').hide().addClass('hidden');
       }
       self.updateDeliveryData(context);
     });

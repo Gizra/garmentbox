@@ -1,0 +1,7 @@
+body.page-production-order-delivery {
+
+  #delivery-details tr.subrow a.expander {
+    float: right; //LTR
+    margin-right: 0; //LTR
+  }
+}

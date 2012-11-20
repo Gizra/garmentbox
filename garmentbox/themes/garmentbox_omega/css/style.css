@@ -826,6 +826,12 @@ section.content h2.pane-title {
   margin-top: 5px;
 }
 
+/* line 3, ../sass/partials/pages/_delivery.scss */
+body.page-production-order-delivery #delivery-details tr.subrow a.expander {
+  float: right;
+  margin-right: 0;
+}
+
 /* line 4, ../sass/style.scss */
 .container {
   width: 1200px;

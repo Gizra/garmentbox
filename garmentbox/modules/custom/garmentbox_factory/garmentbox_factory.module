@@ -457,21 +457,13 @@ function garmentbox_factory_production_order_items_data($op, $item_variant_nids,
   if (empty($inventory_line_nids)) {
     return $data;
   }
-  // Fetch inventory lines of a factory.
-  $query = new EntityFieldQuery();
-  $result = $query
-    ->entityCondition('entity_type', 'node')
-    ->propertyCondition('type', 'order')
-    ->propertyCondition('status', NODE_PUBLISHED)
-    ->fieldCondition('field_inventory_line_inline', 'target_id', $inventory_line_nids, 'IN')
-    ->fieldOrderBy('field_inventory_line_inline', 'target_id')
-    ->execute();
 
-  if (empty($result['node'])) {
+  $order_nids = garmentbox_factory_get_inventory_orders($inventory_line_nids);
+  if (empty($order_nids)) {
     return $data;
   }
 
-  $orders = node_load_multiple(array_keys($result['node']));
+  $orders = node_load_multiple($order_nids);
   foreach ($orders as $order) {
     $wrapper = entity_metadata_wrapper('node', $order);
     $order_link = l($wrapper->field_customer->label(), 'node/' . $order->nid);
@@ -488,6 +480,28 @@ function garmentbox_factory_production_order_items_data($op, $item_variant_nids,
   }
 
   return $data;
+}
+
+/**
+ * Fetch the orders of given inventory lines.
+ *
+ * @param $inventory_line_nids
+ *   Inventory line node IDs to find orders related to.
+ *
+ * @return
+ *   List of order node IDs.
+ */
+function garmentbox_factory_get_inventory_orders($inventory_line_nids) {
+  $query = new EntityFieldQuery();
+  $result = $query
+    ->entityCondition('entity_type', 'node')
+    ->propertyCondition('type', 'order')
+    ->propertyCondition('status', NODE_PUBLISHED)
+    ->fieldCondition('field_inventory_line_inline', 'target_id', $inventory_line_nids, 'IN')
+    ->fieldOrderBy('field_inventory_line_inline', 'target_id')
+    ->execute();
+
+  return !empty($result['node']) ? array_keys($result['node']) : array();
 }
 
 /**
@@ -684,4 +698,16 @@ function garmentbox_factory_update_production_order($node) {
       garmentbox_factory_create_inventory_line($node->nid, $node->nid, $item_variant_nid, $quantity_info);
     }
   }
+}
+
+/**
+ * Implements hook_field_widget_WIDGET_TYPE_form_alter().
+ */
+function garmentbox_factory_field_widget_textfield_form_alter(&$element, &$form_state, $context) {
+}
+/**
+ * Implements hook_field_widget_form_alter().
+ */
+function garmentbox_factory_field_widget_form_alter(&$element, &$form_state, $context) {
+
 }
