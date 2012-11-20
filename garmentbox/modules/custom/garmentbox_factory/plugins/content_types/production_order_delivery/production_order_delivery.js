@@ -104,7 +104,7 @@ Drupal.behaviors.GarmentboxOrderItems = {
 
     // Update the IL rows.
     table.find('tr.line[ref="' + rowId + '"]').each(function(i, row) {
-      console.log(self.updateRowPrice($(row), itemPrice));
+      self.updateRowPrice($(row), itemPrice);
     });
   },
 

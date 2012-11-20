@@ -163,7 +163,6 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
 
   // Create the delivery details table.
   $data = garmentbox_factory_production_order_delivery_get_data($node);
-
   $vocabulary = taxonomy_vocabulary_machine_name_load('size');
   $size_tree = taxonomy_get_tree($vocabulary->vid);
 
@@ -415,7 +414,7 @@ function garmentbox_factory_production_order_delivery_get_data($node) {
         $data[$variant_nid]['sizes'][$tid] = 0;
       }
 
-      if (empty($data[$variant_nid]['lines'][$line_nid][$tid])) {
+      if (empty($data[$variant_nid]['lines'][$line_nid]['quantity'][$tid])) {
         // Initialize the line specific quantity counter.
         $data[$variant_nid]['lines'][$line_nid]['quantity'][$tid] = 0;
       }
