@@ -242,11 +242,19 @@ function garmentbox_factory_production_order_delivery_form_submit($form, &$form_
   $current_prooduction_tid = key(taxonomy_get_term_by_name(INVENTORY_TYPE_CURRENT_PRODUCTION, 'inventory_type'));
   $regular_stock_tid = key(taxonomy_get_term_by_name(INVENTORY_TYPE_REGULAR_STOCK, 'inventory_type'));
 
+  // This data is used to compare the deltas between the amounts received and
+  // the expected amounts.
   $data = garmentbox_factory_production_order_delivery_get_data($production_order_node);
 
   // Set inventory lines as received if their variant was checked as received.
   foreach (array_keys($form['variants']) as $item_variant_nid) {
+    // Ignore irrelevant values added by FAPI.
     if (!is_numeric($item_variant_nid)) {
+      continue;
+    }
+
+    // Ignore variants that are not marked as "Received".
+    if (!$form_state['values']["received_variant_$item_variant_nid"]) {
       continue;
     }
 
@@ -280,12 +288,12 @@ function garmentbox_factory_production_order_delivery_form_submit($form, &$form_
     }
     // Create "Regular stock" inventory for extra items.
     if ($extra_quantity_info) {
-      garmentbox_factory_create_inventory_line(NULL, $item_variant_nid, $extra_quantity_info, INVENTORY_TYPE_REGULAR_STOCK);
+      garmentbox_factory_create_inventory_line(NULL, $production_order_node->nid, $item_variant_nid, $extra_quantity_info, INVENTORY_TYPE_REGULAR_STOCK);
     }
     // Create "Future production" inventory for missing items. (Attached to the
     // current production order).
     if ($missing_quantity_info) {
-      garmentbox_factory_create_inventory_line($production_order_node->nid, $item_variant_nid, $extra_quantity_info, INVENTORY_TYPE_FUTURE_PRODUCTION);
+      garmentbox_factory_create_inventory_line($production_order_node->nid, $production_order_node->nid, $item_variant_nid, $extra_quantity_info, INVENTORY_TYPE_FUTURE_PRODUCTION);
     }
 
     // Create an inventory for the defective items.
@@ -299,7 +307,7 @@ function garmentbox_factory_production_order_delivery_form_submit($form, &$form_
       $quantity_info[$term->tid] = $quantity;
     }
     if ($create_inventory_line) {
-      garmentbox_factory_create_inventory_line(NULL, $item_variant_nid, $quantity_info, INVENTORY_TYPE_DEFECTIVE);
+      garmentbox_factory_create_inventory_line(NULL, $production_order_node->nid, $item_variant_nid, $quantity_info, INVENTORY_TYPE_DEFECTIVE);
     }
   }
 }

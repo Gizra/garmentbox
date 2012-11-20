@@ -681,7 +681,7 @@ function garmentbox_factory_update_production_order($node) {
     }
 
     if ($create_inventory_line) {
-      garmentbox_factory_create_inventory_line($node->nid, $item_variant_nid, $quantity_info);
+      garmentbox_factory_create_inventory_line($node->nid, $node->nid, $item_variant_nid, $quantity_info);
     }
   }
 }
