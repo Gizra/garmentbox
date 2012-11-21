@@ -74,11 +74,16 @@ function theme_garmentbox_factory_production_order_delivery_form($variables) {
       $label = render($line["line_{$inventory_line_nid}_title_variant_{$nid}"]);
 
       $rows[] = _garmentbox_factory_production_order_delivery_form_row($nid, 'line', $label, NULL, $line);
+      // Add the "Create missing IL" checkbox.
+      $row = _garmentbox_factory_production_order_delivery_form_row($nid, 'missing', t('Missing'), NULL);
+      $row['data-il-ref'] = $inventory_line_nid;
+      $row['data'][1] = render($variant['missing'][$inventory_line_nid]["create_missing_variant_{$nid}_il_{$inventory_line_nid}"]);
+      $rows[] = $row;
     }
 
     $rows[] = _garmentbox_factory_production_order_delivery_form_row($nid, 'defective', t('Defective'), 'subrow', $variant['defective']);
     $rows[] = _garmentbox_factory_production_order_delivery_form_row($nid, 'extras', t('Extras'), 'subrow');
-    $rows[] = _garmentbox_factory_production_order_delivery_form_row($nid, 'missing', t('Missing'), 'subrow');
+
   }
 
   $header = array(t('Received'), t('Item Variation'), t('Type'));
@@ -127,6 +132,7 @@ function _garmentbox_factory_production_order_delivery_form_row($nid, $type, $la
     'data' => array('', ''),
     'class' => array('hidden', $type, $extra_class),
     'ref' => "variant-$nid",
+    'data-variant-nid' => $nid,
   );
 
   $row['data'][] = $label;
