@@ -216,8 +216,17 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
       }
     }
 
-    // Add the inventory line
+    // Add the inventory line rows and "missing" rows.
     foreach ($data[$nid]['lines'] as $inventory_line_nid => $line) {
+      // Add a "Create new IL for missing quantities" checkbox.
+      $form['variants'][$nid]['missing'][$inventory_line_nid]["create_missing_variant_{$nid}_il_{$inventory_line_nid}"] = array(
+        '#type' => 'checkbox',
+        '#attributes' => array(
+          'title' => t('Create this inventory line'),
+        ),
+        '#default_value' => TRUE,
+      );
+
       // Set the inventory line label.
       $customer = empty($line['customer']) ? t('N/A') : $line['customer'];
       $form['variants'][$nid]['lines'][$inventory_line_nid]["line_{$inventory_line_nid}_title_variant_{$nid}"] = array(

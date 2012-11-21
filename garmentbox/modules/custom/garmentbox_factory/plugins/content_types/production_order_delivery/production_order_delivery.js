@@ -21,16 +21,22 @@ Drupal.behaviors.GarmentboxOrderItems = {
     });
 
     // Recalculate values when the received quantity is updated.
-    table.find('tr.received input, tr.defective input')
+    table.find('tr.received .size-quantity input, tr.defective .size-quantity input')
       .change(function(event) { self.updateDeliveryData(context); })
       .keyup(function(event) { self.updateDeliveryData(context); });
+
+    // Show the missing line when a specific IL gets editted.
+    table.find('tr.line .size-quantity input')
+      .change(function(event) { self.updateMissingData(($(event.currentTarget))); })
+      .keyup(function(event) { self.updateMissingData(($(event.currentTarget))); })
 
     // Show and hide IL when the original expander is toggled.
     table.find('tr.original a.expander').click(function(event) {
       event.preventDefault();
       var expander = $(event.currentTarget);
       var rowId = expander.parents('tr').attr('ref');
-      var rows = expander.parents('tbody').find('tr.line[ref="' + rowId + '"]');
+      var tbody = expander.parents('tbody');
+      var rows = tbody.find('tr.line[ref="' + rowId + '"]');
       if (expander.hasClass('collapsed')) {
         rows.show().removeClass('hidden');
       }
@@ -56,6 +62,8 @@ Drupal.behaviors.GarmentboxOrderItems = {
       else {
         // When hiding, hide all variant rows.
         tbody.find('tr[ref="' + rowId + '"]').hide().addClass('hidden');
+        // Set the IL rows toggler as collapsed.
+        tbody.find('tr.original[ref="' + rowId + '"] a.expander').addClass('collapsed');
       }
       self.updateDeliveryData(context);
     });
@@ -176,9 +184,28 @@ Drupal.behaviors.GarmentboxOrderItems = {
       // When the missing error is removed, restore the original quantity.
       inputs.each(function(i, input) {
         var ilNid = $(input).data('il-nid');
-        var quantity = Drupal.settings.garmentbox_factory.delivery_data[nid].lines[ilNid].quantity[tid]
+        var quantity = Drupal.settings.garmentbox_factory.delivery_data[nid].lines[ilNid].quantity[tid];
         $(input).val(quantity).attr('disabled', 'disabled').removeClass('error');
       });
+    }
+  },
+
+  // When the quantity is amended on an IL with missing quantity, show a row for
+  // creating a new IL for the missing quantity.
+  updateMissingData: function(input) {
+    var tbody = input.parents('tbody');
+    var ilNid = input.data('il-nid');
+    var tid = input.parents('td').data('tid');
+    var variantNid = input.parents('tr').data('variant-nid');
+
+    var originalQuantity = Drupal.settings.garmentbox_factory.delivery_data[variantNid].lines[ilNid].quantity[tid];
+    var quantity = parseInt(input.val());
+    if (isNaN(quantity) || quantity < 0) {
+      // what?
+    }
+    else if (quantity < originalQuantity) {
+      var missingRow = tbody.find('tr.missing[data-variant-nid="' + variantNid + '"][data-il-ref="' + ilNid + '"]');
+      missingRow.show().removeClass('hidden');
     }
   }
 };
