@@ -7,6 +7,13 @@ Drupal.behaviors.GarmentboxOrderItems = {
   attach: function(context) {
     var self = this;
     var table = $(context).find('table#delivery-details');
+
+    // Disable the received and IL inputs, to communicate that the received
+    // amounts are ignored if "Received" isn't checked.
+    // These inputs aren't disabled on the FAPI level because it would make them
+    // ignored anyway.
+    table.find('tr.received, tr.line').find('.size-quantity input').attr('disabled', 'disabled');
+
     // Show and hide rows as "Received" checkbox changes.
     self.showHideRows(context);
     table.find('td.received input[type="checkbox"]').change(function(event) {
@@ -43,6 +50,8 @@ Drupal.behaviors.GarmentboxOrderItems = {
       if($(element).attr('checked')) {
         // When showing, ignore the inventory-line rows.
         tbody.find('tr.subrow[ref="' + rowId + '"]').show().removeClass('hidden');
+        // Enable the received textfields.
+        tbody.find('tr.received[id="' + rowId + '"] .size-quantity input').removeAttr('disabled');
       }
       else {
         // When hiding, hide all variant rows.
@@ -75,6 +84,11 @@ Drupal.behaviors.GarmentboxOrderItems = {
 
         if (original > received) {
           missingCell.text(original - received);
+          this.missingItemsNotice(context, nid, tid, false);
+        }
+        else {
+          // Remove the "missing" notice, in case it was already triggered.
+          this.missingItemsNotice(context, nid, tid, true);
         }
       }
       this.updateVariantPrice(context, nid);
@@ -142,6 +156,30 @@ Drupal.behaviors.GarmentboxOrderItems = {
 
     $(context).find('input#edit-total-items-new').val(receivedItems);
     $(context).find('input#edit-production-cost-new').val('$' + Drupal.formatNumber(receivedItemsPrice, 2));
+  },
+
+  // Ask the user to set which items should be declared missing when there are
+  // not enough received.
+  missingItemsNotice: function(context, nid, tid, removeNotice) {
+    var table = $(context).find('table#delivery-details');
+    var rowId = 'variant-' + nid;
+    // Reveal the IL rows.
+    var rows =  table.find('tr.line[ref="' + rowId + '"]');
+    var inputs = rows.find('td[data-tid="' + tid + '"] input');
+    if (!removeNotice) {
+      rows.show().removeClass('hidden');
+      table.find('tr.original[ref="' + rowId + '"] a.collapsed').removeClass('collapsed');
+      // Set a warning on the inputs of the missing size.
+      inputs.removeAttr('disabled').addClass('error');
+    }
+    else {
+      // When the missing error is removed, restore the original quantity.
+      inputs.each(function(i, input) {
+        var ilNid = $(input).data('il-nid');
+        var quantity = Drupal.settings.garmentbox_factory.delivery_data[nid].lines[ilNid].quantity[tid]
+        $(input).val(quantity).attr('disabled', 'disabled').removeClass('error');
+      });
+    }
   }
 };
 

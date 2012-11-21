@@ -235,8 +235,8 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
           '#title' => check_plain($term->name),
           '#element_validate' => array('element_validate_integer_positive'),
           '#default_value' => $line['quantity'][$term->tid],
+          '#attributes' => array('data-il-nid' => $inventory_line_nid),
           '#size' => 4,
-          '#disabled' => TRUE,
         );
       }
     }
