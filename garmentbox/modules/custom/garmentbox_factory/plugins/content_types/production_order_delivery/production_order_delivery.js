@@ -20,15 +20,16 @@ Drupal.behaviors.GarmentboxOrderItems = {
       self.showHideRows(context);
     });
 
-    // Recalculate values when the received quantity is updated.
-    table.find('tr.received .size-quantity input, tr.defective .size-quantity input')
+    // Recalculate values when the Received / Defective or IL quantity is
+    // updated.
+    table.find('.size-quantity input')
       .change(function(event) { self.updateDeliveryData(context); })
       .keyup(function(event) { self.updateDeliveryData(context); });
 
     // Show the missing line when a specific IL gets editted.
-    table.find('tr.line .size-quantity input')
-      .change(function(event) { self.updateMissingData(($(event.currentTarget))); })
-      .keyup(function(event) { self.updateMissingData(($(event.currentTarget))); })
+    // table.find('tr.line .size-quantity input')
+      // .change(function(event) { self.updateMissingData(($(event.currentTarget))); })
+      // .keyup(function(event) { self.updateMissingData(($(event.currentTarget))); })
 
     // Show and hide IL when the original expander is toggled.
     table.find('tr.original a.expander').click(function(event) {
@@ -72,15 +73,15 @@ Drupal.behaviors.GarmentboxOrderItems = {
   // Calculate the "Extras" and "Missing" data.
   updateDeliveryData: function(context) {
     var table = $(context).find('table#delivery-details');
-    for (nid in Drupal.settings.garmentbox_factory.delivery_data) {
-      var rowId = 'variant-' + nid;
-      for (tid in Drupal.settings.garmentbox_factory.delivery_data[nid].sizes) {
+    for (variantNid in Drupal.settings.garmentbox_factory.delivery_data) {
+      var rowId = 'variant-' + variantNid;
+      for (tid in Drupal.settings.garmentbox_factory.delivery_data[variantNid].sizes) {
         var extrasCell = table.find('tr.extras[ref="' + rowId + '"] td[data-tid="' + tid + '"]');
         var missingCell = table.find('tr.missing[ref="' + rowId + '"] td[data-tid="' + tid + '"]');
         extrasCell.text('');
         missingCell.text('');
 
-        var original = Drupal.settings.garmentbox_factory.delivery_data[nid].sizes[tid];
+        var original = Drupal.settings.garmentbox_factory.delivery_data[variantNid].sizes[tid];
         var received = parseInt(table.find('tr.received[id="' + rowId + '"] td[data-tid="' + tid + '"] input').val());
         if (isNaN(received) || received < 0) {
           continue;
@@ -91,15 +92,15 @@ Drupal.behaviors.GarmentboxOrderItems = {
         }
 
         if (original > received) {
-          missingCell.text(original - received);
-          this.missingItemsNotice(context, nid, tid, false);
+          this.missingItemsNotice(context, variantNid, tid, false);
+          this.updateMissingData(table, variantNid, tid);
         }
         else {
           // Remove the "missing" notice, in case it was already triggered.
-          this.missingItemsNotice(context, nid, tid, true);
+          this.missingItemsNotice(context, variantNid, tid, true);
         }
       }
-      this.updateVariantPrice(context, nid);
+      this.updateVariantPrice(context, variantNid);
     }
     this.updateTotals(context);
   },
@@ -109,7 +110,7 @@ Drupal.behaviors.GarmentboxOrderItems = {
     var self = this;
     var itemPrice = Drupal.settings.garmentbox_factory.delivery_data[nid].item_price / 100;
     var table = $(context).find('table#delivery-details');
-    var types = ['original', 'received', 'defective', 'extras', 'missing'];
+    var types = ['original', 'received', 'defective', 'extras'];
     var rowId = 'variant-' + nid;
 
     for (i in types) {
@@ -124,8 +125,8 @@ Drupal.behaviors.GarmentboxOrderItems = {
       Drupal.settings.garmentbox_factory.delivery_data[nid].items_count[types[i]] = itemsCount;
     }
 
-    // Update the IL rows.
-    table.find('tr.line[ref="' + rowId + '"]').each(function(i, row) {
+    // Update the IL and missing rows.
+    table.find('tr.line[ref="' + rowId + '"],tr.missing[ref="' + rowId + '"]').each(function(i, row) {
       self.updateRowPrice($(row), itemPrice);
     });
   },
@@ -192,21 +193,20 @@ Drupal.behaviors.GarmentboxOrderItems = {
 
   // When the quantity is amended on an IL with missing quantity, show a row for
   // creating a new IL for the missing quantity.
-  updateMissingData: function(input) {
-    var tbody = input.parents('tbody');
-    var ilNid = input.data('il-nid');
-    var tid = input.parents('td').data('tid');
-    var variantNid = input.parents('tr').data('variant-nid');
-
-    var originalQuantity = Drupal.settings.garmentbox_factory.delivery_data[variantNid].lines[ilNid].quantity[tid];
-    var quantity = parseInt(input.val());
-    if (isNaN(quantity) || quantity < 0) {
-      // what?
-    }
-    else if (quantity < originalQuantity) {
-      var missingRow = tbody.find('tr.missing[data-variant-nid="' + variantNid + '"][data-il-ref="' + ilNid + '"]');
-      missingRow.show().removeClass('hidden');
-    }
+  updateMissingData: function(table, variantNid, tid) {
+    table.find('tr.line[data-variant-nid="' + variantNid + '"] td[data-tid="' + tid + '"] input').each(function(i, input) {
+      var ilNid = $(input).data('il-nid');
+      var originalQuantity = Drupal.settings.garmentbox_factory.delivery_data[variantNid].lines[ilNid].quantity[tid];
+      var quantity = parseInt($(input).val());
+      if (isNaN(quantity) || quantity < 0) {
+        return;
+      }
+      else if (quantity < originalQuantity) {
+        var missingRow = table.find('tr.missing[data-variant-nid="' + variantNid + '"][data-il-ref="' + ilNid + '"]');
+        missingRow.show().removeClass('hidden');
+        missingRow.find('td[data-tid="' + tid + '"]').text(originalQuantity - quantity);
+      }
+    });
   }
 };
 
