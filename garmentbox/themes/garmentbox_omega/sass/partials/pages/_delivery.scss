@@ -14,5 +14,12 @@ body.page-production-order-delivery {
       float: right; //LTR
       margin-right: 0; //LTR
     }
+
+    tr.missing td.size-quantity span {
+      border: 2px solid blue;
+      width: 40px;
+      height: 15px;
+      display: block;
+    }
   }
 }

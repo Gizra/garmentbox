@@ -839,6 +839,13 @@ body.page-production-order-delivery #delivery-details tr.subrow a.expander {
   float: right;
   margin-right: 0;
 }
+/* line 18, ../sass/partials/pages/_delivery.scss */
+body.page-production-order-delivery #delivery-details tr.missing td.size-quantity span {
+  border: 2px solid blue;
+  width: 40px;
+  height: 15px;
+  display: block;
+}
 
 /* line 4, ../sass/style.scss */
 .container {

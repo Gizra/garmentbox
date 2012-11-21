@@ -204,6 +204,8 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
         switch ($type) {
           case 'original':
             $form['variants'][$nid][$type][$term->tid] = array(
+              '#prefix' => '<span>',
+              '#suffix' => '</span>',
               '#markup' => $item_variant['sizes'][$term->tid],
             );
             break;
@@ -213,7 +215,7 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
             $form['variants'][$nid][$type][$term->tid]["{$type}_quantity_variant_{$nid}_tid_{$term->tid}"] = array(
               '#type' => 'textfield',
               '#title' => check_plain($term->name),
-              '#element_validate' => array('element_validate_integer_positive'),
+              '#element_validate' => array('garmentbox_factory_element_validate_not_negative_integer'),
               '#default_value' => $type == 'defective' ? '' : $item_variant['sizes'][$term->tid],
               '#size' => 4,
             );
@@ -248,7 +250,7 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
         $form['variants'][$nid]['lines'][$inventory_line_nid][$term->tid]["line_{$inventory_line_nid}_quantity_variant_{$nid}_tid_{$term->tid}"] = array(
           '#type' => 'textfield',
           '#title' => check_plain($term->name),
-          '#element_validate' => array('element_validate_integer_positive'),
+          '#element_validate' => array('garmentbox_factory_element_validate_not_negative_integer'),
           '#default_value' => $line['quantity'][$term->tid],
           '#attributes' => array('data-il-nid' => $inventory_line_nid),
           '#size' => 4,
@@ -288,9 +290,51 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
     ),
   );
 
-  $form_state['node'] = $node;
+  // $form_state['node'] = $node;
+  $form_state['original_data'] = $data;
 
   return $form;
+}
+
+/**
+ * Validate handler for the delivery form.
+ */
+function garmentbox_factory_production_order_delivery_form_validate($form, &$form_state) {
+  $original_data = $form_state['original_data'];
+
+  // Validate the data on variants that are marked as receiced.
+  foreach ($original_data as $variant_nid => $variant) {
+    // Ignore variants that aren't marked as received.
+    if (!$form_state['values']["received_variant_$variant_nid"]) {
+      continue;
+    }
+
+    foreach ($variant['sizes'] as $tid => $quantity) {
+      if (!$quantity) {
+        continue;
+      }
+
+      // Ignore quantities which are as expected.
+      $received = $form_state['values']["received_quantity_variant_{$variant_nid}_tid_{$tid}"];
+      if ($received == $quantity) {
+        continue;
+      }
+      // When the received quantity differ, the sum of IL quantities must match
+      // the received quantity.
+      $ils_sum = 0;
+      foreach ($variant['lines'] as $il_nid => $il) {
+        $key = "line_{$il_nid}_quantity_variant_{$variant_nid}_tid_{$tid}";
+        if (!array_key_exists($key, $form_state['values'])) {
+          continue;
+        }
+
+        $ils_sum += ($form_state['values'][$key]);
+      }
+      if ($ils_sum != $received) {
+        form_set_error($key, t('The sum of the inventory lines quantities should be the same as the received quantity.'));
+      }
+    }
+  }
 }
 
 /**

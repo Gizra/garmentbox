@@ -26,11 +26,6 @@ Drupal.behaviors.GarmentboxOrderItems = {
       .change(function(event) { self.updateDeliveryData(context); })
       .keyup(function(event) { self.updateDeliveryData(context); });
 
-    // Show the missing line when a specific IL gets editted.
-    // table.find('tr.line .size-quantity input')
-      // .change(function(event) { self.updateMissingData(($(event.currentTarget))); })
-      // .keyup(function(event) { self.updateMissingData(($(event.currentTarget))); })
-
     // Show and hide IL when the original expander is toggled.
     table.find('tr.original a.expander').click(function(event) {
       event.preventDefault();
@@ -45,6 +40,15 @@ Drupal.behaviors.GarmentboxOrderItems = {
         rows.hide().addClass('hidden');
       }
       expander.toggleClass('collapsed');
+    });
+
+    // Block the save button as long as there are errors.
+    var form = $(context).find('.pane-production-order-delivery form');
+    form.submit(function(event) {
+      if (form.find('input.error.custom').length) {
+        //TODO: show bubble.
+        return false;
+      }
     });
   },
 
@@ -65,6 +69,8 @@ Drupal.behaviors.GarmentboxOrderItems = {
         tbody.find('tr[ref="' + rowId + '"]').hide().addClass('hidden');
         // Set the IL rows toggler as collapsed.
         tbody.find('tr.original[ref="' + rowId + '"] a.expander').addClass('collapsed');
+        // Disable the received textfields.
+        tbody.find('tr.received[id="' + rowId + '"] .size-quantity input').attr('disabled', 'disabled');
       }
       self.updateDeliveryData(context);
     });
@@ -179,7 +185,7 @@ Drupal.behaviors.GarmentboxOrderItems = {
       rows.show().removeClass('hidden');
       table.find('tr.original[ref="' + rowId + '"] a.collapsed').removeClass('collapsed');
       // Set a warning on the inputs of the missing size.
-      inputs.removeAttr('disabled').addClass('error');
+      inputs.removeAttr('disabled').addClass('error custom');
     }
     else {
       // When the missing error is removed, restore the original quantity.
@@ -194,19 +200,41 @@ Drupal.behaviors.GarmentboxOrderItems = {
   // When the quantity is amended on an IL with missing quantity, show a row for
   // creating a new IL for the missing quantity.
   updateMissingData: function(table, variantNid, tid) {
+    // Sum the quantities on the ILs; When the amount is same as the received
+    // the problem is solved.
+    var ilTotal = 0;
+    // Make sure all the IL inputs have valid values before marking the missing
+    // as OK.
+    var inputError = false;
+
     table.find('tr.line[data-variant-nid="' + variantNid + '"] td[data-tid="' + tid + '"] input').each(function(i, input) {
       var ilNid = $(input).data('il-nid');
       var originalQuantity = Drupal.settings.garmentbox_factory.delivery_data[variantNid].lines[ilNid].quantity[tid];
       var quantity = parseInt($(input).val());
       if (isNaN(quantity) || quantity < 0) {
-        return;
+        inputError = true;
       }
       else if (quantity < originalQuantity) {
         var missingRow = table.find('tr.missing[data-variant-nid="' + variantNid + '"][data-il-ref="' + ilNid + '"]');
         missingRow.show().removeClass('hidden');
-        missingRow.find('td[data-tid="' + tid + '"]').text(originalQuantity - quantity);
+        var missing = $('<span>').text(originalQuantity - quantity);
+        missingRow.find('td[data-tid="' + tid + '"]').append(missing);
       }
+
+      ilTotal += quantity;
     });
+
+    if (inputError) {
+      return;
+    }
+
+    var received = table.find('tr.received[data-variant-nid="' + variantNid + '"] td[data-tid="' + tid + '"] input').val();
+    var received = parseInt(received);
+    if (!isNaN(received) && received > 0 && received == ilTotal) {
+      // The missing quantity was deducted successfuly from the ILs; Mark them
+      // as OK.
+      table.find('tr.line[data-variant-nid="' + variantNid + '"] td[data-tid="' + tid + '"] input').removeClass('error');
+    }
   }
 };
 

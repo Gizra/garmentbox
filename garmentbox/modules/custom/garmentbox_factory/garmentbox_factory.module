@@ -699,3 +699,14 @@ function garmentbox_factory_update_production_order($node) {
     }
   }
 }
+
+
+/**
+ * Form element validation handler for non-negative integer elements.
+ */
+function garmentbox_factory_element_validate_not_negative_integer($element, &$form_state) {
+  $value = $element['#value'];
+  if ($value !== '' && (!is_numeric($value) || intval($value) != $value || $value < 0)) {
+    form_error($element, t('%name must be a non-negative integer.', array('%name' => $element['#title'])));
+  }
+}
