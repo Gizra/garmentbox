@@ -184,7 +184,7 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
       '#type' => 'checkbox',
       '#default_value' => $variant_data['received'],
       // Once a variant is checked, it stays checked.
-      '#disabled' => $variant_data['received'],
+      //'#disabled' => $variant_data['received'],
     );
 
     $form['variants'][$nid]['title'] = array(
@@ -384,6 +384,9 @@ function garmentbox_factory_production_order_delivery_form_submit($form, &$form_
 
     $il_nids = array_keys($variant_data['lines']);
     foreach (node_load_multiple($il_nids) as $node) {
+      // The revision must be enabled before the quantity items are re-saved.
+      $node->revision = TRUE;
+
       $missing_size_data = array();
       // Flag specifying whether the currrent IL has missing quantity.
       $il_missing_data = FALSE;
@@ -418,7 +421,7 @@ function garmentbox_factory_production_order_delivery_form_submit($form, &$form_
         $wrapper->field_inventory_type->set($regular_stock_tid);
         // Save the iLine revision when the when it was received.
         $wrapper->field_original_revision->set($node->vid);
-        $node->revision = TRUE;
+        // $node->revision = TRUE;
         $wrapper->save();
       }
 
@@ -493,12 +496,17 @@ function garmentbox_factory_production_order_delivery_get_data($node) {
   $vocabulary = taxonomy_vocabulary_machine_name_load('size');
   $size_tree = taxonomy_get_tree($vocabulary->vid);
 
-  $inventory_line_nids = garmentbox_factory_get_production_order_inventory_lines($node->nid);
-  foreach($inventory_line_nids as $nid) {
-    $wrapper = entity_metadata_wrapper('node', $nid);
+  $il_nids = garmentbox_factory_get_production_order_inventory_lines($node->nid);
+  foreach(node_load_multiple($il_nids) as $il_node) {
+    $wrapper = entity_metadata_wrapper('node', $il_node);
+    $received = $wrapper->field_inventory_type->field_in_warehouse->value();
+    // Load the "Original revision" of the ILs.
+    $original_vid = $wrapper->field_original_revision->value();
+    if ($original_vid) {
+      $il_node = node_load(NULL, $original_vid);
+      $wrapper = entity_metadata_wrapper('node', $il_node);
+    }
 
-    dpm('or' . $wrapper->field_original_revision->value());
-    dpm($wrapper->value());
     $line_nid = $wrapper->getIdentifier();
     $variant_nid = $wrapper->field_item_variant->getIdentifier();
 
@@ -507,7 +515,7 @@ function garmentbox_factory_production_order_delivery_get_data($node) {
         'sizes' => array(),
         'item_price' => garmentbox_item_get_variant_price($variant_nid),
         'title' => $wrapper->field_item_variant->label(),
-        'received' => $wrapper->field_inventory_type->field_in_warehouse->value(),
+        'received' => $received,
         'lines' => array(),
         'items_count' => array(
           'original' => 0,
@@ -524,6 +532,7 @@ function garmentbox_factory_production_order_delivery_get_data($node) {
     }
 
     foreach ($wrapper->field_quantity_info as $quantity_wrapper) {
+      // dpm($quantity_wrapper->value());
       $tid = $quantity_wrapper->field_size->getIdentifier();
 
       if (empty($data[$variant_nid]['sizes'][$tid])) {
@@ -543,7 +552,7 @@ function garmentbox_factory_production_order_delivery_get_data($node) {
     }
   }
 
-  $order_nids = garmentbox_factory_get_inventory_orders($inventory_line_nids);
+  $order_nids = garmentbox_factory_get_inventory_orders($il_nids);
   if (empty($order_nids)) {
     return $data;
   }
