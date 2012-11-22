@@ -554,7 +554,7 @@ section.content {
 body {
   margin: 0;
   background-color: #f4f4f2;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Dosis, Arial, Helvetica, sans-serif;
   padding-bottom: 20px; }
 
 a {
@@ -568,6 +568,66 @@ li {
 
 .item-list ul li {
   margin: 0; }
+
+html.js fieldset.collapsible {
+  border: none;
+  padding: 0;
+  margin-bottom: 45px; }
+  html.js fieldset.collapsible.collapsed .fieldset-legend {
+    background: url("../images/arrow-white-down-status.png") 7px 10px no-repeat #4f4f4f; }
+  html.js fieldset.collapsible a {
+    font-size: 15px; }
+    html.js fieldset.collapsible a.fieldset-title {
+      color: white; }
+  html.js fieldset.collapsible .fieldset-hr {
+    border: 0;
+    border-bottom: solid #4f4f4f 1px;
+    height: 0px;
+    margin: 0;
+    padding-top: 25px;
+    background: url("../images/top-shaddow-collapsible.jpg") repeat-x bottom; }
+  html.js fieldset.collapsible legend {
+    padding: 0; }
+    html.js fieldset.collapsible legend .fieldset-legend {
+      font-weight: bold;
+      background: url("../images/arrow-white-up-status.png") 7px 10px no-repeat #4f4f4f;
+      padding-top: 3px;
+      padding-bottom: 3px;
+      margin: 0;
+      position: absolute; }
+  html.js fieldset.collapsible .views-table caption {
+    display: none; }
+  html.js fieldset.collapsible .fieldset-wrapper tr, html.js fieldset.collapsible .fieldset-wrapper td {
+    padding: 0; }
+  html.js fieldset.collapsible .fieldset-wrapper thead th {
+    font-family: Dosis, Arial, Helvetica, sans-serif; }
+    html.js fieldset.collapsible .fieldset-wrapper thead th .active img {
+      margin-left: 5px; }
+  html.js fieldset.collapsible .fieldset-wrapper .display-cell .display-cell-image {
+    padding: 1px;
+    float: left; }
+    html.js fieldset.collapsible .fieldset-wrapper .display-cell .display-cell-image a {
+      display: block;
+      height: 75px; }
+  html.js fieldset.collapsible .fieldset-wrapper .display-cell .display-cell-title {
+    float: left;
+    margin-top: 28px; }
+  html.js fieldset.collapsible .fieldset-wrapper .views-field-field-bom-info a {
+    display: block;
+    height: 75px; }
+  html.js fieldset.collapsible .fieldset-wrapper .views-field-field-bom-info img {
+    border-right: 1px solid #B7B7B7;
+    padding: 5px; }
+  html.js fieldset.collapsible .fieldset-wrapper td.views-field-field-item-status, html.js fieldset.collapsible .fieldset-wrapper td.views-field-field-retail-price, html.js fieldset.collapsible .fieldset-wrapper td.views-field-field-wholesale-price {
+    font-weight: bold;
+    font-size: 15px;
+    color: #010101;
+    padding-left: 10px; }
+  html.js fieldset.collapsible .fieldset-wrapper td.views-field-field-item-status {
+    font-weight: normal; }
+
+table tbody td {
+  font-family: Arial, Helvetica, sans-serif; }
 
 html.js fieldset.collapsible {
   border: none;
