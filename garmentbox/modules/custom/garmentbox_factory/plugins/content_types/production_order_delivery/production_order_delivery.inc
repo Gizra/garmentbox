@@ -305,26 +305,28 @@ function garmentbox_factory_production_order_delivery_form_validate($form, &$for
   $original_data = $form_state['original_data'];
 
   // Validate the data on variants that are marked as receiced.
-  foreach ($original_data as $variant_nid => $variant) {
+  foreach ($original_data as $variant_nid => $variant_data) {
     // Ignore variants that aren't marked as received.
     if (!$form_state['values']["received_variant_$variant_nid"]) {
       continue;
     }
 
-    foreach ($variant['sizes'] as $tid => $quantity) {
+    foreach ($variant_data['sizes'] as $tid => $quantity) {
       if (!$quantity) {
+        // This size is not available to the current variant.
         continue;
       }
 
-      // Ignore quantities which are as expected.
+      // Ignore quantities which are as expected, or that are larger than
+      // expected.
       $received = $form_state['values']["received_quantity_variant_{$variant_nid}_tid_{$tid}"];
-      if ($received == $quantity) {
+      if ($received >= $quantity) {
         continue;
       }
       // When the received quantity differ, the sum of IL quantities must match
       // the received quantity.
       $ils_sum = 0;
-      foreach ($variant['lines'] as $il_nid => $il) {
+      foreach ($variant_data['lines'] as $il_nid => $il) {
         $key = "line_{$il_nid}_quantity_variant_{$variant_nid}_tid_{$tid}";
         if (!array_key_exists($key, $form_state['values'])) {
           continue;
@@ -346,41 +348,68 @@ function garmentbox_factory_production_order_delivery_form_submit($form, &$form_
   $vocabulary = taxonomy_vocabulary_machine_name_load('size');
   $size_tree = taxonomy_get_tree($vocabulary->vid);
 
+  // This data is used to compare the deltas between the amounts received and
+  // the expected amounts.
   $original_data = $form_state['original_data'];
 
   $current_prooduction_tid = key(taxonomy_get_term_by_name(INVENTORY_TYPE_CURRENT_PRODUCTION, 'inventory_type'));
   $regular_stock_tid = key(taxonomy_get_term_by_name(INVENTORY_TYPE_REGULAR_STOCK, 'inventory_type'));
 
-  // This data is used to compare the deltas between the amounts received and
-  // the expected amounts.
-  $data = garmentbox_factory_production_order_delivery_get_data($production_order_node);
-
   // Set inventory lines as received if their variant was checked as received.
-  foreach (array_keys($form['variants']) as $item_variant_nid) {
-    // Ignore irrelevant values added by FAPI.
-    if (!is_numeric($item_variant_nid)) {
-      continue;
-    }
-
+  foreach ($original_data as $variant_nid => $variant_data) {
     // Ignore variants that are not marked as "Received".
-    if (!$form_state['values']["received_variant_$item_variant_nid"]) {
+    if (!$form_state['values']["received_variant_$variant_nid"]) {
       continue;
     }
 
-    $inventory_line_nids = garmentbox_factory_get_production_order_inventory_lines($production_order_node->nid, $item_variant_nid);
-    foreach (node_load_multiple($inventory_line_nids) as $inventory_line_node) {
-      $wrapper = entity_metadata_wrapper('node', $inventory_line_node);
+    // Find sizes for which the ILines quantities should be reduced.
+    $missing_iline = FALSE;
+    // Specifying on which term IDs the iLines quantites should be reduced.
+    $update_quantity_for_size = array();
+    foreach ($variant_data['sizes'] as $tid => $quantity) {
+      if (!$quantity) {
+        // This size is not available to the current variant.
+        continue;
+      }
+
+      $received = $form_state['values']["received_quantity_variant_{$variant_nid}_tid_{$tid}"];
+      if ($received < $quantity) {
+        $missing_iline = TRUE;
+        $update_quantity_for_size[$tid] = TRUE;
+      }
+    }
+
+    $il_nids = array_keys($variant_data['lines']);
+    foreach (node_load_multiple($il_nids) as $node) {
+      $wrapper = entity_metadata_wrapper('node', $node);
+
+      // Reduce quantities of iLines where the received quantity was lower than
+      // expected.
+      foreach (array_keys($variant_data['sizes']) as $tid) {
+        if (empty($update_quantity_for_size[$tid])) {
+          // This size doesn't require reducing quantities.
+          continue;
+        }
+
+        foreach ($wrapper->field_quantity_info as $item_wrapper) {
+          $tid = $item_wrapper->field_size->getIdentifier();
+          if (empty($update_quantity_for_size[$tid])) {
+            continue;
+          }
+
+          // Amend the iLine quantity for current size.
+          $quantity = $form_state['values']["line_{$node->nid}_quantity_variant_{$variant_nid}_tid_{$tid}"];
+          $item_wrapper->field_quantity_integer->set($quantity);
+          $item_wrapper->save();
+        }
+      }
 
       // Set the "Current production" inventory lines type to "Regular stock".
-      if ($wrapper->field_inventory_type->getIdentifier() == $current_prooduction_tid) {
-        $wrapper->field_inventory_type->set($regular_stock_tid);
-        $wrapper->save();
-      }
-      else {
-        // If the current variant is already received continue to the next one.
-        continue 2;
-      }
+      $wrapper->field_inventory_type->set($regular_stock_tid);
+      $wrapper->save();
     }
+
+    return;
 
     // Check if new inventory lines should be created for the received items.
     $extra_quantity_info = array();
