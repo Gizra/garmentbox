@@ -565,6 +565,9 @@ function garmentbox_factory_node_presave($node) {
  *   be created for each entry.
  * @param $type_term
  *   The name of the inventory type term.
+ *
+ * @return
+ *   The new inventory line.
  */
 function garmentbox_factory_create_inventory_line($production_order_nid, $origin_nid, $item_variant_nid, $quantity_info, $type_term = INVENTORY_TYPE_CURRENT_PRODUCTION) {
   $node = new stdClass();
@@ -597,6 +600,7 @@ function garmentbox_factory_create_inventory_line($production_order_nid, $origin
   }
 
   $wrapper->save();
+  return $wrapper->value();
 }
 
 /**

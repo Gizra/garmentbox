@@ -237,7 +237,7 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
       );
 
       // Set the inventory line label.
-      $customer = empty($line['customer']) ? t('N/A') : $line['customer'];
+      $customer = empty($line['order']) ? t('N/A') : $line['order']['link'];
       $form['variants'][$nid]['lines'][$inventory_line_nid]["line_{$inventory_line_nid}_title_variant_{$nid}"] = array(
         '#markup' => t('Customer: !customer', array('!customer' => $customer)),
       );
@@ -291,7 +291,12 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
     ),
   );
 
+  // Instead of re-calculating the data on validate and submit, re-use the data
+  // used here.
   $form_state['original_data'] = $data;
+  // Use the production order node for setting the "origin" field on new
+  // inventory lines.
+  $form_state['node'] = $node;
 
   return $form;
 }
@@ -349,6 +354,7 @@ function garmentbox_factory_production_order_delivery_form_submit($form, &$form_
   // This data is used to compare the deltas between the amounts received and
   // the expected amounts.
   $original_data = $form_state['original_data'];
+  $production_order_nid = $form_state['node']->nid;
 
   $current_prooduction_tid = key(taxonomy_get_term_by_name(INVENTORY_TYPE_CURRENT_PRODUCTION, 'inventory_type'));
   $regular_stock_tid = key(taxonomy_get_term_by_name(INVENTORY_TYPE_REGULAR_STOCK, 'inventory_type'));
@@ -360,10 +366,9 @@ function garmentbox_factory_production_order_delivery_form_submit($form, &$form_
       continue;
     }
 
-    // Find sizes for which the ILines quantities should be reduced.
-    $missing_iline = FALSE;
     // Specifying on which term IDs the iLines quantites should be reduced.
     $update_quantity_for_size = array();
+
     foreach ($variant_data['sizes'] as $tid => $quantity) {
       if (!$quantity) {
         // This size is not available to the current variant.
@@ -379,26 +384,32 @@ function garmentbox_factory_production_order_delivery_form_submit($form, &$form_
 
     $il_nids = array_keys($variant_data['lines']);
     foreach (node_load_multiple($il_nids) as $node) {
+      $missing_size_data = array();
+      // Flag specifying whether the currrent IL has missing quantity.
+      $il_missing_data = FALSE;
+
       $wrapper = entity_metadata_wrapper('node', $node);
 
       // Reduce quantities of iLines where the received quantity was lower than
       // expected.
-      foreach (array_keys($variant_data['sizes']) as $tid) {
+      foreach ($wrapper->field_quantity_info as $item_wrapper) {
+        $tid = $item_wrapper->field_size->getIdentifier();
         if (empty($update_quantity_for_size[$tid])) {
           // This size doesn't require reducing quantities.
           continue;
         }
 
-        foreach ($wrapper->field_quantity_info as $item_wrapper) {
-          $tid = $item_wrapper->field_size->getIdentifier();
-          if (empty($update_quantity_for_size[$tid])) {
-            continue;
-          }
+        // Amend the IL quantity for current size.
+        $quantity = $form_state['values']["line_{$node->nid}_quantity_variant_{$variant_nid}_tid_{$tid}"];
+        $item_wrapper->field_quantity_integer->set($quantity);
+        // $item_wrapper->save();
 
-          // Amend the iLine quantity for current size.
-          $quantity = $form_state['values']["line_{$node->nid}_quantity_variant_{$variant_nid}_tid_{$tid}"];
-          $item_wrapper->field_quantity_integer->set($quantity);
-          $item_wrapper->save();
+        // Store the delta for creating the missing iLine.
+        $original_quantity = $variant_data['lines'][$node->nid]['quantity'][$tid];
+        $missing_quantity = $original_quantity - $quantity;
+        $missing_size_data[$tid] = $missing_quantity;
+        if ($missing_quantity) {
+          $il_missing_data = TRUE;
         }
       }
 
@@ -407,9 +418,21 @@ function garmentbox_factory_production_order_delivery_form_submit($form, &$form_
         $wrapper->field_inventory_type->set($regular_stock_tid);
         // Save the iLine revision when the when it was received.
         $wrapper->field_original_revision->set($node->vid);
-        $wrapper->save();
+        // $wrapper->save();
       }
+
+      if ($il_missing_data) {
+        $i_line = garmentbox_factory_create_inventory_line(NULL, $production_order_nid, $variant_nid, $missing_size_data, INVENTORY_TYPE_FUTURE_PRODUCTION);
+        // Attach the inventory line to the original order.
+        $order_wrapper = entity_metadata_wrapper('node', $variant_data['lines'][$node->nid]['order']['nid']);
+        $i_lines = $order_wrapper->field_inventory_line_inline->value();
+        $i_lines[] = $i_line;
+        $order_wrapper->field_inventory_line_inline->set($i_lines);
+        $order_wrapper->save();
+      }
+      return;
     }
+
 
     // Check if new inventory lines should be created for the received items.
     $extra_quantity_info = array();
@@ -518,7 +541,10 @@ function garmentbox_factory_production_order_delivery_get_data($node) {
       $inventory_line_nid = $inventory_line_wrapper->getIdentifier();
 
       if (!empty($data[$variant_nid]['lines'][$inventory_line_nid])) {
-        $data[$variant_nid]['lines'][$inventory_line_nid]['customer'] = $order_link;
+        $data[$variant_nid]['lines'][$inventory_line_nid]['order'] = array(
+          'link' => $order_link,
+          'nid' => $order_node->nid,
+        );
       }
     }
   }
