@@ -290,7 +290,6 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
     ),
   );
 
-  // $form_state['node'] = $node;
   $form_state['original_data'] = $data;
 
   return $form;
@@ -298,6 +297,9 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
 
 /**
  * Validate handler for the delivery form.
+ *
+ * When the received amount is less than expected, make sure the inventory lines
+ * quantities reflect the change.
  */
 function garmentbox_factory_production_order_delivery_form_validate($form, &$form_state) {
   $original_data = $form_state['original_data'];
@@ -344,7 +346,7 @@ function garmentbox_factory_production_order_delivery_form_submit($form, &$form_
   $vocabulary = taxonomy_vocabulary_machine_name_load('size');
   $size_tree = taxonomy_get_tree($vocabulary->vid);
 
-  $production_order_node = $form_state['node'];
+  $original_data = $form_state['original_data'];
 
   $current_prooduction_tid = key(taxonomy_get_term_by_name(INVENTORY_TYPE_CURRENT_PRODUCTION, 'inventory_type'));
   $regular_stock_tid = key(taxonomy_get_term_by_name(INVENTORY_TYPE_REGULAR_STOCK, 'inventory_type'));
