@@ -10,7 +10,7 @@
 function garmentbox_inventory_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'field_collection_item-field_quantity_info-field_quantity-integer'.
+  // Exported field: 'field_collection_item-field_quantity_info-field_quantity_integer'.
   $fields['field_collection_item-field_quantity_info-field_quantity_integer'] = array(
     'field_config' => array(
       'active' => '1',
@@ -35,7 +35,12 @@ function garmentbox_inventory_field_default_fields() {
         'default' => array(
           'label' => 'above',
           'module' => 'number',
-          'settings' => array(),
+          'settings' => array(
+            'decimal_separator' => '.',
+            'prefix_suffix' => TRUE,
+            'scale' => 0,
+            'thousand_separator' => ' ',
+          ),
           'type' => 'number_integer',
           'weight' => 0,
         ),
