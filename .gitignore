@@ -56,5 +56,4 @@ install.sh
 garmentbox/behat/vendor/
 behat.local.yml
 garmentbox/behat/bin
-garmentbox/behat/composer.lock
 garmentbox/behat/composer.phar
