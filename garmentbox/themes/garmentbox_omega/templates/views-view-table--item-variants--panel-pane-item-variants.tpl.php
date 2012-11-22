@@ -22,6 +22,7 @@
 
 <fieldset class="collapsible">
   <legend><span class="fieldset-legend"><?php if (!empty($title)) : ?><?php print $title; ?><?php endif; ?></span></legend>
+  <hr class="fieldset-hr">
   <div class="fieldset-wrapper">
 
     <table <?php if ($classes) { print 'class="'. $classes . '" '; } ?><?php print $attributes; ?>>
