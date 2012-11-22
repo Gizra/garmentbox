@@ -177,15 +177,18 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
     'original',
     'defective',
   );
-  foreach ($data as $nid => $item_variant) {
+  foreach ($data as $nid => $variant_data) {
     $available_sizes = garmentbox_item_get_available_sizes($nid);
 
     $form['variants'][$nid]["received_variant_{$nid}"] = array(
       '#type' => 'checkbox',
+      '#default_value' => $variant_data['received'],
+      // Once a variant is checked, it stays checked.
+      '#disabled' => $variant_data['received'],
     );
 
     $form['variants'][$nid]['title'] = array(
-      '#markup' => check_plain($item_variant['title']),
+      '#markup' => check_plain($variant_data['title']),
     );
 
     // Add the lines expander link.
@@ -204,9 +207,7 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
         switch ($type) {
           case 'original':
             $form['variants'][$nid][$type][$term->tid] = array(
-              '#prefix' => '<span>',
-              '#suffix' => '</span>',
-              '#markup' => $item_variant['sizes'][$term->tid],
+              '#markup' => $variant_data['sizes'][$term->tid],
             );
             break;
 
@@ -216,7 +217,7 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
               '#type' => 'textfield',
               '#title' => check_plain($term->name),
               '#element_validate' => array('garmentbox_factory_element_validate_not_negative_integer'),
-              '#default_value' => $type == 'defective' ? '' : $item_variant['sizes'][$term->tid],
+              '#default_value' => $type == 'defective' ? '' : $variant_data['sizes'][$term->tid],
               '#size' => 4,
             );
             break;
@@ -345,9 +346,6 @@ function garmentbox_factory_production_order_delivery_form_validate($form, &$for
  * Submit handler for the delivery form.
  */
 function garmentbox_factory_production_order_delivery_form_submit($form, &$form_state) {
-  $vocabulary = taxonomy_vocabulary_machine_name_load('size');
-  $size_tree = taxonomy_get_tree($vocabulary->vid);
-
   // This data is used to compare the deltas between the amounts received and
   // the expected amounts.
   $original_data = $form_state['original_data'];
@@ -405,33 +403,27 @@ function garmentbox_factory_production_order_delivery_form_submit($form, &$form_
       }
 
       // Set the "Current production" inventory lines type to "Regular stock".
-      $wrapper->field_inventory_type->set($regular_stock_tid);
-      $wrapper->save();
+      if ($wrapper->field_inventory_type->getIdentifier() == $current_prooduction_tid) {
+        $wrapper->field_inventory_type->set($regular_stock_tid);
+        // Save the iLine revision when the when it was received.
+        $wrapper->field_original_revision->set($node->vid);
+        $wrapper->save();
+      }
     }
-
-    return;
 
     // Check if new inventory lines should be created for the received items.
     $extra_quantity_info = array();
-    $missing_quantity_info = array();
     foreach ($size_tree as $term) {
       $received = $form_state['values']["received_quantity_variant_{$item_variant_nid}_tid_{$term->tid}"];
       $original = $data[$item_variant_nid]['sizes'][$term->tid];
       if ($received > $original) {
         $extra_quantity_info[$term->tid] = $received - $original;
       }
-      if ($original > $received) {
-        $missing_quantity_info[$term->tid] = $original - $received;
-      }
     }
+
     // Create "Regular stock" inventory for extra items.
     if ($extra_quantity_info) {
       garmentbox_factory_create_inventory_line(NULL, $production_order_node->nid, $item_variant_nid, $extra_quantity_info, INVENTORY_TYPE_REGULAR_STOCK);
-    }
-    // Create "Future production" inventory for missing items. (Attached to the
-    // current production order).
-    if ($missing_quantity_info) {
-      garmentbox_factory_create_inventory_line($production_order_node->nid, $production_order_node->nid, $item_variant_nid, $extra_quantity_info, INVENTORY_TYPE_FUTURE_PRODUCTION);
     }
 
     // Create an inventory for the defective items.
@@ -465,22 +457,18 @@ function garmentbox_factory_production_order_delivery_get_data($node) {
   $vocabulary = taxonomy_vocabulary_machine_name_load('size');
   $size_tree = taxonomy_get_tree($vocabulary->vid);
 
-  // TODO: Will this work when viewing the page translated?
-  $current_prooduction_tid = key(taxonomy_get_term_by_name(INVENTORY_TYPE_CURRENT_PRODUCTION, 'inventory_type'));
   $inventory_line_nids = garmentbox_factory_get_production_order_inventory_lines($node->nid);
   foreach($inventory_line_nids as $nid) {
     $wrapper = entity_metadata_wrapper('node', $nid);
     $line_nid = $wrapper->getIdentifier();
     $variant_nid = $wrapper->field_item_variant->getIdentifier();
 
-    $received = $wrapper->field_inventory_type->getIdentifier() != $current_prooduction_tid;
-
     if (empty($data[$variant_nid])) {
       $data[$variant_nid] = array(
         'sizes' => array(),
         'item_price' => garmentbox_item_get_variant_price($variant_nid),
         'title' => $wrapper->field_item_variant->label(),
-        'checked' => $received,
+        'received' => $wrapper->field_inventory_type->field_in_warehouse->value(),
         'lines' => array(),
         'items_count' => array(
           'original' => 0,
