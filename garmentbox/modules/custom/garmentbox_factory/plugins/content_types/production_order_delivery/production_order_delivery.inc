@@ -386,7 +386,7 @@ function garmentbox_factory_production_order_delivery_form_submit($form, &$form_
     foreach (node_load_multiple($il_nids) as $node) {
       // The revision must be enabled before the quantity items are re-saved.
       $node->revision = TRUE;
-
+      $original_revision = $node->vid;
       $missing_size_data = array();
       // Flag specifying whether the currrent IL has missing quantity.
       $il_missing_data = FALSE;
@@ -420,8 +420,7 @@ function garmentbox_factory_production_order_delivery_form_submit($form, &$form_
       if ($wrapper->field_inventory_type->getIdentifier() == $current_prooduction_tid) {
         $wrapper->field_inventory_type->set($regular_stock_tid);
         // Save the iLine revision when the when it was received.
-        $wrapper->field_original_revision->set($node->vid);
-        // $node->revision = TRUE;
+        $wrapper->field_original_revision->set($original_revision);
         $wrapper->save();
       }
 
@@ -531,8 +530,10 @@ function garmentbox_factory_production_order_delivery_get_data($node) {
       }
     }
 
-    foreach ($wrapper->field_quantity_info as $quantity_wrapper) {
-      // dpm($quantity_wrapper->value());
+    foreach ($il_node->field_quantity_info[LANGUAGE_NONE] as $quantity_item) {
+      // Load the original quantity item, instead of the revisioned one.
+      $quantity_item = field_collection_item_revision_load($quantity_item['revision_id']);
+      $quantity_wrapper = entity_metadata_wrapper('field_collection_item', $quantity_item);
       $tid = $quantity_wrapper->field_size->getIdentifier();
 
       if (empty($data[$variant_nid]['sizes'][$tid])) {
