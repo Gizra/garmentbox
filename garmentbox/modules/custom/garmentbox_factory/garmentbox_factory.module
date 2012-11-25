@@ -273,6 +273,30 @@ function garmentbox_factory_get_production_order_inventory_lines($production_ord
 }
 
 /**
+ * Fetch missing inventory lines attached to a given production order node.
+ *
+ * @param $production_order_nid
+ *   A prodution order node ID.
+ * @param $item_variant_nid
+ *   An item variant node ID to filter the results.
+ *
+ * @return
+ *   Array of inventory lines node IDs.
+ */
+function garmentbox_factory_get_production_order_missing_inventory_lines($production_order_nid) {
+  $query = new EntityFieldQuery();
+  $query
+    ->entityCondition('entity_type', 'node')
+    ->propertyCondition('type', 'inventory_line')
+    ->propertyCondition('status', NODE_PUBLISHED)
+    ->fieldCondition('field_origin_entity', 'target_id', $production_order_nid);
+
+  $result = $query->execute();
+
+  return !empty($result['node']) ? array_keys($result['node']) : array();
+}
+
+/**
  * Build the rows for the inventory items table.
  *
  * @param $raw_data
