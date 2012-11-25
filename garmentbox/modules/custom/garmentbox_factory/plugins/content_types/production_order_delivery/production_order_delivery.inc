@@ -245,7 +245,7 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
 
       // Set the inventory line label.
       $customer = empty($il['order']) ? t('N/A') : $il['order']['link'];
-      $form['variants'][$nid]['lines'][$il_nid]["line_{$il_nid}_title_variant_{$nid}"] = array(
+      $form['variants'][$nid]['lines'][$il_nid]["il_{$il_nid}_title_variant_{$nid}"] = array(
         '#markup' => t('Customer: !customer', array('!customer' => $customer)),
       );
 
@@ -453,7 +453,7 @@ function garmentbox_factory_production_order_delivery_form_submit($form, &$form_
         if (!empty($variant_data['lines'][$node->nid]['order']['nid'])) {
           $order_wrapper = entity_metadata_wrapper('node', $variant_data['lines'][$node->nid]['order']['nid']);
           $ils = $order_wrapper->field_inventory_line_inline->value();
-          $ils[] = $i_line;
+          $ils[] = $il;
           $order_wrapper->field_inventory_line_inline->set($ils);
           $order_wrapper->save();
         }
