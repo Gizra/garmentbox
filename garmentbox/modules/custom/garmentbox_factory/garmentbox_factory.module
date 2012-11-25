@@ -272,23 +272,31 @@ function garmentbox_factory_get_production_order_inventory_lines($production_ord
 }
 
 /**
- * Fetch missing inventory lines attached to a given production order node.
+ * Fetch inventory originated from given production order.
  *
  * @param $production_order_nid
  *   A prodution order node ID.
  * @param $item_variant_nid
  *   An item variant node ID to filter the results.
+ * @param $inventory_type_tid
+ *   Term ID. Fetch inventory lines of this type.
  *
  * @return
  *   Array of inventory lines node IDs.
  */
-function garmentbox_factory_get_production_order_missing_inventory_lines($production_order_nid) {
+function garmentbox_factory_get_production_originated_inventory_lines($production_order_nid, $item_variant_nid, $inventory_type_tid = NULL) {
   $query = new EntityFieldQuery();
   $query
     ->entityCondition('entity_type', 'node')
     ->propertyCondition('type', 'inventory_line')
     ->propertyCondition('status', NODE_PUBLISHED)
-    ->fieldCondition('field_origin_entity', 'target_id', $production_order_nid);
+    ->fieldCondition('field_origin_entity', 'target_id', $production_order_nid)
+    ->fieldCondition('field_item_variant', 'target_id', $item_variant_nid);
+
+  if ($inventory_type_tid) {
+    // Filter by inventory type.
+    $query->fieldCondition('field_inventory_type', 'target_id', $inventory_type_tid);
+  }
 
   $result = $query->execute();
 

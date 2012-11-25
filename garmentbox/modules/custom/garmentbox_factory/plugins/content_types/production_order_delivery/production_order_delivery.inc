@@ -498,7 +498,7 @@ function garmentbox_factory_production_order_delivery_form_submit($form, &$form_
       $quantity_info[$tid] = $quantity;
     }
     if ($create_il) {
-      garmentbox_factory_create_inventory_line(NULL, $production_ordernid, $variant_nid, $quantity_info, INVENTORY_TYPE_DEFECTIVE);
+      garmentbox_factory_create_inventory_line(NULL, $production_order_nid, $variant_nid, $quantity_info, INVENTORY_TYPE_DEFECTIVE);
     }
   }
 }
@@ -564,7 +564,7 @@ function garmentbox_factory_production_order_delivery_get_data($node) {
   }
 
   // Retrieve "created missing" lines.
-  $missing_il_nids = garmentbox_factory_get_production_order_missing_inventory_lines($node->nid);
+  $missing_il_nids = garmentbox_factory_get_production_originated_inventory_lines($node->nid, $variant_nid);
   foreach (node_load_multiple($missing_il_nids) as $il_node) {
     $wrapper = entity_metadata_wrapper('node', $il_node);
     foreach ($wrapper->field_quantity_info as $quantity_wrapper) {
