@@ -12,7 +12,7 @@ Drupal.behaviors.GarmentboxOrderItems = {
     // amounts are ignored if "Received" isn't checked.
     // These inputs aren't disabled on the FAPI level because it would make them
     // ignored anyway.
-    table.find('tr.received, tr.line').find('.size-quantity input').attr('disabled', 'disabled');
+    table.find('tr.received, tr.il').find('.size-quantity input').attr('disabled', 'disabled');
 
     // Show and hide rows as "Received" checkbox changes.
     self.showHideRows(context);
@@ -33,7 +33,7 @@ Drupal.behaviors.GarmentboxOrderItems = {
       var variantNid = expander.parents('tr').data('variant-nid');
 
       var tbody = expander.parents('tbody');
-      var rows = tbody.find('tr.line[data-variant-nid="' + variantNid + '"]');
+      var rows = tbody.find('tr.il[data-variant-nid="' + variantNid + '"]');
       if (expander.hasClass('collapsed')) {
         rows.show().removeClass('hidden');
       }
@@ -127,7 +127,7 @@ Drupal.behaviors.GarmentboxOrderItems = {
     }
 
     // Update the IL and missing rows.
-    table.find('tr.line[data-variant-nid="' + nid + '"],tr.missing[data-variant-nid="' + nid + '"]').each(function(i, row) {
+    table.find('tr.il[data-variant-nid="' + nid + '"],tr.missing[data-variant-nid="' + nid + '"]').each(function(i, row) {
       self.updateRowPrice($(row), itemPrice);
     });
   },
@@ -136,7 +136,7 @@ Drupal.behaviors.GarmentboxOrderItems = {
   updateRowPrice: function(row, itemPrice) {
     // Select the quantity from the input or from the td.
     var query = 'td.size-quantity';
-    if (row.hasClass('received') || row.hasClass('defective') || row.hasClass('line')) {
+    if (row.hasClass('received') || row.hasClass('defective') || row.hasClass('il')) {
       query += ' input';
     }
 
@@ -174,7 +174,7 @@ Drupal.behaviors.GarmentboxOrderItems = {
     var table = $(context).find('table#delivery-details');
 
     // Reveal the IL rows.
-    var rows =  table.find('tr.line[data-variant-nid="' + nid + '"]');
+    var rows =  table.find('tr.il[data-variant-nid="' + nid + '"]');
     var inputs = rows.find('td[data-tid="' + tid + '"] input');
     if (!removeNotice) {
       rows.show().removeClass('hidden');
@@ -202,7 +202,7 @@ Drupal.behaviors.GarmentboxOrderItems = {
     // as OK.
     var inputError = false;
 
-    table.find('tr.line[data-variant-nid="' + variantNid + '"] td[data-tid="' + tid + '"] input').each(function(i, input) {
+    table.find('tr.il[data-variant-nid="' + variantNid + '"] td[data-tid="' + tid + '"] input').each(function(i, input) {
       var ilNid = $(input).data('il-nid');
       var originalQuantity = Drupal.settings.garmentbox_factory.delivery_data[variantNid]['original'].lines[ilNid].quantity[tid];
       var quantity = parseInt($(input).val());
@@ -228,7 +228,7 @@ Drupal.behaviors.GarmentboxOrderItems = {
     if (!isNaN(received) && received > 0 && received == ilTotal) {
       // The missing quantity was deducted successfuly from the ILs; Mark them
       // as OK.
-      table.find('tr.line[data-variant-nid="' + variantNid + '"] td[data-tid="' + tid + '"] input').removeClass('error');
+      table.find('tr.il[data-variant-nid="' + variantNid + '"] td[data-tid="' + tid + '"] input').removeClass('error');
     }
   }
 };
