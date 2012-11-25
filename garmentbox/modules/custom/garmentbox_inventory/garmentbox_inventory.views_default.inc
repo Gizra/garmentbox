@@ -40,6 +40,7 @@ function garmentbox_inventory_views_default_views() {
     'title_1' => 'title_1',
     'field_include_in_total' => 'field_include_in_total',
     'field_in_warehouse' => 'field_in_warehouse',
+    'field_defective' => 'field_defective',
   );
   $handler->display->display_options['style_options']['default'] = 'title';
   $handler->display->display_options['style_options']['info'] = array(
@@ -84,6 +85,13 @@ function garmentbox_inventory_views_default_views() {
       'empty_column' => 0,
     ),
     'field_in_warehouse' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_defective' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -301,6 +309,29 @@ function garmentbox_inventory_views_default_views() {
   $handler->display->display_options['fields']['field_in_warehouse']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_in_warehouse']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_in_warehouse']['field_api_classes'] = 0;
+  /* Field: Content: Defective */
+  $handler->display->display_options['fields']['field_defective']['id'] = 'field_defective';
+  $handler->display->display_options['fields']['field_defective']['table'] = 'field_data_field_defective';
+  $handler->display->display_options['fields']['field_defective']['field'] = 'field_defective';
+  $handler->display->display_options['fields']['field_defective']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['field_defective']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_defective']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_defective']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_defective']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_defective']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_defective']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_defective']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_defective']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_defective']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['field_defective']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_defective']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_defective']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_defective']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['field_defective']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_defective']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['field_defective']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_defective']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['field_defective']['field_api_classes'] = 0;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';

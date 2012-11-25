@@ -155,6 +155,81 @@ function garmentbox_inventory_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-inventory_line-field_defective'.
+  $fields['node-inventory_line-field_defective'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_defective',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'list',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => 'No',
+          1 => 'Yes',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'list_boolean',
+    ),
+    'field_instance' => array(
+      'bundle' => 'inventory_line',
+      'default_value' => array(
+        0 => array(
+          'value' => 0,
+        ),
+      ),
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'list',
+          'settings' => array(),
+          'type' => 'list_default',
+          'weight' => 9,
+        ),
+        'garmentbox_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_defective',
+      'label' => 'Defective',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(
+          'display_label' => 0,
+        ),
+        'type' => 'options_onoff',
+        'weight' => '41',
+      ),
+    ),
+  );
+
   // Exported field: 'node-inventory_line-field_delivery_date'.
   $fields['node-inventory_line-field_delivery_date'] = array(
     'field_config' => array(
@@ -861,6 +936,7 @@ function garmentbox_inventory_field_default_fields() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Closed stock');
+  t('Defective');
   t('Expected delivery date');
   t('In warehouse');
   t('Include in total');
