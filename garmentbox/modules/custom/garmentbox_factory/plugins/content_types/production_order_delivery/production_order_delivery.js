@@ -161,7 +161,7 @@ Drupal.behaviors.GarmentboxOrderItems = {
     var receivedItems = 0;
     var receivedItemsPrice = 0;
     for (nid in Drupal.settings.garmentbox_factory.delivery_data) {
-      var variantReceivedItems = Drupal.settings.garmentbox_factory.delivery_data[nid]['received'].items_count.received;
+      var variantReceivedItems = Drupal.settings.garmentbox_factory.delivery_data[nid]['received'].items_count;
       receivedItems += variantReceivedItems;
       receivedItemsPrice += variantReceivedItems * (Drupal.settings.garmentbox_factory.delivery_data[nid].item_price / 100);
     }
