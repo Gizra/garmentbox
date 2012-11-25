@@ -25,8 +25,7 @@ function garmentbox_factory_field_access($op, $field, $entity_type, $entity, $ac
 /**
  * Implements hook_theme().
  */
-function garmentbox_factory_theme()
-{
+function garmentbox_factory_theme() {
   return array(
     'garmentbox_factory_production_order_delivery_form' => array(
       'render element' => 'form'

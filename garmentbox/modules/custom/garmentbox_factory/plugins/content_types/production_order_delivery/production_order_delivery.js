@@ -88,17 +88,20 @@ Drupal.behaviors.GarmentboxOrderItems = {
         extrasCell.text('');
         missingCell.text('');
 
-        var original = Drupal.settings.garmentbox_factory.delivery_data[variantNid]['original'].sizes[tid];
+        var original = Drupal.settings.garmentbox_factory.delivery_data[variantNid].original.sizes[tid];
         var received = parseInt(table.find('tr.received[data-variant-nid="' + variantNid + '"] td[data-tid="' + tid + '"] input').val());
         if (isNaN(received) || received < 0) {
           continue;
         }
 
-        if (received > original) {
+        var missingCreated = Drupal.settings.garmentbox_factory.delivery_data[variantNid].missing_created.sizes[tid];
+        var actualReceived = received + missingCreated;
+
+        if (actualReceived > original) {
           extrasCell.text(received - original);
         }
 
-        if (original > received) {
+        if (original > actualReceived) {
           this.missingItemsNotice(context, variantNid, tid, false);
           this.updateMissingData(table, variantNid, tid);
         }
@@ -188,7 +191,7 @@ Drupal.behaviors.GarmentboxOrderItems = {
       // When the missing error is removed, restore the original quantity.
       inputs.each(function(i, input) {
         var ilNid = $(input).data('il-nid');
-        var quantity = Drupal.settings.garmentbox_factory.delivery_data[nid]['original'].lines[ilNid].quantity[tid];
+        var quantity = Drupal.settings.garmentbox_factory.delivery_data[nid]['received'].lines[ilNid].quantity[tid];
         $(input).val(quantity).attr('disabled', 'disabled').removeClass('error');
       });
     }
