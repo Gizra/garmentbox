@@ -17,14 +17,32 @@ abstract class garmentboxMigration extends Migration {
 
     $this->description = t('Import @type - @bundle from CSV file.', array('@type' => $this->entityType, '@bundle' => $this->bundle));
 
+    $this->csvColumns = !empty($this->csvColumns) ? $this->csvColumns : array();
+    $csv_cols[] = array('id', 'Unique ID');
     if ($this->entityType == 'node') {
       $this->addFieldMapping('title', 'title');
       $class_name = 'MigrateDestinationNode';
+
+      if ($this->bundle != 'company' && og_is_group_content_type('node', $this->bundle)) {
+        $csv_cols[] = array('og_company', 'Company');
+
+        // Add mapping to company.
+        $this->dependencies[] = 'garmentboxCompanies';
+
+        $this
+          ->addFieldMapping('og_company', 'og_company')
+          ->sourceMigration('garmentboxCompanies');
+      }
+      $csv_cols[] = array('title', 'Title');
     }
     elseif ($this->entityType == 'taxonomy_term') {
       $this->addFieldMapping('name', 'name');
       $class_name = 'MigrateDestinationTerm';
+      $csv_cols[] = array('name', 'Name');
     }
+
+    // Rebuild the csv columns array.
+    $this->csvColumns = array_merge($csv_cols, $this->csvColumns);
 
     // Create a map object for tracking the relationships between source rows
     $key = array(

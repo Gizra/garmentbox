@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * garmentbox_og.features.og_features_permission.inc
+ * garmentbox_company.features.og_features_permission.inc
  */
 
 /**
  * Implements hook_og_features_default_permissions().
  */
-function garmentbox_og_og_features_default_permissions() {
+function garmentbox_department_og_features_default_permissions() {
   $permissions = array();
 
   // Exported og permission: 'node:department:create address content'

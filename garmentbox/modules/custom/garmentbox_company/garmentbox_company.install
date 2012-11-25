@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Install, update, and uninstall functions for the GarmentBox company
+ * module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function garmentbox_company_install() {
+  // Group content.
+  $og_field = og_fields_info(OG_AUDIENCE_FIELD);
+  $og_field['field']['settings']['handler_settings']['target_bundles'] = array('company');
+  $og_field['instance']['label'] = 'Company';
+  og_create_field('og_user_company', 'user', 'user', $og_field);
+}
+

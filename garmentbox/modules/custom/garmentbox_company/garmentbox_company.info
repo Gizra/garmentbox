@@ -1,0 +1,9 @@
+name = Garmentbox Company
+description = Garmentbox Company
+core = 7.x
+package = Features
+php = 5.2.4
+dependencies[] = garmentbox_general
+dependencies[] = og
+dependencies[] = features
+dependencies[] = purl

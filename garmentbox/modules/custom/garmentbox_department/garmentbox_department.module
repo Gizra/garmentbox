@@ -1,0 +1,98 @@
+<?php
+
+include_once 'garmentbox_department.features.inc';
+
+/**
+ * Implements hook_field_attach_create_bundle().
+ */
+function garmentbox_department_field_attach_create_bundle($entity_type, $bundle) {
+  if ($entity_type != 'node' || $bundle == 'company') {
+    return;
+  }
+
+  // @todo: find better way to exclude content-types.
+  $excluded_bundles = array(
+    'bubble',
+  );
+  if (in_array($bundle, $excluded_bundles)) {
+    return;
+  }
+
+  if ($bundle == 'department') {
+    // Group.
+    og_create_field(OG_GROUP_FIELD, 'node', $bundle);
+  }
+  else {
+    // Group content.
+    $og_field = og_fields_info(OG_AUDIENCE_FIELD);
+
+    // Enable Entity-reference prepopulate.
+    $og_field['instance']['settings']['behaviors']['prepopulate'] = array(
+      'status' => TRUE,
+      'action' => 'hide',
+      'fallback' => 'hide',
+      'og_context' => FALSE,
+    );
+    $og_field['field']['settings']['handler_settings']['target_bundles'] = array('department');
+    $og_field['instance']['label'] = 'Department';
+    og_create_field('og_department', 'node', $bundle, $og_field);
+  }
+}
+
+/**
+ * Implements hook_node_insert().
+ *
+ * Attach every group-content to the group's department.
+ */
+function garmentbox_department_node_insert($node) {
+  if ($node->type == 'company') {
+    // Create a department node.
+    $values = array(
+      'title' => 'Main',
+      'type' => 'department',
+      'status' => NODE_PUBLISHED,
+      'language' => LANGUAGE_NONE,
+      'uid' => $node->uid,
+    );
+    $department_node = entity_create('node', $values);
+    node_object_prepare($department_node);
+    $wrapper = entity_metadata_wrapper('node', $department_node);
+    $wrapper->og_company->set($node);
+    $wrapper->save();
+    return;
+  }
+
+  if (!og_is_group_content_type('node', $node->type) || $node->type == 'department') {
+    return;
+  }
+
+  $wrapper = entity_metadata_wrapper('node', $node);
+  $nids = og_get_entity_groups('node', $node);
+  $nid = reset($nids['node']);
+
+  // Get the department node ID.
+  $department_nid = garmentbox_department_get_department($nid);
+  og_group('node', $department_nid, array('entity_type' => 'node', 'entity' => $node));
+}
+
+/**
+ * Get the department node ID from a company node ID.
+ *
+ * @param $nid
+ *   The company node ID.
+ *
+ * @return
+ *   The department node ID.
+ */
+function garmentbox_department_get_department($nid) {
+  $query = new EntityFieldQuery();
+  $result = $query
+    ->entityCondition('entity_type', 'node')
+    ->fieldCondition('og_company', 'target_id', $nid)
+    ->propertyCondition('status', NODE_PUBLISHED)
+    ->propertyCondition('type', 'department')
+    ->range(0, 1)
+    ->execute();
+
+  return reset($result['node']);
+}

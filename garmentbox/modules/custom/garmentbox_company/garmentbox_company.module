@@ -1,0 +1,122 @@
+<?php
+/**
+ * @file
+ * Code for the Garmentbox Company feature.
+ */
+
+include_once 'garmentbox_company.features.inc';
+
+/**
+ * Implements hook_field_attach_create_bundle().
+ */
+function garmentbox_company_field_attach_create_bundle($entity_type, $bundle) {
+  if ($entity_type != 'node') {
+    return;
+  }
+
+  // @todo: find better way to exclude content-types.
+  $excluded_bundles = array(
+    'bubble',
+  );
+  if (in_array($bundle, $excluded_bundles)) {
+    return;
+  }
+
+  if ($bundle == 'company') {
+    // Group.
+    og_create_field(OG_GROUP_FIELD, 'node', $bundle);
+  }
+  else {
+    // Group content.
+    $og_field = og_fields_info(OG_AUDIENCE_FIELD);
+    $og_field['field']['settings']['handler_settings']['target_bundles'] = array('company');
+    $og_field['field']['cardinality'] = 1;
+    $og_field['instance']['label'] = 'Company';
+
+    // Enable Entity-reference prepopulate.
+    $og_field['instance']['settings']['behaviors']['prepopulate'] = array(
+      'status' => TRUE,
+      'action' => 'hide',
+      'fallback' => 'hide',
+      'og_context' => FALSE,
+    );
+    og_create_field('og_company', 'node', $bundle, $og_field);
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function garmentbox_company_form_alter(&$form, $form_state) {
+  if (empty($form['#node_edit_form']) || !og_is_group_type('node', $form['#node']->type)) {
+    return;
+  }
+  $form['#after_build'][] = 'garmentbox_company_form_after_build';
+}
+
+/**
+ * After build; Hide PURL from group node's form.
+ *
+ * @see og_purl_form_alter().
+ */
+function garmentbox_company_form_after_build($form, &$form_state) {
+  unset($form['purl']);
+  return $form;
+}
+
+/**
+ * Implements hook_node_insert().
+ *
+ * Attach every group-content to company.
+ */
+function garmentbox_company_node_insert($node) {
+  if (og_is_group_type('node', $node->type)) {
+    // Add the PURL value.
+    // See og_purl_node_insert().
+    ctools_include('cleanstring');
+    $options = array(
+      'lower case' => TRUE,
+      'transliterate' => TRUE,
+    );
+    $node->purl['value'] = ctools_cleanstring($node->title, $options);
+    return;
+  }
+  elseif (!og_is_group_content_type('node', $node->type)) {
+    return;
+  }
+
+  $wrapper = entity_metadata_wrapper('node', $node);
+
+  // Assocaite with company if not already attached.
+  if ($wrapper->og_company__og_membership->value()) {
+    return;
+  }
+
+  // User didn't set the company.
+  $gids = og_get_entity_groups();
+  $nid = FALSE;
+  if (!empty($gids['node'])) {
+    // Get the first company group the user belongs to.
+    foreach (node_load_multiple($gids['node']) as $group) {
+      if ($group->type == 'company') {
+        $nid = $group->nid;
+        break;
+      }
+    }
+  }
+
+  if (!$nid) {
+    throw new \Exception('User does not belong to any company group, thus node cannot be attached to "Company".');
+  }
+
+  og_group('node', $nid, array('entity_type' => 'node', 'entity' => $node->nid));
+}
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function garmentbox_company_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'entityreference') {
+    return "plugins/entityreference/$plugin";
+  }
+}

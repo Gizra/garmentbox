@@ -29,6 +29,8 @@ function garmentbox_task_node_presave($node) {
  * created.
  */
 function garmentbox_task_node_insert($node) {
+  // @todo: Fix creating dummy comment.
+  return;
   if ($node->type != 'task') {
     return;
   }
