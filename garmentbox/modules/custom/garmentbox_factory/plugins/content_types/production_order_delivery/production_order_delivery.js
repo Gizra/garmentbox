@@ -116,14 +116,15 @@ Drupal.behaviors.GarmentboxOrderItems = {
     var self = this;
     var itemPrice = Drupal.settings.garmentbox_factory.delivery_data[nid].item_price / 100;
     var table = $(context).find('table#delivery-details');
-    var types = ['original', 'received', 'defective', 'extras'];
+    var types = ['original', 'received', 'defective', 'extras', 'missing-created'];
 
     for (i in types) {
       var row = table.find('tr.' + types[i] + '[data-variant-nid="' + nid + '"]');
       var itemsCount = this.updateRowPrice(row, itemPrice);
 
       // Save the variant's items count for the totals calculation.
-      Drupal.settings.garmentbox_factory.delivery_data[nid][types[i]].items_count = itemsCount;
+      var typeName = types[i].replace('-', '_');
+      Drupal.settings.garmentbox_factory.delivery_data[nid][typeName].items_count = itemsCount;
     }
 
     // Update the IL and missing rows.
