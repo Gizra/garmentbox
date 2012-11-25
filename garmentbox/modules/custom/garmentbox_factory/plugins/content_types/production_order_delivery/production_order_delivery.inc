@@ -584,9 +584,9 @@ function garmentbox_factory_production_order_delivery_get_data($node) {
     foreach ($wrapper->field_inventory_line_inline as $il_wrapper) {
       $variant_nid = $il_wrapper->field_item_variant->getIdentifier();
       $il_nid = $il_wrapper->getIdentifier();
+      if (!empty($data[$variant_nid]['received']['lines'][$il_nid])) {
 
-      if (!empty($data[$variant_nid]['lines'][$il_nid])) {
-        $data[$variant_nid]['lines'][$il_nid]['order'] = array(
+        $data[$variant_nid]['received']['lines'][$il_nid]['order'] = array(
           'link' => $order_link,
           'nid' => $order_node->nid,
         );
