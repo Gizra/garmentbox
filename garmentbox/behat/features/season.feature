@@ -38,11 +38,12 @@ Feature: Test Season page
      When I am on a "season" page titled "Autumn-Winter 2013 Women", in the tab "inventory"
      Then I should see a table titled "Inventory summary" with the following <contents>:
       | Variation                   | Small                           | Medium                                        | Large                                 | Type                                                      |
-      | Lines v-neck shirt - Total  | 19 Stock 9 Available 13 Ordered | 7 Stock 0 Available 10 Ordered 7 Future stock | 8 Stock 8 Available 11 Future stock   | All types Except of Consignment, Defective, Sent / Sold.  |
+      | Lines v-neck shirt - Total  | 19 Stock 9 Available 11 Ordered | 7 Stock 0 Available 7 Ordered 7 Future stock  | 8 Stock 8 Available 11 Future stock   | All types Except of Defective, Consignment, Sent / Sold.  |
       | Lines v-neck shirt          | 15 10 Ordered                   | 9 9 Ordered                                   | 10 10 Ordered                         | Sent / Sold                                               |
       | Lines v-neck shirt          | 19 10 Ordered                   | 7 7 Ordered                                   | 8                                     | Regular stock                                             |
       | Lines v-neck shirt          | 1 1 Ordered                     | 7                                             | 7                                     | Future production                                         |
-      | Lines v-neck shirt          | 2 2 Ordered                     | 3 3 Ordered                                   | 4                                     | Current production                                        |
+      | Lines v-neck shirt          | 0                               | 0                                             | 4                                     | Current production                                        |
+      | Lines v-neck shirt          | 2 2 Ordered                     | 3 3 Ordered                                   | 0                                     | Defective                                                 |
 
   @api
   Scenario: Correct content is shown on the season orders list.
