@@ -82,16 +82,18 @@ function theme_garmentbox_factory_production_order_delivery_form($variables) {
       $rows[] = $row;
     }
 
-    // Display former missing rows.
-    foreach ($variant['missing_created'] as $il_nid => $il) {
-      if (!is_numeric($il_nid)) {
-        // Ignore FAPI settings.
-        continue;
-      }
+    if (!empty($variant['missing_created'])) {
+      // Display former missing rows.
+      foreach ($variant['missing_created'] as $il_nid => $il) {
+        if (!is_numeric($il_nid)) {
+          // Ignore FAPI settings.
+          continue;
+        }
 
-      $row = _garmentbox_factory_production_order_delivery_form_row($nid, 'missing_created', t('Missing'), NULL, $il);
-      $row['class'] = array('missing-created');
-      $rows[] = $row;
+        $row = _garmentbox_factory_production_order_delivery_form_row($nid, 'missing_created', t('Missing'), NULL, $il);
+        $row['class'] = array('missing-created');
+        $rows[] = $row;
+      }
     }
 
     $rows[] = _garmentbox_factory_production_order_delivery_form_row($nid, 'defective', t('Defective'), 'subrow', $variant['defective']);

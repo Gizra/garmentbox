@@ -67,7 +67,8 @@ Drupal.behaviors.GarmentboxOrderItems = {
       }
       else {
         // When hiding, hide all variant rows.
-        tbody.find('tr[data-variant-nid="' + variantNid + '"]').hide().addClass('hidden');
+        tbody.find('tr[data-variant-nid="' + variantNid + '"]:not(.received)').hide().addClass('hidden');
+        // Re-show the
         // Set the IL rows toggler as collapsed.
         tbody.find('tr.original[data-variant-nid="' + variantNid + '"] a.expander').addClass('collapsed');
         // Disable the received textfields.
