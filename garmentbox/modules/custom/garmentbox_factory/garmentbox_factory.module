@@ -92,13 +92,15 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
     foreach ($variant['lines'] as $il_nid => $il) {
       $form['variants'][$variant_nid]['ils'][$il_nid]['include'] = array(
         '#type' => 'checkbox',
-        '#value' => $il_nid,
         '#checked' => $il['checked'],
+        '#attributes' => array(
+          'data-il-nid' => $il_nid,
+        ),
       );
 
       $order_link = empty($il['order_link']) ? t('N/A') : $il['order_link'];
       $form['variants'][$variant_nid]['ils'][$il_nid]['order_link'] = array(
-        '#markup' => t('<b>Customer</b> !customer', array('!customer' => $order_link)),
+        '#markup' => t('Customer: !customer', array('!customer' => $order_link)),
       );
 
       foreach ($size_tree as $term) {
@@ -115,8 +117,11 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
     // Add an hidden "Add more items" row.
     $form['variants'][$variant_nid]['new_il']['include_new_il'] = array(
       '#type' => 'checkbox',
-      '#attributes' => array('class' => array('add-il')),
-      '#value' => $variant_nid,
+      '#checked' => FALSE,
+      '#attributes' => array(
+        'class' => array('add-il'),
+        'ref' => $variant_nid
+      ),
     );
 
     $form['variants'][$variant_nid]['new_il']['title'] = array(
@@ -133,7 +138,6 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
       // 'class' => array('production-price'),
     // );
   }
-
   $form['total_items'] = array(
     '#title' => t('Total items'),
     '#type' => 'textfield',
@@ -194,7 +198,6 @@ function theme_production_order_node_form($variables) {
   $header[] = t('Fabric');
   $header[] = t('Production cost');
 
-
   $rows = array();
   foreach ($form['variants'] as $variant_nid => $variant) {
     if (!is_numeric($variant_nid)) {
@@ -207,10 +210,11 @@ function theme_production_order_node_form($variables) {
       'id' => "variant-$variant_nid",
       'class' => array('expandable'),
     );
-
     $row['data'][] = render($variant['included']);
-    $row['data'][] = render($variant['title']);
-
+    $row['data'][] = array(
+      'data' => render($variant['title']),
+      'class' => array('item-title'),
+    );
     foreach ($size_tree as $term) {
       $row['data'][] = array(
         'data' => t('-'),
@@ -219,12 +223,10 @@ function theme_production_order_node_form($variables) {
       );
     }
     $row['data'][] = render($variant['fabric']);
-
     $row['data'][] = array(
       'data' => t('N/A'),
       'class' => array('production-price'),
     );
-
     $rows[] = $row;
 
     foreach ($variant['ils'] as $il_nid => $il) {
@@ -238,7 +240,7 @@ function theme_production_order_node_form($variables) {
         'class' => array('hidden', 'il'),
       );
 
-      $row['data'][] = render($il['included']);
+      $row['data'][] = render($il['include']);
       $row['data'][] = render($il['order_link']);
 
       foreach ($size_tree as $term) {

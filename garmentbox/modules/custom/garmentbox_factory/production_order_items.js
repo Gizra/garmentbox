@@ -146,7 +146,7 @@ Drupal.behaviors.GarmentboxOrderItems = {
     // Sum the items on checked inventory lines.
     table.find('tr.il[ref="' + rowId + '"] td:first-child input[type="checkbox"]:checked').each(function(i, element) {
       // Sum the inventory lines items counts.
-      var ilNid = $(element).val();
+      var ilNid = $(element).data('il-nid');
       var ilData = Drupal.settings.garmentbox_factory.ils_data[variantNid].lines[ilNid];
       itemsCount += ilData.items_count;
 
