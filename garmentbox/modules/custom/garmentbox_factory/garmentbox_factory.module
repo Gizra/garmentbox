@@ -570,14 +570,12 @@ function garmentbox_factory_node_delete($node) {
   $tid = key($term);
 
   // Remove references from removed inventory lines.
-  $stored_ils = garmentbox_factory_get_production_order_inventory_lines($node->nid);
-  foreach($stored_ils as $nid) {
-    if (empty($node->production_order_ils[$nid])) {
-      $wrapper = entity_metadata_wrapper('node', $nid);
-      $wrapper->field_production_order->set(NULL);
-      $wrapper->field_inventory_type->set($tid);
-      $wrapper->save();
-    }
+  $nids = garmentbox_factory_get_production_order_inventory_lines($node->nid);
+  foreach($nids as $nid) {
+    $wrapper = entity_metadata_wrapper('node', $nid);
+    $wrapper->field_production_order->set(NULL);
+    $wrapper->field_inventory_type->set($tid);
+    $wrapper->save();
   }
 }
 
