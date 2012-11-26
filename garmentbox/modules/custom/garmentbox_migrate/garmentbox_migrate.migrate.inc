@@ -487,7 +487,7 @@ class garmentboxInventoryLines extends garmentboxMigration {
     array('field_inventory_type', 'Type'),
     array('field_production_start_date', 'Production date'),
     array('field_delivery_date', 'Delivery date'),
-    array('field_inventory_status', 'Status'),
+    array('field_defective', 'Defective'),
   );
 
   public $entityType = 'node';
@@ -517,8 +517,7 @@ class garmentboxInventoryLines extends garmentboxMigration {
 
     $this->addFieldMapping('field_production_start_date', 'field_production_start_date');
     $this->addFieldMapping('field_delivery_date', 'field_delivery_date');
-
-    $this->addFieldMapping('field_inventory_status', 'field_inventory_status');
+    $this->addFieldMapping('field_defective', 'field_defective');
   }
 }
 
