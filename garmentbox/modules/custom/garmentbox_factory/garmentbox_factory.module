@@ -35,6 +35,8 @@ function garmentbox_factory_field_access($op, $field, $entity_type, $entity, $ac
 
 /**
  * Implements hook_form_FORM_ID_alter().
+ *
+ * Build the inventory-lines selecting widget on the production order node form.
  */
 function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form_state) {
   // The field is disabled in garmentbox_inventory_field_access().
@@ -60,37 +62,90 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
   $factory_nid = $form['field_factory'][LANGUAGE_NONE]['#default_value'];
   $item_variant_nids = garmentbox_factory_get_factory_item_variants($season_nid, $factory_nid);
   $il_nids = garmentbox_factory_get_item_variants_inventory_lines($item_variant_nids, $production_order_nid);
-  $raw_data = garmentbox_factory_production_order_items_data($production_order_nid ? 'edit' : 'create', $item_variant_nids, $il_nids);
-  // Dummy inputs, that will actually be added manually inside
-  // inventory_lines_table as checkboxes.
-  // Add an option to select no lines.
-  $il_nids[''] = '';
-  $form['production_order_ils'] = array(
-    '#type' => 'hidden',
-    '#options' => drupal_map_assoc($il_nids),
-  );
-  // Add dummy inputs for the "Add more items" size fields.
-  $form['variant_new_inventory'] = array(
-    '#type' => 'hidden',
-  );
+  $ils_data = garmentbox_factory_production_order_items_data($production_order_nid ? 'edit' : 'create', $item_variant_nids, $il_nids);
+
   $form_state['item_variants'] = $item_variant_nids;
 
   $vocabulary = taxonomy_vocabulary_machine_name_load('size');
-  $header = array();
-  $header[] = t('Include in order');
-  $header[] = t('Item variation');
-  foreach (taxonomy_get_tree($vocabulary->vid) as $term) {
-    $header[] = $term->name;
-  }
-  $header[] = t('Fabric');
-  $header[] = t('Production cost');
+  $size_tree = taxonomy_get_tree($vocabulary->vid);
 
-  $form['ils_table'] = array(
-    '#theme' => 'table',
-    '#rows' => garmentbox_factory_production_order_items($raw_data),
-    '#header' => $header,
-    '#weight' => 50,
-    '#attributes' => array('id' => 'ils-table'),
+  foreach ($ils_data as $variant_nid => $variant) {
+    if (!$variant['lines']) {
+      // Variant doesn't have inventory lines.
+      continue;
+    }
+
+    $form['variants'][$variant_nid]['included'] = array(
+      '#type' => 'checkbox',
+      '#attributes' => array('class' => array('triple-checkbox')),
+    );
+
+    $form['variants'][$variant_nid]['title'] = array(
+      '#markup' => l($variant['title'], ''),
+      '#attributes' => array('class' => array('item-title')),
+    );
+
+    $form['variants'][$variant_nid]['fabric'] = array (
+      '#markup' => garmentbox_item_get_main_material_icon($variant_nid),
+    );
+
+    foreach ($variant['lines'] as $il_nid => $il) {
+      $form['variants'][$variant_nid]['ils'][$il_nid]['include'] = array(
+        '#type' => 'checkbox',
+        '#value' => $il_nid,
+        '#checked' => $il['checked'],
+      );
+
+      $order_link = empty($il['order_link']) ? t('N/A') : $il['order_link'];
+      $form['variants'][$variant_nid]['ils'][$il_nid]['order_link'] = array(
+        '#markup' => t('<b>Customer</b> !customer', array('!customer' => $order_link)),
+      );
+
+      foreach ($size_tree as $term) {
+        $form['variants'][$variant_nid]['ils'][$il_nid]['sizes'][$term->tid] = array(
+          '#markup' => empty($il['sizes'][$term->tid]) ? '' : $il['sizes'][$term->tid],
+        );
+      }
+
+      $form['variants'][$variant_nid]['ils'][$il_nid]['price'] = array (
+        '#markup' => commerce_currency_format($variant['item_price'] * $il['items_count'], commerce_default_currency()),
+      );
+    }
+
+    // Add an hidden "Add more items" row.
+    $form['variants'][$variant_nid]['new_il']['include_new_il'] = array(
+      '#type' => 'checkbox',
+      '#attributes' => array('class' => array('add-il')),
+      '#value' => $variant_nid,
+    );
+
+    $form['variants'][$variant_nid]['new_il']['title'] = array(
+      '#markup' => t('@item - Extra items', array('@item' => $variant['title'])),
+    );
+
+    // $inputs = _garmentbox_factory_production_order_items_sizes_inputs($variant_nid);
+    // foreach ($size_tree as $term) {
+      // $row['data'][] = empty($inputs[$term->tid]) ? '' : $inputs[$term->tid];
+    // }
+    // $row['data'][] = '';
+    // $row['data'][] = array(
+      // 'data' => t('N/A'),
+      // 'class' => array('production-price'),
+    // );
+  }
+
+  $form['total_items'] = array(
+    '#title' => t('Total items'),
+    '#type' => 'textfield',
+    '#disabled' => TRUE,
+    '#size' => 10,
+  );
+
+  $form['production_price'] = array(
+    '#title' => t('Production price'),
+    '#type' => 'textfield',
+    '#disabled' => TRUE,
+    '#size' => 10,
   );
 
   $options = array(
@@ -101,7 +156,7 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
   );
   $settings = array(
     'url' => url($_GET['q'], $options),
-    'ils_data' => $raw_data,
+    'ils_data' => $ils_data,
   );
 
   $form['#attached']['js'] = array(
@@ -119,55 +174,120 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
 
   // Validation for the custom quantity fields.
   $form['#validate'][] = 'garmentbox_factory_form_production_order_node_form_validate';
-
-  $form['total_items'] = array(
-    '#title' => t('Total items'),
-    '#type' => 'textfield',
-    '#disabled' => TRUE,
-    '#size' => 10,
-    '#weight' => 60,
-  );
-
-  $form['production_price'] = array(
-    '#title' => t('Production price'),
-    '#type' => 'textfield',
-    '#disabled' => TRUE,
-    '#size' => 10,
-    '#weight' => 65,
-  );
 }
 
 /**
  * Theme the production order node form.
  */
 function theme_production_order_node_form($variables) {
-}
+  $form = $variables['form'];
+  $vocabulary = taxonomy_vocabulary_machine_name_load('size');
+  $size_tree = taxonomy_get_tree($vocabulary->vid);
 
-/**
- * Validate handler.
- *
- * Validate the new inventory forms manually.
- */
-function garmentbox_factory_form_production_order_node_form_validate(&$form, &$form_state) {
-  if (empty($form_state['values']['variant_new_inventory'])) {
-    return;
+  // Build the inventory lines selecting table.
+  $header = array();
+  $header[] = t('Include in order');
+  $header[] = t('Item variation');
+  foreach ($size_tree as $term) {
+    $header[] = $term->name;
   }
+  $header[] = t('Fabric');
+  $header[] = t('Production cost');
 
-  foreach ($form_state['values']['variant_new_inventory'] as $nid => $size_data) {
-    foreach ($size_data as $tid => $quantity) {
-      if (!$quantity) {
+
+  $rows = array();
+  foreach ($form['variants'] as $variant_nid => $variant) {
+    if (!is_numeric($variant_nid)) {
+      // Ignore FAPI settings.
+      continue;
+    }
+
+    $row = array(
+      'data' => array(),
+      'id' => "variant-$variant_nid",
+      'class' => array('expandable'),
+    );
+
+    $row['data'][] = render($variant['included']);
+    $row['data'][] = render($variant['title']);
+
+    foreach ($size_tree as $term) {
+      $row['data'][] = array(
+        'data' => t('-'),
+        'class' => array('size-quantity'),
+        'data-tid' => $term->tid,
+      );
+    }
+    $row['data'][] = render($variant['fabric']);
+
+    $row['data'][] = array(
+      'data' => t('N/A'),
+      'class' => array('production-price'),
+    );
+
+    $rows[] = $row;
+
+    foreach ($variant['ils'] as $il_nid => $il) {
+      if (!is_numeric($il_nid)) {
         continue;
       }
 
-      // Make sure the quantity is a positive integer.
-      if (!is_numeric($quantity) || (int)$quantity != $quantity || $quantity < 0) {
-        // TODO: When this error is applied, it causes the following notice on
-        // the next refresh on node/add/production-prder:
-        // Notice: Array to string conversion in drupal_attributes() (line 2303 of [...]/www/includes/common.inc).
-        form_set_error('variant_new_inventory', t('Quantity must be a positive integer.'));
+      $row = array(
+        'data' => array(),
+        'ref' => "variant-$variant_nid",
+        'class' => array('hidden', 'il'),
+      );
+
+      $row['data'][] = render($il['included']);
+      $row['data'][] = render($il['order_link']);
+
+      foreach ($size_tree as $term) {
+        $row['data'][] = render($il['sizes'][$term->tid]);
       }
+      $row['data'][] = '';
+      $row['data'][] = render($il['price']);
+      $rows[] = $row;
     }
+
+    // Add an hidden "Add more items" row.
+    // $row = array(
+      // 'data' => array(),
+      // 'ref' => 'variant-' . $variant_nid,
+      // 'class' => array('disabled', 'new-il'),
+    // );
+//
+    // $row['data'][] = theme('checkbox', $variables);
+//
+    // $row['data'][] = t('@item - Extra items', array('@item' => $variant['title']));
+//
+    // $inputs = _garmentbox_factory_production_order_items_sizes_inputs($variant_nid);
+    // foreach ($size_tree as $term) {
+      // $row['data'][] = empty($inputs[$term->tid]) ? '' : $inputs[$term->tid];
+    // }
+    // $row['data'][] = '';
+    // $row['data'][] = array(
+      // 'data' => t('N/A'),
+      // 'class' => array('production-price'),
+    // );
+    // $table[] = $row;
   }
+
+  hide($form['actions']);
+  hide($form['variants']);
+  hide($form['field_factory']);
+  hide($form['field_delivery_date']);
+
+  $output = render($form['field_factory']);
+  $output .= render($form['field_delivery_date']);
+  $variables = array(
+    'header' => $header,
+    'rows' => $rows,
+    'attributes' => array('id' => 'ils-table'),
+  );
+  $output .= theme('table', $variables);
+  $output .= drupal_render_children($form);
+  $output .= render($form['actions']);
+  return $output;
 }
 
 /**
@@ -480,7 +600,7 @@ function garmentbox_factory_production_order_items_data($op, $item_variant_nids,
       // The order might have variants of different factories. Only consider
       // variants that were selected before.
       if (!empty($data[$variant_nid]['lines'][$il_nid])) {
-        $data[$variant_nid]['lines'][$il_nid]['customer'] = $order_link;
+        $data[$variant_nid]['lines'][$il_nid]['order_link'] = $order_link;
       }
     }
   }
