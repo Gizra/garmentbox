@@ -7,6 +7,17 @@
 include_once 'garmentbox_factory.features.inc';
 
 /**
+ * Implements hook_theme().
+ */
+function garmentbox_factory_theme() {
+  return array(
+    'production_order_node_form' => array(
+      'render element' => 'form',
+    ),
+  );
+}
+
+/**
  * Implements hook_field_access().
  *
  * Hide the order status when craeting a new production order.
@@ -124,6 +135,12 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
     '#size' => 10,
     '#weight' => 65,
   );
+}
+
+/**
+ * Theme the production order node form.
+ */
+function theme_production_order_node_form($variables) {
 }
 
 /**
