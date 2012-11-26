@@ -140,6 +140,9 @@ class FeatureContext extends DrupalContext {
     $page = $this->getSession()->getPage();
     // Find the container of the table with the correct pane title
     $table_element = $page->find('css', "table#$table_id");
+    if (!$table_element) {
+      throw new \Exception("No table with id '$table_id' was found.");
+    }
     $this->compareTable($table_element, $expected_table);
   }
 
