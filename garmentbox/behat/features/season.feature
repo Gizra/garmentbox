@@ -38,12 +38,13 @@ Feature: Test Season page
       And I visit "season/24/inventory"
      When I click the row of "Lines v-neck shirt - Total"
      Then I should see a table titled "Inventory summary" with the following <contents>:
-      | Variation                   | Small               | Medium                                          | Large                                           | Type                                                      |
-      | Lines v-neck shirt - Total  | 0 Stock 0 Available | 12 Stock 0 Available 17 Ordered 7 Future stock  | 22 Stock 17 Available 6 Ordered 11 Future stock | All types Except of Consignment, Defective, Sent / Sold.  |
-      | Lines v-neck shirt          | 0                   | 19 14 Ordered                                   | 15 15 Ordered                                   | Sent / Sold                                               |
-      | Lines v-neck shirt          | 0                   | 12 12 Ordered                                   | 22 5 Ordered                                    | Regular stock                                             |
-      | Lines v-neck shirt          | 0                   | 9 1 Ordered                                     | 7                                               | Future production                                         |
-      | Lines v-neck shirt          | 0                   | 4 4 Ordered                                     | 5 1 Ordered                                     | Current production                                        |
+      | Variation                   | Small                           | Medium                                        | Large                                 | Type                                                      |
+      | Lines v-neck shirt - Total  | 19 Stock 9 Available 11 Ordered | 7 Stock 0 Available 7 Ordered 7 Future stock  | 8 Stock 8 Available 11 Future stock   | All types Except of Defective, Consignment, Sent / Sold.  |
+      | Lines v-neck shirt          | 15 10 Ordered                   | 9 9 Ordered                                   | 10 10 Ordered                         | Sent / Sold                                               |
+      | Lines v-neck shirt          | 19 10 Ordered                   | 7 7 Ordered                                   | 8                                     | Regular stock                                             |
+      | Lines v-neck shirt          | 1 1 Ordered                     | 7                                             | 7                                     | Future production                                         |
+      | Lines v-neck shirt          | 0                               | 0                                             | 4                                     | Current production                                        |
+      | Lines v-neck shirt          | 2 2 Ordered                     | 3 3 Ordered                                   | 0                                     | Defective                                                 |
 
   @api
   Scenario: Correct content is shown on the season orders list.

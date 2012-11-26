@@ -53,7 +53,8 @@ function garmentbox_inventory_summary_content_type_render($subtype, $conf, $args
 
   // Build an array of inventory types, keyed by TID. Specifying whether the
   // type should be included in "totals".
-  $excluded_inventory_types = array();
+  // "Defective" isn't really a type, but we show it as one.
+  $excluded_inventory_types = array(t('Defective'));
   $vocab = taxonomy_vocabulary_machine_name_load('inventory_type');
   foreach (taxonomy_get_tree($vocab->vid, 0, NULL, TRUE) as $term) {
     $wrapper = entity_metadata_wrapper('taxonomy_term', $term);
@@ -115,18 +116,28 @@ function garmentbox_inventory_summary_content_type_render($subtype, $conf, $args
     $wrapper = entity_metadata_wrapper('node', $inventory_node);
     $tid = $wrapper->field_inventory_type->getIdentifier();
 
+    $defective = $wrapper->field_defective->value();
     // Determine if we need to add or subtract the quantity from the total
     // calcualtion.
     $in_warehouse = $wrapper->field_inventory_type->field_in_warehouse->value();
 
     $nid = $wrapper->field_item_variant->getIdentifier();
 
-    // Don't affect the total with excluded inventory types.
-    $include_in_total = $inventory_types[$tid]['include_in_total'];
+    // Don't affect the total with excluded inventory types, nor with defective
+    // inventory lines.
+    $include_in_total = $inventory_types[$tid]['include_in_total'] && !$defective;
 
     $inventory[$nid]['label'] = $wrapper->field_item_variant->label();
-    $inventory[$nid]['types'][$tid]['type_label'] = $wrapper->field_inventory_type->label();
-    $inventory[$nid]['types'][$tid]['in_total'] = $include_in_total;
+    if (!$defective) {
+      $type_key = $tid;
+      $inventory[$nid]['types'][$type_key]['type_label'] = $wrapper->field_inventory_type->label();
+      $inventory[$nid]['types'][$type_key]['in_total'] = $include_in_total;
+    }
+    else {
+      $type_key = 'defective';
+      $inventory[$nid]['types'][$type_key]['type_label'] = t('Defective');
+      $inventory[$nid]['types'][$type_key]['in_total'] = FALSE;
+    }
 
     foreach ($size_tree as $term) {
       $inventory[$nid]['total'][$term->tid]['available'] = !empty($inventory[$nid]['total'][$term->tid]['available']) ? $inventory[$nid]['total'][$term->tid]['available'] : 0;
@@ -139,7 +150,7 @@ function garmentbox_inventory_summary_content_type_render($subtype, $conf, $args
 
     foreach ($wrapper->field_quantity_info as $quantity_wrapper) {
       $size_tid = $quantity_wrapper->field_size->getIdentifier();
-      $info = !empty($inventory[$nid]['types'][$tid]['data'][$size_tid]) ? $inventory[$nid]['types'][$tid]['data'][$size_tid] : array();
+      $info = !empty($inventory[$nid]['types'][$type_key]['data'][$size_tid]) ? $inventory[$nid]['types'][$type_key]['data'][$size_tid] : array();
       $info['quantity'] = !empty($info['quantity']) ? $info['quantity'] : 0;
       $info['ordered'] = !empty($info['ordered']) ? $info['ordered'] : 0;
 
@@ -149,7 +160,7 @@ function garmentbox_inventory_summary_content_type_render($subtype, $conf, $args
       if ($is_ordered) {
         $info['ordered'] += $quantity;
       }
-      $inventory[$nid]['types'][$tid]['data'][$size_tid] = $info;
+      $inventory[$nid]['types'][$type_key]['data'][$size_tid] = $info;
 
       // Quantity - Inventory line with stock type marked as “in warehouse” and
       // both ordered and not ordered (also could be Available + ordered).
@@ -209,7 +220,7 @@ function garmentbox_inventory_summary_content_type_render($subtype, $conf, $args
 
     $rows[] = $row;
 
-    foreach ($variant_data['types'] as $inventory_tid => $variant_inventory_data) {
+    foreach ($variant_data['types'] as $variant_inventory_data) {
       if (empty($variant_inventory_data['data'])) {
         // There are no values for this inventory type.
         continue;
