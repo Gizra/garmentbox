@@ -92,10 +92,8 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
     foreach ($variant['lines'] as $il_nid => $il) {
       $form['variants'][$variant_nid]['ils'][$il_nid]['include'] = array(
         '#type' => 'checkbox',
-        '#checked' => $il['checked'],
-        '#attributes' => array(
-          'data-il-nid' => $il_nid,
-        ),
+        '#value' => $il['checked'],
+        '#attributes' => array('data-il-nid' => $il_nid),
       );
 
       $order_link = empty($il['order_link']) ? t('N/A') : $il['order_link'];
@@ -115,29 +113,33 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
     }
 
     // Add an hidden "Add more items" row.
-    $form['variants'][$variant_nid]['new_il']['include_new_il'] = array(
+    $form['variants'][$variant_nid]['new_il']["variant_{$variant_nid}_include_new_il"] = array(
       '#type' => 'checkbox',
-      '#checked' => FALSE,
-      '#attributes' => array(
-        'class' => array('add-il'),
-        'ref' => $variant_nid
-      ),
+      '#value' => FALSE,
+      '#attributes' => array('class' => array('add-il')),
     );
 
     $form['variants'][$variant_nid]['new_il']['title'] = array(
       '#markup' => t('@item - Extra items', array('@item' => $variant['title'])),
     );
 
-    // $inputs = _garmentbox_factory_production_order_items_sizes_inputs($variant_nid);
-    // foreach ($size_tree as $term) {
-      // $row['data'][] = empty($inputs[$term->tid]) ? '' : $inputs[$term->tid];
-    // }
-    // $row['data'][] = '';
-    // $row['data'][] = array(
-      // 'data' => t('N/A'),
-      // 'class' => array('production-price'),
-    // );
+    // Only create inputs for sizes available to this variant.
+    $wrapper = entity_metadata_wrapper('node', $variant_nid);
+    foreach ($wrapper->field_size_info as $item_wrapper) {
+      $tid = $item_wrapper->field_size->getIdentifier();
+
+      $form['variants'][$variant_nid]['new_il']['sizes'][$tid]["variant_{$variant_nid}_new_il_tid_{$tid}"] = array(
+        '#type' => 'textfield',
+        '#size' => 4,
+        '#attributes' => array(
+          'class' => array('new-il'),
+          'data-tid' => $tid,
+        ),
+        '#title' => $item_wrapper->field_size->label(),
+      );
+    }
   }
+
   $form['total_items'] = array(
     '#title' => t('Total items'),
     '#type' => 'textfield',
@@ -252,26 +254,26 @@ function theme_production_order_node_form($variables) {
     }
 
     // Add an hidden "Add more items" row.
-    // $row = array(
-      // 'data' => array(),
-      // 'ref' => 'variant-' . $variant_nid,
-      // 'class' => array('disabled', 'new-il'),
-    // );
-//
-    // $row['data'][] = theme('checkbox', $variables);
-//
-    // $row['data'][] = t('@item - Extra items', array('@item' => $variant['title']));
-//
-    // $inputs = _garmentbox_factory_production_order_items_sizes_inputs($variant_nid);
-    // foreach ($size_tree as $term) {
-      // $row['data'][] = empty($inputs[$term->tid]) ? '' : $inputs[$term->tid];
-    // }
-    // $row['data'][] = '';
-    // $row['data'][] = array(
-      // 'data' => t('N/A'),
-      // 'class' => array('production-price'),
-    // );
-    // $table[] = $row;
+    $row = array(
+      'data' => array(),
+      'ref' => "variant-$variant_nid",
+      'class' => array('disabled', 'new-il'),
+    );
+    $row['data'][] = render($variant['new_il']["variant_{$variant_nid}_include_new_il"]);
+    $row['data'][] = render($variant['new_il']['title']);
+    foreach ($size_tree as $term) {
+      $data = empty($variant['new_il']['sizes'][$term->tid]) ? '' : render($variant['new_il']['sizes'][$term->tid]);
+      $row['data'][] = array(
+        'data' => $data,
+        'class' => array('hidden-label'),
+      );
+    }
+    $row['data'][] = '';
+    $row['data'][] = array(
+      'data' => t('N/A'),
+      'class' => array('production-price'),
+    );
+    $rows[] = $row;
   }
 
   hide($form['actions']);
@@ -393,122 +395,6 @@ function garmentbox_factory_get_production_order_inventory_lines($nid) {
 }
 
 /**
- * Build the rows for the inventory items table.
- *
- * @param $raw_data
- *   A prodution order inventory lines data.
- *
- * @return
- *   The production order items table.
- */
-function garmentbox_factory_production_order_items($raw_data) {
-  $vocabulary = taxonomy_vocabulary_machine_name_load('size');
-  $size_tree = taxonomy_get_tree($vocabulary->vid);
-
-  $table = array();
-  foreach ($raw_data as $variant_nid => $variant) {
-    if (!$variant['lines']) {
-      // Variant doesn't have inventory lines.
-      continue;
-    }
-
-    $row = array(
-      'data' => array(),
-      'id' => 'variant-' . $variant_nid,
-      'class' => array('expandable'),
-    );
-    $variables = array(
-      'element' => array(
-        '#attributes' => array('class' => array('triple-checkbox')),
-      ),
-    );
-    $row['data'][] = theme('checkbox', $variables);
-    $row['data'][] = array(
-      'data' => l($variant['title'], ''),
-      'class' => array('item-title'),
-    );
-    foreach ($size_tree as $term) {
-      $row['data'][] = array(
-        'data' => t('-'),
-        'class' => array('size-quantity'),
-        'data-tid' => $term->tid,
-      );
-    }
-    $row['data'][] = garmentbox_item_get_main_material_icon($variant_nid);
-    $row['data'][] = array(
-      'data' => t('N/A'),
-      'class' => array('production-price'),
-    );
-    $table[] = $row;
-
-    foreach ($variant['lines'] as $il_nid => $il) {
-      $row = array(
-        'data' => array(),
-        'ref' => 'variant-' . $variant_nid,
-        'class' => array('hidden', 'il'),
-      );
-
-      $variables = array(
-        'element' => array(
-          '#attributes' => array(
-            'name' => "production_order_ils[$il_nid]",
-            'value' => $il_nid,
-          ),
-        ),
-      );
-      // Determine whether the checkbox is checked.
-      if ($il['checked']) {
-        $variables['element']['#attributes']['checked'] = 'checked';
-      }
-
-      $row['data'][] = theme('checkbox', $variables);
-      $customer = $il['customer'] ? $il['customer'] : t('N/A');
-      $row['data'][] = t('<b>Customer</b> !customer', array('!customer' => $customer));
-      foreach ($size_tree as $term) {
-        $row['data'][] =  empty($il['sizes'][$term->tid]) ? '' : $il['sizes'][$term->tid];
-      }
-
-      $row['data'][] = '';
-      $row['data'][] = commerce_currency_format($variant['item_price'] * $il['items_count'], commerce_default_currency());
-      $table[] = $row;
-    }
-
-    // Add an hidden "Add more items" row.
-    $row = array(
-      'data' => array(),
-      'ref' => 'variant-' . $variant_nid,
-      'class' => array('disabled', 'new-il'),
-    );
-
-    $variables = array(
-      'element' => array(
-        '#attributes' => array(
-          'name' => "include_new_il[$variant_nid]",
-          'value' => $variant_nid,
-          'class' => array('add-il'),
-        ),
-      ),
-    );
-    $row['data'][] = theme('checkbox', $variables);
-
-    $row['data'][] = t('@item - Extra items', array('@item' => $variant['title']));
-
-    $inputs = _garmentbox_factory_production_order_items_sizes_inputs($variant_nid);
-    foreach ($size_tree as $term) {
-      $row['data'][] = empty($inputs[$term->tid]) ? '' : $inputs[$term->tid];
-    }
-    $row['data'][] = '';
-    $row['data'][] = array(
-      'data' => t('N/A'),
-      'class' => array('production-price'),
-    );
-    $table[] = $row;
-  }
-
-  return $table;
-}
-
-/**
  * Fetch the raw data for the inventory lines selecting widget.
  *
  * @param $op
@@ -608,34 +494,6 @@ function garmentbox_factory_production_order_items_data($op, $item_variant_nids,
   }
 
   return $data;
-}
-
-/**
- * Build a mini inventory line form.
- *
- * @param $nid
- *   Item variant node ID.
- */
-function _garmentbox_factory_production_order_items_sizes_inputs($nid) {
-  $wrapper = entity_metadata_wrapper('node', $nid);
-  $items = array();
-  foreach ($wrapper->field_size_info as $item_wrapper) {
-    $tid = $item_wrapper->field_size->getIdentifier();
-    $variables = array(
-      'element' => array(
-        '#attributes' => array(
-          'name' => "variant_new_inventory[$nid][$tid]",
-          'size' => 4,
-          'class' => array('new-inventory-items'),
-          'data-tid' => $tid,
-          'title' => $item_wrapper->field_size->label(),
-        ),
-        '#autocomplete_path' => '',
-      ),
-    );
-    $items[$tid] = theme('textfield', $variables);
-  }
-  return $items;
 }
 
 /**

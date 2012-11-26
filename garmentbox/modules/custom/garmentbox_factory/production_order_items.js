@@ -49,9 +49,7 @@ Drupal.behaviors.GarmentboxOrderItems = {
     // changed.
     $(context).find('input.new-inventory-items').change(function(event) {
       self.updateTotals();
-    });
-
-    $(context).find('input.new-inventory-items').keyup(function(event) {
+    }).keyup(function(event) {
       self.updateTotals();
     });
 
@@ -68,6 +66,7 @@ Drupal.behaviors.GarmentboxOrderItems = {
     $(context).find('.triple-checkbox').each(function(index, checkbox) {
       self.updateVariantCheckbox($(checkbox));
     });
+
     // Update the totals on load.
     self.updateTotals();
 

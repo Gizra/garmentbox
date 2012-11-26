@@ -53,6 +53,10 @@ table {
       color: #666;
       margin-left: 10px; //LTR
     }
+
+    &.hidden-label label {
+      display: none;
+    }
   }
 
   th {
