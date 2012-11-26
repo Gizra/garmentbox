@@ -136,6 +136,7 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
           'data-tid' => $tid,
         ),
         '#title' => $item_wrapper->field_size->label(),
+        '#element_validate' => array('garmentbox_factory_element_validate_not_negative_integer'),
       );
     }
   }
@@ -177,9 +178,6 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
       'type' => 'setting',
     ),
   );
-
-  // Validation for the custom quantity fields.
-  $form['#validate'][] = 'garmentbox_factory_form_production_order_node_form_validate';
 }
 
 /**
@@ -207,6 +205,7 @@ function theme_production_order_node_form($variables) {
       continue;
     }
 
+    // Add the item variant row.
     $row = array(
       'data' => array(),
       'id' => "variant-$variant_nid",
@@ -231,20 +230,18 @@ function theme_production_order_node_form($variables) {
     );
     $rows[] = $row;
 
+    // Add the hidden inventory lines rows.
     foreach ($variant['ils'] as $il_nid => $il) {
       if (!is_numeric($il_nid)) {
         continue;
       }
-
       $row = array(
         'data' => array(),
         'ref' => "variant-$variant_nid",
         'class' => array('hidden', 'il'),
       );
-
       $row['data'][] = render($il['include']);
       $row['data'][] = render($il['order_link']);
-
       foreach ($size_tree as $term) {
         $row['data'][] = render($il['sizes'][$term->tid]);
       }
@@ -339,8 +336,8 @@ function garmentbox_factory_get_item_variants_inventory_lines($item_variant_nids
   $query = db_select('node', 'n');
   $query->innerJoin('field_data_field_item_variant', 'iv', 'iv.entity_id = n.nid');
   $query->innerJoin('field_data_field_inventory_type', 'it', 'it.entity_id = n.nid');
-  // Left joining on production order for fetching also lines without prodiction
-  // order.
+  // Left joining on production order for fetching also lines without production
+  // order. (That's the reason for not using EFQ here).
   $query->leftJoin('field_data_field_production_order', 'po', 'po.entity_id = n.nid');
   $query->addField('n', 'nid');
   $query
@@ -656,5 +653,15 @@ function garmentbox_factory_update_production_order($node) {
     if ($create_il) {
       garmentbox_factory_create_inventory_line($node->nid, $item_variant_nid, $quantity_info);
     }
+  }
+}
+
+/**
+ * Form element validation handler for non-negative integer elements.
+ */
+function garmentbox_factory_element_validate_not_negative_integer($element, &$form_state) {
+  $value = $element['#value'];
+  if ($value !== '' && (!is_numeric($value) || intval($value) != $value || $value < 0)) {
+    form_error($element, t('%name must be a non-negative integer.', array('%name' => $element['#title'])));
   }
 }
