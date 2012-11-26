@@ -498,7 +498,7 @@ function garmentbox_factory_production_order_delivery_form_submit($form, &$form_
       $quantity_info[$tid] = $quantity;
     }
     if ($create_il) {
-      garmentbox_factory_create_inventory_line(NULL, $production_order_nid, $variant_nid, $quantity_info, INVENTORY_TYPE_DEFECTIVE);
+      garmentbox_factory_create_inventory_line(NULL, $production_order_nid, $variant_nid, $quantity_info, INVENTORY_TYPE_REGULAR_STOCK, TRUE);
     }
   }
 }

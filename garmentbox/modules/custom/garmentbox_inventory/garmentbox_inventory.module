@@ -8,7 +8,6 @@ include_once 'garmentbox_inventory.features.inc';
 
 define('INVENTORY_TYPE_CURRENT_PRODUCTION', 'Current production');
 define('INVENTORY_TYPE_REGULAR_STOCK', 'Regular stock');
-define('INVENTORY_TYPE_DEFECTIVE', 'Defective');
 define('INVENTORY_TYPE_FUTURE_PRODUCTION', 'Future production');
 
 /**

@@ -596,11 +596,13 @@ function garmentbox_factory_node_presave($node) {
  *   be created for each entry.
  * @param $type_term
  *   The name of the inventory type term.
+ * @param $defective
+ *   Mark the inventory line as defective.
  *
  * @return
  *   The new inventory line.
  */
-function garmentbox_factory_create_inventory_line($production_order_nid, $origin_nid, $item_variant_nid, $quantity_info, $type_term = INVENTORY_TYPE_CURRENT_PRODUCTION) {
+function garmentbox_factory_create_inventory_line($production_order_nid, $origin_nid, $item_variant_nid, $quantity_info, $type_term = INVENTORY_TYPE_CURRENT_PRODUCTION, $defective = FALSE) {
   $node = new stdClass();
   $node->type = 'inventory_line';
   $node->language = LANGUAGE_NONE;
@@ -610,6 +612,7 @@ function garmentbox_factory_create_inventory_line($production_order_nid, $origin
   $wrapper->field_production_order->set($production_order_nid);
   $wrapper->field_origin_entity->set($origin_nid);
   $wrapper->field_item_variant->set($item_variant_nid);
+  $wrapper->field_defective->set($defective);
 
   // Set the inventory line type to 'Current production'.
   $term = taxonomy_get_term_by_name($type_term, 'inventory_type');
