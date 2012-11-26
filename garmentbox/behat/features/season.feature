@@ -34,8 +34,9 @@ Feature: Test Season page
 
   @javascript
   Scenario: Correct content is shown on the season inventory list.
-    Given I am logged in as a user with the "authenticated user" role
-     When I am on a "season" page titled "Autumn-Winter 2013 Women", in the tab "inventory"
+    Given I am logged in as "user"
+      And I visit "season/24/inventory"
+     When I click the row of "Lines v-neck shirt - Total"
      Then I should see a table titled "Inventory summary" with the following <contents>:
       | Variation                   | Small                           | Medium                                        | Large                                 | Type                                                      |
       | Lines v-neck shirt - Total  | 19 Stock 9 Available 11 Ordered | 7 Stock 0 Available 7 Ordered 7 Future stock  | 8 Stock 8 Available 11 Future stock   | All types Except of Defective, Consignment, Sent / Sold.  |
@@ -56,8 +57,8 @@ Feature: Test Season page
       | Variation           | Small | Medium  | Large | Total | Status              |
       | Black v-neck shirt  | 0     | 6       | 5     | 11    | Current production  |
       | Grey v-neck shirt   | 5     | 0       | 10    | 15    | Consignment         |
-      | Lines v-neck shirt  | 5     | 7       | 10    | 22    | Sent / Sold         |
-      | Lines v-neck shirt  | 1     | 0       | 0     | 1     | Future production   |
+      | Lines v-neck shirt  | 0     | 12      | 10    | 22    | Sent / Sold         |
+      | Lines v-neck shirt  | 0     | 1       | 0     | 1     | Future production   |
 
   @api
   Scenario: Verify redirections from the front page to the season items tab.
