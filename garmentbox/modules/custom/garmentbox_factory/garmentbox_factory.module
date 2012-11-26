@@ -75,7 +75,7 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
       continue;
     }
 
-    $form['variants'][$variant_nid]['included'] = array(
+    $form['variants'][$variant_nid]["variant_{$variant_nid}_included"] = array(
       '#type' => 'checkbox',
       '#attributes' => array('class' => array('triple-checkbox')),
     );
@@ -90,7 +90,7 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
     );
 
     foreach ($variant['lines'] as $il_nid => $il) {
-      $form['variants'][$variant_nid]['ils'][$il_nid]['include'] = array(
+      $form['variants'][$variant_nid]['ils'][$il_nid]["variant_{$variant_nid}_include_il_{$il_nid}"] = array(
         '#type' => 'checkbox',
         '#value' => $il['checked'],
         '#attributes' => array('data-il-nid' => $il_nid),
@@ -211,7 +211,7 @@ function theme_production_order_node_form($variables) {
       'id' => "variant-$variant_nid",
       'class' => array('expandable'),
     );
-    $row['data'][] = render($variant['included']);
+    $row['data'][] = render($variant["variant_{$variant_nid}_included"]);
     $row['data'][] = array(
       'data' => render($variant['title']),
       'class' => array('item-title'),
@@ -240,7 +240,7 @@ function theme_production_order_node_form($variables) {
         'ref' => "variant-$variant_nid",
         'class' => array('hidden', 'il'),
       );
-      $row['data'][] = render($il['include']);
+      $row['data'][] = render($il["variant_{$variant_nid}_include_il_{$il_nid}"]);
       $row['data'][] = render($il['order_link']);
       foreach ($size_tree as $term) {
         $row['data'][] = render($il['sizes'][$term->tid]);
