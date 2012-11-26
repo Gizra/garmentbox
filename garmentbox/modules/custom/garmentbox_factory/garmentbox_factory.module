@@ -593,6 +593,8 @@ function garmentbox_factory_node_insert($node) {
 
 /**
  * Implements hook_node_update().
+ *
+ * When a production order is updated, handle added and removed inventory lines.
  */
 function garmentbox_factory_node_update($node) {
   if ($node->type == 'production_order') {
