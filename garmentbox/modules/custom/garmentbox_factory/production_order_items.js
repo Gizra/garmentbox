@@ -47,7 +47,7 @@ Drupal.behaviors.GarmentboxOrderItems = {
 
     // Update the item price and quantity as the "Add more items" inputs get
     // changed.
-    $(context).find('input.new-inventory-items').change(function(event) {
+    $(context).find('input.new-il').change(function(event) {
       self.updateTotals();
     }).keyup(function(event) {
       self.updateTotals();
@@ -161,10 +161,9 @@ Drupal.behaviors.GarmentboxOrderItems = {
     var newItemsCount = 0;
     // Sum also the custom inventory inputs.
     var updateExtraItemPrice = true;
-    table.find('tr.new-il[ref="' + rowId + '"] input.new-inventory-items').each(function(i, element) {
+    table.find('tr.new-il[ref="' + rowId + '"] input.new-il').each(function(i, element) {
       if (!$(element).attr('disabled')) {
         var count = parseInt($(element).val());
-
         var tid = $(element).data('tid');
 
         if (!isNaN(count) && count >= 0) {
