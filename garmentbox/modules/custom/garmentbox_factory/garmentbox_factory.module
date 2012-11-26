@@ -90,9 +90,9 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
     );
 
     foreach ($variant['lines'] as $il_nid => $il) {
-      $form['variants'][$variant_nid]['ils'][$il_nid]["variant_{$variant_nid}_include_il_{$il_nid}"] = array(
+      $form['variants'][$variant_nid]['ils'][$il_nid]["include_il_{$il_nid}"] = array(
         '#type' => 'checkbox',
-        '#value' => $il['checked'],
+        '#default_value' => $il['checked'],
         '#attributes' => array('data-il-nid' => $il_nid),
       );
 
@@ -113,9 +113,8 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
     }
 
     // Add an hidden "Add more items" row.
-    $form['variants'][$variant_nid]['new_il']["variant_{$variant_nid}_include_new_il"] = array(
+    $form['variants'][$variant_nid]['new_il']["include_new_il_variant_{$variant_nid}"] = array(
       '#type' => 'checkbox',
-      '#value' => FALSE,
       '#attributes' => array('class' => array('add-il')),
     );
 
@@ -240,7 +239,7 @@ function theme_production_order_node_form($variables) {
         'ref' => "variant-$variant_nid",
         'class' => array('hidden', 'il'),
       );
-      $row['data'][] = render($il["variant_{$variant_nid}_include_il_{$il_nid}"]);
+      $row['data'][] = render($il["include_il_{$il_nid}"]);
       $row['data'][] = render($il['order_link']);
       foreach ($size_tree as $term) {
         $row['data'][] = render($il['sizes'][$term->tid]);
@@ -256,7 +255,7 @@ function theme_production_order_node_form($variables) {
       'ref' => "variant-$variant_nid",
       'class' => array('disabled', 'new-il'),
     );
-    $row['data'][] = render($variant['new_il']["variant_{$variant_nid}_include_new_il"]);
+    $row['data'][] = render($variant['new_il']["include_new_il_variant_{$variant_nid}"]);
     $row['data'][] = render($variant['new_il']['title']);
     foreach ($size_tree as $term) {
       $data = empty($variant['new_il']['sizes'][$term->tid]) ? '' : render($variant['new_il']['sizes'][$term->tid]);
@@ -611,6 +610,22 @@ function garmentbox_factory_node_update($node) {
  *   The production order node.
  */
 function garmentbox_factory_update_production_order($node) {
+  // Search for inventory lines that were marked as included on the production
+  // order form. Also, Search for variants for which new inventory lines should
+  // be created.
+  $il_included = array();
+  $variant_new_il = array();
+  foreach ((array)$node as $key => $value) {
+    if (substr($key, 0, 11) == 'include_il_') {
+      $nid = substr($key, 11);
+      $il_included[$nid] = $value;
+    }
+    elseif (substr($key, 0, 23) == 'include_new_il_variant_') {
+      $nid = substr($key, 23);
+      $variant_new_il[$nid] = $value;
+    }
+  }
+
   // If the node already exists, start by removing inventory lines references
   // that are no longer relevant.
   // Set the type of removed inventory lines to 'Future production'.
@@ -618,7 +633,9 @@ function garmentbox_factory_update_production_order($node) {
   $tid = key($term);
   $attached_ils = garmentbox_factory_get_production_order_inventory_lines($node->nid);
   foreach($attached_ils as $nid) {
-    if (empty($node->production_order_ils[$nid])) {
+    // If the attached IL is no longer selected, remove it from the production
+    // order.
+    if (empty($il_included[$attached_ils])) {
       $wrapper = entity_metadata_wrapper('node', $nid);
       $wrapper->field_production_order->set(NULL);
       $wrapper->field_inventory_type->set($tid);
@@ -629,29 +646,37 @@ function garmentbox_factory_update_production_order($node) {
   // Set the type of attached inventory lines to 'Current production'.
   $term = taxonomy_get_term_by_name('Current production', 'inventory_type');
   $tid = key($term);
+  // Update ILs that were checked as "included".
+  foreach ($il_included as $nid => $include) {
+    if (!$include) {
+      continue;
+    }
 
-  foreach ($node->production_order_ils as $nid) {
     $wrapper = entity_metadata_wrapper('node', $nid);
     $wrapper->field_production_order->set($node->nid);
     $wrapper->field_inventory_type->set($tid);
     $wrapper->save();
   }
 
-  if (empty($node->variant_new_inventory)) {
-    return;
-  }
+  $vocabulary = taxonomy_vocabulary_machine_name_load('size');
+  $size_tree = taxonomy_get_tree($vocabulary->vid);
   // Handle creation of new inventory lines.
-  foreach ($node->variant_new_inventory as $item_variant_nid => $quantity_info) {
-    // Check if the variant's has any non-zero quantity.
-    $create_il = FALSE;
-    foreach ($quantity_info as $quantity) {
-      if ($quantity) {
-        $create_il = TRUE;
-      }
+  foreach ($variant_new_il as $variant_nid => $create) {
+    if (!$create) {
+      return;
     }
 
-    if ($create_il) {
-      garmentbox_factory_create_inventory_line($node->nid, $item_variant_nid, $quantity_info);
+    // Gather the variant's new IL quantities.
+    $quantity_info = array();
+    foreach ($size_tree as $term) {
+      $key = "variant_{$variant_nid}_new_il_tid_{$term->tid}";
+      if (!empty($node->$key) && $node->$key) {
+        $quantity_info[$term->tid] = $node->$key;
+      }
+    }
+    // If at least one non-zero quantity was added, create the IL.
+    if ($quantity_info) {
+      garmentbox_factory_create_inventory_line($node->nid, $variant_nid, $quantity_info);
     }
   }
 }
