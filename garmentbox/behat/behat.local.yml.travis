@@ -1,4 +1,10 @@
 default:
+  context:
+    parameters:
+      drupal_users:
+        user:
+          'user'
+
   extensions:
     Behat\MinkExtension\Extension:
       base_url:  http://127.0.0.1

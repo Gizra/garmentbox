@@ -26,7 +26,7 @@ function garmentbox_item_production_price_content_type_render($subtype, $conf, $
   $node = $context->data;
 
   // Sum the total BOM and BOL prices.
-  $raw_price = garmentbox_bom_get_variant_bom_price($node) + garmentbox_bol_get_variant_bol_price($node);
+  $raw_price = garmentbox_item_get_variant_price($node);
 
   $variables = array(
     'price' => commerce_currency_format($raw_price, commerce_default_currency()),

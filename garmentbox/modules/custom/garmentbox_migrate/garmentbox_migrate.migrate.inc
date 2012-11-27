@@ -1,6 +1,53 @@
 <?php
 
 ///////////////////////////////
+// Users
+
+/**
+ * Migrate Season status terms.
+ */
+class GarmentboxUsers extends Migration {
+  /**
+   * Map the field and properties to the CSV header.
+   */
+  public $csvColumns = array(
+    array('id', 'Unique ID'),
+    array('name', 'Username'),
+    array('pass', 'Password'),
+    array('mail', 'Email'),
+  );
+
+  public $entityType = 'user';
+
+  public function __construct() {
+    parent::__construct();
+    $this->description = t('Import users from a CSV file.');
+
+    $this->addFieldMapping('name', 'name');
+    $this->addFieldMapping('pass', 'pass');
+    $this->addFieldMapping('mail', 'mail');
+    $this->addFieldMapping('roles')
+         ->defaultValue(DRUPAL_AUTHENTICATED_RID);
+    $this->addFieldMapping('status')
+         ->defaultValue(TRUE);
+
+    // Create a map object for tracking the relationships between source rows
+    $key = array(
+      'id' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+    );
+    $this->map = new MigrateSQLMap($this->machineName, $key, MigrateDestinationUser::getKeySchema());
+
+    // Create a MigrateSource object.
+    $this->source = new MigrateSourceCSV(drupal_get_path('module', 'garmentbox_migrate') . '/csv/' . $this->entityType . '/user.csv', $this->csvColumns, array('header_rows' => 1));
+    $this->destination = new MigrateDestinationUser();
+  }
+}
+
+///////////////////////////////
 // Terms
 
 /**
@@ -433,6 +480,7 @@ class garmentboxItemVariants extends garmentboxMigration {
     array('field_item_status', 'Status'),
     array('field_retail_price', 'Retail price'),
     array('field_wholesale_price', 'Wholesale price'),
+    array('field_factory', 'Factory'),
   );
 
   public $entityType = 'node';
@@ -442,11 +490,13 @@ class garmentboxItemVariants extends garmentboxMigration {
     'garmentboxDepartments',
     'garmentboxItems',
     'garmentboxItemStatusTerms',
+    'garmentboxFactories',
   );
 
   public function __construct() {
     parent::__construct();
     $this->addFieldMapping('body', 'body');
+
     $this
       ->addFieldMapping('field_item', 'field_item')
       ->sourceMigration('garmentboxItems');
@@ -467,6 +517,10 @@ class garmentboxItemVariants extends garmentboxMigration {
     $this->addFieldMapping('field_retail_price', 'field_retail_price');
 
     $this->addFieldMapping('field_wholesale_price', 'field_wholesale_price');
+
+    $this
+      ->addFieldMapping('field_factory', 'field_factory')
+      ->sourceMigration('garmentboxFactories');
   }
 
   function prepareRow($row) {
@@ -584,7 +638,7 @@ class garmentboxOrders extends garmentboxMigration {
 /**
  * Migrate bubble nodes.
  */
-class garmentBoxBubbles extends garmentboxMigration {
+class garmentboxBubbles extends garmentboxMigration {
 
   public $csvColumns = array(
     array('id', 'Unique ID'),
@@ -611,7 +665,7 @@ class garmentBoxBubbles extends garmentboxMigration {
 /**
  * Migrate factory nodes.
  */
-class garmentBoxFactories extends garmentboxMigration {
+class garmentboxFactories extends garmentboxMigration {
 
   public $csvColumns = array(
     array('id', 'Unique ID'),
