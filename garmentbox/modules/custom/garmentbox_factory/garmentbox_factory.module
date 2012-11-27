@@ -8,11 +8,16 @@ include_once 'garmentbox_factory.features.inc';
 
 /**
  * Implements hook_theme().
+ *
+ * Theming the production order forms as tables.
  */
 function garmentbox_factory_theme() {
   return array(
     'production_order_node_form' => array(
       'render element' => 'form',
+    ),
+    'garmentbox_factory_production_order_delivery_form' => array(
+      'render element' => 'form'
     ),
   );
 }
@@ -31,17 +36,6 @@ function garmentbox_factory_field_access($op, $field, $entity_type, $entity, $ac
   if (empty($entity->nid)) {
     return FALSE;
   }
-}
-
-/**
- * Implements hook_theme().
- */
-function garmentbox_factory_theme() {
-  return array(
-    'garmentbox_factory_production_order_delivery_form' => array(
-      'render element' => 'form'
-    ),
-  );
 }
 
 /**
