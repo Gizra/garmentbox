@@ -33,6 +33,7 @@ function garmentbox_inventory_views_default_views() {
   $handler->display->display_options['pager']['options']['items_per_page'] = '100';
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
+    'nid_1' => 'nid_1',
     'title' => 'title',
     'nid' => 'nid',
     'field_inventory_type' => 'field_inventory_type',
@@ -43,9 +44,17 @@ function garmentbox_inventory_views_default_views() {
     'field_production_order' => 'field_production_order',
     'field_customer' => 'field_customer',
     'field_defective' => 'field_defective',
+    'field_missing' => 'field_missing',
   );
   $handler->display->display_options['style_options']['default'] = 'title';
   $handler->display->display_options['style_options']['info'] = array(
+    'nid_1' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
     'title' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
@@ -108,6 +117,13 @@ function garmentbox_inventory_views_default_views() {
       'empty_column' => 0,
     ),
     'field_defective' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_missing' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -425,6 +441,29 @@ function garmentbox_inventory_views_default_views() {
   $handler->display->display_options['fields']['field_defective']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_defective']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_defective']['field_api_classes'] = 0;
+  /* Field: Content: Created as missing */
+  $handler->display->display_options['fields']['field_missing']['id'] = 'field_missing';
+  $handler->display->display_options['fields']['field_missing']['table'] = 'field_data_field_missing';
+  $handler->display->display_options['fields']['field_missing']['field'] = 'field_missing';
+  $handler->display->display_options['fields']['field_missing']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['field_missing']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_missing']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_missing']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_missing']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_missing']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_missing']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_missing']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_missing']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_missing']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['field_missing']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_missing']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_missing']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_missing']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['field_missing']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_missing']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['field_missing']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_missing']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['field_missing']['field_api_classes'] = 0;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
