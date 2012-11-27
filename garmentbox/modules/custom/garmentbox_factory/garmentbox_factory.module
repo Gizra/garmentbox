@@ -504,7 +504,7 @@ function garmentbox_factory_production_order_items_data($op, $item_variant_nids,
     return $data;
   }
 
-  $order_nids = garmentbox_factory_get_inventory_orders($inventory_line_nids);
+  $order_nids = garmentbox_factory_get_inventory_orders($il_nids);
   if (empty($order_nids)) {
     return $data;
   }
@@ -627,7 +627,7 @@ function garmentbox_factory_create_inventory_line($production_order_nid, $origin
   $wrapper->field_production_order->set($production_order_nid);
   $wrapper->field_origin_entity->set($origin_nid);
   $wrapper->field_item_variant->set($item_variant_nid);
-  $wrapper->field_defective->set($defective);
+  $wrapper->field_defective->set((int)$defective);
 
   // Set the inventory line type to 'Current production'.
   $term = taxonomy_get_term_by_name($type_term, 'inventory_type');
@@ -774,7 +774,7 @@ function garmentbox_factory_update_production_order($node) {
     }
     // If at least one non-zero quantity was added, create the IL.
     if ($quantity_info) {
-      garmentbox_factory_create_inventory_line($node->nid, $variant_nid, $quantity_info);
+      garmentbox_factory_create_inventory_line($node->nid, $node->nid, $variant_nid, $quantity_info);
     }
   }
 }
