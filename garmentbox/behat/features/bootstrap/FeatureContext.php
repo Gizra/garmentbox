@@ -270,7 +270,7 @@ class FeatureContext extends DrupalContext {
           }
 
           if (!empty($words[1]) && $words[1] == 'checked') {
-            if (!$checkbox->getAttribute('checked')) {
+            if (!$checkbox->getAttribute('checked') && !$checkbox->getAttribute('value')) {
               throw new \Exception('Checkbox found but is not checked.');
             }
           }
