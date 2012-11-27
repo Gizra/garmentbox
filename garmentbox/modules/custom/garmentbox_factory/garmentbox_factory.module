@@ -91,7 +91,7 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
     );
 
     $form['variants'][$variant_nid]['fabric'] = array (
-      '#markup' => garmentbox_item_get_main_material_icon($variant_nid),
+      '#markup' => garmentbox_item_get_main_material_icon($variant_nid, array('target' => '_blank')),
     );
 
     foreach ($variant['lines'] as $il_nid => $il) {
@@ -522,7 +522,8 @@ function garmentbox_factory_production_order_items_data($op, $item_variant_nids,
   $orders = node_load_multiple($order_nids);
   foreach ($orders as $order) {
     $wrapper = entity_metadata_wrapper('node', $order);
-    $order_link = l($wrapper->field_customer->label(), 'node/' . $order->nid);
+    $options = array('attributes' => array('target'=>'_blank'));
+    $order_link = l($wrapper->field_customer->label(), 'node/' . $order->nid, $options);
 
     foreach ($wrapper->field_inventory_line_inline as $il_wrapper) {
       $variant_nid = $il_wrapper->field_item_variant->getIdentifier();

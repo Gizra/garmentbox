@@ -50,14 +50,6 @@ Feature: Test production order flow
       | <checkbox> checked  | Customer: N/A                   |         | 2       |         |         | $100.00         |
       | <checkbox>          | Grey v-neck shirt - Extra items | <input> | <input> | <input> |         | $0.00           |
 
-  @api
-  Scenario: Test URL generation for create link.
-    Given I am logged in as a user with the "authenticated user" role
-      And I am on a "season" page titled "Autumn-Winter 2013 Women"
-      And I click "Production Orders"
-     When I click "Add new production order"
-     Then the URL query "field_season" should have the id of "Autumn-Winter 2013 Women"
-
   @javascript
   Scenario: Creating an extra inventory line on the production order form.
     Given I am logged in as "user"
@@ -75,4 +67,12 @@ Feature: Test production order flow
     # TODO: Cleanup javascript tests properly.
      And I press "Delete"
      And I press "Delete"
+
+  @api
+  Scenario: Test URL generation for create link.
+    Given I am logged in as a user with the "authenticated user" role
+      And I am on a "season" page titled "Autumn-Winter 2013 Women"
+      And I click "Production Orders"
+     When I click "Add new production order"
+     Then the URL query "field_season" should have the id of "Autumn-Winter 2013 Women"
 

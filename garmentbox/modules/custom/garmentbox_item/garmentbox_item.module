@@ -152,11 +152,13 @@ function garmentbox_item_init() {
  *
  * @param $node
  *   An item variant node.
+ * @param $attributes
+ *   Additional attributes for the link.
  *
  * @return
  *   Rendered icon of the item variant main material.
  */
-function garmentbox_item_get_main_material_icon($node) {
+function garmentbox_item_get_main_material_icon($node, $attributes = array()) {
   $wrapper = entity_metadata_wrapper('node', $node);
   if (!$wrapper->field_bom_info->value()) {
     return;
@@ -177,7 +179,13 @@ function garmentbox_item_get_main_material_icon($node) {
   $image = $wrapper->field_images->get(0)->value();
   $image = theme('image_style', array('style_name' => 'material_thumbnail', 'path' => $image['uri']));
 
-  return l($image, 'node/' . $wrapper->getIdentifier(), array('html' => TRUE, 'attributes' => array('title' => $wrapper->label())));
+  $options = array(
+    'html' => TRUE,
+    'attributes' => $attributes + array(
+      'title' => $wrapper->label(),
+    ),
+  );
+  return l($image, 'node/' . $wrapper->getIdentifier(), $options);
 }
 
 /**
