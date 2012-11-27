@@ -198,78 +198,88 @@ function theme_production_order_node_form($variables) {
   $header[] = t('Production cost');
 
   $rows = array();
-  foreach ($form['variants'] as $variant_nid => $variant) {
-    if (!is_numeric($variant_nid)) {
-      // Ignore FAPI settings.
-      continue;
-    }
-
-    // Add the item variant row.
-    $row = array(
-      'data' => array(),
-      'id' => "variant-$variant_nid",
-      'class' => array('expandable'),
-    );
-    $row['data'][] = render($variant["variant_{$variant_nid}_included"]);
-    $row['data'][] = array(
-      'data' => render($variant['title']),
-      'class' => array('item-title'),
-    );
-    foreach ($size_tree as $term) {
-      $row['data'][] = array(
-        'data' => t('-'),
-        'class' => array('size-quantity'),
-        'data-tid' => $term->tid,
-      );
-    }
-    $row['data'][] = render($variant['fabric']);
-    $row['data'][] = array(
-      'data' => t('N/A'),
-      'class' => array('production-price'),
-    );
-    $rows[] = $row;
-
-    // Add the hidden inventory lines rows.
-    foreach ($variant['ils'] as $il_nid => $il) {
-      if (!is_numeric($il_nid)) {
+  if (!empty($form['variants'])) {
+    foreach ($form['variants'] as $variant_nid => $variant) {
+      if (!is_numeric($variant_nid)) {
+        // Ignore FAPI settings.
         continue;
       }
+
+      // Add the item variant row.
+      $row = array(
+        'data' => array(),
+        'id' => "variant-$variant_nid",
+        'class' => array('expandable'),
+      );
+      $row['data'][] = render($variant["variant_{$variant_nid}_included"]);
+      $row['data'][] = array(
+        'data' => render($variant['title']),
+        'class' => array('item-title'),
+      );
+      foreach ($size_tree as $term) {
+        $row['data'][] = array(
+          'data' => t('-'),
+          'class' => array('size-quantity'),
+          'data-tid' => $term->tid,
+        );
+      }
+      $row['data'][] = render($variant['fabric']);
+      $row['data'][] = array(
+        'data' => t('N/A'),
+        'class' => array('production-price'),
+      );
+      $rows[] = $row;
+
+      // Add the hidden inventory lines rows.
+      foreach ($variant['ils'] as $il_nid => $il) {
+        if (!is_numeric($il_nid)) {
+          continue;
+        }
+        $row = array(
+          'data' => array(),
+          'ref' => "variant-$variant_nid",
+          'class' => array('hidden', 'il'),
+        );
+        $row['data'][] = render($il["include_il_{$il_nid}"]);
+        $row['data'][] = render($il['order_link']);
+        foreach ($size_tree as $term) {
+          $row['data'][] = render($il['sizes'][$term->tid]);
+        }
+        $row['data'][] = '';
+        $row['data'][] = render($il['price']);
+        $rows[] = $row;
+      }
+
+      // Add an hidden "Add more items" row.
       $row = array(
         'data' => array(),
         'ref' => "variant-$variant_nid",
-        'class' => array('hidden', 'il'),
+        'class' => array('disabled', 'new-il'),
       );
-      $row['data'][] = render($il["include_il_{$il_nid}"]);
-      $row['data'][] = render($il['order_link']);
+      $row['data'][] = render($variant['new_il']["include_new_il_variant_{$variant_nid}"]);
+      $row['data'][] = render($variant['new_il']['title']);
       foreach ($size_tree as $term) {
-        $row['data'][] = render($il['sizes'][$term->tid]);
+        $data = empty($variant['new_il']['sizes'][$term->tid]) ? '' : render($variant['new_il']['sizes'][$term->tid]);
+        $row['data'][] = array(
+          'data' => $data,
+          'class' => array('hidden-label'),
+        );
       }
       $row['data'][] = '';
-      $row['data'][] = render($il['price']);
+      $row['data'][] = array(
+        'data' => t('N/A'),
+        'class' => array('production-price'),
+      );
       $rows[] = $row;
     }
-
-    // Add an hidden "Add more items" row.
-    $row = array(
-      'data' => array(),
-      'ref' => "variant-$variant_nid",
-      'class' => array('disabled', 'new-il'),
+  }
+  else {
+    $rows[] = array(
+      array(
+        'data' => t('No inventory lines available for this season and factory.'),
+        'colspan' => 7,
+      ),
     );
-    $row['data'][] = render($variant['new_il']["include_new_il_variant_{$variant_nid}"]);
-    $row['data'][] = render($variant['new_il']['title']);
-    foreach ($size_tree as $term) {
-      $data = empty($variant['new_il']['sizes'][$term->tid]) ? '' : render($variant['new_il']['sizes'][$term->tid]);
-      $row['data'][] = array(
-        'data' => $data,
-        'class' => array('hidden-label'),
-      );
-    }
-    $row['data'][] = '';
-    $row['data'][] = array(
-      'data' => t('N/A'),
-      'class' => array('production-price'),
-    );
-    $rows[] = $row;
   }
 
   hide($form['actions']);
@@ -635,7 +645,7 @@ function garmentbox_factory_update_production_order($node) {
   foreach($attached_ils as $nid) {
     // If the attached IL is no longer selected, remove it from the production
     // order.
-    if (empty($il_included[$attached_ils])) {
+    if (empty($il_included[$nid])) {
       $wrapper = entity_metadata_wrapper('node', $nid);
       $wrapper->field_production_order->set(NULL);
       $wrapper->field_inventory_type->set($tid);
@@ -663,7 +673,7 @@ function garmentbox_factory_update_production_order($node) {
   // Handle creation of new inventory lines.
   foreach ($variant_new_il as $variant_nid => $create) {
     if (!$create) {
-      return;
+      continue;
     }
 
     // Gather the variant's new IL quantities.

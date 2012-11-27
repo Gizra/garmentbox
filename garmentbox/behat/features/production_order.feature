@@ -24,6 +24,19 @@ Feature: Test production order flow
       And the "Total items" input should have the value "42"
       And the "Production price" input should have the value "$1,586.50"
 
+  @api
+  Scenario: Adding an inventory line to a production order and checking that it's not available to other orders.
+    Given I am logged in as a user with the "authenticated user" role
+      And I am on a "season" page titled "Autumn-Winter 2013 Women"
+      And I click "Production Orders"
+      And I click "Add new production order"
+      And I uncheck "Include in order" in row containing "Customer: High Couture" in table "ils-table"
+      And I press "Save"
+    ## Clicking the first row on the production orders view. The link title should be changed.
+      And I click "Production order"
+     When I click "Edit"
+     Then the "Include in order" checkbox in row containing "Customer: High Couture" in table "ils-table" should be unchecked
+
   @javascript
   Scenario: Viewing the add production-order page with detailed variant information.
     Given I am logged in as "user"
@@ -38,22 +51,28 @@ Feature: Test production order flow
       | <checkbox>          | Grey v-neck shirt - Extra items | <input> | <input> | <input> |         | $0.00           |
 
   @api
-  Scenario: Adding an inventory line to a production order and checking that it's not available to other orders.
-    Given I am logged in as a user with the "authenticated user" role
-      And I am on a "season" page titled "Autumn-Winter 2013 Women"
-      And I click "Production Orders"
-      And I click "Add new production order"
-      And I uncheck "Include in order" in row containing "Customer: High Couture" in table "ils-table"
-      And I press "Save"
-    ## Clicking the first row on the production orders view. The link title should be changed.
-      And I click "Production order"
-     When I click "Edit"
-     Then the "Include in order" checkbox in row containing "Customer: High Couture" in table "ils-table" should be unchecked
-
-  @api
   Scenario: Test URL generation for create link.
     Given I am logged in as a user with the "authenticated user" role
       And I am on a "season" page titled "Autumn-Winter 2013 Women"
       And I click "Production Orders"
      When I click "Add new production order"
      Then the URL query "field_season" should have the id of "Autumn-Winter 2013 Women"
+
+  @javascript
+  Scenario: Creating an extra inventory line on the production order form.
+    Given I am logged in as "user"
+      And I visit "node/add/production-order?field_season=24"
+     When I check "Include in order" in row containing "Lines v-neck shirt - Extra items" in table "ils-table"
+      And I fill in "Medium" with "2" in row containing "Lines v-neck shirt - Extra items" in table "ils-table"
+      And I press "Save"
+      And I click "Edit"
+     Then the table "ils-table" should have the following <contents>:
+      | Include in order    | Item variation                   | Small   | Medium  | Large   | Fabric  | Production cost |
+      | <checkbox> checked  | Grey v-neck shirt                | 1       | 2       | 20      | <image> | $1,150.00       |
+      | <checkbox>          | Grey v-neck shirt - Extra items  | <input> | <input> | <input> |         | $0.00           |
+      | <checkbox> checked  | Lines v-neck shirt               |         | 10      | 7       | <image> | $450.50         |
+      | <checkbox>          | Lines v-neck shirt - Extra items |         | <input> | <input> |         | $0.00           |
+    # TODO: Cleanup javascript tests properly.
+     And I press "Delete"
+     And I press "Delete"
+
