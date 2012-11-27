@@ -419,15 +419,15 @@ function garmentbox_factory_get_production_order_inventory_lines($production_ord
  *   A prodution order node ID.
  * @param $item_variant_nid
  *   An item variant node ID to filter the results.
- * @param $inventory_type_tid
- *   Term ID. Fetch inventory lines of this type.
  * @param $missing
- *   When not null, fetch lines that were created as missing.
+ *   When true, only fetch lines that are marked as missing.
+ * @param $defective
+ *   When true, only fetch lines that are marked as defective.
  *
  * @return
  *   Array of inventory lines node IDs.
  */
-function garmentbox_factory_get_production_originated_inventory_lines($production_order_nid, $item_variant_nid, $inventory_type_tid = NULL, $missing = NULL) {
+function garmentbox_factory_get_production_originated_inventory_lines($production_order_nid, $item_variant_nid, $missing = NULL, $defective = NULL) {
   $query = new EntityFieldQuery();
   $query
     ->entityCondition('entity_type', 'node')
@@ -436,13 +436,12 @@ function garmentbox_factory_get_production_originated_inventory_lines($productio
     ->fieldCondition('field_origin_entity', 'target_id', $production_order_nid)
     ->fieldCondition('field_item_variant', 'target_id', $item_variant_nid);
 
-  if ($inventory_type_tid) {
-    // Filter by inventory type.
-    $query->fieldCondition('field_inventory_type', 'target_id', $inventory_type_tid);
-  }
-
   if ($missing !== NULL) {
     $query->fieldCondition('field_missing', 'value', $missing);
+  }
+
+  if ($defective !== NULL) {
+    $query->fieldCondition('field_defective', 'value', $defective);
   }
 
   $result = $query->execute();

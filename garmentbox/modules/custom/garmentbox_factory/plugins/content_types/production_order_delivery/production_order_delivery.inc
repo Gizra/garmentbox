@@ -230,7 +230,7 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
               '#type' => 'textfield',
               '#title' => check_plain($term->name),
               '#element_validate' => array('garmentbox_factory_element_validate_not_negative_integer'),
-              '#default_value' => $type == 'defective' ? '' : $variant_data[$type]['sizes'][$term->tid],
+              '#default_value' => $variant_data[$type]['sizes'][$term->tid],
               '#size' => 4,
               '#disabled' => $variant_data['in_warehouse'],
             );
@@ -270,7 +270,6 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
           '#attributes' => array('data-il-nid' => $il_nid),
           '#size' => 4,
         );
-
       }
     }
 
@@ -569,11 +568,20 @@ function garmentbox_factory_production_order_delivery_get_data($node) {
     }
 
     // Retrieve "created missing" lines.
-    $missing_il_nids = garmentbox_factory_get_production_originated_inventory_lines($node->nid, $variant_nid, NULL, TRUE);
+    $missing_il_nids = garmentbox_factory_get_production_originated_inventory_lines($node->nid, $variant_nid, TRUE);
     foreach (node_load_multiple($missing_il_nids) as $il_node) {
       $wrapper = entity_metadata_wrapper('node', $il_node);
       foreach ($wrapper->field_quantity_info as $quantity_wrapper) {
         _garmentbox_factory_production_order_delivery_get_quantity_data($data, 'missing_created', $quantity_wrapper, $variant_nid, $il_node->nid);
+      }
+    }
+
+    // Retrieve "Defective" lines.
+    $defective_il_nids = garmentbox_factory_get_production_originated_inventory_lines($node->nid, $variant_nid, NULL, TRUE);
+    foreach (node_load_multiple($defective_il_nids) as $il_node) {
+      $wrapper = entity_metadata_wrapper('node', $il_node);
+      foreach ($wrapper->field_quantity_info as $quantity_wrapper) {
+        _garmentbox_factory_production_order_delivery_get_quantity_data($data, 'defective', $quantity_wrapper, $variant_nid, $il_node->nid);
       }
     }
   }
