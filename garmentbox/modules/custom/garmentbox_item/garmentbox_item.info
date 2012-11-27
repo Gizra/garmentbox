@@ -40,6 +40,7 @@ features[field][] = node-item-field_reference_hierarchy
 features[field][] = node-item-field_season
 features[field][] = node-item-title_field
 features[field][] = node-item_variant-field_bom_info
+features[field][] = node-item_variant-field_factory
 features[field][] = node-item_variant-field_images
 features[field][] = node-item_variant-field_item
 features[field][] = node-item_variant-field_item_status

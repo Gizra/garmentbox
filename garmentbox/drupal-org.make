@@ -138,6 +138,9 @@ projects[og][version] = "2.x-dev"
 projects[beautytips][subdir] = "contrib"
 projects[beautytips][version] = "2.x-dev"
 
+projects[format_number][subdir] = "contrib"
+projects[format_number][version] = "1.x-dev"
+
 ; Libraries.
 libraries[jquery.cycle][type] = "libraries"
 libraries[jquery.cycle][download][type] = "git"

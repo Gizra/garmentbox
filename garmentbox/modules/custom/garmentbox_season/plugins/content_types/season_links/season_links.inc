@@ -28,6 +28,7 @@ function garmentbox_season_season_links_content_type_render($subtype, $conf, $ar
   $items[] = l(t('Items'), "season/$nid/items");
   $items[] = l(t('Inventory'), "season/$nid/inventory");
   $items[] = l(t('Orders'), "season/$nid/orders");
+  $items[] = l(t('Production Orders'), "season/$nid/production-orders");
 
   $block->content = theme('item_list', array('items' => $items));
   return $block;

@@ -1,0 +1,14 @@
+input.triple-checkbox {
+  background: url("../images/checkboxes.png") no-repeat;
+  width: 12px;
+  height: 13px;
+  -webkit-appearance: none;
+
+  &.partially-checked {
+    background-position: -12px;
+  }
+
+  &.checked {
+    background-position: -24px;
+  }
+}

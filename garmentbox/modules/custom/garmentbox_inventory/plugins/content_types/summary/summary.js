@@ -8,7 +8,7 @@ Drupal.behaviors.GarmentboxInventorySummary = {
     $('tr.expandable td').click(function(event) {
       event.preventDefault();
       var totalRow = $(event.currentTarget).parentsUntil('tbody');
-      totalRow.parentsUntil('table').find('tr.variant-nid-' + totalRow.attr('variant-nid')).toggle('fast');
+      totalRow.parentsUntil('table').find('tr.variant-nid-' + totalRow.attr('variant-nid')).toggle('fast').toggleClass('hidden');
       totalRow.find('.expander').toggleClass('collapsed');
     });
 
