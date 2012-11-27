@@ -596,6 +596,104 @@ function garmentbox_inventory_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-inventory_line-field_missing_on_il'.
+  $fields['node-inventory_line-field_missing_on_il'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_missing_on_il',
+      'foreign keys' => array(
+        'node' => array(
+          'columns' => array(
+            'target_id' => 'nid',
+          ),
+          'table' => 'node',
+        ),
+      ),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'entityreference',
+      'settings' => array(
+        'handler' => 'base',
+        'handler_settings' => array(
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 0,
+            ),
+          ),
+          'sort' => array(
+            'type' => 'none',
+          ),
+          'target_bundles' => array(
+            'inventory_line' => 'inventory_line',
+          ),
+        ),
+        'target_type' => 'node',
+      ),
+      'translatable' => '0',
+      'type' => 'entityreference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'inventory_line',
+      'default_value' => NULL,
+      'default_value_function' => '',
+      'deleted' => '0',
+      'description' => 'When this value exists, it means this inventory line was created because of missing items on the referenced inventory line.',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => FALSE,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => 14,
+        ),
+        'garmentbox_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_missing_on_il',
+      'label' => 'Missing on inventory line',
+      'required' => 0,
+      'settings' => array(
+        'behaviors' => array(
+          'prepopulate' => array(
+            'status' => 0,
+          ),
+        ),
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'entityreference',
+        'settings' => array(
+          'match_operator' => 'CONTAINS',
+          'path' => '',
+          'size' => '60',
+        ),
+        'type' => 'entityreference_autocomplete',
+        'weight' => '47',
+      ),
+    ),
+  );
+
   // Exported field: 'node-inventory_line-field_origin_entity'.
   $fields['node-inventory_line-field_origin_entity'] = array(
     'field_config' => array(
@@ -1384,6 +1482,7 @@ function garmentbox_inventory_field_default_fields() {
   t('Include in total');
   t('Inventory type');
   t('Item variant');
+  t('Missing on inventory line');
   t('Origin entity');
   t('Original revision');
   t('Price');
@@ -1394,6 +1493,7 @@ function garmentbox_inventory_field_default_fields() {
   t('Reference hierarchy');
   t('Revision ID of IL as ordered. This is set when filling the production received form to mark the state of the IL before adding extras or marking missing items.');
   t('Size');
+  t('When this value exists, it means this inventory line was created because of missing items on the referenced inventory line.');
 
   return $fields;
 }
