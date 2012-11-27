@@ -4,9 +4,7 @@ Feature: Test production order flow
   @javascript
   Scenario: Viewing the add production-order page, with different Quantity/ Size.
     Given I am logged in as "user"
-      And I visit "season/24"
-      And I click "Production Orders"
-     When I click "Add new production order"
+     When I visit "node/add/production-order?field_season=24"
      Then the table "ils-table" should have the following <contents>:
       | Include in order   | Item variation                   | Small   | Medium  | Large   | Fabric  | Production cost |
       | <checkbox> checked | Grey v-neck shirt                | 1       | 2       | 20      | <image> | $1,150.00       |
@@ -14,11 +12,22 @@ Feature: Test production order flow
       | <checkbox> checked | Lines v-neck shirt               |         | 8       | 7       | <image> | $397.50         |
 
   @javascript
+  Scenario: Testing price re-calculation.
+    Given I am logged in as "user"
+      And I visit "node/add/production-order?field_season=24"
+      And I click "Grey v-neck shirt"
+      And I uncheck "Include in order" in row containing "Customer: High Couture" in table "ils-table"
+     When I click "Include in order" in row containing "Grey v-neck shirt - Extra items" in table "ils-table"
+      And I fill in "Small" with "2" in row containing "Grey v-neck shirt - Extra items" in table "ils-table"
+     Then the "Production cost" column of "Grey v-neck shirt" in table "ils-table" should be "$200.00"
+      And the "Production cost" column of "Grey v-neck shirt - Extra items" in table "ils-table" should be "$100.00"
+      And the "Total items" input should have the value "42"
+      And the "Production price" input should have the value "$1,586.50"
+
+  @javascript
   Scenario: Viewing the add production-order page with detailed variant information.
     Given I am logged in as "user"
-      And I visit "season/24"
-      And I click "Production Orders"
-     When I click "Add new production order"
+      And I visit "node/add/production-order?field_season=24"
       And I click "Grey v-neck shirt"
      When I check "Include in order" in row containing "Grey v-neck shirt - Extra items" in table "ils-table"
      Then the table "ils-table" should have the following <contents>:
@@ -27,21 +36,6 @@ Feature: Test production order flow
       | <checkbox> checked  | Customer: High Couture          | 1       |         | 20      |         | $1,050.00       |
       | <checkbox> checked  | Customer: N/A                   |         | 2       |         |         | $100.00         |
       | <checkbox>          | Grey v-neck shirt - Extra items | <input> | <input> | <input> |         | $0.00           |
-
-  @javascript
-  Scenario: Testing price re-calculation.
-    Given I am logged in as "user"
-      And I visit "season/24"
-      And I click "Production Orders"
-      And I click "Add new production order"
-      And I click "Grey v-neck shirt"
-     When I uncheck "Include in order" in row containing "Customer: High Couture" in table "ils-table"
-     When I click "Include in order" in row containing "Grey v-neck shirt - Extra items" in table "ils-table"
-      And I fill in "Small" with "2" in row containing "Grey v-neck shirt - Extra items" in table "ils-table"
-     Then the "Production cost" column of "Grey v-neck shirt" in table "ils-table" should be "$200.00"
-      And the "Production cost" column of "Grey v-neck shirt - Extra items" in table "ils-table" should be "$100.00"
-      And the "Total items" input should have the value "42"
-      And the "Production price" input should have the value "$1,586.50"
 
   @api
   Scenario: Adding an inventory line to a production order and checking that it's not available to other orders.
