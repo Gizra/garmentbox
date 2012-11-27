@@ -562,14 +562,14 @@ function garmentbox_factory_production_order_delivery_get_data($node) {
       $quantity_wrapper = entity_metadata_wrapper('field_collection_item', $quantity_item);
       _garmentbox_factory_production_order_delivery_get_quantity_data($data, 'original', $quantity_wrapper, $variant_nid, $il_node->nid);
     }
-  }
 
-  // Retrieve "created missing" lines.
-  $missing_il_nids = garmentbox_factory_get_production_originated_inventory_lines($node->nid, $variant_nid);
-  foreach (node_load_multiple($missing_il_nids) as $il_node) {
-    $wrapper = entity_metadata_wrapper('node', $il_node);
-    foreach ($wrapper->field_quantity_info as $quantity_wrapper) {
-      _garmentbox_factory_production_order_delivery_get_quantity_data($data, 'missing_created', $quantity_wrapper, $variant_nid, $il_node->nid);
+    // Retrieve "created missing" lines.
+    $missing_il_nids = garmentbox_factory_get_production_originated_inventory_lines($node->nid, $variant_nid, NULL, TRUE);
+    foreach (node_load_multiple($missing_il_nids) as $il_node) {
+      $wrapper = entity_metadata_wrapper('node', $il_node);
+      foreach ($wrapper->field_quantity_info as $quantity_wrapper) {
+        _garmentbox_factory_production_order_delivery_get_quantity_data($data, 'missing_created', $quantity_wrapper, $variant_nid, $il_node->nid);
+      }
     }
   }
 
