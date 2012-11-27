@@ -52,6 +52,10 @@ function theme_garmentbox_factory_production_order_delivery_form($variables) {
     $row = _garmentbox_factory_production_order_delivery_form_row($nid, 'received', t('Received'), NULL, $variant['received']);
     // Override the first row's settings.
     $row['class'] = array('received');
+    if (!empty($variant["received_variant_$nid"]['#disabled'])) {
+      $row['class'][] = 'disabled';
+    }
+
     unset($row['ref']);
     // Override the first cells.
     $row['data'][0] = array(
@@ -193,7 +197,7 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
       '#type' => 'checkbox',
       '#default_value' => $variant_data['in_warehouse'],
       // Once a variant is checked, it stays checked.
-      //'#disabled' => $variant_data['received'],
+      '#disabled' => $variant_data['in_warehouse'],
     );
 
     $form['variants'][$nid]['title'] = array(
@@ -228,6 +232,7 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
               '#element_validate' => array('garmentbox_factory_element_validate_not_negative_integer'),
               '#default_value' => $type == 'defective' ? '' : $variant_data[$type]['sizes'][$term->tid],
               '#size' => 4,
+              '#disabled' => $variant_data['in_warehouse'],
             );
             break;
         }

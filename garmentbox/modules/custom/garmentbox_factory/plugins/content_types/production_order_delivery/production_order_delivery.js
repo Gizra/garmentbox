@@ -63,7 +63,7 @@ Drupal.behaviors.GarmentboxOrderItems = {
         // When showing, ignore the inventory-line rows.
         tbody.find('tr.subrow[data-variant-nid="' + variantNid + '"]').show().removeClass('hidden');
         // Enable the received textfields.
-        tbody.find('tr.received[data-variant-nid="' + variantNid + '"] .size-quantity input').removeAttr('disabled');
+        tbody.find('tr.received[data-variant-nid="' + variantNid + '"]:not(.disabled) .size-quantity input').removeAttr('disabled');
       }
       else {
         // When hiding, hide all variant rows.
