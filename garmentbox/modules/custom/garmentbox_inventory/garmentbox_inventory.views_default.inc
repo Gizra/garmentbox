@@ -45,11 +45,12 @@ function garmentbox_inventory_views_default_views() {
     'field_customer' => 'field_customer',
     'field_defective' => 'field_defective',
     'field_missing' => 'field_missing',
+    'field_origin_entity' => 'field_origin_entity',
   );
   $handler->display->display_options['style_options']['default'] = 'title';
   $handler->display->display_options['style_options']['info'] = array(
     'nid_1' => array(
-      'sortable' => 0,
+      'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
@@ -124,6 +125,13 @@ function garmentbox_inventory_views_default_views() {
       'empty_column' => 0,
     ),
     'field_missing' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_origin_entity' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -464,6 +472,32 @@ function garmentbox_inventory_views_default_views() {
   $handler->display->display_options['fields']['field_missing']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_missing']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_missing']['field_api_classes'] = 0;
+  /* Field: Content: Origin entity */
+  $handler->display->display_options['fields']['field_origin_entity']['id'] = 'field_origin_entity';
+  $handler->display->display_options['fields']['field_origin_entity']['table'] = 'field_data_field_origin_entity';
+  $handler->display->display_options['fields']['field_origin_entity']['field'] = 'field_origin_entity';
+  $handler->display->display_options['fields']['field_origin_entity']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['field_origin_entity']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_origin_entity']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_origin_entity']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_origin_entity']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_origin_entity']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_origin_entity']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_origin_entity']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_origin_entity']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_origin_entity']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['field_origin_entity']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_origin_entity']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_origin_entity']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_origin_entity']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['field_origin_entity']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_origin_entity']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['field_origin_entity']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_origin_entity']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['field_origin_entity']['settings'] = array(
+    'link' => 1,
+  );
+  $handler->display->display_options['fields']['field_origin_entity']['field_api_classes'] = 0;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
