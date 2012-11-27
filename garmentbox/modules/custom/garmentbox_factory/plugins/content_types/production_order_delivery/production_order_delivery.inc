@@ -450,7 +450,7 @@ function garmentbox_factory_production_order_delivery_form_submit($form, &$form_
 
       // Check if the missing IL checkbox is checked.
       if ($il_missing_data && $form_state['values']["create_missing_variant_{$variant_nid}_il_{$node->nid}"]) {
-        $il = garmentbox_factory_create_inventory_line(NULL, $production_order_nid, $variant_nid, $missing_size_data, INVENTORY_TYPE_FUTURE_PRODUCTION);
+        $il = garmentbox_factory_create_inventory_line(NULL, $production_order_nid, $variant_nid, $missing_size_data, INVENTORY_TYPE_FUTURE_PRODUCTION, FALSE, TRUE);
 
         // Attach the inventory line to the original order.
         if (!empty($variant_data['lines'][$node->nid]['order']['nid'])) {
