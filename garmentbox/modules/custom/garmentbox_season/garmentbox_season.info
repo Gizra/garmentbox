@@ -30,6 +30,7 @@ features[page_manager_handlers][] = node_view_panel_context
 features[page_manager_pages][] = season_inventory
 features[page_manager_pages][] = season_items
 features[page_manager_pages][] = season_orders
+features[page_manager_pages][] = season_production_orders
 features[taxonomy][] = season_status
 features[variable][] = comment_anonymous_season
 features[variable][] = comment_default_mode_season

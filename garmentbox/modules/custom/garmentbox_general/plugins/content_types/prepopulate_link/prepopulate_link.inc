@@ -54,6 +54,11 @@ function garmentbox_general_prepopulate_link_content_type_render($subtype, $conf
       $add_destination = FALSE;
       break;
 
+    case 'production_order':
+      $field_name = 'field_season';
+      $link_text = t('Add new production order');
+      break;
+
     default:
       return;
   }

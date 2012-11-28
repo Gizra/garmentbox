@@ -1,6 +1,7 @@
 Feature: Test Item page
   Make sure an item page is presented correctly.
 
+
   @api
   Scenario: Basic content is shown on the item page.
     Given I am logged in as a user with the "authenticated user" role
@@ -24,10 +25,11 @@ Feature: Test Item page
       | Fix marker          | Needs work  | <ignore> | 0       | <ignore>     | <ignore> | edit    |
       And I should see "Total open tasks: 2"
 
-  @api
+  @javascript
   Scenario: Correct content is shown on the item inventory list.
-    Given I am logged in as a user with the "authenticated user" role
-     When I am on a "season" page titled "Autumn-Winter 2013 Women", in the tab "inventory"
+    Given I am logged in as "user"
+      And I visit "/item/35"
+     When I click the row of "Lines v-neck shirt - Total"
      Then I should see a table titled "Inventory summary" with the following <contents>:
       | Variation                   | Small                           | Medium                                        | Large                                 | Type                                                      |
       | Lines v-neck shirt - Total  | 19 Stock 9 Available 11 Ordered | 7 Stock 0 Available 7 Ordered 7 Future stock  | 8 Stock 8 Available 11 Future stock   | All types Except of Defective, Consignment, Sent / Sold.  |
