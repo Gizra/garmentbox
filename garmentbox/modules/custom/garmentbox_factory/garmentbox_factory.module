@@ -419,15 +419,11 @@ function garmentbox_factory_get_production_order_inventory_lines($production_ord
  *   A prodution order node ID.
  * @param $item_variant_nid
  *   An item variant node ID to filter the results.
- * @param $missing
- *   When true, only fetch lines that are marked as missing.
- * @param $defective
- *   When true, only fetch lines that are marked as defective.
  *
  * @return
  *   Array of inventory lines node IDs.
  */
-function garmentbox_factory_get_production_originated_inventory_lines($production_order_nid, $item_variant_nid, $missing = NULL, $defective = NULL) {
+function garmentbox_factory_get_production_originated_inventory_lines($production_order_nid, $item_variant_nid) {
   $query = new EntityFieldQuery();
   $query
     ->entityCondition('entity_type', 'node')
@@ -435,14 +431,6 @@ function garmentbox_factory_get_production_originated_inventory_lines($productio
     ->propertyCondition('status', NODE_PUBLISHED)
     ->fieldCondition('field_origin_entity', 'target_id', $production_order_nid)
     ->fieldCondition('field_item_variant', 'target_id', $item_variant_nid);
-
-  if ($missing !== NULL) {
-    $query->fieldCondition('field_missing', 'value', $missing);
-  }
-
-  if ($defective !== NULL) {
-    $query->fieldCondition('field_defective', 'value', $defective);
-  }
 
   $result = $query->execute();
 

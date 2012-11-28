@@ -447,7 +447,7 @@ function garmentbox_factory_production_order_delivery_form_submit($form, &$form_
       // Set the "Current production" inventory lines type to "Regular stock".
       if ($wrapper->field_inventory_type->getIdentifier() == $current_prooduction_tid) {
         $wrapper->field_inventory_type->set($regular_stock_tid);
-        // Save the iLine revision when the when it was received.
+        // Save the IL revision when the when it was received.
         $wrapper->field_original_revision->set($original_revision);
         $wrapper->save();
       }
@@ -455,13 +455,13 @@ function garmentbox_factory_production_order_delivery_form_submit($form, &$form_
       // Check if the missing IL checkbox is checked.
       if ($il_missing_data && $form_state['values']["create_missing_variant_{$variant_nid}_il_{$node->nid}"]) {
 
-        $il = garmentbox_factory_create_inventory_line(NULL, $production_order_nid, $variant_nid, $missing_size_data, INVENTORY_TYPE_FUTURE_PRODUCTION, FALSE, TRUE);
+        $il_node = garmentbox_factory_create_inventory_line(NULL, $production_order_nid, $variant_nid, $missing_size_data, INVENTORY_TYPE_FUTURE_PRODUCTION, FALSE, TRUE);
 
         // Attach the missing IL to the order that it was reduced from.
         if (!empty($variant_data['received']['lines'][$node->nid]['order']['nid'])) {
           $order_wrapper = entity_metadata_wrapper('node', $variant_data['received']['lines'][$node->nid]['order']['nid']);
           $ils = $order_wrapper->field_inventory_line_inline->value();
-          $ils[] = $il;
+          $ils[] = $il_node;
           $order_wrapper->field_inventory_line_inline->set($ils);
           $order_wrapper->save();
         }
@@ -484,7 +484,13 @@ function garmentbox_factory_production_order_delivery_form_submit($form, &$form_
 
     // Create "Regular stock" inventory for extra items.
     if ($quantity_info) {
-      garmentbox_factory_create_inventory_line(NULL, $production_order_nid, $variant_nid, $quantity_info, INVENTORY_TYPE_REGULAR_STOCK);
+      $il_node = garmentbox_factory_create_inventory_line(NULL, $production_order_nid, $variant_nid, $quantity_info, INVENTORY_TYPE_REGULAR_STOCK);
+      // Set the inventory line's "original revision" to the initial nid, in
+      // order to continue showing it on the delivery form once their type is
+      // changed.
+      $il_wrapper = entity_metadata_wrapper('node', $il_node);
+      $il_wrapper->field_original_revision->set($il_node->vid);
+      $il_wrapper->save();
     }
 
     // Create an inventory for the defective items.
@@ -567,21 +573,29 @@ function garmentbox_factory_production_order_delivery_get_data($node) {
       _garmentbox_factory_production_order_delivery_get_quantity_data($data, 'original', $quantity_wrapper, $variant_nid, $il_node->nid);
     }
 
-    // Retrieve "created missing" lines.
-    $missing_il_nids = garmentbox_factory_get_production_originated_inventory_lines($node->nid, $variant_nid, TRUE);
-    foreach (node_load_multiple($missing_il_nids) as $il_node) {
+    // Retrieve Extra, Missing & Defective lines.
+    $originated_il_nids = garmentbox_factory_get_production_originated_inventory_lines($node->nid, $variant_nid);
+    foreach (node_load_multiple($originated_il_nids) as $il_node) {
       $wrapper = entity_metadata_wrapper('node', $il_node);
-      foreach ($wrapper->field_quantity_info as $quantity_wrapper) {
-        _garmentbox_factory_production_order_delivery_get_quantity_data($data, 'missing_created', $quantity_wrapper, $variant_nid, $il_node->nid);
+      $original_vid = $wrapper->field_original_revision->value();
+      if ($original_vid) {
+        $il_node = node_load(NULL, $original_vid);
+        $wrapper = entity_metadata_wrapper('node', $il_node);
       }
-    }
 
-    // Retrieve "Defective" lines.
-    $defective_il_nids = garmentbox_factory_get_production_originated_inventory_lines($node->nid, $variant_nid, NULL, TRUE);
-    foreach (node_load_multiple($defective_il_nids) as $il_node) {
-      $wrapper = entity_metadata_wrapper('node', $il_node);
+      $missing = $wrapper->field_missing_on_il->value();
+      if ($missing) {
+        $type = 'missing_created';
+      }
+      elseif ($wrapper->field_defective->value()) {
+        $type = 'defective';
+      }
+      elseif ($wrapper->field_inventory_type->field_in_warehouse->value()) {
+        $type = 'received';
+      }
+
       foreach ($wrapper->field_quantity_info as $quantity_wrapper) {
-        _garmentbox_factory_production_order_delivery_get_quantity_data($data, 'defective', $quantity_wrapper, $variant_nid, $il_node->nid);
+        _garmentbox_factory_production_order_delivery_get_quantity_data($data, $type, $quantity_wrapper, $variant_nid, $il_node->nid);
       }
     }
   }
