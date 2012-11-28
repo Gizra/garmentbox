@@ -43,66 +43,76 @@ function theme_garmentbox_factory_production_order_delivery_form($variables) {
 
   $form = $variables['form'];
   $rows = array();
-  foreach ($form['variants'] as $nid => $variant) {
-    // Ignore FAPI settings.
-    if (!is_numeric($nid)) {
-      continue;
-    }
-
-    $row = _garmentbox_factory_production_order_delivery_form_row($nid, 'received', t('Received'), NULL, $variant['received']);
-    // Override the first row's settings.
-    $row['class'] = array('received');
-    if (!empty($variant["received_variant_$nid"]['#disabled'])) {
-      $row['class'][] = 'disabled';
-    }
-
-    unset($row['ref']);
-    // Override the first cells.
-    $row['data'][0] = array(
-      'data' => render($variant["received_variant_$nid"]),
-      'class' => array('received'),
-    );
-    $row['data'][1] = render($variant['title']);
-    $rows[] = $row;
-    $row = _garmentbox_factory_production_order_delivery_form_row($nid, 'original', t('Original'), 'subrow', $variant['original']);
-    $row['data'][1] = render($variant['lines_expander']);
-    $rows[] = $row;
-
-    foreach ($variant['lines'] as $il_nid => $il) {
-      if (!is_numeric($il_nid)) {
-        // Ignore FAPI settings.
+  if (!empty($form['variants'])) {
+    foreach ($form['variants'] as $nid => $variant) {
+      // Ignore FAPI settings.
+      if (!is_numeric($nid)) {
         continue;
       }
 
-      $wrapper = entity_metadata_wrapper('node', $il_nid);
-      $label = render($il["il_{$il_nid}_title_variant_{$nid}"]);
+      $row = _garmentbox_factory_production_order_delivery_form_row($nid, 'received', t('Received'), NULL, $variant['received']);
+      // Override the first row's settings.
+      $row['class'] = array('received');
+      if (!empty($variant["received_variant_$nid"]['#disabled'])) {
+        $row['class'][] = 'disabled';
+      }
 
-      // Add an editable hidden missing row.
-      $rows[] = _garmentbox_factory_production_order_delivery_form_row($nid, 'il', $label, NULL, $il);
-      // Add the "Create missing IL" checkbox.
-      $row = _garmentbox_factory_production_order_delivery_form_row($nid, 'missing', t('Missing'), NULL);
-      $row['data-il-ref'] = $il_nid;
-      $row['data'][1] = render($variant['missing']['lines'][$il_nid]["create_missing_variant_{$nid}_il_{$il_nid}"]);
+      unset($row['ref']);
+      // Override the first cells.
+      $row['data'][0] = array(
+        'data' => render($variant["received_variant_$nid"]),
+        'class' => array('received'),
+      );
+      $row['data'][1] = render($variant['title']);
       $rows[] = $row;
-    }
+      $row = _garmentbox_factory_production_order_delivery_form_row($nid, 'original', t('Original'), 'subrow', $variant['original']);
+      $row['data'][1] = render($variant['lines_expander']);
+      $rows[] = $row;
 
-    if (!empty($variant['missing_created'])) {
-      // Display former missing rows.
-      foreach ($variant['missing_created'] as $il_nid => $il) {
+      foreach ($variant['lines'] as $il_nid => $il) {
         if (!is_numeric($il_nid)) {
           // Ignore FAPI settings.
           continue;
         }
 
-        $row = _garmentbox_factory_production_order_delivery_form_row($nid, 'missing_created', t('Missing'), NULL, $il);
-        $row['class'] = array('missing-created');
+        $wrapper = entity_metadata_wrapper('node', $il_nid);
+        $label = render($il["il_{$il_nid}_title_variant_{$nid}"]);
+
+        // Add an editable hidden missing row.
+        $rows[] = _garmentbox_factory_production_order_delivery_form_row($nid, 'il', $label, NULL, $il);
+        // Add the "Create missing IL" checkbox.
+        $row = _garmentbox_factory_production_order_delivery_form_row($nid, 'missing', t('Missing'), NULL);
+        $row['data-il-ref'] = $il_nid;
+        $row['data'][1] = render($variant['missing']['lines'][$il_nid]["create_missing_variant_{$nid}_il_{$il_nid}"]);
         $rows[] = $row;
       }
+
+      if (!empty($variant['missing_created'])) {
+        // Display former missing rows.
+        foreach ($variant['missing_created'] as $il_nid => $il) {
+          if (!is_numeric($il_nid)) {
+            // Ignore FAPI settings.
+            continue;
+          }
+
+          $row = _garmentbox_factory_production_order_delivery_form_row($nid, 'missing_created', t('Missing'), NULL, $il);
+          $row['class'] = array('missing-created');
+          $rows[] = $row;
+        }
+      }
+
+      $rows[] = _garmentbox_factory_production_order_delivery_form_row($nid, 'defective', t('Defective'), 'subrow', $variant['defective']);
+      $rows[] = _garmentbox_factory_production_order_delivery_form_row($nid, 'extras', t('Extras'), 'subrow');
+
     }
-
-    $rows[] = _garmentbox_factory_production_order_delivery_form_row($nid, 'defective', t('Defective'), 'subrow', $variant['defective']);
-    $rows[] = _garmentbox_factory_production_order_delivery_form_row($nid, 'extras', t('Extras'), 'subrow');
-
+  }
+  else {
+    $rows[] = array(
+      array(
+        'data' => t('No inventory lines found.'),
+        'colspan' => 7,
+      ),
+    );
   }
 
   $header = array(t('Received'), t('Item Variation'), t('Type'));
@@ -607,6 +617,7 @@ function garmentbox_factory_production_order_delivery_get_data($node) {
   if (empty($order_nids)) {
     return $data;
   }
+
   foreach (node_load_multiple($order_nids) as $order_node) {
     $wrapper = entity_metadata_wrapper('node', $order_node);
     $order_link = l($wrapper->field_customer->label(), 'node/' . $order_node->nid);

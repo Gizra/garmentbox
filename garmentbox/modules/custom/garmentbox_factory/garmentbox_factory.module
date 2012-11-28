@@ -538,6 +538,10 @@ function garmentbox_factory_production_order_items_data($op, $item_variant_nids,
  *   List of order node IDs.
  */
 function garmentbox_factory_get_inventory_orders($inventory_line_nids) {
+  if (empty($inventory_line_nids)) {
+    return array();
+  }
+
   $query = new EntityFieldQuery();
   $result = $query
     ->entityCondition('entity_type', 'node')

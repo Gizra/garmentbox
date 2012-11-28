@@ -571,7 +571,7 @@ class FeatureContext extends DrupalContext {
 
   }
 
-   /**
+  /**
    * @When /^I am on the "([^"]*)" page of the default "([^"]*)"$/
    */
   public function iAmOnThePageOfTheDefault($page_name, $node_type) {
