@@ -531,7 +531,6 @@ function garmentbox_factory_production_order_delivery_get_data($node) {
   $il_nids = garmentbox_factory_get_production_order_inventory_lines($node->nid);
   foreach(node_load_multiple($il_nids) as $il_node) {
     $wrapper = entity_metadata_wrapper('node', $il_node);
-
     $variant_nid = $wrapper->field_item_variant->getIdentifier();
 
     if (empty($data[$variant_nid])) {
@@ -571,31 +570,35 @@ function garmentbox_factory_production_order_delivery_get_data($node) {
       $quantity_wrapper = entity_metadata_wrapper('field_collection_item', $quantity_item);
       _garmentbox_factory_production_order_delivery_get_quantity_data($data, 'original', $quantity_wrapper, $variant_nid, $il_node->nid);
     }
+  }
 
-    // Retrieve Extra, Missing & Defective lines.
-    $originated_il_nids = garmentbox_factory_get_production_originated_inventory_lines($node->nid, $variant_nid);
-    foreach (node_load_multiple($originated_il_nids) as $il_node) {
+  // Retrieve Extra, Missing & Defective lines.
+  $il_nids = garmentbox_factory_get_production_originated_inventory_lines($node->nid);
+  foreach (node_load_multiple($il_nids) as $il_node) {
+    $wrapper = entity_metadata_wrapper('node', $il_node);
+    $original_vid = $wrapper->field_original_revision->value();
+    if ($original_vid) {
+      $il_node = node_load(NULL, $original_vid);
       $wrapper = entity_metadata_wrapper('node', $il_node);
-      $original_vid = $wrapper->field_original_revision->value();
-      if ($original_vid) {
-        $il_node = node_load(NULL, $original_vid);
-        $wrapper = entity_metadata_wrapper('node', $il_node);
-      }
+    }
 
-      $missing = $wrapper->field_missing_on_il->value();
-      if ($missing) {
-        $type = 'missing_created';
-      }
-      elseif ($wrapper->field_defective->value()) {
-        $type = 'defective';
-      }
-      elseif ($wrapper->field_inventory_type->field_in_warehouse->value()) {
-        $type = 'received';
-      }
+    // TODO: Are there more possibilities?
+    $type = '';
+    $missing = $wrapper->field_missing_on_il->value();
+    if ($missing) {
+      $type = 'missing_created';
+    }
+    elseif ($wrapper->field_defective->value()) {
+      $type = 'defective';
+    }
+    elseif ($wrapper->field_inventory_type->field_in_warehouse->value()) {
+      $type = 'received';
+    }
 
-      foreach ($wrapper->field_quantity_info as $quantity_wrapper) {
-        _garmentbox_factory_production_order_delivery_get_quantity_data($data, $type, $quantity_wrapper, $variant_nid, $il_node->nid);
-      }
+
+    $variant_nid = $wrapper->field_item_variant->getIdentifier();
+    foreach ($wrapper->field_quantity_info as $quantity_wrapper) {
+      _garmentbox_factory_production_order_delivery_get_quantity_data($data, $type, $quantity_wrapper, $variant_nid, $il_node->nid);
     }
   }
 
