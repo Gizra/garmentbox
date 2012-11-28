@@ -573,8 +573,8 @@ function garmentbox_factory_production_order_delivery_get_data($node) {
   }
 
   // Retrieve Extra, Missing & Defective lines.
-  $il_nids = garmentbox_factory_get_production_originated_inventory_lines($node->nid);
-  foreach (node_load_multiple($il_nids) as $il_node) {
+  $related_il_nids = garmentbox_factory_get_production_originated_inventory_lines($node->nid);
+  foreach (node_load_multiple($related_il_nids) as $il_node) {
     $wrapper = entity_metadata_wrapper('node', $il_node);
     $original_vid = $wrapper->field_original_revision->value();
     if ($original_vid) {
@@ -602,11 +602,11 @@ function garmentbox_factory_production_order_delivery_get_data($node) {
     }
   }
 
-  $order_nids = garmentbox_factory_get_inventory_orders($il_nids);
+  // Search for orders referencing the inventory, to add the order data.
+  $order_nids = garmentbox_factory_get_inventory_orders($il_nids + $related_il_nids);
   if (empty($order_nids)) {
     return $data;
   }
-
   foreach (node_load_multiple($order_nids) as $order_node) {
     $wrapper = entity_metadata_wrapper('node', $order_node);
     $order_link = l($wrapper->field_customer->label(), 'node/' . $order_node->nid);
