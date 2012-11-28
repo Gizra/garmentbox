@@ -530,6 +530,33 @@ function garmentbox_inventory_views_default_views() {
   $handler->display->display_options['fields']['changed']['empty_zero'] = 0;
   $handler->display->display_options['fields']['changed']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['changed']['date_format'] = 'time ago';
+  /* Field: Content: Original revision */
+  $handler->display->display_options['fields']['field_original_revision']['id'] = 'field_original_revision';
+  $handler->display->display_options['fields']['field_original_revision']['table'] = 'field_data_field_original_revision';
+  $handler->display->display_options['fields']['field_original_revision']['field'] = 'field_original_revision';
+  $handler->display->display_options['fields']['field_original_revision']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['field_original_revision']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_original_revision']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_original_revision']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_original_revision']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_original_revision']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_original_revision']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_original_revision']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_original_revision']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_original_revision']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['field_original_revision']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_original_revision']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_original_revision']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_original_revision']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['field_original_revision']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_original_revision']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['field_original_revision']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_original_revision']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['field_original_revision']['settings'] = array(
+    'thousand_separator' => ' ',
+    'prefix_suffix' => 1,
+  );
+  $handler->display->display_options['fields']['field_original_revision']['field_api_classes'] = 0;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
