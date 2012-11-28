@@ -4,7 +4,7 @@ Feature: Test production order flow
   @javascript
   Scenario: Viewing the add production-order page, with different Quantity/ Size.
     Given I am logged in as "user"
-     When I visit "node/add/production-order?field_season=24"
+      And I am on the "Add a production order" page of the default "season"
      Then the table "ils-table" should have the following <contents>:
       | Include in order   | Item variation                   | Small   | Medium  | Large   | Fabric  | Production cost |
       | <checkbox> checked | Grey v-neck shirt                | 1       | 2       | 20      | <image> | $1,150.00       |
@@ -14,7 +14,7 @@ Feature: Test production order flow
   @javascript
   Scenario: Testing price re-calculation.
     Given I am logged in as "user"
-      And I visit "node/add/production-order?field_season=24"
+      And I am on the "Add a production order" page of the default "season"
       And I click "Grey v-neck shirt"
       And I uncheck "Include in order" in row containing "Customer: High Couture" in table "ils-table"
      When I click "Include in order" in row containing "Grey v-neck shirt - Extra items" in table "ils-table"
@@ -27,20 +27,16 @@ Feature: Test production order flow
   @api
   Scenario: Adding an inventory line to a production order and checking that it's not available to other orders.
     Given I am logged in as a user with the "authenticated user" role
-      And I am on a "season" page titled "Autumn-Winter 2013 Women"
-      And I click "Production Orders"
-      And I click "Add new production order"
+      And I am on the "Add a production order" page of the default "season"
       And I uncheck "Include in order" in row containing "Customer: High Couture" in table "ils-table"
       And I press "Save"
-    ## Clicking the first row on the production orders view. The link title should be changed.
-      And I click "Production order"
      When I click "Edit"
      Then the "Include in order" checkbox in row containing "Customer: High Couture" in table "ils-table" should be unchecked
 
   @javascript
   Scenario: Viewing the add production-order page with detailed variant information.
     Given I am logged in as "user"
-      And I visit "node/add/production-order?field_season=24"
+      And I am on the "Add a production order" page of the default "season"
       And I click "Grey v-neck shirt"
      When I check "Include in order" in row containing "Grey v-neck shirt - Extra items" in table "ils-table"
      Then the table "ils-table" should have the following <contents>:
@@ -50,30 +46,20 @@ Feature: Test production order flow
       | <checkbox> checked  | Customer: N/A                   |         | 2       |         |         | $100.00         |
       | <checkbox>          | Grey v-neck shirt - Extra items | <input> | <input> | <input> |         | $0.00           |
 
-# This test cuases travis to halt. And It may be re-written as @api
-# @javascript
-#  Scenario: Creating an extra inventory line on the production order form.
-#    Given I am logged in as "user"
-#      And I visit "node/add/production-order?field_season=24"
-#     When I check "Include in order" in row containing "Lines v-neck shirt - Extra items" in table "ils-table"
-#      And I fill in "Medium" with "2" in row containing "Lines v-neck shirt - Extra items" in table "ils-table"
-#      And I press "Save"
-#      And I click "Edit"
-#     Then the table "ils-table" should have the following <contents>:
-#      | Include in order    | Item variation                   | Small   | Medium  | Large   | Fabric  | Production cost |
-#      | <checkbox> checked  | Grey v-neck shirt                | 1       | 2       | 20      | <image> | $1,150.00       |
-#      | <checkbox>          | Grey v-neck shirt - Extra items  | <input> | <input> | <input> |         | $0.00           |
-#      | <checkbox> checked  | Lines v-neck shirt               |         | 10      | 7       | <image> | $450.50         |
-#      | <checkbox>          | Lines v-neck shirt - Extra items |         | <input> | <input> |         | $0.00           |
-#    # TODO: Cleanup javascript tests properly.
-#     And I press "Delete"
-#     And I press "Delete"
+  @api
+  Scenario: Creating an extra inventory line on the production order form.
+    Given I am logged in as a user with the "authenticated user" role
+      When I am on the "Add a production order" page of the default "season"
+     When I check "Include in order" in row containing "Lines v-neck shirt - Extra items" in table "ils-table"
+      And I fill in "Medium" with "212" in row containing "Lines v-neck shirt - Extra items" in table "ils-table"
+      And I press "Save"
+      And I click "Edit"
+     Then the following <row> should appear in the table "ils-table" :
+      | <checkbox> checked  | Customer: N/A | | 212 | | | $5,618.00 |
 
   @api
   Scenario: Test URL generation for create link.
     Given I am logged in as a user with the "authenticated user" role
-      And I am on a "season" page titled "Autumn-Winter 2013 Women"
-      And I click "Production Orders"
-     When I click "Add new production order"
+     When I am on the "Add a production order" page of the default "season"
      Then the URL query "field_season" should have the id of "Autumn-Winter 2013 Women"
 

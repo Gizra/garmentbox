@@ -35,7 +35,7 @@ Feature: Test Season page
   @javascript
   Scenario: Correct content is shown on the season inventory list.
     Given I am logged in as "user"
-      And I visit "season/24/inventory"
+      And I am on the "Season inventory" page of the default "season"
      When I click the row of "Lines v-neck shirt - Total"
      Then I should see a table titled "Inventory summary" with the following <contents>:
       | Variation                   | Small                           | Medium                                        | Large                                 | Type                                                      |
