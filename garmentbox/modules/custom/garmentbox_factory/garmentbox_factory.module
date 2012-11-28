@@ -297,7 +297,7 @@ function theme_production_order_node_form($variables) {
   $variables = array(
     'header' => $header,
     'rows' => $rows,
-    'attributes' => array('id' => 'ils-table'),
+    'attributes' => array('id' => 'inventory'),
   );
   $output .= theme('table', $variables);
   $output .= drupal_render_children($form);

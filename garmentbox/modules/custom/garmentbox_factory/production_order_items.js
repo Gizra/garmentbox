@@ -119,7 +119,7 @@ Drupal.behaviors.GarmentboxOrderItems = {
   // Update the table wide totals.
   updateTotals: function() {
     var self = this;
-    var table = $(this.context).find('table#ils-table');
+    var table = $(this.context).find('table#inventory');
     var totalItems = 0;
     var totalPrice = 0;
     // Trigger the variants' update, and sum the results.
