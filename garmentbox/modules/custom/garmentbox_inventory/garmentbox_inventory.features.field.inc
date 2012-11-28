@@ -1400,7 +1400,6 @@ function garmentbox_inventory_field_default_fields() {
   // Included for use with string extractors like potx.
   t('0 / Order ref / Production ref - Where was this IL generated typically, while creating an order or when receiving a production order.');
   t('Closed stock');
-  t('Created as missing');
   t('Defective');
   t('Expected delivery date');
   t('In warehouse');
