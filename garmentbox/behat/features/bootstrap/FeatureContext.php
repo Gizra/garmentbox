@@ -18,8 +18,12 @@ class FeatureContext extends DrupalContext {
    *   Context parameters (set them up through behat.yml or behat.local.yml).
    */
   public function __construct(array $parameters) {
-    if (isset($parameters['drupal_users'])) {
+    if (!empty($parameters['drupal_users'])) {
       $this->drupal_users = $parameters['drupal_users'];
+    }
+
+    if (!empty($parameters['sample_nodes'])) {
+      $this->sample_nodes = $parameters['sample_nodes'];
     }
   }
 
@@ -31,8 +35,8 @@ class FeatureContext extends DrupalContext {
   public function iAmLoggedInAs($username) {
     try {
       $password = $this->drupal_users[$username];
-    } catch (Exception $e) {
-      throw new Exception("Password not found for '$username'.");
+    } catch (\Exception $e) {
+      throw new \Exception("Password not found for '$username'.");
     }
 
     // Log in.
@@ -270,7 +274,7 @@ class FeatureContext extends DrupalContext {
           }
 
           if (!empty($words[1]) && $words[1] == 'checked') {
-            if (!$checkbox->getAttribute('checked')) {
+            if (!$checkbox->getAttribute('checked') && !$checkbox->getAttribute('value')) {
               throw new \Exception('Checkbox found but is not checked.');
             }
           }
@@ -527,5 +531,65 @@ class FeatureContext extends DrupalContext {
       throw new \Exception("A row containing '$value_in_row' was not found.");
     }
     $row->click();
+  }
+
+  /**
+   * @Then /^the following <row> should appear in the table "([^"]*)" :$/
+   */
+  public function theFollowingRowShouldAppearInTheTable($table_id, TableNode $table) {
+    $page = $this->getSession()->getPage();
+    $table_element = $page->find('css', "table#$table_id");
+    if (!$table_element) {
+      throw new \Exception("Table '$table_id' was not found.");
+    }
+
+    $expectedRow = $table->getRow(0);
+
+    // Search for the row in the table
+    foreach ($table_element->findAll('xpath', '//tr[contains(@class, "il") and @ref="variant-40"]') as $i => $row) {
+      // Compare the given row to all table rows. If no exception is thrown it
+      // means the row was found.
+      try {
+        $this->compareTableRow($row->findAll('css', 'td'), $expectedRow);
+      }
+      catch (\Exception $e) {
+        // Try the next row.
+        continue;
+      }
+
+      // Found the row.
+      return;
+    }
+
+    throw new \Exception('Row not found.');
+  }
+
+  /**
+   * @Given /^I am on the "([^"]*)" page$/
+   */
+  public function iAmOnThePage($page_name) {
+
+  }
+
+   /**
+   * @When /^I am on the "([^"]*)" page of the default "([^"]*)"$/
+   */
+  public function iAmOnThePageOfTheDefault($page_name, $node_type) {
+    $nid = $this->sample_nodes[$node_type];
+
+    switch($page_name) {
+      case 'Add a production order':
+        $path = "node/add/production-order?field_season=$nid";
+        break;
+
+      case 'Season inventory':
+        $path = "season/$nid/inventory";
+        break;
+
+      default:
+        throw new \Exception("Page '$page_name' not defined.");
+    }
+
+    return new Given("I am at \"$path\"");
   }
 }

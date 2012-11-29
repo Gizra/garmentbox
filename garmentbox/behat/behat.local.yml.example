@@ -4,6 +4,8 @@ default:
       drupal_users:
         user:
           'user'
+      sample_nodes:
+        season: 24
 
   extensions:
     Behat\MinkExtension\Extension:
