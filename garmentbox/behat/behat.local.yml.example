@@ -6,10 +6,13 @@ default:
           'user'
       sample_nodes:
         season: 24
+        item: 35
+        item-variant: 43
+        production-order: 63
 
   extensions:
     Behat\MinkExtension\Extension:
-      base_url:  BASE_URL
+      base_url: [BASE_URL]
     Drupal\DrupalExtension\Extension:
       drush:
-        alias: DRUSH_ALIAS
+        alias: [DRUSH_ALIAS]

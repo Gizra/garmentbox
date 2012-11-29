@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * garmentbox_factory.features.inc
+ * garmentbox_production.features.inc
  */
 
 /**
  * Implements hook_ctools_plugin_api().
  */
-function garmentbox_factory_ctools_plugin_api() {
+function garmentbox_production_ctools_plugin_api() {
   list($module, $api) = func_get_args();
   if ($module == "field_group" && $api == "field_group") {
     return array("version" => "1");
@@ -25,14 +25,14 @@ function garmentbox_factory_ctools_plugin_api() {
 /**
  * Implements hook_views_api().
  */
-function garmentbox_factory_views_api() {
+function garmentbox_production_views_api() {
   return array("version" => "3.0");
 }
 
 /**
  * Implements hook_node_info().
  */
-function garmentbox_factory_node_info() {
+function garmentbox_production_node_info() {
   $items = array(
     'factory' => array(
       'name' => t('Factory'),

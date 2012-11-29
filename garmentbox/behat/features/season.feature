@@ -4,7 +4,7 @@ Feature: Test Season page
   @api
   Scenario: Basic content is shown on the season task list page.
     Given I am logged in as a user with the "authenticated user" role
-     When I am on a "season" page titled "Autumn-Winter 2013 Women"
+     When I am on the default "season" page
      Then I should see the heading "Autumn-Winter 2013 Women"
       And the page status is shown as "Design"
       And I should see the following <links>
@@ -18,7 +18,7 @@ Feature: Test Season page
   @api
   Scenario: Content is shown on the season task list itself.
     Given I am logged in as a user with the "authenticated user" role
-     When I am on a "season" page titled "Autumn-Winter 2013 Women"
+     When I am on the default "season" page
      Then the table "view-task-list" should have the following <contents>:
       | Summary             | Status      | Assignee | Replies | Last updated | Created  | Actions |
       | First task          | Open        | <ignore> | 0       | <ignore>     | <ignore> | edit    |
@@ -27,7 +27,7 @@ Feature: Test Season page
   @api
   Scenario: Correct content is shown on the season items list.
     Given I am logged in as a user with the "authenticated user" role
-     When I am on a "season" page titled "Autumn-Winter 2013 Women", in the tab "items"
+     When I am on the "Season items" page of the default "season"
      Then I should see a table titled "V-neck shirt" with the following <contents>:
       | Variant                    | Main material | Status     | Retail price | Wholesale price |
       | <image> Black v-neck shirt | <image>       | Needs work | $100.00      | $70.00          |
@@ -43,7 +43,7 @@ Feature: Test Season page
   @api
   Scenario: Correct content is shown on the season orders list.
     Given I am logged in as a user with the "authenticated user" role
-     When I am on a "season" page titled "Autumn-Winter 2013 Women", in the tab "orders"
+     When I am on the "Season orders" page of the default "season"
      Then the table "orders" should have the following <contents>:
       | Order   | Customer | Total price | Total items | Last delivery date  | Next delivery date | Status  |
       | order1  | Gap      | N/A         | 49          | N/A                 | <date> 5/30/2013   | New     |
