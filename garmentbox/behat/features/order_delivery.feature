@@ -7,7 +7,7 @@ Feature: Production order delivery.
       And I am on the "Add a production order" page of the default "season"
       And I press "Save"
      When I click "Production delivery"
-     Then the table "delivery-inventory" should have the following <contents>:
+     Then the table "inventory" should have the following <contents>:
       | Received   | Item variation             | Type      | Small         | Medium        | Large          | Production price |
       | <checkbox> | Lines v-neck shirt         | Received  |               | <textfield> 8 | <textfield> 7  | $397.50          |
       | <checkbox> | Grey v-neck shirt Received | Received  | <textfield> 2 | <textfield> 2 | <textfield> 20 | $1,150.00        |
@@ -31,7 +31,3 @@ Feature: Production order delivery.
       |                    |                            | Extras    |               | 8             | 7              | <ignore>         |
       |                    | Grey v-neck shirt Received | Received  | <textfield> 2 | <textfield> 2 | <textfield> 20 | $1,150.00        |
       |                    | Salmon Vest dress Received | Received  | <textfield>   | <textfield>   | <textfield> 23 | $989.00          |
-
-
-
-
