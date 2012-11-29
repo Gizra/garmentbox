@@ -44,20 +44,16 @@ function theme_garmentbox_factory_production_order_delivery_form($variables) {
   $form = $variables['form'];
   $rows = array();
   if (!empty($form['variants'])) {
-    foreach ($form['variants'] as $nid => $variant) {
-      // Ignore FAPI settings.
-      if (!is_numeric($nid)) {
-        continue;
-      }
+    foreach (element_children($form['variants']) as $nid) {
+      $variant = &$form['variants'][$nid];
 
-      $row = _garmentbox_factory_production_order_delivery_form_row($nid, 'received', t('Received'), NULL, $variant['received']);
+      $row = _garmentbox_factory_production_order_delivery_form_row($nid, 'received', NULL, $variant['received']);
       // Override the first row's settings.
       $row['class'] = array('received');
       if (!empty($variant["received_variant_$nid"]['#disabled'])) {
         $row['class'][] = 'disabled';
       }
 
-      unset($row['ref']);
       // Override the first cells.
       $row['data'][0] = array(
         'data' => render($variant["received_variant_$nid"]),
@@ -65,44 +61,37 @@ function theme_garmentbox_factory_production_order_delivery_form($variables) {
       );
       $row['data'][1] = render($variant['title']);
       $rows[] = $row;
-      $row = _garmentbox_factory_production_order_delivery_form_row($nid, 'original', t('Original'), 'subrow', $variant['original']);
+      $row = _garmentbox_factory_production_order_delivery_form_row($nid, 'original', 'subrow', $variant['original']);
       $row['data'][1] = render($variant['lines_expander']);
       $rows[] = $row;
 
-      foreach ($variant['lines'] as $il_nid => $il) {
-        if (!is_numeric($il_nid)) {
-          // Ignore FAPI settings.
-          continue;
-        }
+      foreach (element_children($variant['lines']) as $il_nid) {
+        $il = &$variant['lines'][$il_nid];
 
         $wrapper = entity_metadata_wrapper('node', $il_nid);
-        $label = render($il["il_{$il_nid}_title_variant_{$nid}"]);
+        $label = render($il["line_{$il_nid}_title_variant_{$nid}"]);
 
         // Add an editable hidden missing row.
-        $rows[] = _garmentbox_factory_production_order_delivery_form_row($nid, 'il', $label, NULL, $il);
-        // Add the "Create missing IL" checkbox.
-        $row = _garmentbox_factory_production_order_delivery_form_row($nid, 'missing', t('Missing'), NULL);
-        $row['data-il-ref'] = $il_nid;
-        $row['data'][1] = render($variant['missing']['lines'][$il_nid]["create_missing_variant_{$nid}_il_{$il_nid}"]);
+        $rows[] = _garmentbox_factory_production_order_delivery_form_row($nid, 'inventory-line', NULL, $il, $label);
+        // Add the "Create missing inventory line" checkbox.
+        $row = _garmentbox_factory_production_order_delivery_form_row($nid, 'missing', NULL);
+        $row['data-inventory-line-ref'] = $il_nid;
+        $row['data'][1] = render($variant['missing']['lines'][$il_nid]["create_missing_variant_{$nid}_line_{$il_nid}"]);
         $rows[] = $row;
       }
 
       if (!empty($variant['missing_created'])) {
         // Display former missing rows.
-        foreach ($variant['missing_created'] as $il_nid => $il) {
-          if (!is_numeric($il_nid)) {
-            // Ignore FAPI settings.
-            continue;
-          }
-
-          $row = _garmentbox_factory_production_order_delivery_form_row($nid, 'missing_created', t('Missing'), NULL, $il);
+        foreach (element_children($variant['missing_created']) as $il_nid) {
+          $il = &$variant['missing_created'][$il_nid];
+          $row = _garmentbox_factory_production_order_delivery_form_row($nid, 'missing-created', NULL, $il);
           $row['class'] = array('missing-created');
           $rows[] = $row;
         }
       }
 
-      $rows[] = _garmentbox_factory_production_order_delivery_form_row($nid, 'defective', t('Defective'), 'subrow', $variant['defective']);
-      $rows[] = _garmentbox_factory_production_order_delivery_form_row($nid, 'extras', t('Extras'), 'subrow');
+      $rows[] = _garmentbox_factory_production_order_delivery_form_row($nid, 'defective', 'subrow', $variant['defective']);
+      $rows[] = _garmentbox_factory_production_order_delivery_form_row($nid, 'extras', 'subrow');
 
     }
   }
@@ -146,22 +135,47 @@ function theme_garmentbox_factory_production_order_delivery_form($variables) {
  *   Item variant node ID.
  * @param $type
  *   The row type.
- * @param $label
- *   The row label.
  * @param $exrta_class
  *   Extra class for the row.
  * @param $quantity_info
  *   The row's quantity information.
+ * @param $label
+ *   Manually set the row label.
  *
  * @return
  *   Table row.
  */
-function _garmentbox_factory_production_order_delivery_form_row($nid, $type, $label, $extra_class, $quantity_info = NULL) {
+function _garmentbox_factory_production_order_delivery_form_row($nid, $type, $extra_class, $quantity_info = NULL, $label = NULL) {
   $row = array(
     'data' => array('', ''),
     'class' => array('hidden', $type, $extra_class),
     'data-variant-nid' => $nid,
   );
+
+  if (!$label) {
+    switch($type) {
+      case 'received':
+        $label = t('Received');
+        break;
+
+      case 'original':
+        $label = t('Original');
+        break;
+
+      case 'missing':
+      case 'missing-created':
+        $label = t('Missing');
+        break;
+
+      case 'defective':
+        $label = t('Defective');
+        break;
+
+      case 'extras':
+        $label = t('Extras');
+        break;
+    }
+  }
 
   $row['data'][] = $label;
 
@@ -188,6 +202,8 @@ function _garmentbox_factory_production_order_delivery_form_row($nid, $type, $la
  *
  * @param $node
  *   The production order node.
+ *
+ * @see theme_garmentbox_factory_production_order_delivery_form().
  */
 function garmentbox_factory_production_order_delivery_form($form, &$form_state, $node) {
   $wrapper = entity_metadata_wrapper('node', $node);
@@ -216,7 +232,7 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
 
     // Add the lines expander link.
     $form['variants'][$nid]['lines_expander'] = array(
-      '#markup' => l('', '', array('attributes' => array('class' => array('expander', 'collapsed')))),
+      '#markup' => '<a href="#" class="expander collapsed">',
     );
 
     foreach (array('received', 'original', 'defective') as $type) {
@@ -251,8 +267,8 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
 
     // Add the inventory line rows and empty "missing" rows.
     foreach ($data[$nid]['received']['lines'] as $il_nid => $il) {
-      // Add a "Create new IL for missing quantities" checkbox.
-      $form['variants'][$nid]['missing']['lines'][$il_nid]["create_missing_variant_{$nid}_il_{$il_nid}"] = array(
+      // Add a "Create new inventory line for missing quantities" checkbox.
+      $form['variants'][$nid]['missing']['lines'][$il_nid]["create_missing_variant_{$nid}_line_{$il_nid}"] = array(
         '#type' => 'checkbox',
         '#attributes' => array(
           'title' => t('Create this inventory line'),
@@ -262,7 +278,7 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
 
       // Set the inventory line label.
       $customer = empty($il['order']) ? t('N/A') : $il['order']['link'];
-      $form['variants'][$nid]['lines'][$il_nid]["il_{$il_nid}_title_variant_{$nid}"] = array(
+      $form['variants'][$nid]['lines'][$il_nid]["line_{$il_nid}_title_variant_{$nid}"] = array(
         '#markup' => t('Customer: !customer', array('!customer' => $customer)),
       );
 
@@ -272,12 +288,12 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
           continue;
         }
 
-        $form['variants'][$nid]['lines'][$il_nid][$term->tid]["il_{$il_nid}_quantity_variant_{$nid}_tid_{$term->tid}"] = array(
+        $form['variants'][$nid]['lines'][$il_nid][$term->tid]["line_{$il_nid}_quantity_variant_{$nid}_tid_{$term->tid}"] = array(
           '#type' => 'textfield',
           '#title' => check_plain($term->name),
           '#element_validate' => array('garmentbox_factory_element_validate_not_negative_integer'),
           '#default_value' => $il['quantity'][$term->tid],
-          '#attributes' => array('data-il-nid' => $il_nid),
+          '#attributes' => array('data-line-nid' => $il_nid),
           '#size' => 4,
         );
       }
@@ -298,16 +314,33 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
     }
   }
 
+  // Calculate the original price.
+  $total_original_items = 0;
+  $total_original_price = 0;
+  foreach ($data as $variant) {
+    $total_original_items += $variant['original']['items_count'];
+    $total_original_price += $variant['item_price'] * $variant['original']['items_count'];
+  }
+  // Format the price.
+  $total_original_price = commerce_currency_format($total_original_price, commerce_default_currency());
+
   $totals = array(
-    'total_items_new' => t('Total items new'),
-    'production_cost_new' => t('Production cost new'),
+    'total_items_new' => array(
+      'title' => t('Total items'),
+      'original_title' => t('Original total: @total', array('@total' => $total_original_items)),
+    ),
+    'production_cost_new' => array(
+      'title' => t('Production cost'),
+      'original_title' => t('Original cost: @price', array('@price' => $total_original_price)),
+    )
   );
-  foreach ($totals as $name => $title) {
+  foreach ($totals as $name => $titles) {
     $form['totals'][$name] = array(
-      '#title' => $title,
+      '#title' => $titles['title'],
       '#type' => 'textfield',
       '#disabled' => TRUE,
       '#size' => 10,
+      '#description' => $titles['original_title'],
     );
   }
 
@@ -328,7 +361,6 @@ function garmentbox_factory_production_order_delivery_form($form, &$form_state, 
       'type' => 'setting',
     ),
   );
-
   // Instead of re-calculating the data on validate and submit, re-use the data
   // used here.
   $form_state['original_data'] = $data;
@@ -367,11 +399,11 @@ function garmentbox_factory_production_order_delivery_form_validate($form, &$for
       if ($received >= $quantity) {
         continue;
       }
-      // When the received quantity differ, the sum of IL quantities must match
+      // When the received quantity differ, the sum of inventory line quantities must match
       // the received quantity.
       $ils_sum = 0;
       foreach ($variant_data['original']['lines'] as $il_nid => $il) {
-        $key = "il_{$il_nid}_quantity_variant_{$variant_nid}_tid_{$tid}";
+        $key = "line_{$il_nid}_quantity_variant_{$variant_nid}_tid_{$tid}";
         if (!array_key_exists($key, $form_state['values'])) {
           continue;
         }
@@ -404,7 +436,8 @@ function garmentbox_factory_production_order_delivery_form_submit($form, &$form_
       continue;
     }
 
-    // Specifying on which term IDs the iLines quantites should be reduced.
+    // Specifying on which term IDs the inventory lines quantites should be
+    // reduced.
     $update_quantity_for_size = array();
 
     foreach ($variant_data['original']['sizes'] as $tid => $quantity) {
@@ -426,13 +459,14 @@ function garmentbox_factory_production_order_delivery_form_submit($form, &$form_
       $node->revision = TRUE;
       $original_revision = $node->vid;
       $missing_size_data = array();
-      // Flag specifying whether the currrent IL has missing quantity.
-      $il_missing_data = FALSE;
+      // Flag specifying whether the currrent inventory line has missing
+      // quantity.
+      $il_has_missing = FALSE;
 
       $wrapper = entity_metadata_wrapper('node', $node);
 
-      // Reduce quantities of iLines where the received quantity was lower than
-      // expected.
+      // Reduce quantities of inventory lines where the received quantity was
+      // lower than expected.
       foreach ($wrapper->field_quantity_info as $item_wrapper) {
         $tid = $item_wrapper->field_size->getIdentifier();
         if (empty($update_quantity_for_size[$tid])) {
@@ -440,33 +474,33 @@ function garmentbox_factory_production_order_delivery_form_submit($form, &$form_
           continue;
         }
 
-        // Amend the IL quantity for current size.
-        $quantity = $form_state['values']["il_{$node->nid}_quantity_variant_{$variant_nid}_tid_{$tid}"];
+        // Amend the inventory line quantity for current size.
+        $quantity = $form_state['values']["line_{$node->nid}_quantity_variant_{$variant_nid}_tid_{$tid}"];
         $item_wrapper->field_quantity_integer->set($quantity);
         $item_wrapper->save();
 
-        // Store the delta for creating the missing iLine.
+        // Store the delta for creating the missing inventory line.
         $original_quantity = $variant_data['original']['lines'][$node->nid]['quantity'][$tid];
         $missing_quantity = $original_quantity - $quantity;
         $missing_size_data[$tid] = $missing_quantity;
         if ($missing_quantity) {
-          $il_missing_data = TRUE;
+          $il_has_missing = TRUE;
         }
       }
 
       // Set the "Current production" inventory lines type to "Regular stock".
       if ($wrapper->field_inventory_type->getIdentifier() == $current_prooduction_tid) {
         $wrapper->field_inventory_type->set($regular_stock_tid);
-        // Save the IL revision when the when it was received.
+        // Save the inventory line revision when the when it was received.
         $wrapper->field_original_revision->set($original_revision);
         $wrapper->save();
       }
 
-      // Check if the missing IL checkbox is checked.
-      if ($il_missing_data && $form_state['values']["create_missing_variant_{$variant_nid}_il_{$node->nid}"]) {
+      // Check if the missing inventory line checkbox is checked.
+      if ($il_has_missing && $form_state['values']["create_missing_variant_{$variant_nid}_line_{$node->nid}"]) {
         $il_node = garmentbox_factory_create_inventory_line(NULL, $production_order_nid, $variant_nid, $missing_size_data, INVENTORY_TYPE_FUTURE_PRODUCTION, FALSE, $node->nid);
 
-        // Attach the missing IL to the order that it was reduced from.
+        // Attach the missing inventory line to the order that it was reduced from.
         if (!empty($variant_data['received']['lines'][$node->nid]['order']['nid'])) {
           $order_wrapper = entity_metadata_wrapper('node', $variant_data['received']['lines'][$node->nid]['order']['nid']);
           $ils = $order_wrapper->field_inventory_line_inline->value();
@@ -481,7 +515,7 @@ function garmentbox_factory_production_order_delivery_form_submit($form, &$form_
     $quantity_info = array();
     foreach ($variant_data['original']['sizes'] as $tid => $original) {
       $key = "received_quantity_variant_{$variant_nid}_tid_{$tid}";
-      if (!array_key_exists($key, $form_state['values'])) {
+      if (!isset($key, $form_state['values'])) {
         continue;
       }
 
@@ -567,7 +601,7 @@ function garmentbox_factory_production_order_delivery_get_data($node) {
       _garmentbox_factory_production_order_delivery_get_quantity_data($data, 'received', $quantity_wrapper, $variant_nid, $il_node->nid);
     }
 
-    // Load the "Original revision" of the ILs.
+    // Load the "Original revision" of the inventory lines.
     $original_vid = $wrapper->field_original_revision->value();
     if ($original_vid) {
       $il_node = node_load(NULL, $original_vid);
@@ -592,9 +626,8 @@ function garmentbox_factory_production_order_delivery_get_data($node) {
       $wrapper = entity_metadata_wrapper('node', $il_node);
     }
 
-    // TODO: Are there more possibilities?
-    $type = '';
-    $missing = $wrapper->field_missing_on_il->value();
+    $type = NULL;
+    $missing = $wrapper->field_missing_inventory_line->value();
     if ($missing) {
       $type = 'missing_created';
     }
@@ -605,6 +638,9 @@ function garmentbox_factory_production_order_delivery_get_data($node) {
       $type = 'received';
     }
 
+    if (!$type) {
+      throw new Exception("Unexpected state for inventory line #{$il_node->nid} (original-vid#{$original_vid})");
+    }
 
     $variant_nid = $wrapper->field_item_variant->getIdentifier();
     foreach ($wrapper->field_quantity_info as $quantity_wrapper) {

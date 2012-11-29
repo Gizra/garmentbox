@@ -521,14 +521,14 @@ function garmentbox_inventory_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-inventory_line-field_missing_on_il'.
-  $fields['node-inventory_line-field_missing_on_il'] = array(
+  // Exported field: 'node-inventory_line-field_missing_inventory_line'.
+  $fields['node-inventory_line-field_missing_inventory_line'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_missing_on_il',
+      'field_name' => 'field_missing_inventory_line',
       'foreign keys' => array(
         'node' => array(
           'columns' => array(
@@ -594,7 +594,7 @@ function garmentbox_inventory_field_default_fields() {
         ),
       ),
       'entity_type' => 'node',
-      'field_name' => 'field_missing_on_il',
+      'field_name' => 'field_missing_inventory_line',
       'label' => 'Missing on inventory line',
       'required' => 0,
       'settings' => array(

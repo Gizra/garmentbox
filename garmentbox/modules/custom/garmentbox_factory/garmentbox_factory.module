@@ -54,7 +54,8 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
   // Set a default factory, if the node is new, and no factory given in the URL.
   if (!$form['field_factory'][LANGUAGE_NONE]['#default_value']) {
     // Find the first factory node ID.
-    foreach (array_keys($form['field_factory'][LANGUAGE_NONE]['#options']) as $key) {
+
+    foreach (element_children($form['field_factory'][LANGUAGE_NONE]['#options']) as $key) {
       if (is_numeric($key)) {
         break;
       }
@@ -62,6 +63,7 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
     if (empty($key)) {
       return;
     }
+
     $form['field_factory'][LANGUAGE_NONE]['#default_value'] = $key;
   }
   $factory_nid = $form['field_factory'][LANGUAGE_NONE]['#default_value'];
@@ -186,6 +188,8 @@ function garmentbox_factory_form_production_order_node_form_alter(&$form, &$form
 
 /**
  * Theme the production order node form.
+ *
+ * @see garmentbox_factory_form_production_order_node_form_alter().
  */
 function theme_production_order_node_form($variables) {
   $form = $variables['form'];
@@ -204,11 +208,8 @@ function theme_production_order_node_form($variables) {
 
   $rows = array();
   if (!empty($form['variants'])) {
-    foreach ($form['variants'] as $variant_nid => $variant) {
-      if (!is_numeric($variant_nid)) {
-        // Ignore FAPI settings.
-        continue;
-      }
+    foreach (element_children($form['variants']) as $variant_nid) {
+      $variant = &$form['variants'][$variant_nid];
 
       // Add the item variant row.
       $row = array(
@@ -236,10 +237,9 @@ function theme_production_order_node_form($variables) {
       $rows[] = $row;
 
       // Add the hidden inventory lines rows.
-      foreach ($variant['lines'] as $il_nid => $il) {
-        if (!is_numeric($il_nid)) {
-          continue;
-        }
+      foreach (element_children($variant['lines']) as $il_nid) {
+        $il = &$variant['lines'][$il_nid];
+
         $row = array(
           'data' => array(),
           'ref' => "variant-$variant_nid",
@@ -555,34 +555,6 @@ function garmentbox_factory_get_inventory_orders($inventory_line_nids) {
 }
 
 /**
- * Build a mini inventory line form.
- *
- * @param $nid
- *   Item variant node ID.
- */
-function _garmentbox_factory_production_order_items_sizes_inputs($nid) {
-  $wrapper = entity_metadata_wrapper('node', $nid);
-  $items = array();
-  foreach ($wrapper->field_size_info as $item_wrapper) {
-    $tid = $item_wrapper->field_size->getIdentifier();
-    $variables = array(
-      'element' => array(
-        '#attributes' => array(
-          'name' => "variant_new_inventory[$nid][$tid]",
-          'size' => 4,
-          'class' => array('new-inventory-items'),
-          'data-tid' => $tid,
-          'title' => $item_wrapper->field_size->label(),
-        ),
-        '#autocomplete_path' => '',
-      ),
-    );
-    $items[$tid] = theme('textfield', $variables);
-  }
-  return $items;
-}
-
-/**
  * Implements hook_node_presave().
  *
  * When a production order is created or updated, Set the production order
@@ -638,7 +610,7 @@ function garmentbox_factory_create_inventory_line($production_order_nid, $origin
     $wrapper->field_defective->set($defective);
   }
   if ($missing) {
-    $wrapper->field_missing_on_il->set($missing);
+    $wrapper->field_missing_inventory_line->set($missing);
   }
 
   // Set the inventory line type to 'Current production'.
