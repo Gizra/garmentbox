@@ -3,6 +3,15 @@
 include_once 'garmentbox_og.features.inc';
 
 /**
+ * Implements hook_ctools_plugin_directory().
+ */
+function garmentbox_factory_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'ctools') {
+    return 'plugins/' . $plugin;
+  }
+}
+
+/**
  * Implements hook_node_insert().
  *
  * Attach every node created (Except of a "department") to the main department.

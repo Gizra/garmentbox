@@ -222,7 +222,7 @@ function garmentbox_inventory_field_default_fields() {
         'active' => 1,
         'module' => 'options',
         'settings' => array(
-          'display_label' => 0,
+          'display_label' => 1,
         ),
         'type' => 'options_onoff',
         'weight' => '41',
@@ -517,6 +517,271 @@ function garmentbox_inventory_field_default_fields() {
         'settings' => array(),
         'type' => 'options_select',
         'weight' => '31',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-inventory_line-field_missing_inventory_line'.
+  $fields['node-inventory_line-field_missing_inventory_line'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_missing_inventory_line',
+      'foreign keys' => array(
+        'node' => array(
+          'columns' => array(
+            'target_id' => 'nid',
+          ),
+          'table' => 'node',
+        ),
+      ),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'entityreference',
+      'settings' => array(
+        'handler' => 'base',
+        'handler_settings' => array(
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 0,
+            ),
+          ),
+          'sort' => array(
+            'type' => 'none',
+          ),
+          'target_bundles' => array(
+            'inventory_line' => 'inventory_line',
+          ),
+        ),
+        'target_type' => 'node',
+      ),
+      'translatable' => '0',
+      'type' => 'entityreference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'inventory_line',
+      'default_value' => NULL,
+      'default_value_function' => '',
+      'deleted' => '0',
+      'description' => 'When this value exists, it means this inventory line was created because of missing items on the referenced inventory line.',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => FALSE,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => 14,
+        ),
+        'garmentbox_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_missing_inventory_line',
+      'label' => 'Missing on inventory line',
+      'required' => 0,
+      'settings' => array(
+        'behaviors' => array(
+          'prepopulate' => array(
+            'status' => 0,
+          ),
+        ),
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'entityreference',
+        'settings' => array(
+          'match_operator' => 'CONTAINS',
+          'path' => '',
+          'size' => '60',
+        ),
+        'type' => 'entityreference_autocomplete',
+        'weight' => '47',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-inventory_line-field_origin_entity'.
+  $fields['node-inventory_line-field_origin_entity'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_origin_entity',
+      'foreign keys' => array(
+        'node' => array(
+          'columns' => array(
+            'target_id' => 'nid',
+          ),
+          'table' => 'node',
+        ),
+      ),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'entityreference',
+      'settings' => array(
+        'handler' => 'base',
+        'handler_settings' => array(
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 0,
+            ),
+          ),
+          'sort' => array(
+            'type' => 'none',
+          ),
+          'target_bundles' => array(
+            'order' => 'order',
+            'production_order' => 'production_order',
+          ),
+        ),
+        'target_type' => 'node',
+      ),
+      'translatable' => '0',
+      'type' => 'entityreference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'inventory_line',
+      'default_value' => NULL,
+      'default_value_function' => '',
+      'deleted' => '0',
+      'description' => '0 / Order ref / Production ref - Where was this IL generated typically, while creating an order or when receiving a production order.',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => FALSE,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => 12,
+        ),
+        'garmentbox_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_origin_entity',
+      'label' => 'Origin entity',
+      'required' => 0,
+      'settings' => array(
+        'behaviors' => array(
+          'prepopulate' => array(
+            'status' => 0,
+          ),
+        ),
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'entityreference',
+        'settings' => array(
+          'match_operator' => 'CONTAINS',
+          'path' => '',
+          'size' => '60',
+        ),
+        'type' => 'entityreference_autocomplete',
+        'weight' => '45',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-inventory_line-field_original_revision'.
+  $fields['node-inventory_line-field_original_revision'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_original_revision',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'locked' => '0',
+      'module' => 'number',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'number_integer',
+    ),
+    'field_instance' => array(
+      'bundle' => 'inventory_line',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'Revision ID of IL as ordered. This is set when filling the production received form to mark the state of the IL before adding extras or marking missing items.',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'number',
+          'settings' => array(
+            'decimal_separator' => '.',
+            'prefix_suffix' => TRUE,
+            'scale' => 0,
+            'thousand_separator' => ' ',
+          ),
+          'type' => 'number_integer',
+          'weight' => 11,
+        ),
+        'garmentbox_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_original_revision',
+      'label' => 'Original revision',
+      'required' => 0,
+      'settings' => array(
+        'max' => '',
+        'min' => '0',
+        'prefix' => '',
+        'suffix' => '',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'number',
+        'settings' => array(),
+        'type' => 'number',
+        'weight' => '44',
       ),
     ),
   );
@@ -1133,6 +1398,7 @@ function garmentbox_inventory_field_default_fields() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('0 / Order ref / Production ref - Where was this IL generated typically, while creating an order or when receiving a production order.');
   t('Closed stock');
   t('Defective');
   t('Expected delivery date');
@@ -1140,13 +1406,18 @@ function garmentbox_inventory_field_default_fields() {
   t('Include in total');
   t('Inventory type');
   t('Item variant');
+  t('Missing on inventory line');
+  t('Origin entity');
+  t('Original revision');
   t('Price');
   t('Production order');
   t('Production start date');
   t('Quantity');
   t('Quantity info');
   t('Reference hierarchy');
+  t('Revision ID of IL as ordered. This is set when filling the production received form to mark the state of the IL before adding extras or marking missing items.');
   t('Size');
+  t('When this value exists, it means this inventory line was created because of missing items on the referenced inventory line.');
 
   return $fields;
 }

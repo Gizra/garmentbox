@@ -73,6 +73,10 @@ table {
     &.emphasized {
       font-weight: bold;
     }
+
+    &.hidden-label label {
+      display: none;
+    }
   }
 
   .views-field-edit-node a, li.edit a {

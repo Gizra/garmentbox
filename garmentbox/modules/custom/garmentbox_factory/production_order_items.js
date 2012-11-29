@@ -18,7 +18,7 @@ Drupal.behaviors.GarmentboxOrderItems = {
       event.preventDefault();
 
       var rowId = $(event.currentTarget).parents('tr').attr('id');
-      $(event.currentTarget).parents('table').find('tr.il[ref="' + rowId + '"]').toggle().toggleClass('hidden');
+      $(event.currentTarget).parents('table').find('tr.inventory-line[ref="' + rowId + '"]').toggle().toggleClass('hidden');
     });
 
     // Handle item variant checkbox.
@@ -26,7 +26,7 @@ Drupal.behaviors.GarmentboxOrderItems = {
       var checkbox = $(event.currentTarget);
       var rowId = checkbox.parents('tr').attr('id');
       var table = checkbox.parents('table');
-      var checkboxes = table.find('tr.il[ref="' + rowId + '"] input[type="checkbox"]');
+      var checkboxes = table.find('tr.inventory-line[ref="' + rowId + '"] input[type="checkbox"]');
 
       checkbox.removeClass('checked partially-checked not-checked');
 
@@ -37,9 +37,9 @@ Drupal.behaviors.GarmentboxOrderItems = {
       else {
         checkboxes.removeAttr('checked');
         // When unchecking, uncheck also the "New item" checkbox.
-        var row = table.find('tr.new-il[ref="' + rowId + '"]');
+        var row = table.find('tr.new-line[ref="' + rowId + '"]');
         row.find('input[type="checkbox"]').removeAttr('checked');
-        row.find('input.new-il').attr('disabled', 'disabled');
+        row.find('input.new-line').attr('disabled', 'disabled');
       }
 
       self.updateTotals();
@@ -47,14 +47,14 @@ Drupal.behaviors.GarmentboxOrderItems = {
 
     // Update the item price and quantity as the "Add more items" inputs get
     // changed.
-    $(context).find('input.new-il').change(function(event) {
+    $(context).find('input.new-line').change(function(event) {
       self.updateTotals();
     }).keyup(function(event) {
       self.updateTotals();
     });
 
     // Determine the class of the variants' checkboxes.
-    $(context).find('tr.il input[type="checkbox"]').change(function(event) {
+    $(context).find('tr.inventory-line input[type="checkbox"]').change(function(event) {
       var table = $(event.currentTarget).parents('table');
       var rowId = $(event.currentTarget).parents('tr').attr('ref');
 
@@ -71,19 +71,19 @@ Drupal.behaviors.GarmentboxOrderItems = {
     self.updateTotals();
 
     // Disble the "Extra items" row on load.
-    $(context).find('input.new-il').attr('disabled', 'disabled');
+    $(context).find('input.new-line').attr('disabled', 'disabled');
 
     // Enable the "Extra items" row.
-    $(context).find('.add-il').change(function(event) {
+    $(context).find('.add-line').change(function(event) {
       var row = $(event.currentTarget).parents('tr');
       var rowId = row.attr('id');
       var table = $(event.currentTarget).parents('table');
 
       if ($(event.currentTarget).attr('checked')) {
-        row.find('input.new-il').removeAttr('disabled');
+        row.find('input.new-line').removeAttr('disabled');
       }
       else {
-        row.find('input.new-il').attr('disabled', 'disabled');
+        row.find('input.new-line').attr('disabled', 'disabled');
       }
       self.updateTotals();
     });
@@ -94,8 +94,8 @@ Drupal.behaviors.GarmentboxOrderItems = {
   updateVariantCheckbox: function(variantCheckbox) {
     var rowId = variantCheckbox.parents('tr').attr('id');
     var table = variantCheckbox.parents('table');
-    var checked = table.find('tr.il[ref="' + rowId + '"] input[type="checkbox"]:checked').length;
-    var total = table.find('tr.il[ref="' + rowId + '"] input[type="checkbox"]').length;
+    var checked = table.find('tr.inventory-line[ref="' + rowId + '"] input[type="checkbox"]:checked').length;
+    var total = table.find('tr.inventory-line[ref="' + rowId + '"] input[type="checkbox"]').length;
 
     variantCheckbox.removeClass('checked partially-checked not-checked');
 
@@ -139,29 +139,29 @@ Drupal.behaviors.GarmentboxOrderItems = {
   // Re-calculate variant production cost as inventory lines change.
   updateVariant: function(table, rowId, variantNid) {
     // Update the production cost and quantities.
-    var itemPrice = Drupal.settings.garmentbox_factory.ils_data[variantNid].item_price / 100;
+    var itemPrice = Drupal.settings.garmentbox_factory.lines_data[variantNid].item_price / 100;
     var itemsCount = 0;
     var variantSizes = {};
     // Sum the items on checked inventory lines.
-    table.find('tr.il[ref="' + rowId + '"] td:first-child input[type="checkbox"]:checked').each(function(i, element) {
+    table.find('tr.inventory-line[ref="' + rowId + '"] td:first-child input[type="checkbox"]:checked').each(function(i, element) {
       // Sum the inventory lines items counts.
-      var ilNid = $(element).data('il-nid');
-      var ilData = Drupal.settings.garmentbox_factory.ils_data[variantNid].lines[ilNid];
-      itemsCount += ilData.items_count;
+      var lineNid = $(element).data('line-nid');
+      var lineData = Drupal.settings.garmentbox_factory.lines_data[variantNid].lines[lineNid];
+      itemsCount += lineData.items_count;
 
       // Sum the per size items counts.
-      for (var key in ilData.sizes) {
+      for (var key in lineData.sizes) {
         if (isNaN(variantSizes[key])) {
           variantSizes[key] = 0;
         }
-        variantSizes[key] += ilData.sizes[key];
+        variantSizes[key] += lineData.sizes[key];
       }
     });
 
     var newItemsCount = 0;
     // Sum also the custom inventory inputs.
     var updateExtraItemPrice = true;
-    table.find('tr.new-il[ref="' + rowId + '"] input.new-il').each(function(i, element) {
+    table.find('tr.new-line[ref="' + rowId + '"] input.new-line').each(function(i, element) {
       if (!$(element).attr('disabled')) {
         var count = parseInt($(element).val());
         var tid = $(element).data('tid');
@@ -186,7 +186,7 @@ Drupal.behaviors.GarmentboxOrderItems = {
     if (updateExtraItemPrice) {
       // Update the "Production price" of the custom row.
       var totalCustomItemPrice = newItemsCount * itemPrice;
-      var customRowPrice = table.find('tr.new-il[ref="' + rowId + '"] td.production-price');
+      var customRowPrice = table.find('tr.new-line[ref="' + rowId + '"] td.production-price');
       customRowPrice.text('$' + Drupal.formatNumber(totalCustomItemPrice, 2));
     }
 
