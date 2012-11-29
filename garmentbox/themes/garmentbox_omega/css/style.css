@@ -93,7 +93,11 @@ table td.active {
 table td.emphasized {
   font-weight: bold;
 }
-/* line 78, ../sass/partials/widget/_table.scss */
+/* line 77, ../sass/partials/widget/_table.scss */
+table td.hidden-label label {
+  display: none;
+}
+/* line 82, ../sass/partials/widget/_table.scss */
 table .views-field-edit-node a, table li.edit a {
   width: 28px;
   height: 27px;
@@ -113,21 +117,21 @@ table .views-field-edit-node a:hover, table li.edit a:hover {
 table .views-field-edit-node a:hover, table li.edit a:hover {
   background-image: url("../images/edit-active.png");
 }
-/* line 82, ../sass/partials/widget/_table.scss */
+/* line 86, ../sass/partials/widget/_table.scss */
 table .field-collection-view-links {
   margin: 0;
   padding: 0;
 }
-/* line 86, ../sass/partials/widget/_table.scss */
+/* line 90, ../sass/partials/widget/_table.scss */
 table .field-collection-view-links li {
   margin: 0 0 0 5px;
   float: left;
 }
-/* line 90, ../sass/partials/widget/_table.scss */
+/* line 94, ../sass/partials/widget/_table.scss */
 table .field-collection-view-links li.first {
   margin-left: 0;
 }
-/* line 94, ../sass/partials/widget/_table.scss */
+/* line 98, ../sass/partials/widget/_table.scss */
 table .field-collection-view-links li.delete a {
   width: 28px;
   height: 27px;
@@ -147,17 +151,17 @@ table .field-collection-view-links li.delete a:hover {
 table .field-collection-view-links li.delete a:hover {
   background-image: url("../images/delete-active.png");
 }
-/* line 100, ../sass/partials/widget/_table.scss */
+/* line 104, ../sass/partials/widget/_table.scss */
 table .quantity {
   float: left;
   margin-right: 5px;
 }
-/* line 105, ../sass/partials/widget/_table.scss */
+/* line 109, ../sass/partials/widget/_table.scss */
 table .inventory-cell {
   position: relative;
   width: 200px;
 }
-/* line 109, ../sass/partials/widget/_table.scss */
+/* line 113, ../sass/partials/widget/_table.scss */
 table .inventory-cell .main-figure {
   position: absolute;
   top: 50%;
@@ -172,23 +176,23 @@ table .inventory-cell .main-figure {
   color: white;
   padding: 1px 0;
 }
-/* line 121, ../sass/partials/widget/_table.scss */
+/* line 125, ../sass/partials/widget/_table.scss */
 table .inventory-cell .main-figure span {
   padding: 1px 8px;
 }
-/* line 124, ../sass/partials/widget/_table.scss */
+/* line 128, ../sass/partials/widget/_table.scss */
 table .inventory-cell .main-figure span.amount.with-title {
   border-right: 1px solid #2E2E2E;
 }
-/* line 128, ../sass/partials/widget/_table.scss */
+/* line 132, ../sass/partials/widget/_table.scss */
 table .inventory-cell .main-figure span.label {
   border-left: 1px solid #949494;
 }
-/* line 134, ../sass/partials/widget/_table.scss */
+/* line 138, ../sass/partials/widget/_table.scss */
 table .inventory-cell .sub-figures {
   float: right;
 }
-/* line 137, ../sass/partials/widget/_table.scss */
+/* line 141, ../sass/partials/widget/_table.scss */
 table .inventory-cell .sub-figures .sub-figure {
   margin-right: 5px;
   margin-top: 2px;
@@ -200,61 +204,61 @@ table .inventory-cell .sub-figures .sub-figure {
   padding: 1px 0;
   width: 100%;
 }
-/* line 148, ../sass/partials/widget/_table.scss */
+/* line 152, ../sass/partials/widget/_table.scss */
 table .inventory-cell .sub-figures .sub-figure:first-child {
   margin-top: 0;
 }
-/* line 152, ../sass/partials/widget/_table.scss */
+/* line 156, ../sass/partials/widget/_table.scss */
 table .inventory-cell .sub-figures .sub-figure span {
   padding: 1px 6px;
   min-width: 20px;
 }
-/* line 157, ../sass/partials/widget/_table.scss */
+/* line 161, ../sass/partials/widget/_table.scss */
 table .inventory-cell .sub-figures .sub-figure.future_stock {
   background-color: #E0B21B;
   -moz-box-shadow: 0 -1px 1px 0 #e6cd7e;
   -webkit-box-shadow: 0 -1px 1px 0 #e6cd7e;
   box-shadow: 0 -1px 1px 0 #e6cd7e;
 }
-/* line 163, ../sass/partials/widget/_table.scss */
+/* line 167, ../sass/partials/widget/_table.scss */
 table .inventory-cell .sub-figures .sub-figure.future_stock span.amount {
   border-right: 1px solid #856A13;
 }
-/* line 167, ../sass/partials/widget/_table.scss */
+/* line 171, ../sass/partials/widget/_table.scss */
 table .inventory-cell .sub-figures .sub-figure.future_stock span.label {
   border-left: 1px solid #D6CBA5;
 }
-/* line 173, ../sass/partials/widget/_table.scss */
+/* line 177, ../sass/partials/widget/_table.scss */
 table .inventory-cell .sub-figures .sub-figure.ordered {
   background-color: #5555FA;
   -moz-box-shadow: 0 -1px 1px 0 #bbbbf2;
   -webkit-box-shadow: 0 -1px 1px 0 #bbbbf2;
   box-shadow: 0 -1px 1px 0 #bbbbf2;
 }
-/* line 179, ../sass/partials/widget/_table.scss */
+/* line 183, ../sass/partials/widget/_table.scss */
 table .inventory-cell .sub-figures .sub-figure.ordered span.amount {
   border-right: 1px solid #16167A;
 }
-/* line 183, ../sass/partials/widget/_table.scss */
+/* line 187, ../sass/partials/widget/_table.scss */
 table .inventory-cell .sub-figures .sub-figure.ordered span.label {
   border-left: 1px solid #9898D6;
 }
-/* line 189, ../sass/partials/widget/_table.scss */
+/* line 193, ../sass/partials/widget/_table.scss */
 table .inventory-cell .sub-figures .sub-figure.available {
   background-color: #099609;
   -moz-box-shadow: 0 -1px 1px 0 #ccebcc;
   -webkit-box-shadow: 0 -1px 1px 0 #ccebcc;
   box-shadow: 0 -1px 1px 0 #ccebcc;
 }
-/* line 195, ../sass/partials/widget/_table.scss */
+/* line 199, ../sass/partials/widget/_table.scss */
 table .inventory-cell .sub-figures .sub-figure.available span.amount {
   border-right: 1px solid #018305;
 }
-/* line 199, ../sass/partials/widget/_table.scss */
+/* line 203, ../sass/partials/widget/_table.scss */
 table .inventory-cell .sub-figures .sub-figure.available span.label {
   border-left: 1px solid #86ce84;
 }
-/* line 208, ../sass/partials/widget/_table.scss */
+/* line 212, ../sass/partials/widget/_table.scss */
 table .expander {
   display: block;
   width: 11px;
@@ -263,39 +267,39 @@ table .expander {
   margin-right: 10px;
   background: url("../images/contract.gif") no-repeat;
 }
-/* line 216, ../sass/partials/widget/_table.scss */
+/* line 220, ../sass/partials/widget/_table.scss */
 table .expander.collapsed {
   background-image: url("../images/expand.gif");
 }
-/* line 221, ../sass/partials/widget/_table.scss */
+/* line 225, ../sass/partials/widget/_table.scss */
 table ul.size-info {
   margin: 0;
 }
-/* line 224, ../sass/partials/widget/_table.scss */
+/* line 228, ../sass/partials/widget/_table.scss */
 table ul.size-info li {
   float: left;
   margin-left: 20px;
 }
-/* line 228, ../sass/partials/widget/_table.scss */
+/* line 232, ../sass/partials/widget/_table.scss */
 table ul.size-info li:first-child {
   margin-left: 0;
 }
-/* line 233, ../sass/partials/widget/_table.scss */
+/* line 237, ../sass/partials/widget/_table.scss */
 table ul.size-info label, table ul.size-info span {
   float: left;
 }
-/* line 237, ../sass/partials/widget/_table.scss */
+/* line 241, ../sass/partials/widget/_table.scss */
 table ul.size-info span {
   margin-left: 5px;
 }
 
-/* line 245, ../sass/partials/widget/_table.scss */
+/* line 249, ../sass/partials/widget/_table.scss */
 html.js fieldset.collapsible .fieldset-legend {
   background: url("../images/contract.gif") no-repeat;
   padding-left: 20px;
   margin-left: 10px;
 }
-/* line 251, ../sass/partials/widget/_table.scss */
+/* line 255, ../sass/partials/widget/_table.scss */
 html.js fieldset.collapsible.collapsed .fieldset-legend {
   background-image: url("../images/expand.gif");
 }
@@ -829,6 +833,27 @@ section.content h2.pane-title {
 /* line 10, ../sass/partials/pages/_season.scss */
 .page-season-items .pane-title {
   display: none;
+}
+
+/* line 5, ../sass/partials/pages/_delivery.scss */
+body.page-production-order-delivery #delivery-inventory tr.missing .form-type-checkbox {
+  float: right;
+}
+/* line 8, ../sass/partials/pages/_delivery.scss */
+body.page-production-order-delivery #delivery-inventory tr.missing .form-type-checkbox input {
+  margin-right: 0;
+}
+/* line 13, ../sass/partials/pages/_delivery.scss */
+body.page-production-order-delivery #delivery-inventory tr.subrow a.expander {
+  float: right;
+  margin-right: 0;
+}
+/* line 18, ../sass/partials/pages/_delivery.scss */
+body.page-production-order-delivery #delivery-inventory tr.missing td.size-quantity span {
+  border: 2px solid blue;
+  width: 40px;
+  height: 15px;
+  display: block;
 }
 
 /* line 4, ../sass/style.scss */

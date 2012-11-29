@@ -8,11 +8,16 @@ include_once 'garmentbox_factory.features.inc';
 
 /**
  * Implements hook_theme().
+ *
+ * Theming the production order forms as tables.
  */
 function garmentbox_factory_theme() {
   return array(
     'production_order_node_form' => array(
       'render element' => 'form',
+    ),
+    'garmentbox_factory_production_order_delivery_form' => array(
+      'render element' => 'form'
     ),
   );
 }
@@ -382,19 +387,47 @@ function garmentbox_factory_get_item_variants_inventory_lines($item_variant_nids
 /**
  * Fetch the inventory lines attached to a given production order node.
  *
- * @param $nid
+ * @param $production_order_nid
+ *   A prodution order node ID.
+ * @param $item_variant_nid
+ *   An item variant node ID to filter the results.
+ *
+ * @return
+ *   Array of inventory lines node IDs.
+ */
+function garmentbox_factory_get_production_order_inventory_lines($production_order_nid, $item_variant_nid = NULL) {
+  $query = new EntityFieldQuery();
+  $query
+    ->entityCondition('entity_type', 'node')
+    ->propertyCondition('type', 'inventory_line')
+    ->propertyCondition('status', NODE_PUBLISHED)
+    ->fieldCondition('field_production_order', 'target_id', $production_order_nid);
+
+  if ($item_variant_nid) {
+    // Filter by item variant.
+    $query->fieldCondition('field_item_variant', 'target_id', $item_variant_nid);
+  }
+  $result = $query->execute();
+
+  return !empty($result['node']) ? array_keys($result['node']) : array();
+}
+
+/**
+ * Fetch inventory originated from given production order.
+ *
+ * @param $production_order_nid
  *   A prodution order node ID.
  *
  * @return
  *   Array of inventory lines node IDs.
  */
-function garmentbox_factory_get_production_order_inventory_lines($nid) {
+function garmentbox_factory_get_production_originated_inventory_lines($production_order_nid) {
   $query = new EntityFieldQuery();
   $result = $query
     ->entityCondition('entity_type', 'node')
     ->propertyCondition('type', 'inventory_line')
     ->propertyCondition('status', NODE_PUBLISHED)
-    ->fieldCondition('field_production_order', 'target_id', $nid)
+    ->fieldCondition('field_origin_entity', 'target_id', $production_order_nid)
     ->execute();
 
   return !empty($result['node']) ? array_keys($result['node']) : array();
@@ -469,21 +502,13 @@ function garmentbox_factory_production_order_items_data($op, $item_variant_nids,
   if (empty($il_nids)) {
     return $data;
   }
-  // Fetch inventory lines of a factory.
-  $query = new EntityFieldQuery();
-  $result = $query
-    ->entityCondition('entity_type', 'node')
-    ->propertyCondition('type', 'order')
-    ->propertyCondition('status', NODE_PUBLISHED)
-    ->fieldCondition('field_inventory_line_inline', 'target_id', $il_nids, 'IN')
-    ->fieldOrderBy('field_inventory_line_inline', 'target_id')
-    ->execute();
 
-  if (empty($result['node'])) {
+  $order_nids = garmentbox_factory_get_inventory_orders($il_nids);
+  if (empty($order_nids)) {
     return $data;
   }
 
-  $orders = node_load_multiple(array_keys($result['node']));
+  $orders = node_load_multiple($order_nids);
   foreach ($orders as $order) {
     $wrapper = entity_metadata_wrapper('node', $order);
     $options = array('attributes' => array('target'=>'_blank'));
@@ -501,6 +526,60 @@ function garmentbox_factory_production_order_items_data($op, $item_variant_nids,
   }
 
   return $data;
+}
+
+/**
+ * Fetch the orders of given inventory lines.
+ *
+ * @param $inventory_line_nids
+ *   Inventory line node IDs to find orders related to.
+ *
+ * @return
+ *   List of order node IDs.
+ */
+function garmentbox_factory_get_inventory_orders($inventory_line_nids) {
+  if (empty($inventory_line_nids)) {
+    return array();
+  }
+
+  $query = new EntityFieldQuery();
+  $result = $query
+    ->entityCondition('entity_type', 'node')
+    ->propertyCondition('type', 'order')
+    ->propertyCondition('status', NODE_PUBLISHED)
+    ->fieldCondition('field_inventory_line_inline', 'target_id', $inventory_line_nids, 'IN')
+    ->fieldOrderBy('field_inventory_line_inline', 'target_id')
+    ->execute();
+
+  return !empty($result['node']) ? array_keys($result['node']) : array();
+}
+
+/**
+ * Build a mini inventory line form.
+ *
+ * @param $nid
+ *   Item variant node ID.
+ */
+function _garmentbox_factory_production_order_items_sizes_inputs($nid) {
+  $wrapper = entity_metadata_wrapper('node', $nid);
+  $items = array();
+  foreach ($wrapper->field_size_info as $item_wrapper) {
+    $tid = $item_wrapper->field_size->getIdentifier();
+    $variables = array(
+      'element' => array(
+        '#attributes' => array(
+          'name' => "variant_new_inventory[$nid][$tid]",
+          'size' => 4,
+          'class' => array('new-inventory-items'),
+          'data-tid' => $tid,
+          'title' => $item_wrapper->field_size->label(),
+        ),
+        '#autocomplete_path' => '',
+      ),
+    );
+    $items[$tid] = theme('textfield', $variables);
+  }
+  return $items;
 }
 
 /**
@@ -527,13 +606,25 @@ function garmentbox_factory_node_presave($node) {
  *
  * @param $production_order_nid
  *   Attach the inventory line to this production order.
+ * @param $origin_nid
+ *   Node ID to set as the origin of the inventory line.
  * @param $item_variant_nid
  *   The inventory line's item variant.
  * @param $quantity_info
  *   Array of quantities keyed by size term ID. A new field_quantity_info item will
  *   be created for each entry.
+ * @param $type_term
+ *   The name of the inventory type term.
+ * @param $defective
+ *   Mark the inventory line as defective.
+ * @param $missing
+ *   Whether the inventory line was created as "missing" in a production order
+ *   delivery.
+ *
+ * @return
+ *   The new inventory line.
  */
-function garmentbox_factory_create_inventory_line($production_order_nid, $item_variant_nid, $quantity_info) {
+function garmentbox_factory_create_inventory_line($production_order_nid, $origin_nid, $item_variant_nid, $quantity_info, $type_term = INVENTORY_TYPE_CURRENT_PRODUCTION, $defective = FALSE, $missing = NULL) {
   $node = new stdClass();
   $node->type = 'inventory_line';
   $node->language = LANGUAGE_NONE;
@@ -541,10 +632,17 @@ function garmentbox_factory_create_inventory_line($production_order_nid, $item_v
 
   $wrapper = entity_metadata_wrapper('node', $node);
   $wrapper->field_production_order->set($production_order_nid);
+  $wrapper->field_origin_entity->set($origin_nid);
   $wrapper->field_item_variant->set($item_variant_nid);
+  if ($defective) {
+    $wrapper->field_defective->set($defective);
+  }
+  if ($missing) {
+    $wrapper->field_missing_on_il->set($missing);
+  }
 
   // Set the inventory line type to 'Current production'.
-  $term = taxonomy_get_term_by_name('Current production', 'inventory_type');
+  $term = taxonomy_get_term_by_name($type_term, 'inventory_type');
   $tid = key($term);
   $wrapper->field_inventory_type->set($tid);
 
@@ -563,6 +661,7 @@ function garmentbox_factory_create_inventory_line($production_order_nid, $item_v
   }
 
   $wrapper->save();
+  return $wrapper->value();
 }
 
 /**
@@ -655,7 +754,7 @@ function garmentbox_factory_update_production_order($node) {
   }
 
   // Set the type of attached inventory lines to 'Current production'.
-  $term = taxonomy_get_term_by_name('Current production', 'inventory_type');
+  $term = taxonomy_get_term_by_name(INVENTORY_TYPE_CURRENT_PRODUCTION, 'inventory_type');
   $tid = key($term);
   // Update ILs that were checked as "included".
   foreach ($il_included as $nid => $include) {
@@ -687,7 +786,7 @@ function garmentbox_factory_update_production_order($node) {
     }
     // If at least one non-zero quantity was added, create the IL.
     if ($quantity_info) {
-      garmentbox_factory_create_inventory_line($node->nid, $variant_nid, $quantity_info);
+      garmentbox_factory_create_inventory_line($node->nid, $node->nid, $variant_nid, $quantity_info);
     }
   }
 }
