@@ -6,7 +6,7 @@
 Drupal.behaviors.GarmentboxOrderItems = {
   attach: function(context) {
     var self = this;
-    var table = $(context).find('table#delivery-details');
+    var table = $(context).find('table#delivery-inventory');
 
     // Disable the received and IL inputs, to communicate that the received
     // amounts are ignored if "Received" isn't checked.
@@ -56,7 +56,7 @@ Drupal.behaviors.GarmentboxOrderItems = {
   // Show and hide varation sub-rows depending on the "Received" checkbox state.
   showHideRows: function(context) {
     var self = this;
-    $(context).find('table#delivery-details td.received input[type="checkbox"]').each(function(i, element) {
+    $(context).find('table#delivery-inventory td.received input[type="checkbox"]').each(function(i, element) {
       var variantNid = $(element).parents('tr').data('variant-nid');
       var tbody = $(element).parents('tbody');
       if($(element).attr('checked')) {
@@ -80,7 +80,7 @@ Drupal.behaviors.GarmentboxOrderItems = {
 
   // Calculate the "Extras" and "Missing" data.
   updateDeliveryData: function(context) {
-    var table = $(context).find('table#delivery-details');
+    var table = $(context).find('table#delivery-inventory');
     for (variantNid in Drupal.settings.garmentbox_factory.delivery_data) {
       for (tid in Drupal.settings.garmentbox_factory.delivery_data[variantNid]['original'].sizes) {
         var extrasCell = table.find('tr.extras[data-variant-nid="' + variantNid + '"] td[data-tid="' + tid + '"]');
@@ -119,7 +119,7 @@ Drupal.behaviors.GarmentboxOrderItems = {
   updateVariantPrice: function(context, nid) {
     var self = this;
     var itemPrice = Drupal.settings.garmentbox_factory.delivery_data[nid].item_price / 100;
-    var table = $(context).find('table#delivery-details');
+    var table = $(context).find('table#delivery-inventory');
     var types = ['original', 'received', 'defective', 'extras', 'missing-created'];
 
     for (i in types) {
@@ -176,7 +176,7 @@ Drupal.behaviors.GarmentboxOrderItems = {
   // Ask the user to set which items should be declared missing when there are
   // not enough received.
   missingItemsNotice: function(context, nid, tid, removeNotice) {
-    var table = $(context).find('table#delivery-details');
+    var table = $(context).find('table#delivery-inventory');
 
     // Reveal the IL rows.
     var rows =  table.find('tr.il[data-variant-nid="' + nid + '"]');

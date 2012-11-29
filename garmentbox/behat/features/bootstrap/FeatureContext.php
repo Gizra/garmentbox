@@ -4,6 +4,7 @@ use Drupal\DrupalExtension\Context\DrupalContext;
 use Behat\Behat\Context\Step\Given;
 use Behat\Gherkin\Node\TableNode;
 use Guzzle\Service\Client;
+use Behat\Behat\Context\Step;
 
 require 'vendor/autoload.php';
 
@@ -572,24 +573,34 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
-   * @When /^I am on the "([^"]*)" page of the default "([^"]*)"$/
+   * @When /^I am on (a|the) "([^"]*)" page of the default "([^"]*)"$/
    */
-  public function iAmOnThePageOfTheDefault($page_name, $node_type) {
+  public function iAmOnThePageOfTheDefault($the, $page_name, $node_type) {
     $nid = $this->sample_nodes[$node_type];
 
+    $steps = array();
     switch($page_name) {
       case 'Add a production order':
         $path = "node/add/production-order?field_season=$nid";
+        $steps[] = new Step\When("I am at \"$path\"");
         break;
 
       case 'Season inventory':
         $path = "season/$nid/inventory";
+        $steps[] = new Step\When("I am at \"$path\"");
+        break;
+
+      case 'Production delivery':
+        $path = "season/$nid/production-orders";
+        $steps[] = new Step\When("I am at \"$path\"");
+        $steps[] = new Step\When('I click "Production order"');
+        $steps[] = new Step\When('I click "Production delivery"');
         break;
 
       default:
         throw new \Exception("Page '$page_name' not defined.");
     }
 
-    return new Given("I am at \"$path\"");
+    return $steps;
   }
 }

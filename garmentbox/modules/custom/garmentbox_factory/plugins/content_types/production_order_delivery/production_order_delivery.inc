@@ -125,7 +125,7 @@ function theme_garmentbox_factory_production_order_delivery_form($variables) {
   $variables = array(
     'header' => $header,
     'rows' => $rows,
-    'attributes' => array('id' => 'delivery-details'),
+    'attributes' => array('id' => 'delivery-inventory'),
   );
   hide($form['actions']);
   hide($form['variants']);
