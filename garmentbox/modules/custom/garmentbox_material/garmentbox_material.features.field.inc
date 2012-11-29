@@ -419,13 +419,13 @@ function garmentbox_material_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => 0,
+          'weight' => '0',
         ),
         'garmentbox_header' => array(
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '9',
         ),
         'teaser' => array(
           'label' => 'hidden',
@@ -453,7 +453,80 @@ function garmentbox_material_field_default_fields() {
           'summary_rows' => 5,
         ),
         'type' => 'text_textarea_with_summary',
-        'weight' => '-4',
+        'weight' => '1',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-material-field_fabric_content'.
+  $fields['node-material-field_fabric_content'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_fabric_content',
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'text',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'text_long',
+    ),
+    'field_instance' => array(
+      'bundle' => 'material',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '5',
+        ),
+        'garmentbox_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '7',
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_fabric_content',
+      'label' => 'Fabric content',
+      'required' => 0,
+      'settings' => array(
+        'text_processing' => '0',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'text',
+        'settings' => array(
+          'rows' => '5',
+        ),
+        'type' => 'text_textarea',
+        'weight' => '10',
       ),
     ),
   );
@@ -501,13 +574,19 @@ function garmentbox_material_field_default_fields() {
             'image_style' => '',
           ),
           'type' => 'image',
-          'weight' => 5,
+          'weight' => '2',
         ),
         'garmentbox_header' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
+          'label' => 'hidden',
+          'module' => 'image_delta_formatter',
+          'settings' => array(
+            'deltas' => 0,
+            'deltas_reversed' => FALSE,
+            'image_link' => '',
+            'image_style' => 'header_thumbnail',
+          ),
+          'type' => 'image_delta',
+          'weight' => '0',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -539,7 +618,176 @@ function garmentbox_material_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_miw',
-        'weight' => '1',
+        'weight' => '4',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-material-field_length'.
+  $fields['node-material-field_length'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_length',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'locked' => '0',
+      'module' => 'number',
+      'settings' => array(
+        'decimal_separator' => '.',
+        'precision' => '10',
+        'scale' => '2',
+      ),
+      'translatable' => '0',
+      'type' => 'number_decimal',
+    ),
+    'field_instance' => array(
+      'bundle' => 'material',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'number',
+          'settings' => array(
+            'decimal_separator' => '.',
+            'prefix_suffix' => TRUE,
+            'scale' => 2,
+            'thousand_separator' => ' ',
+          ),
+          'type' => 'number_decimal',
+          'weight' => '6',
+        ),
+        'garmentbox_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '2',
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_length',
+      'label' => 'Length',
+      'required' => 0,
+      'settings' => array(
+        'max' => '',
+        'min' => '0',
+        'prefix' => '',
+        'suffix' => '',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'number',
+        'settings' => array(),
+        'type' => 'number',
+        'weight' => '11',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-material-field_material_type'.
+  $fields['node-material-field_material_type'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_material_type',
+      'foreign keys' => array(
+        'taxonomy_term_data' => array(
+          'columns' => array(
+            'target_id' => 'tid',
+          ),
+          'table' => 'taxonomy_term_data',
+        ),
+      ),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'entityreference',
+      'settings' => array(
+        'handler' => 'base',
+        'handler_settings' => array(
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 0,
+            ),
+          ),
+          'sort' => array(
+            'type' => 'none',
+          ),
+          'target_bundles' => array(
+            'material_types' => 'material_types',
+          ),
+        ),
+        'target_type' => 'taxonomy_term',
+      ),
+      'translatable' => '0',
+      'type' => 'entityreference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'material',
+      'default_value' => NULL,
+      'default_value_function' => '',
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => FALSE,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '9',
+        ),
+        'garmentbox_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '6',
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_material_type',
+      'label' => 'Material type',
+      'required' => 1,
+      'settings' => array(
+        'behaviors' => array(
+          'prepopulate' => array(
+            'status' => 0,
+          ),
+          'taxonomy-index' => array(
+            'status' => TRUE,
+          ),
+        ),
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
+        'weight' => '7',
       ),
     ),
   );
@@ -584,13 +832,13 @@ function garmentbox_material_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => 1,
+          'weight' => '1',
         ),
         'garmentbox_header' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '3',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -614,7 +862,79 @@ function garmentbox_material_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'text_textfield',
-        'weight' => '-3',
+        'weight' => '2',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-material-field_radius'.
+  $fields['node-material-field_radius'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_radius',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'locked' => '0',
+      'module' => 'number',
+      'settings' => array(
+        'decimal_separator' => '.',
+        'precision' => '10',
+        'scale' => '2',
+      ),
+      'translatable' => '0',
+      'type' => 'number_decimal',
+    ),
+    'field_instance' => array(
+      'bundle' => 'material',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'number',
+          'settings' => array(
+            'decimal_separator' => '.',
+            'prefix_suffix' => TRUE,
+            'scale' => 2,
+            'thousand_separator' => ' ',
+          ),
+          'type' => 'number_decimal',
+          'weight' => '8',
+        ),
+        'garmentbox_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '5',
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_radius',
+      'label' => 'Radius',
+      'required' => 0,
+      'settings' => array(
+        'max' => '',
+        'min' => '0',
+        'prefix' => '',
+        'suffix' => '',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'number',
+        'settings' => array(),
+        'type' => 'number',
+        'weight' => '13',
       ),
     ),
   );
@@ -646,22 +966,15 @@ function garmentbox_material_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'field_collection',
-          'settings' => array(
-            'add' => 'Add',
-            'delete' => 'Delete',
-            'description' => TRUE,
-            'edit' => 'Edit',
-            'view_mode' => 'full',
-          ),
-          'type' => 'field_collection_view',
-          'weight' => 4,
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '10',
         ),
         'garmentbox_header' => array(
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '10',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -682,7 +995,419 @@ function garmentbox_material_field_default_fields() {
         'module' => 'field_collection',
         'settings' => array(),
         'type' => 'field_collection_embed',
-        'weight' => 0,
+        'weight' => '3',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-material-field_washing_instructions'.
+  $fields['node-material-field_washing_instructions'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_washing_instructions',
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'text',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'text_long',
+    ),
+    'field_instance' => array(
+      'bundle' => 'material',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '4',
+        ),
+        'garmentbox_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '8',
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_washing_instructions',
+      'label' => 'Washing instructions',
+      'required' => 0,
+      'settings' => array(
+        'text_processing' => '0',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'text',
+        'settings' => array(
+          'rows' => '5',
+        ),
+        'type' => 'text_textarea',
+        'weight' => '9',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-material-field_width'.
+  $fields['node-material-field_width'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_width',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'locked' => '0',
+      'module' => 'number',
+      'settings' => array(
+        'decimal_separator' => '.',
+        'precision' => '10',
+        'scale' => '2',
+      ),
+      'translatable' => '0',
+      'type' => 'number_decimal',
+    ),
+    'field_instance' => array(
+      'bundle' => 'material',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'number',
+          'settings' => array(
+            'decimal_separator' => '.',
+            'prefix_suffix' => TRUE,
+            'scale' => 2,
+            'thousand_separator' => ' ',
+          ),
+          'type' => 'number_decimal',
+          'weight' => '7',
+        ),
+        'garmentbox_header' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '4',
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_width',
+      'label' => 'Width',
+      'required' => 0,
+      'settings' => array(
+        'max' => '',
+        'min' => '0',
+        'prefix' => '',
+        'suffix' => '',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'number',
+        'settings' => array(),
+        'type' => 'number',
+        'weight' => '12',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-material-title_field'.
+  $fields['node-material-title_field'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'title_field',
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'text',
+      'settings' => array(
+        'max_length' => 255,
+      ),
+      'translatable' => '1',
+      'type' => 'text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'material',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'A field replacing node title.',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 11,
+        ),
+        'garmentbox_header' => array(
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '1',
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'title_field',
+      'label' => 'Title',
+      'required' => TRUE,
+      'settings' => array(
+        'hide_label' => array(
+          'entity' => FALSE,
+          'page' => FALSE,
+        ),
+        'text_processing' => 0,
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'module' => 'text',
+        'settings' => array(
+          'size' => 60,
+        ),
+        'type' => 'text_textfield',
+        'weight' => -5,
+      ),
+    ),
+  );
+
+  // Exported field: 'taxonomy_term-material_types-field_has_length'.
+  $fields['taxonomy_term-material_types-field_has_length'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_has_length',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'list',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => '',
+          1 => '',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'list_boolean',
+    ),
+    'field_instance' => array(
+      'bundle' => 'material_types',
+      'default_value' => array(
+        0 => array(
+          'value' => 0,
+        ),
+      ),
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'list',
+          'settings' => array(),
+          'type' => 'list_default',
+          'weight' => 1,
+        ),
+      ),
+      'entity_type' => 'taxonomy_term',
+      'field_name' => 'field_has_length',
+      'label' => 'Has length',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(
+          'display_label' => 1,
+        ),
+        'type' => 'options_onoff',
+        'weight' => '32',
+      ),
+    ),
+  );
+
+  // Exported field: 'taxonomy_term-material_types-field_has_radius'.
+  $fields['taxonomy_term-material_types-field_has_radius'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_has_radius',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'list',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => '',
+          1 => '',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'list_boolean',
+    ),
+    'field_instance' => array(
+      'bundle' => 'material_types',
+      'default_value' => array(
+        0 => array(
+          'value' => 0,
+        ),
+      ),
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'list',
+          'settings' => array(),
+          'type' => 'list_default',
+          'weight' => 2,
+        ),
+      ),
+      'entity_type' => 'taxonomy_term',
+      'field_name' => 'field_has_radius',
+      'label' => 'Has radius',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(
+          'display_label' => 1,
+        ),
+        'type' => 'options_onoff',
+        'weight' => '33',
+      ),
+    ),
+  );
+
+  // Exported field: 'taxonomy_term-material_types-field_has_width'.
+  $fields['taxonomy_term-material_types-field_has_width'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_has_width',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'list',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => '',
+          1 => '',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'list_boolean',
+    ),
+    'field_instance' => array(
+      'bundle' => 'material_types',
+      'default_value' => array(
+        0 => array(
+          'value' => 0,
+        ),
+      ),
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'list',
+          'settings' => array(),
+          'type' => 'list_default',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'taxonomy_term',
+      'field_name' => 'field_has_width',
+      'label' => 'Has width',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(
+          'display_label' => 1,
+        ),
+        'type' => 'options_onoff',
+        'weight' => '31',
       ),
     ),
   );
@@ -809,19 +1534,30 @@ function garmentbox_material_field_default_fields() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('A field replacing node title.');
   t('Body');
   t('Conversion from weight to length.');
   t('Conversion ratio');
+  t('Fabric content');
+  t('Has length');
+  t('Has radius');
+  t('Has width');
   t('Images');
+  t('Length');
   t('Length conversion');
   t('Length unit');
+  t('Material type');
   t('Nick name');
   t('Price');
+  t('Radius');
   t('Source info');
   t('The ratio between the value and its metric equivalent.');
+  t('Title');
   t('Unit');
   t('Unit type');
   t('Vendor');
+  t('Washing instructions');
+  t('Width');
 
   return $fields;
 }

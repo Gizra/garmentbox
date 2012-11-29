@@ -98,3 +98,13 @@
     background-image: url("../images/delete-active.png");
   }
 }
+
+@mixin cleafix {
+  &::after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+  }
+}

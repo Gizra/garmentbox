@@ -376,6 +376,31 @@ function garmentbox_task_views_default_views() {
       'label' => 'Content: Reference hierarchy (field_reference_hierarchy)',
     ),
   );
+
+  /* Display: Material Task List */
+  $handler = $view->new_display('panel_pane', 'Material Task List', 'material_task_list');
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Field: Reference (field_entity_reference) */
+  $handler->display->display_options['arguments']['field_entity_reference_target_id']['id'] = 'field_entity_reference_target_id';
+  $handler->display->display_options['arguments']['field_entity_reference_target_id']['table'] = 'field_data_field_entity_reference';
+  $handler->display->display_options['arguments']['field_entity_reference_target_id']['field'] = 'field_entity_reference_target_id';
+  $handler->display->display_options['arguments']['field_entity_reference_target_id']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['field_entity_reference_target_id']['default_argument_skip_url'] = 0;
+  $handler->display->display_options['arguments']['field_entity_reference_target_id']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_entity_reference_target_id']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_entity_reference_target_id']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_entity_reference_target_id']['break_phrase'] = 0;
+  $handler->display->display_options['arguments']['field_entity_reference_target_id']['not'] = 0;
+  $handler->display->display_options['argument_input'] = array(
+    'field_entity_reference_target_id' => array(
+      'type' => 'context',
+      'context' => 'entity:node.nid',
+      'context_optional' => 0,
+      'panel' => '0',
+      'fixed' => '',
+      'label' => 'Field: Reference (field_entity_reference)',
+    ),
+  );
   $export['task_list'] = $view;
 
   return $export;

@@ -42,6 +42,7 @@ function garmentbox_general_ctools_plugin_directory($module, $plugin) {
  *   hierarchy. If no hierarchy found returns FALSE.
  */
 function garmentbox_general_get_node_hierarchy($node, &$nids = array()) {
+
   if ($nids === FALSE) {
     // We reached a content type that has no hierarchy so break here.
     return;
@@ -76,6 +77,9 @@ function garmentbox_general_get_node_hierarchy($node, &$nids = array()) {
     case 'pattern_task':
       $field_name = 'field_pattern';
       break;
+
+    case 'material':
+      return;
   }
 
   if (!$field_name) {

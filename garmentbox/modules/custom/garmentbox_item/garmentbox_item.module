@@ -165,7 +165,7 @@ function garmentbox_item_get_main_material_icon($node, $attributes = array()) {
   }
 
   // Get the first BOM collection item.
-  if (!$entity = $wrapper->field_bom_info->get(0)->field_material_item->value()) {
+  if (!$entity = $wrapper->field_bom_info->get(0)->field_source_info_ref->value()) {
     return;
   }
 

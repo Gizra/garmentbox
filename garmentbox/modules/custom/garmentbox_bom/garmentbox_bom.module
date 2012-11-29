@@ -64,7 +64,7 @@ function garmentbox_bom_field_formatter_view($entity_type, $entity, $field, $ins
         // Find the material item delta.
         $delta = 'missing';
         foreach ($row['data'] as $delta => $data) {
-          if ($data['class'] == 'field_material_item') {
+          if ($data['class'] == 'field_source_info_ref') {
             break;
           }
         }
@@ -73,7 +73,7 @@ function garmentbox_bom_field_formatter_view($entity_type, $entity, $field, $ins
         }
 
         $wrapper = entity_metadata_wrapper('field_collection_item', $row['data'][$delta]['data']['#object']->item_id);
-        $field_price = field_view_field('field_collection_item', $wrapper->field_material_item->value(), 'field_price', array('label' => 'hidden', 'type' => 'commerce_price_formatted_amount'));
+        $field_price = field_view_field('field_collection_item', $wrapper->field_source_info_ref->value(), 'field_price', array('label' => 'hidden', 'type' => 'commerce_price_formatted_amount'));
 
         $total += $price = garmentbox_bom_get_material_price($wrapper->value());
         $field_price[0]['#markup'] = commerce_currency_format($price, commerce_default_currency());
@@ -135,14 +135,14 @@ function garmentbox_bom_get_variant_bom_price($node) {
 function garmentbox_bom_get_material_price($collection_item) {
   $wrapper = entity_metadata_wrapper('field_collection_item', $collection_item);
 
-  $m_unit = $wrapper->field_material_item->field_unit->value();
-  $m_length_unit = $wrapper->field_material_item->field_length_unit->value();
-  $m_length_unit_conversion = ($wrapper->field_material_item->field_length_unit->value() && !empty($wrapper->field_material_item->field_length_unit->field_conversion_ratio)) ? $wrapper->field_material_item->field_length_unit->field_conversion_ratio->value() : 1;
-  $m_length = $wrapper->field_material_item->field_length->value();
-  $m_price = $wrapper->field_material_item->field_price->value();
+  $material_unit = $wrapper->field_source_info_ref->field_unit->value();
+  $material_length_unit = $wrapper->field_source_info_ref->field_length_unit->value();
+  $material_length_unit_conversion = ($wrapper->field_source_info_ref->field_length_unit->value() && !empty($wrapper->field_source_info_ref->field_length_unit->field_conversion_ratio)) ? $wrapper->field_source_info_ref->field_length_unit->field_conversion_ratio->value() : 1;
+  $material_length = $wrapper->field_source_info_ref->field_length->value();
+  $material_price = $wrapper->field_source_info_ref->field_price->value();
   $bom_unit_conversion = !empty($wrapper->field_unit->field_conversion_ratio) ? $wrapper->field_unit->field_conversion_ratio->value() : 1;
 
-  $length_price = garmentbox_bom_get_length_price($m_price['amount'], $m_unit, $m_length, $m_length_unit_conversion / $bom_unit_conversion);
+  $length_price = garmentbox_bom_get_length_price($material_price['amount'], $material_unit, $material_length, $material_length_unit_conversion / $bom_unit_conversion);
   $bom_quantity = $wrapper->field_quantity_decimal->value();
   return $length_price * $bom_quantity;
 }

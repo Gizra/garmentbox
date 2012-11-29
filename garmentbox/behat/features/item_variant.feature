@@ -27,7 +27,7 @@ Feature: Test item variant page
     Given I am logged in as a user with the "authenticated user" role
      When I am on a "item-variant" page titled "Pink Vest dress"
      Then I should see a table titled "Bill of materials" with the following <contents>:
-      | Quantity | Material item                                | Unit  | Price | Operations  |
+      | Quantity | Material and vendor                          | Unit  | Price | Operations  |
       | 2.50     | Tan/Brown 2-Hole Shell [Fashion 'n' Fabrics] | Meter | $8.75 | Edit Delete |
       And the BOM total should be "$8.75"
 

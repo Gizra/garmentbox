@@ -45,7 +45,7 @@ function garmentbox_season_views_default_views() {
     'field_item' => 'field_item',
     'field_images' => 'field_images',
     'title' => 'title',
-    'field_material_item' => 'field_material_item',
+    'field_source_info_ref' => 'field_source_info_ref',
     'field_item_status' => 'field_item_status',
     'field_retail_price' => 'field_retail_price',
     'field_wholesale_price' => 'field_wholesale_price',
@@ -72,7 +72,7 @@ function garmentbox_season_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'field_material_item' => array(
+    'field_source_info_ref' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
