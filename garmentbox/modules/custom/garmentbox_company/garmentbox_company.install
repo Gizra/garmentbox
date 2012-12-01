@@ -15,5 +15,14 @@ function garmentbox_company_install() {
   $og_field['field']['settings']['handler_settings']['target_bundles'] = array('company');
   $og_field['instance']['label'] = 'Company';
   og_create_field('og_user_company', 'user', 'user', $og_field);
+
+  // Set OG-context.
+  $values = array(
+    'url' => -5,
+    'node' => -4,
+    'og_purl' => -3,
+  );
+  variable_set("og_context_negotiation_group_context", $values);
+
 }
 
