@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * Install, update, and uninstall functions for the GarmentBox Address
+ * module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function garmentbox_address_install() {
+  // Set OG related permissions.
+  $og_roles = og_roles('node', 'company');
+  $rid = array_search(OG_AUTHENTICATED_ROLE, $og_roles);
+  $permissions = array(
+    'create address content',
+    'update own address content',
+  );
+  og_role_change_permissions($rid, $permissions);
+}
+
