@@ -34,7 +34,7 @@ class CompanySelectionHandler extends EntityReference_SelectionHandler_Generic {
       return $query;
     }
 
-    //$query->fieldCondition('og_company', 'target_id', $og_context['gid']);
+    $query->fieldCondition('og_company', 'target_id', $og_context['gid']);
     return $query;
   }
 
