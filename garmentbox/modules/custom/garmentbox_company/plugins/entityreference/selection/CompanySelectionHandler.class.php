@@ -26,14 +26,15 @@ class CompanySelectionHandler extends EntityReference_SelectionHandler_Generic {
 
     // Set the correct selection handler to point to our class.
     $query->addMetaData('entityreference_selection_handler', $this);
-
-    if ($query->entityConditions['entity_type']['value'] == 'node') {
-      $wrapper = entity_metadata_wrapper('user', $user->uid);
-      $gids = $wrapper->og_user_company->value(array('identifier' => TRUE));
-      $gid = reset($gids);
-      $query->fieldCondition('og_company', 'target_id', $gid);
+    if (!$og_context = og_context()) {
+      return $query;
     }
 
+    if ($query->entityConditions['entity_type']['value'] != 'node') {
+      return $query;
+    }
+
+    //$query->fieldCondition('og_company', 'target_id', $og_context['gid']);
     return $query;
   }
 
