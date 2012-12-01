@@ -14,8 +14,8 @@ function garmentbox_address_install() {
   $og_roles = og_roles('node', 'company');
   $rid = array_search(OG_AUTHENTICATED_ROLE, $og_roles);
   $permissions = array(
-    'create address content',
-    'update own address content',
+    'create address content' => TRUE,
+    'update own address content'  => TRUE,
   );
   og_role_change_permissions($rid, $permissions);
 }
