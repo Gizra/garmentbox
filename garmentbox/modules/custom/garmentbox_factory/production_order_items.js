@@ -39,7 +39,7 @@ Drupal.behaviors.GarmentboxOrderItems = {
         // When unchecking, uncheck also the "New item" checkbox.
         var row = table.find('tr.new-il[ref="' + rowId + '"]');
         row.find('input[type="checkbox"]').removeAttr('checked');
-        row.find('input.new-inventory-items').attr('disabled', 'disabled');
+        row.find('input.new-il').attr('disabled', 'disabled');
       }
 
       self.updateTotals();
@@ -71,7 +71,7 @@ Drupal.behaviors.GarmentboxOrderItems = {
     self.updateTotals();
 
     // Disble the "Extra items" row on load.
-    $(context).find('input.new-inventory-items').attr('disabled', 'disabled');
+    $(context).find('input.new-il').attr('disabled', 'disabled');
 
     // Enable the "Extra items" row.
     $(context).find('.add-il').change(function(event) {
@@ -80,10 +80,10 @@ Drupal.behaviors.GarmentboxOrderItems = {
       var table = $(event.currentTarget).parents('table');
 
       if ($(event.currentTarget).attr('checked')) {
-        row.find('input.new-inventory-items').removeAttr('disabled');
+        row.find('input.new-il').removeAttr('disabled');
       }
       else {
-        row.find('input.new-inventory-items').attr('disabled', 'disabled');
+        row.find('input.new-il').attr('disabled', 'disabled');
       }
       self.updateTotals();
     });
@@ -119,7 +119,7 @@ Drupal.behaviors.GarmentboxOrderItems = {
   // Update the table wide totals.
   updateTotals: function() {
     var self = this;
-    var table = $(this.context).find('table#ils-table');
+    var table = $(this.context).find('table#inventory');
     var totalItems = 0;
     var totalPrice = 0;
     // Trigger the variants' update, and sum the results.

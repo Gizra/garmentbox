@@ -14,7 +14,8 @@ abstract class garmentboxFieldCollectionMigration extends Migration {
         'not null' => TRUE,
       ),
     );
-    $this->map = new MigrateSQLMap($this->machineName, $key, MigrateDestinationEntityAPI::getKeySchema($this->entityType));
+    $destination_handler = new MigrateDestinationEntityAPI($this->entityType, $this->bundle);
+    $this->map = new MigrateSQLMap($this->machineName, $key, $destination_handler->getKeySchema($this->entityType));
 
     // Rebuild the csv columns array.
     $this->csvColumns = !empty($this->csvColumns) ? $this->csvColumns : array();

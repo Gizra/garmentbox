@@ -39,7 +39,8 @@ class GarmentboxUsers extends Migration {
         'not null' => TRUE,
       ),
     );
-    $this->map = new MigrateSQLMap($this->machineName, $key, MigrateDestinationUser::getKeySchema());
+    $destination_handler = new MigrateDestinationUser();
+    $this->map = new MigrateSQLMap($this->machineName, $key, $destination_handler->getKeySchema());
 
     // Create a MigrateSource object.
     $this->source = new MigrateSourceCSV(drupal_get_path('module', 'garmentbox_migrate') . '/csv/' . $this->entityType . '/user.csv', $this->csvColumns, array('header_rows' => 1));

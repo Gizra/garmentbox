@@ -52,7 +52,9 @@ abstract class garmentboxMigration extends Migration {
         'not null' => TRUE,
       ),
     );
-    $this->map = new MigrateSQLMap($this->machineName, $key, MigrateDestinationEntityAPI::getKeySchema($this->entityType));
+
+    $destination_handler = new MigrateDestinationEntityAPI($this->entityType, $this->bundle);
+    $this->map = new MigrateSQLMap($this->machineName, $key, $destination_handler->getKeySchema($this->entityType));
 
     // Create a MigrateSource object.
     $this->source = new MigrateSourceCSV(drupal_get_path('module', 'garmentbox_migrate') . '/csv/' . $this->entityType . '/' . $this->bundle . '.csv', $this->csvColumns, array('header_rows' => 1));
