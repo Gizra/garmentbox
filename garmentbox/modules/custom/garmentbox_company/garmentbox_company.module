@@ -10,19 +10,21 @@ include_once 'garmentbox_company.features.inc';
  * Implements hook_field_attach_create_bundle().
  */
 function garmentbox_company_field_attach_create_bundle($entity_type, $bundle) {
-  if ($entity_type != 'node') {
+  if (!in_array($entity_type, array('node', 'field_collection_item'))) {
     return;
   }
 
   // @todo: find better way to exclude content-types.
   $excluded_bundles = array(
-    'bubble',
+    'node' => array('bubble'),
+    'field_collection_item' => array(),
   );
-  if (in_array($bundle, $excluded_bundles)) {
+
+  if (in_array($bundle, $excluded_bundles[$entity_type])) {
     return;
   }
 
-  if ($bundle == 'company') {
+  if ($entity_type == 'node' && $bundle == 'company') {
     // Group.
     og_create_field(OG_GROUP_FIELD, 'node', $bundle);
   }
@@ -33,14 +35,7 @@ function garmentbox_company_field_attach_create_bundle($entity_type, $bundle) {
     $og_field['field']['cardinality'] = 1;
     $og_field['instance']['label'] = 'Company';
 
-    // Enable Entity-reference prepopulate.
-    $og_field['instance']['settings']['behaviors']['prepopulate'] = array(
-      'status' => TRUE,
-      'action' => 'hide',
-      'fallback' => 'hide',
-      'og_context' => FALSE,
-    );
-    og_create_field('og_company', 'node', $bundle, $og_field);
+    og_create_field('og_company', $entity_type, $bundle, $og_field);
   }
 }
 
@@ -110,6 +105,21 @@ function garmentbox_company_node_insert($node) {
   }
 
   og_group('node', $nid, array('entity_type' => 'node', 'entity' => $node->nid));
+}
+
+/**
+ * Implements hook_field_collection_item_presave().
+ *
+ * Add field collection item to group.
+ */
+function garmentbox_company_field_collection_item_insert($field_collection_item) {
+  $entity = $field_collection_item->hostEntity();
+  if (empty($entity->og_company['und'][0]['target_id'])) {
+    throw new Exception(format_string('Host entity of field collection @id does not belong to a company.', array('@id' => $field_collection_item->item_id)));
+  }
+
+  $gid = $entity->og_company['und'][0]['target_id'];
+  og_group('node', $gid, array('entity_type' => 'field_collection_item', 'entity' => $field_collection_item));
 }
 
 /**

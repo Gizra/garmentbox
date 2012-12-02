@@ -26,6 +26,7 @@ class CompanySelectionHandler extends EntityReference_SelectionHandler_Generic {
 
     // Set the correct selection handler to point to our class.
     $query->addMetaData('entityreference_selection_handler', $this);
+
     if (!$og_context = og_context()) {
       return $query;
     }
@@ -36,8 +37,5 @@ class CompanySelectionHandler extends EntityReference_SelectionHandler_Generic {
 
     $query->fieldCondition('og_company', 'target_id', $og_context['gid']);
     return $query;
-  }
-
-  public function entityFieldQueryAlter(SelectQueryInterface $query) {
   }
 }
