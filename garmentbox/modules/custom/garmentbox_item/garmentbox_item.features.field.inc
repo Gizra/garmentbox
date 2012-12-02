@@ -10,95 +10,6 @@
 function garmentbox_item_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'field_collection_item-field_bom_info-field_material_item'.
-  $fields['field_collection_item-field_bom_info-field_material_item'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_material_item',
-      'foreign keys' => array(
-        'field_collection_item' => array(
-          'columns' => array(
-            'target_id' => 'item_id',
-          ),
-          'table' => 'field_collection_item',
-        ),
-      ),
-      'indexes' => array(
-        'target_id' => array(
-          0 => 'target_id',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'entityreference',
-      'settings' => array(
-        'handler' => 'base',
-        'handler_settings' => array(
-          'behaviors' => array(
-            'views-select-list' => array(
-              'status' => 0,
-            ),
-          ),
-          'sort' => array(
-            'direction' => 'ASC',
-            'field' => 'field_file:fid',
-            'property' => 'item_id',
-            'type' => 'none',
-          ),
-          'target_bundles' => array(
-            'field_source_info' => 'field_source_info',
-          ),
-        ),
-        'handler_submit' => 'Change handler',
-        'target_type' => 'field_collection_item',
-      ),
-      'translatable' => '0',
-      'type' => 'entityreference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'field_bom_info',
-      'default_value' => NULL,
-      'default_value_function' => '',
-      'deleted' => '0',
-      'description' => 'A specific material source.',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'entityreference',
-          'settings' => array(
-            'link' => FALSE,
-          ),
-          'type' => 'entityreference_label',
-          'weight' => 3,
-        ),
-      ),
-      'entity_type' => 'field_collection_item',
-      'field_name' => 'field_material_item',
-      'label' => 'Material item',
-      'required' => 1,
-      'settings' => array(
-        'behaviors' => array(
-          'prepopulate' => array(
-            'action' => 'none',
-            'fallback' => 'none',
-            'skip_perm' => '0',
-            'status' => 0,
-          ),
-        ),
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'options',
-        'settings' => array(),
-        'type' => 'options_select',
-        'weight' => '0',
-      ),
-    ),
-  );
-
   // Exported field: 'field_collection_item-field_bom_info-field_quantity_decimal'.
   $fields['field_collection_item-field_bom_info-field_quantity_decimal'] = array(
     'field_config' => array(
@@ -155,6 +66,89 @@ function garmentbox_item_field_default_fields() {
         'settings' => array(),
         'type' => 'number',
         'weight' => '1',
+      ),
+    ),
+  );
+
+  // Exported field: 'field_collection_item-field_bom_info-field_source_info_ref'.
+  $fields['field_collection_item-field_bom_info-field_source_info_ref'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_source_info_ref',
+      'foreign keys' => array(
+        'field_collection_item' => array(
+          'columns' => array(
+            'target_id' => 'item_id',
+          ),
+          'table' => 'field_collection_item',
+        ),
+      ),
+      'indexes' => array(
+        'target_id' => array(
+          0 => 'target_id',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'entityreference',
+      'settings' => array(
+        'handler' => 'base',
+        'handler_settings' => array(
+          'behaviors' => array(
+            'views-select-list' => array(
+              'status' => 0,
+            ),
+          ),
+          'sort' => array(
+            'type' => 'none',
+          ),
+          'target_bundles' => array(
+            'field_source_info' => 'field_source_info',
+          ),
+        ),
+        'handler_submit' => 'Change handler',
+        'target_type' => 'field_collection_item',
+      ),
+      'translatable' => '0',
+      'type' => 'entityreference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'field_bom_info',
+      'default_value' => NULL,
+      'default_value_function' => '',
+      'deleted' => '0',
+      'description' => 'A specific material source.',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => FALSE,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => 3,
+        ),
+      ),
+      'entity_type' => 'field_collection_item',
+      'field_name' => 'field_source_info_ref',
+      'label' => 'Material and vendor',
+      'required' => 1,
+      'settings' => array(
+        'behaviors' => array(
+          'prepopulate' => array(
+            'status' => 0,
+          ),
+        ),
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
+        'weight' => 0,
       ),
     ),
   );
@@ -1797,7 +1791,7 @@ function garmentbox_item_field_default_fields() {
   t('Image');
   t('Images');
   t('Item');
-  t('Material item');
+  t('Material and vendor');
   t('Quantity');
   t('Reference hierarchy');
   t('Retail price');

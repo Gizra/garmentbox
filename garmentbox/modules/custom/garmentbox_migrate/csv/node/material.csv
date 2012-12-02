@@ -1,9 +1,9 @@
-Unique ID,Title,Body,Nick name,Images
-material1,Novelle Art Noveau Natural Shell Buttons,"Card of two 7/8"" JHB natural shell buttons in shades of gray, black and white. Shanks. Washable - Dry Cleanable",gizra black,material1.jpg
-material2,Tan/Brown 2-Hole Shell,"Code: BEA-10082-BRN, Size 13/16""",Semi gray,material2.jpg
-material3,Ivory Satin Button,"Code: DILL-IVOSAT, Size: 7/8"", Price 1.50$",Adi blue,material3.jpg
-material4,"Abby in Ivory Camel Caramel Chocolate Brown 1""","Polyester 2-hole buttons with ivory/beige/brown rims and transparent centers. 1"".? 2 per card",Mother status,material1.jpg
-material5,Bamboo Knit - Red,"Bamboo Knit. 93% Rayon process Bamboo, 7% Spandex. Hand Wash Cold. 58"" Wide",Long bird,material2.jpg
-material6,Vienna Linen - Black 312,"100% Linen, 60"" Wide, Dry Clean. Priced per yard.",Big ben,material3.jpg
-material7,Forever Charmeuse - Salmon,"100% Polyester, 45"" wide, machine washable. Priced per yard.",Funny talk,material1.jpg
-material8,Silk Chiffon- Peach,"Silk Chiffon - 100% Silk. 45"" Wide. Dry Clean Only",Lasso,material2.jpg
+Unique ID,Title,Body,Nick name,Images,Material type,Length,Width,Radius,Washing instructions,Fabric content
+material1,Novelle Art Noveau Natural Shell Buttons,"Card of two 7/8"" JHB natural shell buttons in shades of gray, black and white. Shanks. Washable - Dry Cleanable",gizra black,material1.jpg,materialType2,0,0,3,Rinse in cold water,Plastic 100%
+material2,Tan/Brown 2-Hole Shell,"Code: BEA-10082-BRN, Size 13/16""",Semi gray,material2.jpg,materialType4,1,0,0,No machine wash,Plastic 100%
+material3,Ivory Satin Button,"Code: DILL-IVOSAT, Size: 7/8"", Price 1.50$",Adi blue,material3.jpg,materialType4,0,1,0,Machine wash,Silk 100%
+material4,"Abby in Ivory Camel Caramel Chocolate Brown 1""","Polyester 2-hole buttons with ivory/beige/brown rims and transparent centers. 1"".? 2 per card",Mother status,material1.jpg,materialType2,0,0,3,Machine wash,Silk 100%
+material5,Bamboo Knit - Red,"Bamboo Knit. 93% Rayon process Bamboo, 7% Spandex. Hand Wash Cold. 58"" Wide",Long bird,material2.jpg,materialType3,0,4,0,"Machine wash, cold",Satin 100%
+material6,Vienna Linen - Black 312,"100% Linen, 60"" Wide, Dry Clean. Priced per yard.",Big ben,material3.jpg,materialType3,0,3,0,Machine wash,Cotton 100%
+material7,Forever Charmeuse - Salmon,"100% Polyester, 45"" wide, machine washable. Priced per yard.",Funny talk,material1.jpg,materialType3,0,2,0,Machine wash,Polyester 100%
+material8,Silk Chiffon- Peach,"Silk Chiffon - 100% Silk. 45"" Wide. Dry Clean Only",Lasso,material2.jpg,materialType3,0,1,0,Rinse in cold water,Silk 100%

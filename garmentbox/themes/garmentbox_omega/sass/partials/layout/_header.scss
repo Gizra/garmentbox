@@ -63,9 +63,9 @@ header {
       }
     }
 
-    .field-name-field-item-status, .field-name-field-season-status {
-      float: right; //LTR
-      margin-top: 10px;
+  .field-name-field-item-status, .field-name-field-season-status, .field-name-field-material-type {
+    float: right; //LTR
+    margin-top: 10px;
 
       .field-label {
         color: #c4eeed;
@@ -82,7 +82,7 @@ header {
 }
 
 // Large title strip.
-.node-type-item #title, .node-type-item-variant #title {
+.node-type-item #title, .node-type-item-variant #title, .node-type-material #title {
   background: url("../images/title-large-bg.png") repeat-x;
   height: 86px;
 

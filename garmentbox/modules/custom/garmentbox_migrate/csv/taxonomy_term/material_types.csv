@@ -1,0 +1,6 @@
+Unique ID,Name,Has width,Has length,Has radius
+materialType1,Band,0,0,1
+materialType2,Button,0,0,1
+materialType3,Fabric,1,0,0
+materialType4,Other,1,1,1
+materialType5,Trim,0,1,0

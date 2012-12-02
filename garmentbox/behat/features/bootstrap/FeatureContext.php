@@ -57,6 +57,7 @@ class FeatureContext extends DrupalContext {
       case 'item-variant':
       case 'season':
       case 'item':
+      case 'material':
         $table = 'node';
         $id_column = 'nid';
         $title_column = 'title';
@@ -592,4 +593,18 @@ class FeatureContext extends DrupalContext {
 
     return new Given("I am at \"$path\"");
   }
+
+  /**
+   * @Then /^I should see the following <contents>:$/
+   */
+  public function iShouldSeeTheFollowing($contents) {
+    $steps = array();
+    foreach ($contents as $row) {
+      foreach ($row as $cell) {
+        $steps[] = new Step\When('I should see "'. $cell . '"');
+      }
+    }
+    return $steps;
+  }
+
 }

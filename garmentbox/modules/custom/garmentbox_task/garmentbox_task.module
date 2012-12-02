@@ -48,7 +48,7 @@ function garmentbox_task_node_insert($node) {
   if (!$field_names = garmentbox_task_intersect_fields($comment, $node)) {
     return;
   }
-  $field_names[] ='title';
+  $field_names[] = 'title';
 
   $wrapper = entity_metadata_wrapper('comment', $comment);
   $node_wrapper = entity_metadata_wrapper('node', $node);
