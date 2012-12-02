@@ -1,5 +1,7 @@
 Unique ID,Title,Body,Reference,Status
-task1,First task,"Some info",season1,taskStatus1
-task2,Prepare patterns,"Check deadlines with pattern makers",item1,taskStatus3
-task3,Fix marker,"Marker nesting is poor",item1,taskStatus2
-task4,Send to Marketing,"Need to get approval",item1,taskStatus2
+task1,First task,Some info,season1,taskStatus1
+task2,Prepare patterns,Check deadlines with pattern makers,item1,taskStatus3
+task3,Fix marker,Marker nesting is poor,item1,taskStatus2
+task4,Send to Marketing,Need to get approval,item1,taskStatus2
+task5,Buy more,Contact vendor and order more material,material1,taskStatus2
+task6,Clean,Send to be cleaned,material1,taskStatus1

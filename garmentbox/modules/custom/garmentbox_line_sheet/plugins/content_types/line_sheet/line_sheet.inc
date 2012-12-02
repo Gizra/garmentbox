@@ -52,7 +52,7 @@ function garmentbox_line_sheet_line_sheet_content_type_render($subtype, $conf, $
     }
 
     foreach ($wrapper->field_bom_info as $bom_wrapper) {
-      if ($material = $bom_wrapper->field_material_item->field_nick_name->value()) {
+      if ($material = $bom_wrapper->field_source_info_ref->field_nick_name->value()) {
         $materials[] = $material;
       }
     }

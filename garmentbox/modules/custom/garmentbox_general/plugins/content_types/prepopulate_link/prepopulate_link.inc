@@ -58,6 +58,10 @@ function garmentbox_general_prepopulate_link_content_type_render($subtype, $conf
       $field_name = 'field_season';
       $link_text = t('Add new production order');
       break;
+    case 'material':
+      $field_name = '';
+      $link_text = t('Add new material');
+      break;
 
     default:
       return;

@@ -1018,13 +1018,13 @@ function garmentbox_og_field_default_fields() {
           'module' => 'og_ui',
           'settings' => array(),
           'type' => 'og_list_default',
-          'weight' => 6,
+          'weight' => '3',
         ),
         'garmentbox_header' => array(
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '10',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1067,7 +1067,7 @@ function garmentbox_og_field_default_fields() {
         'module' => 'og',
         'settings' => array(),
         'type' => 'og_complex',
-        'weight' => 31,
+        'weight' => '6',
       ),
     ),
   );
