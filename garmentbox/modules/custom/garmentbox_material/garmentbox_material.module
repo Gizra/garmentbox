@@ -6,6 +6,16 @@
 
 include_once 'garmentbox_material.features.inc';
 
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function garmentbox_material_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'ctools') {
+    return 'plugins/' . $plugin;
+  }
+}
+
 /**
  * Implements hook_field_attach_form().
  */
@@ -87,4 +97,36 @@ function garmentbox_material_get_units($type) {
     ->execute();
 
   return !$result ? array() : array_keys($result['taxonomy_term']);
+}
+
+/**
+ * Implements hook_field_access().
+ *
+ * Hide fields for material node view.
+ */
+function garmentbox_material_field_access($op, $field, $entity_type, $entity, $account) {
+
+  if ($op != 'view' || $entity_type != 'node' || empty($entity) || $entity->type != 'material') {
+    // Not viewing, or not a material node's field.
+    return;
+  }
+
+  $hidden_fields = array(
+    'og_group_ref',
+    'body',
+    'field_images',
+    'field_nick_name',
+    'field_material_type'
+  );
+  $wrapper = entity_metadata_wrapper('node', $entity);
+  foreach (array('length', 'width', 'radius') as $measurement) {
+    if (!$wrapper->field_material_type->{"field_has_$measurement"}->value()) {
+      // Hide disabled measurements by material type.
+      $hidden_fields[] = "field_$measurement";
+    }
+  }
+
+  if (in_array($field['field_name'], $hidden_fields)) {
+    return FALSE;
+  }
 }

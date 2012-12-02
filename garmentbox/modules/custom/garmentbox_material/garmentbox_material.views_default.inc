@@ -28,9 +28,18 @@ function garmentbox_material_views_default_views() {
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
-  $handler->display->display_options['pager']['type'] = 'full';
-  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['style_plugin'] = 'jcarousel';
+  $handler->display->display_options['style_options']['wrap'] = 'circular';
+  $handler->display->display_options['style_options']['visible'] = '2';
+  $handler->display->display_options['style_options']['auto'] = '0';
+  $handler->display->display_options['style_options']['autoPause'] = 1;
+  $handler->display->display_options['style_options']['easing'] = '';
+  $handler->display->display_options['style_options']['vertical'] = 0;
   $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['row_options']['hide_empty'] = 0;
+  $handler->display->display_options['row_options']['default_field_elements'] = 1;
   /* No results behavior: Global: Text area */
   $handler->display->display_options['empty']['area']['id'] = 'area';
   $handler->display->display_options['empty']['area']['table'] = 'views';
@@ -43,7 +52,12 @@ function garmentbox_material_views_default_views() {
   $handler->display->display_options['relationships']['field_bom_info_node']['id'] = 'field_bom_info_node';
   $handler->display->display_options['relationships']['field_bom_info_node']['table'] = 'field_collection_item';
   $handler->display->display_options['relationships']['field_bom_info_node']['field'] = 'field_bom_info_node';
-  $handler->display->display_options['relationships']['field_bom_info_node']['required'] = 0;
+  $handler->display->display_options['relationships']['field_bom_info_node']['required'] = 1;
+  /* Relationship: Entity Reference: Referenced Entity */
+  $handler->display->display_options['relationships']['field_source_info_ref_target_id']['id'] = 'field_source_info_ref_target_id';
+  $handler->display->display_options['relationships']['field_source_info_ref_target_id']['table'] = 'field_data_field_source_info_ref';
+  $handler->display->display_options['relationships']['field_source_info_ref_target_id']['field'] = 'field_source_info_ref_target_id';
+  $handler->display->display_options['relationships']['field_source_info_ref_target_id']['required'] = 1;
   /* Field: Content: Images */
   $handler->display->display_options['fields']['field_images']['id'] = 'field_images';
   $handler->display->display_options['fields']['field_images']['table'] = 'field_data_field_images';
@@ -70,7 +84,7 @@ function garmentbox_material_views_default_views() {
   $handler->display->display_options['fields']['field_images']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_images']['click_sort_column'] = 'fid';
   $handler->display->display_options['fields']['field_images']['settings'] = array(
-    'image_style' => 'thumbnail',
+    'image_style' => 'variant_preview',
     'image_link' => 'content',
   );
   $handler->display->display_options['fields']['field_images']['group_rows'] = 1;
@@ -104,27 +118,42 @@ function garmentbox_material_views_default_views() {
   $handler->display->display_options['fields']['title']['empty_zero'] = 0;
   $handler->display->display_options['fields']['title']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['title']['link_to_node'] = 1;
-  /* Contextual filter: Broken/missing handler */
-  $handler->display->display_options['arguments']['field_material_target_id']['id'] = 'field_material_target_id';
-  $handler->display->display_options['arguments']['field_material_target_id']['table'] = 'field_data_field_material';
-  $handler->display->display_options['arguments']['field_material_target_id']['field'] = 'field_material_target_id';
-  $handler->display->display_options['arguments']['field_material_target_id']['default_action'] = 'not found';
-  $handler->display->display_options['arguments']['field_material_target_id']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['field_material_target_id']['default_argument_skip_url'] = 0;
-  $handler->display->display_options['arguments']['field_material_target_id']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_material_target_id']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_material_target_id']['summary_options']['items_per_page'] = '25';
 
   /* Display: Content pane */
   $handler = $view->new_display('panel_pane', 'Content pane', 'panel_pane_1');
   $handler->display->display_options['argument_input'] = array(
-    'field_material_target_id' => array(
-      'type' => 'context',
-      'context' => 'entity:node.nid',
+    'nid' => array(
+      'type' => 'wildcard',
+      'context' => 'entity:comment.field_task_assignee',
       'context_optional' => 0,
       'panel' => '0',
       'fixed' => '',
-      'label' => 'Field collection item: Material (field_material)',
+      'label' => 'Content: Nid',
+    ),
+  );
+
+  /* Display: Material item variants */
+  $handler = $view->new_display('panel_pane', 'Material item variants', 'material_item_variants');
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Field collection item: Field collection item ID */
+  $handler->display->display_options['arguments']['item_id']['id'] = 'item_id';
+  $handler->display->display_options['arguments']['item_id']['table'] = 'field_collection_item';
+  $handler->display->display_options['arguments']['item_id']['field'] = 'item_id';
+  $handler->display->display_options['arguments']['item_id']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['item_id']['default_argument_skip_url'] = 0;
+  $handler->display->display_options['arguments']['item_id']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['item_id']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['item_id']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['item_id']['break_phrase'] = 1;
+  $handler->display->display_options['arguments']['item_id']['not'] = 0;
+  $handler->display->display_options['argument_input'] = array(
+    'item_id' => array(
+      'type' => 'none',
+      'context' => 'entity:comment.field_task_assignee',
+      'context_optional' => 0,
+      'panel' => '0',
+      'fixed' => '',
+      'label' => 'Field collection item: Field collection item ID',
     ),
   );
   $export['material'] = $view;

@@ -1,5 +1,7 @@
 Unique ID,Company,Title,Body,Reference,Status
-task1,company1,Add fabric examples,Only for black fabrics,season1,taskStatus2
-task2,company1,Prepare patterns,"Check deadlines with pattern makers",item1,taskStatus3
-task3,company1,Fix marker,"Marker nesting is poor",item1,taskStatus2
-task4,company1,Send to Marketing,"Need to get approval",item1,taskStatus2
+task1,company1,First task,Some info,season1,taskStatus1
+task2,company1,Prepare patterns,Check deadlines with pattern makers,item1,taskStatus3
+task3,company1,Fix marker,Marker nesting is poor,item1,taskStatus2
+task4,company1,Send to Marketing,Need to get approval,item1,taskStatus2
+task5,company1,Buy more,Contact vendor and order more material,material1,taskStatus2
+task6,company1,Clean,Send to be cleaned,material1,taskStatus1
