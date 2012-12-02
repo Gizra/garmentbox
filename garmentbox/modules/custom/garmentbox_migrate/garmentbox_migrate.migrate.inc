@@ -128,8 +128,6 @@ class garmentboxInventoryTypeTerms extends garmentboxMigration {
 class garmentboxMaterialTypeTerms extends garmentboxMigration {
 
   public $csvColumns = array(
-    array('id', 'Unique ID'),
-    array('name', 'Name'),
     array('field_has_width', 'Has width'),
     array('field_has_length', 'Has length'),
     array('field_has_radius', 'Has radius'),
