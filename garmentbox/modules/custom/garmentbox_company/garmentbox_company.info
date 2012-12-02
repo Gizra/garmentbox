@@ -7,3 +7,4 @@ dependencies[] = garmentbox_general
 dependencies[] = og
 dependencies[] = features
 dependencies[] = purl
+dependencies[] = og_purl
