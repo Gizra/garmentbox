@@ -115,7 +115,7 @@ projects[oauth][patch][] = "http://drupal.org/files/1535764-fix-signatures.patch
 projects[oauth][patch][] = "http://drupal.org/files/oauth-1431642-consumer-deletion.patch"
 
 projects[og][subdir] = "contrib"
-projects[og][version] = "2.0-beta3"
+projects[og][version] = "2.x-dev"
 
 projects[og_purl][subdir] = "contrib"
 projects[og_purl][version] = "1.x-dev"
