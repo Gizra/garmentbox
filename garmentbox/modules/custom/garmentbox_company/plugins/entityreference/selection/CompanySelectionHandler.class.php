@@ -13,13 +13,10 @@ class CompanySelectionHandler extends EntityReference_SelectionHandler_Generic {
     return new CompanySelectionHandler($field, $instance, $entity_type, $entity);
   }
 
-
   /**
    * Build an EntityFieldQuery to get referencable entities.
    */
   public function buildEntityFieldQuery($match = NULL, $match_operator = 'CONTAINS') {
-    global $user;
-
     // Get the query from the base selection handler.
     $handler = EntityReference_SelectionHandler_Generic::getInstance($this->field, $this->instance, $this->entity_type, $this->entity);
     $query = $handler->buildEntityFieldQuery($match, $match_operator);
@@ -28,10 +25,6 @@ class CompanySelectionHandler extends EntityReference_SelectionHandler_Generic {
     $query->addMetaData('entityreference_selection_handler', $this);
 
     if (!$og_context = og_context()) {
-      return $query;
-    }
-
-    if ($query->entityConditions['entity_type']['value'] != 'node') {
       return $query;
     }
 
