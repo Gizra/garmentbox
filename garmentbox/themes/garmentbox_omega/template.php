@@ -48,6 +48,14 @@ function garmentbox_omega_preprocess_node(&$variables) {
  *
  * @see garmentbox_omega_preprocess_node().
  */
-function garmentbox_omega_preprocess_material_node_garmentbox_header(&$variables) {
-  $variables['content']['field_images']['#access'] = user_access('access content');
+function garmentbox_omega_preprocess_material_node(&$variables) {
+  $wrapper = entity_metadata_wrapper('node', $variables['nid']);
+
+  $measurements = array('length', 'width', 'radius');
+  foreach ($measurements as $measurement) {
+    if (!$wrapper->field_material_type->{'field_has_' . $measurement}->value()) {
+      // Hide disabled measurements by material type.
+      $variables['content']['field_' . $measurement]['#access'] = FALSE;
+    }
+  }
 }
