@@ -105,14 +105,12 @@ function garmentbox_material_get_units($type) {
  * Hide fields for material node view.
  */
 function garmentbox_material_field_access($op, $field, $entity_type, $entity, $account) {
-
   if ($op != 'view' || $entity_type != 'node' || empty($entity) || $entity->type != 'material') {
     // Not viewing, or not a material node's field.
     return;
   }
 
   $hidden_fields = array(
-    'og_group_ref',
     'body',
     'field_images',
     'field_nick_name',

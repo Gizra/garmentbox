@@ -7,6 +7,24 @@
 include_once 'garmentbox_company.features.inc';
 
 /**
+ * Implements hook_field_access().
+ *
+ * Hide OG audience fields.
+ */
+function garmentbox_company_field_access($op, $field, $entity_type, $entity, $account) {
+  if (empty($entity)) {
+    return;
+  }
+
+  list(,, $bundle) = entity_extract_ids($entity_type, $entity);
+  if (!$field_names = og_get_group_audience_fields($entity_type, $bundle)) {
+    return;
+  }
+
+  return !in_array($field['field_name'], array_keys($field_names));
+}
+
+/**
  * Implements hook_field_attach_create_bundle().
  */
 function garmentbox_company_field_attach_create_bundle($entity_type, $bundle) {
