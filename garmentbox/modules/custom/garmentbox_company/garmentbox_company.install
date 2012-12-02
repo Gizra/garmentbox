@@ -22,6 +22,6 @@ function garmentbox_company_install() {
     'node' => TRUE,
     'og_purl' => TRUE,
   );
-  variable_set("og_context_negotiation_group_context", drupal_map_assoc($values));
+  variable_set("og_context_negotiation_group_context", $values);
 }
 
