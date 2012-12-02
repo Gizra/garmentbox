@@ -5,3 +5,22 @@
  */
 
 include_once 'garmentbox_customer.features.inc';
+
+/**
+ * Implements hook_og_role_insert().
+ */
+function garmentbox_customer_og_role_insert($role) {
+  if ($role->name != OG_AUTHENTICATED_ROLE) {
+    return;
+  }
+
+  if ($role->group_type != 'node' || $role->group_bundle != 'company') {
+    return;
+  }
+
+  $permissions = array(
+    'create customer content' => TRUE,
+    'update own customer content'  => TRUE,
+  );
+  og_role_change_permissions($role->rid, $permissions);
+}
