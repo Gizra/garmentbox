@@ -10,12 +10,5 @@
  * Implements hook_og_role_insert().
  */
 function garmentbox_customer_install($role) {
-  // Group content.
-  $og_field = og_fields_info(OG_AUDIENCE_FIELD);
-  $og_field['field']['settings']['handler_settings']['target_bundles'] = array('company');
-  $og_field['field']['cardinality'] = 1;
-  $og_field['instance']['label'] = 'Company';
-  $og_field['instance']['display']['default']['type'] = 'hidden';
-
-  og_create_field('og_company', 'node', 'customer', $og_field);
+  og_create_field('og_company', 'node', 'customer');
 }
