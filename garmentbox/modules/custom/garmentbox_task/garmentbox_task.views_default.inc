@@ -377,6 +377,10 @@ function garmentbox_task_views_default_views() {
     ),
   );
 
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page');
+  $handler->display->display_options['path'] = 'season/%/tasks';
+
   /* Display: Material Task List */
   $handler = $view->new_display('panel_pane', 'Material Task List', 'material_task_list');
   $handler->display->display_options['defaults']['arguments'] = FALSE;

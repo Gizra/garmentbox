@@ -28,7 +28,6 @@ function garmentbox_general_prepopulate_link_content_type_render($subtype, $conf
   $block = new stdClass();
   $block->module = 'garmentbox_general';
   $block->title = '';
-  $add_destination = TRUE;
 
   switch ($conf['type']) {
     case 'task':
@@ -36,42 +35,13 @@ function garmentbox_general_prepopulate_link_content_type_render($subtype, $conf
       $link_text = t('Add new task');
       break;
 
-    case 'item_variant':
-      $field_name = 'field_item';
-      $link_text = t('Add new variation');
-      break;
-
-    case 'order':
-      $field_name = 'field_season';
-      $link_text = t('Add new order');
-      break;
-
-    case 'item':
-      $field_name = 'field_season';
-      $link_text = t('Add new item');
-      // Don't add destination, as we will redirect user to create an
-      // item-variant.
-      $add_destination = FALSE;
-      break;
-
-    case 'production_order':
-      $field_name = 'field_season';
-      $link_text = t('Add new production order');
-      break;
-    case 'material':
-      $field_name = '';
-      $link_text = t('Add new material');
-      break;
-
     default:
       return;
   }
 
   $options = array('query' => array($field_name => $node->nid));
+  $options['query'] = $options['query'] + drupal_get_destination();
 
-  if ($add_destination) {
-    $options['query'] = $options['query'] + drupal_get_destination();
-  }
   $block->content = l($link_text, 'node/add/' . str_replace('_', '-', $conf['type']), $options);
   return $block;
 }

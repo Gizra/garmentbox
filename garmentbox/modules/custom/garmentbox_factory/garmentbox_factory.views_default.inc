@@ -86,18 +86,9 @@ function garmentbox_factory_views_default_views() {
     'production_order' => 'production_order',
   );
 
-  /* Display: Content pane */
-  $handler = $view->new_display('panel_pane', 'Content pane', 'panel_pane_1');
-  $handler->display->display_options['argument_input'] = array(
-    'field_season_target_id' => array(
-      'type' => 'context',
-      'context' => 'entity:node.nid',
-      'context_optional' => 0,
-      'panel' => '0',
-      'fixed' => '',
-      'label' => 'Content: Season (field_season)',
-    ),
-  );
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page_1');
+  $handler->display->display_options['path'] = 'season/%/production-orders';
   $export['production_orders'] = $view;
 
   return $export;

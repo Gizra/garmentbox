@@ -1,6 +1,10 @@
-#add-variant a, .primary-button a {
+#main-button {
+  margin-top: 6px;
   float: right; //LTR
-  @include primary-button;
+
+  a {
+    @include primary-button;
+  }
 }
 
 #add-task.secondary-button a {
