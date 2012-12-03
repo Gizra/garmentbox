@@ -7,6 +7,15 @@
 include_once 'garmentbox_general.features.inc';
 
 /**
+ * Implements hook_ctools_plugin_directory().
+ */
+function garmentbox_general_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'ctools') {
+    return 'plugins/' . $plugin;
+  }
+}
+
+/**
  * Implements hook_init().
  */
 function garmentbox_general_init() {
@@ -18,16 +27,6 @@ function garmentbox_general_init() {
     drupal_set_breadcrumb($breadcrumb);
   }
 }
-
-/**
- * Implements hook_ctools_plugin_directory().
- */
-function garmentbox_general_ctools_plugin_directory($module, $plugin) {
-  if ($module == 'ctools') {
-    return 'plugins/' . $plugin;
-  }
-}
-
 
 /**
  * Get the hierachy for a node.
@@ -138,4 +137,149 @@ function garmentbox_general_entity_info_alter(&$entity_info) {
     'label' => t('Garmentbox header'),
     'custom settings' => TRUE,
   );
+}
+
+/**
+ * Create the breadcrumbs for a node.
+ *
+ * @see garmentbox_omega_preprocess_page().
+ */
+function garmentbox_general_get_node_breadcrumbs($node) {
+  $wrapper = entity_metadata_wrapper('node', $node);
+
+  $links = array();
+  $links[] = l(t('home'), '');
+
+  if (!empty($wrapper->field_reference_hierarchy)) {
+    $count = count($wrapper->field_reference_hierarchy->value());
+    for ($delta = 0; $delta < $count; $delta++) {
+      $node = $wrapper->field_reference_hierarchy->get($delta)->value();
+      $links[] = l($node->title, 'node/' . $node->nid);
+    }
+  }
+
+  $links[] = '<span>' . check_plain($wrapper->label()) . '</span>';
+  $breadcrumbs = implode('<span>&gt;</span>', $links);
+  return $breadcrumbs;
+}
+
+/**
+ * Build the tabs for a node.
+ *
+ * @see garmentbox_omega_preprocess_page().
+ */
+function garmentbox_general_get_node_tabs($node) {
+  switch ($node->type) {
+    case 'season':
+      return garmentbox_season_get_tabs($node);
+
+    case 'item':
+    case 'item_variant':
+      return garmentbox_item_get_tabs($node);
+
+    case 'material':
+      return garmentbox_material_get_tabs();
+  }
+}
+
+/**
+ * Create the primary button (The pink link of the tabs row) of a node.
+ *
+ * @see garmentbox_omega_preprocess_page().
+ */
+function garmentbox_general_get_node_primary_button($node) {
+  $item = menu_get_item();
+
+  $button_data = array(
+    'target_nid' => $node->nid,
+    'add_destination' => TRUE,
+  );
+
+  switch ($item['path']) {
+    case 'node/%':
+      $button_data = _garmentbox_general_get_node_page_primary_button($node);
+      break;
+
+    case 'season/%/tasks':
+      $button_data['field_name'] = 'field_entity_reference';
+      $button_data['link_text'] = t('Add new task');
+      $button_data['type'] = 'task';
+      break;
+
+    case 'season/%/orders':
+      $button_data['field_name'] = 'field_season';
+      $button_data['link_text'] = t('Add new order');
+      $button_data['type'] = 'order';
+      break;
+
+    case 'season/%/production-orders':
+      $button_data['field_name'] = 'field_season';
+      $button_data['link_text'] = t('Add new production order');
+      $button_data['type'] = 'production-order';
+      break;
+
+    case 'season/%/items':
+      $button_data['field_name'] = 'field_season';
+      $button_data['link_text'] = t('Add new item');
+      $button_data['type'] = 'item';
+      break;
+
+    default:
+      // No button defined.
+      return;
+  }
+
+  $options = array('query' => array());
+  if (!empty($button_data['field_name'])) {
+    $options['query'] = array($button_data['field_name'] => $button_data['target_nid']);
+  }
+  if ($button_data['add_destination']) {
+    $options['query'] = $options['query'] + drupal_get_destination();
+  }
+
+  return l($button_data['link_text'], "node/add/" . $button_data['type'], $options);
+}
+
+/**
+ * Get the data for creating a primary button on a node page.
+ *
+ * @param $node
+ *   A node.
+ *
+ * @return
+ *   The button settings.
+ */
+function _garmentbox_general_get_node_page_primary_button($node) {
+  $result = array(
+    'field_name' => NULL,
+    'type' => NULL,
+    'link_text' => '',
+    'add_destination' => TRUE,
+    'target_nid' => NULL,
+  );
+
+  switch ($node->type) {
+    case 'item_variant':
+      $result['field_name'] = 'field_item';
+      $result['link_text'] = t('Add new variation');
+      $result['type'] = 'item-variant';
+      // If the node is an item variant, load the related item.
+      $wrapper = entity_metadata_wrapper('node', $node);
+      $result['target_nid'] = $wrapper->field_item->getIdentifier();
+      return $result;
+
+    case 'item':
+      $result['field_name'] = 'field_item';
+      $result['link_text'] = t('Add new variation');
+      $result['type'] = 'item-variant';
+      // Don't add destination, as we will redirect user to create an
+      // item-variant.
+      $result['add_destination'] = FALSE;
+      return $result;
+
+    case 'material':
+      $result['link_text'] = t('Add new material');
+      $result['type'] = 'material';
+      return $result;
+  }
 }

@@ -11,6 +11,10 @@ body {
   background-color: #f4f4f2;
   font-family: Dosis, Arial, Helvetica, sans-serif;
   padding-bottom: 20px;
+
+  &.contextual-links-region {
+    position: static;
+  }
 }
 
 a {

@@ -144,7 +144,8 @@ class FeatureContext extends DrupalContext {
   public function theTableShouldHaveTheFollowingContents($table_id, TableNode $expected_table) {
     $page = $this->getSession()->getPage();
     // Find the container of the table with the correct pane title
-    $table_element = $page->find('css', "table#$table_id");
+    $selector = strpos($table_id, 'view-') === 0 ? ".$table_id table" : "table#$table_id";
+    $table_element = $page->find('css', $selector);
     if (!$table_element) {
       throw new \Exception("No table with id '$table_id' was found.");
     }
@@ -606,5 +607,13 @@ class FeatureContext extends DrupalContext {
     }
     return $steps;
   }
+
+  /**
+   * @Given /^I wait$/
+   */
+  public function iWait() {
+    sleep(10);
+  }
+
 
 }

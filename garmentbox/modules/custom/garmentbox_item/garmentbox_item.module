@@ -101,6 +101,7 @@ function garmentbox_item_form_item_redirect_submit($form, &$form_state) {
   $node = $form_state['node'];
   $options = array('query' => array('field_item' => $node->nid));
   $form_state['redirect'] = array('node/add/item-variant', $options);
+  unset($_GET['destination']);
 }
 
 /**
@@ -201,3 +202,42 @@ function garmentbox_item_get_variant_price($node) {
   return garmentbox_bom_get_variant_bom_price($node) + garmentbox_bol_get_variant_bol_price($node);
 }
 
+/**
+ * Build the tabs list for an item / item variant node.
+ *
+ * @param $node
+ *   Item or item-variant node.
+ *
+ * @return
+ *   Themed item list of tabs.
+ */
+function garmentbox_item_get_tabs($node) {
+  // If the given node is a variant, load its main item.
+  if ($node->type == 'item_variant') {
+    $wrapper = entity_metadata_wrapper('node', $node);
+    $node = $wrapper->field_item->value();
+  }
+
+  $items = array();
+
+  $items[] = l(t('Main'), 'node/' . $node->nid);
+
+  // Get all the item instances referencing the item.
+  $query = new EntityFieldQuery();
+  $result = $query
+    ->entityCondition('entity_type', 'node')
+    ->propertyCondition('type', 'item_variant')
+    ->propertyCondition('status', NODE_PUBLISHED)
+    ->fieldCondition('field_item', 'target_id', $node->nid)
+    ->propertyOrderBy('nid')
+    ->execute();
+
+  if (!empty($result['node'])) {
+    $nodes = node_load_multiple(array_keys($result['node']));
+    foreach ($nodes as $node) {
+      $items[] = l($node->title, 'node/' . $node->nid);
+    }
+  }
+
+  return theme('item_list', array('items' => $items));
+}

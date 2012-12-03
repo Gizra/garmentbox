@@ -399,18 +399,9 @@ function garmentbox_season_views_default_views() {
     'item_variant' => 'item_variant',
   );
 
-  /* Display: Content pane */
-  $handler = $view->new_display('panel_pane', 'Content pane', 'panel_pane_item_variants');
-  $handler->display->display_options['argument_input'] = array(
-    'nid' => array(
-      'type' => 'context',
-      'context' => 'entity:node.nid',
-      'context_optional' => 0,
-      'panel' => '0',
-      'fixed' => '',
-      'label' => 'Content: Nid',
-    ),
-  );
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page');
+  $handler->display->display_options['path'] = 'season/%/items';
   $export['item_variants'] = $view;
 
   return $export;

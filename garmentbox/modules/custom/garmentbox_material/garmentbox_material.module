@@ -98,3 +98,34 @@ function garmentbox_material_get_units($type) {
 
   return !$result ? array() : array_keys($result['taxonomy_term']);
 }
+
+/**
+ * Build the material tabs list.
+ *
+ * @return
+ *   Themed item list of tabs.
+ */
+function garmentbox_material_get_tabs() {
+  $query = new EntityFieldQuery();
+  $result = $query
+    ->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'material')
+    ->propertyCondition('status', NODE_PUBLISHED)
+    ->execute();
+
+  if (empty($result['node'])) {
+    return;
+  }
+
+  $items = array();
+  $nodes = node_load_multiple(array_keys($result['node']));
+  foreach ($nodes as $node) {
+    $wrapper = entity_metadata_wrapper('node', $node);
+    $title = $wrapper->field_nick_name->value() ? $wrapper->field_nick_name->value() : $node->title ;
+    // Mark current node's tab.
+    $options = $node->nid == $nid ? array('attributes' => array('class' => 'active')) : array();
+    $items[] = l($title, "material/" . $node->nid, $options);
+  }
+
+  return theme('item_list', array('items' => $items));
+}
