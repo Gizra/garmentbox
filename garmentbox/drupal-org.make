@@ -5,6 +5,9 @@ api = 2
 projects[admin_menu][subdir] = "contrib"
 projects[admin_menu][version] = "3.0-rc3"
 
+projects[admin_views][subdir] = "contrib"
+projects[admin_views][version] = "1.0"
+
 projects[addressfield][subdir] = "contrib"
 projects[addressfield][version] = "1.0-beta3"
 
@@ -21,16 +24,16 @@ projects[commerce_migrate][subdir] = "contrib"
 projects[commerce_migrate][version] = "1.x-dev"
 
 projects[ctools][subdir] = "contrib"
-projects[ctools][version] = "1.1"
+projects[ctools][version] = "1.2"
 
 projects[date][subdir] = "contrib"
-projects[date][version] = "2.5"
+projects[date][version] = "2.6"
 
 projects[devel][subdir] = "contrib"
 projects[devel][version] = "1.3"
 
 projects[diff][subdir] = "contrib"
-projects[diff][version] = "2.0"
+projects[diff][version] = "3.2"
 
 projects[entity][subdir] = "contrib"
 projects[entity][version] = "1.x-dev"
@@ -82,10 +85,10 @@ projects[mailsystem][version] = 2.34
 projects[mailsystem][subdir] = "contrib"
 
 projects[message][subdir] = "contrib"
-projects[message][version] = "1.4"
+projects[message][version] = "1.6"
 
 projects[message_notify][subdir] = "contrib"
-projects[message_notify][version] = "1.1"
+projects[message_notify][version] = "2.3"
 
 projects[migrate][version] = 2.4
 projects[migrate][subdir] = "contrib"
@@ -122,7 +125,7 @@ projects[og_purl][subdir] = "contrib"
 projects[og_purl][version] = "1.x-dev"
 
 projects[panels][subdir] = "contrib"
-projects[panels][version] = "3.2"
+projects[panels][version] = "3.3"
 
 projects[pathauto][subdir] = "contrib"
 projects[pathauto][version] = "1.1"
@@ -146,7 +149,7 @@ projects[views][subdir] = "contrib"
 projects[views][version] = "3.3"
 
 projects[views_bulk_operations][subdir] = "contrib"
-projects[views_bulk_operations][version] = "3.0-rc1"
+projects[views_bulk_operations][version] = "3.1"
 
 ; Libraries.
 libraries[jquery.cycle][type] = "libraries"
