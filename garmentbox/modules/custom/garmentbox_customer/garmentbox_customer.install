@@ -9,6 +9,6 @@
 /**
  * Implements hook_og_role_insert().
  */
-function garmentbox_customer_install($role) {
+function garmentbox_customer_install() {
   og_create_field('og_company', 'node', 'customer');
 }
