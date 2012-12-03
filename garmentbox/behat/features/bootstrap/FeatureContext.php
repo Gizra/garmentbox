@@ -35,7 +35,8 @@ class FeatureContext extends DrupalContext {
   public function iAmLoggedInAs($username) {
     try {
       $password = $this->drupal_users[$username];
-    } catch (\Exception $e) {
+    }
+    catch (\Exception $e) {
       throw new \Exception("Password not found for '$username'.");
     }
 
@@ -144,7 +145,8 @@ class FeatureContext extends DrupalContext {
   public function theTableShouldHaveTheFollowingContents($table_id, TableNode $expected_table) {
     $page = $this->getSession()->getPage();
     // Find the container of the table with the correct pane title
-    $table_element = $page->find('css', "table#$table_id");
+    $selector = strpos($table_id, 'view-') === 0 ? ".$table_id table" : "table#$table_id";
+    $table_element = $page->find('css', $selector);
     if (!$table_element) {
       throw new \Exception("No table with id '$table_id' was found.");
     }
@@ -547,7 +549,7 @@ class FeatureContext extends DrupalContext {
     $expectedRow = $table->getRow(0);
 
     // Search for the row in the table
-    foreach ($table_element->findAll('xpath', '//tr[contains(@class, "il") and @ref="variant-40"]') as $i => $row) {
+    foreach ($table_element->findAll('css', 'tr') as $i => $row) {
       // Compare the given row to all table rows. If no exception is thrown it
       // means the row was found.
       try {
@@ -566,13 +568,6 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
-   * @Given /^I am on the "([^"]*)" page$/
-   */
-  public function iAmOnThePage($page_name) {
-
-  }
-
-   /**
    * @When /^I am on the "([^"]*)" page of the default "([^"]*)"$/
    */
   public function iAmOnThePageOfTheDefault($page_name, $node_type) {
@@ -606,5 +601,13 @@ class FeatureContext extends DrupalContext {
     }
     return $steps;
   }
+
+  /**
+   * @Given /^I wait$/
+   */
+  public function iWait() {
+    sleep(10);
+  }
+
 
 }

@@ -14,13 +14,23 @@ function garmentbox_omega_preprocess_page(&$variables) {
   // When the node wasn't loaded, try fetching it from the menu item.
   if (!$node) {
     $item = menu_get_item();
-    if (substr($item['path'], 0, 8) == 'season/%' && !empty($item['map'][1]->data)) {
-      $node = $item['map'][1]->data;
+    if (strpos($item['path'], 'season/%') === 0) {
+      // When on a panels page, ['map'][1] has the node itself.
+      if (!empty($item['map'][1]->data)) {
+        $node = $item['map'][1]->data;
+      }
+      // When on a views page, ['map'][1] has the node ID.
+      elseif (!empty($item['map']) && is_numeric($item['map'][1])) {
+        $node = node_load($item['map'][1]);
+      }
     }
   }
 
   if ($node) {
     $variables['page']['title'] = node_view($node, 'garmentbox_header');
+    $variables['page']['breadcrumbs'] = garmentbox_general_get_node_breadcrumbs($node);
+    $variables['page']['tabs'] = garmentbox_general_get_node_tabs($node);
+    $variables['page']['primary_button'] = garmentbox_general_get_node_primary_button($node);
   }
 }
 
@@ -48,6 +58,14 @@ function garmentbox_omega_preprocess_node(&$variables) {
  *
  * @see garmentbox_omega_preprocess_node().
  */
-function garmentbox_omega_preprocess_material_node_garmentbox_header(&$variables) {
-  $variables['content']['field_images']['#access'] = user_access('access content');
+function garmentbox_omega_preprocess_material_node(&$variables) {
+  $wrapper = entity_metadata_wrapper('node', $variables['nid']);
+
+  $measurements = array('length', 'width', 'radius');
+  foreach ($measurements as $measurement) {
+    if (!$wrapper->field_material_type->{'field_has_' . $measurement}->value()) {
+      // Hide disabled measurements by material type.
+      $variables['content']['field_' . $measurement]['#access'] = FALSE;
+    }
+  }
 }
