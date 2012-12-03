@@ -7,16 +7,6 @@
 include_once 'garmentbox_season.features.inc';
 
 /**
- * Implements hook_ctools_plugin_directory().
- */
-function garmentbox_season_ctools_plugin_directory($module, $plugin) {
-  if ($module == 'ctools') {
-    return 'plugins/' . $plugin;
-  }
-}
-
-
-/**
  * Implements hook_init().
  */
 function garmentbox_season_init() {
@@ -28,6 +18,39 @@ function garmentbox_season_init() {
   if (drupal_is_front_page()) {
     _garmentbox_season_redirect_to_season();
   }
+
+  // When on the main season page, redirect to the season's tasks page.
+  $item = menu_get_item();
+  if ($item['path'] == 'node/%' && $item['map'][1]->type == 'season') {
+    $nid = $item['map'][1]->nid;
+    drupal_goto("season/$nid/tasks");
+  }
+}
+
+/**
+ * Implements hook_page_build().
+ *
+ * Override the items page title.
+ */
+function garmentbox_season_page_build(&$page) {
+  $item = menu_get_item();
+  if ($item['path'] != 'season/%/tasks' && $item['path'] != 'season/%/items') {
+    return;
+  }
+
+  $node = node_load($item['map'][1]);
+
+  if ($item['path'] == 'season/%/tasks') {
+    // Fix the title on the season tasks page. (The Season title cannot be
+    // extracted from the first row because the task might be referenced to entity
+    // other than the season.)
+    $title = t('@season - Tasks', array('@season' => $node->title));
+  }
+  else {
+    $title = t('@season - Items', array('@season' => $node->title));
+  }
+
+  drupal_set_title($title);
 }
 
 /**
@@ -55,7 +78,7 @@ function _garmentbox_season_redirect_to_season() {
     drupal_goto("season/$nid/items");
   }
   else {
-    drupal_goto("season/$nid");
+    drupal_goto("season/$nid/tasks");
   }
 }
 
@@ -74,4 +97,25 @@ function _garmentbox_season_count_view_rows($view_name, $nid) {
   $view = views_get_view($view_name);
   $view->preview('panel_pane_1', array($nid));
   return $view->total_rows;
+}
+
+/**
+ * Build the tabs list for a season node.
+ *
+ * @param $node
+ *   Season node.
+ *
+ * @return
+ *   Themed item list of tabs.
+ */
+function garmentbox_season_get_tabs($node) {
+  $nid = $node->nid;
+  $items = array();
+  $items[] = l(t('Task List'), "season/$nid/tasks");
+  $items[] = l(t('Items'), "season/$nid/items");
+  $items[] = l(t('Inventory'), "season/$nid/inventory");
+  $items[] = l(t('Orders'), "season/$nid/orders");
+  $items[] = l(t('Production Orders'), "season/$nid/production-orders");
+
+  return theme('item_list', array('items' => $items));
 }
