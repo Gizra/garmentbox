@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * garmentbox_factory.views_default.inc
+ * garmentbox_production.views_default.inc
  */
 
 /**
  * Implements hook_views_default_views().
  */
-function garmentbox_factory_views_default_views() {
+function garmentbox_production_views_default_views() {
   $export = array();
 
   $view = new view;
