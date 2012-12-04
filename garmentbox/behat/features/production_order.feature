@@ -62,4 +62,3 @@ Feature: Test production order flow
     Given I am logged in as a user with the "authenticated user" role
      When I am on the "Add a production order" page of the default "season"
      Then the URL query "field_season" should have the id of "Autumn-Winter 2013 Women"
-
