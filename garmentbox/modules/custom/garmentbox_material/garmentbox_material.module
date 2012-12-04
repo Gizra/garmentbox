@@ -105,7 +105,7 @@ function garmentbox_material_get_units($type) {
  * @return
  *   Themed item list of tabs.
  */
-function garmentbox_material_get_tabs() {
+function garmentbox_material_get_tabs($node) {
   $query = new EntityFieldQuery();
   $result = $query
     ->entityCondition('entity_type', 'node')
@@ -118,6 +118,7 @@ function garmentbox_material_get_tabs() {
   }
 
   $items = array();
+  $nid = $node->nid;
   $nodes = node_load_multiple(array_keys($result['node']));
   foreach ($nodes as $node) {
     $wrapper = entity_metadata_wrapper('node', $node);

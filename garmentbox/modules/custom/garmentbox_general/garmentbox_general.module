@@ -178,7 +178,7 @@ function garmentbox_general_get_node_tabs($node) {
       return garmentbox_item_get_tabs($node);
 
     case 'material':
-      return garmentbox_material_get_tabs();
+      return garmentbox_material_get_tabs($node);
   }
 }
 
