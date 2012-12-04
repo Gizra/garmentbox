@@ -4,10 +4,21 @@ use Drupal\DrupalExtension\Context\DrupalContext;
 use Behat\Behat\Context\Step\Given;
 use Behat\Gherkin\Node\TableNode;
 use Guzzle\Service\Client;
+use Behat\Behat\Context\Step;
 
 require 'vendor/autoload.php';
 
 class FeatureContext extends DrupalContext {
+  /**
+   * Array of flags flagged in the tests to revert in the end of testing.
+   *
+   * Required parameters for every element in the array:
+   *  'entity_id' => entity ID.
+   *  'flag_name' => name of the flag to unflag. Entity type is derived from
+   *    the flag.
+   */
+  private $flagged = array();
+
 
   /**
    * Initializes context.
@@ -286,6 +297,20 @@ class FeatureContext extends DrupalContext {
         case '<input>':
           if (!$cell->find('css', 'input')) {
             throw new \Exception('Expected input element not found.');
+          }
+          break;
+
+        case '<textfield>':
+          $input = $cell->find('xpath', "//input[@type='text']");
+          if (!$input) {
+            throw new \Exception('Textfield not found.');
+          }
+
+          if (!empty($words[1])) {
+            $value = $input->getAttribute('value');
+            if ($value != $words[1]) {
+              throw new \Exception("Found '$value' instead of '$words[1]'.");
+            }
           }
           break;
 
@@ -568,11 +593,13 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
-   * @When /^I am on the "([^"]*)" page of the default "([^"]*)"$/
+   * @When /^I am on (a|the) "([^"]*)" page of the default "([^"]*)"$/
    */
-  public function iAmOnThePageOfTheDefault($page_name, $node_type) {
+  public function iAmOnThePageOfTheDefault($the, $page_name, $node_type) {
+    $node_type = str_replace('-', '_', $node_type);
     $nid = $this->sample_nodes[$node_type];
 
+    $steps = array();
     switch($page_name) {
       case 'Add a production order':
         $path = "node/add/production-order?field_season=$nid";
@@ -582,14 +609,76 @@ class FeatureContext extends DrupalContext {
         $path = "season/$nid/inventory";
         break;
 
+      case 'Season items':
+        $path = "season/$nid/items";
+        break;
+
+      case 'Season orders':
+        $path = "season/$nid/orders";
+        break;
+
+      case 'Production delivery':
+        $path = "production-order/$nid/delivery";
+        break;
+
       default:
         throw new \Exception("Page '$page_name' not defined.");
     }
 
-    return new Given("I am at \"$path\"");
+    return new Step\When("I am at \"$path\"");
   }
 
   /**
+   * @When /^I am on the default "([^"]*)" page$/
+   */
+  public function iAmOnTheDefaultPage($node_type) {
+    $node_type = str_replace('-', '_', $node_type);
+    $nid = $this->sample_nodes[$node_type];
+    $path = 'node/' . $nid;
+    return new Step\When("I am at \"$path\"");
+  }
+
+  /**
+   * @When /^I add an item variant titled "([^"]*)" to line sheet$/
+   */
+  public function iAddAnItemVariantTitledToLineSheet($title) {
+    // Trace what flags have we flagged in the test.
+    $this->flagged[] = array(
+      'entity_id' => $this->getEntityId($title),
+      'flag_name' => 'line_sheet',
+    );
+
+    // Add the item variant to the line sheet.
+    return array(
+        new Given('I am on a "item-variant" page titled "'. $title. '"'),
+        new Given('I click "Add to line Sheet"'),
+    );
+  }
+
+  /**
+   * Unflag used flags.
+   *
+   * @AfterScenario
+   */
+  public function cleanFlags($event) {
+    if (empty($this->flagged)) {
+      // No flags to unflag.
+      return;
+    }
+
+    // Unflag every flagged flag.
+    foreach ($this->flagged as $flag) {
+      $entity_id = $flag['entity_id'];
+      $flag_name = $flag['flag_name'];
+      $code = "flag('unflag', $flag_name, $entity_id, user_load(1)); ";
+      $this->getDriver()->drush("php-eval '$code'");
+    }
+    // Clean the flagged flags list.
+    $this->flagged = array();
+  }
+
+  /**
+   *
    * @Then /^I should see the following <contents>:$/
    */
   public function iShouldSeeTheFollowing($contents) {
@@ -608,6 +697,5 @@ class FeatureContext extends DrupalContext {
   public function iWait() {
     sleep(10);
   }
-
-
 }
+

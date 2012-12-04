@@ -49,3 +49,140 @@ function garmentbox_line_sheet_flag_get_flagged_content($flag_name, $node) {
   }
   return $return;
 }
+
+/**
+ * Implements hook_menu().
+ *
+ * Line sheet page.
+ */
+function garmentbox_line_sheet_menu() {
+  $items['season/%node/line-sheet'] = array(
+   'title' => 'Line sheet',
+   'page callback' => 'garmentbox_line_sheet_line_sheet',
+   'page arguments' => array(1),
+   'type' => MENU_CALLBACK,
+   'access callback' => 'node_access',
+   'access arguments' => array('view', 1),
+ );
+
+  return $items;
+}
+
+/**
+ * Menu callback for season's line-sheet page.
+ */
+function garmentbox_line_sheet_line_sheet($season_node) {
+  if (!$nids = garmentbox_line_sheet_flag_get_flagged_content('line_sheet', $season_node)) {
+    return t('No items added to the line sheet.');
+  }
+
+  $items = array();
+  // Iterate over the item instances, but key them by the item node ID.
+  foreach ($nids as $row) {
+    $nid = $row->content_id;
+    $wrapper = entity_metadata_wrapper('node', $nid);
+    $item_wrapper = $wrapper->field_item;
+    $item_nid = $item_wrapper->getIdentifier();
+
+    $items[$item_nid]['title'] = $item_wrapper->label();
+
+    if ($images = $wrapper->field_images->value()) {
+      foreach ($images as $image) {
+        $items[$item_nid]['images'][] = theme('image_style', array('style_name' => 'line_sheet_display', 'path' => $image['uri']));
+      }
+    }
+
+    $items[$item_nid]['prices']['retail'][] = $wrapper->field_retail_price->amount->value();
+    $items[$item_nid]['prices']['wholesale'][] = $wrapper->field_wholesale_price->amount->value();
+
+    $items[$item_nid]['variants'][$nid]['name'] = l($wrapper->label(), 'node/' . $nid);
+
+    foreach ($wrapper->field_bom_info as $bom_wrapper) {
+      $node = $bom_wrapper->field_source_info_ref->value()->hostEntity();
+      $material_wrapper = entity_metadata_wrapper('node', $node);
+      // Default material name to it's nickname, use the title if nickname is not available.
+      $material_name = $material_wrapper->label();
+      // Avoid duplicates.
+      $items[$item_nid]['variants'][$nid]['material'] = garmentbox_item_get_main_material_icon($wrapper->value());
+    }
+
+    $sizes = array();
+    foreach ($wrapper->field_size_info as $size_wrapper) {
+      $sizes[] = check_plain($size_wrapper->field_size->label());
+    }
+    $items[$item_nid]['variants'][$nid]['sizes'] = implode(', ', $sizes);
+  }
+
+  $output = '';
+  $variants_header = array(t('Name'), array('data' => t('Material'), 'class' => array('material')), t('Sizes'));
+  $prices_header = array(t('Wholesale'), t('Retail'));
+  foreach ($items as $nid => $variables) {
+    // Calculate price ranges.
+    $prices = $variables['prices'];
+    $prices_table[0] = array(
+      'wholesale' => _garmentbox_line_sheet_price_range($prices['wholesale']),
+      'retail' => _garmentbox_line_sheet_price_range($prices['retail']),
+    );
+
+    $prices_variables = array(
+      'header' => $prices_header,
+      'rows' => $prices_table,
+      'attributes' => array('id' => array('prices')),
+    );
+    $variables['prices'] = theme('table', $prices_variables);
+
+    $variants_variables = array(
+      'header' => $variants_header,
+      'rows' => $variables['variants'],
+      'attributes' => array('id' => array('variants')),
+    );
+    $variables['variants'] = theme('table', $variants_variables);
+
+    $images_variables = array(
+      'items' => $variables['images'],
+      'options' => array('visible' => 3),
+    );
+    $variables['images'] = theme('jcarousel', $images_variables);
+
+    $output .= theme('garmentbox_line_sheet', $variables);
+  }
+
+  // Add necessary collapsible fieldset javascript.
+  drupal_add_js('misc/form.js');
+  drupal_add_js('misc/collapse.js');
+  drupal_add_js(drupal_get_path('module', 'garmentbox_line_sheet') . '/theme/line_sheet.js');
+
+  return $output;
+}
+
+/**
+ * Helper function to find a price range from an array of prices.
+ *
+ * @param $values
+ *   Array of prices.
+ *
+ * @return
+ *   String; price range of the prices array.
+ */
+function _garmentbox_line_sheet_price_range($values) {
+  $currency = commerce_default_currency();
+  $minimum = min($values);
+  return max($values) == $minimum ? commerce_currency_format($minimum, $currency) : commerce_currency_format($minimum, $currency) . ' - ' . commerce_currency_format(max($values), $currency);
+}
+
+/**
+ * Implements hook_theme().
+ */
+function garmentbox_line_sheet_theme($existing, $type, $theme, $path) {
+  return array(
+    'garmentbox_line_sheet' => array(
+      'variables' => array(
+        'images' => NULL,
+        'variants' => 0,
+        'prices' => 0,
+      ),
+      'path' => drupal_get_path('module', 'garmentbox_line_sheet') . '/theme',
+      'template' => 'line-sheet',
+    ),
+  );
+}

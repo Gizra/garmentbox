@@ -203,6 +203,24 @@ function garmentbox_item_get_variant_price($node) {
 }
 
 /**
+ * Build a list of size terms available to an item variant.
+ *
+ * @param $node
+ *   An item variant node.
+ *
+ * @return
+ *   Array of term IDs.
+ */
+function garmentbox_item_get_available_sizes($node) {
+  $wrapper = entity_metadata_wrapper('node', $node);
+  $sizes = array();
+  foreach ($wrapper->field_size_info as $size_wrapper) {
+    $sizes[$size_wrapper->field_size->getIdentifier()] = $size_wrapper->field_size->value();
+  }
+  return $sizes;
+ }
+
+/**
  * Build the tabs list for an item / item variant node.
  *
  * @param $node

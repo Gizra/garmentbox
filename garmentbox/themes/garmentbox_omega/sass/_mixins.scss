@@ -99,6 +99,11 @@
   }
 }
 
+@mixin opacity($value) {
+  opacity: $value;
+  filter:alpha(opacity=($value * 100)); /* For IE8 and earlier */
+}
+
 @mixin cleafix {
   &::after {
     content: ".";

@@ -47,6 +47,7 @@ features[og_features_permission][] = node:department:create production_order con
 features[og_features_permission][] = node:department:create season content
 features[og_features_permission][] = node:department:create task content
 features[og_features_permission][] = node:department:create vendor content
+features[og_features_permission][] = node:department:delete own production_order content
 features[og_features_permission][] = node:department:update any address content
 features[og_features_permission][] = node:department:update any article content
 features[og_features_permission][] = node:department:update any customer content

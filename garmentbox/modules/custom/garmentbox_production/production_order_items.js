@@ -10,7 +10,7 @@ Drupal.behaviors.GarmentboxOrderItems = {
 
     $(context).find('.form-item-field-factory-und select').change(function(event) {
       // The URL already has "?field_season=x" attached to it.
-      window.location = Drupal.settings.garmentbox_factory.url + '&field_factory=' + $(event.currentTarget).val();
+      window.location = Drupal.settings.garmentbox_production.url + '&field_factory=' + $(event.currentTarget).val();
     });
 
     // Toggle inventory lines rows.
@@ -139,14 +139,14 @@ Drupal.behaviors.GarmentboxOrderItems = {
   // Re-calculate variant production cost as inventory lines change.
   updateVariant: function(table, rowId, variantNid) {
     // Update the production cost and quantities.
-    var itemPrice = Drupal.settings.garmentbox_factory.lines_data[variantNid].item_price / 100;
+    var itemPrice = Drupal.settings.garmentbox_production.lines_data[variantNid].item_price / 100;
     var itemsCount = 0;
     var variantSizes = {};
     // Sum the items on checked inventory lines.
     table.find('tr.inventory-line[ref="' + rowId + '"] td:first-child input[type="checkbox"]:checked').each(function(i, element) {
       // Sum the inventory lines items counts.
       var lineNid = $(element).data('line-nid');
-      var lineData = Drupal.settings.garmentbox_factory.lines_data[variantNid].lines[lineNid];
+      var lineData = Drupal.settings.garmentbox_production.lines_data[variantNid].lines[lineNid];
       itemsCount += lineData.items_count;
 
       // Sum the per size items counts.
