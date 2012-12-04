@@ -626,17 +626,16 @@ class FeatureContext extends DrupalContext {
       // No flags to unflag.
       return;
     }
+
     // Unflag every flagged flag.
-    $code = '';
-    foreach ($this->flagged as $delta => $flag) {
+    foreach ($this->flagged as $flag) {
       $entity_id = $flag['entity_id'];
       $flag_name = $flag['flag_name'];
-      $code .= "flag('unflag', $flag_name, $entity_id, user_load(1)); ";
-
-      // Remove from the flag list.
-      unset($this->flagged[$delta]);
+      $code = "flag('unflag', $flag_name, $entity_id, user_load(1)); ";
+      $this->getDriver()->drush("php-eval '$code'");
     }
-    $this->getDriver()->drush("php-eval '$code'");
+    // Clean the flagged flags list.
+    $this->flagged = array();
   }
 
   /**
