@@ -1058,25 +1058,25 @@ table tbody td {
 }
 
 /* line 71, ../sass/style.scss */
-html.js fieldset.collapsible {
+html.js .page-season fieldset.collapsible {
   border: none;
   padding: 0;
   margin-bottom: 45px;
 }
 /* line 78, ../sass/style.scss */
-html.js fieldset.collapsible.collapsed .fieldset-legend {
+html.js .page-season fieldset.collapsible.collapsed .fieldset-legend {
   background: url("../images/arrow-white-down-status.png") 7px 10px no-repeat #4f4f4f;
 }
 /* line 83, ../sass/style.scss */
-html.js fieldset.collapsible a {
+html.js .page-season fieldset.collapsible a {
   font-size: 15px;
 }
 /* line 86, ../sass/style.scss */
-html.js fieldset.collapsible a.fieldset-title {
+html.js .page-season fieldset.collapsible a.fieldset-title {
   color: white;
 }
 /* line 91, ../sass/style.scss */
-html.js fieldset.collapsible .fieldset-hr {
+html.js .page-season fieldset.collapsible .fieldset-hr {
   border: 0;
   border-bottom: solid #4f4f4f 1px;
   height: 0px;
@@ -1085,11 +1085,11 @@ html.js fieldset.collapsible .fieldset-hr {
   background: url("../images/top-shaddow-collapsible.jpg") repeat-x bottom;
 }
 /* line 100, ../sass/style.scss */
-html.js fieldset.collapsible legend {
+html.js .page-season fieldset.collapsible legend {
   padding: 0;
 }
 /* line 103, ../sass/style.scss */
-html.js fieldset.collapsible legend .fieldset-legend {
+html.js .page-season fieldset.collapsible legend .fieldset-legend {
   font-weight: bold;
   background: url("../images/arrow-white-up-status.png") 7px 10px no-repeat #4f4f4f;
   padding-top: 3px;
@@ -1098,54 +1098,54 @@ html.js fieldset.collapsible legend .fieldset-legend {
   position: absolute;
 }
 /* line 113, ../sass/style.scss */
-html.js fieldset.collapsible .views-table caption {
+html.js .page-season fieldset.collapsible .views-table caption {
   display: none;
 }
 /* line 119, ../sass/style.scss */
-html.js fieldset.collapsible .fieldset-wrapper tr, html.js fieldset.collapsible .fieldset-wrapper td {
+html.js .page-season fieldset.collapsible .fieldset-wrapper tr, html.js .page-season fieldset.collapsible .fieldset-wrapper td {
   padding: 0;
 }
 /* line 123, ../sass/style.scss */
-html.js fieldset.collapsible .fieldset-wrapper thead th {
+html.js .page-season fieldset.collapsible .fieldset-wrapper thead th {
   font-family: Dosis, Arial, Helvetica, sans-serif;
 }
 /* line 126, ../sass/style.scss */
-html.js fieldset.collapsible .fieldset-wrapper thead th .active img {
+html.js .page-season fieldset.collapsible .fieldset-wrapper thead th .active img {
   margin-left: 5px;
 }
 /* line 133, ../sass/style.scss */
-html.js fieldset.collapsible .fieldset-wrapper .display-cell .display-cell-image {
+html.js .page-season fieldset.collapsible .fieldset-wrapper .display-cell .display-cell-image {
   padding: 1px;
   float: left;
 }
 /* line 137, ../sass/style.scss */
-html.js fieldset.collapsible .fieldset-wrapper .display-cell .display-cell-image a {
+html.js .page-season fieldset.collapsible .fieldset-wrapper .display-cell .display-cell-image a {
   display: block;
   height: 75px;
 }
 /* line 143, ../sass/style.scss */
-html.js fieldset.collapsible .fieldset-wrapper .display-cell .display-cell-title {
+html.js .page-season fieldset.collapsible .fieldset-wrapper .display-cell .display-cell-title {
   float: left;
   margin-top: 28px;
 }
 /* line 151, ../sass/style.scss */
-html.js fieldset.collapsible .fieldset-wrapper .views-field-field-bom-info a {
+html.js .page-season fieldset.collapsible .fieldset-wrapper .views-field-field-bom-info a {
   display: block;
   height: 75px;
 }
 /* line 156, ../sass/style.scss */
-html.js fieldset.collapsible .fieldset-wrapper .views-field-field-bom-info img {
+html.js .page-season fieldset.collapsible .fieldset-wrapper .views-field-field-bom-info img {
   border-right: 1px solid #B7B7B7;
   padding: 5px;
 }
 /* line 164, ../sass/style.scss */
-html.js fieldset.collapsible .fieldset-wrapper td.views-field-field-item-status, html.js fieldset.collapsible .fieldset-wrapper td.views-field-field-retail-price, html.js fieldset.collapsible .fieldset-wrapper td.views-field-field-wholesale-price {
+html.js .page-season fieldset.collapsible .fieldset-wrapper td.views-field-field-item-status, html.js .page-season fieldset.collapsible .fieldset-wrapper td.views-field-field-retail-price, html.js .page-season fieldset.collapsible .fieldset-wrapper td.views-field-field-wholesale-price {
   font-weight: bold;
   font-size: 15px;
   color: #010101;
   padding-left: 10px;
 }
 /* line 171, ../sass/style.scss */
-html.js fieldset.collapsible .fieldset-wrapper td.views-field-field-item-status {
+html.js .page-season fieldset.collapsible .fieldset-wrapper td.views-field-field-item-status {
   font-weight: normal;
 }

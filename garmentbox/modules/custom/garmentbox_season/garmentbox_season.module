@@ -37,6 +37,7 @@ function garmentbox_season_page_build(&$page) {
   if (empty($item['map'][1])) {
     return;
   }
+
   if ($item['path'] != 'season/%/tasks' && $item['path'] != 'season/%/items') {
     return;
   }
