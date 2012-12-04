@@ -674,19 +674,6 @@ class garmentboxInventoryLines extends garmentboxMigration {
       $row->field_production_order = NULL;
     }
   }
-
-  /**
-   * Set the original revision on inventory lines that are imported as part of a
-   * production order.
-   */
-  // public function complete($entity) {
-    // $wrapper = entity_metadata_wrapper('node', $entity);
-    // if ($wrapper->field_production_order->value()) {
-      // $entity->revision = FALSE;
-      // $wrapper->field_original_revision->set($entity->vid);
-      // $wrapper->save();
-    // }
-  // }
 }
 
 /**
