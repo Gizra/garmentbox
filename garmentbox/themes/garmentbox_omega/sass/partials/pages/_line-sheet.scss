@@ -1,0 +1,104 @@
+.page-season-line-sheet {
+
+  .line-sheet-item {
+    margin-bottom: 15px;
+    border: 1px solid black;
+    border-top: none;
+    min-height: 308px;
+
+    .col-first{
+      height: 100%;
+      float: left; //LTR
+      margin-right: 0.5%; //LTR
+      width: 49.5%;
+    }
+
+    .col-last {
+      float: right; //LTR
+      margin-right: 10px; //LTR
+      width: 49%;
+      height: 100%;
+    }
+
+    #variants {
+      margin-bottom: 10px;
+      font-size: 15px;
+
+      th.material {
+       width: 57px;
+      }
+
+      tbody td {
+        padding: 5px;
+
+        a.material-icon {
+          display: block;
+          height: 65px;
+        }
+      }
+    }
+
+    #prices {
+
+      tbody {
+        border: none;
+      }
+
+      th {
+        border: none;
+        background: white;
+        text-transform: lowercase;
+        color: #8D8D8D;
+        font-weight: normal;
+        font-size: 12px;
+        padding: 0;
+      }
+
+      td {
+        border: none;
+        background: white;
+        color: #F50067;
+        font-size: 26px;
+        text-transform: uppercase;
+      }
+    }
+
+    .images {
+
+      .jcarousel-skin-default .jcarousel-container-horizontal {
+        height: 300px;
+        width: 49%;
+        left: 0.5%;
+        position: absolute !important;
+        top: 50%;
+        margin-top: -138px;
+
+        .jcarousel-next, .jcarousel-prev {
+          @include transition(0.3s);
+          @include opacity(0.3);
+
+          &:hover {
+            @include opacity(1);
+          }
+        }
+
+        .jcarousel-clip-horizontal {
+            width: 500px;
+            height: 300px;
+
+          .jcarousel-item {
+            margin-right: 10px; //LTR
+            width: 160px !important;
+            height: 300px;
+            background: none;
+
+            img {
+              border: 4px solid black;
+              padding: 0px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
