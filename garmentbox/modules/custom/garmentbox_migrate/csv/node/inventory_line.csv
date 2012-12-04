@@ -1,7 +1,7 @@
 Unique ID,Title,Item variant,Type,Production date,Delivery date,Defective,Production order
 inventoryLine1,inventoryLine1,itemVariant1,inventoryType5,"May 7, 2013","May 30, 2013 12:00:00",0,
-inventoryLine2,inventoryLine2,itemVariant1,inventoryType1,"May 7, 2013","May 30, 2013 12:00:00",0,productionOrder1
-inventoryLine3,inventoryLine3,itemVariant2,inventoryType2,"May 7, 2013","May 30, 2013 12:00:00",0,
+inventoryLine2,inventoryLine2,itemVariant1,inventoryType1,"May 7, 2013","May 30, 2013 12:00:00",0,
+inventoryLine3,inventoryLine3,itemVariant2,inventoryType2,"May 7, 2013","May 30, 2013 12:00:00",0,productionOrder1
 inventoryLine4,inventoryLine4,itemVariant3,inventoryType3,"May 7, 2013","May 30, 2013 12:00:00",0,
 inventoryLine5,inventoryLine5,itemVariant1,inventoryType4,"May 7, 2013","May 30, 2013 12:00:00",0,
 inventoryLine6,inventoryLine6,itemVariant2,inventoryType5,"May 7, 2013","May 30, 2013 12:00:00",0,
@@ -10,8 +10,8 @@ inventoryLine8,inventoryLine8,itemVariant1,inventoryType2,"May 7, 2013","May 30,
 inventoryLine9,inventoryLine9,itemVariant2,inventoryType3,"May 7, 2013","May 30, 2013 12:00:00",0,
 inventoryLine10,inventoryLine10,itemVariant3,inventoryType5,"May 7, 2013","May 30, 2013 12:00:00",0,
 inventoryLine11,inventoryLine11,itemVariant1,inventoryType5,"May 7, 2013","May 30, 2013 12:00:00",0,
-inventoryLine12,inventoryLine12,itemVariant1,inventoryType1,"May 7, 2013","May 30, 2013 12:00:00",0,productionOrder1
-inventoryLine13,inventoryLine13,itemVariant2,inventoryType2,"May 7, 2013","May 30, 2013 12:00:00",0,
+inventoryLine12,inventoryLine12,itemVariant1,inventoryType1,"May 7, 2013","May 30, 2013 12:00:00",0,
+inventoryLine13,inventoryLine13,itemVariant2,inventoryType2,"May 7, 2013","May 30, 2013 12:00:00",0,productionOrder1
 inventoryLine14,inventoryLine14,itemVariant3,inventoryType3,"May 7, 2013","May 30, 2013 12:00:00",0,
 inventoryLine15,inventoryLine15,itemVariant1,inventoryType4,"May 7, 2013","May 30, 2013 12:00:00",0,
 inventoryLine16,inventoryLine16,itemVariant2,inventoryType1,"May 7, 2013","May 30, 2013 12:00:00",0,
