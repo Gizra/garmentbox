@@ -40,19 +40,16 @@ Feature: Test Season page
       | Variation                   | Small               | Medium                                          | Large                                           | Type                                                      |
       | Lines v-neck shirt - Total  | 0 Stock 0 Available | 12 Stock 0 Available 13 Ordered 7 Future stock  | 22 Stock 17 Available 5 Ordered 11 Future stock | All types Except of Defective, Consignment, Sent / Sold.  |
 
-  @api @wip
+  @api
   Scenario: Correct content is shown on the season orders list.
     Given I am logged in as a user with the "authenticated user" role
      When I am on the "Season orders" page of the default "season"
-     Then the table "orders" should have the following <contents>:
-      | Order   | Customer | Total price | Total items | Last delivery date  | Next delivery date | Status  |
-      | order1  | Gap      | N/A         | 47          | N/A                 | <date> 5/30/2013   | New     |
-    And the order "order1" should have these <inventory lines>
-      | Variation           | Small | Medium  | Large | Total | Status              |
-      | Black v-neck shirt  | 0     | 6       | 5     | 11    | Current production  |
-      | Grey v-neck shirt   | 5     | 0       | 10    | 15    | Consignment         |
-      | Lines v-neck shirt  | 0     | 12      | 10    | 22    | Sent / Sold         |
-      | Lines v-neck shirt  | 0     | 1       | 0     | 1     | Future production   |
+     Then the following <row> should appear in the table "orders" :
+      | order3  | High Couture | N/A         | 26 | N/A | <date> 5/30/2013 | Shipping |
+      And the order "order3" should have these <inventory lines>
+      | Variation          | Small | Medium | Large | Total | Status             |
+      | Grey v-neck shirt  | 1     | 0      | 20    | 21    | Future production  |
+      | Lines v-neck shirt | 0     | 4      | 1     | 5     | Current production |
 
   @api
   Scenario: Verify redirections from the front page to the season items tab.
