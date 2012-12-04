@@ -9,7 +9,7 @@ Feature: Test production order flow
       | Include in order   | Item variation                   | Small   | Medium  | Large   | Fabric  | Production cost |
       | <checkbox> checked | Grey v-neck shirt                | 1       | 2       | 20      | <image> | $1,150.00       |
       | <checkbox>         | Grey v-neck shirt - Extra items  | <input> | <input> | <input> |         | $0.00           |
-      | <checkbox> checked | Lines v-neck shirt               |         |         | 3       | <image> | $79.50          |
+      | <checkbox> checked | Lines v-neck shirt               |         | 8       | 7       | <image> | $397.50         |
 
   @javascript
   Scenario: Testing price re-calculation.
@@ -21,8 +21,8 @@ Feature: Test production order flow
       And I fill in "Small" with "2" in row containing "Grey v-neck shirt - Extra items" in table "inventory"
      Then the "Production cost" column of "Grey v-neck shirt" in table "inventory" should be "$200.00"
       And the "Production cost" column of "Grey v-neck shirt - Extra items" in table "inventory" should be "$100.00"
-      And the "Total items" input should have the value "30"
-      And the "Production price" input should have the value "$1,268.50"
+      And the "Total items" input should have the value "42"
+      And the "Production price" input should have the value "$1,586.50"
 
   @api
   Scenario: Adding an inventory line to a production order and checking that it's not available to other orders.

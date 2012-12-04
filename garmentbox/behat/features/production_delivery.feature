@@ -6,10 +6,10 @@ Feature: Production order delivery.
     Given I am logged in as "user"
      When I am on a "Production delivery" page of the default "production-order"
      Then the table "delivery-inventory" should have the following <contents>:
-      | Received   | Item variation             | Type      | Small         | Medium        | Large          | Production price |
-      | <checkbox> | Lines v-neck shirt         | Received  |               | <textfield> 8 | <textfield> 4  | $318.00          |
+      | Received   | Item variation             | Type      | Small          | Medium         | Large          | Production price |
+      | <checkbox> | Black v-neck shirt         | Received  | <textfield> 16 | <textfield> 6  |                | $990.00          |
 
-  @api @wip
+  @javascript
   Scenario: Setting a production order as delivered and viewing the delivery tab.
     Given I am logged in as a user with the "authenticated user" role
       And I am on a "Production delivery" page of the default "production-order"
