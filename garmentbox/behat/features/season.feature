@@ -4,7 +4,7 @@ Feature: Test Season page
   @api
   Scenario: Basic content is shown on the season task list page.
     Given I am logged in as a user with the "authenticated user" role
-     When I am on a "season" page titled "Autumn-Winter 2013 Women"
+     When I am on the default "season" page
      Then I should see the heading "Autumn-Winter 2013 Women"
       And the page status is shown as "Design"
       And I should see the following <links>
@@ -18,7 +18,7 @@ Feature: Test Season page
   @api
   Scenario: Content is shown on the season task list itself.
     Given I am logged in as a user with the "authenticated user" role
-     When I am on a "season" page titled "Autumn-Winter 2013 Women"
+     When I am on the default "season" page
      Then the table "view-task-list" should have the following <contents>:
       | Summary             | Status      | Assignee | Replies | Last updated | Created  | Actions |
       | First task          | Open        | <ignore> | 0       | <ignore>     | <ignore> | edit    |
@@ -27,7 +27,7 @@ Feature: Test Season page
   @api
   Scenario: Correct content is shown on the season items list.
     Given I am logged in as a user with the "authenticated user" role
-     When I am on a "season" page titled "Autumn-Winter 2013 Women", in the tab "items"
+     When I am on the "Season items" page of the default "season"
      Then I should see a table titled "V-neck shirt" with the following <contents>:
       | Variant                    | Main material | Status     | Retail price | Wholesale price |
       | <image> Black v-neck shirt | <image>       | Needs work | $100.00      | $70.00          |
@@ -43,16 +43,13 @@ Feature: Test Season page
   @api
   Scenario: Correct content is shown on the season orders list.
     Given I am logged in as a user with the "authenticated user" role
-     When I am on a "season" page titled "Autumn-Winter 2013 Women", in the tab "orders"
-     Then the table "orders" should have the following <contents>:
-      | Order   | Customer | Total price | Total items | Last delivery date  | Next delivery date | Status  |
-      | order1  | Gap      | N/A         | 49          | N/A                 | <date> 5/30/2013   | New     |
-    And the order "order1" should have these <inventory lines>
-      | Variation           | Small | Medium  | Large | Total | Status              |
-      | Black v-neck shirt  | 0     | 6       | 5     | 11    | Current production  |
-      | Grey v-neck shirt   | 5     | 0       | 10    | 15    | Consignment         |
-      | Lines v-neck shirt  | 0     | 12      | 10    | 22    | Sent / Sold         |
-      | Lines v-neck shirt  | 0     | 1       | 0     | 1     | Future production   |
+     When I am on the "Season orders" page of the default "season"
+     Then the following <row> should appear in the table "orders" :
+      | order3  | High Couture | N/A         | 26 | N/A | <date> 5/30/2013 | Shipping |
+      And the order "order3" should have these <inventory lines>
+      | Variation          | Small | Medium | Large | Total | Status             |
+      | Grey v-neck shirt  | 1     | 0      | 20    | 21    | Future production  |
+      | Lines v-neck shirt | 0     | 4      | 1     | 5     | Current production |
 
   @api
   Scenario: Verify redirections from the front page to the season items tab.

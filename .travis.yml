@@ -41,5 +41,5 @@ script:
   - java -jar selenium-server-standalone-2.25.0.jar -p 4444 &
   - sleep 5
 
-  - ./bin/behat
+  - ./bin/behat --tags=~@wip
 

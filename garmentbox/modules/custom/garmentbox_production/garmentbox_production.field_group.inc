@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * garmentbox_factory.field_group.inc
+ * garmentbox_production.field_group.inc
  */
 
 /**
  * Implements hook_field_group_info().
  */
-function garmentbox_factory_field_group_info() {
+function garmentbox_production_field_group_info() {
   $export = array();
 
   $field_group = new stdClass();
