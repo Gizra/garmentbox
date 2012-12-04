@@ -4,6 +4,7 @@ use Drupal\DrupalExtension\Context\DrupalContext;
 use Behat\Behat\Context\Step\Given;
 use Behat\Gherkin\Node\TableNode;
 use Guzzle\Service\Client;
+use Behat\Behat\Context\Step;
 
 require 'vendor/autoload.php';
 
@@ -299,6 +300,20 @@ class FeatureContext extends DrupalContext {
           }
           break;
 
+        case '<textfield>':
+          $input = $cell->find('xpath', "//input[@type='text']");
+          if (!$input) {
+            throw new \Exception('Textfield not found.');
+          }
+
+          if (!empty($words[1])) {
+            $value = $input->getAttribute('value');
+            if ($value != $words[1]) {
+              throw new \Exception("Found '$value' instead of '$words[1]'.");
+            }
+          }
+          break;
+
         default:
           if ($content != $expected_row[$i]) {
             throw new \Exception("Found '$content' instead of '{$expected_row[$i]}'.");
@@ -578,11 +593,13 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
-   * @When /^I am on the "([^"]*)" page of the default "([^"]*)"$/
+   * @When /^I am on (a|the) "([^"]*)" page of the default "([^"]*)"$/
    */
-  public function iAmOnThePageOfTheDefault($page_name, $node_type) {
+  public function iAmOnThePageOfTheDefault($the, $page_name, $node_type) {
+    $node_type = str_replace('-', '_', $node_type);
     $nid = $this->sample_nodes[$node_type];
 
+    $steps = array();
     switch($page_name) {
       case 'Add a production order':
         $path = "node/add/production-order?field_season=$nid";
@@ -592,11 +609,33 @@ class FeatureContext extends DrupalContext {
         $path = "season/$nid/inventory";
         break;
 
+      case 'Season items':
+        $path = "season/$nid/items";
+        break;
+
+      case 'Season orders':
+        $path = "season/$nid/orders";
+        break;
+
+      case 'Production delivery':
+        $path = "production-order/$nid/delivery";
+        break;
+
       default:
         throw new \Exception("Page '$page_name' not defined.");
     }
 
-    return new Given("I am at \"$path\"");
+    return new Step\When("I am at \"$path\"");
+  }
+
+  /**
+   * @When /^I am on the default "([^"]*)" page$/
+   */
+  public function iAmOnTheDefaultPage($node_type) {
+    $node_type = str_replace('-', '_', $node_type);
+    $nid = $this->sample_nodes[$node_type];
+    $path = 'node/' . $nid;
+    return new Step\When("I am at \"$path\"");
   }
 
   /**

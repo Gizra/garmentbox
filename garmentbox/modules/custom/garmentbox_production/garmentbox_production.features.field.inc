@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * garmentbox_factory.features.field.inc
+ * garmentbox_production.features.field.inc
  */
 
 /**
  * Implements hook_field_default_fields().
  */
-function garmentbox_factory_field_default_fields() {
+function garmentbox_production_field_default_fields() {
   $fields = array();
 
   // Exported field: 'node-factory-field_address'.
@@ -385,7 +385,7 @@ function garmentbox_factory_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '5',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -485,7 +485,7 @@ function garmentbox_factory_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '4',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -585,9 +585,12 @@ function garmentbox_factory_field_default_fields() {
         ),
         'garmentbox_header' => array(
           'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
+          'module' => 'entityreference',
+          'settings' => array(
+            'link' => FALSE,
+          ),
+          'type' => 'entityreference_label',
+          'weight' => '1',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -686,7 +689,7 @@ function garmentbox_factory_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '3',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -785,10 +788,10 @@ function garmentbox_factory_field_default_fields() {
           'weight' => 5,
         ),
         'garmentbox_header' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '2',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -823,8 +826,87 @@ function garmentbox_factory_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-production_order-title_field'.
+  $fields['node-production_order-title_field'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'title_field',
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'text',
+      'settings' => array(
+        'max_length' => 255,
+      ),
+      'translatable' => '1',
+      'type' => 'text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'production_order',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'A field replacing node title.',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 7,
+        ),
+        'garmentbox_header' => array(
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '0',
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'title_field',
+      'label' => 'Title',
+      'required' => TRUE,
+      'settings' => array(
+        'hide_label' => array(
+          'entity' => FALSE,
+          'page' => FALSE,
+        ),
+        'text_processing' => 0,
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'module' => 'text',
+        'settings' => array(
+          'size' => 60,
+        ),
+        'type' => 'text_textfield',
+        'weight' => -5,
+      ),
+    ),
+  );
+
   // Translatables
   // Included for use with string extractors like potx.
+  t('A field replacing node title.');
   t('Address');
   t('Contact name');
   t('Email');
@@ -834,6 +916,7 @@ function garmentbox_factory_field_default_fields() {
   t('Reference hierarchy');
   t('Season');
   t('Status');
+  t('Title');
 
   return $fields;
 }
