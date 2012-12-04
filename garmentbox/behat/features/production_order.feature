@@ -50,7 +50,7 @@ Feature: Test production order flow
   @api
   Scenario: Creating an extra inventory line on the production order form.
     Given I am logged in as a user with the "authenticated user" role
-      When I am on the "Add a production order" page of the default "season"
+      And I am on the "Add a production order" page of the default "season"
      When I check "Include in order" in row containing "Lines v-neck shirt - Extra items" in table "inventory"
       And I fill in "Medium" with "212" in row containing "Lines v-neck shirt - Extra items" in table "inventory"
       And I fill in "Title" with "Test production order"
