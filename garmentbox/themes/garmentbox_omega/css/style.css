@@ -418,10 +418,18 @@ html.js fieldset.collapsible.collapsed .fieldset-legend {
   left: 0;
 }
 /* line 33, ../sass/partials/widget/_slideshow.scss */
+.jcarousel-skin-default .jcarousel-container-horizontal .jcarousel-next.jcarousel-prev-disabled, .jcarousel-skin-default .jcarousel-container-horizontal .jcarousel-prev.jcarousel-prev-disabled {
+  display: none;
+}
+/* line 37, ../sass/partials/widget/_slideshow.scss */
 .jcarousel-skin-default .jcarousel-container-horizontal .jcarousel-next {
   background-image: url("../images/slideshow-next.png");
   left: auto;
   right: 0;
+}
+/* line 42, ../sass/partials/widget/_slideshow.scss */
+.jcarousel-skin-default .jcarousel-container-horizontal .jcarousel-next.jcarousel-next-disabled {
+  display: none;
 }
 
 /* line 1, ../sass/partials/widget/_form.scss */
@@ -642,6 +650,110 @@ header#title .field-name-field-item-status .field-item, header#title .field-name
   margin-right: 8px;
 }
 
+/* line 3, ../sass/partials/pages/_line-sheet.scss */
+.page-season-line-sheet .line-sheet-item {
+  margin-bottom: 15px;
+  border: 1px solid black;
+  border-top: none;
+  min-height: 308px;
+}
+/* line 9, ../sass/partials/pages/_line-sheet.scss */
+.page-season-line-sheet .line-sheet-item .col-first {
+  height: 100%;
+  float: left;
+  margin-right: 0.5%;
+  width: 49.5%;
+}
+/* line 16, ../sass/partials/pages/_line-sheet.scss */
+.page-season-line-sheet .line-sheet-item .col-last {
+  float: right;
+  margin-right: 10px;
+  width: 49%;
+  height: 100%;
+}
+/* line 23, ../sass/partials/pages/_line-sheet.scss */
+.page-season-line-sheet .line-sheet-item #variants {
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+/* line 27, ../sass/partials/pages/_line-sheet.scss */
+.page-season-line-sheet .line-sheet-item #variants th.material {
+  width: 57px;
+}
+/* line 31, ../sass/partials/pages/_line-sheet.scss */
+.page-season-line-sheet .line-sheet-item #variants tbody td {
+  padding: 5px;
+}
+/* line 34, ../sass/partials/pages/_line-sheet.scss */
+.page-season-line-sheet .line-sheet-item #variants tbody td a.material-icon {
+  display: block;
+  height: 65px;
+}
+/* line 43, ../sass/partials/pages/_line-sheet.scss */
+.page-season-line-sheet .line-sheet-item #prices tbody {
+  border: none;
+}
+/* line 47, ../sass/partials/pages/_line-sheet.scss */
+.page-season-line-sheet .line-sheet-item #prices th {
+  border: none;
+  background: white;
+  text-transform: lowercase;
+  color: #8D8D8D;
+  font-weight: normal;
+  font-size: 12px;
+  padding: 0;
+}
+/* line 57, ../sass/partials/pages/_line-sheet.scss */
+.page-season-line-sheet .line-sheet-item #prices td {
+  border: none;
+  background: white;
+  color: #F50067;
+  font-size: 26px;
+  text-transform: uppercase;
+}
+/* line 68, ../sass/partials/pages/_line-sheet.scss */
+.page-season-line-sheet .line-sheet-item .images .jcarousel-skin-default .jcarousel-container-horizontal {
+  height: 300px;
+  width: 49%;
+  left: 0.5%;
+  position: absolute !important;
+  top: 50%;
+  margin-top: -138px;
+}
+/* line 76, ../sass/partials/pages/_line-sheet.scss */
+.page-season-line-sheet .line-sheet-item .images .jcarousel-skin-default .jcarousel-container-horizontal .jcarousel-next, .page-season-line-sheet .line-sheet-item .images .jcarousel-skin-default .jcarousel-container-horizontal .jcarousel-prev {
+  -moz-transition: 0.3s;
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+  opacity: 0.3;
+  filter: alpha(opacity=30);
+  /* For IE8 and earlier */
+}
+/* line 80, ../sass/partials/pages/_line-sheet.scss */
+.page-season-line-sheet .line-sheet-item .images .jcarousel-skin-default .jcarousel-container-horizontal .jcarousel-next:hover, .page-season-line-sheet .line-sheet-item .images .jcarousel-skin-default .jcarousel-container-horizontal .jcarousel-prev:hover {
+  opacity: 1;
+  filter: alpha(opacity=100);
+  /* For IE8 and earlier */
+}
+/* line 85, ../sass/partials/pages/_line-sheet.scss */
+.page-season-line-sheet .line-sheet-item .images .jcarousel-skin-default .jcarousel-container-horizontal .jcarousel-clip-horizontal {
+  width: 500px;
+  height: 300px;
+}
+/* line 89, ../sass/partials/pages/_line-sheet.scss */
+.page-season-line-sheet .line-sheet-item .images .jcarousel-skin-default .jcarousel-container-horizontal .jcarousel-clip-horizontal .jcarousel-item {
+  margin-right: 10px;
+  width: 160px !important;
+  height: 300px;
+  background: none;
+}
+/* line 95, ../sass/partials/pages/_line-sheet.scss */
+.page-season-line-sheet .line-sheet-item .images .jcarousel-skin-default .jcarousel-container-horizontal .jcarousel-clip-horizontal .jcarousel-item img {
+  border: 4px solid black;
+  padding: 0px;
+}
+
 /* line 3, ../sass/partials/pages/_material.scss */
 .node-type-material .pane-prepopulate-link#task-add {
   position: relative;
@@ -751,7 +863,7 @@ header#title .field-name-field-item-status .field-item, header#title .field-name
 .node-type-material .primary-button#material-add a {
   margin-top: 6px;
 }
-/* line 103, ../sass/_mixins.scss */
+/* line 108, ../sass/_mixins.scss */
 .node-type-material .field-name-field-washing-instructions::after, .node-type-material .field-name-field-fabric-content::after,
 .node-type-material .field-name-field-radius::after, .node-type-material .field-name-field-width::after, .node-type-material .field-name-field-length::after {
   content: ".";
@@ -1012,70 +1124,70 @@ body.contextual-links-region {
   position: static;
 }
 
-/* line 20, ../sass/style.scss */
+/* line 21, ../sass/style.scss */
 a {
   color: #679190;
   text-decoration: none;
 }
-/* line 24, ../sass/style.scss */
+/* line 25, ../sass/style.scss */
 a:hover {
   text-decoration: underline;
 }
 
-/* line 29, ../sass/style.scss */
+/* line 30, ../sass/style.scss */
 li {
   list-style-type: none;
 }
 
-/* line 33, ../sass/style.scss */
+/* line 34, ../sass/style.scss */
 .item-list ul li {
   margin: 0;
 }
 
-/* line 41, ../sass/style.scss */
+/* line 42, ../sass/style.scss */
 table tbody td {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* line 49, ../sass/style.scss */
+/* line 50, ../sass/style.scss */
 .content .panel-col-first {
   float: left;
   width: 49.5%;
 }
-/* line 54, ../sass/style.scss */
+/* line 55, ../sass/style.scss */
 .content .panel-col-last {
   float: left;
   width: 49.5%;
   margin-left: 1%;
 }
-/* line 59, ../sass/style.scss */
+/* line 60, ../sass/style.scss */
 .content .panel-col-last .jcarousel-skin-default .jcarousel-container-horizontal .jcarousel-clip-horizontal {
   width: 414px;
 }
-/* line 62, ../sass/style.scss */
+/* line 63, ../sass/style.scss */
 .content .panel-col-last .jcarousel-skin-default .jcarousel-container-horizontal .jcarousel-clip-horizontal ul li {
   height: 213px;
 }
 
-/* line 71, ../sass/style.scss */
+/* line 72, ../sass/style.scss */
 html.js .page-season fieldset.collapsible {
   border: none;
   padding: 0;
   margin-bottom: 45px;
 }
-/* line 78, ../sass/style.scss */
+/* line 79, ../sass/style.scss */
 html.js .page-season fieldset.collapsible.collapsed .fieldset-legend {
   background: url("../images/arrow-white-down-status.png") 7px 10px no-repeat #4f4f4f;
 }
-/* line 83, ../sass/style.scss */
+/* line 84, ../sass/style.scss */
 html.js .page-season fieldset.collapsible a {
   font-size: 15px;
 }
-/* line 86, ../sass/style.scss */
+/* line 87, ../sass/style.scss */
 html.js .page-season fieldset.collapsible a.fieldset-title {
   color: white;
 }
-/* line 91, ../sass/style.scss */
+/* line 92, ../sass/style.scss */
 html.js .page-season fieldset.collapsible .fieldset-hr {
   border: 0;
   border-bottom: solid #4f4f4f 1px;
@@ -1084,11 +1196,11 @@ html.js .page-season fieldset.collapsible .fieldset-hr {
   padding-top: 25px;
   background: url("../images/top-shaddow-collapsible.jpg") repeat-x bottom;
 }
-/* line 100, ../sass/style.scss */
+/* line 101, ../sass/style.scss */
 html.js .page-season fieldset.collapsible legend {
   padding: 0;
 }
-/* line 103, ../sass/style.scss */
+/* line 104, ../sass/style.scss */
 html.js .page-season fieldset.collapsible legend .fieldset-legend {
   font-weight: bold;
   background: url("../images/arrow-white-up-status.png") 7px 10px no-repeat #4f4f4f;
@@ -1097,55 +1209,55 @@ html.js .page-season fieldset.collapsible legend .fieldset-legend {
   margin: 0;
   position: absolute;
 }
-/* line 113, ../sass/style.scss */
+/* line 114, ../sass/style.scss */
 html.js .page-season fieldset.collapsible .views-table caption {
   display: none;
 }
-/* line 119, ../sass/style.scss */
+/* line 120, ../sass/style.scss */
 html.js .page-season fieldset.collapsible .fieldset-wrapper tr, html.js .page-season fieldset.collapsible .fieldset-wrapper td {
   padding: 0;
 }
-/* line 123, ../sass/style.scss */
+/* line 124, ../sass/style.scss */
 html.js .page-season fieldset.collapsible .fieldset-wrapper thead th {
   font-family: Dosis, Arial, Helvetica, sans-serif;
 }
-/* line 126, ../sass/style.scss */
+/* line 127, ../sass/style.scss */
 html.js .page-season fieldset.collapsible .fieldset-wrapper thead th .active img {
   margin-left: 5px;
 }
-/* line 133, ../sass/style.scss */
+/* line 134, ../sass/style.scss */
 html.js .page-season fieldset.collapsible .fieldset-wrapper .display-cell .display-cell-image {
   padding: 1px;
   float: left;
 }
-/* line 137, ../sass/style.scss */
+/* line 138, ../sass/style.scss */
 html.js .page-season fieldset.collapsible .fieldset-wrapper .display-cell .display-cell-image a {
   display: block;
   height: 75px;
 }
-/* line 143, ../sass/style.scss */
+/* line 144, ../sass/style.scss */
 html.js .page-season fieldset.collapsible .fieldset-wrapper .display-cell .display-cell-title {
   float: left;
   margin-top: 28px;
 }
-/* line 151, ../sass/style.scss */
+/* line 152, ../sass/style.scss */
 html.js .page-season fieldset.collapsible .fieldset-wrapper .views-field-field-bom-info a {
   display: block;
   height: 75px;
 }
-/* line 156, ../sass/style.scss */
+/* line 157, ../sass/style.scss */
 html.js .page-season fieldset.collapsible .fieldset-wrapper .views-field-field-bom-info img {
   border-right: 1px solid #B7B7B7;
   padding: 5px;
 }
-/* line 164, ../sass/style.scss */
+/* line 165, ../sass/style.scss */
 html.js .page-season fieldset.collapsible .fieldset-wrapper td.views-field-field-item-status, html.js .page-season fieldset.collapsible .fieldset-wrapper td.views-field-field-retail-price, html.js .page-season fieldset.collapsible .fieldset-wrapper td.views-field-field-wholesale-price {
   font-weight: bold;
   font-size: 15px;
   color: #010101;
   padding-left: 10px;
 }
-/* line 171, ../sass/style.scss */
+/* line 172, ../sass/style.scss */
 html.js .page-season fieldset.collapsible .fieldset-wrapper td.views-field-field-item-status {
   font-weight: normal;
 }

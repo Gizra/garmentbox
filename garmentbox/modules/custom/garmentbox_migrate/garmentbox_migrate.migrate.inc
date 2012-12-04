@@ -45,6 +45,9 @@ class GarmentboxUsers extends Migration {
     // Create a MigrateSource object.
     $this->source = new MigrateSourceCSV(drupal_get_path('module', 'garmentbox_migrate') . '/csv/' . $this->entityType . '/user.csv', $this->csvColumns, array('header_rows' => 1));
     $this->destination = new MigrateDestinationUser();
+
+    // Clear flags cache.
+    flag_get_flags(NULL, NULL, NULL, TRUE);
   }
 }
 
@@ -600,6 +603,18 @@ class garmentboxItemVariants extends garmentboxMigration {
   function prepareRow($row) {
     parent::prepareRow($row);
     $row->field_images = explode('; ', $row->field_images);
+  }
+
+  public function complete($entity, $row) {
+    // Flag certain item variants as line-sheet items.
+    $item_variant_titles = array(
+      'Lines v-neck shirt',
+      'Black v-neck shirt',
+    );
+
+    if (in_array($entity->title, $item_variant_titles)) {
+      flag('flag', 'line_sheet', $entity->nid, user_load(1));
+    }
   }
 }
 
