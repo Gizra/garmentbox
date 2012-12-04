@@ -4,6 +4,7 @@ default:
       drupal_users:
         user:
           'user'
+
       sample_nodes:
         season: 24
 

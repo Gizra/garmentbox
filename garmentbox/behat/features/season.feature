@@ -77,3 +77,29 @@ Feature: Test Season page
       And I press "Save"
       And I visit the front page
      Then I should be on a page titled "Test season 2 - Tasks | Site-Install"
+
+  @api
+  Scenario: Test page display for line sheet list.
+    Given I am logged in as a user with the "authenticated user" role
+     When I am on a "season" page titled "Autumn-Winter 2013 Women", in the tab "line-sheet"
+    Then the table "prices" should have the following <contents>:
+      | Wholesale        | Retail           |
+      | $55.00 - $70.00  | $80.00 - $100.00 |
+     And the table "variants" should have the following <contents>:
+      | Name               | Material | Sizes         |
+      | Lines v-neck shirt | <image>  | Medium, Large |
+      | Black v-neck shirt | <image>  | Small, Medium |
+
+  @api
+  Scenario: Test addition of line sheet items.
+    Given I am logged in as a user with the "authenticated user" role
+     When I add an item variant titled "Grey v-neck shirt" to line sheet
+      And I am on a "season" page titled "Autumn-Winter 2013 Women", in the tab "line-sheet"
+    Then the table "prices" should have the following <contents>:
+      | Wholesale        | Retail               |
+      | $55.00 - $70.00  | $55.00 - $100.00     |
+     And the table "variants" should have the following <contents>:
+      | Name               | Material | Sizes                |
+      | Lines v-neck shirt | <image>  | Medium, Large        |
+      | Black v-neck shirt | <image>  | Small, Medium        |
+      | Grey v-neck shirt  | <image>  | Small, Medium, Large |

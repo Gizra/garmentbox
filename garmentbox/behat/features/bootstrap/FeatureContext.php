@@ -8,6 +8,16 @@ use Guzzle\Service\Client;
 require 'vendor/autoload.php';
 
 class FeatureContext extends DrupalContext {
+  /**
+   * Array of flags flagged in the tests to revert in the end of testing.
+   *
+   * Required parameters for every element in the array:
+   *  'entity_id' => entity ID.
+   *  'flag_name' => name of the flag to unflag. Entity type is derived from
+   *    the flag.
+   */
+  private $flagged = array();
+
 
   /**
    * Initializes context.
@@ -590,6 +600,47 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
+   * @When /^I add an item variant titled "([^"]*)" to line sheet$/
+   */
+  public function iAddAnItemVariantTitledToLineSheet($title) {
+    // Trace what flags have we flagged in the test.
+    $this->flagged[] = array(
+      'entity_id' => $this->getEntityId($title),
+      'flag_name' => 'line_sheet',
+    );
+
+    // Add the item variant to the line sheet.
+    return array(
+        new Given('I am on a "item-variant" page titled "'. $title. '"'),
+        new Given('I click "Add to line Sheet"'),
+    );
+  }
+
+  /**
+   * Unflag used flags.
+   *
+   * @AfterScenario
+   */
+  public function cleanFlags($event) {
+    if (empty($this->flagged)) {
+      // No flags to unflag.
+      return;
+    }
+    // Unflag every flagged flag.
+    $code = '';
+    foreach ($this->flagged as $delta => $flag) {
+      $entity_id = $flag['entity_id'];
+      $flag_name = $flag['flag_name'];
+      $code .= "flag('unflag', $flag_name, $entity_id, user_load(1)); ";
+
+      // Remove from the flag list.
+      unset($this->flagged[$delta]);
+    }
+    $this->getDriver()->drush("php-eval '$code'");
+  }
+
+  /**
+   *
    * @Then /^I should see the following <contents>:$/
    */
   public function iShouldSeeTheFollowing($contents) {
@@ -608,6 +659,5 @@ class FeatureContext extends DrupalContext {
   public function iWait() {
     sleep(10);
   }
-
-
 }
+
