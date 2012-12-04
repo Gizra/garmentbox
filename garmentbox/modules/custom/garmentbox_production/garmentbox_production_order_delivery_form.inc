@@ -173,6 +173,11 @@ function _garmentbox_production_order_delivery_form_row($nid, $type, $extra_clas
  */
 function garmentbox_production_order_delivery_form($form, &$form_state, $node) {
   $wrapper = entity_metadata_wrapper('node', $node);
+
+  // Inventory lines without an order will be shown as if belongs to the group
+  // of the production order.
+  $default_customer_label = $wrapper->og_group_ref->get(0)->label();
+
   $form['factory_details'] = array(
     '#markup' => t('Factory: @factory', array('@factory' => $wrapper->field_factory->label())),
   );
@@ -243,7 +248,7 @@ function garmentbox_production_order_delivery_form($form, &$form_state, $node) {
       );
 
       // Set the inventory line label.
-      $customer = empty($il['order']) ? t('N/A') : $il['order']['link'];
+      $customer = empty($il['order']) ? $default_customer_label : $il['order']['link'];
       $form['variants'][$nid]['lines'][$il_nid]["line_{$il_nid}_title_variant_{$nid}"] = array(
         '#markup' => t('Customer: !customer', array('!customer' => $customer)),
       );
