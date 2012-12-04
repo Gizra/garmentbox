@@ -6,6 +6,10 @@
 
 include_once 'garmentbox_inventory.features.inc';
 
+define('INVENTORY_TYPE_CURRENT_PRODUCTION', 'Current production');
+define('INVENTORY_TYPE_REGULAR_STOCK', 'Regular stock');
+define('INVENTORY_TYPE_FUTURE_PRODUCTION', 'Future production');
+
 /**
  * Implements hook_ctools_plugin_directory().
  */
@@ -49,7 +53,7 @@ function garmentbox_inventory_get_page_title($node) {
  * Implements hook_field_access().
  *
  * Hide date fields from inventory form.
- * TODO Why do we do that?
+ * TODO: Why do we do that?
  */
 function garmentbox_inventory_field_access($op, $field, $entity_type, $entity, $account) {
   if ($op != 'edit') {

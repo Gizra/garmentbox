@@ -429,6 +429,37 @@ class garmentboxMaterials extends garmentboxMigration {
 }
 
 /**
+ * Migrate production orders.
+ */
+class garmentboxProductionOrders extends garmentboxMigration {
+
+  public $csvColumns = array(
+    array('id', 'Unique ID'),
+    array('field_factory', 'Factory'),
+    array('field_season', 'Season'),
+  );
+
+  public $entityType = 'node';
+  public $bundle = 'production_order';
+
+  public $dependencies = array(
+    'garmentboxSeasons',
+    'garmentboxFactories',
+  );
+
+  public function __construct() {
+    parent::__construct();
+
+    $this
+      ->addFieldMapping('field_factory', 'field_factory')
+      ->sourceMigration('garmentboxFactories');
+    $this
+      ->addFieldMapping('field_season', 'field_season')
+      ->sourceMigration('garmentboxSeasons');
+  }
+}
+
+/**
  * Migrate Items nodes.
  */
 class garmentboxItems extends garmentboxMigration {
@@ -576,7 +607,6 @@ class garmentboxItemVariants extends garmentboxMigration {
  * Migrate inventory line nodes.
  */
 class garmentboxInventoryLines extends garmentboxMigration {
-
   public $csvColumns = array(
     array('id', 'Unique ID'),
     array('title', 'Title'),
@@ -585,6 +615,7 @@ class garmentboxInventoryLines extends garmentboxMigration {
     array('field_production_start_date', 'Production date'),
     array('field_delivery_date', 'Delivery date'),
     array('field_defective', 'Defective'),
+    array('field_production_order', 'Production order'),
   );
 
   public $entityType = 'node';
@@ -594,6 +625,7 @@ class garmentboxInventoryLines extends garmentboxMigration {
     'garmentboxDepartments',
     'garmentboxItemVariants',
     'garmentboxInventoryTypeTerms',
+    'garmentboxProductionOrders',
   );
 
   protected $dateFields = array(
@@ -615,7 +647,31 @@ class garmentboxInventoryLines extends garmentboxMigration {
     $this->addFieldMapping('field_production_start_date', 'field_production_start_date');
     $this->addFieldMapping('field_delivery_date', 'field_delivery_date');
     $this->addFieldMapping('field_defective', 'field_defective');
+
+    $this
+      ->addFieldMapping('field_production_order', 'field_production_order')
+      ->sourceMigration('garmentboxProductionOrders');
   }
+
+  public function prepareRow($row) {
+    // Empty strings are not null enough to be ignored.
+    if (!$row->field_production_order) {
+      $row->field_production_order = NULL;
+    }
+  }
+
+  /**
+   * Set the original revision on inventory lines that are imported as part of a
+   * production order.
+   */
+  // public function complete($entity) {
+    // $wrapper = entity_metadata_wrapper('node', $entity);
+    // if ($wrapper->field_production_order->value()) {
+      // $entity->revision = FALSE;
+      // $wrapper->field_original_revision->set($entity->vid);
+      // $wrapper->save();
+    // }
+  // }
 }
 
 /**
