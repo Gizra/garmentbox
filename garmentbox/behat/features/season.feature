@@ -40,13 +40,13 @@ Feature: Test Season page
       | Variation                   | Small               | Medium                                          | Large                                           | Type                                                      |
       | Lines v-neck shirt - Total  | 0 Stock 0 Available | 12 Stock 0 Available 13 Ordered 7 Future stock  | 22 Stock 17 Available 5 Ordered 11 Future stock | All types Except of Defective, Consignment, Sent / Sold.  |
 
-  @api
+  @api @wip
   Scenario: Correct content is shown on the season orders list.
     Given I am logged in as a user with the "authenticated user" role
      When I am on the "Season orders" page of the default "season"
      Then the table "orders" should have the following <contents>:
       | Order   | Customer | Total price | Total items | Last delivery date  | Next delivery date | Status  |
-      | order1  | Gap      | N/A         | 49          | N/A                 | <date> 5/30/2013   | New     |
+      | order1  | Gap      | N/A         | 47          | N/A                 | <date> 5/30/2013   | New     |
     And the order "order1" should have these <inventory lines>
       | Variation           | Small | Medium  | Large | Total | Status              |
       | Black v-neck shirt  | 0     | 6       | 5     | 11    | Current production  |

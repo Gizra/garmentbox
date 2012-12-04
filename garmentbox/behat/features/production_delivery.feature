@@ -26,5 +26,5 @@ Feature: Production order delivery.
       |                    |                            | Original  | 21             | 6             |       | $1,215.00        |
       |                    |                            | Missing   | 2              |               |       | $90.00           |
       |                    |                            | Missing   | 3              |               |       | $135.00          |
-      |                    |                            | Defective |                | 3             |       | $135.00          |
+      |                    |                            | Defective | <textfield>    | <textfield> 3 |       | $135.00          |
       |                    |                            | Extras    |                | 3             |       | $135.00          |

@@ -123,8 +123,10 @@ Drupal.behaviors.GarmentboxProductionOrderDelivery = {
     var types = ['original', 'received', 'defective', 'extras', 'missing-created'];
 
     for (i in types) {
-      var row = table.find('tr.' + types[i] + '[data-variant-nid="' + nid + '"]');
-      var itemsCount = this.updateRowPrice(row, itemPrice);
+      var itemsCount = 0;
+      table.find('tr.' + types[i] + '[data-variant-nid="' + nid + '"]').each(function(i, row) {
+       itemsCount += self.updateRowPrice($(row), itemPrice);
+      });
 
       // Save the variant's items count for the totals calculation.
       var typeName = types[i].replace('-', '_');
