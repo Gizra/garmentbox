@@ -40,7 +40,7 @@ Feature: Test Season page
       | Variation                   | Small               | Medium                                          | Large                                           | Type                                                      |
       | Lines v-neck shirt - Total  | 0 Stock 0 Available | 12 Stock 0 Available 13 Ordered 7 Future stock  | 22 Stock 17 Available 5 Ordered 11 Future stock | All types Except of Defective, Consignment, Sent / Sold.  |
 
-  @api
+  @api @wip
   Scenario: Correct content is shown on the season orders list.
     Given I am logged in as a user with the "authenticated user" role
      When I am on the "Season orders" page of the default "season"
