@@ -40,7 +40,6 @@ function garmentbox_omega_preprocess_page(&$variables) {
 function garmentbox_omega_preprocess_node(&$variables) {
   $node = $variables['node'];
 
-
   $view_mode = $variables['view_mode'] == 'full' ? '' : '_' . $variables['view_mode'];
   if ($view_mode == '_garmentbox_header') {
     $variables['display_submitted'] = FALSE;
