@@ -30,10 +30,15 @@ function garmentbox_omega_preprocess_page(&$variables) {
   }
 
   if ($node) {
+    // Node context.
     $variables['page']['title'] = node_view($node, 'garmentbox_header');
     $variables['page']['breadcrumbs'] = garmentbox_general_get_node_breadcrumbs($node);
     $variables['page']['tabs'] = garmentbox_general_get_node_tabs($node);
     $variables['page']['primary_button'] = garmentbox_general_get_node_primary_button($node);
+  }
+
+  if (overlay_get_mode() == 'child') {
+    $variables['theme_hook_suggestions'][] = 'page__overlay';
   }
 }
 

@@ -29,6 +29,28 @@ function garmentbox_general_init() {
 }
 
 /**
+ * Implements hook_module_implements_alter().
+ *
+ * Move the garmentbox implementation to be the last one, so we can
+ * control the theme, instead of System module.
+ */
+function garmentbox_general_module_implements_alter(&$implementations, $hook) {
+  if ($hook != 'custom_theme') {
+    return;
+  }
+  unset($implementations['garmentbox_general']);
+  $implementations['garmentbox_general'] = FALSE;
+}
+
+/**
+ * Implements hook_custom_theme().
+ */
+function garmentbox_general_custom_theme() {
+  $item = menu_get_item();
+  return strpos($item['path'], 'admin') === 0 ? 'seven' : 'garmentbox_omega';
+}
+
+/**
  * Get the hierachy for a node.
  *
  * @todo: Move to general module.
