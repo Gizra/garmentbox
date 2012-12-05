@@ -35,6 +35,14 @@ function garmentbox_company_field_attach_create_bundle($entity_type, $bundle) {
     $og_field['instance']['label'] = 'Company';
     $og_field['instance']['display']['default']['type'] = 'hidden';
 
+    // Enable Entity-reference prepopulate.
+    $og_field['instance']['settings']['behaviors']['prepopulate'] = array(
+      'status' => TRUE,
+      'action' => 'hide',
+      'fallback' => 'redirect',
+      'og_context' => TRUE,
+    );
+
     og_create_field('og_company', $entity_type, $bundle, $og_field);
   }
 }
@@ -50,6 +58,14 @@ function garmentbox_company_og_fields_info_alter(&$info) {
   $og_field['field']['cardinality'] = 1;
   $og_field['instance']['label'] = 'Company';
   $og_field['instance']['display']['default']['type'] = 'hidden';
+
+  // Enable Entity-reference prepopulate.
+  $og_field['instance']['settings']['behaviors']['prepopulate'] = array(
+    'status' => TRUE,
+    'action' => 'hide',
+    'fallback' => 'redirect',
+    'og_context' => TRUE,
+  );
 
   $info['og_company'] = $og_field;
 }
@@ -129,12 +145,15 @@ function garmentbox_company_node_insert($node) {
  * Add field collection item to group.
  */
 function garmentbox_company_field_collection_item_insert($field_collection_item) {
+  // TODO: This breaks 'imanimo/nide/add/season'.
+  return;
+
   $entity = $field_collection_item->hostEntity();
-  if (empty($entity->og_company['und'][0]['target_id'])) {
+  if (empty($entity->og_company[LANGUAGE_NONE][0]['target_id'])) {
     throw new Exception(format_string('Host entity of field collection @id does not belong to a company.', array('@id' => $field_collection_item->item_id)));
   }
 
-  $gid = $entity->og_company['und'][0]['target_id'];
+  $gid = $entity->og_company[LANGUAGE_NONE][0]['target_id'];
   og_group('node', $gid, array('entity_type' => 'field_collection_item', 'entity' => $field_collection_item));
 }
 

@@ -392,7 +392,8 @@ class FeatureContext extends DrupalContext {
    * @Given /^I go to create "([^"]*)" node page$/
    */
   public function iGoToCreateNodePage($node_type) {
-    $path = 'node/add/' . $node_type;
+    // TODO: The "imanimo" should be removed once it's added automatically.
+    $path = 'imanimo/node/add/' . $node_type;
     return new Given("I am at \"$path\"");
   }
 

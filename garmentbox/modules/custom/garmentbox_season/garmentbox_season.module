@@ -43,6 +43,9 @@ function garmentbox_season_page_build(&$page) {
   }
 
   $node = node_load($item['map'][1]);
+  if (!$node) {
+    return;
+  }
 
   if ($item['path'] == 'season/%/tasks') {
     // Fix the title on the season tasks page. (The Season title cannot be
