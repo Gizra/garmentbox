@@ -1015,10 +1015,9 @@ function garmentbox_og_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'og_ui',
           'settings' => array(),
-          'type' => 'og_list_default',
-          'weight' => '3',
+          'type' => 'hidden',
+          'weight' => '9',
         ),
         'garmentbox_header' => array(
           'label' => 'above',
