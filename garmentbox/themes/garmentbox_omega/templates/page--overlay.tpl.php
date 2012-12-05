@@ -73,23 +73,6 @@
 <div id="main">
   <div id="main-content" role="main" class="container">
 
-    <?php if (!empty($page['breadcrumbs'])): ?>
-      <div id="breadcrumbs" class="clearfix">
-        <?php print render($page['breadcrumbs']); ?>
-      </div>
-    <?php endif; ?>
-
-
-    <?php if (!empty($page['tabs']) || !empty($page['primary_button'])): ?>
-      <div id="tabs" class="clearfix">
-        <?php print render($page['tabs']); ?>
-
-        <div id="main-button">
-          <?php print render($page['primary_button']); ?>
-        </div>
-      </div>
-    <?php endif; ?>
-
     <div id="content" class="clearfix">
       <h2><?php print $title; ?></h2>
 
@@ -107,17 +90,4 @@
       <?php print render($page['content']); ?>
     </div>
   </div>
-
-  <?php if (render($page['navigation'])): ?>
-    <div id="navigation">
-      <?php print render($page['navigation']); ?>
-    </div>
-  <?php endif; ?>
-
-  <?php if (render($page['sidebar_first']) || render($page['sidebar_second'])): ?>
-    <aside class="sidebars">
-      <?php print render($page['sidebar_first']); ?>
-      <?php print render($page['sidebar_second']); ?>
-    </aside>
-  <?php endif; ?>
 </div>
