@@ -17,7 +17,7 @@ Feature: Production order delivery.
       And I fill in "Small" with "16" in row containing "Received" in table "delivery-inventory"
       And I fill in "Medium" with "9" in row containing "Received" in table "delivery-inventory"
       And I fill in "Small" with "3" in row containing "Customer: Gap" in table "delivery-inventory"
-      And I fill in "Small" with "13" in row containing "Customer: N/A" in table "delivery-inventory"
+      And I fill in "Small" with "13" in row containing "Customer: Main" in table "delivery-inventory"
       And I fill in "Medium" with "3" in row containing "Defective" in table "delivery-inventory"
       And I press "Save"
      Then the table "delivery-inventory" should have the following <contents>:
