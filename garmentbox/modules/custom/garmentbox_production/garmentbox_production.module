@@ -69,6 +69,12 @@ function garmentbox_production_form_production_order_node_form_alter(&$form, &$f
 
   $season_nid = $form['field_season'][LANGUAGE_NONE]['#default_value'][0];
 
+  // Inventory lines without an order will be shown as if belongs to the group
+  // of the current season.
+  $wrapper = entity_metadata_wrapper('node', $season_nid);
+  // @todo: Change when we introduce "Company".
+  $default_customer_label = $wrapper->{OG_AUDIENCE_FIELD}->get(0)->label();
+
   // Set a default factory, if the node is new, and no factory given in the URL.
   if (!$form['field_factory'][LANGUAGE_NONE]['#default_value']) {
     // Find the first factory node ID.
@@ -121,7 +127,7 @@ function garmentbox_production_form_production_order_node_form_alter(&$form, &$f
         '#attributes' => array('data-line-nid' => $il_nid),
       );
 
-      $order_link = empty($il['order_link']) ? t('N/A') : $il['order_link'];
+      $order_link = empty($il['order_link']) ? $default_customer_label : $il['order_link'];
       $form['variants'][$variant_nid]['lines'][$il_nid]['order_link'] = array(
         '#markup' => t('Customer: !customer', array('!customer' => $order_link)),
       );
