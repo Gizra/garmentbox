@@ -416,10 +416,9 @@ function garmentbox_material_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'hidden',
-          'module' => 'text',
           'settings' => array(),
-          'type' => 'text_default',
-          'weight' => '0',
+          'type' => 'hidden',
+          'weight' => '6',
         ),
         'garmentbox_header' => array(
           'label' => 'above',
@@ -496,7 +495,7 @@ function garmentbox_material_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '5',
+          'weight' => '1',
         ),
         'garmentbox_header' => array(
           'label' => 'above',
@@ -568,13 +567,9 @@ function garmentbox_material_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'image',
-          'settings' => array(
-            'image_link' => '',
-            'image_style' => '',
-          ),
-          'type' => 'image',
-          'weight' => '2',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '7',
         ),
         'garmentbox_header' => array(
           'label' => 'hidden',
@@ -659,7 +654,7 @@ function garmentbox_material_field_default_fields() {
             'thousand_separator' => ' ',
           ),
           'type' => 'number_decimal',
-          'weight' => '6',
+          'weight' => '2',
         ),
         'garmentbox_header' => array(
           'label' => 'above',
@@ -747,12 +742,9 @@ function garmentbox_material_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'entityreference',
-          'settings' => array(
-            'link' => FALSE,
-          ),
-          'type' => 'entityreference_label',
-          'weight' => '9',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '10',
         ),
         'garmentbox_header' => array(
           'label' => 'above',
@@ -829,10 +821,9 @@ function garmentbox_material_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'text',
           'settings' => array(),
-          'type' => 'text_default',
-          'weight' => '1',
+          'type' => 'hidden',
+          'weight' => '8',
         ),
         'garmentbox_header' => array(
           'label' => 'hidden',
@@ -903,7 +894,7 @@ function garmentbox_material_field_default_fields() {
             'thousand_separator' => ' ',
           ),
           'type' => 'number_decimal',
-          'weight' => '8',
+          'weight' => '4',
         ),
         'garmentbox_header' => array(
           'label' => 'above',
@@ -968,7 +959,7 @@ function garmentbox_material_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '10',
+          'weight' => '5',
         ),
         'garmentbox_header' => array(
           'label' => 'above',
@@ -1038,7 +1029,7 @@ function garmentbox_material_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '4',
+          'weight' => '0',
         ),
         'garmentbox_header' => array(
           'label' => 'above',
@@ -1109,7 +1100,7 @@ function garmentbox_material_field_default_fields() {
             'thousand_separator' => ' ',
           ),
           'type' => 'number_decimal',
-          'weight' => '7',
+          'weight' => '3',
         ),
         'garmentbox_header' => array(
           'label' => 'above',
@@ -1184,7 +1175,7 @@ function garmentbox_material_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 11,
+          'weight' => '11',
         ),
         'garmentbox_header' => array(
           'label' => 'hidden',
@@ -1223,14 +1214,14 @@ function garmentbox_material_field_default_fields() {
     ),
   );
 
-  // Exported field: 'taxonomy_term-material_types-field_has_length'.
-  $fields['taxonomy_term-material_types-field_has_length'] = array(
+  // Exported field: 'taxonomy_term-material_types-field_measurement_types'.
+  $fields['taxonomy_term-material_types-field_measurement_types'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '1',
+      'cardinality' => '-1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_has_length',
+      'field_name' => 'field_measurement_types',
       'foreign keys' => array(),
       'indexes' => array(
         'value' => array(
@@ -1241,21 +1232,18 @@ function garmentbox_material_field_default_fields() {
       'module' => 'list',
       'settings' => array(
         'allowed_values' => array(
-          0 => '',
-          1 => '',
+          'width' => 'Width',
+          'length' => 'Length',
+          'radius' => 'Radius',
         ),
         'allowed_values_function' => '',
       ),
       'translatable' => '0',
-      'type' => 'list_boolean',
+      'type' => 'list_text',
     ),
     'field_instance' => array(
       'bundle' => 'material_types',
-      'default_value' => array(
-        0 => array(
-          'value' => 0,
-        ),
-      ),
+      'default_value' => NULL,
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -1264,12 +1252,12 @@ function garmentbox_material_field_default_fields() {
           'module' => 'list',
           'settings' => array(),
           'type' => 'list_default',
-          'weight' => 1,
+          'weight' => 3,
         ),
       ),
       'entity_type' => 'taxonomy_term',
-      'field_name' => 'field_has_length',
-      'label' => 'Has length',
+      'field_name' => 'field_measurement_types',
+      'label' => 'Measurement types',
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
@@ -1277,137 +1265,9 @@ function garmentbox_material_field_default_fields() {
       'widget' => array(
         'active' => 1,
         'module' => 'options',
-        'settings' => array(
-          'display_label' => 1,
-        ),
-        'type' => 'options_onoff',
-        'weight' => '32',
-      ),
-    ),
-  );
-
-  // Exported field: 'taxonomy_term-material_types-field_has_radius'.
-  $fields['taxonomy_term-material_types-field_has_radius'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_has_radius',
-      'foreign keys' => array(),
-      'indexes' => array(
-        'value' => array(
-          0 => 'value',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'list',
-      'settings' => array(
-        'allowed_values' => array(
-          0 => '',
-          1 => '',
-        ),
-        'allowed_values_function' => '',
-      ),
-      'translatable' => '0',
-      'type' => 'list_boolean',
-    ),
-    'field_instance' => array(
-      'bundle' => 'material_types',
-      'default_value' => array(
-        0 => array(
-          'value' => 0,
-        ),
-      ),
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'list',
-          'settings' => array(),
-          'type' => 'list_default',
-          'weight' => 2,
-        ),
-      ),
-      'entity_type' => 'taxonomy_term',
-      'field_name' => 'field_has_radius',
-      'label' => 'Has radius',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'options',
-        'settings' => array(
-          'display_label' => 1,
-        ),
-        'type' => 'options_onoff',
-        'weight' => '33',
-      ),
-    ),
-  );
-
-  // Exported field: 'taxonomy_term-material_types-field_has_width'.
-  $fields['taxonomy_term-material_types-field_has_width'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_has_width',
-      'foreign keys' => array(),
-      'indexes' => array(
-        'value' => array(
-          0 => 'value',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'list',
-      'settings' => array(
-        'allowed_values' => array(
-          0 => '',
-          1 => '',
-        ),
-        'allowed_values_function' => '',
-      ),
-      'translatable' => '0',
-      'type' => 'list_boolean',
-    ),
-    'field_instance' => array(
-      'bundle' => 'material_types',
-      'default_value' => array(
-        0 => array(
-          'value' => 0,
-        ),
-      ),
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'list',
-          'settings' => array(),
-          'type' => 'list_default',
-          'weight' => 0,
-        ),
-      ),
-      'entity_type' => 'taxonomy_term',
-      'field_name' => 'field_has_width',
-      'label' => 'Has width',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'options',
-        'settings' => array(
-          'display_label' => 1,
-        ),
-        'type' => 'options_onoff',
-        'weight' => '31',
+        'settings' => array(),
+        'type' => 'options_buttons',
+        'weight' => '34',
       ),
     ),
   );
@@ -1539,14 +1399,12 @@ function garmentbox_material_field_default_fields() {
   t('Conversion from weight to length.');
   t('Conversion ratio');
   t('Fabric content');
-  t('Has length');
-  t('Has radius');
-  t('Has width');
   t('Images');
   t('Length');
   t('Length conversion');
   t('Length unit');
   t('Material type');
+  t('Measurement types');
   t('Nick name');
   t('Price');
   t('Radius');

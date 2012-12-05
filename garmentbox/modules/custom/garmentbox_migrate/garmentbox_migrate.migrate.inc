@@ -131,9 +131,9 @@ class garmentboxInventoryTypeTerms extends garmentboxMigration {
 class garmentboxMaterialTypeTerms extends garmentboxMigration {
 
   public $csvColumns = array(
-    array('field_has_width', 'Has width'),
-    array('field_has_length', 'Has length'),
-    array('field_has_radius', 'Has radius'),
+    array('id', 'Unique ID'),
+    array('name', 'Name'),
+    array('field_measurement_types', 'Measurement types'),
   );
 
   public $entityType = 'taxonomy_term';
@@ -141,9 +141,9 @@ class garmentboxMaterialTypeTerms extends garmentboxMigration {
 
   public function __construct() {
     parent::__construct();
-    $this->addFieldMapping('field_has_width', 'field_has_width');
-    $this->addFieldMapping('field_has_length', 'field_has_length');
-    $this->addFieldMapping('field_has_radius', 'field_has_radius');
+    $this
+      ->addFieldMapping('field_measurement_types', 'field_measurement_types')
+      ->separator('|');
   }
 }
 
@@ -375,6 +375,7 @@ class garmentboxMaterials extends garmentboxMigration {
 class garmentboxProductionOrders extends garmentboxMigration {
 
   public $csvColumns = array(
+    array('id', 'Unique ID'),
     array('field_factory', 'Factory'),
     array('field_season', 'Season'),
   );

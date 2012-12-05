@@ -123,6 +123,7 @@ function garmentbox_material_get_tabs($node) {
   }
 
   $items = array();
+  $nid = $node->nid;
   $nodes = node_load_multiple(array_keys($result['node']));
   foreach ($nodes as $node) {
     $wrapper = entity_metadata_wrapper('node', $node);

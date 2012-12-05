@@ -44,7 +44,7 @@ Feature: Test production order flow
       | Include in order    | Item variation                  | Small   | Medium  | Large   | Fabric  | Production cost |
       | <checkbox> checked  | Grey v-neck shirt               | 1       | 2       | 20      | <image> | $1,150.00       |
       | <checkbox> checked  | Customer: High Couture          | 1       |         | 20      |         | $1,050.00       |
-      | <checkbox> checked  | Customer: N/A                   |         | 2       |         |         | $100.00         |
+      | <checkbox> checked  | Customer: Main                  |         | 2       |         |         | $100.00         |
       | <checkbox>          | Grey v-neck shirt - Extra items | <input> | <input> | <input> |         | $0.00           |
 
   @api
@@ -57,7 +57,7 @@ Feature: Test production order flow
       And I press "Save"
       And I click "Edit"
      Then the following <row> should appear in the table "inventory" :
-      | <checkbox> checked  | Customer: N/A | | 212 | | | $5,618.00 |
+      | <checkbox> checked  | Customer: Main | | 212 | | | $5,618.00 |
 
   @api
   Scenario: Test URL generation for create link.
