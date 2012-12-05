@@ -19,6 +19,8 @@ function garmentbox_install() {
   // Enable node view page override by Page manager module.
   variable_set('page_manager_node_view_disabled', FALSE);
 
+  variable_set('node_admin_theme', TRUE);
+
   // Set required date API variables.
   // See date_api_status().
   date_default_timezone_set('Asia/Jerusalem');
