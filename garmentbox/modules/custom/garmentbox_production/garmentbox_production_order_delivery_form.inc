@@ -176,7 +176,8 @@ function garmentbox_production_order_delivery_form($form, &$form_state, $node) {
 
   // Inventory lines without an order will be shown as if belongs to the group
   // of the production order.
-  $default_customer_label = $wrapper->og_group_ref->get(0)->label();
+  // @todo: Change when we introduce "Company".
+  $default_customer_label = $wrapper->{OG_AUDIENCE_FIELD}->get(0)->label();
 
   $form['factory_details'] = array(
     '#markup' => t('Factory: @factory', array('@factory' => $wrapper->field_factory->label())),
