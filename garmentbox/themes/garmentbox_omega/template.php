@@ -14,14 +14,17 @@ function garmentbox_omega_preprocess_page(&$variables) {
   // When the node wasn't loaded, try fetching it from the menu item.
   if (!$node) {
     $item = menu_get_item();
-    if (strpos($item['path'], 'season/%') === 0) {
-      // When on a panels page, ['map'][1] has the node itself.
-      if (!empty($item['map'][1]->data)) {
-        $node = $item['map'][1]->data;
-      }
-      // When on a views page, ['map'][1] has the node ID.
-      elseif (!empty($item['map']) && is_numeric($item['map'][1])) {
-        $node = node_load($item['map'][1]);
+
+    // Check if the current page is a "Node sub-page", and extract the node.
+    // Define beginnings of node related pages. E.g. season/%/inventory.
+    $node_path_beginnings = array(
+      'season/%',
+      'production-order/%',
+    );
+    foreach ($node_path_beginnings as $path_beginning) {
+      if ((strpos($item['path'], $path_beginning) === 0) && !empty($item['map'][1])) {
+        $node = is_object($item['map'][1]) ? $item['map'][1]->data : node_load($item['map'][1]);
+        break;
       }
     }
   }
@@ -39,7 +42,6 @@ function garmentbox_omega_preprocess_page(&$variables) {
  */
 function garmentbox_omega_preprocess_node(&$variables) {
   $node = $variables['node'];
-
 
   $view_mode = $variables['view_mode'] == 'full' ? '' : '_' . $variables['view_mode'];
   if ($view_mode == '_garmentbox_header') {

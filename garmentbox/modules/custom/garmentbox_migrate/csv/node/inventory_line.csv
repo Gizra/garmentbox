@@ -1,36 +1,36 @@
-Unique ID,Company,Title,Item variant,Type,Production date,Delivery date,Defective
-inventoryLine1,company1,inventoryLine1,itemVariant1,inventoryType5,"May 7, 2013","May 30, 2013",0
-inventoryLine2,company1,inventoryLine2,itemVariant1,inventoryType1,"May 7, 2013","May 30, 2013",0
-inventoryLine3,company1,inventoryLine3,itemVariant2,inventoryType2,"May 7, 2013","May 30, 2013",0
-inventoryLine4,company1,inventoryLine4,itemVariant3,inventoryType3,"May 7, 2013","May 30, 2013",0
-inventoryLine5,company1,inventoryLine5,itemVariant1,inventoryType4,"May 7, 2013","May 30, 2013",0
-inventoryLine6,company1,inventoryLine6,itemVariant2,inventoryType5,"May 7, 2013","May 30, 2013",0
-inventoryLine7,company1,inventoryLine7,itemVariant3,inventoryType1,"May 7, 2013","May 30, 2013",0
-inventoryLine8,company1,inventoryLine8,itemVariant1,inventoryType2,"May 7, 2013","May 30, 2013",1
-inventoryLine9,company1,inventoryLine9,itemVariant2,inventoryType3,"May 7, 2013","May 30, 2013",0
-inventoryLine10,company1,inventoryLine10,itemVariant3,inventoryType5,"May 7, 2013","May 30, 2013",0
-inventoryLine11,company1,inventoryLine11,itemVariant1,inventoryType5,"May 7, 2013","May 30, 2013",0
-inventoryLine12,company1,inventoryLine12,itemVariant1,inventoryType1,"May 7, 2013","May 30, 2013",0
-inventoryLine13,company1,inventoryLine13,itemVariant2,inventoryType2,"May 7, 2013","May 30, 2013",0
-inventoryLine14,company1,inventoryLine14,itemVariant3,inventoryType3,"May 7, 2013","May 30, 2013",0
-inventoryLine15,company1,inventoryLine15,itemVariant1,inventoryType4,"May 7, 2013","May 30, 2013",0
-inventoryLine16,company1,inventoryLine16,itemVariant2,inventoryType1,"May 7, 2013","May 30, 2013",0
-inventoryLine17,company1,inventoryLine17,itemVariant3,inventoryType1,"May 7, 2013","May 30, 2013",0
-inventoryLine18,company1,inventoryLine18,itemVariant1,inventoryType2,"May 7, 2013","May 30, 2013",0
-inventoryLine19,company1,inventoryLine19,itemVariant2,inventoryType3,"May 7, 2013","May 30, 2013",0
-inventoryLine20,company1,inventoryLine20,itemVariant3,inventoryType4,"May 7, 2013","May 30, 2013",0
-inventoryLine21,company1,inventoryLine21,itemVariant1,inventoryType1,"May 7, 2013","May 30, 2013",0
-inventoryLine22,company1,inventoryLine22,itemVariant1,inventoryType5,"May 7, 2013","May 30, 2013",0
-inventoryLine23,company1,inventoryLine23,itemVariant2,inventoryType2,"May 7, 2013","May 30, 2013",0
-inventoryLine24,company1,inventoryLine24,itemVariant3,inventoryType3,"May 7, 2013","May 30, 2013",0
-inventoryLine25,company1,inventoryLine25,itemVariant1,inventoryType4,"May 7, 2013","May 30, 2013",0
-inventoryLine26,company1,inventoryLine26,itemVariant4,inventoryType1,"May 7, 2013","May 30, 2013",0
-inventoryLine27,company1,inventoryLine27,itemVariant5,inventoryType2,"May 7, 2013","May 30, 2013",0
-inventoryLine28,company1,inventoryLine28,itemVariant6,inventoryType3,"May 7, 2013","May 30, 2013",0
-inventoryLine29,company1,inventoryLine29,itemVariant4,inventoryType4,"May 7, 2013","May 30, 2013",0
-inventoryLine30,company1,inventoryLine30,itemVariant5,inventoryType1,"May 7, 2013","May 30, 2013",0
-inventoryLine31,company1,inventoryLine31,itemVariant6,inventoryType2,"May 7, 2013","May 30, 2013",0
-inventoryLine32,company1,inventoryLine32,itemVariant4,inventoryType3,"May 7, 2013","May 30, 2013",0
-inventoryLine33,company1,inventoryLine33,itemVariant5,inventoryType4,"May 7, 2013","May 30, 2013",0
-inventoryLine34,company1,inventoryLine34,itemVariant6,inventoryType1,"May 7, 2013","May 30, 2013",0
-inventoryLine35,company1,inventoryLine35,itemVariant6,inventoryType2,"May 7, 2013","May 30, 2013",0
+Unique ID,Company,Title,Item variant,Type,Production date,Delivery date,Defective,Production order
+inventoryLine1,company1,inventoryLine1,itemVariant1,inventoryType5,"May 7, 2013","May 30, 2013 12:00:00",0,
+inventoryLine2,company1,inventoryLine2,itemVariant1,inventoryType1,"May 7, 2013","May 30, 2013 12:00:00",0,
+inventoryLine3,company1,inventoryLine3,itemVariant2,inventoryType2,"May 7, 2013","May 30, 2013 12:00:00",0,productionOrder1
+inventoryLine4,company1,inventoryLine4,itemVariant3,inventoryType3,"May 7, 2013","May 30, 2013 12:00:00",0,
+inventoryLine5,company1,inventoryLine5,itemVariant1,inventoryType4,"May 7, 2013","May 30, 2013 12:00:00",0,
+inventoryLine6,company1,inventoryLine6,itemVariant2,inventoryType5,"May 7, 2013","May 30, 2013 12:00:00",0,
+inventoryLine7,company1,inventoryLine7,itemVariant3,inventoryType1,"May 7, 2013","May 30, 2013 12:00:00",0,
+inventoryLine8,company1,inventoryLine8,itemVariant1,inventoryType2,"May 7, 2013","May 30, 2013 12:00:00",1,
+inventoryLine9,company1,inventoryLine9,itemVariant2,inventoryType3,"May 7, 2013","May 30, 2013 12:00:00",0,
+inventoryLine10,company1,inventoryLine10,itemVariant3,inventoryType5,"May 7, 2013","May 30, 2013 12:00:00",0,
+inventoryLine11,company1,inventoryLine11,itemVariant1,inventoryType5,"May 7, 2013","May 30, 2013 12:00:00",0,
+inventoryLine12,company1,inventoryLine12,itemVariant1,inventoryType1,"May 7, 2013","May 30, 2013 12:00:00",0,
+inventoryLine13,company1,inventoryLine13,itemVariant2,inventoryType2,"May 7, 2013","May 30, 2013 12:00:00",0,productionOrder1
+inventoryLine14,company1,inventoryLine14,itemVariant3,inventoryType3,"May 7, 2013","May 30, 2013 12:00:00",0,
+inventoryLine15,company1,inventoryLine15,itemVariant1,inventoryType4,"May 7, 2013","May 30, 2013 12:00:00",0,
+inventoryLine16,company1,inventoryLine16,itemVariant2,inventoryType1,"May 7, 2013","May 30, 2013 12:00:00",0,
+inventoryLine17,company1,inventoryLine17,itemVariant3,inventoryType1,"May 7, 2013","May 30, 2013 12:00:00",0,
+inventoryLine18,company1,inventoryLine18,itemVariant1,inventoryType2,"May 7, 2013","May 30, 2013 12:00:00",0,
+inventoryLine19,company1,inventoryLine19,itemVariant2,inventoryType3,"May 7, 2013","May 30, 2013 12:00:00",0,
+inventoryLine20,company1,inventoryLine20,itemVariant3,inventoryType4,"May 7, 2013","May 30, 2013 12:00:00",0,
+inventoryLine21,company1,inventoryLine21,itemVariant1,inventoryType1,"May 7, 2013","May 30, 2013 12:00:00",0,
+inventoryLine22,company1,inventoryLine22,itemVariant1,inventoryType5,"May 7, 2013","May 30, 2013 12:00:00",0,
+inventoryLine23,company1,inventoryLine23,itemVariant2,inventoryType2,"May 7, 2013","May 30, 2013 12:00:00",0,
+inventoryLine24,company1,inventoryLine24,itemVariant3,inventoryType3,"May 7, 2013","May 30, 2013 12:00:00",0,
+inventoryLine25,company1,inventoryLine25,itemVariant1,inventoryType4,"May 7, 2013","May 30, 2013 12:00:00",0,
+inventoryLine26,company1,inventoryLine26,itemVariant4,inventoryType1,"May 7, 2013","May 30, 2013 12:00:00",0,
+inventoryLine27,company1,inventoryLine27,itemVariant5,inventoryType2,"May 7, 2013","May 30, 2013 12:00:00",0,
+inventoryLine28,company1,inventoryLine28,itemVariant6,inventoryType3,"May 7, 2013","May 30, 2013 12:00:00",0,
+inventoryLine29,company1,inventoryLine29,itemVariant4,inventoryType4,"May 7, 2013","May 30, 2013 12:00:00",0,
+inventoryLine30,company1,inventoryLine30,itemVariant5,inventoryType1,"May 7, 2013","May 30, 2013 12:00:00",0,
+inventoryLine31,company1,inventoryLine31,itemVariant6,inventoryType2,"May 7, 2013","May 30, 2013 12:00:00",0,
+inventoryLine32,company1,inventoryLine32,itemVariant4,inventoryType3,"May 7, 2013","May 30, 2013 12:00:00",0,
+inventoryLine33,company1,inventoryLine33,itemVariant5,inventoryType4,"May 7, 2013","May 30, 2013 12:00:00",0,
+inventoryLine34,company1,inventoryLine34,itemVariant6,inventoryType1,"May 7, 2013","May 30, 2013 12:00:00",0,
+inventoryLine35,company1,inventoryLine35,itemVariant6,inventoryType2,"May 7, 2013","May 30, 2013 12:00:00",0,

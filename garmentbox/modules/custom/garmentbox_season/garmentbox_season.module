@@ -34,6 +34,10 @@ function garmentbox_season_init() {
  */
 function garmentbox_season_page_build(&$page) {
   $item = menu_get_item();
+  if (empty($item['map'][1])) {
+    return;
+  }
+
   if ($item['path'] != 'season/%/tasks' && $item['path'] != 'season/%/items') {
     return;
   }
@@ -116,6 +120,7 @@ function garmentbox_season_get_tabs($node) {
   $items[] = l(t('Inventory'), "season/$nid/inventory");
   $items[] = l(t('Orders'), "season/$nid/orders");
   $items[] = l(t('Production Orders'), "season/$nid/production-orders");
+  $items[] = l(t('Line Sheet'), "season/$nid/line-sheet");
 
   return theme('item_list', array('items' => $items));
 }

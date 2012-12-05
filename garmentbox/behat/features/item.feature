@@ -1,11 +1,10 @@
 Feature: Test Item page
   Make sure an item page is presented correctly.
 
-
   @api
   Scenario: Basic content is shown on the item page.
     Given I am logged in as a user with the "authenticated user" role
-     When I am on a "item" page titled "V-neck shirt"
+     When I am on the default "item" page
      Then I should see the heading "V-neck shirt"
       And the page status is shown as "Draft"
       And I should see the following <links>
@@ -19,7 +18,7 @@ Feature: Test Item page
   @api
   Scenario: Content is shown on the task list.
     Given I am logged in as a user with the "authenticated user" role
-     When I am on a "item" page titled "V-neck shirt"
+     When I am on the default "item" page
      Then I should see a table titled "Task list" with the following <contents>:
       | Summary             | Status      | Assignee | Replies | Last updated | Created  | Actions |
       | Fix marker          | Needs work  | <ignore> | 0       | <ignore>     | <ignore> | edit    |
@@ -28,7 +27,7 @@ Feature: Test Item page
   @javascript
   Scenario: Correct content is shown on the item inventory list.
     Given I am logged in as "user"
-      And I visit "/item/35"
+      And I am on the default "item" page
      When I click the row of "Lines v-neck shirt - Total"
      Then I should see a table titled "Inventory summary" with the following <contents>:
       | Variation                   | Small                           | Medium                                        | Large                                 | Type                                                      |

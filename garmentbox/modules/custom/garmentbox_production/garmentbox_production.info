@@ -29,6 +29,7 @@ features[field][] = node-production_order-field_factory
 features[field][] = node-production_order-field_order_status
 features[field][] = node-production_order-field_reference_hierarchy
 features[field][] = node-production_order-field_season
+features[field][] = node-production_order-title_field
 features[field_group][] = group_contact_person|node|factory|form
 features[node][] = factory
 features[node][] = production_order

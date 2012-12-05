@@ -45,6 +45,9 @@ class GarmentboxUsers extends Migration {
     // Create a MigrateSource object.
     $this->source = new MigrateSourceCSV(drupal_get_path('module', 'garmentbox_migrate') . '/csv/' . $this->entityType . '/user.csv', $this->csvColumns, array('header_rows' => 1));
     $this->destination = new MigrateDestinationUser();
+
+    // Clear flags cache.
+    flag_get_flags(NULL, NULL, NULL, TRUE);
   }
 }
 
@@ -367,6 +370,36 @@ class garmentboxMaterials extends garmentboxMigration {
 }
 
 /**
+ * Migrate production orders.
+ */
+class garmentboxProductionOrders extends garmentboxMigration {
+
+  public $csvColumns = array(
+    array('field_factory', 'Factory'),
+    array('field_season', 'Season'),
+  );
+
+  public $entityType = 'node';
+  public $bundle = 'production_order';
+
+  public $dependencies = array(
+    'garmentboxSeasons',
+    'garmentboxFactories',
+  );
+
+  public function __construct() {
+    parent::__construct();
+
+    $this
+      ->addFieldMapping('field_factory', 'field_factory')
+      ->sourceMigration('garmentboxFactories');
+    $this
+      ->addFieldMapping('field_season', 'field_season')
+      ->sourceMigration('garmentboxSeasons');
+  }
+}
+
+/**
  * Migrate Items nodes.
  */
 class garmentboxItems extends garmentboxMigration {
@@ -499,19 +532,31 @@ class garmentboxItemVariants extends garmentboxMigration {
     parent::prepareRow($row);
     $row->field_images = explode('; ', $row->field_images);
   }
+
+  public function complete($entity, $row) {
+    // Flag certain item variants as line-sheet items.
+    $item_variant_titles = array(
+      'Lines v-neck shirt',
+      'Black v-neck shirt',
+    );
+
+    if (in_array($entity->title, $item_variant_titles)) {
+      flag('flag', 'line_sheet', $entity->nid, user_load(1));
+    }
+  }
 }
 
 /**
  * Migrate inventory line nodes.
  */
 class garmentboxInventoryLines extends garmentboxMigration {
-
   public $csvColumns = array(
     array('field_item_variant', 'Item variant'),
     array('field_inventory_type', 'Type'),
     array('field_production_start_date', 'Production date'),
     array('field_delivery_date', 'Delivery date'),
     array('field_defective', 'Defective'),
+    array('field_production_order', 'Production order'),
   );
 
   public $entityType = 'node';
@@ -520,6 +565,7 @@ class garmentboxInventoryLines extends garmentboxMigration {
   public $dependencies = array(
     'garmentboxItemVariants',
     'garmentboxInventoryTypeTerms',
+    'garmentboxProductionOrders',
   );
 
   protected $dateFields = array(
@@ -541,6 +587,17 @@ class garmentboxInventoryLines extends garmentboxMigration {
     $this->addFieldMapping('field_production_start_date', 'field_production_start_date');
     $this->addFieldMapping('field_delivery_date', 'field_delivery_date');
     $this->addFieldMapping('field_defective', 'field_defective');
+
+    $this
+      ->addFieldMapping('field_production_order', 'field_production_order')
+      ->sourceMigration('garmentboxProductionOrders');
+  }
+
+  public function prepareRow($row) {
+    // Empty strings are not null enough to be ignored.
+    if (!$row->field_production_order) {
+      $row->field_production_order = NULL;
+    }
   }
 }
 

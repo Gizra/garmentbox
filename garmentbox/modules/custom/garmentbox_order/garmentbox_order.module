@@ -7,15 +7,6 @@
 include_once 'garmentbox_order.features.inc';
 
 /**
- * Implements hook_ctools_plugin_directory().
- */
-function garmentbox_order_ctools_plugin_directory($module, $plugin) {
-  if ($module == 'ctools') {
-    return 'plugins/' . $plugin;
-  }
-}
-
-/**
  * Implements hook_menu().
  */
 function garmentbox_order_menu() {
@@ -241,6 +232,7 @@ function garmentbox_order_get_orders_data($node) {
   $query->addField('n_variant', 'title', 'variant');
   $query->addField('td', 'name', 'type');
   $query->addField('fsz', 'field_size_target_id', 'size_tid');
+  $query->addField('fos', 'field_order_status_target_id');
   $query->addField('fq', 'field_quantity_integer_value', 'quantity');
   $query->addExpression('UNIX_TIMESTAMP(fdd.field_delivery_date_value)', 'delivery_date');
 
@@ -267,7 +259,8 @@ function garmentbox_order_get_orders_data($node) {
 
   $query
     ->orderBy('n_customer.title')
-    ->orderBy('n_variant.title');
+    ->orderBy('n_variant.title')
+    ->orderBy('fos.field_order_status_target_id');
 
   return $query->execute();
 }

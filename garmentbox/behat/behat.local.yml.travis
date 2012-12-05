@@ -5,7 +5,10 @@ default:
         user:
           'user'
       sample_nodes:
-        season: 24
+        season: 29
+        item: 35
+        item-variant: 43
+        production-order: 63
 
   extensions:
     Behat\MinkExtension\Extension:

@@ -29,10 +29,18 @@
     height: 48px;
     z-index: 10;
     left: 0; //LTR
+
+    &.jcarousel-prev-disabled {
+      display: none;
+    }
   }
   .jcarousel-next {
     background-image: url("../images/slideshow-next.png");
     left: auto; //LTR
     right: 0; //LTR
+
+    &.jcarousel-next-disabled {
+      display: none;
+    }
   }
 }

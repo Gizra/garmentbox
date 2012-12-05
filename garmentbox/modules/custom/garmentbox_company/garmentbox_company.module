@@ -14,13 +14,12 @@ function garmentbox_company_field_attach_create_bundle($entity_type, $bundle) {
     return;
   }
 
-  // @todo: find better way to exclude content-types.
   $excluded_bundles = array(
-    'node' => array('bubble'),
+    'node' => array('bubble' => TRUE),
     'field_collection_item' => array(),
   );
 
-  if (in_array($bundle, $excluded_bundles[$entity_type])) {
+  if (!empty($excluded_bundles[$entity_type][$bundle])) {
     return;
   }
 

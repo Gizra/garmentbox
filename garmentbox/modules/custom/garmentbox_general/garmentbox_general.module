@@ -178,7 +178,10 @@ function garmentbox_general_get_node_tabs($node) {
       return garmentbox_item_get_tabs($node);
 
     case 'material':
-      return garmentbox_material_get_tabs();
+      return garmentbox_material_get_tabs($node);
+
+    case 'production_order':
+      return garmentbox_production_order_get_tabs($node);
   }
 }
 
@@ -198,6 +201,9 @@ function garmentbox_general_get_node_primary_button($node) {
   switch ($item['path']) {
     case 'node/%':
       $button_data = _garmentbox_general_get_node_page_primary_button($node);
+      if (!$button_data) {
+        return;
+      }
       break;
 
     case 'season/%/tasks':
