@@ -375,7 +375,6 @@ class garmentboxMaterials extends garmentboxMigration {
 class garmentboxProductionOrders extends garmentboxMigration {
 
   public $csvColumns = array(
-    array('id', 'Unique ID'),
     array('field_factory', 'Factory'),
     array('field_season', 'Season'),
   );

@@ -118,8 +118,8 @@ projects[oauth][patch][] = "http://drupal.org/files/1535764-fix-signatures.patch
 projects[oauth][patch][] = "http://drupal.org/files/oauth-1431642-consumer-deletion.patch"
 
 projects[og][subdir] = "contrib"
-projects[og][version] = "2.0-beta3"
-projects[og][patch][] = "http://drupal.org/files/1856062-og-efq-base-table-1.patch"
+projects[og][version] = "2.x-dev"
+projects[og][patch][] = "http://drupal.org/files/og_query_og_membership_alter_recursive-1810662-8.patch"
 
 projects[og_purl][subdir] = "contrib"
 projects[og_purl][version] = "1.x-dev"
