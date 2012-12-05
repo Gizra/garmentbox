@@ -131,7 +131,6 @@ class garmentboxInventoryTypeTerms extends garmentboxMigration {
 class garmentboxMaterialTypeTerms extends garmentboxMigration {
 
   public $csvColumns = array(
-    array('id', 'Unique ID'),
     array('name', 'Name'),
     array('field_measurement_types', 'Measurement types'),
   );
