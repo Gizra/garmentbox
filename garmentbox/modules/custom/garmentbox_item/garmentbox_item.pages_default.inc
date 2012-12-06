@@ -257,7 +257,7 @@ function garmentbox_item_default_page_manager_handlers() {
     $pane->access = array();
     $pane->configuration = array(
       'label' => 'title',
-      'formatter' => 'field_collection_table_view',
+      'formatter' => 'garmentbox_bol_table',
       'delta_limit' => '0',
       'delta_offset' => '0',
       'delta_reversed' => 0,
