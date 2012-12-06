@@ -208,6 +208,9 @@ function garmentbox_production_form_production_order_node_form_alter(&$form, &$f
       'type' => 'setting',
     ),
   );
+
+  // Redirect to node edit page.
+  $form['actions']['submit']['#submit'][] = 'garmentbox_general_redirect_to_node_edit_page';
 }
 
 /**

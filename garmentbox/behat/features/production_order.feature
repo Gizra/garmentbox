@@ -31,7 +31,6 @@ Feature: Test production order flow
       And I uncheck "Include in order" in row containing "Customer: High Couture" in table "inventory"
       And I fill in "Title" with "Test production order"
       And I press "Save"
-     When I click "Edit"
      Then the "Include in order" checkbox in row containing "Customer: High Couture" in table "inventory" should be unchecked
 
   @javascript
@@ -55,7 +54,6 @@ Feature: Test production order flow
       And I fill in "Medium" with "212" in row containing "Lines v-neck shirt - Extra items" in table "inventory"
       And I fill in "Title" with "Test production order"
       And I press "Save"
-      And I click "Edit"
      Then the following <row> should appear in the table "inventory" :
       | <checkbox> checked  | Customer: Main | | 212 | | | $5,618.00 |
 
