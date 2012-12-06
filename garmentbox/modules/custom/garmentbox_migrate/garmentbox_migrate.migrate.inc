@@ -12,6 +12,7 @@ class GarmentboxUsers extends Migration {
    */
   public $csvColumns = array(
     array('id', 'Unique ID'),
+    array('og_user_company', 'Company'),
     array('name', 'Username'),
     array('pass', 'Password'),
     array('mail', 'Email'),
@@ -19,9 +20,16 @@ class GarmentboxUsers extends Migration {
 
   public $entityType = 'user';
 
+  public $dependencies = array(
+    'garmentboxCompanies',
+  );
+
   public function __construct() {
     parent::__construct();
     $this->description = t('Import users from a CSV file.');
+
+    $this->addFieldMapping('og_user_company', 'og_user_company')
+      ->sourceMigration('garmentboxCompanies');
 
     $this->addFieldMapping('name', 'name');
     $this->addFieldMapping('pass', 'pass');
