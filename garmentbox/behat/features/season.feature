@@ -51,20 +51,18 @@ Feature: Test Season page
       | Grey v-neck shirt  | 1     | 0      | 20    | 21    | Future production  |
       | Lines v-neck shirt | 0     | 4      | 1     | 5     | Current production |
 
-  @api @wip
+  @api
   Scenario: Verify redirections from the front page to the season items tab.
     Given I am logged in as a user from "Imanimo"
       And I go to create "season" node page
       And I fill in "Title" with "Test season"
-      # Temp fix: The company should not be selected by the user.
-      And I select "Imanimo" from "Company"
       And I press "Save"
       When I visit the front page
       Then I should be on a page titled "Test season - Items | Site-Install"
 
-  @api
+  @api @wip
   Scenario: Verify redirections from the front page to the season tasks tab.
-    Given I am logged in as a user with the "authenticated user" role
+    Given I am logged in as a user from "Imanimo"
       And I go to create "season" node page
      When I fill in "Title" with "Test season 2"
       And I press "Save"

@@ -146,7 +146,6 @@ class garmentboxMaterialTypeTerms extends garmentboxMigration {
   }
 }
 
-
 /**
  * Migrate measurement unit terms.
  */
