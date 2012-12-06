@@ -651,7 +651,7 @@ class FeatureContext extends DrupalContext {
     // Add the item variant to the line sheet.
     return array(
         new Given('I am on a "item-variant" page titled "'. $title. '"'),
-        new Given('I click "Add to line Sheet"'),
+        new Given('I click "Add to line sheet"'),
     );
   }
 
