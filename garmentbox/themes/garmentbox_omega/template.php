@@ -29,7 +29,11 @@ function garmentbox_omega_preprocess_page(&$variables) {
     }
   }
 
-  if ($node) {
+  if (overlay_get_mode() == 'child') {
+    $variables['theme_hook_suggestions'][] = 'page__overlay';
+  }
+  elseif ($node) {
+    // Node context.
     $variables['page']['title'] = node_view($node, 'garmentbox_header');
     $variables['page']['breadcrumbs'] = garmentbox_general_get_node_breadcrumbs($node);
     $variables['page']['tabs'] = garmentbox_general_get_node_tabs($node);
