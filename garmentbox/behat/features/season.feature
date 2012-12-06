@@ -37,8 +37,8 @@ Feature: Test Season page
     Given I am logged in as a user with the "authenticated user" role
      When I am on the "Season inventory" page of the default "season"
      Then the table "inventory-summary" should have the following <contents>:
-      | Variation                   | Small               | Medium                                          | Large                                           | Type                                                      |
-      | Lines v-neck shirt - Total  | 0 Stock 0 Available | 12 Stock 0 Available 13 Ordered 7 Future stock  | 22 Stock 17 Available 5 Ordered 11 Future stock | All types Except of Defective, Consignment, Sent / Sold.  |
+      | Variation                   | Small       | Medium                                      | Large                                        | Type                                                      |
+      | Lines v-neck shirt - Total  | 0 available | 0 available 12 in stock 13 ordered 7 future | 17 available 22 in stock 5 ordered 11 future | All types Except of Defective, Consignment, Sent / Sold.  |
 
   @api
   Scenario: Correct content is shown on the season orders list.
