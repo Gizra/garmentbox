@@ -53,6 +53,7 @@ projects[field_collection][version] = "1.x-dev"
 
 projects[field_collection_table][subdir] = "contrib"
 projects[field_collection_table][version] = "1.x-dev"
+projects[field_collection_table][patch][] = "http://drupal.org/files/field_collection_table-hidden_header_fieldr-0.patch"
 
 projects[field_group][subdir] = "contrib"
 projects[field_group][version] = "1.1"

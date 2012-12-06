@@ -616,7 +616,8 @@ class FeatureContext extends DrupalContext {
     $steps = array();
     switch($page_name) {
       case 'Add a production order':
-        $path = "node/add/production-order?field_season=$nid";
+        // TODO: The "imanimo" should be added automatically.
+        $path = "imanimo/node/add/production-order?field_season=$nid";
         break;
 
       case 'Season inventory':
