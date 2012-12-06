@@ -20,6 +20,10 @@ class CompanySelectionHandler extends EntityReference_SelectionHandler_Generic {
     // Get the query from the base selection handler.
     $handler = EntityReference_SelectionHandler_Generic::getInstance($this->field, $this->instance, $this->entity_type, $this->entity);
     $query = $handler->buildEntityFieldQuery($match, $match_operator);
+    // TODO: Check which vocabularies should include the og_company condition.
+    if ($query->entityConditions['entity_type']['value'] == 'taxonomy_term') {
+      return $query;
+    }
 
     // Set the correct selection handler to point to our class.
     $query->addMetaData('entityreference_selection_handler', $this);
