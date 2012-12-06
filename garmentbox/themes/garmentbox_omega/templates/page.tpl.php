@@ -111,7 +111,6 @@
     <?php endif; ?>
 
     <div id="content" class="clearfix">
-      <h2><?php print $title; ?></h2>
 
       <?php print render($page['highlighted']); ?>
       <a id="main-content-anchor"></a>
