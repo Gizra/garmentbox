@@ -113,15 +113,33 @@ function garmentbox_setup_blocks() {
  * Task callback; Setup OG permissions.
  *
  * We do this here, late enough to make sure all group-content were
- * created
+ * created.
  */
 function garmentbox_setup_og_permissions() {
   $og_roles = og_roles('node', 'company');
   $rid = array_search(OG_AUTHENTICATED_ROLE, $og_roles);
 
-  $permissions = array(
-    'create customer content' => TRUE,
-    'update own customer content'  => TRUE,
+  $permissions = array();
+  $types = array(
+    'customer',
+    'department',
+    'event',
+    'inventory_line',
+    'item',
+    'item_variant',
+    'material',
+    'order',
+    'pattern_task',
+    'factory',
+    'production_order',
+    'season',
+    'task',
+    'vendor',
   );
+  foreach ($types as $type) {
+    $permissions["create $type content"] = TRUE;
+    $permissions["update own $type content"] = TRUE;
+    $permissions["update any $type content"] = TRUE;
+  }
   og_role_change_permissions($rid, $permissions);
 }
