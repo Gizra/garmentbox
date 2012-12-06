@@ -49,9 +49,9 @@ table {
     padding: 9px;
 
     .minor {
-      font-size: 10px;
+      font-size: 11px;
       color: #666;
-      margin-left: 10px; //LTR
+      display: block;
     }
 
     &.hidden-label label {
@@ -62,6 +62,7 @@ table {
   th {
     color: #5e5e5e;
     font-weight: normal;
+    font-family: Dosis, Arial, Helvetica, sans-serif;
   }
 
   td {
@@ -76,6 +77,11 @@ table {
 
     &.hidden-label label {
       display: none;
+    }
+
+    &.variant-status-title {
+      font-size: 15px;
+      color: #010101;
     }
   }
 
@@ -106,104 +112,225 @@ table {
     margin-right: 5px; //LTR
   }
 
-  .inventory-cell {
-    position: relative;
-    width: 200px;
+  &#inventory-summary {
+    border: 1px solid #dbdbdb;
 
-    .main-figure {
-      position: absolute;
-      top: 50%;
-      left: 0; //LTR
-      margin-top: -10px;
-      float: left; //LTR
-      border-radius: 6px;
-      background-color: #454444;
-      @include box-shadow(0, -1px, 1px, 0, #8C8989);
-      color: white;
-      padding: 1px 0;
+    .variant-type-name {
+      font-size: 14px;
+    }
 
-      span {
-        padding: 1px 8px;
+    .expander {
+      background-image: url("../images/collapse-.gif");
+      width: 14px;
+      height: 14px;
 
-        &.amount.with-title {
-          border-right: 1px solid #2E2E2E; //LTR
+      &.collapsed {
+        background-image: url("../images/collapse+.gif");
+      }
+    }
+
+    &.main-box-width-1 .inventory-cell .sub-figures {
+
+      .sub-figure-placeholder {
+        width: 64px;
+      }
+
+      .amount {
+        width: 18px;
+      }
+    }
+
+    &.main-box-width-2 .inventory-cell .sub-figures {
+
+      .sub-figure-placeholder {
+        width: 66px;
+      }
+
+      .amount {
+        width: 21px;
+      }
+    }
+
+    &.main-box-width-3 .inventory-cell .sub-figures {
+
+      .sub-figure-placeholder {
+        width: 67px;
+      }
+
+      .amount {
+        width: 23px;
+      }
+    }
+
+    &.main-box-width-4 , &.main-box-width-5 {
+
+      .inventory-cell  .sub-figures {
+
+        .sub-figure-placeholder {
+          width: 71px;
         }
 
-        &.label {
-          border-left: 1px solid #949494; //LTR
+        .amount {
+          width: 28px;
+          padding-right: 1px;
         }
       }
     }
 
+    &.size-amount-width-1 .inventory-sub-cell .main-figure .amount {
+      width: 30px;
+    }
+
+    &.size-amount-width-2 .inventory-sub-cell .main-figure .amount {
+      width: 40px;
+    }
+
+    &.size-amount-width-3 .inventory-sub-cell .main-figure .amount {
+      width: 50px;
+    }
+
+    &.size-amount-width-4 .inventory-sub-cell .main-figure .amount {
+      width: 55px;
+    }
+
+    &.size-amount-width-5 .inventory-sub-cell .main-figure .amount {
+      width: 60px;
+    }
+
+    .sub-figure-placeholder {
+      display: block;
+    }
+  }
+
+
+  tr.variant-status-type {
+
+    td {
+      padding: 0px 0px 0px 5px;
+    }
+
+  .inventory-sub-cell {
+    margin-left: -5px;
+
+    .main-figure {
+      padding: 9px 0px;
+      color: white;
+      float: left; //LTR
+      text-align: center;
+
+      .amount {
+        font-size: 20px;
+        display: block;
+      }
+    }
+
+    .sub-figure {
+      color: #6b6b6b;
+      max-width: 160px;
+      text-align: center;
+      padding-top: 10px;
+
+      .ordered {
+        font-size: 14px;
+      }
+    }
+  }
+    &.current {
+
+      .main-figure {
+        background: #70b55c;
+      }
+    }
+
+    &.future {
+
+      .main-figure {
+        background: #d16500;
+      }
+    }
+
+    &.irrelevant {
+
+      .main-figure {
+         background: #737373;
+      }
+    }
+  }
+
+  .inventory-cell {
+    position: relative;
+
+    .main-figure {
+      float: left; //LTR
+      color: #474747;
+      text-align: center;
+      margin-top: 10px;
+
+      span.amount {
+        font-weight: bold;
+        font-size: 28px;
+      }
+
+      .label {
+        color: #848484;
+        font-size: 10px;
+      }
+    }
+
     .sub-figures {
-      float: right; //LTR
+      float: left; //LTR
+      margin-left: 10px; //LTR
+      text-align: center;
 
       .sub-figure {
         margin-right: 5px; //LTR
         margin-top: 2px;
-        font-size: 11px;
+        font-size: 10px;
         float: left; //LTR
         clear: left; //LTR
         border-radius: 4px;
-        color: white;
         padding: 1px 0;
         width: 100%;
+        height: 14px;
+        border: 1px solid #DCDCDC;
+        @include greyGradient;
 
         &:first-child {
           margin-top: 0;
         }
 
         span {
-          padding: 1px 6px;
+          padding: 0px 0px 1px 3px;
           min-width: 20px;
-        }
 
-        &.future_stock {
-          background-color: #E0B21B;
-          @include box-shadow(0, -1px, 1px, 0, #E6CD7E);
+          &.amount {
+            color: white;
+            height: 14px;
+            margin-top: -1px;
+            display: block;
+            float: left; //LTR
+            padding-top: 1px;
+            font-size: 12px;
+            @include border-left-radius(3px);
+          }
 
-          span {
-
-            &.amount {
-              border-right: 1px solid #856A13; //LTR
-            }
-
-            &.label {
-              border-left: 1px solid #D6CBA5; //LTR
-            }
+          &.label {
+            color: #565656;
+            float: left; //LTR
+            font-size: 11px;
           }
         }
 
-        &.ordered {
-          background-color: #5555FA;
-          @include box-shadow(0, -1px, 1px, 0, #BBBBF2);
-
-          span {
-
-            &.amount {
-              border-right: 1px solid #16167A; //LTR
-            }
-
-            &.label {
-              border-left: 1px solid #9898D6; //LTR
-            }
-          }
+        &.future_stock span.amount {
+          @include orangeGradient;
         }
 
-        &.available {
-          background-color: #099609;
-          @include box-shadow(0, -1px, 1px, 0, #ccebcc);
+        &.ordered span.amount {
+          @include blueGradient;
+        }
 
-          span {
-
-            &.amount {
-              border-right: 1px solid #018305; //LTR
-            }
-
-            &.label {
-              border-left: 1px solid #86ce84; //LTR
-            }
-          }
+        &.quantity span.amount {
+          @include greenGradient;
         }
       }
     }

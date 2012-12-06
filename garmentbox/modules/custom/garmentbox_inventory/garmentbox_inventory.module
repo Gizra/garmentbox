@@ -246,6 +246,9 @@ function garmentbox_inventory_get_summary($node) {
 
   drupal_add_js(drupal_get_path('module', 'garmentbox_inventory') . '/inventory_summary.js');
 
+  // Keep track of the largest number of characters in amount display.
+  $main_box_width = 1;
+
   // Build inventory data info, keyed by the inventory item type TID.
   $inventory = array();
   $inventory_nodes = node_load_multiple(array_keys($result['node']));
@@ -264,24 +267,36 @@ function garmentbox_inventory_get_summary($node) {
     // inventory lines.
     $include_in_total = $inventory_types[$tid]['include_in_total'] && !$defective;
 
+    $is_closed = $wrapper->field_inventory_type->field_closed_stock->value() && !$defective;
+
     $inventory[$nid]['label'] = $wrapper->field_item_variant->label();
     if (!$defective) {
       $type_key = $tid;
       $inventory[$nid]['types'][$type_key]['type_label'] = $wrapper->field_inventory_type->label();
       $inventory[$nid]['types'][$type_key]['in_total'] = $include_in_total;
+      $inventory[$nid]['types'][$type_key]['in_warehouse'] = $in_warehouse  && !$defective;
+      $inventory[$nid]['types'][$type_key]['closed'] = FALSE;
     }
     else {
       $type_key = 'defective';
       $inventory[$nid]['types'][$type_key]['type_label'] = t('Defective');
       $inventory[$nid]['types'][$type_key]['in_total'] = FALSE;
+      $inventory[$nid]['types'][$type_key]['in_warehouse'] = FALSE;
+      $inventory[$nid]['types'][$type_key]['closed'] = TRUE;
     }
 
     foreach ($size_tree as $term) {
-      $inventory[$nid]['total'][$term->tid]['available'] = !empty($inventory[$nid]['total'][$term->tid]['available']) ? $inventory[$nid]['total'][$term->tid]['available'] : 0;
+      // Subfigures.
       $inventory[$nid]['total'][$term->tid]['ordered'] = !empty($inventory[$nid]['total'][$term->tid]['ordered']) ? $inventory[$nid]['total'][$term->tid]['ordered'] : 0;
       $inventory[$nid]['total'][$term->tid]['future_stock'] = !empty($inventory[$nid]['total'][$term->tid]['future_stock']) ? $inventory[$nid]['total'][$term->tid]['future_stock'] : 0;
       $inventory[$nid]['total'][$term->tid]['quantity'] = !empty($inventory[$nid]['total'][$term->tid]['quantity']) ? $inventory[$nid]['total'][$term->tid]['quantity'] : 0;
+      // Hides the subfigures' boxes if they are all 0.
+      $inventory[$nid]['total'][$term->tid]['has_subfigures'] = max($inventory[$nid]['total'][$term->tid]) !== 0;
+
+      // Main figure.
+      $inventory[$nid]['total'][$term->tid]['available'] = !empty($inventory[$nid]['total'][$term->tid]['available']) ? $inventory[$nid]['total'][$term->tid]['available'] : 0;
     }
+
 
     $is_ordered = garmentbox_inventory_is_inventory_item_ordered($inventory_node->nid);
 
@@ -292,6 +307,7 @@ function garmentbox_inventory_get_summary($node) {
       $info['ordered'] = !empty($info['ordered']) ? $info['ordered'] : 0;
 
       $quantity = $quantity_wrapper->field_quantity_integer->value();
+      $main_box_width = max(array($main_box_width, strlen($quantity)));
 
       $info['quantity'] += $quantity;
       if ($is_ordered) {
@@ -329,9 +345,11 @@ function garmentbox_inventory_get_summary($node) {
     }
   }
 
+  // Keep track of the maximum number of characters in variants inventory type
+  // amounts.
+  $size_amount_width = 2;
   // Build the output based on the inventory data info.
   foreach ($inventory as $nid => $variant_data) {
-
     $items = array();
     $variant_label = $variant_data['label'];
 
@@ -344,16 +362,17 @@ function garmentbox_inventory_get_summary($node) {
     $params = array(
       'attributes' => array(
         'class' => array('expander', 'collapsed'),
-      )
+      ),
     );
     $expand_link = l('', url(''), $params);
-    $row['data'][] = $expand_link . t('@variant - Total', array('@variant' => $variant_label));
+    $row['data'][] = array('data' => $expand_link . t('@variant - Total', array('@variant' => $variant_label)), 'class' => array('variant-type-name'));
+
     foreach($size_tree as $term) {
-      $row['data'][] = theme('garmentbox_inventory_cell', $variant_data['total'][$term->tid] + array('quantity_title' => t('Stock')));
+      $row['data'][] = theme('garmentbox_inventory_cell', $variant_data['total'][$term->tid]);
     }
 
     // Total row description.
-    $row['data'][] = $total_type_label;
+    $row['data'][] = array('data' => $total_type_label, 'class' => array('variant-status-title'));
 
     $rows[] = $row;
 
@@ -362,28 +381,28 @@ function garmentbox_inventory_get_summary($node) {
         // There are no values for this inventory type.
         continue;
       }
+      // Add a class specifying the color of quantity boxes in that row.
+      $subscell_class = _garmentbox_inventory_subcell_class($variant_inventory_data);
+
       $row = array(
         'data' => array(),
-        'class' => array('type', 'hidden', 'variant-nid-' . $nid),
+        'class' => array('variant-status-type', 'type', 'hidden', 'variant-nid-' . $nid, $subscell_class),
       );
 
-      // Add a class specifying that the row is included in the total, to enable
-      // highlighting it when the total is hovered.
-      if ($variant_inventory_data['in_total']) {
-        $row['class'][] = 'in-total';
-      }
 
-      $row['data'][] = $variant_label;
+      $row['data'][] = '';
 
       foreach($size_tree as $term) {
         if (empty($variant_inventory_data['data'][$term->tid])) {
-          $row['data'][] = theme('garmentbox_inventory_cell', array('quantity' => 0));
+          $row['data'][] = theme('garmentbox_inventory_sub_cell', array('quantity' => 0, 'class' => $subscell_class));
           continue;
         }
 
-        $row['data'][] = theme('garmentbox_inventory_cell', $variant_inventory_data['data'][$term->tid]);
+        // See that we always use the correct size for the boxes.
+        $size_amount_width = max(array($size_amount_width, strlen(max($variant_inventory_data['data'][$term->tid]))));
+        $row['data'][] = theme('garmentbox_inventory_sub_cell', $variant_inventory_data['data'][$term->tid]);
       }
-      $row['data'][] = $variant_inventory_data['type_label'];
+      $row['data'][] = array('data' => $variant_inventory_data['type_label'], 'class' => array('variant-status-title'));
       $rows[] = $row;
     }
   }
@@ -393,9 +412,44 @@ function garmentbox_inventory_get_summary($node) {
     'rows' => $rows,
     'attributes' => array(
       'id' => 'inventory-summary',
+      'class' => array('main-box-width-' . $main_box_width, 'size-amount-width-' . $size_amount_width),
     ),
   );
   return theme('table', $variables);
+}
+
+/**
+ * Get the correct class to add to a row of variant status display.
+ *
+ * @param @variables
+ *   Array containing order status term variables.
+ *
+ * @return
+ *   String; Class to add.
+ */
+function _garmentbox_inventory_subcell_class($variables) {
+  // Make relevant variables more accessible.
+  $total = $variables['in_total'];
+  $warehouse = $variables['in_warehouse'];
+  $closed = $variables['closed'];
+
+  if ($total) {
+    // Included in total.
+
+    if(!$warehouse && !$closed) {
+      // Included in total but not in the warehouse (yet) and not closed.
+      return 'future';
+    }
+
+    if ($closed xor $warehouse) {
+      // Either closed OR in the warehouse.
+      // If both, the item is irrelevant.
+      return 'current';
+    }
+  }
+
+  // All other options.
+  return 'irrelevant';
 }
 
 /**
@@ -412,13 +466,22 @@ function garmentbox_inventory_theme($existing, $type, $theme, $path) {
         'label' => NULL,
         'class' => NULL,
         'quantity_title' => NULL,
+        'has_subfigures' => FALSE,
         'subfigure_types' => array(
-          'available' => t('Available'),
-          'ordered' => t('Ordered'),
-          'future_stock' => t('Future stock'),
+          'quantity' => t('in stock'),
+          'ordered' => t('ordered'),
+          'future_stock' => t('future'),
         ),
       ),
-      'template' => 'inventory-summary-cell',
+      'template' => 'templates/inventory-summary-cell',
+    ),
+    'garmentbox_inventory_sub_cell' => array(
+      'variables' => array(
+        'ordered' => NULL,
+        'quantity' => NULL,
+        'class' => NULL,
+      ),
+      'template' => 'templates/inventory-summary-sub-cell',
     ),
   );
 }

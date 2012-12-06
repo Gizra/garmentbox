@@ -72,9 +72,9 @@ table th, table td {
 }
 /* line 51, ../sass/partials/widget/_table.scss */
 table th .minor, table td .minor {
-  font-size: 10px;
+  font-size: 11px;
   color: #666;
-  margin-left: 10px;
+  display: block;
 }
 /* line 57, ../sass/partials/widget/_table.scss */
 table th.hidden-label label, table td.hidden-label label {
@@ -84,20 +84,26 @@ table th.hidden-label label, table td.hidden-label label {
 table th {
   color: #5e5e5e;
   font-weight: normal;
+  font-family: Dosis, Arial, Helvetica, sans-serif;
 }
-/* line 69, ../sass/partials/widget/_table.scss */
+/* line 70, ../sass/partials/widget/_table.scss */
 table td.active {
   background-color: rgba(50, 50, 50, 0.05);
 }
-/* line 73, ../sass/partials/widget/_table.scss */
+/* line 74, ../sass/partials/widget/_table.scss */
 table td.emphasized {
   font-weight: bold;
 }
-/* line 77, ../sass/partials/widget/_table.scss */
+/* line 78, ../sass/partials/widget/_table.scss */
 table td.hidden-label label {
   display: none;
 }
 /* line 82, ../sass/partials/widget/_table.scss */
+table td.variant-status-title {
+  font-size: 15px;
+  color: #010101;
+}
+/* line 88, ../sass/partials/widget/_table.scss */
 table .views-field-edit-node a, table li.edit a {
   width: 28px;
   height: 27px;
@@ -106,32 +112,32 @@ table .views-field-edit-node a, table li.edit a {
   overflow: hidden;
   background: url("../images/edit.png") no-repeat;
 }
-/* line 79, ../sass/_mixins.scss */
+/* line 82, ../sass/_mixins.scss */
 table .views-field-edit-node a:hover, table li.edit a:hover {
   -moz-transition: 0.3s;
   -webkit-transition: 0.3s;
   -o-transition: 0.3s;
   transition: 0.3s;
 }
-/* line 88, ../sass/_mixins.scss */
+/* line 91, ../sass/_mixins.scss */
 table .views-field-edit-node a:hover, table li.edit a:hover {
   background-image: url("../images/edit-active.png");
 }
-/* line 86, ../sass/partials/widget/_table.scss */
+/* line 92, ../sass/partials/widget/_table.scss */
 table .field-collection-view-links {
   margin: 0;
   padding: 0;
 }
-/* line 90, ../sass/partials/widget/_table.scss */
+/* line 96, ../sass/partials/widget/_table.scss */
 table .field-collection-view-links li {
   margin: 0 0 0 5px;
   float: left;
 }
-/* line 94, ../sass/partials/widget/_table.scss */
+/* line 100, ../sass/partials/widget/_table.scss */
 table .field-collection-view-links li.first {
   margin-left: 0;
 }
-/* line 98, ../sass/partials/widget/_table.scss */
+/* line 104, ../sass/partials/widget/_table.scss */
 table .field-collection-view-links li.delete a {
   width: 28px;
   height: 27px;
@@ -140,125 +146,289 @@ table .field-collection-view-links li.delete a {
   overflow: hidden;
   background: url("../images/delete.png") no-repeat;
 }
-/* line 79, ../sass/_mixins.scss */
+/* line 82, ../sass/_mixins.scss */
 table .field-collection-view-links li.delete a:hover {
   -moz-transition: 0.3s;
   -webkit-transition: 0.3s;
   -o-transition: 0.3s;
   transition: 0.3s;
 }
-/* line 97, ../sass/_mixins.scss */
+/* line 100, ../sass/_mixins.scss */
 table .field-collection-view-links li.delete a:hover {
   background-image: url("../images/delete-active.png");
 }
-/* line 104, ../sass/partials/widget/_table.scss */
+/* line 110, ../sass/partials/widget/_table.scss */
 table .quantity {
   float: left;
   margin-right: 5px;
 }
-/* line 109, ../sass/partials/widget/_table.scss */
-table .inventory-cell {
-  position: relative;
-  width: 200px;
+/* line 115, ../sass/partials/widget/_table.scss */
+table#inventory-summary {
+  border: 1px solid #dbdbdb;
 }
-/* line 113, ../sass/partials/widget/_table.scss */
-table .inventory-cell .main-figure {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  margin-top: -10px;
-  float: left;
-  border-radius: 6px;
-  background-color: #454444;
-  -moz-box-shadow: 0 -1px 1px 0 #8c8989;
-  -webkit-box-shadow: 0 -1px 1px 0 #8c8989;
-  box-shadow: 0 -1px 1px 0 #8c8989;
-  color: white;
-  padding: 1px 0;
+/* line 118, ../sass/partials/widget/_table.scss */
+table#inventory-summary .variant-type-name {
+  font-size: 14px;
 }
-/* line 125, ../sass/partials/widget/_table.scss */
-table .inventory-cell .main-figure span {
-  padding: 1px 8px;
+/* line 122, ../sass/partials/widget/_table.scss */
+table#inventory-summary .expander {
+  background-image: url("../images/collapse-.gif");
+  width: 14px;
+  height: 14px;
 }
-/* line 128, ../sass/partials/widget/_table.scss */
-table .inventory-cell .main-figure span.amount.with-title {
-  border-right: 1px solid #2E2E2E;
+/* line 127, ../sass/partials/widget/_table.scss */
+table#inventory-summary .expander.collapsed {
+  background-image: url("../images/collapse+.gif");
 }
-/* line 132, ../sass/partials/widget/_table.scss */
-table .inventory-cell .main-figure span.label {
-  border-left: 1px solid #949494;
+/* line 134, ../sass/partials/widget/_table.scss */
+table#inventory-summary.main-box-width-1 .inventory-cell .sub-figures .sub-figure-placeholder {
+  width: 64px;
 }
 /* line 138, ../sass/partials/widget/_table.scss */
-table .inventory-cell .sub-figures {
-  float: right;
+table#inventory-summary.main-box-width-1 .inventory-cell .sub-figures .amount {
+  width: 18px;
 }
-/* line 141, ../sass/partials/widget/_table.scss */
+/* line 145, ../sass/partials/widget/_table.scss */
+table#inventory-summary.main-box-width-2 .inventory-cell .sub-figures .sub-figure-placeholder {
+  width: 66px;
+}
+/* line 149, ../sass/partials/widget/_table.scss */
+table#inventory-summary.main-box-width-2 .inventory-cell .sub-figures .amount {
+  width: 21px;
+}
+/* line 156, ../sass/partials/widget/_table.scss */
+table#inventory-summary.main-box-width-3 .inventory-cell .sub-figures .sub-figure-placeholder {
+  width: 67px;
+}
+/* line 160, ../sass/partials/widget/_table.scss */
+table#inventory-summary.main-box-width-3 .inventory-cell .sub-figures .amount {
+  width: 23px;
+}
+/* line 169, ../sass/partials/widget/_table.scss */
+table#inventory-summary.main-box-width-4 .inventory-cell .sub-figures .sub-figure-placeholder, table#inventory-summary.main-box-width-5 .inventory-cell .sub-figures .sub-figure-placeholder {
+  width: 71px;
+}
+/* line 173, ../sass/partials/widget/_table.scss */
+table#inventory-summary.main-box-width-4 .inventory-cell .sub-figures .amount, table#inventory-summary.main-box-width-5 .inventory-cell .sub-figures .amount {
+  width: 28px;
+  padding-right: 1px;
+}
+/* line 180, ../sass/partials/widget/_table.scss */
+table#inventory-summary.size-amount-width-1 .inventory-sub-cell .main-figure .amount {
+  width: 30px;
+}
+/* line 184, ../sass/partials/widget/_table.scss */
+table#inventory-summary.size-amount-width-2 .inventory-sub-cell .main-figure .amount {
+  width: 40px;
+}
+/* line 188, ../sass/partials/widget/_table.scss */
+table#inventory-summary.size-amount-width-3 .inventory-sub-cell .main-figure .amount {
+  width: 50px;
+}
+/* line 192, ../sass/partials/widget/_table.scss */
+table#inventory-summary.size-amount-width-4 .inventory-sub-cell .main-figure .amount {
+  width: 55px;
+}
+/* line 196, ../sass/partials/widget/_table.scss */
+table#inventory-summary.size-amount-width-5 .inventory-sub-cell .main-figure .amount {
+  width: 60px;
+}
+/* line 200, ../sass/partials/widget/_table.scss */
+table#inventory-summary .sub-figure-placeholder {
+  display: block;
+}
+/* line 208, ../sass/partials/widget/_table.scss */
+table tr.variant-status-type td {
+  padding: 0px 0px 0px 5px;
+}
+/* line 212, ../sass/partials/widget/_table.scss */
+table tr.variant-status-type .inventory-sub-cell {
+  margin-left: -5px;
+}
+/* line 215, ../sass/partials/widget/_table.scss */
+table tr.variant-status-type .inventory-sub-cell .main-figure {
+  padding: 9px 0px;
+  color: white;
+  float: left;
+  text-align: center;
+}
+/* line 221, ../sass/partials/widget/_table.scss */
+table tr.variant-status-type .inventory-sub-cell .main-figure .amount {
+  font-size: 20px;
+  display: block;
+}
+/* line 227, ../sass/partials/widget/_table.scss */
+table tr.variant-status-type .inventory-sub-cell .sub-figure {
+  color: #6b6b6b;
+  max-width: 160px;
+  text-align: center;
+  padding-top: 10px;
+}
+/* line 233, ../sass/partials/widget/_table.scss */
+table tr.variant-status-type .inventory-sub-cell .sub-figure .ordered {
+  font-size: 14px;
+}
+/* line 240, ../sass/partials/widget/_table.scss */
+table tr.variant-status-type.current .main-figure {
+  background: #70b55c;
+}
+/* line 247, ../sass/partials/widget/_table.scss */
+table tr.variant-status-type.future .main-figure {
+  background: #d16500;
+}
+/* line 254, ../sass/partials/widget/_table.scss */
+table tr.variant-status-type.irrelevant .main-figure {
+  background: #737373;
+}
+/* line 260, ../sass/partials/widget/_table.scss */
+table .inventory-cell {
+  position: relative;
+}
+/* line 263, ../sass/partials/widget/_table.scss */
+table .inventory-cell .main-figure {
+  float: left;
+  color: #474747;
+  text-align: center;
+  margin-top: 10px;
+}
+/* line 269, ../sass/partials/widget/_table.scss */
+table .inventory-cell .main-figure span.amount {
+  font-weight: bold;
+  font-size: 28px;
+}
+/* line 274, ../sass/partials/widget/_table.scss */
+table .inventory-cell .main-figure .label {
+  color: #848484;
+  font-size: 10px;
+}
+/* line 280, ../sass/partials/widget/_table.scss */
+table .inventory-cell .sub-figures {
+  float: left;
+  margin-left: 10px;
+  text-align: center;
+}
+/* line 285, ../sass/partials/widget/_table.scss */
 table .inventory-cell .sub-figures .sub-figure {
   margin-right: 5px;
   margin-top: 2px;
-  font-size: 11px;
+  font-size: 10px;
   float: left;
   clear: left;
   border-radius: 4px;
-  color: white;
   padding: 1px 0;
   width: 100%;
+  height: 14px;
+  border: 1px solid #DCDCDC;
+  background: whitesmoke;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, whitesmoke 0%, #f2f2f2 60%, #ececec 73%, #e9e9e9 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, whitesmoke), color-stop(60%, #f2f2f2), color-stop(73%, #ececec), color-stop(100%, #e9e9e9));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, whitesmoke 0%, #f2f2f2 60%, #ececec 73%, #e9e9e9 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, whitesmoke 0%, #f2f2f2 60%, #ececec 73%, #e9e9e9 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, whitesmoke 0%, #f2f2f2 60%, #ececec 73%, #e9e9e9 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #f5f5f5 0%, #f2f2f2 60%, #ececec 73%, #e9e9e9 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f5f5f5', endColorstr='#e9e9e9',GradientType=1 );
+  /* IE6-9 */
 }
-/* line 152, ../sass/partials/widget/_table.scss */
+/* line 298, ../sass/partials/widget/_table.scss */
 table .inventory-cell .sub-figures .sub-figure:first-child {
   margin-top: 0;
 }
-/* line 156, ../sass/partials/widget/_table.scss */
+/* line 302, ../sass/partials/widget/_table.scss */
 table .inventory-cell .sub-figures .sub-figure span {
-  padding: 1px 6px;
+  padding: 0px 0px 1px 3px;
   min-width: 20px;
 }
-/* line 161, ../sass/partials/widget/_table.scss */
-table .inventory-cell .sub-figures .sub-figure.future_stock {
-  background-color: #E0B21B;
-  -moz-box-shadow: 0 -1px 1px 0 #e6cd7e;
-  -webkit-box-shadow: 0 -1px 1px 0 #e6cd7e;
-  box-shadow: 0 -1px 1px 0 #e6cd7e;
+/* line 306, ../sass/partials/widget/_table.scss */
+table .inventory-cell .sub-figures .sub-figure span.amount {
+  color: white;
+  height: 14px;
+  margin-top: -1px;
+  display: block;
+  float: left;
+  padding-top: 1px;
+  font-size: 12px;
+  -moz-border-radius-topleft: 3px;
+  -webkit-border-top-left-radius: 3px;
+  border-top-left-radius: 3px;
+  -moz-border-radius-bottomleft: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  border-bottom-left-radius: 3px;
 }
-/* line 167, ../sass/partials/widget/_table.scss */
+/* line 317, ../sass/partials/widget/_table.scss */
+table .inventory-cell .sub-figures .sub-figure span.label {
+  color: #565656;
+  float: left;
+  font-size: 11px;
+}
+/* line 324, ../sass/partials/widget/_table.scss */
 table .inventory-cell .sub-figures .sub-figure.future_stock span.amount {
-  border-right: 1px solid #856A13;
+  background: #de832e;
+  /* Old browsers */
+  /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2RlODMyZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEzJSIgc3RvcC1jb2xvcj0iI2RkN2YyNiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjUzJSIgc3RvcC1jb2xvcj0iI2Q3NjkwMiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjczJSIgc3RvcC1jb2xvcj0iI2QxNjUwMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNjZjY0MDAiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+  background: -moz-linear-gradient(top, #de832e 0%, #dd7f26 13%, #d76902 53%, #d16500 73%, #cf6400 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #de832e), color-stop(13%, #dd7f26), color-stop(53%, #d76902), color-stop(73%, #d16500), color-stop(100%, #cf6400));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #de832e 0%, #dd7f26 13%, #d76902 53%, #d16500 73%, #cf6400 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #de832e 0%, #dd7f26 13%, #d76902 53%, #d16500 73%, #cf6400 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #de832e 0%, #dd7f26 13%, #d76902 53%, #d16500 73%, #cf6400 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #de832e 0%, #dd7f26 13%, #d76902 53%, #d16500 73%, #cf6400 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#de832e', endColorstr='#cf6400',GradientType=0 );
+  /* IE6-8 */
 }
-/* line 171, ../sass/partials/widget/_table.scss */
-table .inventory-cell .sub-figures .sub-figure.future_stock span.label {
-  border-left: 1px solid #D6CBA5;
-}
-/* line 177, ../sass/partials/widget/_table.scss */
-table .inventory-cell .sub-figures .sub-figure.ordered {
-  background-color: #5555FA;
-  -moz-box-shadow: 0 -1px 1px 0 #bbbbf2;
-  -webkit-box-shadow: 0 -1px 1px 0 #bbbbf2;
-  box-shadow: 0 -1px 1px 0 #bbbbf2;
-}
-/* line 183, ../sass/partials/widget/_table.scss */
+/* line 328, ../sass/partials/widget/_table.scss */
 table .inventory-cell .sub-figures .sub-figure.ordered span.amount {
-  border-right: 1px solid #16167A;
+  /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzg5YzhlZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjclIiBzdG9wLWNvbG9yPSIjN2RjNmYxIiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iNTMlIiBzdG9wLWNvbG9yPSIjNjZiY2VlIiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iODAlIiBzdG9wLWNvbG9yPSIjNjFiNGU2IiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iOTMlIiBzdG9wLWNvbG9yPSIjNjFiNGU1IiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzZjYjhlNCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgPC9saW5lYXJHcmFkaWVudD4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPgo8L3N2Zz4=);
+  background: -moz-linear-gradient(top, #89c8ef 0%, #7dc6f1 7%, #66bcee 53%, #61b4e6 80%, #61b4e5 93%, #6cb8e4 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #89c8ef), color-stop(7%, #7dc6f1), color-stop(53%, #66bcee), color-stop(80%, #61b4e6), color-stop(93%, #61b4e5), color-stop(100%, #6cb8e4));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #89c8ef 0%, #7dc6f1 7%, #66bcee 53%, #61b4e6 80%, #61b4e5 93%, #6cb8e4 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #89c8ef 0%, #7dc6f1 7%, #66bcee 53%, #61b4e6 80%, #61b4e5 93%, #6cb8e4 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #89c8ef 0%, #7dc6f1 7%, #66bcee 53%, #61b4e6 80%, #61b4e5 93%, #6cb8e4 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #89c8ef 0%, #7dc6f1 7%, #66bcee 53%, #61b4e6 80%, #61b4e5 93%, #6cb8e4 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#89c8ef', endColorstr='#6cb8e4',GradientType=0 );
+  /* IE6-8 */
 }
-/* line 187, ../sass/partials/widget/_table.scss */
-table .inventory-cell .sub-figures .sub-figure.ordered span.label {
-  border-left: 1px solid #9898D6;
+/* line 332, ../sass/partials/widget/_table.scss */
+table .inventory-cell .sub-figures .sub-figure.quantity span.amount {
+  background: #8fc37f;
+  /* Old browsers */
+  /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzhmYzM3ZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjclIiBzdG9wLWNvbG9yPSIjODRiZjcyIiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iNTMlIiBzdG9wLWNvbG9yPSIjNmViNDU5IiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iNjclIiBzdG9wLWNvbG9yPSIjNmJhZjU2IiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iOTMlIiBzdG9wLWNvbG9yPSIjNjlhYzU1IiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzc0YjA2MiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgPC9saW5lYXJHcmFkaWVudD4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPgo8L3N2Zz4=);
+  background: -moz-linear-gradient(top, #8fc37f 0%, #84bf72 7%, #6eb459 53%, #6baf56 67%, #69ac55 93%, #74b062 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #8fc37f), color-stop(7%, #84bf72), color-stop(53%, #6eb459), color-stop(67%, #6baf56), color-stop(93%, #69ac55), color-stop(100%, #74b062));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #8fc37f 0%, #84bf72 7%, #6eb459 53%, #6baf56 67%, #69ac55 93%, #74b062 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #8fc37f 0%, #84bf72 7%, #6eb459 53%, #6baf56 67%, #69ac55 93%, #74b062 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #8fc37f 0%, #84bf72 7%, #6eb459 53%, #6baf56 67%, #69ac55 93%, #74b062 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #8fc37f 0%, #84bf72 7%, #6eb459 53%, #6baf56 67%, #69ac55 93%, #74b062 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#8fc37f', endColorstr='#74b062',GradientType=0 );
+  /* IE6-8 */
 }
-/* line 193, ../sass/partials/widget/_table.scss */
-table .inventory-cell .sub-figures .sub-figure.available {
-  background-color: #099609;
-  -moz-box-shadow: 0 -1px 1px 0 #ccebcc;
-  -webkit-box-shadow: 0 -1px 1px 0 #ccebcc;
-  box-shadow: 0 -1px 1px 0 #ccebcc;
-}
-/* line 199, ../sass/partials/widget/_table.scss */
-table .inventory-cell .sub-figures .sub-figure.available span.amount {
-  border-right: 1px solid #018305;
-}
-/* line 203, ../sass/partials/widget/_table.scss */
-table .inventory-cell .sub-figures .sub-figure.available span.label {
-  border-left: 1px solid #86ce84;
-}
-/* line 212, ../sass/partials/widget/_table.scss */
+/* line 339, ../sass/partials/widget/_table.scss */
 table .expander {
   display: block;
   width: 11px;
@@ -267,39 +437,39 @@ table .expander {
   margin-right: 10px;
   background: url("../images/contract.gif") no-repeat;
 }
-/* line 220, ../sass/partials/widget/_table.scss */
+/* line 347, ../sass/partials/widget/_table.scss */
 table .expander.collapsed {
   background-image: url("../images/expand.gif");
 }
-/* line 225, ../sass/partials/widget/_table.scss */
+/* line 352, ../sass/partials/widget/_table.scss */
 table ul.size-info {
   margin: 0;
 }
-/* line 228, ../sass/partials/widget/_table.scss */
+/* line 355, ../sass/partials/widget/_table.scss */
 table ul.size-info li {
   float: left;
   margin-left: 20px;
 }
-/* line 232, ../sass/partials/widget/_table.scss */
+/* line 359, ../sass/partials/widget/_table.scss */
 table ul.size-info li:first-child {
   margin-left: 0;
 }
-/* line 237, ../sass/partials/widget/_table.scss */
+/* line 364, ../sass/partials/widget/_table.scss */
 table ul.size-info label, table ul.size-info span {
   float: left;
 }
-/* line 241, ../sass/partials/widget/_table.scss */
+/* line 368, ../sass/partials/widget/_table.scss */
 table ul.size-info span {
   margin-left: 5px;
 }
 
-/* line 249, ../sass/partials/widget/_table.scss */
+/* line 376, ../sass/partials/widget/_table.scss */
 html.js fieldset.collapsible .fieldset-legend {
   background: url("../images/contract.gif") no-repeat;
   padding-left: 20px;
   margin-left: 10px;
 }
-/* line 255, ../sass/partials/widget/_table.scss */
+/* line 382, ../sass/partials/widget/_table.scss */
 html.js fieldset.collapsible.collapsed .fieldset-legend {
   background-image: url("../images/expand.gif");
 }
@@ -605,11 +775,11 @@ header#title .field-name-field-item-status .field-item, header#title .field-name
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa8ca', endColorstr='#e80263',GradientType=0 );
   /* IE6-9 */
 }
-/* line 20, ../sass/_mixins.scss */
+/* line 23, ../sass/_mixins.scss */
 #main-button a:hover {
   text-decoration: none;
 }
-/* line 40, ../sass/_mixins.scss */
+/* line 43, ../sass/_mixins.scss */
 #main-button a:before {
   content: url("../images/white-plus.png");
   margin-right: 8px;
@@ -640,11 +810,11 @@ header#title .field-name-field-item-status .field-item, header#title .field-name
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#acb4b4', endColorstr='#8fb4b4',GradientType=0 );
   /* IE6-9 */
 }
-/* line 20, ../sass/_mixins.scss */
+/* line 23, ../sass/_mixins.scss */
 #add-task.secondary-button a:hover {
   text-decoration: none;
 }
-/* line 60, ../sass/_mixins.scss */
+/* line 63, ../sass/_mixins.scss */
 #add-task.secondary-button a:before {
   content: url("../images/gray-plus.png");
   margin-right: 8px;
@@ -785,11 +955,11 @@ header#title .field-name-field-item-status .field-item, header#title .field-name
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#acb4b4', endColorstr='#8fb4b4',GradientType=0 );
   /* IE6-9 */
 }
-/* line 20, ../sass/_mixins.scss */
+/* line 23, ../sass/_mixins.scss */
 .node-type-material .pane-prepopulate-link#task-add a:hover {
   text-decoration: none;
 }
-/* line 60, ../sass/_mixins.scss */
+/* line 63, ../sass/_mixins.scss */
 .node-type-material .pane-prepopulate-link#task-add a:before {
   content: url("../images/gray-plus.png");
   margin-right: 8px;
@@ -850,11 +1020,11 @@ header#title .field-name-field-item-status .field-item, header#title .field-name
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#acb4b4', endColorstr='#8fb4b4',GradientType=0 );
   /* IE6-9 */
 }
-/* line 20, ../sass/_mixins.scss */
+/* line 23, ../sass/_mixins.scss */
 .node-type-material .pane-node-field-source-info .action-links li a:hover {
   text-decoration: none;
 }
-/* line 60, ../sass/_mixins.scss */
+/* line 63, ../sass/_mixins.scss */
 .node-type-material .pane-node-field-source-info .action-links li a:before {
   content: url("../images/gray-plus.png");
   margin-right: 8px;
@@ -863,7 +1033,7 @@ header#title .field-name-field-item-status .field-item, header#title .field-name
 .node-type-material .primary-button#material-add a {
   margin-top: 6px;
 }
-/* line 108, ../sass/_mixins.scss */
+/* line 111, ../sass/_mixins.scss */
 .node-type-material .field-name-field-washing-instructions::after, .node-type-material .field-name-field-fabric-content::after,
 .node-type-material .field-name-field-radius::after, .node-type-material .field-name-field-width::after, .node-type-material .field-name-field-length::after {
   content: ".";
@@ -1003,11 +1173,11 @@ header#title .field-name-field-item-status .field-item, header#title .field-name
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#acb4b4', endColorstr='#8fb4b4',GradientType=0 );
   /* IE6-9 */
 }
-/* line 20, ../sass/_mixins.scss */
+/* line 23, ../sass/_mixins.scss */
 .node-type-item-variant .pane-node-field-bol-info .action-links li a:hover, .node-type-item-variant .pane-node-field-bom-info .action-links li a:hover {
   text-decoration: none;
 }
-/* line 60, ../sass/_mixins.scss */
+/* line 63, ../sass/_mixins.scss */
 .node-type-item-variant .pane-node-field-bol-info .action-links li a:before, .node-type-item-variant .pane-node-field-bom-info .action-links li a:before {
   content: url("../images/gray-plus.png");
   margin-right: 8px;
@@ -1124,70 +1294,70 @@ body.contextual-links-region {
   position: static;
 }
 
-/* line 21, ../sass/style.scss */
+/* line 20, ../sass/style.scss */
 a {
   color: #679190;
   text-decoration: none;
 }
-/* line 25, ../sass/style.scss */
+/* line 24, ../sass/style.scss */
 a:hover {
   text-decoration: underline;
 }
 
-/* line 30, ../sass/style.scss */
+/* line 29, ../sass/style.scss */
 li {
   list-style-type: none;
 }
 
-/* line 34, ../sass/style.scss */
+/* line 33, ../sass/style.scss */
 .item-list ul li {
   margin: 0;
 }
 
-/* line 42, ../sass/style.scss */
+/* line 41, ../sass/style.scss */
 table tbody td {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* line 50, ../sass/style.scss */
+/* line 49, ../sass/style.scss */
 .content .panel-col-first {
   float: left;
   width: 49.5%;
 }
-/* line 55, ../sass/style.scss */
+/* line 54, ../sass/style.scss */
 .content .panel-col-last {
   float: left;
   width: 49.5%;
   margin-left: 1%;
 }
-/* line 60, ../sass/style.scss */
+/* line 59, ../sass/style.scss */
 .content .panel-col-last .jcarousel-skin-default .jcarousel-container-horizontal .jcarousel-clip-horizontal {
   width: 414px;
 }
-/* line 63, ../sass/style.scss */
+/* line 62, ../sass/style.scss */
 .content .panel-col-last .jcarousel-skin-default .jcarousel-container-horizontal .jcarousel-clip-horizontal ul li {
   height: 213px;
 }
 
-/* line 72, ../sass/style.scss */
+/* line 71, ../sass/style.scss */
 html.js .page-season fieldset.collapsible {
   border: none;
   padding: 0;
   margin-bottom: 45px;
 }
-/* line 79, ../sass/style.scss */
+/* line 78, ../sass/style.scss */
 html.js .page-season fieldset.collapsible.collapsed .fieldset-legend {
   background: url("../images/arrow-white-down-status.png") 7px 10px no-repeat #4f4f4f;
 }
-/* line 84, ../sass/style.scss */
+/* line 83, ../sass/style.scss */
 html.js .page-season fieldset.collapsible a {
   font-size: 15px;
 }
-/* line 87, ../sass/style.scss */
+/* line 86, ../sass/style.scss */
 html.js .page-season fieldset.collapsible a.fieldset-title {
   color: white;
 }
-/* line 92, ../sass/style.scss */
+/* line 91, ../sass/style.scss */
 html.js .page-season fieldset.collapsible .fieldset-hr {
   border: 0;
   border-bottom: solid #4f4f4f 1px;
@@ -1196,11 +1366,11 @@ html.js .page-season fieldset.collapsible .fieldset-hr {
   padding-top: 25px;
   background: url("../images/top-shaddow-collapsible.jpg") repeat-x bottom;
 }
-/* line 101, ../sass/style.scss */
+/* line 100, ../sass/style.scss */
 html.js .page-season fieldset.collapsible legend {
   padding: 0;
 }
-/* line 104, ../sass/style.scss */
+/* line 103, ../sass/style.scss */
 html.js .page-season fieldset.collapsible legend .fieldset-legend {
   font-weight: bold;
   background: url("../images/arrow-white-up-status.png") 7px 10px no-repeat #4f4f4f;
@@ -1209,55 +1379,55 @@ html.js .page-season fieldset.collapsible legend .fieldset-legend {
   margin: 0;
   position: absolute;
 }
-/* line 114, ../sass/style.scss */
+/* line 113, ../sass/style.scss */
 html.js .page-season fieldset.collapsible .views-table caption {
   display: none;
 }
-/* line 120, ../sass/style.scss */
+/* line 119, ../sass/style.scss */
 html.js .page-season fieldset.collapsible .fieldset-wrapper tr, html.js .page-season fieldset.collapsible .fieldset-wrapper td {
   padding: 0;
 }
-/* line 124, ../sass/style.scss */
+/* line 123, ../sass/style.scss */
 html.js .page-season fieldset.collapsible .fieldset-wrapper thead th {
   font-family: Dosis, Arial, Helvetica, sans-serif;
 }
-/* line 127, ../sass/style.scss */
+/* line 126, ../sass/style.scss */
 html.js .page-season fieldset.collapsible .fieldset-wrapper thead th .active img {
   margin-left: 5px;
 }
-/* line 134, ../sass/style.scss */
+/* line 133, ../sass/style.scss */
 html.js .page-season fieldset.collapsible .fieldset-wrapper .display-cell .display-cell-image {
   padding: 1px;
   float: left;
 }
-/* line 138, ../sass/style.scss */
+/* line 137, ../sass/style.scss */
 html.js .page-season fieldset.collapsible .fieldset-wrapper .display-cell .display-cell-image a {
   display: block;
   height: 75px;
 }
-/* line 144, ../sass/style.scss */
+/* line 143, ../sass/style.scss */
 html.js .page-season fieldset.collapsible .fieldset-wrapper .display-cell .display-cell-title {
   float: left;
   margin-top: 28px;
 }
-/* line 152, ../sass/style.scss */
+/* line 151, ../sass/style.scss */
 html.js .page-season fieldset.collapsible .fieldset-wrapper .views-field-field-bom-info a {
   display: block;
   height: 75px;
 }
-/* line 157, ../sass/style.scss */
+/* line 156, ../sass/style.scss */
 html.js .page-season fieldset.collapsible .fieldset-wrapper .views-field-field-bom-info img {
   border-right: 1px solid #B7B7B7;
   padding: 5px;
 }
-/* line 165, ../sass/style.scss */
+/* line 164, ../sass/style.scss */
 html.js .page-season fieldset.collapsible .fieldset-wrapper td.views-field-field-item-status, html.js .page-season fieldset.collapsible .fieldset-wrapper td.views-field-field-retail-price, html.js .page-season fieldset.collapsible .fieldset-wrapper td.views-field-field-wholesale-price {
   font-weight: bold;
   font-size: 15px;
   color: #010101;
   padding-left: 10px;
 }
-/* line 172, ../sass/style.scss */
+/* line 171, ../sass/style.scss */
 html.js .page-season fieldset.collapsible .fieldset-wrapper td.views-field-field-item-status {
   font-weight: normal;
 }
