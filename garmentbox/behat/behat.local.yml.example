@@ -6,9 +6,9 @@ default:
           'user'
       sample_nodes:
         season: 29
-        item: 35
-        item-variant: 43
-        production-order: 63
+        item: 40
+        item-variant: 48
+        production-order: 68
 
   extensions:
     Behat\MinkExtension\Extension:
