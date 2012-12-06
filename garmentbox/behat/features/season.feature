@@ -17,7 +17,7 @@ Feature: Test Season page
 
   @api
   Scenario: Content is shown on the season task list itself.
-    Given I am logged in as a user with the "authenticated user" role
+    Given I am logged in as a user from "Imanimo"
      When I am on the default "season" page
      Then the table "view-task-list" should have the following <contents>:
       | Summary             | Status      | Assignee | Replies | Last updated | Created  | Actions |
@@ -60,7 +60,7 @@ Feature: Test Season page
       When I visit the front page
       Then I should be on a page titled "Test season - Items | Site-Install"
 
-  @api @wip
+  @api
   Scenario: Verify redirections from the front page to the season tasks tab.
     Given I am logged in as a user from "Imanimo"
       And I go to create "season" node page
