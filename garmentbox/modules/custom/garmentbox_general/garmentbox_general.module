@@ -25,7 +25,8 @@ function garmentbox_general_init() {
 
   // When the company context is missing not on an admin page, redirect to
   // "/[company]"
-  if ($user->uid && strpos($item['path'], 'admin') !== 0 && $item['path'] != 'user/logout') {
+  $redirect = FALSE;
+  if ($user->uid && strpos($item['path'], 'admin') !== 0 && strpos($item['path'], 'user') !== 0) {
     $redirect = FALSE;
     if (!$og_context) {
       $redirect = TRUE;
@@ -36,12 +37,19 @@ function garmentbox_general_init() {
         $redirect = TRUE;
       }
     }
-    if ($redirect) {
-      $wrapper = entity_metadata_wrapper('user', $user);
-      $title = $wrapper->og_user_company->get(0)->label();
-      drupal_goto(drupal_html_class($title));
-    }
   }
+  if ($redirect) {
+    $wrapper = entity_metadata_wrapper('user', $user);
+    $purl_params = array(
+      'query' => drupal_get_query_parameters($_GET, array('q')),
+      'purl' => array(
+        'provider' => 'og_purl|node',
+        'id' => $wrapper->og_user_company->get(0)->getIdentifier(),
+      )
+    );
+    purl_goto($_GET['q'], $purl_params);
+  }
+
 
   // Set breadcrumbs.
   if (($node = menu_get_object()) && $nids = garmentbox_general_get_node_hierarchy($node)) {
