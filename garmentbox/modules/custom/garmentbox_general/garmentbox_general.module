@@ -19,12 +19,13 @@ function garmentbox_general_ctools_plugin_directory($module, $plugin) {
  * Implements hook_init().
  */
 function garmentbox_general_init() {
+  global $user;
   $item = menu_get_item();
   $og_context = og_context();
 
   // When the company context is missing not on an admin page, redirect to
   // "/[company]"
-  if (strpos($item['path'], 'admin') !== 0) {
+  if ($user->uid && strpos($item['path'], 'admin') !== 0 && $item['path'] != 'user/logout') {
     $redirect = FALSE;
     if (!$og_context) {
       $redirect = TRUE;
@@ -36,7 +37,6 @@ function garmentbox_general_init() {
       }
     }
     if ($redirect) {
-      global $user;
       $wrapper = entity_metadata_wrapper('user', $user);
       $title = $wrapper->og_user_company->get(0)->label();
       drupal_goto(drupal_html_class($title));
