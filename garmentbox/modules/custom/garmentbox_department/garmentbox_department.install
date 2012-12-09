@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Install, update, and uninstall functions for the GarmentBox department
+ * module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function garmentbox_department_install() {
+  // Group content.
+  $og_field = og_fields_info(OG_AUDIENCE_FIELD);
+  $og_field['field']['settings']['handler_settings']['target_bundles'] = array('department');
+  $og_field['instance']['label'] = 'Department';
+  og_create_field('og_user_department', 'user', 'user', $og_field);
+}
+

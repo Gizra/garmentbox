@@ -24,3 +24,38 @@ function garmentbox_bol_get_variant_bol_price($node) {
 
   return $price;
 }
+
+/**
+ * Implement hook_field_formatter_info().
+ */
+function garmentbox_bol_field_formatter_info() {
+  return array(
+    'garmentbox_bol_table' => array(
+      'label' => t('BOL table'),
+      'field types' => array('field_collection'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function garmentbox_bol_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+
+  $settings = $display['settings'];
+
+  switch ($display['type']) {
+    case 'garmentbox_bol_table':
+      $dummy_display = $display;
+      $dummy_display['type'] = 'field_collection_table_view';
+      $element = field_view_field($entity_type, $entity, $field['field_name'], $dummy_display);
+
+      // TODO: The company is set as hidden in the display settings but is still
+      // shown on the header.
+      // Re-set the keyes.
+      $element[0]['#header'] = array_values($element[0]['#header']);
+
+      // TODO: Add the BOL total price here.
+      return $element;
+  }
+}

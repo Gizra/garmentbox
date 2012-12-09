@@ -34,7 +34,7 @@ function garmentbox_production_field_default_fields() {
       'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
-        'handler' => 'base',
+        'handler' => 'company',
         'handler_settings' => array(
           'behaviors' => array(
             'views-select-list' => array(
@@ -544,7 +544,7 @@ function garmentbox_production_field_default_fields() {
       'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
-        'handler' => 'base',
+        'handler' => 'company',
         'handler_settings' => array(
           'behaviors' => array(
             'views-select-list' => array(
@@ -748,7 +748,7 @@ function garmentbox_production_field_default_fields() {
       'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
-        'handler' => 'base',
+        'handler' => 'company',
         'handler_settings' => array(
           'behaviors' => array(
             'views-select-list' => array(

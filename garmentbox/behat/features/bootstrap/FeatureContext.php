@@ -62,6 +62,19 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
+   * @Given /^I am logged in as a user from "([^"]*)"$/
+   */
+  public function iAmLoggedInAsAUserFrom($company) {
+    // Log-in and then group the created user to the given company.
+    $this->iAmLoggedInWithRole('authenticated user');
+    $uid = $this->user->uid;
+    $nid = $this->getEntityId($company);
+    $action = "\"og_group('node', $nid, array('entity' => $uid));\"";
+    $this->getDriver()->drush('php-eval', array($action));
+  }
+
+
+  /**
    * @Given /^I am on a "([^"]*)" page titled "([^"]*)"(?:, in the tab "([^"]*)"|)$/
    */
   public function iAmOnAPageTitled($page_type, $title, $subpage = NULL) {
@@ -379,7 +392,8 @@ class FeatureContext extends DrupalContext {
    * @Given /^I go to create "([^"]*)" node page$/
    */
   public function iGoToCreateNodePage($node_type) {
-    $path = 'node/add/' . $node_type;
+    // TODO: The "imanimo" should be removed once it's added automatically.
+    $path = 'imanimo/node/add/' . $node_type;
     return new Given("I am at \"$path\"");
   }
 
@@ -602,7 +616,8 @@ class FeatureContext extends DrupalContext {
     $steps = array();
     switch($page_name) {
       case 'Add a production order':
-        $path = "node/add/production-order?field_season=$nid";
+        // TODO: The "imanimo" should be added automatically.
+        $path = "imanimo/node/add/production-order?field_season=$nid";
         break;
 
       case 'Season inventory':

@@ -3,7 +3,7 @@ Feature: Test Material page
 
  @api
   Scenario: Basic content is shown on the item page.
-    Given I am logged in as a user with the "authenticated user" role
+    Given I am logged in as a user from "Imanimo"
     And I am on a "material" page titled "Novelle Art Noveau Natural Shell Buttons"
     Then I should see the heading "Novelle Art Noveau Natural Shell Buttons"
     And I should see a table titled "Task list" with the following <contents>:
@@ -20,7 +20,7 @@ Feature: Test Material page
 
  @api
   Scenario: Task is added correctly to a material.
-    Given I am logged in as a user with the "authenticated user" role
+    Given I am logged in as a user from "Imanimo"
     And I am on a "material" page titled "Novelle Art Noveau Natural Shell Buttons"
     And I click "Add new task"
     And I fill in "Title" with "Check for imperfections"
