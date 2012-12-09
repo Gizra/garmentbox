@@ -24,7 +24,7 @@ function garmentbox_general_init() {
   $og_context = og_context();
 
   // When the company context is missing not on an admin page, redirect to
-  // "/[company]"
+  // "/[company]".
   $redirect = FALSE;
   if ($user->uid && strpos($item['path'], 'admin') !== 0 && strpos($item['path'], 'user') !== 0) {
     $redirect = FALSE;
