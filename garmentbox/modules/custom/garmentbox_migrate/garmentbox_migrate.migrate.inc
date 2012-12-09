@@ -205,6 +205,7 @@ class garmentboxCompanies extends garmentboxMigration {
   public function __construct() {
     parent::__construct();
     $this->addFieldMapping(OG_GROUP_FIELD)->defaultValue(TRUE);
+    $this->addFieldMapping(OG_ACCESS_FIELD)->defaultValue(TRUE);
   }
 }
 

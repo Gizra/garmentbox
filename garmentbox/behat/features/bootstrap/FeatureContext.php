@@ -607,33 +607,33 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
-   * @When /^I am on (a|the) "([^"]*)" page of the default "([^"]*)"$/
+   * @When /^I am on (a|the) "([^"]*)" page of the default "([^"]*)"(?: of "([^"]*)"|)$/
    */
-  public function iAmOnThePageOfTheDefault($the, $page_name, $node_type) {
+  public function iAmOnThePageOfTheDefault($the, $page_name, $node_type, $company = 'Imanimo') {
     $node_type = str_replace('-', '_', $node_type);
-    $nid = $this->sample_nodes[$node_type];
+    $nid = $this->sample_nodes[strtolower($company)][$node_type];
 
     $steps = array();
     switch($page_name) {
       case 'Add a production order':
         // TODO: The "imanimo" should be added automatically.
-        $path = "imanimo/node/add/production-order?field_season=$nid";
+        $path = "$company/node/add/production-order?field_season=$nid";
         break;
 
       case 'Season inventory':
-        $path = "season/$nid/inventory";
+        $path = "$company/season/$nid/inventory";
         break;
 
       case 'Season items':
-        $path = "season/$nid/items";
+        $path = "$company/season/$nid/items";
         break;
 
       case 'Season orders':
-        $path = "season/$nid/orders";
+        $path = "$company/season/$nid/orders";
         break;
 
       case 'Production delivery':
-        $path = "production-order/$nid/delivery";
+        $path = "$company/production-order/$nid/delivery";
         break;
 
       default:
