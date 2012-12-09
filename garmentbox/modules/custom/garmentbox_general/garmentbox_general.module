@@ -19,6 +19,17 @@ function garmentbox_general_ctools_plugin_directory($module, $plugin) {
  * Implements hook_init().
  */
 function garmentbox_general_init() {
+  // Make sure the context is set.
+  if (!og_context()) {
+    // Extract the company from the user.
+    global $user;
+    $wrapper = entity_metadata_wrapper('user', $user);
+    //TODO: Find a nicer way to get the url version of the company label.
+    $title = strtolower(drupal_clean_css_identifier($wrapper->og_user_company->get(0)->label()));
+    drupal_goto($title);
+  }
+
+  // Set breadcrumbs.
   if (($node = menu_get_object()) && $nids = garmentbox_general_get_node_hierarchy($node)) {
     $breadcrumb[] = l(t('Home'), '<front>');
     foreach ($nids as $nid => $title) {

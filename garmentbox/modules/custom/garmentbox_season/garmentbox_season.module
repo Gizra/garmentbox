@@ -64,11 +64,16 @@ function garmentbox_season_page_build(&$page) {
  * Redirect from the front page to a season page.
  */
 function _garmentbox_season_redirect_to_season() {
+  if (!$group = og_context()) {
+    return;
+  }
+
   // Find the last changed season.
   $query = new EntityFieldQuery();
   $result = $query->entityCondition('entity_type', 'node')
     ->propertyCondition('type', 'season')
     ->propertyCondition('status', NODE_PUBLISHED)
+    ->fieldCondition('og_company', 'target_id', $group['gid'])
     ->propertyOrderBy('changed', 'DESC')
     ->range(0, 1)
     ->execute();
