@@ -44,6 +44,10 @@ class FeatureContext extends DrupalContext {
    * @Given /^I am logged in as "([^"]*)"$/
    */
   public function iAmLoggedInAs($username) {
+    if ($username == 'user') {
+      $username = 'user-imanimo';
+    }
+
     try {
       $password = $this->drupal_users[$username];
     }
