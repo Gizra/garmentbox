@@ -210,7 +210,18 @@ function garmentbox_production_form_production_order_node_form_alter(&$form, &$f
   );
 
   // Redirect to node edit page.
-  $form['actions']['submit']['#submit'][] = 'garmentbox_general_redirect_to_node_edit_page';
+  $form['actions']['submit']['#submit'][] = 'garmentbox_production_form_production_order_node_submit';
+}
+
+/**
+ * Submit handler; Redirects node creation/edit form to the node's edit
+ * page.
+ */
+function garmentbox_production_form_production_order_node_submit($form, &$form_state) {
+  // Get the node's ID.
+  $nid = $form_state['node']->nid;
+  // Redirect to edit page.
+  $_GET['destination'] = "node/$nid/edit";
 }
 
 /**
