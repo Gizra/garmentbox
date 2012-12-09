@@ -16,7 +16,8 @@ function garmentbox_season_init() {
   }
 
   if (drupal_is_front_page()) {
-    _garmentbox_season_redirect_to_season();
+    $og_context = og_context();
+    _garmentbox_season_redirect_to_season($og_context['gid']);
   }
 
   // When on the main season page, redirect to the season's tasks page.
@@ -62,18 +63,18 @@ function garmentbox_season_page_build(&$page) {
 
 /**
  * Redirect from the front page to a season page.
+ *
+ * @param $nid
+ *   Company node ID.
  */
-function _garmentbox_season_redirect_to_season() {
-  if (!$group = og_context()) {
-    return;
-  }
+function _garmentbox_season_redirect_to_season($nid) {
 
   // Find the last changed season.
   $query = new EntityFieldQuery();
   $result = $query->entityCondition('entity_type', 'node')
     ->propertyCondition('type', 'season')
     ->propertyCondition('status', NODE_PUBLISHED)
-    ->fieldCondition('og_company', 'target_id', $group['gid'])
+    ->fieldCondition('og_company', 'target_id', $nid)
     ->propertyOrderBy('changed', 'DESC')
     ->range(0, 1)
     ->execute();

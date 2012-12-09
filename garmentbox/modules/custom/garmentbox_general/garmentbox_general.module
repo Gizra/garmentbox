@@ -19,14 +19,28 @@ function garmentbox_general_ctools_plugin_directory($module, $plugin) {
  * Implements hook_init().
  */
 function garmentbox_general_init() {
-  // Make sure the context is set.
-  if (!og_context()) {
-    // Extract the company from the user.
-    global $user;
-    $wrapper = entity_metadata_wrapper('user', $user);
-    //TODO: Find a nicer way to get the url version of the company label.
-    $title = strtolower(drupal_clean_css_identifier($wrapper->og_user_company->get(0)->label()));
-    drupal_goto($title);
+  $item = menu_get_item();
+  $og_context = og_context();
+
+  // When the company context is missing not on an admin page, redirect to
+  // "/[company]"
+  if (strpos($item['path'], 'admin') !== 0) {
+    $redirect = FALSE;
+    if (!$og_context) {
+      $redirect = TRUE;
+    }
+    else {
+      $node = node_load($og_context['gid']);
+      if (!node_access('view', $node)) {
+        $redirect = TRUE;
+      }
+    }
+    if ($redirect) {
+      global $user;
+      $wrapper = entity_metadata_wrapper('user', $user);
+      $title = $wrapper->og_user_company->get(0)->label();
+      drupal_goto(drupal_html_class($title));
+    }
   }
 
   // Set breadcrumbs.
