@@ -120,7 +120,6 @@ projects[oauth][patch][] = "http://drupal.org/files/oauth-1431642-consumer-delet
 
 projects[og][subdir] = "contrib"
 projects[og][version] = "2.x-dev"
-projects[og][patch][] = "http://drupal.org/files/og_query_og_membership_alter_recursive-1810662-19.patch"
 
 projects[og_purl][subdir] = "contrib"
 projects[og_purl][version] = "1.x-dev"
