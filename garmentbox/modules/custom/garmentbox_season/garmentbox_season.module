@@ -21,7 +21,7 @@ function garmentbox_season_init() {
 
   // When on the main season page, redirect to the season's tasks page.
   $item = menu_get_item();
-  if ($item['path'] == 'node/%' && $item['map'][1]->type == 'season') {
+  if ($item['path'] == 'node/%' && !empty($item['map'][1]->type) && $item['map'][1]->type == 'season') {
     $nid = $item['map'][1]->nid;
     drupal_goto("season/$nid/tasks");
   }

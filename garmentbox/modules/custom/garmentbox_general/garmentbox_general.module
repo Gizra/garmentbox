@@ -311,3 +311,14 @@ function _garmentbox_general_get_node_page_primary_button($node) {
       return $result;
   }
 }
+
+/**
+ * Implements hook_node_access().
+ */
+function garmentbox_general_node_access($node, $op, $account) {
+  if (!empty($node->type) && $node->type == 'production_order' && $op = 'view') {
+    // Block access to production order node view.
+    return NODE_ACCESS_DENY;
+  }
+}
+
