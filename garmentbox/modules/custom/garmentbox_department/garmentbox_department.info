@@ -1,0 +1,14 @@
+name = Garmentbox OG
+description = Organic groups related.
+core = 7.x
+package = Features
+php = 5.2.4
+dependencies[] = features
+dependencies[] = list
+dependencies[] = og
+dependencies[] = og_access
+dependencies[] = og_ui
+dependencies[] = strongarm
+features[ctools][] = strongarm:strongarm:1
+features[features_api][] = api:1
+features[node][] = department

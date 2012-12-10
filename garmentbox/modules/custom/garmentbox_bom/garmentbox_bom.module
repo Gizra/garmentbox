@@ -35,32 +35,27 @@ function garmentbox_bom_field_formatter_view($entity_type, $entity, $field, $ins
       $dummy_display['type'] = 'field_collection_table_view';
       $element = field_view_field($entity_type, $entity, $field_name, $dummy_display);
 
-      // Inject header.
-      $last_col = array_pop($element[0]['#header']);
-
-      $price_field = array(
-        'data' => t('Price'),
-        'class' => 'field_price',
+      $element[0]['#header'] = array(
+        array(
+          'data' => t('Quantity'),
+          'class' => 'field_quantity_decimal',
+        ),
+        array(
+          'data' => t('Material and vendor'),
+          'class' => 'field_source_info_ref',
+        ),
+        array(
+          'data' => t('Unit'),
+          'class' => 'field_unit'
+        ),
+        'price' => t('Price'),
+        'operations' => t('Operations'),
       );
-
-      // If the last column is 'Operations', add the price field before of it,
-      // otherwise, return the last field to its place and append the price
-      // field.
-      if ($operations_available = ($last_col == t('Operations'))) {
-        $element[0]['#header'][] = $price_field;
-        $element[0]['#header'][] = $last_col;
-      }
-      else {
-        $element[0]['#header'][] = $last_col;
-        $element[0]['#header'][] = $price_field;
-      }
 
       $total = 0;
       // Inject rows.
       foreach ($element[0]['#rows'] as $key => $row) {
-        if ($operations_available) {
-          $last_col = array_pop($row['data']);
-        }
+        $last_col = array_pop($row['data']);
         // Find the material item delta.
         $delta = 'missing';
         foreach ($row['data'] as $delta => $data) {
@@ -82,9 +77,7 @@ function garmentbox_bom_field_formatter_view($entity_type, $entity, $field, $ins
           'data' => $field_price,
           'class' => 'field_price',
         );
-        if ($operations_available) {
-          $row['data'][] = $last_col;
-        }
+        $row['data'][] = $last_col;
         $element[0]['#rows'][$key] = $row;
       }
       // Re-create the element, and add the total.

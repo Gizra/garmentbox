@@ -1,3 +1,3 @@
-Unique ID,Title
-factory1,Factory 1
-factory2,Factory 2
+Unique ID,Company,Title
+factory1,company1,Factory 1
+factory2,company1,Factory 2

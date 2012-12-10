@@ -24,7 +24,7 @@ Feature: Test item variant page
 
   @api
   Scenario: Test the prices on the BOM table.
-    Given I am logged in as a user with the "authenticated user" role
+    Given I am logged in as a user from "Imanimo"
      When I am on the default "item-variant" page
      Then I should see a table titled "Bill of materials" with the following <contents>:
       | Quantity | Material and vendor                          | Unit  | Price | Operations  |
@@ -33,7 +33,7 @@ Feature: Test item variant page
 
   @api
   Scenario: Test the prices on the BOL table.
-    Given I am logged in as a user with the "authenticated user" role
+    Given I am logged in as a user from "Imanimo"
      When I am on the default "item-variant" page
      Then I should see a table titled "Bill of labour" with the following <contents>:
       | Price   | Labour term | Operations  |

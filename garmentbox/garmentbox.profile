@@ -26,12 +26,22 @@ function garmentbox_install_tasks() {
     'type' => 'batch',
     'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
   );
+
+  $tasks['garmentbox_setup_blocks'] = array(
+    'display_name' => st('Setup Blocks'),
+    'display' => FALSE,
+  );
+
+  $tasks['garmentbox_setup_og_permissions'] = array(
+    'display_name' => st('Setup Blocks'),
+    'display' => FALSE,
+  );
   return $tasks;
 }
 
 /**
- * Task callback: return a batch API array, for importing content and creating
- * menues.
+ * Task callback; Return a batch API array, for importing content and
+ * creating menues.
  */
 function garmentbox_import_data() {
   drupal_set_title(st('Import content'));
@@ -44,8 +54,6 @@ function garmentbox_import_data() {
   foreach ($migrations as $machine_name => $migration) {
     $operations[] =  array('_garmentbox_import_data', array($machine_name, t('Importing content.')));
   }
-  // Perform post-import tasks.
-  $operations[] = array('_garmentbox_setup_blocks', array(t('Setup blocks.')));
 
   $batch = array(
     'title' => t('Importing content'),
@@ -67,11 +75,9 @@ function _garmentbox_import_data($operation, $type, &$context) {
 }
 
 /**
- * BatchAPI callback.
- *
- * @see garmentbox_profile_import_data()
+ * Task callback; Setup blocks.
  */
-function _garmentbox_setup_blocks($operation, &$context) {
+function garmentbox_setup_blocks() {
   $default_theme = variable_get('theme_default', 'garmentbox_omega');
 
   $blocks = array(
@@ -101,4 +107,39 @@ function _garmentbox_setup_blocks($operation, &$context) {
       ->condition('theme', $theme)
       ->execute();
   }
+}
+
+/**
+ * Task callback; Setup OG permissions.
+ *
+ * We do this here, late enough to make sure all group-content were
+ * created.
+ */
+function garmentbox_setup_og_permissions() {
+  $og_roles = og_roles('node', 'company');
+  $rid = array_search(OG_AUTHENTICATED_ROLE, $og_roles);
+
+  $permissions = array();
+  $types = array(
+    'customer',
+    'department',
+    'event',
+    'inventory_line',
+    'item',
+    'item_variant',
+    'material',
+    'order',
+    'pattern_task',
+    'factory',
+    'production_order',
+    'season',
+    'task',
+    'vendor',
+  );
+  foreach ($types as $type) {
+    $permissions["create $type content"] = TRUE;
+    $permissions["update own $type content"] = TRUE;
+    $permissions["update any $type content"] = TRUE;
+  }
+  og_role_change_permissions($rid, $permissions);
 }

@@ -17,7 +17,7 @@ Feature: Test Item page
 
   @api
   Scenario: Content is shown on the task list.
-    Given I am logged in as a user with the "authenticated user" role
+    Given I am logged in as a user from "Imanimo"
      When I am on the default "item" page
      Then I should see a table titled "Task list" with the following <contents>:
       | Summary             | Status      | Assignee | Replies | Last updated | Created  | Actions |

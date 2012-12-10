@@ -28,6 +28,12 @@ before_script:
   - cp aliases.drushrc.php ~/.drush/
   - composer install
 
+  # Patch drupalextension.
+  - cd vendor/drupal/drupal-extension/
+  - wget http://drupal.org/files/drupalextension_store_uid_from_drush.diff
+  - git apply drupalextension_store_uid_from_drush.diff
+  - cd ../../../
+
 script:
   # Create display.
   - export DISPLAY=:99.0

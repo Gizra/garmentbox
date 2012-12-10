@@ -14,6 +14,9 @@ projects[addressfield][version] = "1.0-beta3"
 projects[auto_nodetitle][subdir] = "contrib"
 projects[auto_nodetitle][version] = "1.0"
 
+projects[beautytips][subdir] = "contrib"
+projects[beautytips][version] = "2.x-dev"
+
 projects[commerce][subdir] = "contrib"
 projects[commerce][version] = "1.3"
 
@@ -36,7 +39,7 @@ projects[entity][subdir] = "contrib"
 projects[entity][version] = "1.x-dev"
 
 projects[entityreference][subdir] = "contrib"
-projects[entityreference][version] = "1.x-dev"
+projects[entityreference][version] = "1.0"
 projects[entityreference][patch][] = "http://drupal.org/files/1354482-er-user-roles-19.patch"
 
 projects[entityreference_prepopulate][subdir] = "contrib"
@@ -50,6 +53,7 @@ projects[field_collection][version] = "1.x-dev"
 
 projects[field_collection_table][subdir] = "contrib"
 projects[field_collection_table][version] = "1.x-dev"
+projects[field_collection_table][patch][] = "http://drupal.org/files/field_collection_table-hidden_header_fieldr-0.patch"
 
 projects[field_group][subdir] = "contrib"
 projects[field_group][version] = "1.1"
@@ -57,11 +61,23 @@ projects[field_group][version] = "1.1"
 projects[flag][subdir] = "contrib"
 projects[flag][version] = "2.0-beta8"
 
+projects[fontyourface][subdir] = "contrib"
+projects[fontyourface][version] = "2.4"
+
+projects[format_number][subdir] = "contrib"
+projects[format_number][version] = "1.x-dev"
+
 projects[gravatar][subdir] = "contrib"
 projects[gravatar][version] = "1.1"
 
+projects[image_delta_formatter][subdir] = "contrib"
+projects[image_delta_formatter][version] = "1.x-dev"
+
 projects[inline_entity_form][subdir] = "contrib"
 projects[inline_entity_form][version] = "1.x-dev"
+
+projects[jcarousel][subdir] = "contrib"
+projects[jcarousel][version] = "2.6"
 
 projects[libraries][subdir] = "contrib"
 projects[libraries][version] = "1.0"
@@ -102,11 +118,20 @@ projects[oauth][patch][] = "http://drupal.org/files/980340-d7.patch"
 projects[oauth][patch][] = "http://drupal.org/files/1535764-fix-signatures.patch"
 projects[oauth][patch][] = "http://drupal.org/files/oauth-1431642-consumer-deletion.patch"
 
+projects[og][subdir] = "contrib"
+projects[og][version] = "2.x-dev"
+
+projects[og_purl][subdir] = "contrib"
+projects[og_purl][version] = "1.x-dev"
+
 projects[panels][subdir] = "contrib"
 projects[panels][version] = "3.3"
 
 projects[pathauto][subdir] = "contrib"
-projects[pathauto][version] = 1.1
+projects[pathauto][version] = "1.1"
+
+projects[purl][subdir] = "contrib"
+projects[purl][version] = "1.x-dev"
 
 projects[rules][subdir] = "contrib"
 projects[rules][version] = "2.2"
@@ -125,24 +150,6 @@ projects[views][version] = "3.3"
 
 projects[views_bulk_operations][subdir] = "contrib"
 projects[views_bulk_operations][version] = "3.1"
-
-projects[fontyourface][subdir] = "contrib"
-projects[fontyourface][version] = "2.4"
-
-projects[image_delta_formatter][subdir] = "contrib"
-projects[image_delta_formatter][version] = "1.x-dev"
-
-projects[jcarousel][subdir] = "contrib"
-projects[jcarousel][version] = "2.6"
-
-projects[og][subdir] = "contrib"
-projects[og][version] = "2.x-dev"
-
-projects[beautytips][subdir] = "contrib"
-projects[beautytips][version] = "2.x-dev"
-
-projects[format_number][subdir] = "contrib"
-projects[format_number][version] = "1.x-dev"
 
 ; Libraries.
 libraries[jquery.cycle][type] = "libraries"

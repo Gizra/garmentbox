@@ -1,0 +1,167 @@
+<?php
+/**
+ * @file
+ * Code for the Garmentbox Company feature.
+ */
+
+include_once 'garmentbox_company.features.inc';
+
+/**
+ * Implements hook_field_attach_create_bundle().
+ */
+function garmentbox_company_field_attach_create_bundle($entity_type, $bundle) {
+  if (!in_array($entity_type, array('node', 'field_collection_item'))) {
+    return;
+  }
+
+  $excluded_bundles = array(
+    'node' => array('bubble' => TRUE),
+    'field_collection_item' => array(),
+  );
+
+  if (!empty($excluded_bundles[$entity_type][$bundle])) {
+    return;
+  }
+
+  if ($entity_type == 'node' && $bundle == 'company') {
+    // Group.
+    og_create_field(OG_GROUP_FIELD, 'node', $bundle);
+  }
+  else {
+    // Group content.
+    $og_field = og_fields_info(OG_AUDIENCE_FIELD);
+    $og_field['field']['settings']['handler_settings']['target_bundles'] = array('company');
+    $og_field['field']['cardinality'] = 1;
+    $og_field['instance']['label'] = 'Company';
+    $og_field['instance']['display']['default']['type'] = 'hidden';
+
+    // Enable Entity-reference prepopulate.
+    $og_field['instance']['settings']['behaviors']['prepopulate'] = array(
+      'status' => TRUE,
+      'action' => 'hide',
+      'fallback' => 'redirect',
+      'og_context' => TRUE,
+    );
+
+    og_create_field('og_company', $entity_type, $bundle, $og_field);
+  }
+}
+
+/**
+ * Implements hook_og_fields_info_alter()
+ *
+ * Add "og-company" field to OG's realted fields.
+ */
+function garmentbox_company_og_fields_info_alter(&$info) {
+  $og_field = $info[OG_AUDIENCE_FIELD];
+  $og_field['field']['settings']['handler_settings']['target_bundles'] = array('company');
+  $og_field['field']['cardinality'] = 1;
+  $og_field['instance']['label'] = 'Company';
+  $og_field['instance']['display']['default']['type'] = 'hidden';
+
+  // Enable Entity-reference prepopulate.
+  $og_field['instance']['settings']['behaviors']['prepopulate'] = array(
+    'status' => TRUE,
+    'action' => 'hide',
+    'fallback' => 'redirect',
+    'og_context' => TRUE,
+  );
+
+  $info['og_company'] = $og_field;
+}
+
+
+/**
+ * Implements hook_form_alter().
+ */
+function garmentbox_company_form_alter(&$form, $form_state) {
+  if (empty($form['#node_edit_form']) || !og_is_group_type('node', $form['#node']->type)) {
+    return;
+  }
+  $form['#after_build'][] = 'garmentbox_company_form_after_build';
+}
+
+/**
+ * After build; Hide PURL from group node's form.
+ *
+ * @see og_purl_form_alter().
+ */
+function garmentbox_company_form_after_build($form, &$form_state) {
+  unset($form['purl']);
+  return $form;
+}
+
+/**
+ * Implements hook_node_insert().
+ *
+ * Attach every group-content to company.
+ */
+function garmentbox_company_node_insert($node) {
+  if (og_is_group_type('node', $node->type)) {
+    // Add the PURL value.
+    // See og_purl_node_insert().
+    ctools_include('cleanstring');
+    $options = array(
+      'lower case' => TRUE,
+      'transliterate' => TRUE,
+    );
+    $node->purl['value'] = ctools_cleanstring($node->title, $options);
+    return;
+  }
+  elseif (!og_is_group_content_type('node', $node->type)) {
+    return;
+  }
+
+  $wrapper = entity_metadata_wrapper('node', $node);
+
+  // Assocaite with company if not already attached.
+  if ($wrapper->og_company__og_membership->value()) {
+    return;
+  }
+
+  // User didn't set the company.
+  $gids = og_get_entity_groups();
+  $nid = FALSE;
+  if (!empty($gids['node'])) {
+    // Get the first company group the user belongs to.
+    foreach (node_load_multiple($gids['node']) as $group) {
+      if ($group->type == 'company') {
+        $nid = $group->nid;
+        break;
+      }
+    }
+  }
+
+  if (!$nid) {
+    throw new \Exception('User does not belong to any company group, thus node cannot be attached to "Company".');
+  }
+
+  og_group('node', $nid, array('entity_type' => 'node', 'entity' => $node->nid));
+}
+
+/**
+ * Implements hook_field_collection_item_presave().
+ *
+ * Add field collection item to group.
+ */
+function garmentbox_company_field_collection_item_insert($field_collection_item) {
+  // TODO: This breaks 'imanimo/nide/add/season'.
+  return;
+
+  $entity = $field_collection_item->hostEntity();
+  if (empty($entity->og_company[LANGUAGE_NONE][0]['target_id'])) {
+    throw new Exception(format_string('Host entity of field collection @id does not belong to a company.', array('@id' => $field_collection_item->item_id)));
+  }
+
+  $gid = $entity->og_company[LANGUAGE_NONE][0]['target_id'];
+  og_group('node', $gid, array('entity_type' => 'field_collection_item', 'entity' => $field_collection_item));
+}
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function garmentbox_company_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'entityreference') {
+    return "plugins/entityreference/$plugin";
+  }
+}

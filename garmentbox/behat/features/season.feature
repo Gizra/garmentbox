@@ -17,7 +17,7 @@ Feature: Test Season page
 
   @api
   Scenario: Content is shown on the season task list itself.
-    Given I am logged in as a user with the "authenticated user" role
+    Given I am logged in as a user from "Imanimo"
      When I am on the default "season" page
      Then the table "view-task-list" should have the following <contents>:
       | Summary             | Status      | Assignee | Replies | Last updated | Created  | Actions |
@@ -45,7 +45,7 @@ Feature: Test Season page
     Given I am logged in as a user with the "authenticated user" role
      When I am on the "Season orders" page of the default "season"
      Then the following <row> should appear in the table "orders" :
-      | order3  | High Couture | N/A         | 26 | N/A | <date> 5/30/2013 | Shipping |
+      | order3  | High Couture | N/A | 26 | N/A | <date> 5/30/2013 | Shipping |
       And the order "order3" should have these <inventory lines>
       | Variation          | Small | Medium | Large | Total | Status             |
       | Grey v-neck shirt  | 1     | 0      | 20    | 21    | Future production  |
@@ -53,7 +53,7 @@ Feature: Test Season page
 
   @api
   Scenario: Verify redirections from the front page to the season items tab.
-    Given I am logged in as a user with the "authenticated user" role
+    Given I am logged in as a user from "Imanimo"
       And I go to create "season" node page
       And I fill in "Title" with "Test season"
       And I press "Save"
@@ -62,7 +62,7 @@ Feature: Test Season page
 
   @api
   Scenario: Verify redirections from the front page to the season tasks tab.
-    Given I am logged in as a user with the "authenticated user" role
+    Given I am logged in as a user from "Imanimo"
       And I go to create "season" node page
      When I fill in "Title" with "Test season 2"
       And I press "Save"

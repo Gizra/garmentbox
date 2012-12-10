@@ -10,7 +10,7 @@
 function garmentbox_bol_taxonomy_default_vocabularies() {
   return array(
     'bol' => array(
-      'name' => 'Bill of labor',
+      'name' => 'Bill of labour',
       'machine_name' => 'bol',
       'description' => '',
       'hierarchy' => '0',

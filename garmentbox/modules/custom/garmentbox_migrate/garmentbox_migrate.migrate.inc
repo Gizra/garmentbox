@@ -12,6 +12,7 @@ class GarmentboxUsers extends Migration {
    */
   public $csvColumns = array(
     array('id', 'Unique ID'),
+    array('og_user_company', 'Company'),
     array('name', 'Username'),
     array('pass', 'Password'),
     array('mail', 'Email'),
@@ -19,9 +20,16 @@ class GarmentboxUsers extends Migration {
 
   public $entityType = 'user';
 
+  public $dependencies = array(
+    'garmentboxCompanies',
+  );
+
   public function __construct() {
     parent::__construct();
     $this->description = t('Import users from a CSV file.');
+
+    $this->addFieldMapping('og_user_company', 'og_user_company')
+      ->sourceMigration('garmentboxCompanies');
 
     $this->addFieldMapping('name', 'name');
     $this->addFieldMapping('pass', 'pass');
@@ -58,15 +66,6 @@ class GarmentboxUsers extends Migration {
  * Migrate Season status terms.
  */
 class garmentboxSeasonStatusTerms extends garmentboxMigration {
-
-  /**
-   * Map the field and properties to the CSV header.
-   */
-  public $csvColumns = array(
-    array('id', 'Unique ID'),
-    array('name', 'Name'),
-  );
-
   public $entityType = 'taxonomy_term';
   public $bundle = 'season_status';
 }
@@ -75,12 +74,6 @@ class garmentboxSeasonStatusTerms extends garmentboxMigration {
  * Migrate Item status terms.
  */
 class garmentboxItemStatusTerms extends garmentboxMigration {
-
-  public $csvColumns = array(
-    array('id', 'Unique ID'),
-    array('name', 'Name'),
-  );
-
   public $entityType = 'taxonomy_term';
   public $bundle = 'item_status';
 }
@@ -89,10 +82,7 @@ class garmentboxItemStatusTerms extends garmentboxMigration {
  * Migrate Task status terms.
  */
 class garmentboxTaskStatusTerms extends garmentboxMigration {
-
   public $csvColumns = array(
-    array('id', 'Unique ID'),
-    array('name', 'Name'),
     array('field_status_closed', 'Closed'),
   );
 
@@ -109,10 +99,7 @@ class garmentboxTaskStatusTerms extends garmentboxMigration {
  * Migrate Size terms.
  */
 class garmentboxSizeTerms extends garmentboxMigration {
-
   public $csvColumns = array(
-    array('id', 'Unique ID'),
-    array('name', 'Name'),
     array('weight', 'Weight'),
   );
 
@@ -129,10 +116,7 @@ class garmentboxSizeTerms extends garmentboxMigration {
  * Migrate Size terms.
  */
 class garmentboxInventoryTypeTerms extends garmentboxMigration {
-
   public $csvColumns = array(
-    array('id', 'Unique ID'),
-    array('name', 'Name'),
     array('field_include_in_total', 'Include in total'),
     array('field_in_warehouse', 'In warehouse'),
     array('field_closed_stock', 'Closed stock'),
@@ -155,7 +139,6 @@ class garmentboxInventoryTypeTerms extends garmentboxMigration {
 class garmentboxMaterialTypeTerms extends garmentboxMigration {
 
   public $csvColumns = array(
-    array('id', 'Unique ID'),
     array('name', 'Name'),
     array('field_measurement_types', 'Measurement types'),
   );
@@ -171,15 +154,12 @@ class garmentboxMaterialTypeTerms extends garmentboxMigration {
   }
 }
 
-
 /**
  * Migrate measurement unit terms.
  */
 class garmentboxMeasurementUnitTerms extends garmentboxMigration {
 
   public $csvColumns = array(
-    array('id', 'Unique ID'),
-    array('name', 'Name'),
     array('field_unit_type', 'Type'),
     array('field_conversion_ratio', 'Conversion'),
   );
@@ -198,12 +178,6 @@ class garmentboxMeasurementUnitTerms extends garmentboxMigration {
  * Migrate BOL terms.
  */
 class garmentboxBolTerms extends garmentboxMigration {
-
-  public $csvColumns = array(
-    array('id', 'Unique ID'),
-    array('name', 'Name'),
-  );
-
   public $entityType = 'taxonomy_term';
   public $bundle = 'bol';
 }
@@ -212,11 +186,6 @@ class garmentboxBolTerms extends garmentboxMigration {
  * Migrate order status terms.
  */
 class garmentboxOrderStatusTerms extends garmentboxMigration {
-
-  public $csvColumns = array(
-    array('id', 'Unique ID'),
-    array('name', 'Name'),
-  );
 
   public $entityType = 'taxonomy_term';
   public $bundle = 'order_status';
@@ -228,20 +197,14 @@ class garmentboxOrderStatusTerms extends garmentboxMigration {
 /**
  * Migrate Department nodes.
  */
-class garmentboxDepartments extends garmentboxMigration {
-
-  public $csvColumns = array(
-    array('id', 'Unique ID'),
-    array('title', 'Title'),
-  );
+class garmentboxCompanies extends garmentboxMigration {
 
   public $entityType = 'node';
-  public $bundle = 'department';
+  public $bundle = 'company';
 
-  public function complete($node) {
-    if ($node->title == 'Main') {
-      variable_set('garmentbox_og_main_department', $node->nid);
-    }
+  public function __construct() {
+    parent::__construct();
+    $this->addFieldMapping(OG_GROUP_FIELD)->defaultValue(TRUE);
   }
 }
 
@@ -251,8 +214,6 @@ class garmentboxDepartments extends garmentboxMigration {
 class garmentboxSeasons extends garmentboxMigration {
 
   public $csvColumns = array(
-    array('id', 'Unique ID'),
-    array('title', 'Title'),
     array('body', 'Body'),
     array('field_season_status', 'Status'),
   );
@@ -261,7 +222,6 @@ class garmentboxSeasons extends garmentboxMigration {
   public $bundle = 'season';
 
   public $dependencies = array(
-    'garmentboxDepartments',
     'garmentboxSeasonStatusTerms',
   );
 
@@ -280,8 +240,6 @@ class garmentboxSeasons extends garmentboxMigration {
 class garmentboxAddresses extends garmentboxMigration {
 
   public $csvColumns = array(
-    array('id', 'Unique ID'),
-    array('title', 'Title'),
     array('profile_address', 'Address'),
     array('profile_city', 'City'),
     array('profile_state', 'State'),
@@ -290,10 +248,6 @@ class garmentboxAddresses extends garmentboxMigration {
 
   public $entityType = 'node';
   public $bundle = 'address';
-
-  public $dependencies = array(
-    'garmentboxDepartments',
-  );
 
   public function __construct() {
     parent::__construct();
@@ -321,8 +275,6 @@ class garmentboxAddresses extends garmentboxMigration {
 class garmentboxVendors extends garmentboxMigration {
 
   public $csvColumns = array(
-    array('id', 'Unique ID'),
-    array('title', 'Title'),
     array('field_address_inline', 'Address'),
   );
 
@@ -330,7 +282,6 @@ class garmentboxVendors extends garmentboxMigration {
   public $bundle = 'vendor';
 
   public $dependencies = array(
-    'garmentboxDepartments',
     'garmentboxAddresses',
   );
 
@@ -350,8 +301,6 @@ class garmentboxVendors extends garmentboxMigration {
 class garmentboxCustomers extends garmentboxMigration {
 
   public $csvColumns = array(
-    array('id', 'Unique ID'),
-    array('title', 'Title'),
     array('field_addresses_inline', 'Address'),
   );
 
@@ -382,8 +331,6 @@ class garmentboxCustomers extends garmentboxMigration {
 class garmentboxMaterials extends garmentboxMigration {
 
   public $csvColumns = array(
-    array('id', 'Unique ID'),
-    array('title', 'Title'),
     array('body', 'Body'),
     array('field_nick_name', 'Nick name'),
     array('field_images', 'Images'),
@@ -399,7 +346,6 @@ class garmentboxMaterials extends garmentboxMigration {
   public $bundle = 'material';
 
   public $dependencies = array(
-    'garmentboxDepartments',
     'garmentboxVendors',
     'garmentboxMaterialTypeTerms',
   );
@@ -435,7 +381,6 @@ class garmentboxMaterials extends garmentboxMigration {
 class garmentboxProductionOrders extends garmentboxMigration {
 
   public $csvColumns = array(
-    array('id', 'Unique ID'),
     array('field_factory', 'Factory'),
     array('field_season', 'Season'),
   );
@@ -466,8 +411,6 @@ class garmentboxProductionOrders extends garmentboxMigration {
 class garmentboxItems extends garmentboxMigration {
 
   public $csvColumns = array(
-    array('id', 'Unique ID'),
-    array('title', 'Title'),
     array('body', 'Body'),
     array('field_season', 'Season'),
     array('field_item_status', 'Status'),
@@ -478,7 +421,6 @@ class garmentboxItems extends garmentboxMigration {
   public $bundle = 'item';
 
   public $dependencies = array(
-    'garmentboxDepartments',
     'garmentboxItemStatusTerms',
     'garmentboxSeasons',
   );
@@ -510,8 +452,6 @@ class garmentboxItems extends garmentboxMigration {
 class garmentboxTasks extends garmentboxMigration {
 
   public $csvColumns = array(
-    array('id', 'Unique ID'),
-    array('title', 'Title'),
     array('body', 'Body'),
     array('field_entity_reference', 'Reference'),
     array('field_task_status', 'Status'),
@@ -521,7 +461,6 @@ class garmentboxTasks extends garmentboxMigration {
   public $bundle = 'task';
 
   public $dependencies = array(
-    'garmentboxDepartments',
     'garmentboxItems',
     'garmentboxItemVariants',
     'garmentboxMaterials',
@@ -548,8 +487,6 @@ class garmentboxTasks extends garmentboxMigration {
 class garmentboxItemVariants extends garmentboxMigration {
 
   public $csvColumns = array(
-    array('id', 'Unique ID'),
-    array('title', 'Title'),
     array('field_item', 'Item'),
     array('field_images', 'Images'),
     array('field_item_status', 'Status'),
@@ -562,7 +499,6 @@ class garmentboxItemVariants extends garmentboxMigration {
   public $bundle = 'item_variant';
 
   public $dependencies = array(
-    'garmentboxDepartments',
     'garmentboxItems',
     'garmentboxItemStatusTerms',
     'garmentboxFactories',
@@ -621,8 +557,6 @@ class garmentboxItemVariants extends garmentboxMigration {
  */
 class garmentboxInventoryLines extends garmentboxMigration {
   public $csvColumns = array(
-    array('id', 'Unique ID'),
-    array('title', 'Title'),
     array('field_item_variant', 'Item variant'),
     array('field_inventory_type', 'Type'),
     array('field_production_start_date', 'Production date'),
@@ -635,7 +569,6 @@ class garmentboxInventoryLines extends garmentboxMigration {
   public $bundle = 'inventory_line';
 
   public $dependencies = array(
-    'garmentboxDepartments',
     'garmentboxItemVariants',
     'garmentboxInventoryTypeTerms',
     'garmentboxProductionOrders',
@@ -680,8 +613,6 @@ class garmentboxInventoryLines extends garmentboxMigration {
 class garmentboxOrders extends garmentboxMigration {
 
   public $csvColumns = array(
-    array('id', 'Unique ID'),
-    array('title', 'Title'),
     array('field_season', 'Season'),
     array('field_customer', 'Customer'),
     array('field_address', 'Address'),
@@ -740,9 +671,7 @@ class garmentboxOrders extends garmentboxMigration {
 class garmentboxBubbles extends garmentboxMigration {
 
   public $csvColumns = array(
-    array('id', 'Unique ID'),
     array('field_bubble_id', 'Bubble ID'),
-    array('title', 'Title'),
     array('body', 'Text'),
     array('field_css_selector', 'CSS selector'),
     array('field_display_mode', 'Display mode'),
@@ -766,11 +695,6 @@ class garmentboxBubbles extends garmentboxMigration {
  */
 class garmentboxFactories extends garmentboxMigration {
 
-  public $csvColumns = array(
-    array('id', 'Unique ID'),
-    array('title', 'Title'),
-  );
-
   public $entityType = 'node';
   public $bundle = 'factory';
 }
@@ -783,7 +707,6 @@ class garmentboxFactories extends garmentboxMigration {
  */
 class garmentboxCollectionsFieldStatusInfo extends garmentboxFieldCollectionMigration {
   public $csvColumns = array(
-    array('id', 'Unique ID'),
     array('host_entity_id', 'Season'),
     array('field_season_status', 'Status'),
     array('field_date', 'Deadline'),
@@ -822,7 +745,6 @@ class garmentboxCollectionsFieldStatusInfo extends garmentboxFieldCollectionMigr
  */
 class garmentboxCollectionsFieldSizeInfo extends garmentboxFieldCollectionMigration {
   public $csvColumns = array(
-    array('id', 'Unique ID'),
     array('host_entity_id', 'Item variant'),
     array('field_size', 'Size'),
     array('field_sku', 'SKU'),
@@ -857,7 +779,6 @@ class garmentboxCollectionsFieldSizeInfo extends garmentboxFieldCollectionMigrat
  */
 class garmentboxCollectionsFieldSourceInfo extends garmentboxFieldCollectionMigration {
   public $csvColumns = array(
-    array('id', 'Unique ID'),
     array('host_entity_id', 'Material'),
     array('field_vendor', 'Vendor'),
     array('field_price', 'Price'),
@@ -905,7 +826,6 @@ class garmentboxCollectionsFieldSourceInfo extends garmentboxFieldCollectionMigr
  */
 class garmentboxCollectionsFieldBomInfo extends garmentboxFieldCollectionMigration {
   public $csvColumns = array(
-    array('id', 'Unique ID'),
     array('host_entity_id', 'Item variant'),
     array('field_source_info_ref', 'Material source'),
     array('field_unit', 'Unit'),
@@ -946,7 +866,6 @@ class garmentboxCollectionsFieldBomInfo extends garmentboxFieldCollectionMigrati
  */
 class garmentboxCollectionsFieldBolInfo extends garmentboxFieldCollectionMigration {
   public $csvColumns = array(
-    array('id', 'Unique ID'),
     array('host_entity_id', 'Item variant'),
     array('field_bol_term', 'Labour'),
     array('field_price', 'Price'),
@@ -980,7 +899,6 @@ class garmentboxCollectionsFieldBolInfo extends garmentboxFieldCollectionMigrati
  */
 class garmentboxCollectionsFieldQuantityInfo extends garmentboxFieldCollectionMigration {
   public $csvColumns = array(
-    array('id', 'Unique ID'),
     array('host_entity_id', 'Inventory line'),
     array('field_size', 'Size'),
     array('field_quantity_integer', 'Quantity'),

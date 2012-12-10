@@ -1,14 +1,14 @@
-Unique ID,Title,Address,City,State,Country
-address1,Middlesex,"81 Middlesex Street",London,,US
-address2,306th, "306 W. 38th Street 7th Floor",NY,NY,US
-address3,Louisiana, "3101 Louisiana St.",Houston,CO,US
-address4,Middlesex,"81 Middlesex Street",London,,US
-address5,306th, "306 W. 38th Street 7th Floor",NY,NY,US
-address6,Louisiana, "3101 Louisiana St.",Houston,CO,US
-address7,Middlesex,"81 Middlesex Street",London,,US
-address8,306th, "306 W. 38th Street 7th Floor",NY,NY,US
-address9,Louisiana, "3101 Louisiana St.",Houston,CO,US
-address10,Middlesex,"81 Middlesex Street",London,,US
-address11,306th, "306 W. 38th Street 7th Floor",NY,NY,US
-address12,Louisiana, "3101 Louisiana St.",Houston,CO,US
-address13,Middlesex,"81 Middlesex Street",London,,US
+Unique ID,Company,Title,Address,City,State,Country
+address1,company1,address1,"86 Leadenhall Street EC3A 3DH", United Kingdom
+address2,company1,address2,306th, "306 W. 38th Street 7th Floor",NY,NY,US
+address3,company1,address3,"Via Carlo Bellerio, 41 20161" Milano, Italia
+address4,company1,address4,"28 Pearson StreetLondon E2 8JD", United Kingdom
+address5,company1,address5,"52 Rue de l'Arbre Sec 75001" Paris, France
+address6,company1,address6,Louisiana, 92 Rue Saint-Denis75001 Paris, France
+address7,company1,address7,"671 6th Avenue", New York, NY 
+address8,company1,address8,"246 Washington Avenue Nutley, NJ 07110", New York, NY 
+address9,company1,address9,"139 Rue du Ménil 92600 Asnières-sur-Seine", Paris, France
+address10,company1,address10,"40 Rue Jean Jaurès 92230 Gennevilliers", France
+address11,company1,address11,"7/9 v. F.lli Bandiera, Pero, MI 20016", Italia
+address12,company1,address12,"Via Buzzi, 28 Rho", Milano, Italia
+address13,company1,address13,"Via dei Caduti, 7 20020 Arese", Milano, Italia

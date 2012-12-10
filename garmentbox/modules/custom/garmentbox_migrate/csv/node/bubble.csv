@@ -1,4 +1,4 @@
-Unique ID,Bubble ID,Title,Text,CSS selector,Display mode,Condition
-bubble1,view_item_variants_empty,No items ,You have no items yet. Create the first one now.,#add-item a,open,User have no items
-bubble2,view_task_list_empty,No tasks,You have no tasks yet. Create the first one now.,#add-task a,open,User have no tasks
-bubble3,item_without_variants,No variations,This item has no variation yet. Create one now.,#add-variant a,open,User have no item variants
+Unique ID,Title,Bubble ID,Text,CSS selector,Display mode,Condition
+bubble1,No items,view_item_variants_empty,You have no items yet. Create the first one now.,#add-item a,open,User have no items
+bubble2,No tasks,view_task_list_empty,You have no tasks yet. Create the first one now.,#add-task a,open,User have no tasks
+bubble3,No variations,item_without_variants,This item has no variation yet. Create one now.,#add-variant a,open,User have no item variants
