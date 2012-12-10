@@ -53,13 +53,15 @@ function garmentbox_task_comment_presave($comment) {
     }
   }
 
-  if ($save) {
-    $node->revision = TRUE;
-    node_save($node);
+  if (!$save) {
+    return;
   }
 
-  // Set the revision ID to the current node ID.
+  // Set the revision ID to the node ID before it is saved.
   $wrapper->field_revision_id->set($node->vid);
+
+  $node->revision = TRUE;
+  node_save($node);
 }
 
 /**
@@ -148,30 +150,20 @@ function garmentbox_task_preprocess_comment(&$variables) {
   $key = array_search($comment->cid, $thread);
   $variables['permalink'] = str_replace('Permalink', '#' . $key, $variables['permalink']);
 
-  // If this is not the first comment, and the previous comment's field
-  // were changed preapre to show it.
-  if ($key == 0) {
-    // Don't show this comment;
-    $variables['show_comment'] = FALSE;
-    $variables['content'] = array();
+  $wrapper = entity_metadata_wrapper('comment', $comment);
+  if (!$vid = $wrapper->field_revision_id->value()) {
     return;
   }
-  $variables['show_comment'] = TRUE;
+
+  $node_revision = node_load($node->nid, $vid);
+  $node_wrapper = entity_metadata_wrapper('node', $node_revision);
 
   $field_names = garmentbox_task_intersect_fields($comment, $node);
   $field_names[] ='subject';
 
-  $nodes = array();
-  foreach (array_keys(node_revision_list($node)) as $vid) {
-    $nodes[$vid] = node_load($node->nid, $vid);
-  }
-
-  $wrapper = entity_metadata_wrapper('comment', $comment);
-  $previous_wrapper = entity_metadata_wrapper('comment', $thread[$key - 1]);
-
   foreach ($field_names as $field_name) {
     $value = $wrapper->{$field_name}->value();
-    $previous_value = $previous_wrapper->{$field_name}->value();
+    $node_value = $node_wrapper->{$field_name}->value();
     if ($previous_value == $value) {
       continue;
     }
