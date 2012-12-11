@@ -159,23 +159,23 @@ function garmentbox_task_preprocess_comment(&$variables) {
   $node_wrapper = entity_metadata_wrapper('node', $node_revision);
 
   $field_names = garmentbox_task_intersect_fields($comment, $node);
-  $field_names[] ='subject';
+  // @todo: Re-add subject field.
+  // $field_names[] ='subject';
 
   foreach ($field_names as $field_name) {
-    $value = $wrapper->{$field_name}->value();
+    $comment_value = $wrapper->{$field_name}->value();
     $node_value = $node_wrapper->{$field_name}->value();
-    if ($previous_value == $value) {
+    if ($comment_value == $node_value) {
       continue;
     }
 
     $params = array();
 
-    $instance = field_info_instance('comment', $field_name, $comment->node_type);
+    $instance = field_info_instance('node', $field_name, $node->type);
     $display = $instance['display']['default'];
     $display['label'] = 'inline';
-    $params['@previous'] = strip_tags(render(field_view_field('comment', $previous_wrapper->value(), $field_name, $display)));
+    $params['@previous'] = strip_tags(render(field_view_field('node', $node_wrapper->value(), $field_name, $display)));
     $params['@previous'] = str_replace('&nbsp;', ' ', $params['@previous']);
-
 
     $display['label'] = 'hidden';
     $params['@current'] = strip_tags(render(field_view_field('comment', $wrapper->value(), $field_name, $display)));
