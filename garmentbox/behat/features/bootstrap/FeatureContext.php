@@ -85,7 +85,7 @@ class FeatureContext extends DrupalContext {
         $table = 'node';
         $id_column = 'nid';
         $title_column = 'title';
-        $path = "$page_type/%";
+        $path = "imanimo/$page_type/%";
         $type = str_replace('-', '_', $page_type);
         break;
 
@@ -619,7 +619,8 @@ class FeatureContext extends DrupalContext {
    */
   public function iAmOnThePageOfTheDefault($the, $page_name, $node_type, $company = 'Imanimo') {
     $node_type = str_replace('-', '_', $node_type);
-    $nid = $this->sample_nodes[strtolower($company)][$node_type];
+    $company = strtolower($company);
+    $nid = $this->sample_nodes[$company][$node_type];
 
     $steps = array();
     switch($page_name) {
@@ -670,9 +671,10 @@ class FeatureContext extends DrupalContext {
    * @When /^I am on the default "([^"]*)" page$/
    */
   public function iAmOnTheDefaultPage($node_type) {
+    $company = 'imanimo';
     $node_type = str_replace('-', '_', $node_type);
-    $nid = $this->sample_nodes[$node_type];
-    $path = 'node/' . $nid;
+    $nid = $this->sample_nodes[$company][$node_type];
+    $path = $company . '/node/' . $nid;
     return new Step\When("I am at \"$path\"");
   }
 
@@ -688,8 +690,8 @@ class FeatureContext extends DrupalContext {
 
     // Add the item variant to the line sheet.
     return array(
-        new Given('I am on a "item-variant" page titled "'. $title. '"'),
-        new Given('I click "Add to line sheet"'),
+      new Given('I am on a "item-variant" page titled "'. $title. '"'),
+      new Given('I click "Add to line sheet"'),
     );
   }
 

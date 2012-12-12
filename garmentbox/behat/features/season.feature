@@ -3,7 +3,7 @@ Feature: Test Season page
 
   @api
   Scenario: Basic content is shown on the season task list page.
-    Given I am logged in as a user with the "authenticated user" role
+    Given I am logged in as a user from "Imanimo"
      When I am on the default "season" page
      Then I should see the heading "Autumn-Winter 2013 Women"
       And the page status is shown as "Design"
@@ -26,7 +26,7 @@ Feature: Test Season page
 
   @api
   Scenario: Correct content is shown on the season items list.
-    Given I am logged in as a user with the "authenticated user" role
+    Given I am logged in as a user from "Imanimo"
      When I am on the "Season items" page of the default "season"
      Then I should see a table titled "V-neck shirt" with the following <contents>:
       | Variant                    | Main material | Status     | Retail price | Wholesale price |
@@ -34,7 +34,7 @@ Feature: Test Season page
 
   @api
   Scenario: Correct content is shown on the season inventory list.
-    Given I am logged in as a user with the "authenticated user" role
+    Given I am logged in as a user from "Imanimo"
      When I am on the "Season inventory" page of the default "season"
      Then the table "inventory-summary" should have the following <contents>:
       | Variation                   | Small       | Medium                                      | Large                                        | Type                                                      |
@@ -42,7 +42,7 @@ Feature: Test Season page
 
   @api
   Scenario: Correct content is shown on the season orders list.
-    Given I am logged in as a user with the "authenticated user" role
+    Given I am logged in as a user from "Imanimo"
      When I am on the "Season orders" page of the default "season"
      Then the following <row> should appear in the table "orders" :
       | order3  | High Couture | N/A | 26 | N/A | <date> 5/30/2013 | Shipping |
@@ -77,7 +77,7 @@ Feature: Test Season page
 
   @api
   Scenario: Test page display for line sheet list.
-    Given I am logged in as a user with the "authenticated user" role
+    Given I am logged in as a user from "Imanimo"
      When I am on a "season" page titled "Autumn-Winter 2013 Women", in the tab "line-sheet"
     Then the table "prices" should have the following <contents>:
       | Wholesale        | Retail           |
@@ -89,7 +89,7 @@ Feature: Test Season page
 
   @api
   Scenario: Test addition of line sheet items.
-    Given I am logged in as a user with the "authenticated user" role
+    Given I am logged in as a user from "Imanimo"
      When I add an item variant titled "Grey v-neck shirt" to line sheet
       And I am on a "season" page titled "Autumn-Winter 2013 Women", in the tab "line-sheet"
     Then the table "prices" should have the following <contents>:
