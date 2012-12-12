@@ -2,8 +2,8 @@ default:
   context:
     parameters:
       drupal_users:
-        user:
-          'user'
+        imanimo:
+          'imanimo'
       sample_nodes:
         imanimo:
           season: 29
