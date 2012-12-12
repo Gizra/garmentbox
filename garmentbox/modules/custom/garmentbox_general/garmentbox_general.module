@@ -23,31 +23,43 @@ function garmentbox_general_init() {
   $item = menu_get_item();
   $og_context = og_context();
 
-  // When the company context is missing not on an admin page, redirect to
-  // "/[company]".
+
   $redirect = FALSE;
-  if ($user->uid && strpos($item['path'], 'admin') !== 0 && strpos($item['path'], 'user') !== 0) {
+  if ($user->uid && strpos($item['path'], 'admin') !== 0) {
     $redirect = FALSE;
     if (!$og_context) {
+      // Redirect When the company context is missing not on an admin page.
       $redirect = TRUE;
     }
     else {
+      // When the company context exists, check access to the current group.
       $node = node_load($og_context['gid']);
       if (!node_access('view', $node)) {
+        $redirect = TRUE;
+      }
+
+      // Check access to the node viewed; Needed for pages such as
+      // season/%/items
+      $node = garmentbox_general_get_node();
+      if ($node && !node_access('view', $node)) {
         $redirect = TRUE;
       }
     }
   }
   if ($redirect) {
+    // When an access problem was found, and it's too late for setting access-
+    // denied, redirect to user's company homepage.
+    og_purl_purge_request_destination();
     $wrapper = entity_metadata_wrapper('user', $user);
     $purl_params = array(
       'query' => drupal_get_query_parameters($_GET, array('q')),
       'purl' => array(
+        // TODO: What does "provider" mean here?
         'provider' => 'og_purl|node',
         'id' => $wrapper->og_user_company->get(0)->getIdentifier(),
       )
     );
-    purl_goto($_GET['q'], $purl_params);
+    purl_goto('', $purl_params);
   }
 
 
@@ -58,6 +70,35 @@ function garmentbox_general_init() {
       $breadcrumb[] = l($title, 'node/' . $nid);
     }
     drupal_set_breadcrumb($breadcrumb);
+  }
+}
+
+/**
+ * Wrapping menu_get_object for finding nodes in pages such as
+ * season/%/inventory as well.
+ *
+ * @return
+ *   The viewed node object.
+ */
+function garmentbox_general_get_node() {
+  $node = menu_get_object();
+  if ($node) {
+    return $node;
+  }
+
+  // When the node wasn't loaded, try fetching it from the menu item.
+  $item = menu_get_item();
+
+  // Check if the current page is a "Node sub-page", and extract the node.
+  // Define beginnings of node related pages. E.g. season/%/inventory.
+  $node_path_beginnings = array(
+    'season/%',
+    'production-order/%',
+  );
+  foreach ($node_path_beginnings as $path_beginning) {
+    if ((strpos($item['path'], $path_beginning) === 0) && !empty($item['map'][1])) {
+      return is_object($item['map'][1]) ? $item['map'][1]->data : node_load($item['map'][1]);
+    }
   }
 }
 
