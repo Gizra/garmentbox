@@ -10,12 +10,10 @@
  * Page preprocess.
  */
 function garmentbox_omega_preprocess_page(&$variables) {
-  $node = garmentbox_general_get_node();
-
   if (overlay_get_mode() == 'child') {
     $variables['theme_hook_suggestions'][] = 'page__overlay';
   }
-  elseif ($node) {
+  elseif ($node = garmentbox_general_get_node()) {
     // Node context.
     $variables['page']['title'] = node_view($node, 'garmentbox_header');
     $variables['page']['breadcrumbs'] = garmentbox_general_get_node_breadcrumbs($node);
