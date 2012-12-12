@@ -19,7 +19,6 @@ class FeatureContext extends DrupalContext {
    */
   private $flagged = array();
 
-
   /**
    * Initializes context.
    *
@@ -221,7 +220,6 @@ class FeatureContext extends DrupalContext {
       throw new \Exception("The production price is not '$price'.");
     }
   }
-
 
   /**
    * @Given /^the page status is shown as "([^"]*)"$/
@@ -427,6 +425,18 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
+   * @Then /^I should be on \'([^\']*)\'$/
+   */
+  public function iShouldBeOn($url) {
+    $wanted_url = $this->getMinkParameter('base_url') . $url;
+    $current_url = $this->getSession()->getCurrentUrl();
+
+    if ($wanted_url != $current_url) {
+      throw new \Exception("Current URL is '$current_url'.");
+    }
+  }
+
+  /**
    * @Given /^I (uncheck|check) "([^"]*)" in row containing "([^"]*)" in table "([^"]*)"$/
    */
   public function iUncheckInRowContainingOfTable($check, $column_title, $value_in_row, $table_id) {
@@ -455,7 +465,6 @@ class FeatureContext extends DrupalContext {
     $element->click();
   }
 
-
   /**
    * @Given /^I fill in "([^"]*)" with "([^"]*)" in row containing "([^"]*)" in table "([^"]*)"$/
    */
@@ -467,7 +476,6 @@ class FeatureContext extends DrupalContext {
     $input = $cell->find('css', 'input');
     $input->setValue($content);
   }
-
 
   /**
    * "Triangulate" a table cell by header and row content.
@@ -615,8 +623,11 @@ class FeatureContext extends DrupalContext {
 
     $steps = array();
     switch($page_name) {
+      case 'Node view':
+        $path = "node/$nid";
+        break;
+
       case 'Add a production order':
-        // TODO: The "imanimo" should be added automatically.
         $path = "$company/node/add/production-order?field_season=$nid";
         break;
 
@@ -630,6 +641,18 @@ class FeatureContext extends DrupalContext {
 
       case 'Season orders':
         $path = "$company/season/$nid/orders";
+        break;
+
+      case 'Season tasks':
+        $path = "$company/season/$nid/tasks";
+        break;
+
+      case 'Season production orders':
+        $path = "$company/season/$nid/production-orders";
+        break;
+
+      case 'Season line sheet':
+        $path = "$company/season/$nid/line-sheet";
         break;
 
       case 'Production delivery':
@@ -713,4 +736,3 @@ class FeatureContext extends DrupalContext {
     sleep(10);
   }
 }
-

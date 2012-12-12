@@ -51,8 +51,7 @@ function garmentbox_general_init() {
     // denied, redirect to user's company homepage.
     og_purl_purge_request_destination();
     $wrapper = entity_metadata_wrapper('user', $user);
-    $company_nid = $wrapper->og_user_company->get(0)->getIdentifier();
-    if (!$company_id) {
+    if (!$company_nid = $wrapper->og_user_company->get(0)->getIdentifier()) {
       // When the user doesn't belong to any company, push him to the front
       // page.
       if (!drupal_is_front_page()) {
