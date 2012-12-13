@@ -19,6 +19,8 @@ function garmentbox_general_ctools_plugin_directory($module, $plugin) {
  * Implements hook_init().
  */
 function garmentbox_general_init() {
+  global $user;
+
   // Set breadcrumbs.
   if (($node = menu_get_object()) && $nids = garmentbox_general_get_node_hierarchy($node)) {
     $breadcrumb[] = l(t('Home'), '<front>');
@@ -27,6 +29,19 @@ function garmentbox_general_init() {
     }
     drupal_set_breadcrumb($breadcrumb);
   }
+
+  if (!$user->uid || og_context() || !drupal_is_front_page()) {
+    return;
+  }
+
+  // User is not inside an OG-context, in the homepage, so redirect to
+  // thier group if exists.
+  $wrapper = entity_metadata_wrapper('user', $user->uid);
+  if (!$nids = $wrapper->og_user_company->value(array('identifier' => TRUE))) {
+    return;
+  }
+  $nid = reset($nids);
+  drupal_goto("node/$nid");
 }
 
 /**
