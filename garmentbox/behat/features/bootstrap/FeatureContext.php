@@ -426,18 +426,6 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
-   * @Then /^I should be on \'([^\']*)\'$/
-   */
-  public function iShouldBeOn($url) {
-    $wanted_url = $this->getMinkParameter('base_url') . $url;
-    $current_url = $this->getSession()->getCurrentUrl();
-
-    if ($wanted_url != $current_url) {
-      throw new \Exception("Current URL is '$current_url'.");
-    }
-  }
-
-  /**
    * @Given /^I (uncheck|check) "([^"]*)" in row containing "([^"]*)" in table "([^"]*)"$/
    */
   public function iUncheckInRowContainingOfTable($check, $column_title, $value_in_row, $table_id) {
