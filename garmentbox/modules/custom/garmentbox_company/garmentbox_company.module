@@ -25,12 +25,12 @@ function garmentbox_company_field_attach_create_bundle($entity_type, $bundle) {
 
   if ($entity_type == 'node' && $bundle == 'company') {
     // Group.
-    og_create_field(OG_GROUP_FIELD, 'node', $bundle);
+    og_create_field(OG_GROUP_FIELD, 'node', 'company');
 
     // Set the group as private
     $og_field = og_fields_info(OG_ACCESS_FIELD);
     $og_field['instance']['default_value'] = 1;
-    og_create_field(OG_ACCESS_FIELD, 'node', $bundle, $og_field);
+    og_create_field(OG_ACCESS_FIELD, 'node', 'company', $og_field);
   }
   else {
     // Group content.
