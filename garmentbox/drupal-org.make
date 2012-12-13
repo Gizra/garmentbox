@@ -86,7 +86,7 @@ projects[mailsystem][version] = 2.34
 projects[mailsystem][subdir] = "contrib"
 
 projects[message][subdir] = "contrib"
-projects[message][version] = "1.6"
+projects[message][version] = "1.7"
 
 projects[message_notify][subdir] = "contrib"
 projects[message_notify][version] = "2.3"
