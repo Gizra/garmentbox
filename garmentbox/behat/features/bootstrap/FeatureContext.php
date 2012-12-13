@@ -85,6 +85,7 @@ class FeatureContext extends DrupalContext {
         $table = 'node';
         $id_column = 'nid';
         $title_column = 'title';
+        // @todo: Remove hardcoding.
         $path = "imanimo/$page_type/%";
         $type = str_replace('-', '_', $page_type);
         break;
