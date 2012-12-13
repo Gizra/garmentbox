@@ -19,58 +19,6 @@ function garmentbox_general_ctools_plugin_directory($module, $plugin) {
  * Implements hook_init().
  */
 function garmentbox_general_init() {
-  global $user;
-  $item = menu_get_item();
-  $og_context = og_context();
-
-
-  $redirect = FALSE;
-  if ($user->uid && strpos($item['path'], 'admin') !== 0) {
-    $redirect = FALSE;
-    if (!$og_context) {
-      // Redirect When the company context is missing not on an admin page.
-      $redirect = TRUE;
-    }
-    else {
-      // When the company context exists, check access to the current group.
-      $node = node_load($og_context['gid']);
-      if (!node_access('view', $node)) {
-        $redirect = TRUE;
-      }
-
-      // Check access to the node viewed; Needed for pages such as
-      // season/%/items
-      $node = garmentbox_general_get_node();
-      if ($node && !node_access('view', $node)) {
-        $redirect = TRUE;
-      }
-    }
-  }
-  if ($redirect) {
-    // When an access problem was found, and it's too late for setting access-
-    // denied, redirect to user's company homepage.
-    og_purl_purge_request_destination();
-    $wrapper = entity_metadata_wrapper('user', $user);
-    if (!$company_nid = $wrapper->og_user_company->get(0)->getIdentifier()) {
-      // When the user doesn't belong to any company, push him to the front
-      // page.
-      if (!drupal_is_front_page()) {
-        drupal_goto();
-      }
-    }
-    else {
-      $purl_params = array(
-        'query' => drupal_get_query_parameters($_GET, array('q')),
-        'purl' => array(
-          // TODO: What does "provider" mean here?
-          'provider' => 'og_purl|node',
-          'id' => $company_nid,
-        ),
-      );
-      purl_goto('', $purl_params);
-    }
-  }
-
   // Set breadcrumbs.
   if (($node = menu_get_object()) && $nids = garmentbox_general_get_node_hierarchy($node)) {
     $breadcrumb[] = l(t('Home'), '<front>');
@@ -82,6 +30,33 @@ function garmentbox_general_init() {
 }
 
 /**
+ * Implements hook_og_context_negotiation_info().
+ */
+function garmentbox_general_og_context_negotiation_info() {
+  $providers = array();
+
+  $providers['garmentbox_general'] = array(
+    'name' => t('GarmentBox'),
+    'description' => t('General context for GarmentBox related URLs.'),
+    'callback' => 'garmentbox_general_og_context_handler',
+  );
+  return $providers;
+}
+
+/**
+ * OG-context handler.
+ *
+ * Get all the group IDs according to the PURL prefix.
+ */
+function garmentbox_general_og_context_handler() {
+  if (!$node = garmentbox_general_get_node()) {
+    return;
+  }
+
+  return og_get_entity_groups('node', $node);
+}
+
+/**
  * Wrapping menu_get_object for finding nodes in pages such as
  * season/%/inventory as well.
  *
@@ -89,8 +64,7 @@ function garmentbox_general_init() {
  *   The viewed node object.
  */
 function garmentbox_general_get_node() {
-  $node = menu_get_object();
-  if ($node) {
+  if ($node = menu_get_object()) {
     return $node;
   }
 
@@ -145,7 +119,6 @@ function garmentbox_general_custom_theme() {
  *   hierarchy. If no hierarchy found returns FALSE.
  */
 function garmentbox_general_get_node_hierarchy($node, &$nids = array()) {
-
   if ($nids === FALSE) {
     // We reached a content type that has no hierarchy so break here.
     return;

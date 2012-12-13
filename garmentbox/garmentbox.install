@@ -28,6 +28,15 @@ function garmentbox_install() {
   variable_set('date_first_day', 1);
   variable_set('date_format_medium', 'D, Y-m-d H:i');
   variable_set('date_format_medium_no_time', 'D, Y-m-d');
+
+  // Set OG-context handlers.
+  $values = array(
+    'url' => TRUE,
+    'node' => TRUE,
+    'garmentbox_general' => TRUE,
+    'og_purl' => TRUE,
+  );
+  variable_set("og_context_negotiation_group_context", $values);
 }
 
 /**
