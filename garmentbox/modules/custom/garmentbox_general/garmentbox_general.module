@@ -30,7 +30,17 @@ function garmentbox_general_init() {
     drupal_set_breadcrumb($breadcrumb);
   }
 
-  if (!$user->uid || og_context() || !drupal_is_front_page()) {
+  // Make sure user has access to current context, if exists.
+  if ($og_context = og_context()) {
+    $node = node_load($og_context['gid']);
+    if (!node_access('view', $node)) {
+      // Access denied.
+      drupal_access_denied();
+      drupal_exit();
+    }
+  }
+
+  if (!$user->uid || $og_context || !drupal_is_front_page()) {
     return;
   }
 
