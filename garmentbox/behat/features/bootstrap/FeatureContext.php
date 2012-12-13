@@ -9,13 +9,14 @@ use Behat\Behat\Context\Step;
 require 'vendor/autoload.php';
 
 class FeatureContext extends DrupalContext {
+
   /**
-   * Array of flags flagged in the tests to revert in the end of testing.
+   * Array of flaggings in the tests to revert in the end of testing.
    *
    * Required parameters for every element in the array:
-   *  'entity_id' => entity ID.
-   *  'flag_name' => name of the flag to unflag. Entity type is derived from
-   *    the flag.
+   * - entity_id: Entity ID.
+   * - flag_name: Name of the flag to unflag. Entity type is derived
+   *   from the flag.
    */
   private $flagged = array();
 
@@ -51,7 +52,6 @@ class FeatureContext extends DrupalContext {
     }
 
     // Log in.
-    // Go to the user page.
     $element = $this->getSession()->getPage();
     $this->getSession()->visit($this->locatePath('/user'));
     $element->fillField('Username', $username);
