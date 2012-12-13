@@ -35,19 +35,6 @@ function garmentbox_company_field_attach_create_bundle($entity_type, $bundle) {
   else {
     // Group content.
     $og_field = og_fields_info(OG_AUDIENCE_FIELD);
-    $og_field['field']['settings']['handler_settings']['target_bundles'] = array('company');
-    $og_field['field']['cardinality'] = 1;
-    $og_field['instance']['label'] = 'Company';
-    $og_field['instance']['display']['default']['type'] = 'hidden';
-
-    // Enable Entity-reference prepopulate.
-    $og_field['instance']['settings']['behaviors']['prepopulate'] = array(
-      'status' => TRUE,
-      'action' => 'hide',
-      'fallback' => 'redirect',
-      'og_context' => TRUE,
-    );
-
     og_create_field('og_company', $entity_type, $bundle, $og_field);
   }
 }
