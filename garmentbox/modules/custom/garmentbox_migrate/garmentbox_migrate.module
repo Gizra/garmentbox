@@ -6,6 +6,43 @@
 function garmentbox_migrate_migrate_api() {
   $api = array(
     'api' => 2,
+    'migrations' => array(
+      'GarmentboxUsers' => array('class_name' => 'GarmentboxUsers'),
+      // Terms.
+      'garmentboxSeasonStatusTerms' => array('class_name' => 'garmentboxSeasonStatusTerms'),
+      'garmentboxItemStatusTerms' => array('class_name' => 'garmentboxItemStatusTerms'),
+      'garmentboxTaskStatusTerms' => array('class_name' => 'garmentboxTaskStatusTerms'),
+      'garmentboxSizeTerms' => array('class_name' => 'garmentboxSizeTerms'),
+      'garmentboxInventoryTypeTerms' => array('class_name' => 'garmentboxInventoryTypeTerms'),
+      'garmentboxMaterialTypeTerms' => array('class_name' => 'garmentboxMaterialTypeTerms'),
+      'garmentboxMeasurementUnitTerms' => array('class_name' => 'garmentboxMeasurementUnitTerms'),
+      'garmentboxBolTerms' => array('class_name' => 'garmentboxBolTerms'),
+      'garmentboxOrderStatusTerms' => array('class_name' => 'garmentboxOrderStatusTerms'),
+      // Nodes.
+      'garmentboxCompanies' => array('class_name' => 'garmentboxCompanies'),
+      'garmentboxSeasons' => array('class_name' => 'garmentboxSeasons'),
+      'garmentboxAddresses' => array('class_name' => 'garmentboxAddresses'),
+      'garmentboxVendors' => array('class_name' => 'garmentboxVendors'),
+      'garmentboxCustomers' => array('class_name' => 'garmentboxCustomers'),
+      'garmentboxMaterials' => array('class_name' => 'garmentboxMaterials'),
+      'garmentboxItems' => array('class_name' => 'garmentboxItems'),
+      'garmentboxTasks' => array('class_name' => 'garmentboxTasks'),
+      'garmentboxItemVariants' => array('class_name' => 'garmentboxItemVariants'),
+      'garmentboxInventoryLines' => array('class_name' => 'garmentboxInventoryLines'),
+      'garmentboxOrders' => array('class_name' => 'garmentboxOrders'),
+      'garmentboxBubbles' => array('class_name' => 'garmentboxBubbles'),
+      'garmentboxFactories' => array('class_name' => 'garmentboxFactories'),
+      // Field colletions.
+      'garmentboxCollectionsFieldStatusInfo' => array('class_name' => 'garmentboxCollectionsFieldStatusInfo'),
+      'garmentboxCollectionsFieldSizeInfo' => array('class_name' => 'garmentboxCollectionsFieldSizeInfo'),
+      'garmentboxCollectionsFieldSourceInfo' => array('class_name' => 'garmentboxCollectionsFieldSourceInfo'),
+      'garmentboxCollectionsFieldBomInfo' => array('class_name' => 'garmentboxCollectionsFieldBomInfo'),
+      'garmentboxCollectionsFieldBolInfo' => array('class_name' => 'garmentboxCollectionsFieldBolInfo'),
+      'garmentboxCollectionsFieldQuantityInfo' => array('class_name' => 'garmentboxCollectionsFieldQuantityInfo'),
+    ),
+    'destination handlers' => array(
+      'garmentboxMigrateDestinationFieldCollection',
+    ),
   );
   return $api;
 }
