@@ -51,7 +51,15 @@ function garmentbox_general_init() {
     return;
   }
   $nid = reset($nids);
-  drupal_goto("node/$nid");
+
+  $purl_params = array(
+    'query' => drupal_get_query_parameters($_GET, array('q')),
+    'purl' => array(
+      'provider' => "og_purl|node",
+      'id' => $nid,
+    )
+  );
+  purl_goto('', $purl_params);
 }
 
 /**

@@ -11,12 +11,11 @@ include_once 'garmentbox_season.features.inc';
  */
 function garmentbox_season_init() {
   global $user;
-  if (empty($user->uid)) {
+  if (!$user->uid) {
     return;
   }
 
-  if (drupal_is_front_page()) {
-    $og_context = og_context();
+  if (drupal_is_front_page() && $og_context = og_context()) {
     _garmentbox_season_redirect_to_season($og_context['gid']);
   }
 
@@ -68,7 +67,6 @@ function garmentbox_season_page_build(&$page) {
  *   Company node ID.
  */
 function _garmentbox_season_redirect_to_season($nid) {
-
   // Find the last changed season.
   $query = new EntityFieldQuery();
   $result = $query->entityCondition('entity_type', 'node')
@@ -86,7 +84,7 @@ function _garmentbox_season_redirect_to_season($nid) {
   $nid = key($result['node']);
 
   // Redirect from a season page to the season's items tab if there are no
-  // items, otherwise redirecr to the tasks tab.
+  // items, otherwise redirect to the tasks tab.
   if (!_garmentbox_season_count_view_rows('item_variants', $nid)) {
     drupal_goto("season/$nid/items");
   }
