@@ -20,12 +20,17 @@ function garmentbox_form_install_configure_form_alter(&$form, $form_state) {
 function garmentbox_install_tasks() {
   $tasks = array();
 
+  // @todo: Re-enable, and add Checkbox.
+  // We comment it out for now, as it's quicker to import
+  // directly via UI or "drush mi".
+  /*
   $tasks['garmentbox_import_data'] = array(
     'display_name' => st('Import content'),
     'display' => TRUE,
     'type' => 'batch',
     'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
   );
+  */
 
   $tasks['garmentbox_setup_blocks'] = array(
     'display_name' => st('Setup Blocks'),
