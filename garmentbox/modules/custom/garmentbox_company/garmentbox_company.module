@@ -34,8 +34,7 @@ function garmentbox_company_field_attach_create_bundle($entity_type, $bundle) {
   }
   else {
     // Group content.
-    $og_field = og_fields_info(OG_AUDIENCE_FIELD);
-    og_create_field('og_company', $entity_type, $bundle, $og_field);
+    og_create_field('og_company', $entity_type, $bundle);
   }
 }
 
@@ -137,7 +136,7 @@ function garmentbox_company_node_insert($node) {
  * Add field collection item to group.
  */
 function garmentbox_company_field_collection_item_insert($field_collection_item) {
-  // TODO: This breaks 'imanimo/nide/add/season'.
+  // TODO: This breaks 'imanimo/node/add/season'.
   return;
 
   $entity = $field_collection_item->hostEntity();
