@@ -11,7 +11,7 @@ function garmentbox_install() {
   theme_disable(array('bartik'));
 
   // Enable our themes.
-  theme_enable(array('omega', 'garmentbox_omega'));
+  theme_enable(array('omega', 'garmentbox_omega', 'seven'));
 
   // Set the default theme.
   variable_set('theme_default', 'garmentbox_omega');

@@ -114,13 +114,16 @@ function garmentbox_general_get_node() {
  *
  * Move the garmentbox implementation to be the last one, so we can
  * control the theme, instead of System module.
+ *
+ * @see garmentbox_general_custom_theme()
  */
 function garmentbox_general_module_implements_alter(&$implementations, $hook) {
   if ($hook != 'custom_theme') {
     return;
   }
-  unset($implementations['garmentbox_general']);
-  $implementations['garmentbox_general'] = FALSE;
+
+  // Keep only our implementation.
+  $implementations = array('garmentbox_general' => FALSE);
 }
 
 /**
