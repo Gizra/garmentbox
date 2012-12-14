@@ -16,4 +16,4 @@ default:
       base_url: [BASE_URL]
     Drupal\DrupalExtension\Extension:
       drush:
-        alias: [DRUSH_ALIAS]
+        alias: self
