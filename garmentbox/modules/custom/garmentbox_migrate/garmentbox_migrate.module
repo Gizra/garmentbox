@@ -41,9 +41,6 @@ function garmentbox_migrate_migrate_api() {
       'garmentboxCollectionsFieldBolInfo' => array('class_name' => 'garmentboxCollectionsFieldBolInfo'),
       'garmentboxCollectionsFieldQuantityInfo' => array('class_name' => 'garmentboxCollectionsFieldQuantityInfo'),
     ),
-    'destination handlers' => array(
-      'garmentboxMigrateDestinationFieldCollection',
-    ),
   );
   return $api;
 }
