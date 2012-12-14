@@ -91,10 +91,10 @@ projects[message][version] = "1.7"
 projects[message_notify][subdir] = "contrib"
 projects[message_notify][version] = "2.3"
 
-projects[migrate][version] = 2.4
+projects[migrate][version] = 2.5
 projects[migrate][subdir] = "contrib"
 
-projects[migrate_extras][version] = 2.x-dev
+projects[migrate_extras][version] = 2.5-dev
 projects[migrate_extras][subdir] = "contrib"
 
 projects[mimemail][version] = 1.0-alpha1

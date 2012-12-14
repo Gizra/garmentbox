@@ -32,6 +32,7 @@ function garmentbox_migrate_migrate_api() {
       'garmentboxOrders' => array('class_name' => 'garmentboxOrders'),
       'garmentboxBubbles' => array('class_name' => 'garmentboxBubbles'),
       'garmentboxFactories' => array('class_name' => 'garmentboxFactories'),
+      'garmentboxProductionOrders' => array('class_name' => 'garmentboxProductionOrders'),
       // Field colletions.
       'garmentboxCollectionsFieldStatusInfo' => array('class_name' => 'garmentboxCollectionsFieldStatusInfo'),
       'garmentboxCollectionsFieldSizeInfo' => array('class_name' => 'garmentboxCollectionsFieldSizeInfo'),
