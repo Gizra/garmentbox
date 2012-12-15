@@ -46,12 +46,12 @@ Feature: Test production order flow
       | <checkbox> checked  | Customer: High Couture          | 1       |         | 20      |         | $1,050.00       |
       | <checkbox>          | Grey v-neck shirt - Extra items | <input> | <input> | <input> |         | $0.00           |
 
-  @api
+  @api @me
   Scenario: Creating an extra inventory line on the production order form.
     Given I am logged in as a user from "Imanimo"
       And I am on the "Add a production order" page of the default "season"
-     When I check "Include in order" in row containing "Grey v-neck shirt - Extra items" in table "inventory"
-      And I fill in "Medium" with "212" in row containing "Grey v-neck shirt - Extra items" in table "inventory"
+     When I check "Include in order" in row containing "Lines v-neck shirt - Extra items" in table "inventory"
+      And I fill in "Medium" with "212" in row containing "Lines v-neck shirt - Extra items" in table "inventory"
       And I fill in "Title" with "Test production order"
       And I press "Save"
       And I click "Edit"
