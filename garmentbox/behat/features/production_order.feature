@@ -46,7 +46,7 @@ Feature: Test production order flow
       | <checkbox> checked  | Customer: High Couture          | 1       |         | 20      |         | $1,050.00       |
       | <checkbox>          | Grey v-neck shirt - Extra items | <input> | <input> | <input> |         | $0.00           |
 
-  @api @me
+  @api
   Scenario: Creating an extra inventory line on the production order form.
     Given I am logged in as a user from "Imanimo"
       And I am on the "Add a production order" page of the default "season"
