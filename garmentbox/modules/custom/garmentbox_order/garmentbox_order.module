@@ -51,56 +51,9 @@ function garmentbox_order_get_orders_table($node) {
     return t('No orders created yet.');
   }
 
-  dpm($data);
-
-  $now = time();
-
-  $rows = array();
-  $orders = array();
-
-  foreach ($data as $row) {
-    if (empty($orders[$row->order_nid])) {
-      $orders[$row->order_nid] = array(
-        'title' => $row->order_title,
-        'total_items' => 0,
-        'last_delivery_date' => 0,
-        'next_delivery_date' => 0,
-        'order_status' => $row->order_status,
-        'customer' => $row->customer,
-        'customer_nid' => $row->customer_nid,
-      );
-    }
-
-    if (empty($orders[$row->order_nid]['lines'][$row->nid])) {
-      $orders[$row->order_nid]['lines'][$row->nid] = array(
-        'variant' => $row->variant,
-        'variant_nid' => $row->variant_nid,
-        'type' => $row->type,
-      );
-
-      foreach($size_tree as $term) {
-        $orders[$row->order_nid]['lines'][$row->nid]['sizes'][$term->tid] = 0;
-      }
-
-      // Update last and next delivery dates.
-      if ($row->delivery_date && $row->delivery_date > $now) {
-        if ($row->delivery_date > $orders[$row->order_nid]['last_delivery_date']) {
-          // Update the last delivery date that is going to be sent.
-          $orders[$row->order_nid]['last_delivery_date'] = $row->delivery_date;
-        }
-
-        if (!$orders[$row->order_nid]['next_delivery_date'] || $row->delivery_date < $orders[$row->order_nid]['next_delivery_date']) {
-          // Update the next delivery date that is going to be sent.
-          $orders[$row->order_nid]['next_delivery_date'] = $row->delivery_date;
-        }
-      }
-    }
-    $orders[$row->order_nid]['lines'][$row->nid]['sizes'][$row->size_tid] += $row->quantity;
-    $orders[$row->order_nid]['total_items'] += $row->quantity;
-  }
-
   drupal_add_js(drupal_get_path('module', 'garmentbox_order') . '/js/orders_table.js');
 
+  $rows = array();
   $header = array(
     t('Order'),
     t('Customer'),
@@ -113,6 +66,7 @@ function garmentbox_order_get_orders_table($node) {
 
   $inventory_header = array();
   $inventory_header[] = t('Variation');
+
   foreach ($size_tree as $term) {
     $inventory_header[] = $term->name;
   }
@@ -120,22 +74,19 @@ function garmentbox_order_get_orders_table($node) {
   $inventory_header[] = t('Status');
 
   $order_table = array();
-  foreach ($orders as $order_nid => $order) {
+  foreach ($data as $order_nid => $row) {
     $order_row = array(
       'data' => array(),
       'class' => array('expandable'),
       'ref' => 'order-inventory-' . $order_nid,
     );
-    $params = array(
-      'attributes' => array(
-        'class' => array('expander', 'collapsed'),
-      )
-    );
-    $expand_link = l('', url(''), $params);
+
+    $expand_link = '<a href="#" class="expander collapsed"></a>';
     $order_row['data'][] = $expand_link . l($order['title'], 'node/' . $order_nid);
-    $order_row['data'][] = l($order['customer'], 'node/' . $order['customer_nid']);
+    $order_row['data'][] = $row['order_info']['customer'];
+    // @todo:
     $order_row['data'][] = t('N/A');
-    $order_row['data'][] = $order['total_items'];
+    $order_row['data'][] = $row['order_info']['customer'];
     $order_row['data'][] = $order['last_delivery_date'] ? format_date($order['last_delivery_date'], 'medium_no_time') : t('N/A');
     $order_row['data'][] = $order['next_delivery_date'] ? format_date($order['next_delivery_date'], 'medium_no_time') : t('N/A');
     $order_row['data'][] = $order['order_status'];
@@ -209,6 +160,7 @@ function garmentbox_order_get_orders_data($node) {
   $orders = node_load_multiple(array_keys($result['node']));
 
   // Prepare the data array.
+  $now = time();
   $data = array();
   foreach ($orders as $order) {
     $wrapper = entity_metadata_wrapper('node', $order);
