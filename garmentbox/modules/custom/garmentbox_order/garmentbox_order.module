@@ -85,7 +85,7 @@ function garmentbox_order_get_orders_table($node) {
     );
 
     $expand_link = '<a href="#" class="expander collapsed"></a>';
-    $order_row['data'][] = $expand_link . l($order['title'], 'node/' . $order_nid);
+    $order_row['data'][] = $expand_link . $row['order_info']['label'];
     $order_row['data'][] = $row['order_info']['customer'];
     // @todo:
     $order_row['data'][] = t('N/A');
@@ -103,11 +103,10 @@ function garmentbox_order_get_orders_table($node) {
 
       $total = 0;
       foreach($size_tree as $term) {
-        $total += $inventory_line['sizes'][$term->tid];
-        $row[] = $inventory_line['sizes'][$term->tid];
+        $row[] = !empty($inventory_line['quantity_info']['size'][$term->tid]) ? $inventory_line['quantity_info']['size'][$term->tid] : 0;
       }
 
-      $row[] = array('data' => $total, 'class' => array('emphasized'));
+      $row[] = array('data' => $inventory_line['quantity_info']['total_items'], 'class' => array('emphasized'));
       $row[] = $inventory_line['type'];
 
       $inventory_table[] = $row;
@@ -170,11 +169,14 @@ function garmentbox_order_get_orders_data($node) {
     $wrapper = entity_metadata_wrapper('node', $order);
     $data[$order->nid] = array();
 
+    $order_label = $wrapper->label();
+    $order_url = entity_uri('node', $wrapper->value());
+
     $customer_label = $wrapper->field_customer->label();
-    $customer_url = entity_uri('node', $wrapper->value());
+    $customer_url = entity_uri('node', $wrapper->field_customer->value());
 
     $data[$order->nid]['order_info'] = array(
-      'label' => $wrapper->label(),
+      'label' => l($order_label, $order_url['path'], $order_url['options']),
       'customer' => l($customer_label, $customer_url['path'], $customer_url['options']),
       'status' => $wrapper->field_order_status->label(),
       'last_delivery_timestamp' => 0,
@@ -187,11 +189,15 @@ function garmentbox_order_get_orders_data($node) {
       $node = $wrapper_li->value();
       $delivery_timestamp = $wrapper_li->field_delivery_date->value();
 
+      $label = $wrapper_li->field_item_variant->label();
+      $uri = entity_uri('node', $wrapper_li->field_item_variant->value());
+
       $data[$order->nid]['inventory_lines'][$node->nid] = array(
         // The title of the item-variant.
-        'title' => $wrapper_li->field_item_variant->label(),
+        'label' => l($label, $uri['path'], $uri['options']),
         'delivery_date' => $delivery_timestamp,
         'defective' => $wrapper_li->field_defective->value(),
+        'type' => $wrapper_li->field_inventory_type->label(),
       );
 
       // Update last and next delivery dates.
@@ -213,7 +219,7 @@ function garmentbox_order_get_orders_data($node) {
       if (!empty($node->field_quantity_info[LANGUAGE_NONE][0]['value'])) {
         foreach ($node->field_quantity_info[LANGUAGE_NONE] as $delta => $value) {
           $item_wrapper = entity_metadata_wrapper('field_collection_item', $value['revision_id']);
-          $size = $item_wrapper->field_size->label();
+          $size = $item_wrapper->field_size->getIdentifier();
           $quantity = $item_wrapper->field_quantity_integer->value();
           $data[$order->nid]['inventory_lines'][$node->nid]['quantity_info']['size'][$size] = $quantity;
           $total_items += $quantity;
