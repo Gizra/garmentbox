@@ -231,7 +231,5 @@ function garmentbox_order_get_orders_data($node) {
     $data[$order->nid]['order_info']['total_items'] = $order_total_items;
   }
 
-dpm($data);
-
   return $data;
 }
