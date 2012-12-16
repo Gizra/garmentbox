@@ -46,16 +46,18 @@ function garmentbox_order_get_page_title($node) {
  *   Rendered table with orders info.
  */
 function garmentbox_order_get_orders_table($node) {
-  $vocabulary = taxonomy_vocabulary_machine_name_load('size');
-  $size_tree = taxonomy_get_tree($vocabulary->vid);
+  // Group the rows by inventory line node.
+  if (!$data = garmentbox_order_get_orders_data($node)) {
+    return t('No orders created yet.');
+  }
+
+  dpm($data);
 
   $now = time();
 
   $rows = array();
   $orders = array();
 
-  // Group the rows by inventory line node.
-  $data = garmentbox_order_get_orders_data($node);
   foreach ($data as $row) {
     if (empty($orders[$row->order_nid])) {
       $orders[$row->order_nid] = array(
@@ -95,10 +97,6 @@ function garmentbox_order_get_orders_table($node) {
     }
     $orders[$row->order_nid]['lines'][$row->nid]['sizes'][$row->size_tid] += $row->quantity;
     $orders[$row->order_nid]['total_items'] += $row->quantity;
-  }
-
-  if (!$orders) {
-    return t('No orders created yet.');
   }
 
   drupal_add_js(drupal_get_path('module', 'garmentbox_order') . '/js/orders_table.js');
@@ -189,79 +187,12 @@ function garmentbox_order_get_orders_table($node) {
  * Fetch the raw data for the orders table.
  *
  * @param $node
- *   Season or item node.
+ *   Season node.
  *
  * @return
  *   Array with the query result.
  */
 function garmentbox_order_get_orders_data($node) {
-  garmentbox_order_temp($node);
-  $query = db_select('node', 'n');
-  $query->innerJoin('field_data_field_item_variant', 'fiv', 'n.nid = fiv.entity_id');
-  $query->innerJoin('field_data_field_item', 'fi', 'fiv.field_item_variant_target_id = fi.entity_id');
-  if ($node->type == 'season') {
-    $query->innerJoin('field_data_field_season', 'fs', 'fi.field_item_target_id = fs.entity_id');
-  }
-  $query->innerJoin('field_data_field_inventory_line_inline', 'fili', 'fili.field_inventory_line_inline_target_id = n.nid');
-  $query->innerJoin('node', 'n_order', 'fili.entity_id = n_order.nid');
-  $query->innerJoin('field_data_field_customer', 'fc', 'fc.entity_id = n_order.nid');
-  $query->innerJoin('node', 'n_customer', 'n_customer.nid = fc.field_customer_target_id');
-  $query->innerJoin('node', 'n_variant', 'n_variant.nid = fiv.field_item_variant_target_id');
-  $query->innerJoin('field_data_field_inventory_type', 'fit', 'fit.entity_id = n.nid');
-  $query->innerJoin('taxonomy_term_data', 'td', 'td.tid = fit.field_inventory_type_target_id');
-  $query->leftJoin('field_data_field_quantity_info', 'fqi', 'fqi.entity_id = n.nid');
-  $query->innerJoin('field_data_field_quantity_integer', 'fq', 'fq.entity_id = fqi.field_quantity_info_value');
-  $query->innerJoin('field_data_field_size', 'fsz', 'fsz.entity_id = fqi.field_quantity_info_value');
-  $query->leftJoin('field_data_field_delivery_date', 'fdd', 'fdd.entity_id = n.nid');
-  $query->innerJoin('field_data_field_order_status', 'fos', 'fos.entity_id = n_order.nid');
-  $query->innerJoin('taxonomy_term_data', 'tdfos', 'tdfos.tid = fos.field_order_status_target_id');
-
-  $query->addField('n', 'nid');
-  $query->addField('n_order', 'nid', 'order_nid');
-  $query->addField('n_order', 'title', 'order_title');
-  $query->addField('tdfos', 'name', 'order_status');
-  $query->addField('n_customer', 'nid', 'customer_nid');
-  $query->addField('n_customer', 'title', 'customer');
-  $query->addField('n_variant', 'nid', 'variant_nid');
-  $query->addField('n_variant', 'title', 'variant');
-  $query->addField('td', 'name', 'type');
-  $query->addField('fsz', 'field_size_target_id', 'size_tid');
-  $query->addField('fos', 'field_order_status_target_id');
-  $query->addField('fq', 'field_quantity_integer_value', 'quantity');
-  $query->addExpression('UNIX_TIMESTAMP(fdd.field_delivery_date_value)', 'delivery_date');
-
-  $query
-    ->condition('n.type', 'inventory_line')
-    ->condition('n.status', NODE_PUBLISHED)
-    ->condition('n_customer.status', NODE_PUBLISHED)
-    ->condition('n_variant.status', NODE_PUBLISHED)
-    ->condition('n_order.status', NODE_PUBLISHED)
-    ->condition('fiv.entity_type', 'node')
-    ->condition('fi.entity_type', 'node')
-    ->condition('fili.entity_type', 'node')
-    ->condition('fc.entity_type', 'node')
-    ->condition('fit.entity_type', 'node')
-    ->condition('fqi.entity_type', 'node')
-    ->condition('fdd.entity_type', 'node')
-    ->condition('fos.entity_type', 'node')
-    ->condition('fq.entity_type', 'field_collection_item')
-    ->condition('fsz.entity_type', 'field_collection_item');
-
-  if ($node->type == 'season') {
-    $query->condition('fs.field_season_target_id', $node->nid);
-  }
-
-  $query
-    ->orderBy('n_customer.title')
-    ->orderBy('n_variant.title')
-    ->orderBy('fos.field_order_status_target_id');
-
-  return $query
-    ->execute()
-    ->fetchAll();
-}
-
-function garmentbox_order_temp($node) {
  // Get all the orders that belong to the season.
   $query = new EntityFieldQuery();
   $result = $query
@@ -289,32 +220,51 @@ function garmentbox_order_temp($node) {
     $data[$order->nid]['order_info'] = array(
       'customer' => l($customer_label, $customer_url['path'], $customer_url['options']),
       'status' => $wrapper->field_order_status->label(),
+      'last_delivery_timestamp' => 0,
+      'next_delivery_timestamp' => 0,
     );
 
     foreach ($wrapper->field_inventory_line_inline as $wrapper_li) {
       $node = $wrapper_li->value();
+      $delivery_timestamp = $wrapper_li->field_delivery_date->value();
 
       $data[$order->nid]['inventory_lines'][$node->nid] = array(
         // The title of the item-variant.
         'title' => $wrapper_li->field_item_variant->label(),
-        'delivery_date' => $wrapper_li->field_delivery_date->value(),
+        'delivery_date' => $delivery_timestamp,
         'defective' => $wrapper_li->field_defective->value(),
       );
+
+      // Update last and next delivery dates.
+      if ($delivery_timestamp > $now) {
+        if ($delivery_timestamp > $data[$order->nid]['order_info']['last_delivery_timestamp']) {
+          // Update the last delivery date that is going to be sent.
+          $data[$order->nid]['order_info']['last_delivery_timestamp'] = $delivery_timestamp;
+        }
+
+        if (!$data[$order->nid]['order_info']['next_delivery_timestamp'] || $delivery_timestamp < $data[$order->nid]['order_info']['next_delivery_timestamp']) {
+          // Update the next delivery date that is going to be sent.
+          $data[$order->nid]['order_info']['next_delivery_timestamp'] = $delivery_timestamp;
+        }
+      }
 
       $data[$order->nid]['quantity_info'] = array();
 
       // Add the size and quantity info. We can't use the wrapper as we
       // have revisions.
+      $total_quantity = 0;
       if (!empty($node->field_quantity_info[LANGUAGE_NONE][0]['value'])) {
         foreach ($node->field_quantity_info[LANGUAGE_NONE] as $delta => $value) {
           $item_wrapper = entity_metadata_wrapper('field_collection_item', $value['revision_id']);
           $size = $item_wrapper->field_size->label();
-          $data[$order->nid]['quantity_info'][$size] = $item_wrapper->field_quantity_integer->value();
+          $quantity = $item_wrapper->field_quantity_integer->value();
+          $data[$order->nid]['quantity_info']['size'][$size] = $quantity;
+          $total_quantity += $quantity;
         }
       }
+      $data[$order->nid]['quantity_info']['total_quantity'] = $total_quantity;
     }
   }
 
-  dpm($data);
-
+  return $data;
 }
