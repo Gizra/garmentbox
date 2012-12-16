@@ -18,6 +18,8 @@ before_script:
   - cd www
   - drush si garmentbox --db-url=mysql://root:@127.0.0.1/drupal --account-pass=admin --yes
   - drush cc all --yes
+  # Import dummy content as user 1 to prevent node access issues.
+  - drush mi --all --user=1
   - cd ..
 
   # Create a behat configuration file.
