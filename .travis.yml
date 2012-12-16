@@ -18,7 +18,7 @@ before_script:
   - cd www
   - drush si garmentbox --db-url=mysql://root:@127.0.0.1/drupal --account-pass=admin --yes
   - drush cc all --yes
-  # Import dummy content as user 1 to prevent node access issues.
+  # Use drush migrate command to import dummy content, as user 1, so we don't have node access issues.
   - drush mi --all --user=1
   - cd ..
 
@@ -28,7 +28,7 @@ before_script:
 
   # Create Drush alias.
   - cp aliases.drushrc.php ~/.drush/
-  - composer install
+  - composer install --prefer-dist
 
   # Patch drupalextension.
   - cd vendor/drupal/drupal-extension/

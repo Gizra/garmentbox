@@ -11,17 +11,17 @@ include_once 'garmentbox_season.features.inc';
  */
 function garmentbox_season_init() {
   global $user;
-  if (empty($user->uid)) {
+  if (!$user->uid) {
     return;
   }
 
-  if (drupal_is_front_page()) {
-    _garmentbox_season_redirect_to_season();
+  if (drupal_is_front_page() && $og_context = og_context()) {
+    _garmentbox_season_redirect_to_season($og_context['gid']);
   }
 
   // When on the main season page, redirect to the season's tasks page.
   $item = menu_get_item();
-  if ($item['path'] == 'node/%' && $item['map'][1]->type == 'season') {
+  if (!empty($item['map']) && $item['path'] == 'node/%' && $item['map'][1]->type == 'season') {
     $nid = $item['map'][1]->nid;
     drupal_goto("season/$nid/tasks");
   }
@@ -62,13 +62,17 @@ function garmentbox_season_page_build(&$page) {
 
 /**
  * Redirect from the front page to a season page.
+ *
+ * @param $nid
+ *   Company node ID.
  */
-function _garmentbox_season_redirect_to_season() {
+function _garmentbox_season_redirect_to_season($nid) {
   // Find the last changed season.
   $query = new EntityFieldQuery();
   $result = $query->entityCondition('entity_type', 'node')
     ->propertyCondition('type', 'season')
     ->propertyCondition('status', NODE_PUBLISHED)
+    ->fieldCondition('og_company', 'target_id', $nid)
     ->propertyOrderBy('changed', 'DESC')
     ->range(0, 1)
     ->execute();
@@ -80,7 +84,7 @@ function _garmentbox_season_redirect_to_season() {
   $nid = key($result['node']);
 
   // Redirect from a season page to the season's items tab if there are no
-  // items, otherwise redirecr to the tasks tab.
+  // items, otherwise redirect to the tasks tab.
   if (!_garmentbox_season_count_view_rows('item_variants', $nid)) {
     drupal_goto("season/$nid/items");
   }

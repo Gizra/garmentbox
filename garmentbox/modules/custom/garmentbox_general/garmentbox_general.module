@@ -19,12 +19,101 @@ function garmentbox_general_ctools_plugin_directory($module, $plugin) {
  * Implements hook_init().
  */
 function garmentbox_general_init() {
+  global $user;
+
+  // Set breadcrumbs.
   if (($node = menu_get_object()) && $nids = garmentbox_general_get_node_hierarchy($node)) {
     $breadcrumb[] = l(t('Home'), '<front>');
     foreach ($nids as $nid => $title) {
       $breadcrumb[] = l($title, 'node/' . $nid);
     }
     drupal_set_breadcrumb($breadcrumb);
+  }
+
+  // Make sure user has access to current context, if exists.
+  if ($og_context = og_context()) {
+    $node = node_load($og_context['gid']);
+    if (!node_access('view', $node)) {
+      // Access denied.
+      drupal_access_denied();
+      drupal_exit();
+    }
+  }
+
+  if (!$user->uid || $og_context || !drupal_is_front_page()) {
+    return;
+  }
+
+  // User is not inside an OG-context, in the homepage, so redirect to
+  // thier group if exists.
+  $wrapper = entity_metadata_wrapper('user', $user->uid);
+  if (!$nids = $wrapper->og_user_company->value(array('identifier' => TRUE))) {
+    return;
+  }
+  $nid = reset($nids);
+
+  $purl_params = array(
+    'query' => drupal_get_query_parameters($_GET, array('q')),
+    'purl' => array(
+      'provider' => "og_purl|node",
+      'id' => $nid,
+    )
+  );
+  purl_goto('', $purl_params);
+}
+
+/**
+ * Implements hook_og_context_negotiation_info().
+ */
+function garmentbox_general_og_context_negotiation_info() {
+  $providers = array();
+
+  $providers['garmentbox_general'] = array(
+    'name' => t('GarmentBox'),
+    'description' => t('General context for GarmentBox related URLs.'),
+    'callback' => 'garmentbox_general_og_context_handler',
+  );
+  return $providers;
+}
+
+/**
+ * OG-context handler.
+ *
+ * Get all the group IDs according to the PURL prefix.
+ */
+function garmentbox_general_og_context_handler() {
+  if (!$node = garmentbox_general_get_node()) {
+    return;
+  }
+
+  return og_get_entity_groups('node', $node);
+}
+
+/**
+ * Wrapping menu_get_object for finding nodes in pages such as
+ * season/%/inventory as well.
+ *
+ * @return
+ *   The viewed node object.
+ */
+function garmentbox_general_get_node() {
+  if ($node = menu_get_object()) {
+    return $node;
+  }
+
+  // When the node wasn't loaded, try fetching it from the menu item.
+  $item = menu_get_item();
+
+  // Check if the current page is a "Node sub-page", and extract the node.
+  // Define beginnings of node related pages. E.g. season/%/inventory.
+  $node_path_beginnings = array(
+    'season/%',
+    'production-order/%',
+  );
+  foreach ($node_path_beginnings as $path_beginning) {
+    if ((strpos($item['path'], $path_beginning) === 0) && !empty($item['map'][1])) {
+      return is_object($item['map'][1]) ? $item['map'][1]->data : node_load($item['map'][1]);
+    }
   }
 }
 
@@ -33,13 +122,16 @@ function garmentbox_general_init() {
  *
  * Move the garmentbox implementation to be the last one, so we can
  * control the theme, instead of System module.
+ *
+ * @see garmentbox_general_custom_theme()
  */
 function garmentbox_general_module_implements_alter(&$implementations, $hook) {
   if ($hook != 'custom_theme') {
     return;
   }
-  unset($implementations['garmentbox_general']);
-  $implementations['garmentbox_general'] = FALSE;
+
+  // Keep only our implementation.
+  $implementations = array('garmentbox_general' => FALSE);
 }
 
 /**
@@ -63,7 +155,6 @@ function garmentbox_general_custom_theme() {
  *   hierarchy. If no hierarchy found returns FALSE.
  */
 function garmentbox_general_get_node_hierarchy($node, &$nids = array()) {
-
   if ($nids === FALSE) {
     // We reached a content type that has no hierarchy so break here.
     return;

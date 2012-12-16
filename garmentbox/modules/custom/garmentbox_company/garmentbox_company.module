@@ -25,25 +25,16 @@ function garmentbox_company_field_attach_create_bundle($entity_type, $bundle) {
 
   if ($entity_type == 'node' && $bundle == 'company') {
     // Group.
-    og_create_field(OG_GROUP_FIELD, 'node', $bundle);
+    og_create_field(OG_GROUP_FIELD, 'node', 'company');
+
+    // Set the group as private
+    $og_field = og_fields_info(OG_ACCESS_FIELD);
+    $og_field['instance']['default_value'] = 1;
+    og_create_field(OG_ACCESS_FIELD, 'node', 'company', $og_field);
   }
   else {
     // Group content.
-    $og_field = og_fields_info(OG_AUDIENCE_FIELD);
-    $og_field['field']['settings']['handler_settings']['target_bundles'] = array('company');
-    $og_field['field']['cardinality'] = 1;
-    $og_field['instance']['label'] = 'Company';
-    $og_field['instance']['display']['default']['type'] = 'hidden';
-
-    // Enable Entity-reference prepopulate.
-    $og_field['instance']['settings']['behaviors']['prepopulate'] = array(
-      'status' => TRUE,
-      'action' => 'hide',
-      'fallback' => 'redirect',
-      'og_context' => TRUE,
-    );
-
-    og_create_field('og_company', $entity_type, $bundle, $og_field);
+    og_create_field('og_company', $entity_type, $bundle);
   }
 }
 
@@ -145,7 +136,7 @@ function garmentbox_company_node_insert($node) {
  * Add field collection item to group.
  */
 function garmentbox_company_field_collection_item_insert($field_collection_item) {
-  // TODO: This breaks 'imanimo/nide/add/season'.
+  // TODO: This breaks 'imanimo/node/add/season'.
   return;
 
   $entity = $field_collection_item->hostEntity();

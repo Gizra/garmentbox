@@ -3,7 +3,7 @@ Feature: Test production order flow
 
   @javascript
   Scenario: Viewing the add production-order page, with different Quantity/ Size.
-    Given I am logged in as "user"
+    Given I am logged in as "imanimo"
       And I am on the "Add a production order" page of the default "season"
      Then the table "inventory" should have the following <contents>:
       | Include in order   | Item variation                   | Small   | Medium  | Large   | Fabric  | Production cost |
@@ -13,7 +13,7 @@ Feature: Test production order flow
 
   @javascript
   Scenario: Testing price re-calculation.
-    Given I am logged in as "user"
+    Given I am logged in as "imanimo"
       And I am on the "Add a production order" page of the default "season"
       And I click "Grey v-neck shirt"
       And I uncheck "Include in order" in row containing "Customer: High Couture" in table "inventory"
@@ -36,32 +36,31 @@ Feature: Test production order flow
 
   @javascript
   Scenario: Viewing the add production-order page with detailed variant information.
-    Given I am logged in as "user"
+    Given I am logged in as "imanimo"
       And I am on the "Add a production order" page of the default "season"
       And I click "Grey v-neck shirt"
      When I check "Include in order" in row containing "Grey v-neck shirt - Extra items" in table "inventory"
      Then the table "inventory" should have the following <contents>:
       | Include in order    | Item variation                  | Small   | Medium  | Large   | Fabric  | Production cost |
-      | <checkbox> checked  | Grey v-neck shirt               | 1       | 2       | 20      | <image> | $1,150.00       |
+      | <checkbox> checked  | Grey v-neck shirt               | 1       |         | 20      | <image> | $1,050.00       |
       | <checkbox> checked  | Customer: High Couture          | 1       |         | 20      |         | $1,050.00       |
-      | <checkbox> checked  | Customer: Imanimo               |         | 2       |         |         | $100.00         |
       | <checkbox>          | Grey v-neck shirt - Extra items | <input> | <input> | <input> |         | $0.00           |
 
   @api
   Scenario: Creating an extra inventory line on the production order form.
     Given I am logged in as a user from "Imanimo"
       And I am on the "Add a production order" page of the default "season"
-     When I check "Include in order" in row containing "Lines v-neck shirt - Extra items" in table "inventory"
-      And I fill in "Medium" with "212" in row containing "Lines v-neck shirt - Extra items" in table "inventory"
+     When I check "Include in order" in row containing "Grey v-neck shirt - Extra items" in table "inventory"
+      And I fill in "Medium" with "212" in row containing "Grey v-neck shirt - Extra items" in table "inventory"
       And I fill in "Title" with "Test production order"
       And I press "Save"
       And I click "Edit"
      Then the following <row> should appear in the table "inventory" :
-      | <checkbox> checked  | Customer: Imanimo | | 212 | | | $5,618.00 |
+      | <checkbox> checked  | Customer: Imanimo | | 212 | | | $10,600.00 |
 
   @api
   Scenario: Test URL generation for create link.
-    Given I am logged in as a user with the "authenticated user" role
+    Given I am logged in as a user from "Imanimo"
      When I am on the "Add a production order" page of the default "season"
      Then the URL query "field_season" should have the id of "Autumn-Winter 2013 Women"
 
