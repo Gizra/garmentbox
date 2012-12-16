@@ -195,6 +195,7 @@ function garmentbox_order_get_orders_table($node) {
  *   Array with the query result.
  */
 function garmentbox_order_get_orders_data($node) {
+  garmentbox_order_temp($node);
   $query = db_select('node', 'n');
   $query->innerJoin('field_data_field_item_variant', 'fiv', 'n.nid = fiv.entity_id');
   $query->innerJoin('field_data_field_item', 'fi', 'fiv.field_item_variant_target_id = fi.entity_id');
@@ -258,4 +259,62 @@ function garmentbox_order_get_orders_data($node) {
   return $query
     ->execute()
     ->fetchAll();
+}
+
+function garmentbox_order_temp($node) {
+ // Get all the orders that belong to the season.
+  $query = new EntityFieldQuery();
+  $result = $query
+    ->entityCondition('entity_type', 'node')
+    ->propertyCondition('type', 'order')
+    ->propertyCondition('status', NODE_PUBLISHED)
+    ->fieldCondition('field_season', 'target_id', $node->nid)
+    ->execute();
+
+  if (empty($result['node'])) {
+    return;
+  }
+
+  $orders = node_load_multiple(array_keys($result['node']));
+
+  // Prepare the data array.
+  $data = array();
+  foreach ($orders as $order) {
+    $wrapper = entity_metadata_wrapper('node', $order);
+    $data[$order->nid] = array();
+
+    $customer_label = $wrapper->field_customer->label();
+    $customer_url = entity_uri('node', $wrapper->value());
+
+    $data[$order->nid]['order_info'] = array(
+      'customer' => l($customer_label, $customer_url['path'], $customer_url['options']),
+      'status' => $wrapper->field_order_status->label(),
+    );
+
+    foreach ($wrapper->field_inventory_line_inline as $wrapper_li) {
+      $node = $wrapper_li->value();
+
+      $data[$order->nid]['inventory_lines'][$node->nid] = array(
+        // The title of the item-variant.
+        'title' => $wrapper_li->field_item_variant->label(),
+        'delivery_date' => $wrapper_li->field_delivery_date->value(),
+        'defective' => $wrapper_li->field_defective->value(),
+      );
+
+      $data[$order->nid]['quantity_info'] = array();
+
+      // Add the size and quantity info. We can't use the wrapper as we
+      // have revisions.
+      if (!empty($node->field_quantity_info[LANGUAGE_NONE][0]['value'])) {
+        foreach ($node->field_quantity_info[LANGUAGE_NONE] as $delta => $value) {
+          $item_wrapper = entity_metadata_wrapper('field_collection_item', $value['revision_id']);
+          $size = $item_wrapper->field_size->label();
+          $data[$order->nid]['quantity_info'][$size] = $item_wrapper->field_quantity_integer->value();
+        }
+      }
+    }
+  }
+
+  dpm($data);
+
 }
