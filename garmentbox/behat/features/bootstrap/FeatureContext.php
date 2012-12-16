@@ -573,7 +573,7 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
-   * @Then /^the following <row> should appear in the table "([^"]*)" :$/
+   * @Then /^the following <row> should appear in the table "([^"]*)":$/
    */
   public function theFollowingRowShouldAppearInTheTable($table_id, TableNode $table) {
     $page = $this->getSession()->getPage();
