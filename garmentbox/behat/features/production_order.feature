@@ -56,7 +56,7 @@ Feature: Test production order flow
       And I press "Save"
       And I click "Edit"
      Then the following <row> should appear in the table "inventory" :
-      | <checkbox> checked  | Customer: Imanimo | | 212 | | | $5,618.00 |
+      | <checkbox> checked  | Customer: Imanimo | | 212 | | | $10,600.00 |
 
   @api
   Scenario: Test URL generation for create link.
