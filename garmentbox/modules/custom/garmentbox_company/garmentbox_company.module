@@ -124,7 +124,7 @@ function garmentbox_company_node_insert($node) {
   }
 
   if (!$nid) {
-    throw new \Exception('User does not belong to any company group, thus node cannot be attached to "Company".');
+    throw new Exception('User does not belong to any company group, thus node cannot be attached to "Company".');
   }
 
   og_group('node', $nid, array('entity_type' => 'node', 'entity' => $node->nid));
