@@ -13,6 +13,9 @@ default:
   extensions:
     Behat\MinkExtension\Extension:
       base_url: [BASE_URL]
+      goutte: 
+        guzzle_parameters:
+          redirect.disable: true
     Drupal\DrupalExtension\Extension:
       drush:
-        alias: [DRUSH_ALIAS]
+        alias: self
