@@ -54,7 +54,7 @@ function garmentbox_order_get_orders_table($node) {
   $rows = array();
   $orders = array();
 
-  // group the rows by inventory line node.
+  // Group the rows by inventory line node.
   $data = garmentbox_order_get_orders_data($node);
   foreach ($data as $row) {
     if (empty($orders[$row->order_nid])) {
@@ -81,24 +81,15 @@ function garmentbox_order_get_orders_table($node) {
       }
 
       // Update last and next delivery dates.
-      if ($row->delivery_date) {
-        $next_delivery_delta = $orders[$row->order_nid]['next_delivery_date'] - $now;
-
-        // Delivery date in the future - Update next_delivery_date.
-        if ($row->delivery_date - $now >= 0) {
-          // If this row's "next delivery date" is closer to now than the
-          // currently order's "next delivery date", update the order.
-          if (($row->delivery_date - $now) < $next_delivery_delta) {
-            $orders[$row->order_nid]['next_delivery_date'] = $row->delivery_date;
-          }
+      if ($row->delivery_date && $row->delivery_date > $now) {
+        if ($row->delivery_date > $orders[$row->order_nid]['last_delivery_date']) {
+          // Update the last delivery date that is going to be sent.
+          $orders[$row->order_nid]['last_delivery_date'] = $row->delivery_date;
         }
-        // Delivery date in the past - Update last_delivery_date.
-        else {
-          $last_delivery_delta = abs($orders[$row->order_nid]['last_delivery_date'] - $now);
 
-          if (abs($row->delivery_date - $now) < $next_delivery_delta) {
-            $orders[$row->order_nid]['last_delivery_date'] = $row->delivery_date;
-          }
+        if (!$orders[$row->order_nid]['next_delivery_date'] || $row->delivery_date < $orders[$row->order_nid]['next_delivery_date']) {
+          // Update the next delivery date that is going to be sent.
+          $orders[$row->order_nid]['next_delivery_date'] = $row->delivery_date;
         }
       }
     }
@@ -201,7 +192,7 @@ function garmentbox_order_get_orders_table($node) {
  *   Season or item node.
  *
  * @return
- *   The query result object.
+ *   Array with the query result.
  */
 function garmentbox_order_get_orders_data($node) {
   $query = db_select('node', 'n');
@@ -264,5 +255,7 @@ function garmentbox_order_get_orders_data($node) {
     ->orderBy('n_variant.title')
     ->orderBy('fos.field_order_status_target_id');
 
-  return $query->execute();
+  return $query
+    ->execute()
+    ->fetchAll();
 }
