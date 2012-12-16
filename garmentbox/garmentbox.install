@@ -30,8 +30,8 @@ function garmentbox_install() {
   date_default_timezone_set('Asia/Jerusalem');
   variable_set('date_default_timezone', 'Asia/Jerusalem');
   variable_set('date_first_day', 1);
-  variable_set('date_format_medium', 'D, d/m/Y H:i');
-  variable_set('date_format_medium_no_time', 'd/m/Y');
+  variable_set('date_format_medium', 'D, m/d/Y H:i');
+  variable_set('date_format_medium_no_time', 'm/d/Y');
 
   // Set OG-context handlers.
   $values = array(
