@@ -97,9 +97,9 @@ function garmentbox_order_get_orders_table($node) {
     $order_table[] = $order_row;
 
     $inventory_table = array();
-    foreach ($order['lines'] as $inventory_line) {
+    foreach ($row['inventory_lines'] as $inventory_line) {
       $row = array();
-      $row[] = l($inventory_line['variant'], 'node/' . $inventory_line['variant_nid']);
+      $row[] = $inventory_line['label'];
 
       $total = 0;
       foreach($size_tree as $term) {
