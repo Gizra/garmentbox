@@ -77,14 +77,15 @@ function garmentbox_order_get_orders_table($node) {
       );
 
       foreach($size_tree as $term) {
-        $orders[$row->order_nid]['lines'][$row->nid][$term->tid] = 0;
+        $orders[$row->order_nid]['lines'][$row->nid]['sizes'][$term->tid] = 0;
       }
 
       // Update last and next delivery dates.
       if ($row->delivery_date) {
+        $next_delivery_delta = $orders[$row->order_nid]['next_delivery_date'] - $now;
+
         // Delivery date in the future - Update next_delivery_date.
         if ($row->delivery_date - $now >= 0) {
-          $next_delivery_delta = abs($orders[$row->order_nid]['next_delivery_date'] - $now);
           // If this row's "next delivery date" is closer to now than the
           // currently order's "next delivery date", update the order.
           if (($row->delivery_date - $now) < $next_delivery_delta) {
@@ -101,9 +102,10 @@ function garmentbox_order_get_orders_table($node) {
         }
       }
     }
-    $orders[$row->order_nid]['lines'][$row->nid][$row->size_tid] += $row->quantity;
+    $orders[$row->order_nid]['lines'][$row->nid]['sizes'][$row->size_tid] += $row->quantity;
     $orders[$row->order_nid]['total_items'] += $row->quantity;
   }
+
   if (!$orders) {
     return t('No orders created yet.');
   }
@@ -158,8 +160,8 @@ function garmentbox_order_get_orders_table($node) {
 
       $total = 0;
       foreach($size_tree as $term) {
-        $total += $inventory_line[$term->tid];
-        $row[] = $inventory_line[$term->tid];
+        $total += $inventory_line['sizes'][$term->tid];
+        $row[] = $inventory_line['sizes'][$term->tid];
       }
 
       $row[] = array('data' => $total, 'class' => array('emphasized'));
