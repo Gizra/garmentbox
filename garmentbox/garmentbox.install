@@ -7,6 +7,10 @@
 function garmentbox_install() {
   garmentbox_standard_install();
 
+  // Fixes problems when the CSV files used for importing have been created
+  // on a Mac, by forcing PHP to detect the appropriate line endings.
+  ini_set('auto_detect_line_endings', TRUE);
+
   // Disable bartik.
   theme_disable(array('bartik'));
 
