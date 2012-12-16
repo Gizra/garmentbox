@@ -67,6 +67,9 @@ function garmentbox_order_get_orders_table($node) {
   $inventory_header = array();
   $inventory_header[] = t('Variation');
 
+  $vocabulary = taxonomy_vocabulary_machine_name_load('size');
+  $size_tree = taxonomy_get_tree($vocabulary->vid);
+
   foreach ($size_tree as $term) {
     $inventory_header[] = $term->name;
   }
@@ -86,10 +89,10 @@ function garmentbox_order_get_orders_table($node) {
     $order_row['data'][] = $row['order_info']['customer'];
     // @todo:
     $order_row['data'][] = t('N/A');
-    $order_row['data'][] = $row['order_info']['customer'];
-    $order_row['data'][] = $order['last_delivery_date'] ? format_date($order['last_delivery_date'], 'medium_no_time') : t('N/A');
-    $order_row['data'][] = $order['next_delivery_date'] ? format_date($order['next_delivery_date'], 'medium_no_time') : t('N/A');
-    $order_row['data'][] = $order['order_status'];
+    $order_row['data'][] = $row['order_info']['total_items'];
+    $order_row['data'][] = $row['order_info']['last_delivery_timestamp'] ? format_date($row['order_info']['last_delivery_timestamp'], 'medium_no_time') : t('N/A');
+    $order_row['data'][] = $row['order_info']['next_delivery_timestamp'] ? format_date($row['order_info']['next_delivery_timestamp'], 'medium_no_time') : t('N/A');
+    $order_row['data'][] = $row['order_info']['status'];
 
     $order_table[] = $order_row;
 
