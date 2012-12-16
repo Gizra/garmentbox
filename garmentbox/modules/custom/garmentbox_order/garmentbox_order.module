@@ -151,6 +151,7 @@ function garmentbox_order_get_orders_data($node) {
     ->propertyCondition('type', 'order')
     ->propertyCondition('status', NODE_PUBLISHED)
     ->fieldCondition('field_season', 'target_id', $node->nid)
+    ->propertyOrderBy('title')
     ->execute();
 
   if (empty($result['node'])) {
@@ -170,11 +171,14 @@ function garmentbox_order_get_orders_data($node) {
     $customer_url = entity_uri('node', $wrapper->value());
 
     $data[$order->nid]['order_info'] = array(
+      'label' => $wrapper->label(),
       'customer' => l($customer_label, $customer_url['path'], $customer_url['options']),
       'status' => $wrapper->field_order_status->label(),
       'last_delivery_timestamp' => 0,
       'next_delivery_timestamp' => 0,
     );
+
+    $order_total_items = 0;
 
     foreach ($wrapper->field_inventory_line_inline as $wrapper_li) {
       $node = $wrapper_li->value();
@@ -200,23 +204,25 @@ function garmentbox_order_get_orders_data($node) {
         }
       }
 
-      $data[$order->nid]['quantity_info'] = array();
-
       // Add the size and quantity info. We can't use the wrapper as we
       // have revisions.
-      $total_quantity = 0;
+      $total_items = 0;
       if (!empty($node->field_quantity_info[LANGUAGE_NONE][0]['value'])) {
         foreach ($node->field_quantity_info[LANGUAGE_NONE] as $delta => $value) {
           $item_wrapper = entity_metadata_wrapper('field_collection_item', $value['revision_id']);
           $size = $item_wrapper->field_size->label();
           $quantity = $item_wrapper->field_quantity_integer->value();
-          $data[$order->nid]['quantity_info']['size'][$size] = $quantity;
-          $total_quantity += $quantity;
+          $data[$order->nid]['inventory_lines'][$node->nid]['quantity_info']['size'][$size] = $quantity;
+          $total_items += $quantity;
         }
       }
-      $data[$order->nid]['quantity_info']['total_quantity'] = $total_quantity;
+      $data[$order->nid]['inventory_lines'][$node->nid]['quantity_info']['total_items'] = $total_items;
+      $order_total_items += $total_items;
     }
+    $data[$order->nid]['order_info']['total_items'] = $order_total_items;
   }
+
+dpm($data);
 
   return $data;
 }
