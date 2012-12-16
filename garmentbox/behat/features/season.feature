@@ -41,17 +41,6 @@ Feature: Test Season page
       | Lines v-neck shirt - Total  | 0 available | 0 available 12 in stock 13 ordered 7 future | 17 available 22 in stock 5 ordered 11 future | All types Except of Defective, Consignment, Sent / Sold.  |
 
   @api
-  Scenario: Correct content is shown on the season orders list.
-    Given I am logged in as a user from "Imanimo"
-     When I am on the "Season orders" page of the default "season"
-     Then the following <row> should appear in the table "orders" :
-      | order3  | High Couture | N/A | 26 | N/A | <date> 5/30/2013 | Shipping |
-      And the order "order3" should have these <inventory lines>
-      | Variation          | Small | Medium | Large | Total | Status             |
-      | Grey v-neck shirt  | 1     | 0      | 20    | 21    | Future production  |
-      | Lines v-neck shirt | 0     | 4      | 1     | 5     | Current production |
-
-  @api
   Scenario: Verify redirections from the front page to the season items tab.
     Given I am logged in as a user from "Imanimo"
       And I go to create "season" node page
