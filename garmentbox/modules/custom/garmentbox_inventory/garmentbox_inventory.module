@@ -50,27 +50,6 @@ function garmentbox_inventory_get_page_title($node) {
 }
 
 /**
- * Implements hook_field_access().
- *
- * Hide date fields from inventory form.
- * TODO: Why do we do that?
- */
-function garmentbox_inventory_field_access($op, $field, $entity_type, $entity, $account) {
-  if ($op != 'edit') {
-    return;
-  }
-
-  $field_names = array(
-    'field_production_start_date',
-    'field_delivery_date',
-    'field_inventory_status',
-  );
-  if (!empty($field['field_name']) && in_array($field['field_name'],$field_names)) {
-    return FALSE;
-  }
-}
-
-/**
  * Implements hook_entity_info_alter().
  *
  * Add the controller information on the entity. Note that you can also
@@ -82,7 +61,6 @@ function garmentbox_inventory_entity_info_alter(&$entity_info) {
   );
 }
 
-
 /**
  * Implements hook_form_FORM_ID_alter().
  *
@@ -91,7 +69,6 @@ function garmentbox_inventory_entity_info_alter(&$entity_info) {
 function garmentbox_inventory_form_order_node_form_alter(&$form, $form_state) {
   $subform = &$form['field_inventory_line_inline'][LANGUAGE_NONE]['form'];
 
-  // _garmentbox_inventory_form_hide_fields($subform, $form_state);
   _garmentbox_inventory_form_saleble_inventory_type($subform, $form_state);
   _garmentbox_inventory_form_price($form, $form_state);
 }
