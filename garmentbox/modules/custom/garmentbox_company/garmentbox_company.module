@@ -148,7 +148,22 @@ function _garmentbox_company_set_purl($node) {
  *   The company node.
  */
 function _garmentbox_company_og_vocab_size($node) {
+  $values = array(
+    'name' => 'Size',
+    'machine_name' => 'size_' . $node->nid,
+    'description' => 'Specify the size names.',
+  );
+  $vocabulary = entity_create('taxonomy_vocabulary', $values);
+  entity_save('taxonomy_vocabulary', $vocabulary);
 
+  // Create Small, Medium, Large.
+  foreach (array('Small', 'Medium', 'Large') as $name) {
+    $values = array(
+      'name' => $name,
+      'vocabulary' => $vocabulary->vid,
+    );
+    entity_property_values_create_entity('taxonomy_term', $values)->save();
+  }
 }
 
 /**
