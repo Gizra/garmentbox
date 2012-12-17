@@ -218,7 +218,8 @@ function garmentbox_order_get_orders_data($node) {
       $total_items = 0;
       if (!empty($node->field_quantity_info[LANGUAGE_NONE][0]['value'])) {
         foreach ($node->field_quantity_info[LANGUAGE_NONE] as $delta => $value) {
-          $item_wrapper = entity_metadata_wrapper('field_collection_item', $value['revision_id']);
+          $item = field_collection_item_revision_load($value['revision_id']);
+          $item_wrapper = entity_metadata_wrapper('field_collection_item', $item);
           $size = $item_wrapper->field_size->getIdentifier();
           $quantity = $item_wrapper->field_quantity_integer->value();
           $data[$order->nid]['inventory_lines'][$node->nid]['quantity_info']['size'][$size] = $quantity;
