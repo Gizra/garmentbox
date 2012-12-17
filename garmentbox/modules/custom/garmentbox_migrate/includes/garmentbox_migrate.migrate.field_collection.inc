@@ -33,7 +33,7 @@ abstract class garmentboxFieldCollectionMigration extends Migration {
   }
 
   public function prepare($entity, $row) {
-    if (empty($this->sizeVocabulary)) {
+    if (!empty($this->sizeVocabulary)) {
       $this->prepareSizeVocabulary($entity, $row);
     }
   }
