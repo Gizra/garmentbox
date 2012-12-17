@@ -96,7 +96,8 @@ function garmentbox_production_form_production_order_node_form_alter(&$form, &$f
 
   $form_state['item_variants'] = $item_variant_nids;
 
-  $vocabulary = taxonomy_vocabulary_machine_name_load('size');
+  $company_nid = $wrapper->og_company->getIdentifier();
+  $vocabulary = taxonomy_vocabulary_machine_name_load("size_$company_nid");
   $size_tree = taxonomy_get_tree($vocabulary->vid);
 
   foreach ($ils_data as $variant_nid => $variant) {
@@ -216,7 +217,10 @@ function garmentbox_production_form_production_order_node_form_alter(&$form, &$f
  */
 function theme_production_order_node_form($variables) {
   $form = $variables['form'];
-  $vocabulary = taxonomy_vocabulary_machine_name_load('size');
+
+  $og_context = og_context();
+  $company_nid = $og_context['gid'];
+  $vocabulary = taxonomy_vocabulary_machine_name_load("size_$company_nid");
   $size_tree = taxonomy_get_tree($vocabulary->vid);
 
   // Build the inventory lines selecting table.
@@ -763,8 +767,12 @@ function garmentbox_production_update_production_order($node) {
     $wrapper->save();
   }
 
-  $vocabulary = taxonomy_vocabulary_machine_name_load('size');
+  $wrapper = entity_metadata_wrapper('node', $node);
+  $company_nid = $wrapper->og_company->getIdentifier();
+
+  $vocabulary = taxonomy_vocabulary_machine_name_load("size_$company_nid");
   $size_tree = taxonomy_get_tree($vocabulary->vid);
+
   // Handle creation of new inventory lines.
   foreach ($variant_new_il as $variant_nid => $create) {
     if (!$create) {

@@ -188,8 +188,12 @@ function garmentbox_inventory_get_summary($node) {
   $header = $rows = array();
   $header['item variant'] = t('Variation');
 
-  $vocab = taxonomy_vocabulary_machine_name_load('size');
-  $size_tree = taxonomy_get_tree($vocab->vid);
+  $wrapper = entity_metadata_wrapper('node', $node);
+  $company_nid = $wrapper->og_company->getIdentifier();
+
+  $vocabulary = taxonomy_vocabulary_machine_name_load("size_$company_nid");
+  $size_tree = taxonomy_get_tree($vocabulary->vid);
+
   foreach ($size_tree as $term) {
     $header[$term->tid] = $term->name;
   }
