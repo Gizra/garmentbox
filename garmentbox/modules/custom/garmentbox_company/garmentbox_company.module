@@ -89,8 +89,13 @@ function garmentbox_company_form_after_build($form, &$form_state) {
  */
 function garmentbox_company_node_insert($node) {
   if (og_is_group_type('node', $node->type)) {
+    // Set PURL also for the department, as we may want to have a
+    // company/department/foo URL structure.
     _garmentbox_company_set_purl($node);
-    _garmentbox_company_og_vocab_size($node);
+
+    if ($node->type == 'company') {
+      _garmentbox_company_og_vocab_size($node);
+    }
     return;
   }
   elseif (!og_is_group_content_type('node', $node->type)) {
@@ -156,13 +161,17 @@ function _garmentbox_company_og_vocab_size($node) {
   $vocabulary = entity_create('taxonomy_vocabulary', $values);
   entity_save('taxonomy_vocabulary', $vocabulary);
 
+  // Relate vocabulary to group.
+  og_vocab_relation_save($vocabulary->vid, 'node', $node->nid);
+
   // Create Small, Medium, Large.
-  foreach (array('Small', 'Medium', 'Large') as $name) {
+  foreach (array('Small', 'Medium', 'Large') as $delta => $name) {
     $values = array(
       'name' => $name,
+      'weight' => $delta,
       'vocabulary' => $vocabulary->vid,
     );
-    entity_property_values_create_entity('taxonomy_term', $values)->save();
+    $term = entity_property_values_create_entity('taxonomy_term', $values)->save();
   }
 }
 
