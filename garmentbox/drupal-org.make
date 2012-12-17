@@ -25,6 +25,7 @@ projects[commerce_migrate][version] = "1.x-dev"
 
 projects[ctools][subdir] = "contrib"
 projects[ctools][version] = "1.2"
+projects[ctools][patch][] = "http://drupal.org/files/1707810-ctools-fields-mock-field-7.patch"
 
 projects[date][subdir] = "contrib"
 projects[date][version] = "2.6"
@@ -125,6 +126,9 @@ projects[og][patch][] = "http://drupal.org/files/1867834-og-query-user-1.patch"
 
 projects[og_purl][subdir] = "contrib"
 projects[og_purl][version] = "1.x-dev"
+
+projects[og_vocab][subdir] = "contrib"
+projects[og_vocab][version] = "1.x-dev"
 
 projects[panels][subdir] = "contrib"
 projects[panels][version] = "3.3"
