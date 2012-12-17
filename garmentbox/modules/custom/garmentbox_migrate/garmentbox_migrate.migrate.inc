@@ -96,24 +96,7 @@ class garmentboxTaskStatusTerms extends garmentboxMigration {
 }
 
 /**
- * Migrate Size terms.
- */
-class garmentboxSizeTerms extends garmentboxMigration {
-  public $csvColumns = array(
-    array('weight', 'Weight'),
-  );
-
-  public $entityType = 'taxonomy_term';
-  public $bundle = 'size';
-
-  public function __construct() {
-    parent::__construct();
-    $this->addFieldMapping('weight', 'weight');
-  }
-}
-
-/**
- * Migrate Size terms.
+ * Migrate Inventory type terms.
  */
 class garmentboxInventoryTypeTerms extends garmentboxMigration {
   public $csvColumns = array(
@@ -759,6 +742,11 @@ class garmentboxCollectionsFieldSizeInfo extends garmentboxFieldCollectionMigrat
     'garmentboxItemVariants',
   );
 
+  /**
+   * Indicate the field that should get the "Size" terms.
+   */
+  public $sizeVocabulary = TRUE;
+
   public function __construct() {
     parent::__construct();
     $this
@@ -768,18 +756,6 @@ class garmentboxCollectionsFieldSizeInfo extends garmentboxFieldCollectionMigrat
     $this->addFieldMapping('field_size', 'field_size');
 
     $this->addFieldMapping('field_sku', 'field_sku');
-  }
-
-  public function prepare($entity, $row) {
-    $node = $entity->hostEntity();
-    // Get the company from the item
-    $wrapper = entity_metadata_wrapper('node', $node);
-    $company_nid = $wrapper->og_company->getIdentifier();
-
-    // Convert the term name to term ID.
-    $term = taxonomy_get_term_by_name($row->field_size, 'size_' . $company_nid);
-    $term = reset($term);
-    $entity->field_size['und'][0]['target_id'] = $term->tid;
   }
 }
 
@@ -920,8 +896,12 @@ class garmentboxCollectionsFieldQuantityInfo extends garmentboxFieldCollectionMi
 
   public $dependencies = array(
     'garmentboxInventoryLines',
-    'garmentboxSizeTerms',
   );
+
+  /**
+   * Indicate the field that should get the "Size" terms.
+   */
+  public $sizeVocabulary = TRUE;
 
   public function __construct() {
     parent::__construct();
@@ -929,9 +909,7 @@ class garmentboxCollectionsFieldQuantityInfo extends garmentboxFieldCollectionMi
       ->addFieldMapping('host_entity_id', 'host_entity_id')
       ->sourceMigration('garmentboxInventoryLines');
 
-    $this
-      ->addFieldMapping('field_size', 'field_size')
-      ->sourceMigration('garmentboxSizeTerms');
+    $this->addFieldMapping('field_size', 'field_size');
 
     $this->addFieldMapping('field_quantity_integer', 'field_quantity_integer');
   }
