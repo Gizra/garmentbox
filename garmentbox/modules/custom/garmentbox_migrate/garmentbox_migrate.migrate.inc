@@ -778,6 +778,7 @@ class garmentboxCollectionsFieldSizeInfo extends garmentboxFieldCollectionMigrat
 
     // Convert the term name to term ID.
     $term = taxonomy_get_term_by_name($row->field_size, 'size_' . $company_nid);
+    $term = reset($term);
     $entity->field_size['und'][0]['target_id'] = $term->tid;
   }
 }
