@@ -756,7 +756,6 @@ class garmentboxCollectionsFieldSizeInfo extends garmentboxFieldCollectionMigrat
   public $hostEntityType = 'node';
 
   public $dependencies = array(
-    'garmentboxSizeTerms',
     'garmentboxItemVariants',
   );
 
@@ -766,11 +765,20 @@ class garmentboxCollectionsFieldSizeInfo extends garmentboxFieldCollectionMigrat
       ->addFieldMapping('host_entity_id', 'host_entity_id')
       ->sourceMigration('garmentboxItemVariants');
 
-    $this
-      ->addFieldMapping('field_size', 'field_size')
-      ->sourceMigration('garmentboxSizeTerms');
+    $this->addFieldMapping('field_size', 'field_size');
 
     $this->addFieldMapping('field_sku', 'field_sku');
+  }
+
+  public function prepare($entity, $row) {
+    $node = $entity->hostEntity();
+    // Get the company from the item
+    $wrapper = entity_metadata_wrapper('node', $node);
+    $company_nid = $wrapper->og_company->getIdentifier();
+
+    // Convert the term name to term ID.
+    $term = taxonomy_get_term_by_name($row->field_size, 'size_' . $company_nid);
+    $entity->field_size['und'][0]['target_id'] = $term->tid;
   }
 }
 
