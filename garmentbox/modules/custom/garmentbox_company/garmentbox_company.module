@@ -89,14 +89,8 @@ function garmentbox_company_form_after_build($form, &$form_state) {
  */
 function garmentbox_company_node_insert($node) {
   if (og_is_group_type('node', $node->type)) {
-    // Add the PURL value.
-    // See og_purl_node_insert().
-    ctools_include('cleanstring');
-    $options = array(
-      'lower case' => TRUE,
-      'transliterate' => TRUE,
-    );
-    $node->purl['value'] = ctools_cleanstring($node->title, $options);
+    _garmentbox_company_set_purl($node);
+    _garmentbox_company_og_vocab_size($node);
     return;
   }
   elseif (!og_is_group_content_type('node', $node->type)) {
@@ -128,6 +122,33 @@ function garmentbox_company_node_insert($node) {
   }
 
   og_group('node', $nid, array('entity_type' => 'node', 'entity' => $node->nid));
+}
+
+/**
+ * Add the PURL value.
+ *
+ * @param $node
+ *   The company node.
+ *
+ * @see og_purl_node_insert()
+ */
+function _garmentbox_company_set_purl($node) {
+  ctools_include('cleanstring');
+  $options = array(
+    'lower case' => TRUE,
+    'transliterate' => TRUE,
+  );
+  $node->purl['value'] = ctools_cleanstring($node->title, $options);
+}
+
+/**
+ * Create OG-vocab for the "Size", with default terms.
+ *
+ * @param $node
+ *   The company node.
+ */
+function _garmentbox_company_og_vocab_size($node) {
+
 }
 
 /**
