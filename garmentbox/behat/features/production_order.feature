@@ -55,7 +55,7 @@ Feature: Test production order flow
       And I fill in "Title" with "Test production order"
       And I press "Save"
       And I click "Edit"
-     Then the following <row> should appear in the table "inventory" :
+     Then the following <row> should appear in the table "inventory":
       | <checkbox> checked  | Customer: Imanimo | | 212 | | | $10,600.00 |
 
   @api
