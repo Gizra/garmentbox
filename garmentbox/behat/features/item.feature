@@ -3,7 +3,7 @@ Feature: Test Item page
 
   @api
   Scenario: Basic content is shown on the item page.
-    Given I am logged in as a user with the "authenticated user" role
+    Given I am logged in as a user from "Imanimo"
      When I am on the default "item" page
      Then I should see the heading "V-neck shirt"
       And the page status is shown as "Draft"
@@ -26,7 +26,7 @@ Feature: Test Item page
 
   @javascript
   Scenario: Correct content is shown on the item inventory list.
-    Given I am logged in as "user"
+    Given I am logged in as "imanimo"
       And I am on the default "item" page
      When I click the row of "Lines v-neck shirt - Total"
      Then I should see a table titled "Inventory summary" with the following <contents>:

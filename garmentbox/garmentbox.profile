@@ -20,13 +20,6 @@ function garmentbox_form_install_configure_form_alter(&$form, $form_state) {
 function garmentbox_install_tasks() {
   $tasks = array();
 
-  $tasks['garmentbox_import_data'] = array(
-    'display_name' => st('Import content'),
-    'display' => TRUE,
-    'type' => 'batch',
-    'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
-  );
-
   $tasks['garmentbox_setup_blocks'] = array(
     'display_name' => st('Setup Blocks'),
     'display' => FALSE,
@@ -37,41 +30,6 @@ function garmentbox_install_tasks() {
     'display' => FALSE,
   );
   return $tasks;
-}
-
-/**
- * Task callback; Return a batch API array, for importing content and
- * creating menues.
- */
-function garmentbox_import_data() {
-  drupal_set_title(st('Import content'));
-
-  // Fixes problems when the CSV files used for importing have been created
-  // on a Mac, by forcing PHP to detect the appropriate line endings.
-  ini_set('auto_detect_line_endings', TRUE);
-
-  $migrations = migrate_migrations();
-  foreach ($migrations as $machine_name => $migration) {
-    $operations[] =  array('_garmentbox_import_data', array($machine_name, t('Importing content.')));
-  }
-
-  $batch = array(
-    'title' => t('Importing content'),
-    'operations' => $operations,
-  );
-
-  return $batch;
-}
-
-/**
- * BatchAPI callback.
- *
- * @see garmentbox_profile_import_data()
- */
-function _garmentbox_import_data($operation, $type, &$context) {
-  $context['message'] = t('@operation', array('@operation' => $type));
-  $migration =  Migration::getInstance($operation);
-  $migration->processImport();
 }
 
 /**

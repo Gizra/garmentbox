@@ -4,7 +4,7 @@ Feature: Test item variant page
 
   @api
   Scenario: Verify that the basic information is shown correctly.
-    Given I am logged in as a user with the "authenticated user" role
+    Given I am logged in as a user from "Imanimo"
      When I am on the default "item-variant" page
      Then I should see the heading "Pink Vest dress"
       And the "production" price should be "$28.75"
@@ -13,7 +13,7 @@ Feature: Test item variant page
 
   @api
   Scenario: Test the tabs of an item variant.
-    Given I am logged in as a user with the "authenticated user" role
+    Given I am logged in as a user from "Imanimo"
      When I am on the default "item-variant" page
      Then I should see the following <links>
       | links             |

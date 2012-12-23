@@ -9,16 +9,16 @@ use Behat\Behat\Context\Step;
 require 'vendor/autoload.php';
 
 class FeatureContext extends DrupalContext {
+
   /**
-   * Array of flags flagged in the tests to revert in the end of testing.
+   * Array of flaggings in the tests to revert in the end of testing.
    *
    * Required parameters for every element in the array:
-   *  'entity_id' => entity ID.
-   *  'flag_name' => name of the flag to unflag. Entity type is derived from
-   *    the flag.
+   * - entity_id: Entity ID.
+   * - flag_name: Name of the flag to unflag. Entity type is derived
+   *   from the flag.
    */
   private $flagged = array();
-
 
   /**
    * Initializes context.
@@ -52,7 +52,6 @@ class FeatureContext extends DrupalContext {
     }
 
     // Log in.
-    // Go to the user page.
     $element = $this->getSession()->getPage();
     $this->getSession()->visit($this->locatePath('/user'));
     $element->fillField('Username', $username);
@@ -86,7 +85,8 @@ class FeatureContext extends DrupalContext {
         $table = 'node';
         $id_column = 'nid';
         $title_column = 'title';
-        $path = "$page_type/%";
+        // @todo: Remove hardcoding.
+        $path = "imanimo/$page_type/%";
         $type = str_replace('-', '_', $page_type);
         break;
 
@@ -221,7 +221,6 @@ class FeatureContext extends DrupalContext {
       throw new \Exception("The production price is not '$price'.");
     }
   }
-
 
   /**
    * @Given /^the page status is shown as "([^"]*)"$/
@@ -455,7 +454,6 @@ class FeatureContext extends DrupalContext {
     $element->click();
   }
 
-
   /**
    * @Given /^I fill in "([^"]*)" with "([^"]*)" in row containing "([^"]*)" in table "([^"]*)"$/
    */
@@ -467,7 +465,6 @@ class FeatureContext extends DrupalContext {
     $input = $cell->find('css', 'input');
     $input->setValue($content);
   }
-
 
   /**
    * "Triangulate" a table cell by header and row content.
@@ -576,7 +573,7 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
-   * @Then /^the following <row> should appear in the table "([^"]*)" :$/
+   * @Then /^the following <row> should appear in the table "([^"]*)":$/
    */
   public function theFollowingRowShouldAppearInTheTable($table_id, TableNode $table) {
     $page = $this->getSession()->getPage();
@@ -607,33 +604,49 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
-   * @When /^I am on (a|the) "([^"]*)" page of the default "([^"]*)"$/
+   * @When /^I am on (a|the) "([^"]*)" page of the default "([^"]*)"(?: of "([^"]*)"|)$/
    */
-  public function iAmOnThePageOfTheDefault($the, $page_name, $node_type) {
+  public function iAmOnThePageOfTheDefault($the, $page_name, $node_type, $company = 'Imanimo') {
     $node_type = str_replace('-', '_', $node_type);
-    $nid = $this->sample_nodes[$node_type];
+    $company = strtolower($company);
+    $nid = $this->sample_nodes[$company][$node_type];
 
     $steps = array();
     switch($page_name) {
+      case 'Node view':
+        $path = "node/$nid";
+        break;
+
       case 'Add a production order':
-        // TODO: The "imanimo" should be added automatically.
-        $path = "imanimo/node/add/production-order?field_season=$nid";
+        $path = "$company/node/add/production-order?field_season=$nid";
         break;
 
       case 'Season inventory':
-        $path = "season/$nid/inventory";
+        $path = "$company/season/$nid/inventory";
         break;
 
       case 'Season items':
-        $path = "season/$nid/items";
+        $path = "$company/season/$nid/items";
         break;
 
       case 'Season orders':
-        $path = "season/$nid/orders";
+        $path = "$company/season/$nid/orders";
+        break;
+
+      case 'Season tasks':
+        $path = "$company/season/$nid/tasks";
+        break;
+
+      case 'Season production orders':
+        $path = "$company/season/$nid/production-orders";
+        break;
+
+      case 'Season line sheet':
+        $path = "$company/season/$nid/line-sheet";
         break;
 
       case 'Production delivery':
-        $path = "production-order/$nid/delivery";
+        $path = "$company/production-order/$nid/delivery";
         break;
 
       default:
@@ -647,9 +660,10 @@ class FeatureContext extends DrupalContext {
    * @When /^I am on the default "([^"]*)" page$/
    */
   public function iAmOnTheDefaultPage($node_type) {
+    $company = 'imanimo';
     $node_type = str_replace('-', '_', $node_type);
-    $nid = $this->sample_nodes[$node_type];
-    $path = 'node/' . $nid;
+    $nid = $this->sample_nodes[$company][$node_type];
+    $path = $company . '/node/' . $nid;
     return new Step\When("I am at \"$path\"");
   }
 
@@ -665,8 +679,8 @@ class FeatureContext extends DrupalContext {
 
     // Add the item variant to the line sheet.
     return array(
-        new Given('I am on a "item-variant" page titled "'. $title. '"'),
-        new Given('I click "Add to line sheet"'),
+      new Given('I am on a "item-variant" page titled "'. $title. '"'),
+      new Given('I click "Add to line sheet"'),
     );
   }
 
@@ -713,4 +727,3 @@ class FeatureContext extends DrupalContext {
     sleep(10);
   }
 }
-

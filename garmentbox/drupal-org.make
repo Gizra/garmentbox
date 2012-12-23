@@ -37,6 +37,7 @@ projects[diff][version] = "3.2"
 
 projects[entity][subdir] = "contrib"
 projects[entity][version] = "1.x-dev"
+projects[entity][patch][] = "http://drupal.org/files/entity-node-access-1780646-8.patch"
 
 projects[entityreference][subdir] = "contrib"
 projects[entityreference][version] = "1.0"
@@ -86,15 +87,15 @@ projects[mailsystem][version] = 2.34
 projects[mailsystem][subdir] = "contrib"
 
 projects[message][subdir] = "contrib"
-projects[message][version] = "1.6"
+projects[message][version] = "1.7"
 
 projects[message_notify][subdir] = "contrib"
 projects[message_notify][version] = "2.3"
 
-projects[migrate][version] = 2.4
+projects[migrate][version] = 2.5
 projects[migrate][subdir] = "contrib"
 
-projects[migrate_extras][version] = 2.x-dev
+projects[migrate_extras][version] = 2.5-dev
 projects[migrate_extras][subdir] = "contrib"
 
 projects[mimemail][version] = 1.0-alpha1

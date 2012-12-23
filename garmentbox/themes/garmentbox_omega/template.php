@@ -10,29 +10,10 @@
  * Page preprocess.
  */
 function garmentbox_omega_preprocess_page(&$variables) {
-  $node = menu_get_object();
-  // When the node wasn't loaded, try fetching it from the menu item.
-  if (!$node) {
-    $item = menu_get_item();
-
-    // Check if the current page is a "Node sub-page", and extract the node.
-    // Define beginnings of node related pages. E.g. season/%/inventory.
-    $node_path_beginnings = array(
-      'season/%',
-      'production-order/%',
-    );
-    foreach ($node_path_beginnings as $path_beginning) {
-      if ((strpos($item['path'], $path_beginning) === 0) && !empty($item['map'][1])) {
-        $node = is_object($item['map'][1]) ? $item['map'][1]->data : node_load($item['map'][1]);
-        break;
-      }
-    }
-  }
-
   if (overlay_get_mode() == 'child') {
     $variables['theme_hook_suggestions'][] = 'page__overlay';
   }
-  elseif ($node) {
+  elseif ($node = garmentbox_general_get_node()) {
     // Node context.
     $variables['page']['title'] = node_view($node, 'garmentbox_header');
     $variables['page']['breadcrumbs'] = garmentbox_general_get_node_breadcrumbs($node);
