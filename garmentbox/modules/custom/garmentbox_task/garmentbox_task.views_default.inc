@@ -172,7 +172,7 @@ function garmentbox_task_views_default_views() {
   $handler->display->display_options['fields']['title']['empty_zero'] = 0;
   $handler->display->display_options['fields']['title']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['title']['link_to_node'] = 1;
-  /* Field: Field: Status */
+  /* Field: Content: Status */
   $handler->display->display_options['fields']['field_task_status']['id'] = 'field_task_status';
   $handler->display->display_options['fields']['field_task_status']['table'] = 'field_data_field_task_status';
   $handler->display->display_options['fields']['field_task_status']['field'] = 'field_task_status';
@@ -198,7 +198,7 @@ function garmentbox_task_views_default_views() {
     'link' => 0,
   );
   $handler->display->display_options['fields']['field_task_status']['field_api_classes'] = 0;
-  /* Field: Field: Assignee */
+  /* Field: Content: Assignee */
   $handler->display->display_options['fields']['field_task_assignee']['id'] = 'field_task_assignee';
   $handler->display->display_options['fields']['field_task_assignee']['table'] = 'field_data_field_task_assignee';
   $handler->display->display_options['fields']['field_task_assignee']['field'] = 'field_task_assignee';
@@ -384,7 +384,7 @@ function garmentbox_task_views_default_views() {
   /* Display: Material Task List */
   $handler = $view->new_display('panel_pane', 'Material Task List', 'material_task_list');
   $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: Field: Reference (field_entity_reference) */
+  /* Contextual filter: Content: Reference (field_entity_reference) */
   $handler->display->display_options['arguments']['field_entity_reference_target_id']['id'] = 'field_entity_reference_target_id';
   $handler->display->display_options['arguments']['field_entity_reference_target_id']['table'] = 'field_data_field_entity_reference';
   $handler->display->display_options['arguments']['field_entity_reference_target_id']['field'] = 'field_entity_reference_target_id';
