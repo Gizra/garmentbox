@@ -140,8 +140,13 @@ function garmentbox_task_form_comment_form_alter(&$form, &$form_state) {
  */
 function garmentbox_task_comment_form_submit($form, $form_state) {
   $node = $form['#node'];
-  $wrapper = entity_metadata_wrapper('node', $node);
 
+  // Save the revision on the comment before changing the task.
+  $wrapper = entity_metadata_wrapper('comment', $node->cid);
+  $wrapper->field_revision_id->set($node->vid);
+  $wrapper->save();
+
+  // Update the task node.
   foreach ($form_state['task_fields'] as $field) {
     $node->$field = $form_state['values'][$field];
   }
