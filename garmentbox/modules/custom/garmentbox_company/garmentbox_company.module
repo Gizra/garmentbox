@@ -29,7 +29,7 @@ function garmentbox_company_field_attach_create_bundle($entity_type, $bundle) {
 
     // Set the group as private
     $og_field = og_fields_info(OG_ACCESS_FIELD);
-    $og_field['instance']['default_value'] = 1;
+    $og_field['instance']['default_value'] = array(1 => array('value' => 1));
     og_create_field(OG_ACCESS_FIELD, 'node', 'company', $og_field);
   }
   else {
