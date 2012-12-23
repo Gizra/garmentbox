@@ -67,7 +67,10 @@ function garmentbox_order_get_orders_table($node) {
   $inventory_header = array();
   $inventory_header[] = t('Variation');
 
-  $vocabulary = taxonomy_vocabulary_machine_name_load('size');
+  $wrapper = entity_metadata_wrapper('node', $node);
+  $company_nid = $wrapper->og_company->getIdentifier();
+
+  $vocabulary = taxonomy_vocabulary_machine_name_load("size_$company_nid");
   $size_tree = taxonomy_get_tree($vocabulary->vid);
 
   foreach ($size_tree as $term) {

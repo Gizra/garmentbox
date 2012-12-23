@@ -28,7 +28,7 @@ before_script:
 
   # Create Drush alias.
   - cp aliases.drushrc.php ~/.drush/
-  - composer install --prefer-dist
+  - composer install
 
   # Patch drupalextension.
   - cd vendor/drupal/drupal-extension/

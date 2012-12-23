@@ -12,7 +12,6 @@ function garmentbox_migrate_migrate_api() {
       'garmentboxSeasonStatusTerms' => array('class_name' => 'garmentboxSeasonStatusTerms'),
       'garmentboxItemStatusTerms' => array('class_name' => 'garmentboxItemStatusTerms'),
       'garmentboxTaskStatusTerms' => array('class_name' => 'garmentboxTaskStatusTerms'),
-      'garmentboxSizeTerms' => array('class_name' => 'garmentboxSizeTerms'),
       'garmentboxInventoryTypeTerms' => array('class_name' => 'garmentboxInventoryTypeTerms'),
       'garmentboxMaterialTypeTerms' => array('class_name' => 'garmentboxMaterialTypeTerms'),
       'garmentboxMeasurementUnitTerms' => array('class_name' => 'garmentboxMeasurementUnitTerms'),

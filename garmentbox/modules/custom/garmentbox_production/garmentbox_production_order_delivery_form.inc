@@ -4,7 +4,8 @@
  * Theme the production order delivery form.
  */
 function theme_garmentbox_production_order_delivery_form($variables) {
-  $vocabulary = taxonomy_vocabulary_machine_name_load('size');
+  $og_context = og_context();
+  $vocabulary = taxonomy_vocabulary_machine_name_load('size_' . $og_context['gid']);
   $size_tree = taxonomy_get_tree($vocabulary->vid);
 
   $form = $variables['form'];
@@ -71,8 +72,7 @@ function theme_garmentbox_production_order_delivery_form($variables) {
   }
 
   $header = array(t('Received'), t('Item variation'), t('Type'));
-  $vocabulary = taxonomy_vocabulary_machine_name_load('size');
-  foreach (taxonomy_get_tree($vocabulary->vid) as $term) {
+  foreach ($size_tree as $term) {
     $header[] = $term->name;
   }
   $header[] = t('Production price');
@@ -145,7 +145,8 @@ function _garmentbox_production_order_delivery_form_row($nid, $type, $extra_clas
 
   $row['data'][] = $label;
 
-  $vocabulary = taxonomy_vocabulary_machine_name_load('size');
+  $og_context = og_context();
+  $vocabulary = taxonomy_vocabulary_machine_name_load('size_' . $og_context['gid']);
   $size_tree = taxonomy_get_tree($vocabulary->vid);
 
   foreach ($size_tree as $term) {
@@ -184,7 +185,8 @@ function garmentbox_production_order_delivery_form($form, &$form_state, $node) {
 
   // Create the delivery details table.
   $data = garmentbox_production_order_delivery_get_data($node);
-  $vocabulary = taxonomy_vocabulary_machine_name_load('size');
+
+  $vocabulary = taxonomy_vocabulary_machine_name_load('size_' . $wrapper->og_company->getIdentifier());
   $size_tree = taxonomy_get_tree($vocabulary->vid);
 
   foreach ($data as $nid => $variant_data) {
@@ -540,7 +542,8 @@ function garmentbox_production_order_delivery_form_submit($form, &$form_state) {
 function garmentbox_production_order_delivery_get_data($node) {
   $data = array();
 
-  $vocabulary = taxonomy_vocabulary_machine_name_load('size');
+  $wrapper = entity_metadata_wrapper('node', $node);
+  $vocabulary = taxonomy_vocabulary_machine_name_load('size_' . $wrapper->og_company->getIdentifier());
   $size_tree = taxonomy_get_tree($vocabulary->vid);
 
   $il_nids = garmentbox_production_get_production_order_inventory_lines($node->nid);

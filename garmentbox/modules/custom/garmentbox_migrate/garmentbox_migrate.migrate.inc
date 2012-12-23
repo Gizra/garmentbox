@@ -96,24 +96,7 @@ class garmentboxTaskStatusTerms extends garmentboxMigration {
 }
 
 /**
- * Migrate Size terms.
- */
-class garmentboxSizeTerms extends garmentboxMigration {
-  public $csvColumns = array(
-    array('weight', 'Weight'),
-  );
-
-  public $entityType = 'taxonomy_term';
-  public $bundle = 'size';
-
-  public function __construct() {
-    parent::__construct();
-    $this->addFieldMapping('weight', 'weight');
-  }
-}
-
-/**
- * Migrate Size terms.
+ * Migrate Inventory type terms.
  */
 class garmentboxInventoryTypeTerms extends garmentboxMigration {
   public $csvColumns = array(
@@ -756,9 +739,13 @@ class garmentboxCollectionsFieldSizeInfo extends garmentboxFieldCollectionMigrat
   public $hostEntityType = 'node';
 
   public $dependencies = array(
-    'garmentboxSizeTerms',
     'garmentboxItemVariants',
   );
+
+  /**
+   * Indicate the field that should get the "Size" terms.
+   */
+  public $sizeVocabulary = TRUE;
 
   public function __construct() {
     parent::__construct();
@@ -766,9 +753,7 @@ class garmentboxCollectionsFieldSizeInfo extends garmentboxFieldCollectionMigrat
       ->addFieldMapping('host_entity_id', 'host_entity_id')
       ->sourceMigration('garmentboxItemVariants');
 
-    $this
-      ->addFieldMapping('field_size', 'field_size')
-      ->sourceMigration('garmentboxSizeTerms');
+    $this->addFieldMapping('field_size', 'field_size');
 
     $this->addFieldMapping('field_sku', 'field_sku');
   }
@@ -911,8 +896,12 @@ class garmentboxCollectionsFieldQuantityInfo extends garmentboxFieldCollectionMi
 
   public $dependencies = array(
     'garmentboxInventoryLines',
-    'garmentboxSizeTerms',
   );
+
+  /**
+   * Indicate the field that should get the "Size" terms.
+   */
+  public $sizeVocabulary = TRUE;
 
   public function __construct() {
     parent::__construct();
@@ -920,9 +909,7 @@ class garmentboxCollectionsFieldQuantityInfo extends garmentboxFieldCollectionMi
       ->addFieldMapping('host_entity_id', 'host_entity_id')
       ->sourceMigration('garmentboxInventoryLines');
 
-    $this
-      ->addFieldMapping('field_size', 'field_size')
-      ->sourceMigration('garmentboxSizeTerms');
+    $this->addFieldMapping('field_size', 'field_size');
 
     $this->addFieldMapping('field_quantity_integer', 'field_quantity_integer');
   }
