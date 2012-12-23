@@ -176,6 +176,23 @@ function _garmentbox_company_og_vocab_size($node) {
 }
 
 /**
+ * Implements hook_field_create_instance().
+ *
+ * Create OG-vocab entitys for each place the "field_size" should appear.
+ */
+function garmentbox_company_field_create_instance($instance) {
+  if ($instance['field_name'] != 'field_size') {
+    return;
+  }
+
+  $og_vocab = og_vocab_create_og_vocab($vocabulary->vid, $instance['entity_type'], $instance['bundle']);
+  $og_vocab->save();
+
+}
+
+
+
+/**
  * Implements hook_field_collection_item_presave().
  *
  * Add field collection item to group.
