@@ -184,9 +184,13 @@ function _garmentbox_company_og_vocab_size($node) {
     ),
   );
 
+  $settings = array(
+    'cardinality' => 1,
+  );
+
   foreach ($info as $entity_type => $bundles) {
     foreach ($bundles as $bundle) {
-      $og_vocab = og_vocab_create_og_vocab($vocabulary->vid, $entity_type, $bundle);
+      $og_vocab = og_vocab_create_og_vocab($vocabulary->vid, $entity_type, $bundle, 'field_size', $settings);
       $og_vocab->save();
     }
   }
