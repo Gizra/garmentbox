@@ -41,6 +41,21 @@ function garmentbox_install() {
     'og_purl' => TRUE,
   );
   variable_set("og_context_negotiation_group_context", $values);
+
+  $og_field = og_fields_info(OG_VOCAB_FIELD);
+
+  $info = array(
+    'field_collection_item' => array(
+      'field_quantity_info',
+      'field_size_info',
+    ),
+  );
+
+  foreach ($info as $entity_type => $bundles) {
+    foreach ($bundles as $bundle) {
+      og_create_field('field_size', $entity_type, $bundle, $og_field);
+    }
+  }
 }
 
 /**
