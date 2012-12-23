@@ -43,6 +43,7 @@ function garmentbox_install() {
   variable_set("og_context_negotiation_group_context", $values);
 
   $og_field = og_fields_info(OG_VOCAB_FIELD);
+  $og_field['field']['cardinality'] = 1;
 
   $info = array(
     'field_collection_item' => array(
