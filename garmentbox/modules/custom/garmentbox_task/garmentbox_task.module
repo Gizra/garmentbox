@@ -32,24 +32,16 @@ function garmentbox_task_comment_presave($comment) {
   $node = $wrapper->node->value();
 
   $field_names = garmentbox_task_intersect_fields($comment, $node);
-
   $save = FALSE;
-  $field_names[] ='subject';
+
+  // Set the values from the comment on the task.
   foreach ($field_names as $field_name) {
-    $value = $wrapper->{$field_name}->value();
-    if ($field_name == 'subject') {
-      // The title field in the node has different name than the comment.
-      $field_name = 'title';
-    }
-    if ($wrapper->node->{$field_name}->value() != $value) {
-      // There is a difference between the node and the comment fields.
+    $value = _garmentbox_task_comment_Extract_value($comment, 'comment', $field_name);
+    $original_value = _garmentbox_task_comment_Extract_value($node, 'node', $field_name);
+    // Check if the field was changed on the comment.
+    if ($value != $original_value) {
       $save = TRUE;
-      if ($field_name == 'title') {
-        $wrapper->node->title->set($value);
-      }
-      else {
-        $wrapper->node->{$field_name}->set($value);
-      }
+      $wrapper->node->$field_name->set($value);
     }
   }
 
@@ -62,6 +54,41 @@ function garmentbox_task_comment_presave($comment) {
 
   $node->revision = TRUE;
   node_save($node);
+}
+
+/**
+ * Extract a field value from a comment or node.
+ *
+ * @param $entity
+ *   A comment or node.
+ * @param $entity_type
+ *   The entity type.
+ * @param $field_name
+ *   The field name.
+ *
+ * @return
+ *   The field's value
+ */
+function _garmentbox_task_comment_Extract_value($entity, $entity_type, $field_name) {
+  switch ($field_name) {
+    case 'title':
+      return $entity_type == 'comment' ? $entity->subject : $entity->title;
+
+    case 'field_task_assignee':
+    case 'field_task_status':
+    case 'field_entity_reference':
+      $key = 'target_id';
+      break;
+
+    case 'field_date':
+    default:
+      $key = 'value';
+      break;
+  }
+
+  if (!empty($entity->{$field_name}[LANGUAGE_NONE][0][$key])) {
+    return $entity->{$field_name}[LANGUAGE_NONE][0][$key];
+  }
 }
 
 /**
@@ -85,36 +112,24 @@ function garmentbox_task_form_task_node_form_alter(&$form, &$form_state) {
 /**
  * Return all the fields the exist in the comment and in the node.
  */
-function garmentbox_task_intersect_fields($comment, $node) {
-  list(,, $comment_bundle) = entity_extract_ids('comment', $comment);
-  $comment_fields = array_keys(field_info_instances('comment', $comment_bundle));
-
-  list(,, $node_bundle) = entity_extract_ids('node', $node);
-  $node_fields = array_keys(field_info_instances('node', $node_bundle));
-
-  return array_intersect($comment_fields, $node_fields);
+function garmentbox_task_intersect_fields() {
+  return array(
+    'title',
+    'field_task_assignee',
+    'field_task_status',
+    'field_entity_reference',
+    'field_date',
+  );
 }
 
 /**
  * Implements hook_form_FORM_ID_alter().
  */
 function garmentbox_task_form_comment_node_task_form_alter(&$form, $form_state) {
-  garmentbox_task_sync_comment($form, $form_state);
-}
-
-/**
- * Implements hook_form_FORM_ID_alter().
- */
-function garmentbox_task_form_comment_form_alter(&$form, &$form_state) {
   $node = $form['#node'];
 
   // Task fields to be re-set when commenting.
-  $fields = array(
-    'field_task_assignee',
-    'field_task_status',
-    'field_entity_reference',
-    'field_date',
-  );
+  $fields = garmentbox_task_intersect_fields();
 
   $form_state['task_fields'] = $fields;
 
@@ -122,59 +137,15 @@ function garmentbox_task_form_comment_form_alter(&$form, &$form_state) {
   $temp_form = array();
   field_attach_form('node', $node, $temp_form, $form_state);
   foreach ($fields as $field) {
+    if ($field == 'title') {
+      continue;
+    }
+
     $form[$field] = $temp_form[$field];
     $form[$field]['#weight'] = -5;
   }
 
   $form['subject']['#default_value'] = $node->title;
-
-  $form['#submit'][] = 'garmentbox_task_comment_form_submit';
-}
-
-/**
- * Sumbmit handler for task comments.
- *
- * Save the task fields from the task comment form.
- *
- * @see garmentbox_task_form_comment_form_alter().
- */
-function garmentbox_task_comment_form_submit($form, $form_state) {
-  $node = $form['#node'];
-
-  // Save the revision on the comment before changing the task.
-  $wrapper = entity_metadata_wrapper('comment', $node->cid);
-  $wrapper->field_revision_id->set($node->vid);
-  $wrapper->save();
-
-  // Update the task node.
-  foreach ($form_state['task_fields'] as $field) {
-    $node->$field = $form_state['values'][$field];
-  }
-  $node->title = $form_state['values']['subject'];
-  node_save($node);
-}
-
-function garmentbox_task_sync_comment(&$form, $form_state) {
-  $comment = $form['#entity'];
-  $node = $form['#node'];
-  if (!$field_names = garmentbox_task_intersect_fields($comment, $node)) {
-    return;
-  }
-
-  $wrapper = entity_metadata_wrapper('node', $node);
-  foreach ($field_names as $field_name) {
-    if (!$value = $wrapper->{$field_name}->value()) {
-      continue;
-    }
-
-    if (is_object($value)) {
-      $value = $wrapper->{$field_name}->value(array('identifier' => TRUE));
-    }
-    $form[$field_name][LANGUAGE_NONE]['#default_value'] = $value;
-  }
-
-  // Replace the node title field with the comment's subject field.
-  $form['subject_field'][LANGUAGE_NONE][0]['value']['#default_value'] = $node->title;
 }
 
 /**
@@ -203,21 +174,32 @@ function garmentbox_task_preprocess_comment(&$variables) {
   $variables['permalink'] = str_replace('Permalink', '#' . $key, $variables['permalink']);
 
   $wrapper = entity_metadata_wrapper('comment', $comment);
-  if (!$vid = $wrapper->field_revision_id->value()) {
+  if (!$comment_vid = $wrapper->field_revision_id->value()) {
     return;
   }
 
-  $node_revision = node_load($node->nid, $vid);
-  $node_wrapper = entity_metadata_wrapper('node', $node_revision);
+  $node_revision = node_load($node->nid, $comment_vid);
+  $wrapper = entity_metadata_wrapper('node', $node_revision);
 
-  $field_names = garmentbox_task_intersect_fields($comment, $node);
-  // @todo: Re-add subject field.
-  // $field_names[] ='subject';
+  // Load the node from the revision previous to the one stored on this comment,
+  // in order to find the changes made with this comment.
+  $previous_vid = NULL;
+  $revisions = array_keys(node_revision_list($node));
+  sort($revisions);
+  foreach($revisions as $vid) {
+    if ($vid == $comment_vid) {
+      break;
+    }
+
+    $previous_vid = $vid;
+  }
+  $node_previous_revision = node_load($node->nid, $previous_vid);
+  $original_wrapper = entity_metadata_wrapper('node', $node_previous_revision);
+
+  $field_names = garmentbox_task_intersect_fields();
 
   foreach ($field_names as $field_name) {
-    $comment_value = $wrapper->{$field_name}->value();
-    $node_value = $node_wrapper->{$field_name}->value();
-    if ($comment_value == $node_value) {
+    if ($original_wrapper->$field_name->value() == $wrapper->$field_name->value()) {
       continue;
     }
 
@@ -226,11 +208,17 @@ function garmentbox_task_preprocess_comment(&$variables) {
     $instance = field_info_instance('node', $field_name, $node->type);
     $display = $instance['display']['default'];
     $display['label'] = 'inline';
-    $params['@previous'] = strip_tags(render(field_view_field('node', $node_wrapper->value(), $field_name, $display)));
+    $element = field_view_field('node', $node_previous_revision, $field_name, $display);
+    $params['@previous'] = strip_tags(render($element));
     $params['@previous'] = str_replace('&nbsp;', ' ', $params['@previous']);
 
     $display['label'] = 'hidden';
-    $params['@current'] = strip_tags(render(field_view_field('comment', $wrapper->value(), $field_name, $display)));
+
+    if (!$wrapper->$field_name->value()) {
+      continue;
+    }
+    $element = field_view_field('comment', $node_revision, $field_name, $display);
+    $params['@current'] = strip_tags(render($element));
 
     $variables['changed_fields'] .= '<div class="task-change">' . format_string('@previous » @current', $params) . '</div>';
   }
