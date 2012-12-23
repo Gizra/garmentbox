@@ -102,6 +102,32 @@ function garmentbox_task_form_comment_node_task_form_alter(&$form, $form_state) 
   garmentbox_task_sync_comment($form, $form_state);
 }
 
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function garmentbox_task_form_comment_form_alter(&$form, $form_state) {
+  $node = $form['#node'];
+
+  // Task fields to be re-set when commenting.
+  // TODO: Fetch all fields under group_properties instead of this list.
+  $fields = array(
+    'field_task_assignee',
+    'field_task_status',
+    'field_entity_reference',
+    'field_date',
+  );
+
+  // Save the comment form, for selecting only part of the task fields.
+  $temp_form = $form;
+  field_attach_form('node', $node, $form, $form_state);
+  foreach ($fields as $field) {
+    $temp_form[$field] = $form[$field];
+    $temp_form[$field]['#weight'] = -5;
+  }
+
+  $form = $temp_form;
+}
+
 function garmentbox_task_sync_comment(&$form, $form_state) {
   $comment = $form['#entity'];
   $node = $form['#node'];
