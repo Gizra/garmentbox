@@ -8,3 +8,4 @@ dependencies[] = og
 dependencies[] = features
 dependencies[] = purl
 dependencies[] = og_purl
+dependencies[] = og_vocab
