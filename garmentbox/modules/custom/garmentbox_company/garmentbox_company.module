@@ -54,6 +54,7 @@ function garmentbox_company_og_fields_info_alter(&$info) {
   $og_field['instance']['settings']['behaviors']['prepopulate'] = array(
     'status' => TRUE,
     'action' => 'hide',
+    'action_on_edit' => TRUE,
     'fallback' => 'redirect',
     'og_context' => TRUE,
   );
