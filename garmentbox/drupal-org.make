@@ -128,6 +128,7 @@ projects[og_purl][version] = "1.x-dev"
 
 projects[og_vocab][subdir] = "contrib"
 projects[og_vocab][version] = "1.x-dev"
+projects[og_vocab][patch][] = "http://drupal.org/files/1869190-og-vocab-multiple-1.patch"
 
 projects[panels][subdir] = "contrib"
 projects[panels][version] = "3.3"
