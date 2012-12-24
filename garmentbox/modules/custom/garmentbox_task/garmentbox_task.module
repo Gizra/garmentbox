@@ -193,32 +193,46 @@ function garmentbox_task_preprocess_comment(&$variables) {
 
     $previous_vid = $vid;
   }
-  $node_previous_revision = node_load($node->nid, $previous_vid);
-  $original_wrapper = entity_metadata_wrapper('node', $node_previous_revision);
+  if ($previous_vid) {
+    $node_previous_revision = node_load($node->nid, $previous_vid);
+    $original_wrapper = entity_metadata_wrapper('node', $node_previous_revision);
+  }
 
   $field_names = garmentbox_task_intersect_fields();
 
   foreach ($field_names as $field_name) {
+    if (!isset($original_wrapper)) {
+      continue;
+    }
+
     if ($original_wrapper->$field_name->value() == $wrapper->$field_name->value()) {
       continue;
     }
 
     $params = array();
 
-    $instance = field_info_instance('node', $field_name, $node->type);
-    $display = $instance['display']['default'];
-    $display['label'] = 'inline';
-    $element = field_view_field('node', $node_previous_revision, $field_name, $display);
-    $params['@previous'] = strip_tags(render($element));
-    $params['@previous'] = str_replace('&nbsp;', ' ', $params['@previous']);
+    if ($field_name != 'title') {
+      $instance = field_info_instance('node', $field_name, $node->type);
+      $display = $instance['display']['default'];
+      $display['label'] = 'inline';
+      if (isset($node_previous_revision)) {
+        $element = field_view_field('node', $node_previous_revision, $field_name, $display);
+        $params['@previous'] = strip_tags(render($element));
+        $params['@previous'] = str_replace('&nbsp;', ' ', $params['@previous']);
+        $display['label'] = 'hidden';
+      }
+      else {
+        $params['@previous'] = '';
+      }
 
-    $display['label'] = 'hidden';
-
-    if (!$wrapper->$field_name->value()) {
-      continue;
+      $element = field_view_field('node', $node_revision, $field_name, $display);
+      $params['@current'] = strip_tags(render($element));
+      $params['@current'] = str_replace('&nbsp;', ' ', $params['@current']);
     }
-    $element = field_view_field('comment', $node_revision, $field_name, $display);
-    $params['@current'] = strip_tags(render($element));
+    else {
+      $params['@previous'] = $node_previous_revision->title;
+      $params['@current'] = $node_revision->title;
+    }
 
     $variables['changed_fields'] .= '<div class="task-change">' . format_string('@previous » @current', $params) . '</div>';
   }
