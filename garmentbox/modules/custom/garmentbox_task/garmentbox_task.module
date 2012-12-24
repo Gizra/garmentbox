@@ -158,6 +158,19 @@ function garmentbox_task_preprocess_comment(&$variables) {
   $variables['changed_fields'] = '';
 
   $cache = &drupal_static(__FUNCTION__, array());
+  // Cache all revisions of the current node.
+  if (isset($cache['revisions'])) {
+    $revisions = $cache['revisions'];
+  }
+  else {
+    // Load all node revisions.
+    $revisions = array();
+    foreach (array_keys(node_revision_list($node)) as $vid) {
+      $revisions[$vid] = node_load($node->nid, $vid);
+    }
+    $cache['revisions'] = $revisions;
+  }
+
   if (isset($cache[$node->nid])) {
     $thread = $cache[$node->nid];
   }
@@ -177,20 +190,19 @@ function garmentbox_task_preprocess_comment(&$variables) {
     return;
   }
 
-  $node_revision = node_load($node->nid, $comment_vid);
+  $node_revision = $revisions[$comment_vid];
   $wrapper = entity_metadata_wrapper('node', $node_revision);
 
   // Load the node from the revision previous to the one stored on this comment,
   // in order to find the changes made with this comment.
   $next_vid = NULL;
-  $revisions = array_keys(node_revision_list($node));
-  foreach($revisions as $vid) {
+  foreach(array_keys($revisions) as $vid) {
     if ($vid == $comment_vid) {
       break;
     }
     $next_vid = $vid;
   }
-  $node_next_revision = node_load($node->nid, $next_vid);
+  $node_next_revision = $revisions[$next_vid];
   $next_wrapper = entity_metadata_wrapper('node', $node_next_revision);
 
   foreach (garmentbox_task_intersect_fields() as $field_name => $field_info) {
@@ -224,9 +236,6 @@ function garmentbox_task_preprocess_comment(&$variables) {
       $params['@current'] = $node_next_revision->title;
     }
 
-
-
     $variables['changed_fields'] .= '<div class="task-change">' . format_string('@label: @previous » @current', $params) . '</div>';
   }
 }
-
