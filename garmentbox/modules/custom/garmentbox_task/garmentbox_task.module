@@ -71,7 +71,11 @@ function garmentbox_task_comment_presave($comment) {
 function _garmentbox_task_comment_extract_value($entity, $field_info, $field_name) {
   if ($field_info['value_key']) {
     if (isset($entity->{$field_name}[LANGUAGE_NONE][0][$field_info['value_key']])) {
-      return $entity->{$field_name}[LANGUAGE_NONE][0][$field_info['value_key']];
+      $value = $entity->{$field_name}[LANGUAGE_NONE][0][$field_info['value_key']];
+      if (!empty($field_info['convert_to_timestamp'])) {
+        $value = strtotime($value);
+      }
+      return $value;
     }
   }
   else {
@@ -121,6 +125,7 @@ function garmentbox_task_intersect_fields() {
     ),
     'field_date' => array(
       'value_key' => 'value',
+      'convert_to_timestamp' => TRUE,
     ),
   );
 }
@@ -128,7 +133,7 @@ function garmentbox_task_intersect_fields() {
 /**
  * Implements hook_form_FORM_ID_alter().
  */
-function garmentbox_task_form_comment_node_task_form_alter(&$form, $form_state) {
+function garmentbox_task_form_comment_node_task_form_alter(&$form, &$form_state) {
   $node = $form['#node'];
 
   // Copy task fields into the comment form.
