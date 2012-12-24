@@ -57,6 +57,8 @@ function garmentbox_task_comment_presave($comment) {
 
 /**
  * Extract a field value from a comment or node.
+ * It's impossible to use EntityMetadataWrapper because of the dummy fields that
+ * are coppied from the node to the comment.
  *
  * @param $entity
  *   A comment or node.
@@ -92,7 +94,9 @@ function _garmentbox_task_comment_extract_value($entity, $field_info, $field_nam
  * Implements hook_field_access().
  */
 function garmentbox_task_field_access($op, $field, $entity_type, $entity, $account) {
-  return $field['field_name'] != 'field_revision_id';
+  if ($field['field_name'] == 'field_revision_id') {
+    return FALSE;
+  }
 }
 
 /**
@@ -198,8 +202,8 @@ function garmentbox_task_preprocess_comment(&$variables) {
   $node_revision = $revisions[$comment_vid];
   $wrapper = entity_metadata_wrapper('node', $node_revision);
 
-  // Load the node from the revision previous to the one stored on this comment,
-  // in order to find the changes made with this comment.
+  // Find the task revision that was created after the comment was saved, in
+  // order to find the changes that were made with the comment.
   $next_vid = NULL;
   foreach(array_keys($revisions) as $vid) {
     if ($vid == $comment_vid) {
@@ -207,6 +211,7 @@ function garmentbox_task_preprocess_comment(&$variables) {
     }
     $next_vid = $vid;
   }
+
   $node_next_revision = $revisions[$next_vid];
   $next_wrapper = entity_metadata_wrapper('node', $node_next_revision);
 
