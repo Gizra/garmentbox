@@ -55,6 +55,7 @@ dependencies[] = og_access
 dependencies[] = og_context
 dependencies[] = og_ui
 dependencies[] = og_purl
+dependencies[] = og_vocab
 dependencies[] = page_manager
 dependencies[] = panels
 dependencies[] = panels_mini

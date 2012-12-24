@@ -28,7 +28,30 @@ abstract class garmentboxFieldCollectionMigration extends Migration {
     $this->destination = new garmentboxMigrateDestinationFieldCollection($this->bundle, array('host_entity_type' => $this->hostEntityType));
   }
 
-  function prepareRow($row) {
+  public function prepareRow($row) {
     $row->uid = 1;
+  }
+
+  public function prepare($entity, $row) {
+    if (!empty($this->sizeVocabulary)) {
+      $this->prepareSizeVocabulary($entity, $row);
+    }
+  }
+
+  /**
+   * Associate the Size from the correct vocabulary.
+   */
+  private function prepareSizeVocabulary($entity, $row) {
+    $node = $entity->hostEntity();
+    // Get the company from the item
+    $wrapper = entity_metadata_wrapper('node', $node);
+    $company_nid = $wrapper->og_company->getIdentifier();
+
+    $field_name = $this->sizeVocabulary;
+
+    // Convert the term name to term ID.
+    $term = taxonomy_get_term_by_name($row->field_size, 'size_' . $company_nid);
+    $term = reset($term);
+    $entity->field_size['und'][0]['target_id'] = $term->tid;
   }
 }
