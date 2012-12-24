@@ -183,55 +183,42 @@ function garmentbox_task_preprocess_comment(&$variables) {
 
   // Load the node from the revision previous to the one stored on this comment,
   // in order to find the changes made with this comment.
-  $previous_vid = NULL;
+  $next_vid = NULL;
   $revisions = array_keys(node_revision_list($node));
-  sort($revisions);
   foreach($revisions as $vid) {
     if ($vid == $comment_vid) {
       break;
     }
-
-    $previous_vid = $vid;
+    $next_vid = $vid;
   }
-  if ($previous_vid) {
-    $node_previous_revision = node_load($node->nid, $previous_vid);
-    $original_wrapper = entity_metadata_wrapper('node', $node_previous_revision);
-  }
+  $node_next_revision = node_load($node->nid, $next_vid);
+  $next_wrapper = entity_metadata_wrapper('node', $node_next_revision);
 
-  $field_names = garmentbox_task_intersect_fields();
-
-  foreach ($field_names as $field_name) {
-    if (!isset($original_wrapper)) {
-      continue;
-    }
-
-    if ($original_wrapper->$field_name->value() == $wrapper->$field_name->value()) {
+  foreach (garmentbox_task_intersect_fields() as $field_name) {
+    if ($wrapper->$field_name->value() == $next_wrapper->$field_name->value()) {
       continue;
     }
 
     $params = array();
 
+    // Fields other than 'title' will be rendered using field_view_field.
     if ($field_name != 'title') {
       $instance = field_info_instance('node', $field_name, $node->type);
       $display = $instance['display']['default'];
       $display['label'] = 'inline';
-      if (isset($node_previous_revision)) {
-        $element = field_view_field('node', $node_previous_revision, $field_name, $display);
-        $params['@previous'] = strip_tags(render($element));
-        $params['@previous'] = str_replace('&nbsp;', ' ', $params['@previous']);
-        $display['label'] = 'hidden';
-      }
-      else {
-        $params['@previous'] = '';
-      }
 
       $element = field_view_field('node', $node_revision, $field_name, $display);
+      $params['@previous'] = strip_tags(render($element));
+      $params['@previous'] = str_replace('&nbsp;', ' ', $params['@previous']);
+      $display['label'] = 'hidden';
+
+      $element = field_view_field('node', $node_next_revision, $field_name, $display);
       $params['@current'] = strip_tags(render($element));
       $params['@current'] = str_replace('&nbsp;', ' ', $params['@current']);
     }
     else {
-      $params['@previous'] = $node_previous_revision->title;
-      $params['@current'] = $node_revision->title;
+      $params['@previous'] = $node_revision->title;
+      $params['@current'] = $node_next_revision->title;
     }
 
     $variables['changed_fields'] .= '<div class="task-change">' . format_string('@previous » @current', $params) . '</div>';
