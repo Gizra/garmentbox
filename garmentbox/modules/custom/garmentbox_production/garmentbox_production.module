@@ -624,12 +624,17 @@ function garmentbox_production_node_presave($node) {
  *   The new inventory line.
  */
 function garmentbox_production_create_inventory_line($production_order_nid, $origin_nid, $item_variant_nid, $quantity_info, $type_term = INVENTORY_TYPE_CURRENT_PRODUCTION, $defective = FALSE, $missing = NULL) {
+  // Fetch the company from the item variant.
+  $wrapper = entity_metadata_wrapper('node', $item_variant_nid);
+  $company_gid = $wrapper->og_company->getIdentifier();
+
   $node = new stdClass();
   $node->type = 'inventory_line';
   $node->language = LANGUAGE_NONE;
   node_object_prepare($node);
 
   $wrapper = entity_metadata_wrapper('node', $node);
+  $wrapper->og_company->set($company_gid);
   $wrapper->field_production_order->set($production_order_nid);
   $wrapper->field_origin_entity->set($origin_nid);
   $wrapper->field_item_variant->set($item_variant_nid);
