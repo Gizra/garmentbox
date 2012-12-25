@@ -10,414 +10,62 @@
 function garmentbox_task_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'comment-comment_node_task-field_date'.
-  $fields['comment-comment_node_task-field_date'] = array(
+  // Exported field: 'comment-comment_node_task-field_revision_id'.
+  $fields['comment-comment_node_task-field_revision_id'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_date',
+      'field_name' => 'field_revision_id',
       'foreign keys' => array(),
       'indexes' => array(),
       'locked' => '0',
-      'module' => 'date',
-      'settings' => array(
-        'cache_count' => '4',
-        'cache_enabled' => 0,
-        'granularity' => array(
-          'day' => 'day',
-          'hour' => 0,
-          'minute' => 0,
-          'month' => 'month',
-          'second' => 0,
-          'year' => 'year',
-        ),
-        'timezone_db' => '',
-        'todate' => '',
-        'tz_handling' => 'none',
-      ),
+      'module' => 'number',
+      'settings' => array(),
       'translatable' => '0',
-      'type' => 'datetime',
+      'type' => 'number_integer',
     ),
     'field_instance' => array(
       'bundle' => 'comment_node_task',
+      'default_value' => array(
+        0 => array(
+          'value' => '0',
+        ),
+      ),
       'deleted' => '0',
-      'description' => '',
+      'description' => 'Reference the revision ID of the parent node. This is used internally to allow getting the "previous" field values.',
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'date',
+          'module' => 'number',
           'settings' => array(
-            'format_type' => 'long',
-            'fromto' => 'both',
-            'multiple_from' => '',
-            'multiple_number' => '',
-            'multiple_to' => '',
+            'decimal_separator' => '.',
+            'prefix_suffix' => TRUE,
+            'scale' => 0,
+            'thousand_separator' => ' ',
           ),
-          'type' => 'date_default',
-          'weight' => 5,
+          'type' => 'number_integer',
+          'weight' => 6,
         ),
       ),
       'entity_type' => 'comment',
-      'field_name' => 'field_date',
-      'label' => 'Deadline',
-      'required' => 0,
-      'settings' => array(
-        'default_value' => 'now',
-        'default_value2' => 'same',
-        'default_value_code' => '',
-        'default_value_code2' => '',
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'date',
-        'settings' => array(
-          'increment' => '15',
-          'input_format' => 'm/d/Y - H:i:s',
-          'input_format_custom' => '',
-          'label_position' => 'above',
-          'text_parts' => array(),
-          'year_range' => '-3:+3',
-        ),
-        'type' => 'date_popup',
-        'weight' => '5',
-      ),
-    ),
-  );
-
-  // Exported field: 'comment-comment_node_task-field_entity_reference'.
-  $fields['comment-comment_node_task-field_entity_reference'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_entity_reference',
-      'foreign keys' => array(
-        'node' => array(
-          'columns' => array(
-            'target_id' => 'nid',
-          ),
-          'table' => 'node',
-        ),
-      ),
-      'indexes' => array(
-        'target_id' => array(
-          0 => 'target_id',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'entityreference',
-      'settings' => array(
-        'handler' => 'company',
-        'handler_settings' => array(
-          'behaviors' => array(
-            'views-select-list' => array(
-              'status' => 0,
-            ),
-          ),
-          'sort' => array(
-            'direction' => 'ASC',
-            'field' => 'body:value',
-            'property' => 'title',
-            'type' => 'property',
-          ),
-          'target_bundles' => array(
-            'item' => 'item',
-            'item_variant' => 'item_variant',
-            'material' => 'material',
-            'season' => 'season',
-            'vendor' => 'vendor',
-          ),
-        ),
-        'handler_submit' => 'Change handler',
-        'target_type' => 'node',
-      ),
-      'translatable' => '0',
-      'type' => 'entityreference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'comment_node_task',
-      'default_value' => NULL,
-      'default_value_function' => '',
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'entityreference',
-          'settings' => array(
-            'link' => FALSE,
-          ),
-          'type' => 'entityreference_label',
-          'weight' => 4,
-        ),
-      ),
-      'entity_type' => 'comment',
-      'field_name' => 'field_entity_reference',
-      'label' => 'Reference',
+      'field_name' => 'field_revision_id',
+      'label' => 'Revision ID',
       'required' => 1,
       'settings' => array(
-        'behaviors' => array(
-          'prepopulate' => array(
-            'action' => 'none',
-            'fallback' => 'none',
-            'skip_perm' => '0',
-            'status' => 0,
-          ),
-        ),
+        'max' => '',
+        'min' => '0',
+        'prefix' => '',
+        'suffix' => '',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
-        'active' => 1,
-        'module' => 'options',
+        'active' => 0,
+        'module' => 'number',
         'settings' => array(),
-        'type' => 'options_select',
-        'weight' => '3',
-      ),
-    ),
-  );
-
-  // Exported field: 'comment-comment_node_task-field_task_assignee'.
-  $fields['comment-comment_node_task-field_task_assignee'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_task_assignee',
-      'foreign keys' => array(
-        'users' => array(
-          'columns' => array(
-            'target_id' => 'uid',
-          ),
-          'table' => 'users',
-        ),
-      ),
-      'indexes' => array(
-        'target_id' => array(
-          0 => 'target_id',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'entityreference',
-      'settings' => array(
-        'handler' => 'company',
-        'handler_settings' => array(
-          'behaviors' => array(
-            'views-select-list' => array(
-              'status' => 1,
-            ),
-          ),
-          'sort' => array(
-            'direction' => 'ASC',
-            'field' => 'property',
-            'property' => 'name',
-            'type' => 'property',
-          ),
-          'target_bundles' => array(),
-        ),
-        'handler_submit' => 'Change handler',
-        'target_type' => 'user',
-      ),
-      'translatable' => '0',
-      'type' => 'entityreference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'comment_node_task',
-      'default_value' => NULL,
-      'default_value_function' => '',
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'entityreference',
-          'settings' => array(
-            'link' => FALSE,
-          ),
-          'type' => 'entityreference_label',
-          'weight' => 1,
-        ),
-      ),
-      'entity_type' => 'comment',
-      'field_name' => 'field_task_assignee',
-      'label' => 'Assignee',
-      'required' => 0,
-      'settings' => array(
-        'behaviors' => array(
-          'prepopulate' => array(
-            'action' => 'none',
-            'fallback' => 'none',
-            'skip_perm' => '0',
-            'status' => 0,
-          ),
-        ),
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'options',
-        'settings' => array(),
-        'type' => 'options_select',
-        'weight' => '1',
-      ),
-    ),
-  );
-
-  // Exported field: 'comment-comment_node_task-field_task_status'.
-  $fields['comment-comment_node_task-field_task_status'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_task_status',
-      'foreign keys' => array(
-        'taxonomy_term_data' => array(
-          'columns' => array(
-            'target_id' => 'tid',
-          ),
-          'table' => 'taxonomy_term_data',
-        ),
-      ),
-      'indexes' => array(
-        'target_id' => array(
-          0 => 'target_id',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'entityreference',
-      'settings' => array(
-        'handler' => 'base',
-        'handler_settings' => array(
-          'behaviors' => array(
-            'views-select-list' => array(
-              'status' => 1,
-            ),
-          ),
-          'sort' => array(
-            'direction' => 'ASC',
-            'field' => 'field_status_closed:value',
-            'property' => 'name',
-            'type' => 'property',
-          ),
-          'target_bundles' => array(
-            'task_status' => 'task_status',
-          ),
-        ),
-        'handler_submit' => 'Change handler',
-        'target_type' => 'taxonomy_term',
-      ),
-      'translatable' => '0',
-      'type' => 'entityreference',
-    ),
-    'field_instance' => array(
-      'bundle' => 'comment_node_task',
-      'default_value' => NULL,
-      'default_value_function' => '',
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'entityreference',
-          'settings' => array(
-            'link' => FALSE,
-          ),
-          'type' => 'entityreference_label',
-          'weight' => 2,
-        ),
-      ),
-      'entity_type' => 'comment',
-      'field_name' => 'field_task_status',
-      'label' => 'Status',
-      'required' => 0,
-      'settings' => array(
-        'behaviors' => array(
-          'prepopulate' => array(
-            'action' => 'none',
-            'fallback' => 'none',
-            'skip_perm' => '0',
-            'status' => 0,
-          ),
-        ),
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'options',
-        'settings' => array(),
-        'type' => 'options_select',
-        'weight' => '2',
-      ),
-    ),
-  );
-
-  // Exported field: 'comment-comment_node_task-subject_field'.
-  $fields['comment-comment_node_task-subject_field'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'subject_field',
-      'foreign keys' => array(
-        'format' => array(
-          'columns' => array(
-            'format' => 'format',
-          ),
-          'table' => 'filter_format',
-        ),
-      ),
-      'indexes' => array(
-        'format' => array(
-          0 => 'format',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'text',
-      'settings' => array(
-        'max_length' => 255,
-      ),
-      'translatable' => '1',
-      'type' => 'text',
-    ),
-    'field_instance' => array(
-      'bundle' => 'comment_node_task',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 3,
-        ),
-      ),
-      'entity_type' => 'comment',
-      'field_name' => 'subject_field',
-      'label' => 'Subject',
-      'required' => 1,
-      'settings' => array(
-        'hide_label' => array(
-          'entity' => 0,
-          'page' => 0,
-        ),
-        'text_processing' => '0',
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'text',
-        'settings' => array(
-          'size' => '60',
-        ),
-        'type' => 'text_textfield',
-        'weight' => '4',
+        'type' => 'number',
+        'weight' => '6',
       ),
     ),
   );
@@ -614,7 +262,7 @@ function garmentbox_task_field_default_fields() {
       'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
-        'handler' => 'base',
+        'handler' => 'company',
         'handler_settings' => array(
           'behaviors' => array(
             'views-select-list' => array(
@@ -826,7 +474,7 @@ function garmentbox_task_field_default_fields() {
       'locked' => '0',
       'module' => 'entityreference',
       'settings' => array(
-        'handler' => 'base',
+        'handler' => 'company',
         'handler_settings' => array(
           'behaviors' => array(
             'views-select-list' => array(
@@ -1151,9 +799,10 @@ function garmentbox_task_field_default_fields() {
   t('Deadline');
   t('Reference');
   t('Reference hierarchy');
+  t('Reference the revision ID of the parent node. This is used internally to allow getting the "previous" field values.');
+  t('Revision ID');
   t('Status');
   t('Status is considered closed');
-  t('Subject');
   t('Title');
 
   return $fields;

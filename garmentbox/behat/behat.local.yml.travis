@@ -10,11 +10,12 @@ default:
           item: 40
           item-variant: 48
           production-order: 68
+          task: 70
 
   extensions:
     Behat\MinkExtension\Extension:
       base_url:  http://127.0.0.1
-      goutte: 
+      goutte:
         guzzle_parameters:
           redirect.disable: true
     Drupal\DrupalExtension\Extension:
