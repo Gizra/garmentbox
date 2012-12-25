@@ -404,7 +404,7 @@ function _garmentbox_general_get_node_page_primary_button($node) {
 }
 
 /**
- * Implements hook_date_format_types()
+ * Implements hook_date_format_types().
  */
 function garmentbox_general_date_format_types() {
   return array(
