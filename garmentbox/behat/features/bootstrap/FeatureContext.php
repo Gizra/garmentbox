@@ -332,7 +332,7 @@ class FeatureContext extends DrupalContext {
             throw new \Exception('Flag not found.');
           }
 
-          if ($words[1] == 'unflag' && $flag->hasClass('unflag-action')) {
+          if (($words[1] == 'unflag' && $flag->hasClass('unflag-action')) || !$flag->hasClass('flag-action')) {
             throw new \Exception('Flag is not in the correct state.');
           }
           break;
