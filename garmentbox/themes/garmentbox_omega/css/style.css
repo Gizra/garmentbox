@@ -280,34 +280,30 @@ table tr.variant-status-type.future .main-figure {
 table tr.variant-status-type.irrelevant .main-figure {
   background: #737373;
 }
-/* line 260, ../sass/partials/widget/_table.scss */
-table .inventory-cell {
-  position: relative;
-}
-/* line 263, ../sass/partials/widget/_table.scss */
+/* line 262, ../sass/partials/widget/_table.scss */
 table .inventory-cell .main-figure {
   float: left;
   color: #474747;
   text-align: center;
   margin-top: 10px;
 }
-/* line 269, ../sass/partials/widget/_table.scss */
+/* line 268, ../sass/partials/widget/_table.scss */
 table .inventory-cell .main-figure span.amount {
   font-weight: bold;
   font-size: 28px;
 }
-/* line 274, ../sass/partials/widget/_table.scss */
+/* line 273, ../sass/partials/widget/_table.scss */
 table .inventory-cell .main-figure .label {
   color: #848484;
   font-size: 10px;
 }
-/* line 280, ../sass/partials/widget/_table.scss */
+/* line 279, ../sass/partials/widget/_table.scss */
 table .inventory-cell .sub-figures {
   float: left;
   margin-left: 10px;
   text-align: center;
 }
-/* line 285, ../sass/partials/widget/_table.scss */
+/* line 284, ../sass/partials/widget/_table.scss */
 table .inventory-cell .sub-figures .sub-figure {
   margin-right: 5px;
   margin-top: 2px;
@@ -336,16 +332,16 @@ table .inventory-cell .sub-figures .sub-figure {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f5f5f5', endColorstr='#e9e9e9',GradientType=1 );
   /* IE6-9 */
 }
-/* line 298, ../sass/partials/widget/_table.scss */
+/* line 297, ../sass/partials/widget/_table.scss */
 table .inventory-cell .sub-figures .sub-figure:first-child {
   margin-top: 0;
 }
-/* line 302, ../sass/partials/widget/_table.scss */
+/* line 301, ../sass/partials/widget/_table.scss */
 table .inventory-cell .sub-figures .sub-figure span {
   padding: 0px 0px 1px 3px;
   min-width: 20px;
 }
-/* line 306, ../sass/partials/widget/_table.scss */
+/* line 305, ../sass/partials/widget/_table.scss */
 table .inventory-cell .sub-figures .sub-figure span.amount {
   color: white;
   height: 14px;
@@ -361,13 +357,13 @@ table .inventory-cell .sub-figures .sub-figure span.amount {
   -webkit-border-bottom-left-radius: 3px;
   border-bottom-left-radius: 3px;
 }
-/* line 317, ../sass/partials/widget/_table.scss */
+/* line 316, ../sass/partials/widget/_table.scss */
 table .inventory-cell .sub-figures .sub-figure span.label {
   color: #565656;
   float: left;
   font-size: 11px;
 }
-/* line 324, ../sass/partials/widget/_table.scss */
+/* line 323, ../sass/partials/widget/_table.scss */
 table .inventory-cell .sub-figures .sub-figure.future_stock span.amount {
   background: #de832e;
   /* Old browsers */
@@ -388,7 +384,7 @@ table .inventory-cell .sub-figures .sub-figure.future_stock span.amount {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#de832e', endColorstr='#cf6400',GradientType=0 );
   /* IE6-8 */
 }
-/* line 328, ../sass/partials/widget/_table.scss */
+/* line 327, ../sass/partials/widget/_table.scss */
 table .inventory-cell .sub-figures .sub-figure.ordered span.amount {
   /* IE9 SVG, needs conditional override of 'filter' to 'none' */
   background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzg5YzhlZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjclIiBzdG9wLWNvbG9yPSIjN2RjNmYxIiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iNTMlIiBzdG9wLWNvbG9yPSIjNjZiY2VlIiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iODAlIiBzdG9wLWNvbG9yPSIjNjFiNGU2IiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iOTMlIiBzdG9wLWNvbG9yPSIjNjFiNGU1IiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzZjYjhlNCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgPC9saW5lYXJHcmFkaWVudD4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPgo8L3N2Zz4=);
@@ -407,7 +403,7 @@ table .inventory-cell .sub-figures .sub-figure.ordered span.amount {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#89c8ef', endColorstr='#6cb8e4',GradientType=0 );
   /* IE6-8 */
 }
-/* line 332, ../sass/partials/widget/_table.scss */
+/* line 331, ../sass/partials/widget/_table.scss */
 table .inventory-cell .sub-figures .sub-figure.quantity span.amount {
   background: #8fc37f;
   /* Old browsers */
@@ -428,7 +424,7 @@ table .inventory-cell .sub-figures .sub-figure.quantity span.amount {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#8fc37f', endColorstr='#74b062',GradientType=0 );
   /* IE6-8 */
 }
-/* line 339, ../sass/partials/widget/_table.scss */
+/* line 338, ../sass/partials/widget/_table.scss */
 table .expander {
   display: block;
   width: 11px;
@@ -437,39 +433,39 @@ table .expander {
   margin-right: 10px;
   background: url("../images/contract.gif") no-repeat;
 }
-/* line 347, ../sass/partials/widget/_table.scss */
+/* line 346, ../sass/partials/widget/_table.scss */
 table .expander.collapsed {
   background-image: url("../images/expand.gif");
 }
-/* line 352, ../sass/partials/widget/_table.scss */
+/* line 351, ../sass/partials/widget/_table.scss */
 table ul.size-info {
   margin: 0;
 }
-/* line 355, ../sass/partials/widget/_table.scss */
+/* line 354, ../sass/partials/widget/_table.scss */
 table ul.size-info li {
   float: left;
   margin-left: 20px;
 }
-/* line 359, ../sass/partials/widget/_table.scss */
+/* line 358, ../sass/partials/widget/_table.scss */
 table ul.size-info li:first-child {
   margin-left: 0;
 }
-/* line 364, ../sass/partials/widget/_table.scss */
+/* line 363, ../sass/partials/widget/_table.scss */
 table ul.size-info label, table ul.size-info span {
   float: left;
 }
-/* line 368, ../sass/partials/widget/_table.scss */
+/* line 367, ../sass/partials/widget/_table.scss */
 table ul.size-info span {
   margin-left: 5px;
 }
 
-/* line 376, ../sass/partials/widget/_table.scss */
+/* line 375, ../sass/partials/widget/_table.scss */
 html.js fieldset.collapsible .fieldset-legend {
   background: url("../images/contract.gif") no-repeat;
   padding-left: 20px;
   margin-left: 10px;
 }
-/* line 382, ../sass/partials/widget/_table.scss */
+/* line 381, ../sass/partials/widget/_table.scss */
 html.js fieldset.collapsible.collapsed .fieldset-legend {
   background-image: url("../images/expand.gif");
 }
