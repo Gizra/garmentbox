@@ -618,6 +618,11 @@ input.triple-checkbox.checked {
   background-position: -24px;
 }
 
+/* line 16, ../sass/partials/widget/_form.scss */
+input.form-text.number {
+  width: 50px;
+}
+
 /* line 3, ../sass/partials/layout/_header.scss */
 header#header {
   background: url("../images/header-bg.png") repeat-x;
