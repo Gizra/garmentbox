@@ -39,3 +39,11 @@ Feature: Test item variant page
       | Price   | Labour term | Operations  |
       | $10.00  | Cutting     | Edit Delete |
       | $10.00  | Sewing      | Edit Delete |
+
+  @api
+  Scenario: Verify that it's possible to edit and save an item variant.
+    Given I am logged in as a user from "Imanimo"
+      And I am on the default "item-variant" page
+      And I click "Edit"
+     When I press "Save"
+     Then I should get a "200" HTTP response
