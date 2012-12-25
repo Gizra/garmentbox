@@ -202,9 +202,6 @@ function _garmentbox_company_og_vocab_size($node) {
  * Add field collection item to group.
  */
 function garmentbox_company_field_collection_item_insert($field_collection_item) {
-  // TODO: This breaks 'imanimo/node/add/season'.
-  return;
-
   $entity = $field_collection_item->hostEntity();
   if (empty($entity->og_company[LANGUAGE_NONE][0]['target_id'])) {
     throw new Exception(format_string('Host entity of field collection @id does not belong to a company.', array('@id' => $field_collection_item->item_id)));
