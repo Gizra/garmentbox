@@ -618,6 +618,21 @@ input.triple-checkbox.checked {
   background-position: -24px;
 }
 
+/* line 1, ../sass/partials/widget/_flag.scss */
+.flag-line-sheet a {
+  font-size: 11px;
+  display: block;
+  background: url("../images/unflagged.png") no-repeat;
+  padding-left: 30px;
+  height: 26px;
+  line-height: 26px;
+  color: #515151;
+}
+/* line 10, ../sass/partials/widget/_flag.scss */
+.flag-line-sheet a.unflag-action {
+  background-image: url("../images/flagged.png");
+}
+
 /* line 3, ../sass/partials/layout/_header.scss */
 header#header {
   background: url("../images/header-bg.png") repeat-x;
@@ -1094,25 +1109,11 @@ header#title .field-name-field-item-status .field-item, header#title .field-name
   padding-left: 0;
 }
 /* line 42, ../sass/partials/pages/_item-variant.scss */
-.node-type-item-variant .pane-item-variant-summary .panel-pane .flag-line-sheet a {
-  font-size: 11px;
-  display: block;
-  background: url("../images/unflagged.png") no-repeat;
-  padding-left: 30px;
-  height: 26px;
-  line-height: 26px;
-  color: #515151;
-}
-/* line 51, ../sass/partials/pages/_item-variant.scss */
-.node-type-item-variant .pane-item-variant-summary .panel-pane .flag-line-sheet a.unflag-action {
-  background-image: url("../images/flagged.png");
-}
-/* line 56, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-item-variant-summary .panel-pane .field-type-commerce-price .field-item {
   color: #f50067;
   font-size: 26px;
 }
-/* line 62, ../sass/partials/pages/_item-variant.scss */
+/* line 48, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-item-variant-summary .pane-main-material {
   background: url("../images/material-thumbnail-bg.png") no-repeat;
   width: 78px;
@@ -1120,33 +1121,33 @@ header#title .field-name-field-item-status .field-item, header#title .field-name
   padding-top: 11px;
   padding-left: 3px;
 }
-/* line 70, ../sass/partials/pages/_item-variant.scss */
+/* line 56, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-item-variant-summary .pane-custom .separator {
   border-left: 1px dashed #d0d0d0;
   height: 71px;
 }
-/* line 76, ../sass/partials/pages/_item-variant.scss */
+/* line 62, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-node-field-bol-info, .node-type-item-variant .pane-node-field-bom-info {
   position: relative;
   margin-top: 40px;
 }
-/* line 80, ../sass/partials/pages/_item-variant.scss */
+/* line 66, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-node-field-bol-info table, .node-type-item-variant .pane-node-field-bom-info table {
   width: 100%;
 }
-/* line 83, ../sass/partials/pages/_item-variant.scss */
+/* line 69, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-node-field-bol-info table .field_collection_item_operations, .node-type-item-variant .pane-node-field-bom-info table .field_collection_item_operations {
   width: 85px;
 }
-/* line 87, ../sass/partials/pages/_item-variant.scss */
+/* line 73, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-node-field-bol-info table .field_price, .node-type-item-variant .pane-node-field-bom-info table .field_price {
   width: 150px;
 }
-/* line 92, ../sass/partials/pages/_item-variant.scss */
+/* line 78, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-node-field-bol-info .action-links li, .node-type-item-variant .pane-node-field-bom-info .action-links li {
   list-style-type: none;
 }
-/* line 95, ../sass/partials/pages/_item-variant.scss */
+/* line 81, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-node-field-bol-info .action-links li a, .node-type-item-variant .pane-node-field-bom-info .action-links li a {
   position: absolute;
   right: 0;
@@ -1182,64 +1183,64 @@ header#title .field-name-field-item-status .field-item, header#title .field-name
   content: url("../images/gray-plus.png");
   margin-right: 8px;
 }
-/* line 103, ../sass/partials/pages/_item-variant.scss */
+/* line 89, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-node-field-bol-info .bom-total, .node-type-item-variant .pane-node-field-bom-info .bom-total {
   float: right;
   margin-right: 104px;
   margin-top: 10px;
 }
-/* line 108, ../sass/partials/pages/_item-variant.scss */
+/* line 94, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-node-field-bol-info .bom-total span, .node-type-item-variant .pane-node-field-bom-info .bom-total span {
   display: block;
   float: left;
   color: #666666;
 }
-/* line 113, ../sass/partials/pages/_item-variant.scss */
+/* line 99, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-node-field-bol-info .bom-total span.amount, .node-type-item-variant .pane-node-field-bom-info .bom-total span.amount {
   width: 150px;
   padding: 0 10px;
   color: #ed056b;
 }
-/* line 123, ../sass/partials/pages/_item-variant.scss */
+/* line 109, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-node-field-images {
   margin-top: 65px;
 }
-/* line 127, ../sass/partials/pages/_item-variant.scss */
+/* line 113, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-item-variant-action-links {
   border-top: 1px solid #d1d1d1;
   margin-top: 65px;
 }
-/* line 131, ../sass/partials/pages/_item-variant.scss */
+/* line 117, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-item-variant-action-links h2:after {
   content: ":";
 }
-/* line 135, ../sass/partials/pages/_item-variant.scss */
+/* line 121, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-item-variant-action-links li {
   margin: 0;
 }
-/* line 138, ../sass/partials/pages/_item-variant.scss */
+/* line 124, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-item-variant-action-links li a {
   display: block;
   float: left;
   margin-right: 80px;
 }
-/* line 143, ../sass/partials/pages/_item-variant.scss */
+/* line 129, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-item-variant-action-links li a.pattern-history {
   clear: left;
   font-size: 12px;
   margin-left: 34px;
   color: #888888;
 }
-/* line 151, ../sass/partials/pages/_item-variant.scss */
+/* line 137, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-item-variant-action-links li a.icon {
   color: #537f80;
 }
-/* line 154, ../sass/partials/pages/_item-variant.scss */
+/* line 140, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-item-variant-action-links li a.icon.pattern:before {
   content: url("../images/pattern-file.png");
   margin-right: 5px;
 }
-/* line 159, ../sass/partials/pages/_item-variant.scss */
+/* line 145, ../sass/partials/pages/_item-variant.scss */
 .node-type-item-variant .pane-item-variant-action-links li a.icon.cutter-must:before {
   content: url("../images/cutter-must.png");
   margin-right: 8px;
