@@ -326,6 +326,17 @@ class FeatureContext extends DrupalContext {
           }
           break;
 
+        case '<flag>':
+          $flag = $cell->find('css', 'a.flag-link-toggle');
+          if (!$flag) {
+            throw new \Exception('Flag not found.');
+          }
+
+          if (!empty($words[1]) && $words[1] == 'unflag' && !$flag->hasClass('unflag-action')) {
+            throw new \Exception('Expected unflag link.');
+          }
+          break;
+
         default:
           if ($content != $expected_row[$i]) {
             throw new \Exception("Found '$content' instead of '{$expected_row[$i]}'.");
