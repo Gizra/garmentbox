@@ -313,7 +313,7 @@ class FeatureContext extends DrupalContext {
           break;
 
         case '<textfield>':
-          $input = $cell->find('xpath', "//input[@type='text']");
+          $input = $cell->find('css', '.form-text');
           if (!$input) {
             throw new \Exception('Textfield not found.');
           }
