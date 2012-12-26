@@ -380,6 +380,8 @@ function garmentbox_standard_install() {
     'post comments',
     'skip comment approval',
     'access overlay',
+    // "View user profiles" is for viewing the task_assignee field.
+    'access user profiles',
     filter_permission_name($filtered_html_format),
   );
 
