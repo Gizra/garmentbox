@@ -408,7 +408,8 @@ function _garmentbox_general_get_node_page_primary_button($node) {
  */
 function garmentbox_general_date_format_types() {
   return array(
-    'garmentbox_medium_date' => t('Time'),
+    'garmentbox_short_date' => t('Short date'),
+    'garmentbox_medium_date' => t('Medium date'),
   );
 }
 
@@ -419,8 +420,14 @@ function garmentbox_general_date_formats() {
   $formats = array();
 
   $formats[] = array(
-    'type' => 'garmentbox_medium_date',
+    'type' => 'garmentbox_short_date',
     'format' => 'm/d/Y',
+    'locales' => array(),
+  );
+
+  $formats[] = array(
+    'type' => 'garmentbox_medium_date',
+    'format' => 'D, m/d/Y H:i',
     'locales' => array(),
   );
 
