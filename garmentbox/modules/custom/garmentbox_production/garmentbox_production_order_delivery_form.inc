@@ -232,6 +232,10 @@ function garmentbox_production_order_delivery_form($form, &$form_state, $node) {
               '#default_value' => $variant_data[$type]['sizes'][$term->tid],
               '#size' => 4,
               '#disabled' => $variant_data['in_warehouse'],
+              '#attributes' => array(
+                'type' => 'number',
+                'class' => array('number'),
+              ),
             );
             break;
         }
@@ -266,7 +270,11 @@ function garmentbox_production_order_delivery_form($form, &$form_state, $node) {
           '#title' => check_plain($term->name),
           '#element_validate' => array('garmentbox_production_element_validate_not_negative_integer'),
           '#default_value' => $il['quantity'][$term->tid],
-          '#attributes' => array('data-line-nid' => $il_nid),
+          '#attributes' => array(
+            'data-line-nid' => $il_nid,
+            'type' => 'number',
+            'class' => array('number'),
+          ),
           '#size' => 4,
         );
       }
