@@ -6,8 +6,8 @@ Feature: Production order delivery.
     Given I am logged in as "imanimo"
      When I am on a "Production delivery" page of the default "production-order"
      Then the table "delivery-inventory" should have the following <contents>:
-      | Received   | Item variation             | Type      | Small          | Medium         | Large          | Production price |
-      | <checkbox> | Black v-neck shirt         | Received  | <textfield> 21 | <textfield> 6  |                | $1,215.00          |
+      | Received   | Item variation     | Type      | Small          | Medium         | Large | Production price |
+      | <checkbox> | Black v-neck shirt | Received  | <textfield> 21 | <textfield> 6  |       | $1,215.00        |
 
   @javascript
   Scenario: Setting a production order as delivered and viewing the delivery tab.
@@ -21,10 +21,10 @@ Feature: Production order delivery.
       And I fill in "Medium" with "3" in row containing "Defective" in table "delivery-inventory"
       And I press "Save"
      Then the table "delivery-inventory" should have the following <contents>:
-      | Received           | Item variation             | Type      | Small          | Medium        | Large | Production price |
-      | <checkbox> checked | Black v-neck shirt         | Received  | <textfield> 16 | <textfield> 9 |       | $1,125.00        |
-      |                    |                            | Original  | 21             | 6             |       | $1,215.00        |
-      |                    |                            | Missing   | 2              |               |       | $90.00           |
-      |                    |                            | Missing   | 3              |               |       | $135.00          |
-      |                    |                            | Defective | <textfield>    | <textfield> 3 |       | $135.00          |
-      |                    |                            | Extras    |                | 3             |       | $135.00          |
+      | Received           | Item variation     | Type      | Small          | Medium        | Large | Production price |
+      | <checkbox> checked | Black v-neck shirt | Received  | <textfield> 16 | <textfield> 9 |       | $1,125.00        |
+      |                    |                    | Original  | 21             | 6             |       | $1,215.00        |
+      |                    |                    | Missing   | 2              |               |       | $90.00           |
+      |                    |                    | Missing   | 3              |               |       | $135.00          |
+      |                    |                    | Defective | <textfield>    | <textfield> 3 |       | $135.00          |
+      |                    |                    | Extras    |                | 3             |       | $135.00          |

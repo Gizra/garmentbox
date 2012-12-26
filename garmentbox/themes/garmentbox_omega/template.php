@@ -65,6 +65,10 @@ function garmentbox_omega_preprocess_material_node(&$variables) {
  *     #required, #attributes, #autocomplete_path.
  *
  * @ingroup themeable
+ *
+ * @see theme_textfield().
+ *   This function is overriden in order to allow custom type attributes.
+ *   Can be removed if http://drupal.org/node/1873788 is accepted into core.
  */
 function garmentbox_omega_textfield($variables) {
   $element = $variables['element'];
