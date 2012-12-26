@@ -93,8 +93,8 @@ function garmentbox_order_get_orders_table($node) {
     // @todo:
     $order_row['data'][] = t('N/A');
     $order_row['data'][] = $row['order_info']['total_items'];
-    $order_row['data'][] = $row['order_info']['last_delivery_timestamp'] ? format_date($row['order_info']['last_delivery_timestamp'], 'medium_no_time') : t('N/A');
-    $order_row['data'][] = $row['order_info']['next_delivery_timestamp'] ? format_date($row['order_info']['next_delivery_timestamp'], 'medium_no_time') : t('N/A');
+    $order_row['data'][] = $row['order_info']['last_delivery_timestamp'] ? format_date($row['order_info']['last_delivery_timestamp'], 'garmentbox_short_date') : t('N/A');
+    $order_row['data'][] = $row['order_info']['next_delivery_timestamp'] ? format_date($row['order_info']['next_delivery_timestamp'], 'garmentbox_short_date') : t('N/A');
     $order_row['data'][] = $row['order_info']['status'];
 
     $order_table[] = $order_row;
