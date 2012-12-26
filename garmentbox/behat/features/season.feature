@@ -29,8 +29,8 @@ Feature: Test Season page
     Given I am logged in as a user from "Imanimo"
      When I am on the "Season items" page of the default "season"
      Then I should see a table titled "V-neck shirt" with the following <contents>:
-      | Variant                    | Main material | Status     | Retail price | Wholesale price |
-      | <image> Black v-neck shirt | <image>       | Needs work | $100.00      | $70.00          |
+      | Variant                    | Main material | Status     | Retail price | Wholesale price | Line sheet    |
+      | <image> Black v-neck shirt | <image>       | Needs work | $100.00      | $70.00          | <flag> unflag |
 
   @api
   Scenario: Correct content is shown on the season inventory list.
