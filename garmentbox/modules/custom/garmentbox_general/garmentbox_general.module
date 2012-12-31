@@ -433,3 +433,21 @@ function garmentbox_general_date_formats() {
 
   return $formats;
 }
+
+/**
+ * Implements hook_form_alter().
+ * Add a wrapping element for user login forms.
+ */
+function garmentbox_general_form_alter(&$form, $form_state) {
+  $form_ids = array(
+    'user_login_block',
+    'user_login',
+  );
+  if (!in_array($form['#form_id'], $form_ids)) {
+    return;
+  }
+  $form['#prefix'] = '<div class="user-login-form">';
+  $form['#suffix'] = '</div>';
+  $form['actions']['submit']['#prefix'] = '<span class="button">';
+  $form['actions']['submit']['#suffix'] = '</span>';
+}
