@@ -65,7 +65,7 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext {
    */
   public function iAmLoggedInAsAUserFrom($company) {
     // Log-in and then group the created user to the given company.
-    $this->iAmLoggedInWithRole('authenticated user');
+    $this->assertAuthenticatedByRole('authenticated user');
     $uid = $this->user->uid;
     $nid = $this->getEntityId($company);
     $action = "\"og_group('node', $nid, array('entity' => $uid));\"";
