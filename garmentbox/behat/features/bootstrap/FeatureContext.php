@@ -8,7 +8,7 @@ use Behat\Behat\Context\Step;
 
 require 'vendor/autoload.php';
 
-class FeatureContext extends DrupalContext {
+class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext {
 
   /**
    * Array of flaggings in the tests to revert in the end of testing.
