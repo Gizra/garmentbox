@@ -68,8 +68,7 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext {
     $this->assertAuthenticatedByRole('authenticated user');
     $uid = $this->user->uid;
     $nid = $this->getEntityId($company);
-    $action = "\"og_group('node', $nid, array('entity' => $uid));\"";
-    $this->getDriver()->drush('php-eval', array($action));
+    og_group('node', $nid, array('entity' => $uid));
   }
 
 
