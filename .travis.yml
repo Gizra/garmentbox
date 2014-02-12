@@ -1,18 +1,26 @@
 language: php
 
 php:
-  - 5.4
+  - 5.3
 
 mysql:
   database: drupal
   username: root
   encoding: utf8
 
-before_script:
-  - "mysql -e 'create database drupal;'"
-  - pear channel-discover pear.drush.org
-  - pear install drush/drush
+before_install:
+  - sudo apt-get update > /dev/null
+
+install:
+  # install php packages required for running a web server from drush on php 5.3
+  - sudo apt-get install -y --force-yes php5-cgi php5-mysql
+
+  # install drush
+  - export PATH="$HOME/.composer/vendor/bin:$PATH"
+  - composer global require drush/drush:6.*
   - phpenv rehash
+
+before_script:
   - bash scripts/ci/setup
   - bash scripts/build
   - cd www
@@ -20,6 +28,7 @@ before_script:
   - drush cc all --yes
   # Use drush migrate command to import dummy content, as user 1, so we don't have node access issues.
   - drush mi --all --user=1
+
   - cd ..
 
   # Create a behat configuration file.
@@ -30,11 +39,6 @@ before_script:
   - cp aliases.drushrc.php ~/.drush/
   - composer install --prefer-source
 
-  # Patch drupalextension.
-  - cd vendor/drupal/drupal-extension/
-  - wget http://drupal.org/files/drupalextension_store_uid_from_drush.diff
-  - git apply drupalextension_store_uid_from_drush.diff
-  - cd ../../../
 
 script:
   # Create display.
@@ -42,11 +46,13 @@ script:
   - sh -e /etc/init.d/xvfb start
   - sleep 3 # give xvfb some time to start
 
-  - sudo drush @garmentbox runserver --server=builtin 80 &
+  # start a web server on port 8080, run in the background; wait for initialization
+  - drush @garmentbox runserver 127.0.0.1:8080 &
+  - until netstat -an 2>/dev/null | grep '8080.*LISTEN'; do true; done
 
   # Run selenium.
-  - wget http://selenium.googlecode.com/files/selenium-server-standalone-2.25.0.jar
-  - java -jar selenium-server-standalone-2.25.0.jar -p 4444 &
+  - wget http://selenium-release.storage.googleapis.com/2.40/selenium-server-standalone-2.40.0.jar
+  - java -jar selenium-server-standalone-2.40.0.jar -p 4444 &
   - sleep 5
 
   - ./bin/behat --tags=~@wip
