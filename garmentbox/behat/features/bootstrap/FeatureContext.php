@@ -629,7 +629,6 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext {
    */
   public function iAmOnTheDefaultPage($node_type) {
     $company = 'imanimo';
-    $node_type = str_replace('-', '_', $node_type);
     $nid = $this->sample_nodes[$company][$node_type];
     $path = $company . '/node/' . $nid;
     return new Step\When("I am at \"$path\"");
