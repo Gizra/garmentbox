@@ -574,15 +574,7 @@ class garmentboxInventoryLines extends garmentboxMigration {
       ->sourceMigration('garmentboxInventoryTypeTerms');
 
     $this->addFieldMapping('field_production_start_date', 'field_production_start_date');
-
-    // Set the delivery date to a random future.
-    // @todo: Improve logic, so some delivery dates are in the past.
-    $month = rand(1, 12);
-    $timestamp = strtotime("now + $month month");
-
-    $this->addFieldMapping('field_delivery_date')
-      ->defaultValue(date('r', $timestamp));
-
+    $this->addFieldMapping('field_delivery_date');
     $this->addFieldMapping('field_defective', 'field_defective');
 
     $this
@@ -595,6 +587,10 @@ class garmentboxInventoryLines extends garmentboxMigration {
     if (!$row->field_production_order) {
       $row->field_production_order = NULL;
     }
+
+    // Set the delivery date to a random future.
+    $month = rand(1, 12);
+    $row->field_delivery_date = strtotime("now + $month month");
   }
 }
 
