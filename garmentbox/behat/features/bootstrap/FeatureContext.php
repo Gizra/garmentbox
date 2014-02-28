@@ -577,11 +577,9 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext {
    * @When /^I am on (a|the) "([^"]*)" page of the default "([^"]*)"(?: of "([^"]*)"|)$/
    */
   public function iAmOnThePageOfTheDefault($the, $page_name, $node_type, $company = 'Imanimo') {
-    $node_type = str_replace('-', '_', $node_type);
     $company = strtolower($company);
     $nid = $this->sample_nodes[$company][$node_type];
 
-    $steps = array();
     switch($page_name) {
       case 'Node view':
         $path = "node/$nid";
