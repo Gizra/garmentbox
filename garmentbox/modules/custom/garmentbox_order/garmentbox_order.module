@@ -53,6 +53,7 @@ function garmentbox_order_get_orders_table($node) {
 
   drupal_add_js(drupal_get_path('module', 'garmentbox_order') . '/js/orders_table.js');
 
+  $rows = array();
   $header = array(
     t('Order'),
     t('Customer'),
