@@ -75,31 +75,12 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext {
   /**
    * @Given /^I am on a "([^"]*)" page titled "([^"]*)"(?:, in the tab "([^"]*)"|)$/
    */
-  public function iAmOnAPageTitled($page_type, $title, $subpage = NULL) {
-    switch ($page_type) {
-      case 'item-variant':
-      case 'season':
-      case 'item':
-      case 'material':
-        $table = 'node';
-        $id_column = 'nid';
-        $title_column = 'title';
-        // @todo: Remove hardcoding.
-        $path = "imanimo/$page_type/%";
-        $type = str_replace('-', '_', $page_type);
-        break;
-
-      default:
-        throw new \Exception("Unknown page type '$page_type'.");
+  public function iAmOnAPageTitled($bundle, $title, $subpage = NULL) {
+    if (!$id = $this->getEntityId($title, 'node', $bundle)) {
+      throw new \Exception("No $bundle with title '$title' was found.");
     }
 
-    $id = $this->getEntityId($title, $table, $id_column, $title_column, $type);
-    if (!$id) {
-      throw new \Exception("No $page_type with title '$title' was found.");
-    }
-
-    $path .= "/$subpage";
-    $path = str_replace('%', $id, $path);
+    $path = "imanimo/$bundle/$id/$subpage";
     return new Given("I am at \"$path\"");
   }
 
@@ -108,12 +89,16 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext {
    */
   private function getEntityId($title, $entity_type = 'node', $bundle = NULL) {
     $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', $entity_type);
+
+    if ($bundle) {
+      $query->entityCondition('bundle', $bundle);
+    }
+
     $result = $query
-      ->entityCondition('entity_type', $entity_type)
       ->propertyCondition('title', $title)
       ->range(0, 1)
       ->execute();
-
 
     return !empty($result[$entity_type]) ? key($result[$entity_type]) : FALSE;
   }
