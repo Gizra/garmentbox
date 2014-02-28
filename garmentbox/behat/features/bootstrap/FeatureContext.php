@@ -39,28 +39,6 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext {
   }
 
   /**
-   * Authenticates a user with password from configuration.
-   *
-   * @Given /^I am logged in as "([^"]*)"$/
-   */
-  public function iAmLoggedInAs($username) {
-    try {
-      $password = $this->drupal_users[$username];
-    }
-    catch (\Exception $e) {
-      throw new \Exception("Password not found for '$username'.");
-    }
-
-    // Log in.
-    $element = $this->getSession()->getPage();
-    $this->getSession()->visit($this->locatePath('/user'));
-    $element->fillField('Username', $username);
-    $element->fillField('Password', $password);
-    $submit = $element->findButton('Log in');
-    $submit->click();
-  }
-
-  /**
    * @Given /^I am logged in as a user from "([^"]*)"$/
    */
   public function iAmLoggedInAsAUserFrom($company) {
@@ -80,6 +58,7 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext {
       throw new \Exception("No $bundle with title '$title' was found.");
     }
 
+    // @todo: Remove hardcoding of imanimo.
     $path = "imanimo/$bundle/$id/$subpage";
     return new Given("I am at \"$path\"");
   }
