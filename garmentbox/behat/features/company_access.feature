@@ -1,5 +1,5 @@
 Feature: Test company access
-  Verify that user sees and is able to edit only content of his own company.
+  Verify that user sees and is able to edit only content of thier own company.
 
   @api
   Scenario: Anonymous user trying to access a company, should be denied access.

@@ -106,20 +106,16 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext {
   /**
    * Find entity ID by title.
    */
-  private function getEntityId($title, $table = 'node', $id_column = 'nid', $title_column = 'title', $type = NULL) {
-    //TODO: The title and type should be properly escaped.
-    $query = "\"
-      SELECT $id_column AS identifier
-      FROM $table
-      WHERE $title_column = '$title'
-    ";
-    if ($type) {
-      $query .= "AND type = '$type'";
-    }
-    $query .= " LIMIT 1\"";
+  private function getEntityId($title, $entity_type = 'node', $bundle = NULL) {
+    $query = new EntityFieldQuery();
+    $result = $query
+      ->entityCondition('entity_type', $entity_type)
+      ->propertyCondition('title', $title)
+      ->range(0, 1)
+      ->execute();
 
-    $result = $this->getDriver()->drush('sql-query', array($query));
-    return trim(substr($result, strlen('identifier')));
+
+    return !empty($result[$entity_type]) ? key($result[$entity_type]) : FALSE;
   }
 
   /**
