@@ -8,18 +8,19 @@ mysql:
   username: root
   encoding: utf8
 
-before_script:
-  - mysql -e 'create database drupal'
+before_install:
+  - sudo apt-get update > /dev/null
 
-  # Install drush
+install:
+  # install php packages required for running a web server from drush on php 5.3
+  - sudo apt-get install -y --force-yes php5-cgi php5-mysql
+
+  # install drush
   - pear channel-discover pear.drush.org
   - pear install drush/drush-5.8.0
   - phpenv rehash
 
-  # install php packages required for running a web server from drush on php 5.3
-  - sudo apt-get update > /dev/null
-  - sudo apt-get install -y --force-yes php5-cgi php5-mysql
-
+before_script:
   - bash scripts/ci/setup
   - bash scripts/build
   - cd www
