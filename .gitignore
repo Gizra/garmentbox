@@ -51,6 +51,7 @@ install.sh
 ##########
 .project
 .settings/
+.idea
 
 # Behat
 garmentbox/behat/vendor/

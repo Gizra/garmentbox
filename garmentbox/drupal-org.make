@@ -165,3 +165,6 @@ libraries[jquery.cycle][download][url] = "https://github.com/malsup/cycle.git"
 ; Themes
 projects[omega][subdir] = "contrib"
 projects[omega][version] = "4.0-alpha1"
+
+projects[bootstrap][subdir] = "contrib"
+projects[bootstrap][version] = "3.x-dev"
