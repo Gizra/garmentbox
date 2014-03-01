@@ -10,10 +10,12 @@ mysql:
 
 before_script:
   - mysql -e 'create database drupal'
+
+  # Install drush
   - pear channel-discover pear.drush.org
-  - export PATH="$HOME/.composer/vendor/bin:$PATH"
-  - composer global require drush/drush:6.*
+  - pear install drush/drush-5.8.0
   - phpenv rehash
+
   - bash scripts/ci/setup
   - bash scripts/build
   - cd www
