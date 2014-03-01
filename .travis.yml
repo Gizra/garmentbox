@@ -1,7 +1,7 @@
 language: php
 
 php:
-  - 5.4
+  - 5.3
 
 mysql:
   database: drupal
@@ -16,6 +16,10 @@ before_script:
   - pear install drush/drush-5.8.0
   - phpenv rehash
 
+  # install php packages required for running a web server from drush on php 5.3
+  - sudo apt-get update > /dev/null
+  - sudo apt-get install -y --force-yes php5-cgi php5-mysql
+
   - bash scripts/ci/setup
   - bash scripts/build
   - cd www
@@ -23,7 +27,7 @@ before_script:
   - drush cc all --yes
   # Use drush migrate command to import dummy content, as user 1, so we don't have node access issues.
   - drush mi --all --user=1
-  - drush runserver 127.0.0.1 &
+
   - cd ..
 
   # Create a behat configuration file.
@@ -41,12 +45,13 @@ script:
   - sh -e /etc/init.d/xvfb start
   - sleep 3 # give xvfb some time to start
 
+  # start a web server on port 8080, run in the background; wait for initialization
+  - drush @garmentbox runserver 127.0.0.1:8080 &
+
   # Run selenium.
   - wget http://selenium-release.storage.googleapis.com/2.40/selenium-server-standalone-2.40.0.jar
   - java -jar selenium-server-standalone-2.40.0.jar -p 4444 &
   - sleep 5
-
-  - curl -I http://127.0.0.1
 
   - ./bin/behat --tags=~@wip
 
