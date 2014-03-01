@@ -1,0 +1,13 @@
+.flag-line-sheet a {
+  font-size: 11px;
+  display: block;
+  background: url("../images/unflagged.png") no-repeat;
+  padding-left: 30px; //LTR
+  height: 26px;
+  line-height: 26px;
+  color: #515151;
+
+  &.unflag-action {
+    background-image: url("../images/flagged.png");
+  }
+}

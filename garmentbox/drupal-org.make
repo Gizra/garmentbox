@@ -78,6 +78,9 @@ projects[inline_entity_form][version] = "1.5"
 projects[jcarousel][subdir] = "contrib"
 projects[jcarousel][version] = "2.6"
 
+projects[jquery_update][subdir] = "contrib"
+projects[jquery_update][version] = "2.3"
+
 projects[libraries][subdir] = "contrib"
 projects[libraries][version] = "2.2"
 

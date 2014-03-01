@@ -15,15 +15,18 @@ function garmentbox_install() {
   theme_disable(array('bartik'));
 
   // Enable our themes.
-  theme_enable(array('omega', 'garmentbox_omega', 'seven'));
+  theme_enable(array('bootstrap', 'bootstrap_subtheme', 'seven'));
 
   // Set the default theme.
-  variable_set('theme_default', 'garmentbox_omega');
+  variable_set('theme_default', 'bootstrap_subtheme');
 
   // Enable node view page override by Page manager module.
   variable_set('page_manager_node_view_disabled', FALSE);
 
   variable_set('node_admin_theme', TRUE);
+
+  // Update to jquery 1.8.
+  variable_set('jquery_update_jquery_version', '1.8');
 
   // Set required date API variables.
   // See date_api_status().
