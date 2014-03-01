@@ -6,6 +6,10 @@
 
 include_once 'garmentbox_general.features.inc';
 
+// Load the correct jQuery version. This is done before the call to os_init().
+global $conf;
+$conf['jquery_update_jquery_version'] = strpos($_GET['q'], 'admin') === 0 ? '1.5' : '1.8';
+
 /**
  * Implements hook_ctools_plugin_directory().
  */

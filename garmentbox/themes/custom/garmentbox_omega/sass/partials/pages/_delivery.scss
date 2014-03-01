@@ -1,0 +1,25 @@
+body.page-production-order-delivery {
+
+  #delivery-inventory {
+
+    tr.missing .form-type-checkbox {
+      float: right; //LTR
+
+      input {
+        margin-right: 0; //LTR
+      }
+    }
+
+    tr.subrow a.expander {
+      float: right; //LTR
+      margin-right: 0; //LTR
+    }
+
+    tr.missing td.size-quantity span {
+      border: 2px solid blue;
+      width: 40px;
+      height: 15px;
+      display: block;
+    }
+  }
+}
