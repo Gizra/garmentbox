@@ -43,7 +43,7 @@ script:
   - sudo drush @garmentbox runserver --server=builtin 80 &
 
   # Run selenium.
-  - wget http://selenium.googlecode.com/files/selenium-server-standalone-2.25.0.jar
+  - wget http://selenium-release.storage.googleapis.com/2.40/selenium-server-standalone-2.40.0.jar
   - java -jar selenium-server-standalone-2.25.0.jar -p 4444 &
   - sleep 5
 
