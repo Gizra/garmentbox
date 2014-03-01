@@ -52,6 +52,7 @@ install.sh
 .project
 .settings/
 .idea
+.sass-cache
 
 # Behat
 garmentbox/behat/vendor/
