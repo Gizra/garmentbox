@@ -663,11 +663,12 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext {
     }
 
     // Unflag every flagged flag.
+    $account = user_load(1);
     foreach ($this->flagged as $flag) {
       $entity_id = $flag['entity_id'];
       $flag_name = $flag['flag_name'];
-      $code = "flag('unflag', $flag_name, $entity_id, user_load(1)); ";
-      $this->getDriver()->drush("php-eval '$code'");
+
+      flag('unflag', $flag_name, $entity_id, $account);
     }
     // Clean the flagged flags list.
     $this->flagged = array();
