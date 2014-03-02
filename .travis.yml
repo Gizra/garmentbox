@@ -16,8 +16,8 @@ install:
   - sudo apt-get install -y --force-yes php5-cgi php5-mysql
 
   # install drush
-  - pear channel-discover pear.drush.org
-  - pear install drush/drush-5.8.0
+  - export PATH="$HOME/.composer/vendor/bin:$PATH"
+  - composer global require drush/drush:6.*
   - phpenv rehash
 
 before_script:
