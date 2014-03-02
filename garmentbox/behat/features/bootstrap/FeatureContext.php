@@ -55,6 +55,7 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext {
    * @Given /^I am logged in as the "([^"]*)"$/
    */
   public function iAmLoggedInAs($username) {
+    $this->user = new stdClass();
     $this->user->name = $username;
     $this->user->pass = $this->drupal_users[$username];
     $this->login();
