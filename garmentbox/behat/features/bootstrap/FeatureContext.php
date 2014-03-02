@@ -66,7 +66,7 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext {
    * @Given /^I am on a "([^"]*)" page titled "([^"]*)"(?:, in the tab "([^"]*)"|)$/
    */
   public function iAmOnAPageTitled($bundle, $title, $subpage = NULL) {
-    if (!$id = $this->getEntityId($title, 'node', $bundle)) {
+    if (!$id = $this->getEntityId($title, 'node', str_replace('-', '_', $bundle))) {
       throw new \Exception("No $bundle with title '$title' was found.");
     }
 
