@@ -51,10 +51,11 @@ install.sh
 ##########
 .project
 .settings/
+.idea
+.sass-cache
 
 # Behat
 garmentbox/behat/vendor/
 behat.local.yml
 garmentbox/behat/bin
 garmentbox/behat/composer.phar
-garmentbox/behat/composer.lock

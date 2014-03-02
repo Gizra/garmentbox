@@ -629,7 +629,6 @@ input.form-text.number {
   line-height: 26px;
   color: #515151;
 }
-
 /* line 10, ../sass/partials/widget/_flag.scss */
 .flag-line-sheet a.unflag-action {
   background-image: url("../images/flagged.png");
@@ -746,15 +745,20 @@ header#title .field-name-field-item-status .field-item, header#title .field-name
   margin-top: 10px;
 }
 
-/* line 5, ../sass/partials/layout/_page.scss */
-#content {
+/* line 7, ../sass/partials/layout/_page.scss */
+.not-logged-in #main {
+  padding-top: 2%;
+}
+
+/* line 13, ../sass/partials/layout/_page.scss */
+.logged-in #content {
   border: 1px solid #e4e4e2;
   background-color: white;
   margin-top: 5px;
   padding: 20px;
 }
-/* line 11, ../sass/partials/layout/_page.scss */
-#content h2.pane-title {
+/* line 19, ../sass/partials/layout/_page.scss */
+.logged-in #content h2.pane-title {
   font-weight: normal;
   font-size: 28px;
   margin-bottom: 10px;
@@ -1279,88 +1283,93 @@ body.page-production-order-delivery #delivery-inventory tr.missing td.size-quant
   display: block;
 }
 
-/* line 4, ../sass/style.scss */
+/* line 5, ../sass/style.scss */
 .container {
   width: 1200px;
   margin: 0 auto;
 }
 
-/* line 9, ../sass/style.scss */
+/* line 10, ../sass/style.scss */
+.element-invisible {
+  display: none;
+}
+
+/* line 14, ../sass/style.scss */
 body {
   margin: 0;
   background-color: #f4f4f2;
   font-family: Dosis, Arial, Helvetica, sans-serif;
   padding-bottom: 20px;
 }
-/* line 15, ../sass/style.scss */
+/* line 20, ../sass/style.scss */
 body.contextual-links-region {
   position: static;
 }
 
-/* line 20, ../sass/style.scss */
+/* line 25, ../sass/style.scss */
 a {
   color: #679190;
   text-decoration: none;
 }
-/* line 24, ../sass/style.scss */
+/* line 29, ../sass/style.scss */
 a:hover {
   text-decoration: underline;
 }
 
-/* line 29, ../sass/style.scss */
+/* line 34, ../sass/style.scss */
 li {
   list-style-type: none;
 }
 
-/* line 33, ../sass/style.scss */
+/* line 38, ../sass/style.scss */
 .item-list ul li {
   margin: 0;
 }
 
-/* line 41, ../sass/style.scss */
+/* line 46, ../sass/style.scss */
 table tbody td {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* line 49, ../sass/style.scss */
+/* line 54, ../sass/style.scss */
 .content .panel-col-first {
   float: left;
   width: 49.5%;
 }
-/* line 54, ../sass/style.scss */
+/* line 59, ../sass/style.scss */
 .content .panel-col-last {
   float: left;
   width: 49.5%;
   margin-left: 1%;
 }
-/* line 59, ../sass/style.scss */
+/* line 64, ../sass/style.scss */
 .content .panel-col-last .jcarousel-skin-default .jcarousel-container-horizontal .jcarousel-clip-horizontal {
   width: 414px;
 }
-/* line 62, ../sass/style.scss */
+/* line 67, ../sass/style.scss */
 .content .panel-col-last .jcarousel-skin-default .jcarousel-container-horizontal .jcarousel-clip-horizontal ul li {
   height: 213px;
 }
 
-/* line 71, ../sass/style.scss */
+/* line 76, ../sass/style.scss */
 html.js .page-season fieldset.collapsible {
   border: none;
   padding: 0;
   margin-bottom: 45px;
 }
-/* line 78, ../sass/style.scss */
+/* line 83, ../sass/style.scss */
 html.js .page-season fieldset.collapsible.collapsed .fieldset-legend {
   background: url("../images/arrow-white-down-status.png") 7px 10px no-repeat #4f4f4f;
 }
-/* line 83, ../sass/style.scss */
+/* line 88, ../sass/style.scss */
 html.js .page-season fieldset.collapsible a {
   font-size: 15px;
 }
-/* line 86, ../sass/style.scss */
+/* line 91, ../sass/style.scss */
 html.js .page-season fieldset.collapsible a.fieldset-title {
   color: white;
 }
-/* line 91, ../sass/style.scss */
+/* line 96, ../sass/style.scss */
 html.js .page-season fieldset.collapsible .fieldset-hr {
   border: 0;
   border-bottom: solid #4f4f4f 1px;
@@ -1369,11 +1378,11 @@ html.js .page-season fieldset.collapsible .fieldset-hr {
   padding-top: 25px;
   background: url("../images/top-shaddow-collapsible.jpg") repeat-x bottom;
 }
-/* line 100, ../sass/style.scss */
+/* line 105, ../sass/style.scss */
 html.js .page-season fieldset.collapsible legend {
   padding: 0;
 }
-/* line 103, ../sass/style.scss */
+/* line 108, ../sass/style.scss */
 html.js .page-season fieldset.collapsible legend .fieldset-legend {
   font-weight: bold;
   background: url("../images/arrow-white-up-status.png") 7px 10px no-repeat #4f4f4f;
@@ -1382,55 +1391,173 @@ html.js .page-season fieldset.collapsible legend .fieldset-legend {
   margin: 0;
   position: absolute;
 }
-/* line 113, ../sass/style.scss */
+/* line 118, ../sass/style.scss */
 html.js .page-season fieldset.collapsible .views-table caption {
   display: none;
 }
-/* line 119, ../sass/style.scss */
+/* line 124, ../sass/style.scss */
 html.js .page-season fieldset.collapsible .fieldset-wrapper tr, html.js .page-season fieldset.collapsible .fieldset-wrapper td {
   padding: 0;
 }
-/* line 123, ../sass/style.scss */
+/* line 128, ../sass/style.scss */
 html.js .page-season fieldset.collapsible .fieldset-wrapper thead th {
   font-family: Dosis, Arial, Helvetica, sans-serif;
 }
-/* line 126, ../sass/style.scss */
+/* line 131, ../sass/style.scss */
 html.js .page-season fieldset.collapsible .fieldset-wrapper thead th .active img {
   margin-left: 5px;
 }
-/* line 133, ../sass/style.scss */
+/* line 138, ../sass/style.scss */
 html.js .page-season fieldset.collapsible .fieldset-wrapper .display-cell .display-cell-image {
   padding: 1px;
   float: left;
 }
-/* line 137, ../sass/style.scss */
+/* line 142, ../sass/style.scss */
 html.js .page-season fieldset.collapsible .fieldset-wrapper .display-cell .display-cell-image a {
   display: block;
   height: 75px;
 }
-/* line 143, ../sass/style.scss */
+/* line 148, ../sass/style.scss */
 html.js .page-season fieldset.collapsible .fieldset-wrapper .display-cell .display-cell-title {
   float: left;
   margin-top: 28px;
 }
-/* line 151, ../sass/style.scss */
+/* line 156, ../sass/style.scss */
 html.js .page-season fieldset.collapsible .fieldset-wrapper .views-field-field-bom-info a {
   display: block;
   height: 75px;
 }
-/* line 156, ../sass/style.scss */
+/* line 161, ../sass/style.scss */
 html.js .page-season fieldset.collapsible .fieldset-wrapper .views-field-field-bom-info img {
   border-right: 1px solid #B7B7B7;
   padding: 5px;
 }
-/* line 164, ../sass/style.scss */
+/* line 169, ../sass/style.scss */
 html.js .page-season fieldset.collapsible .fieldset-wrapper td.views-field-field-item-status, html.js .page-season fieldset.collapsible .fieldset-wrapper td.views-field-field-retail-price, html.js .page-season fieldset.collapsible .fieldset-wrapper td.views-field-field-wholesale-price {
   font-weight: bold;
   font-size: 15px;
   color: #010101;
   padding-left: 10px;
 }
-/* line 171, ../sass/style.scss */
+/* line 176, ../sass/style.scss */
 html.js .page-season fieldset.collapsible .fieldset-wrapper td.views-field-field-item-status {
   font-weight: normal;
+}
+
+/* line 184, ../sass/style.scss */
+.user-login-form {
+  width: 25%;
+  margin-left: 37.5%;
+  padding-top: 10px;
+  text-align: center;
+  background-color: #bac4c4;
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FFBAC4C4', endColorstr='#FFF1F4F4');
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2JhYzRjNCIvPjxzdG9wIG9mZnNldD0iMSUiIHN0b3AtY29sb3I9IiNiZmM5YzkiLz48c3RvcCBvZmZzZXQ9IjIlIiBzdG9wLWNvbG9yPSIjZDBkYWRhIi8+PHN0b3Agb2Zmc2V0PSIzJSIgc3RvcC1jb2xvcj0iI2QzZGRkZCIvPjxzdG9wIG9mZnNldD0iNCUiIHN0b3AtY29sb3I9IiNkM2RlZGUiLz48c3RvcCBvZmZzZXQ9IjY4JSIgc3RvcC1jb2xvcj0iI2VhZWZlZiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2YxZjRmNCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #bac4c4), color-stop(1%, #bfc9c9), color-stop(2%, #d0dada), color-stop(3%, #d3dddd), color-stop(4%, #d3dede), color-stop(68%, #eaefef), color-stop(100%, #f1f4f4));
+  background-image: -webkit-linear-gradient(top, #bac4c4 0%, #bfc9c9 1%, #d0dada 2%, #d3dddd 3%, #d3dede 4%, #eaefef 68%, #f1f4f4 100%);
+  background-image: -moz-linear-gradient(top, #bac4c4 0%, #bfc9c9 1%, #d0dada 2%, #d3dddd 3%, #d3dede 4%, #eaefef 68%, #f1f4f4 100%);
+  background-image: -o-linear-gradient(top, #bac4c4 0%, #bfc9c9 1%, #d0dada 2%, #d3dddd 3%, #d3dede 4%, #eaefef 68%, #f1f4f4 100%);
+  background-image: linear-gradient(top, #bac4c4 0%, #bfc9c9 1%, #d0dada 2%, #d3dddd 3%, #d3dede 4%, #eaefef 68%, #f1f4f4 100%);
+}
+/* line 195, ../sass/style.scss */
+.user-login-form .block-title, .user-login-form #user-login > div:before {
+  color: #3a4646;
+  font-size: 28px;
+  margin-bottom: 0;
+  line-height: 30px;
+  margin-top: 0px;
+  font-weight: normal;
+  font-family: "Neo sans", Arial, Helvetica, sans-serif;
+}
+/* line 207, ../sass/style.scss */
+.user-login-form form .form-required {
+  display: none;
+}
+/* line 211, ../sass/style.scss */
+.user-login-form form .item-list {
+  text-align: left;
+}
+/* line 214, ../sass/style.scss */
+.user-login-form form .item-list ul {
+  padding-left: 20px;
+}
+/* line 219, ../sass/style.scss */
+.user-login-form form .form-item {
+  margin-top: 15px;
+}
+/* line 222, ../sass/style.scss */
+.user-login-form form .form-item label {
+  float: left;
+  color: #5f8985;
+  padding-top: 0;
+  font-size: 17px;
+  margin-left: 10px;
+  margin-bottom: 0;
+  font-weight: normal;
+  width: 100px;
+}
+/* line 233, ../sass/style.scss */
+.user-login-form form .form-item input {
+  width: 150px;
+  padding: 5px;
+  font-size: 15px;
+  outline: none;
+  border: 1px solid #A5A698;
+  color: #A5A698;
+}
+/* line 241, ../sass/style.scss */
+.user-login-form form .form-item input:focus {
+  -moz-box-shadow: #06F 0 0 7px;
+  -webkit-box-shadow: #06F 0 0 7px;
+  box-shadow: #06F 0 0 7px;
+  color: black;
+}
+/* line 252, ../sass/style.scss */
+.user-login-form form #edit-actions span.button {
+  padding: 9px 0px;
+}
+/* line 256, ../sass/style.scss */
+.user-login-form form #edit-actions .button {
+  text-decoration: none;
+  padding: 16px 3px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -khtml-border-radius: 4px;
+  border-radius: 4px;
+}
+/* line 265, ../sass/style.scss */
+.user-login-form form #edit-actions input {
+  border: 1px solid #60636a;
+  border-radius: 5px;
+  padding: 5px 8px;
+  font-size: 16px;
+  color: white;
+  font-weight: bold;
+  background: #e9bdcc;
+  background: -moz-linear-gradient(top, #e9bdcc 0%, #d06488 3%, #cc5f86 5%, #cb527d 11%, #c34471 19%, #c33f6e 32%, #c83b6f 35%, #c14372 38%, #c33d6f 41%, #c63c6d 43%, #bb446e 46%, #c14470 49%, #c9396c 51%, #c2406e 54%, #be416d 57%, #c5406f 59%, #c2406e 62%, #cb3d6f 65%, #be436f 68%, #c23e6d 70%, #be416d 73%, #c33f6e 76%, #c33f6e 78%, #bb3e6a 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e9bdcc), color-stop(3%, #d06488), color-stop(5%, #cc5f86), color-stop(11%, #cb527d), color-stop(19%, #c34471), color-stop(32%, #c33f6e), color-stop(35%, #c83b6f), color-stop(38%, #c14372), color-stop(41%, #c33d6f), color-stop(43%, #c63c6d), color-stop(46%, #bb446e), color-stop(49%, #c14470), color-stop(51%, #c9396c), color-stop(54%, #c2406e), color-stop(57%, #be416d), color-stop(59%, #c5406f), color-stop(62%, #c2406e), color-stop(65%, #cb3d6f), color-stop(68%, #be436f), color-stop(70%, #c23e6d), color-stop(73%, #be416d), color-stop(76%, #c33f6e), color-stop(78%, #c33f6e), color-stop(100%, #bb3e6a));
+  background: -webkit-linear-gradient(top, #e9bdcc 0%, #d06488 3%, #cc5f86 5%, #cb527d 11%, #c34471 19%, #c33f6e 32%, #c83b6f 35%, #c14372 38%, #c33d6f 41%, #c63c6d 43%, #bb446e 46%, #c14470 49%, #c9396c 51%, #c2406e 54%, #be416d 57%, #c5406f 59%, #c2406e 62%, #cb3d6f 65%, #be436f 68%, #c23e6d 70%, #be416d 73%, #c33f6e 76%, #c33f6e 78%, #bb3e6a 100%);
+  background: -o-linear-gradient(top, #e9bdcc 0%, #d06488 3%, #cc5f86 5%, #cb527d 11%, #c34471 19%, #c33f6e 32%, #c83b6f 35%, #c14372 38%, #c33d6f 41%, #c63c6d 43%, #bb446e 46%, #c14470 49%, #c9396c 51%, #c2406e 54%, #be416d 57%, #c5406f 59%, #c2406e 62%, #cb3d6f 65%, #be436f 68%, #c23e6d 70%, #be416d 73%, #c33f6e 76%, #c33f6e 78%, #bb3e6a 100%);
+  background: -ms-linear-gradient(top, #e9bdcc 0%, #d06488 3%, #cc5f86 5%, #cb527d 11%, #c34471 19%, #c33f6e 32%, #c83b6f 35%, #c14372 38%, #c33d6f 41%, #c63c6d 43%, #bb446e 46%, #c14470 49%, #c9396c 51%, #c2406e 54%, #be416d 57%, #c5406f 59%, #c2406e 62%, #cb3d6f 65%, #be436f 68%, #c23e6d 70%, #be416d 73%, #c33f6e 76%, #c33f6e 78%, #bb3e6a 100%);
+  background: linear-gradient(to bottom, #e9bdcc 0%, #d06488 3%, #cc5f86 5%, #cb527d 11%, #c34471 19%, #c33f6e 32%, #c83b6f 35%, #c14372 38%, #c33d6f 41%, #c63c6d 43%, #bb446e 46%, #c14470 49%, #c9396c 51%, #c2406e 54%, #be416d 57%, #c5406f 59%, #c2406e 62%, #cb3d6f 65%, #be436f 68%, #c23e6d 70%, #be416d 73%, #c33f6e 76%, #c33f6e 78%, #bb3e6a 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e9bdcc', endColorstr='#bb3e6a',GradientType=0 );
+  margin-bottom: 10px;
+  text-shadow: #323230 0 1px 1px;
+}
+/* line 23, ../sass/_mixins.scss */
+.user-login-form form #edit-actions input:hover {
+  text-decoration: none;
+}
+/* line 184, ../sass/_mixins.scss */
+.user-login-form form #edit-actions input:hover {
+  background: #facedd;
+  background: -moz-linear-gradient(bottom, #e9bdcc 0%, #d06488 3%, #cc5f86 5%, #cb527d 11%, #c34471 19%, #c33f6e 32%, #c83b6f 35%, #c14372 38%, #c33d6f 41%, #c63c6d 43%, #bb446e 46%, #c14470 49%, #c9396c 51%, #c2406e 54%, #be416d 57%, #c5406f 59%, #c2406e 62%, #cb3d6f 65%, #be436f 68%, #c23e6d 70%, #be416d 73%, #c33f6e 76%, #c33f6e 78%, #bb3e6a 100%);
+  background: -webkit-gradient(linear, right bottom, right top, color-stop(0%, #e9bdcc), color-stop(3%, #d06488), color-stop(5%, #cc5f86), color-stop(11%, #cb527d), color-stop(19%, #c34471), color-stop(32%, #c33f6e), color-stop(35%, #c83b6f), color-stop(38%, #c14372), color-stop(41%, #c33d6f), color-stop(43%, #c63c6d), color-stop(46%, #bb446e), color-stop(49%, #c14470), color-stop(51%, #c9396c), color-stop(54%, #c2406e), color-stop(57%, #be416d), color-stop(59%, #c5406f), color-stop(62%, #c2406e), color-stop(65%, #cb3d6f), color-stop(68%, #be436f), color-stop(70%, #c23e6d), color-stop(73%, #be416d), color-stop(76%, #c33f6e), color-stop(78%, #c33f6e), color-stop(100%, #bb3e6a));
+  background: -webkit-linear-gradient(bottom, #e9bdcc 0%, #d06488 3%, #cc5f86 5%, #cb527d 11%, #c34471 19%, #c33f6e 32%, #c83b6f 35%, #c14372 38%, #c33d6f 41%, #c63c6d 43%, #bb446e 46%, #c14470 49%, #c9396c 51%, #c2406e 54%, #be416d 57%, #c5406f 59%, #c2406e 62%, #cb3d6f 65%, #be436f 68%, #c23e6d 70%, #be416d 73%, #c33f6e 76%, #c33f6e 78%, #bb3e6a 100%);
+  background: -o-linear-gradient(bottom, #e9bdcc 0%, #d06488 3%, #cc5f86 5%, #cb527d 11%, #c34471 19%, #c33f6e 32%, #c83b6f 35%, #c14372 38%, #c33d6f 41%, #c63c6d 43%, #bb446e 46%, #c14470 49%, #c9396c 51%, #c2406e 54%, #be416d 57%, #c5406f 59%, #c2406e 62%, #cb3d6f 65%, #be436f 68%, #c23e6d 70%, #be416d 73%, #c33f6e 76%, #c33f6e 78%, #bb3e6a 100%);
+  background: -ms-linear-gradient(bottom, #e9bdcc 0%, #d06488 3%, #cc5f86 5%, #cb527d 11%, #c34471 19%, #c33f6e 32%, #c83b6f 35%, #c14372 38%, #c33d6f 41%, #c63c6d 43%, #bb446e 46%, #c14470 49%, #c9396c 51%, #c2406e 54%, #be416d 57%, #c5406f 59%, #c2406e 62%, #cb3d6f 65%, #be436f 68%, #c23e6d 70%, #be416d 73%, #c33f6e 76%, #c33f6e 78%, #bb3e6a 100%);
+  background: linear-gradient(to top, #e9bdcc 0%, #d06488 3%, #cc5f86 5%, #cb527d 11%, #c34471 19%, #c33f6e 32%, #c83b6f 35%, #c14372 38%, #c33d6f 41%, #c63c6d 43%, #bb446e 46%, #c14470 49%, #c9396c 51%, #c2406e 54%, #be416d 57%, #c5406f 59%, #c2406e 62%, #cb3d6f 65%, #be436f 68%, #c23e6d 70%, #be416d 73%, #c33f6e 76%, #c33f6e 78%, #bb3e6a 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#bb3e6a', endColorstr='#e9bdcc',GradientType=0 );
 }
