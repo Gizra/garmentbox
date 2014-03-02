@@ -49,6 +49,17 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext {
     og_group('node', $nid, array('entity' => $uid));
   }
 
+  /**
+   * Authenticates a user with password from configuration.
+   *
+   * @Given /^I am logged in as the "([^"]*)"$/
+   */
+  public function iAmLoggedInAs($username) {
+    $this->user->name = $username;
+    $this->user->pass = $this->drupal_users[$username];
+    $this->login();
+  }
+
 
   /**
    * @Given /^I am on a "([^"]*)" page titled "([^"]*)"(?:, in the tab "([^"]*)"|)$/

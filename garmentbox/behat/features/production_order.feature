@@ -3,7 +3,7 @@ Feature: Test production order flow
 
   @javascript
   Scenario: Viewing the add production-order page, with different Quantity/ Size.
-    Given I am logged in as "imanimo"
+    Given I am logged in as the "imanimo"
       And I am on the "Add a production order" page of the default "season"
      Then the table "inventory" should have the following <contents>:
       | Include in order   | Item variation                   | Small   | Medium  | Large   | Fabric  | Production cost |
@@ -13,7 +13,7 @@ Feature: Test production order flow
 
   @javascript
   Scenario: Testing price re-calculation.
-    Given I am logged in as "imanimo"
+    Given I am logged in as the "imanimo"
       And I am on the "Add a production order" page of the default "season"
       And I click "Grey v-neck shirt"
       And I uncheck "Include in order" in row containing "Customer: High Couture" in table "inventory"
@@ -36,7 +36,7 @@ Feature: Test production order flow
 
   @javascript
   Scenario: Viewing the add production-order page with detailed variant information.
-    Given I am logged in as "imanimo"
+    Given I am logged in as the "imanimo"
       And I am on the "Add a production order" page of the default "season"
       And I click "Grey v-neck shirt"
      When I check "Include in order" in row containing "Grey v-neck shirt - Extra items" in table "inventory"
