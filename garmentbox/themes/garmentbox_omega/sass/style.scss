@@ -7,6 +7,10 @@
   margin: 0 auto;
 }
 
+.element-invisible {
+  display: none;
+}
+
 body {
   margin: 0;
   background-color: #f4f4f2;
@@ -200,10 +204,17 @@ html.js .page-season {
 
   form {
 
-    .description, label .form-required {
+    .form-required {
       display: none;
     }
 
+    .item-list {
+      text-align: left;
+
+      ul {
+        padding-left: 20px;
+      }
+    }
 
     .form-item {
       margin-top: 15px;
@@ -239,20 +250,18 @@ html.js .page-season {
     #edit-actions {
 
       span.button {
-        box-shadow: 0 1px 1px 1px #A4ACAE inset;
         padding: 9px 0px;
       }
 
       .button {
         text-decoration: none;
         padding: 16px 3px;
-        box-shadow: 0 1px 1px 1px #223134 inset;
         -moz-border-radius: 4px;
         -webkit-border-radius: 4px;
         -khtml-border-radius: 4px;
         border-radius: 4px;
-        box-shadow: 0 1px 1px 1px #A4ACAE inset;
       }
+
       input {
         @include pinkButton;
         margin-bottom: 10px;

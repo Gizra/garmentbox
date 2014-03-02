@@ -10,6 +10,8 @@
  * Page preprocess.
  */
 function garmentbox_omega_preprocess_page(&$variables) {
+  // Fix logo display.
+  $variables['logo'] = base_path() . drupal_get_path('theme', 'garmentbox_omega') . '/logo.png';
   if (overlay_get_mode() == 'child') {
     $variables['theme_hook_suggestions'][] = 'page__overlay';
   }
