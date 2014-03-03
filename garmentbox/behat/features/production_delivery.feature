@@ -3,7 +3,7 @@ Feature: Production order delivery.
 
   @javascript
   Scenario: Viewing the delivery tab.
-    Given I am logged in as "imanimo"
+    Given I am logged in as the "imanimo"
      When I am on a "Production delivery" page of the default "production-order"
      Then the table "delivery-inventory" should have the following <contents>:
       | Received   | Item variation     | Type      | Small          | Medium         | Large | Production price |
@@ -11,7 +11,7 @@ Feature: Production order delivery.
 
   @javascript
   Scenario: Setting a production order as delivered and viewing the delivery tab.
-    Given I am logged in as "imanimo"
+    Given I am logged in as the "imanimo"
       And I am on a "Production delivery" page of the default "production-order"
      When I click "Received" in row containing "Black v-neck shirt" in table "delivery-inventory"
       And I fill in "Small" with "16" in row containing "Received" in table "delivery-inventory"

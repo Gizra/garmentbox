@@ -501,8 +501,8 @@ function garmentbox_production_order_items_data($op, $item_variant_nids, $il_nid
     );
 
     // When creating a new order, all lines are checked by default. When
-    // editting, only lines that are already attached are checked.
-    if($op == 'edit') {
+    // editing, only lines that are already attached are checked.
+    if ($op == 'edit') {
       $data[$variant_nid]['lines'][$il->nid]['checked'] = !empty($il->field_production_order);
     }
 
