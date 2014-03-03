@@ -26,7 +26,7 @@ Feature: Test Item page
 
   @javascript
   Scenario: Correct content is shown on the item inventory list.
-    Given I am logged in as "imanimo"
+    Given I am logged in as the "imanimo"
       And I am on the default "item" page
      When I click the row of "Lines v-neck shirt - Total"
      Then I should see a table titled "Inventory summary" with the following <contents>:

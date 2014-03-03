@@ -8,7 +8,7 @@ use Behat\Behat\Context\Step;
 
 require 'vendor/autoload.php';
 
-class FeatureContext extends DrupalContext {
+class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext {
 
   /**
    * Array of flaggings in the tests to revert in the end of testing.
@@ -39,88 +39,59 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
-   * Authenticates a user with password from configuration.
-   *
-   * @Given /^I am logged in as "([^"]*)"$/
-   */
-  public function iAmLoggedInAs($username) {
-    try {
-      $password = $this->drupal_users[$username];
-    }
-    catch (\Exception $e) {
-      throw new \Exception("Password not found for '$username'.");
-    }
-
-    // Log in.
-    $element = $this->getSession()->getPage();
-    $this->getSession()->visit($this->locatePath('/user'));
-    $element->fillField('Username', $username);
-    $element->fillField('Password', $password);
-    $submit = $element->findButton('Log in');
-    $submit->click();
-  }
-
-  /**
    * @Given /^I am logged in as a user from "([^"]*)"$/
    */
   public function iAmLoggedInAsAUserFrom($company) {
     // Log-in and then group the created user to the given company.
-    $this->iAmLoggedInWithRole('authenticated user');
+    $this->assertAuthenticatedByRole('authenticated user');
     $uid = $this->user->uid;
     $nid = $this->getEntityId($company);
-    $action = "\"og_group('node', $nid, array('entity' => $uid));\"";
-    $this->getDriver()->drush('php-eval', array($action));
+    og_group('node', $nid, array('entity' => $uid));
+  }
+
+  /**
+   * Authenticates a user with password from configuration.
+   *
+   * @Given /^I am logged in as the "([^"]*)"$/
+   */
+  public function iAmLoggedInAs($username) {
+    $this->user = new stdClass();
+    $this->user->name = $username;
+    $this->user->pass = $this->drupal_users[$username];
+    $this->login();
   }
 
 
   /**
    * @Given /^I am on a "([^"]*)" page titled "([^"]*)"(?:, in the tab "([^"]*)"|)$/
    */
-  public function iAmOnAPageTitled($page_type, $title, $subpage = NULL) {
-    switch ($page_type) {
-      case 'item-variant':
-      case 'season':
-      case 'item':
-      case 'material':
-        $table = 'node';
-        $id_column = 'nid';
-        $title_column = 'title';
-        // @todo: Remove hardcoding.
-        $path = "imanimo/$page_type/%";
-        $type = str_replace('-', '_', $page_type);
-        break;
-
-      default:
-        throw new \Exception("Unknown page type '$page_type'.");
+  public function iAmOnAPageTitled($bundle, $title, $subpage = NULL) {
+    if (!$id = $this->getEntityId($title, 'node', str_replace('-', '_', $bundle))) {
+      throw new \Exception("No $bundle with title '$title' was found.");
     }
 
-    $id = $this->getEntityId($title, $table, $id_column, $title_column, $type);
-    if (!$id) {
-      throw new \Exception("No $page_type with title '$title' was found.");
-    }
-
-    $path .= "/$subpage";
-    $path = str_replace('%', $id, $path);
+    // @todo: Remove hardcoding of imanimo.
+    $path = "imanimo/$bundle/$id/$subpage";
     return new Given("I am at \"$path\"");
   }
 
   /**
    * Find entity ID by title.
    */
-  private function getEntityId($title, $table = 'node', $id_column = 'nid', $title_column = 'title', $type = NULL) {
-    //TODO: The title and type should be properly escaped.
-    $query = "\"
-      SELECT $id_column AS identifier
-      FROM $table
-      WHERE $title_column = '$title'
-    ";
-    if ($type) {
-      $query .= "AND type = '$type'";
-    }
-    $query .= " LIMIT 1\"";
+  private function getEntityId($title, $entity_type = 'node', $bundle = NULL) {
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', $entity_type);
 
-    $result = $this->getDriver()->drush('sql-query', array($query));
-    return trim(substr($result, strlen('identifier')));
+    if ($bundle) {
+      $query->entityCondition('bundle', $bundle);
+    }
+
+    $result = $query
+      ->propertyCondition('title', $title)
+      ->range(0, 1)
+      ->execute();
+
+    return !empty($result[$entity_type]) ? key($result[$entity_type]) : FALSE;
   }
 
   /**
@@ -618,11 +589,9 @@ class FeatureContext extends DrupalContext {
    * @When /^I am on (a|the) "([^"]*)" page of the default "([^"]*)"(?: of "([^"]*)"|)$/
    */
   public function iAmOnThePageOfTheDefault($the, $page_name, $node_type, $company = 'Imanimo') {
-    $node_type = str_replace('-', '_', $node_type);
     $company = strtolower($company);
     $nid = $this->sample_nodes[$company][$node_type];
 
-    $steps = array();
     switch($page_name) {
       case 'Node view':
         $path = "node/$nid";
@@ -672,7 +641,6 @@ class FeatureContext extends DrupalContext {
    */
   public function iAmOnTheDefaultPage($node_type) {
     $company = 'imanimo';
-    $node_type = str_replace('-', '_', $node_type);
     $nid = $this->sample_nodes[$company][$node_type];
     $path = $company . '/node/' . $nid;
     return new Step\When("I am at \"$path\"");
@@ -707,11 +675,12 @@ class FeatureContext extends DrupalContext {
     }
 
     // Unflag every flagged flag.
+    $account = user_load(1);
     foreach ($this->flagged as $flag) {
       $entity_id = $flag['entity_id'];
       $flag_name = $flag['flag_name'];
-      $code = "flag('unflag', $flag_name, $entity_id, user_load(1)); ";
-      $this->getDriver()->drush("php-eval '$code'");
+
+      flag('unflag', $flag_name, $entity_id, $account);
     }
     // Clean the flagged flags list.
     $this->flagged = array();
