@@ -8,7 +8,7 @@ use Behat\Behat\Context\Step;
 
 require 'vendor/autoload.php';
 
-class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext {
+class FeatureContext extends DrupalContext {
 
   /**
    * Array of flaggings in the tests to revert in the end of testing.
@@ -39,47 +39,88 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext {
   }
 
   /**
+   * Authenticates a user with password from configuration.
+   *
+   * @Given /^I am logged in as "([^"]*)"$/
+   */
+  public function iAmLoggedInAs($username) {
+    try {
+      $password = $this->drupal_users[$username];
+    }
+    catch (\Exception $e) {
+      throw new \Exception("Password not found for '$username'.");
+    }
+
+    // Log in.
+    $element = $this->getSession()->getPage();
+    $this->getSession()->visit($this->locatePath('/user'));
+    $element->fillField('Username', $username);
+    $element->fillField('Password', $password);
+    $submit = $element->findButton('Log in');
+    $submit->click();
+  }
+
+  /**
    * @Given /^I am logged in as a user from "([^"]*)"$/
    */
   public function iAmLoggedInAsAUserFrom($company) {
     // Log-in and then group the created user to the given company.
-    $this->assertAuthenticatedByRole('authenticated user');
+    $this->iAmLoggedInWithRole('authenticated user');
     $uid = $this->user->uid;
     $nid = $this->getEntityId($company);
-    og_group('node', $nid, array('entity' => $uid));
+    $action = "\"og_group('node', $nid, array('entity' => $uid));\"";
+    $this->getDriver()->drush('php-eval', array($action));
   }
 
 
   /**
    * @Given /^I am on a "([^"]*)" page titled "([^"]*)"(?:, in the tab "([^"]*)"|)$/
    */
-  public function iAmOnAPageTitled($bundle, $title, $subpage = NULL) {
-    if (!$id = $this->getEntityId($title, 'node', $bundle)) {
-      throw new \Exception("No $bundle with title '$title' was found.");
+  public function iAmOnAPageTitled($page_type, $title, $subpage = NULL) {
+    switch ($page_type) {
+      case 'item-variant':
+      case 'season':
+      case 'item':
+      case 'material':
+        $table = 'node';
+        $id_column = 'nid';
+        $title_column = 'title';
+        // @todo: Remove hardcoding.
+        $path = "imanimo/$page_type/%";
+        $type = str_replace('-', '_', $page_type);
+        break;
+
+      default:
+        throw new \Exception("Unknown page type '$page_type'.");
     }
 
-    // @todo: Remove hardcoding of imanimo.
-    $path = "imanimo/$bundle/$id/$subpage";
+    $id = $this->getEntityId($title, $table, $id_column, $title_column, $type);
+    if (!$id) {
+      throw new \Exception("No $page_type with title '$title' was found.");
+    }
+
+    $path .= "/$subpage";
+    $path = str_replace('%', $id, $path);
     return new Given("I am at \"$path\"");
   }
 
   /**
    * Find entity ID by title.
    */
-  private function getEntityId($title, $entity_type = 'node', $bundle = NULL) {
-    $query = new EntityFieldQuery();
-    $query->entityCondition('entity_type', $entity_type);
-
-    if ($bundle) {
-      $query->entityCondition('bundle', $bundle);
+  private function getEntityId($title, $table = 'node', $id_column = 'nid', $title_column = 'title', $type = NULL) {
+    //TODO: The title and type should be properly escaped.
+    $query = "\"
+      SELECT $id_column AS identifier
+      FROM $table
+      WHERE $title_column = '$title'
+    ";
+    if ($type) {
+      $query .= "AND type = '$type'";
     }
+    $query .= " LIMIT 1\"";
 
-    $result = $query
-      ->propertyCondition('title', $title)
-      ->range(0, 1)
-      ->execute();
-
-    return !empty($result[$entity_type]) ? key($result[$entity_type]) : FALSE;
+    $result = $this->getDriver()->drush('sql-query', array($query));
+    return trim(substr($result, strlen('identifier')));
   }
 
   /**
@@ -577,9 +618,11 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext {
    * @When /^I am on (a|the) "([^"]*)" page of the default "([^"]*)"(?: of "([^"]*)"|)$/
    */
   public function iAmOnThePageOfTheDefault($the, $page_name, $node_type, $company = 'Imanimo') {
+    $node_type = str_replace('-', '_', $node_type);
     $company = strtolower($company);
     $nid = $this->sample_nodes[$company][$node_type];
 
+    $steps = array();
     switch($page_name) {
       case 'Node view':
         $path = "node/$nid";
@@ -629,6 +672,7 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext {
    */
   public function iAmOnTheDefaultPage($node_type) {
     $company = 'imanimo';
+    $node_type = str_replace('-', '_', $node_type);
     $nid = $this->sample_nodes[$company][$node_type];
     $path = $company . '/node/' . $nid;
     return new Step\When("I am at \"$path\"");

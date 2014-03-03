@@ -1,7 +1,9 @@
 {
   "require": {
-    "drupal/drupal-extension": "v0.1.5"
+    "drupal/drupal-extension": "*",
+    "guzzle/guzzle": "*"
   },
+  "minimum-stability": "dev",
   "config": {
     "bin-dir": "bin/"
   }

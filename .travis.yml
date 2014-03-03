@@ -9,10 +9,9 @@ mysql:
   encoding: utf8
 
 before_script:
-  - mysql -e 'create database drupal'
+  - "mysql -e 'create database drupal;'"
   - pear channel-discover pear.drush.org
-  - export PATH="$HOME/.composer/vendor/bin:$PATH"
-  - composer global require drush/drush:6.*
+  - pear install drush/drush
   - phpenv rehash
   - bash scripts/ci/setup
   - bash scripts/build
@@ -31,6 +30,11 @@ before_script:
   - cp aliases.drushrc.php ~/.drush/
   - composer install --prefer-source
 
+  # Patch drupalextension.
+  - cd vendor/drupal/drupal-extension/
+  - wget http://drupal.org/files/drupalextension_store_uid_from_drush.diff
+  - git apply drupalextension_store_uid_from_drush.diff
+  - cd ../../../
 
 script:
   # Create display.
