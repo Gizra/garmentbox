@@ -1,0 +1,11 @@
+name = GarmentBox demo module
+description = "Demonstrates the functionality of the GarmentBox profile"
+package = Garmentbox - Demo
+core = 7.x
+version = "7.x-1.x-dev"
+core = "7.x"
+
+; Test files
+files[] = garmentbox_demo.test
+files[] = includes/CreateEntity.inc
+files[] = includes/CreateContent.inc
