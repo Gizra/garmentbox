@@ -36,10 +36,13 @@ abstract class GbEntityBaseNode extends \RestfulEntityBaseNode {
    *   A cleaned image array.
    */
   protected function imageProcess($value) {
-    if (empty($value['fid'])) {
-      return;
+    if (static::isArrayNumeric($value)) {
+      $output = array();
+      foreach ($value as $item) {
+        $output[] = $this->imageProcess($item);
+      }
+      return $output;
     }
-
     return array(
       'id' => $value['fid'],
       'self' => file_create_url($value['uri']),
