@@ -1,81 +1,39 @@
 <?php
-/**
- * @file
- * Install, update and uninstall functions for the
- * GarmentBox installation profile.
- */
+// $Id: standard.install,v 1.28 2010/10/21 04:22:34 webchick Exp $
 
 /**
  * Implements hook_install().
  */
 function garmentbox_install() {
+  garmentbox_standard_install();
+
   // Fixes problems when the CSV files used for importing have been created
   // on a Mac, by forcing PHP to detect the appropriate line endings.
   ini_set('auto_detect_line_endings', TRUE);
 
-  // TEXT FORMATS
-  $filtered_html_format = _garmentbox_install_get_filtered_html_format();
-  filter_format_save($filtered_html_format);
-  $full_html_format = _garmentbox_install_get_full_html_format();
-  filter_format_save($full_html_format);
+  // Enable our themes.
+  theme_enable(array('bartik', 'seven'));
 
+  // Set the default theme.
+  variable_set('theme_default', 'bartik');
 
-  // ROLES & PERMISSIONS
-  _garmentbox_install_save_default_permissions($filtered_html_format);
+  // Enable node view page override by Page manager module.
+  variable_set('page_manager_node_view_disabled', FALSE);
 
-  // MENU
-  _garmentbox_install_save_default_menu();
-  menu_rebuild();
-
-  // THEMES
-  $theme_default = variable_get('theme_default', 'bartik');
-
-  $theme_admin = 'seven';
-  _garmentbox_install_save_theme($theme_admin, 1);
-  variable_set('admin_theme', $theme_admin);
   variable_set('node_admin_theme', TRUE);
 
-  // TODO: Replace this with the site specific theme name when not Bartik!
-  $theme_garmentbox = $theme_default;
-  if ($theme_garmentbox !== $theme_default) {
-    _garmentbox_install_save_theme($theme_garmentbox, 1);
-    variable_set('theme_default', $theme_garmentbox);
-    // Disable Bartik
-    _garmentbox_install_save_theme($theme_default, 0);
-  }
-
-  // BLOCKS
-  $admin_blocks = _garmentbox_install_get_admin_theme_blocks($theme_admin);
-  _garmentbox_install_save_theme_blocks($admin_blocks);
-
-  $garmentbox_blocks = _garmentbox_install_get_garmentbox_theme_blocks($theme_garmentbox);
-  _garmentbox_install_save_theme_blocks($garmentbox_blocks);
-
-  _garmentbox_install_set_default_date_formats();
-
-
-  // DATE & DATE FORMAT
-  date_default_timezone_set('Europe/Brussels');
-  variable_set('date_default_timezone', 'Europe/Brussels');
+  // Set required date API variables.
+  // See date_api_status().
+  date_default_timezone_set('Asia/Jerusalem');
+  variable_set('date_default_timezone', 'Asia/Jerusalem');
   variable_set('date_first_day', 1);
-  _garmentbox_install_set_default_date_formats();
 }
 
-
-
-
-/******************************************************************************
- * TEXT FORMATS (Default filters)
- ******************************************************************************/
-
 /**
- * Get the filtered_html format.
- *
- * @param void
- *
- * @return stdCLass
+ * Copied from Standard profile -- standard_install()
  */
-function _garmentbox_install_get_filtered_html_format() {
+function garmentbox_standard_install() {
+  // Add text formats.
   $filtered_html_format = array(
     'format' => 'filtered_html',
     'name' => 'Filtered HTML',
@@ -104,18 +62,8 @@ function _garmentbox_install_get_filtered_html_format() {
     ),
   );
   $filtered_html_format = (object) $filtered_html_format;
+  filter_format_save($filtered_html_format);
 
-  return $filtered_html_format;
-}
-
-/**
- * Get the full_html format.
- *
- * @param void
- *
- * @return stdCLass
- */
-function _garmentbox_install_get_full_html_format() {
   $full_html_format = array(
     'format' => 'full_html',
     'name' => 'Full HTML',
@@ -139,57 +87,96 @@ function _garmentbox_install_get_full_html_format() {
     ),
   );
   $full_html_format = (object) $full_html_format;
+  filter_format_save($full_html_format);
 
-  return $full_html_format;
-}
+  // Enable some standard blocks.
+  $default_theme = variable_get('theme_default', 'bartik');
 
+  $values = array(
+    array(
+      'module' => 'system',
+      'delta' => 'main',
+      'theme' => $default_theme,
+      'status' => 1,
+      'weight' => 0,
+      'region' => 'content',
+      'pages' => '',
+      'cache' => -1,
+    ),
+    array(
+      'module' => 'search',
+      'delta' => 'form',
+      'theme' => $default_theme,
+      'status' => 1,
+      'weight' => -1,
+      'region' => 'search_box',
+      'pages' => '',
+      'cache' => -1,
+    ),
+    array(
+      'module' => 'user',
+      'delta' => 'login',
+      'theme' => $default_theme,
+      'status' => 1,
+      'weight' => 0,
+      'region' => 'sidebar_first',
+      'pages' => '',
+      'cache' => -1,
+    ),
+    array(
+      'module' => 'system',
+      'delta' => 'help',
+      'theme' => $default_theme,
+      'status' => 1,
+      'weight' => 0,
+      'region' => 'help',
+      'pages' => '',
+      'cache' => -1,
+    ),
+  );
+  $query = db_insert('block')->fields(array('module', 'delta', 'theme', 'status', 'weight', 'region', 'pages', 'cache'));
+  foreach ($values as $record) {
+    $query->values($record);
+  }
+  $query->execute();
 
+  // Enable user picture support and set the default to a square thumbnail option.
+  variable_set('user_pictures', '1');
+  variable_set('user_picture_dimensions', '1024x1024');
+  variable_set('user_picture_file_size', '800');
+  variable_set('user_picture_style', 'thumbnail');
 
-/******************************************************************************
- * ROLES & PERMISSIONS
- ******************************************************************************/
-
-/**
- * Save the default permissions.
- *
- * @param stdClass $filtered_html_format
- *
- * @return void
- */
-function _garmentbox_install_save_default_permissions($filtered_html_format) {
-  // Only admins can create new members.
-  variable_set('user_register', USER_REGISTER_ADMINISTRATOS_ONLY);
+  // Allow visitor account creation with administrative approval.
+  variable_set('user_register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL);
 
   // Enable default permissions for system roles.
-  $filtered_html_permission = filter_permission_name($filtered_html_format);
-  user_role_grant_permissions(
-    DRUPAL_ANONYMOUS_RID,
-    array(
-      'access content',
-      'access comments',
-      $filtered_html_permission
-    )
+  $permissions = array(
+    'access content',
+    'access comments',
+    'post comments',
+    'skip comment approval',
+    // "View user profiles" is for viewing the task_assignee field.
+    'access user profiles',
+    filter_permission_name($filtered_html_format),
   );
-  user_role_grant_permissions(
-    DRUPAL_AUTHENTICATED_RID,
-    array(
-      'access content',
-      'access comments',
-      'post comments',
-      'skip comment approval',
-      $filtered_html_permission
-    )
-  );
+
+  // Add content permissions.
+  foreach (array_keys(node_type_get_types()) as $content_type) {
+    $permissions[] = "create $content_type content";
+    $permissions[] = "edit any $content_type content";
+    $permissions[] = "edit own $content_type content";
+    $permissions[] = "delete any $content_type content";
+    $permissions[] = "delete own $content_type content";
+  }
+
+  user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, $permissions);
 
   // Create a default role for site administrators, with all available permissions assigned.
   $admin_role = new stdClass();
   $admin_role->name = 'administrator';
   $admin_role->weight = 2;
   user_role_save($admin_role);
-  user_role_grant_permissions(
-    $admin_role->rid,
-    array_keys(module_invoke_all('permission'))
-  );
+  user_role_grant_permissions($admin_role->rid, array_keys(module_invoke_all('permission')));
   // Set this as the administrator role.
   variable_set('user_admin_role', $admin_role->rid);
 
@@ -197,316 +184,18 @@ function _garmentbox_install_save_default_permissions($filtered_html_format) {
   db_insert('users_roles')
     ->fields(array('uid' => 1, 'rid' => $admin_role->rid))
     ->execute();
-}
 
-
-
-/******************************************************************************
- * MENU
- ******************************************************************************/
-
-/**
- * Set the default minimum menu items.
- *
- * @param void
- *
- * @return void
- */
-function _garmentbox_install_save_default_menu() {
   // Create a Home link in the main menu.
   $item = array(
-    'link_title' => st('Home'),
+    'link_title' => 'Home',
     'link_path' => '<front>',
     'menu_name' => 'main-menu',
-    'weight'    => -50,
   );
   menu_link_save($item);
+
+  // Update the menu router information.
+  variable_set('menu_rebuild_needed', TRUE);
+
+  node_access_rebuild(TRUE);
 }
-
-
-
-/******************************************************************************
- * THEMES
- ******************************************************************************/
-
-/**
- * Save the the given theme status in the system table.
- *
- * @param string $name
- *   The theme name.
- * @param $status
- *   The status of the theme.
- *
- * @return void
- */
-function _garmentbox_install_save_theme($name, $status) {
-  db_update('system')
-    ->fields(array('status' => (int)$status))
-    ->condition('type', 'theme')
-    ->condition('name', $name)
-    ->execute();
-}
-
-
-
-/******************************************************************************
- * BLOCKS
- ******************************************************************************/
-
-/**
- * Add an array of blocks to the given theme.
- *
- * @param array $blocks
- *
- * @return void
- */
-function _garmentbox_install_save_theme_blocks($blocks) {
-  $query = db_insert('block')->fields(array(
-      'module',
-      'delta',
-      'theme',
-      'status',
-      'weight',
-      'region',
-      'pages',
-      'cache'
-    ));
-
-  foreach ($blocks as $block) {
-    $query->values($block);
-  }
-  $query->execute();
-}
-
-/**
- * Get the default theme blocks
- *
- * @param string $theme
- *   The name of the theme.
- *
- * @return array
- */
-function _garmentbox_install_get_default_theme_blocks($theme) {
-  $blocks = array(
-    array(
-      'module' => 'system',
-      'delta' => 'main',
-      'theme' => $theme,
-      'status' => 1,
-      'weight' => 0,
-      'region' => 'content',
-      'pages' => '',
-      'cache' => -1,
-    ),
-    array(
-      'module' => 'search',
-      'delta' => 'form',
-      'theme' => $theme,
-      'status' => 1,
-      'weight' => -1,
-      'region' => 'sidebar_first',
-      'pages' => '',
-      'cache' => -1,
-    ),
-    array(
-      'module' => 'user',
-      'delta' => 'login',
-      'theme' => $theme,
-      'status' => 1,
-      'weight' => 0,
-      'region' => 'sidebar_first',
-      'pages' => '',
-      'cache' => -1,
-    ),
-    array(
-      'module' => 'system',
-      'delta' => 'navigation',
-      'theme' => $theme,
-      'status' => 1,
-      'weight' => 0,
-      'region' => 'sidebar_first',
-      'pages' => '',
-      'cache' => -1,
-    ),
-    array(
-      'module' => 'system',
-      'delta' => 'powered-by',
-      'theme' => $theme,
-      'status' => 1,
-      'weight' => 10,
-      'region' => 'footer',
-      'pages' => '',
-      'cache' => -1,
-    ),
-    array(
-      'module' => 'system',
-      'delta' => 'help',
-      'theme' => $theme,
-      'status' => 1,
-      'weight' => 0,
-      'region' => 'help',
-      'pages' => '',
-      'cache' => -1,
-    ),
-  );
-
-  return $blocks;
-}
-
-/**
- * Get the default theme blocks
- *
- * @param string $theme
- *   The name of the theme.
- *
- * @return array
- */
-function _garmentbox_install_get_admin_theme_blocks($theme) {
-  $blocks = array(
-    // Only if the dashboard module is in use...
-    /*array(
-      'module' => 'node',
-      'delta' => 'recent',
-      'theme' => $theme,
-      'status' => 1,
-      'weight' => 10,
-      'region' => 'dashboard_main',
-      'pages' => '',
-      'cache' => -1,
-    ),*/
-    array(
-      'module' => 'system',
-      'delta' => 'main',
-      'theme' => $theme,
-      'status' => 1,
-      'weight' => 0,
-      'region' => 'content',
-      'pages' => '',
-      'cache' => -1,
-    ),
-    array(
-      'module' => 'system',
-      'delta' => 'help',
-      'theme' => $theme,
-      'status' => 1,
-      'weight' => 0,
-      'region' => 'help',
-      'pages' => '',
-      'cache' => -1,
-    ),
-    array(
-      'module' => 'user',
-      'delta' => 'login',
-      'theme' => $theme,
-      'status' => 1,
-      'weight' => 10,
-      'region' => 'content',
-      'pages' => '',
-      'cache' => -1,
-    ),
-    // Only if the dashboard module is in use...
-    /*array(
-      'module' => 'user',
-      'delta' => 'new',
-      'theme' => $theme,
-      'status' => 1,
-      'weight' => 0,
-      'region' => 'dashboard_sidebar',
-      'pages' => '',
-      'cache' => -1,
-    ),*/
-    // Only if the dashboard module is in use...
-    /*array(
-      'module' => 'search',
-      'delta' => 'form',
-      'theme' => $theme,
-      'status' => 1,
-      'weight' => -10,
-      'region' => 'dashboard_sidebar',
-      'pages' => '',
-      'cache' => -1,
-    ),*/
-  );
-
-  return $blocks;
-}
-
-/**
- * Get the garmentbox theme blocks
- *
- * @param string $theme
- *   The name of the theme.
- *
- * @return array
- */
-function _garmentbox_install_get_garmentbox_theme_blocks($theme) {
-  $blocks = array(
-    array(
-      'module' => 'system',
-      'delta' => 'main',
-      'theme' => $theme,
-      'status' => 1,
-      'weight' => 0,
-      'region' => 'content',
-      'pages' => '',
-      'cache' => -1,
-    ),
-    array(
-      'module' => 'system',
-      'delta' => 'help',
-      'theme' => $theme,
-      'status' => 1,
-      'weight' => 0,
-      'region' => 'help',
-      'pages' => '',
-      'cache' => -1,
-    ),
-  );
-
-  return $blocks;
-}
-
-/**
- * Set the default time formats
- *
- * @param void
- *
- * @return array
- */
-function _garmentbox_install_set_default_date_formats() {
-  $formats = array(
-    // Default.
-    'long'         => 'l, j F, Y - H:i',
-    'medium'       => 'D, d/m/Y - H:i',
-    'short'        => 'd/m/Y - H:i',
-
-    // Reldate module.
-    'day'          => 'l, j M',
-    'time'         => 'H:i',
-    'month_after'  => 'H:i j M, Y',
-    'month_within' => 'H:i D j M',
-  );
-
-  foreach ($formats AS $type => $format) {
-    variable_set('date_format_' . $type, $format);
-  }
-
-  return array(
-    'success' => TRUE,
-    'query' => st('Default date formats are set.')
-  );
-}
-
-
-
-
-/******************************************************************************
- * UPDATES GO HERE
- ******************************************************************************/
-
-
-
-
-
-
 
