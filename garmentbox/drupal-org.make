@@ -9,7 +9,7 @@ projects[admin_views][subdir] = "contrib"
 projects[admin_views][version] = "1.3"
 
 projects[ctools][subdir] = "contrib"
-projects[ctools][version] = "1.4"
+projects[ctools][version] = "1.5"
 
 projects[date][subdir] = "contrib"
 projects[date][version] = "2.8"

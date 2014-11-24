@@ -61,10 +61,10 @@ script:
 
 
   # Run WebTests ---------------------------------------------------------------
-  - drush @garmentbox -y en simpletest
+  # - drush @garmentbox -y en simpletest
 
   # Add the tests here. Use the group name, classname or the file.
   # Example:
-  - drush @garmentbox test-run "garmentbox:demo"
+  # - drush @garmentbox test-run "garmentbox:demo"
 
   # End Run WebTests -----------------------------------------------------------
