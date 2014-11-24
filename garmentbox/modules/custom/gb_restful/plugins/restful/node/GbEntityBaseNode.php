@@ -23,6 +23,18 @@ abstract class GbEntityBaseNode extends \RestfulEntityBaseNode {
       'property' => 'changed',
     );
 
+    if (field_info_instance($this->getEntityType(), OG_AUDIENCE_FIELD, $this->getBundle())) {
+      $public_fields['company'] = array(
+        'property' => OG_AUDIENCE_FIELD,
+        'resource' => array(
+          'company' => array(
+            'resource_name' => 'companies',
+            'full_view' => FALSE,
+          )
+        ),
+      );
+    }
+
     return $public_fields;
   }
 
