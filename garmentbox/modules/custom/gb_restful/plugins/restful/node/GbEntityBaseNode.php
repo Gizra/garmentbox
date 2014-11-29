@@ -28,7 +28,7 @@ abstract class GbEntityBaseNode extends \RestfulEntityBaseNode {
         'property' => OG_AUDIENCE_FIELD,
         'resource' => array(
           'company' => array(
-            'resource_name' => 'companies',
+            'name' => 'companies',
             'full_view' => FALSE,
           )
         ),
