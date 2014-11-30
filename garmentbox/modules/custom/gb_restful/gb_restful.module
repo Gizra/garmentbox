@@ -4,6 +4,10 @@
  * Code for the Garmentbox Company feature.
  */
 
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Credentials: true');
+header('Access-Control-Allow-Headers: Authorization, access_token');
+
 /**
  * Implements hook_ctools_plugin_directory().
  */
