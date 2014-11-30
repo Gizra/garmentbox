@@ -12,22 +12,26 @@ angular
   .module('clientApp', [
     'ngAnimate',
     'ngCookies',
-    'ngResource',
-    'ngRoute',
     'ngSanitize',
-    'ngTouch'
+
+    'ui.router'
   ])
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
+  .config(function($stateProvider, $urlRouterProvider) {
+    //
+    // For any unmatched url, redirect to /state1
+    $urlRouterProvider.otherwise("/state1");
+    //
+    // Now set up the states
+    $stateProvider
+      .state('items', {
+        url: "/items",
+        templateUrl: "views/state1.html"
       })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
+      .state('items.item', {
+        url: "/:id",
+        templateUrl: "partials/state1.list.html",
+        controller: function($scope) {
+          $scope.items = ["A", "List", "Of", "Items"];
+        }
       });
   });
