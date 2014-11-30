@@ -1,14 +1,8 @@
 <?php
 
 use Drupal\DrupalExtension\Context\DrupalContext;
-use Behat\Behat\Context\Step\Given;
-use Behat\Gherkin\Node\TableNode;
-use Guzzle\Service\Client;
-use Behat\Behat\Context\Step;
 
-require 'vendor/autoload.php';
-
-class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext {
+class FeatureContext extends DrupalContext {
 
   /**
   * Initializes context.
