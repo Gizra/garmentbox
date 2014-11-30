@@ -21,16 +21,16 @@ BASE_DOMAIN_URL=""
 
 # Modify the login details below to be the desired 
 # login details for the Drupal Administrator account.
-ADMIN_USERNAME=""
-ADMIN_PASSWORD=""
-ADMIN_EMAIL=""
+ADMIN_USERNAME="admin"
+ADMIN_PASSWORD="admin"
+ADMIN_EMAIL="admin@example.com"
 
 
 # Modify the MySQL settings below so they will match your own.
 MYSQL_USERNAME=""
 MYSQL_PASSWORD=""
-MYSQL_HOSTNAME=""
-MYSQL_DB_NAME=""
+MYSQL_HOSTNAME="localhost"
+MYSQL_DB_NAME="garmentbox"
 
 
 

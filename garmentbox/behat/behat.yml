@@ -1,13 +1,17 @@
 default:
-  paths:
-    features: 'features'
+  suites:
+    default:
+      contexts:
+        - Drupal\DrupalExtension\Context\DrupalContext
   extensions:
-    Behat\MinkExtension\Extension:
+    Behat\MinkExtension:
       goutte: ~
       selenium2: ~
-      javascript_session: 'selenium2'
-    Drupal\DrupalExtension\Extension:
-      blackbox: ~
+      base_url: http://localhost/garmentbox/www
+    Drupal\DrupalExtension:
+      api_driver: "drupal"
+      drupal:
+        drupal_root: "/var/www/garmentbox/www"
 
 imports:
   - behat.local.yml
