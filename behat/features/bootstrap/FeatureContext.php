@@ -11,20 +11,36 @@ class FeatureContext extends DrupalContext implements SnippetAcceptingContext {
   * Initializes context.
   */
   public function __construct() {
-
   }
 
   /**
-  * @When /^I visit the front page$/
-  */
+   * @Then I should have access to the homepage
+   */
+  public function iShouldHaveAccessToTheHomepage()
+  {
+    throw new PendingException();
+  }
+
+  /**
+   * @Then I should not have access to the login page
+   */
+  public function iShouldNotHaveAccessToTheLoginPage()
+  {
+    throw new PendingException();
+  }
+
+  /**
+   *  @Then I visit the front page
+   */
   public function iVisitTheFrontPage() {
-    $steps = array();
-    $steps[] = new Step\When('I am at "/"');
+    $steps = array(
+      new Step\When('I am at "/"'),
+    );
     return $steps;
   }
 
   /**
-  * @When /^I am on edit page for the content "([^"]*)"$/
+  * @Then I am on edit page for the content :title
   */
   public function iAmOnEditPageForTheContent($title) {
     $query = new entityFieldQuery();
@@ -49,9 +65,9 @@ class FeatureContext extends DrupalContext implements SnippetAcceptingContext {
   }
 
   /**
-  * @When /^I visit node "([^"]*)"$/
+  * @Then I visit content :title
   */
-  public function iVisitNode($title, $type) {
+  public function iVisitContent($title, $type) {
     $query = new entityFieldQuery();
     $result = $query
     ->entityCondition('entity_type', 'node')
