@@ -1,22 +1,19 @@
 <?php
 
 use Drupal\DrupalExtension\Context\DrupalContext;
+use Behat\Behat\Context\SnippetAcceptingContext;
+use Behat\Gherkin\Node\PyStringNode;
+use Behat\Gherkin\Node\TableNode;
 
-class FeatureContext extends DrupalContext {
+class FeatureContext extends DrupalContext implements SnippetAcceptingContext {
 
   /**
   * Initializes context.
-  *
-  * Every scenario gets its own context object.
-  *
-  * @param array $parameters.
-  *   Context parameters (set them up through behat.yml or behat.local.yml).
   */
-  public function __construct(array $parameters) {
-    if (!empty($parameters['drupal_users'])) {
-      $this->drupal_users = $parameters['drupal_users'];
-    }
+  public function __construct() {
+
   }
+
   /**
   * @When /^I visit the front page$/
   */
@@ -27,9 +24,9 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
-  * @When /^I am on edit page for the node "([^"]*)"$/
+  * @When /^I am on edit page for the content "([^"]*)"$/
   */
-  public function iAmOnEditPageForTheNode($title) {
+  public function iAmOnEditPageForTheContent($title) {
     $query = new entityFieldQuery();
     $result = $query
     ->entityCondition('entity_type', 'node')
@@ -79,7 +76,7 @@ class FeatureContext extends DrupalContext {
   * PhantomJs).
   */
   public function takeScreenshotAfterFailedStep($event) {
-    if ($event->getResult() != 4) {
+    if ($event->getTestResult()->isPassed()) {
       // Not a failed step.
       return;
     }
