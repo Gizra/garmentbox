@@ -53,10 +53,10 @@ garmentbox/themes/contrib
 garmentbox/libraries
 
 # Behat
-garmentbox/behat/vendor/
+behat/vendor/
 behat.local.yml
-garmentbox/behat/bin
-garmentbox/behat/composer.phar
+behat/bin
+behat/composer.phar
 
 # Temporay "build" files
 www

@@ -4,6 +4,7 @@ default:
       contexts:
         - Drupal\DrupalExtension\Context\DrupalContext
         - Drupal\DrupalExtension\Context\MinkContext
+        - FeatureContext
   extensions:
     Behat\MinkExtension:
       goutte: ~
