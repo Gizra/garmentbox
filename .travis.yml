@@ -34,7 +34,7 @@ before_script:
   - cd ..
 
   # Create a behat configuration file.
-  - cd garmentbox/behat
+  - cd behat
   - cp behat.local.yml.travis behat.local.yml
 
   # Create Drush alias.
