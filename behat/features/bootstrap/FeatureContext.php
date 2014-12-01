@@ -4,6 +4,7 @@ use Drupal\DrupalExtension\Context\DrupalContext;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
+use Behat\Behat\Tester\Exception\PendingException;
 
 class FeatureContext extends DrupalContext implements SnippetAcceptingContext {
 
@@ -15,28 +16,11 @@ class FeatureContext extends DrupalContext implements SnippetAcceptingContext {
 
   /**
    * @Then I should have access to the homepage
+   *
+   * Visit the home page, and assert 200 response code.
    */
-  public function iShouldHaveAccessToTheHomepage()
-  {
-    throw new PendingException();
-  }
-
-  /**
-   * @Then I should not have access to the login page
-   */
-  public function iShouldNotHaveAccessToTheLoginPage()
-  {
-    throw new PendingException();
-  }
-
-  /**
-   *  @Then I visit the front page
-   */
-  public function iVisitTheFrontPage() {
-    $steps = array(
-      new Step\When('I am at "/"'),
-    );
-    return $steps;
+  public function iShouldHaveAccessToTheHomepage() {
+    $this->assertAtPath('/');
   }
 
   /**
@@ -59,9 +43,7 @@ class FeatureContext extends DrupalContext implements SnippetAcceptingContext {
     }
 
     $nid = key($result['node']);
-    return array(
-    new Step\When('I am on "node/' . $nid . '/edit"'),
-    );
+    $this->assertAtPath('node/' . $nid . '/edit');
   }
 
   /**
@@ -82,7 +64,8 @@ class FeatureContext extends DrupalContext implements SnippetAcceptingContext {
     }
 
     $nid = key($result['node']);
-    return new Given("I go to \"node/$nid\"");
+    $this->assertAtPath('node/' . $nid);
+
   }
 
   /**

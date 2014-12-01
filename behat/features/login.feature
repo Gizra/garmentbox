@@ -8,4 +8,3 @@ Feature: User login
     Given I am an anonymous user
      When I am logged in as a user with the "authenticated user" role
      Then I should have access to the homepage
-      But I should not have access to the login page
