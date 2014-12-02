@@ -20,7 +20,8 @@ class FeatureContext extends DrupalContext implements SnippetAcceptingContext {
    * Visit the home page, and assert 200 response code.
    */
   public function iShouldHaveAccessToTheHomepage() {
-    $this->assertAtPath('/');
+    $this->getSession()->visit($this->locatePath('/'));
+    $this->assertSession()->statusCodeEquals('200');
   }
 
   /**
