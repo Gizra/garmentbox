@@ -82,8 +82,10 @@ class FeatureContext extends DrupalContext implements SnippetAcceptingContext {
     }
 
     if ($this->getSession()->getDriver() instanceof \Behat\Mink\Driver\Selenium2Driver) {
+      $file_name = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'behat-failed-step.png';
       $screenshot = $this->getSession()->getDriver()->getScreenshot();
-      file_put_contents('/tmp/behat-failed-step-screenshot.png', $screenshot);
+      file_put_contents($file_name, $screenshot);
+      print "Screenshot for failed step created in $file_name";
     }
   }
 }
