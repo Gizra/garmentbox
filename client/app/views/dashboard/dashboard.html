@@ -1,15 +1,14 @@
-<div ui-view>
-  <div id="dashboard-menu">
-    <h1>GarmentBox</h1>
-    <div ng-controller="LoginCtrl">
-      <a href ng-click="logout()">logout</a>
-    </div>
+<div id="dashboard-menu">
+  <h1>GarmentBox</h1>
+  <div ng-controller="LoginCtrl">
+    <a href ng-click="logout()">logout</a>
   </div>
-
-  <ul>
-    <li ng-repeat="item in items">
-      <a href ui-sref="dashboard.item({ id: item.id })">{{ item.label }}</a>
-    </li>
-  </ul>
-
 </div>
+
+<ul>
+  <li ng-repeat="item in items">
+    <a href ui-sref="dashboard.item({ id: item.id })">{{ item.label }}</a>
+  </li>
+</ul>
+
+<div ui-view></div>
