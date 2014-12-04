@@ -31,6 +31,11 @@ angular
         url: '/dashboard',
         templateUrl: 'views/dashboard/dashboard.html',
         controller: 'MainCtrl'
+      })
+      .state('dashboard.item', {
+        url: '/item/:id',
+        templateUrl: 'views/dashboard/dashboard.item.html',
+        controller: 'MainCtrl'
       });
 
     // For any unmatched url, redirect to '/'.

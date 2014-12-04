@@ -1,4 +1,4 @@
-<div ui-view="dashboard">
+<div ui-view>
   <div id="dashboard-menu">
     <h1>GarmentBox</h1>
     <div ng-controller="LoginCtrl">
@@ -8,7 +8,7 @@
 
   <ul>
     <li ng-repeat="item in items">
-      {{ item.label }}
+      <a href ui-sref="dashboard.item({ id: item.id })">{{ item.label }}</a>
     </li>
   </ul>
 
