@@ -393,7 +393,7 @@ module.exports = function (grunt) {
       },
       server: {
         constants: {
-          NegawattConfig: grunt.file.readJSON('config.json').development
+          Config: grunt.file.readJSON('config.json').development
         },
         values: {
           debug: true
@@ -404,7 +404,7 @@ module.exports = function (grunt) {
       },
       build: {
         constants: {
-          NegawattConfig: grunt.file.readJSON('config.json').production
+          Config: grunt.file.readJSON('config.json').production
         },
         options: {
           dest: '<%= yeoman.dist %>/scripts/config.js'
