@@ -22,19 +22,14 @@ angular
 
     // Now set up the states.
     $stateProvider
-      .state('dashboard', {
+      .state('login', {
         url: '/',
-        templateUrl: 'views/dashboard.html',
-        controller: 'MainCtrl'
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl'
       })
-      .state('dashboard.login', {
-        url: 'login',
-        templateUrl: 'views/dashboard.login.html',
-        controller: 'MainCtrl'
-      })
-      .state('dashboard.main', {
-        url: 'dashboard',
-        templateUrl: 'views/dashboard.main.html',
+      .state('dashboard', {
+        url: '/dashboard',
+        templateUrl: 'views/dashboard/dashboard.html',
         controller: 'MainCtrl'
       });
 
