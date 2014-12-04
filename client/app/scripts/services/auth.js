@@ -36,6 +36,10 @@ angular.module('clientApp')
      */
     this.logout = function() {
       localStorageService.remove('access_token');
+      // Something went wrong, change state back to login
+      // Service 'Auth' can't depend on '$state', hence injecting it manually
+      $injector.get('$state').go('login');
+
     };
 
     /**
@@ -49,9 +53,6 @@ angular.module('clientApp')
      * Authentication failed, set state to login.
      */
     this.authFailed = function() {
-      // Something went wrong, change state back to login
-      // Service 'Auth' can't depend on '$state', hence injecting it manually
-      $injector.get('$state').go('dashboard.login');
       this.logout();
     };
   });

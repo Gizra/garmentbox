@@ -1,11 +1,15 @@
 <div ui-view="dashboard">
   <div id="dashboard-menu">
     <h1>GarmentBox</h1>
-    <div ng-controller="AccessCtrl">
+    <div ng-controller="LoginCtrl">
       <a href ng-click="logout()">logout</a>
     </div>
   </div>
 
-  <div id="dashboard-controls">
-  </div>
+  <ul>
+    <li ng-repeat="item in items">
+      {{ item.label }}
+    </li>
+  </ul>
+
 </div>
