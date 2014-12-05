@@ -60,5 +60,15 @@ angular.module('clientApp')
       if (!toState.name.startsWith('dashboard.item.variant')) {
         return;
       }
+
+      var id = toParams.variant;
+
+      ItemVariants.get(id).then(function(itemVariants) {
+        angular.forEach($scope.itemVariants, function(value, key) {
+          if (value.id == id) {
+            $scope.selectedItemVariant = value;
+          }
+        });
+      });
     }
   });
