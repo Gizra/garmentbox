@@ -1,1 +1,7 @@
-<a href ui-sref="dashboard">X </a>Some ITEM
+<a href ui-sref="dashboard">X </a>{{ selectedItem.label }}
+
+<ul>
+  <li ng-repeat="itemVariant in itemVariants">
+    {{ itemVariant }}
+  </li>
+</ul>

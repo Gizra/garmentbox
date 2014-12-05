@@ -2,15 +2,16 @@
 
 /**
  * @ngdoc service
- * @name clientApp.items
+ * @name clientApp.itemVariants
  * @description
- * # items
+ * # itemVariants
  * Service in the clientApp.
  */
 angular.module('clientApp')
-  .service('Items', function ($q, $http, $timeout, Config, $rootScope) {
+  .service('ItemVariants', function ($q, $http, $timeout, Config, $rootScope) {
 
-    var Items = this;
+
+    var ItemVariants = this;
 
     // A private cache key.
     var cache = {};
@@ -31,7 +32,7 @@ angular.module('clientApp')
      */
     function getDataFromBackend() {
       var deferred = $q.defer();
-      var url = Config.backend + '/api/items';
+      var url = Config.backend + '/api/item_variants';
 
       $http({
         method: 'GET',
@@ -50,7 +51,7 @@ angular.module('clientApp')
      * @param meters
      */
     var setCache = function(data) {
-      // Cache meters data.
+      // Cache data.
       cache = {
         data: data,
         timestamp: new Date()
@@ -62,7 +63,7 @@ angular.module('clientApp')
       }, 60000);
 
       // Broadcast a change event.
-      $rootScope.$broadcast('gb.items.changed');
+      $rootScope.$broadcast('gb.item_variants.changed');
     }
 
   });
