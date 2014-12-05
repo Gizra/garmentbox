@@ -1,7 +1,13 @@
-<a href ui-sref="dashboard">X </a>{{ selectedItem.label }}
+<a href ui-sref="dashboard">X</a>{{ selectedItem.label }}
 
 <ul>
   <li ng-repeat="itemVariant in itemVariants">
-    {{ itemVariant }}
+    <div>
+      <a href ui-sref="dashboard.item.variant({ variant: itemVariant.id })">{{ itemVariant.label }}</a>
+    </div>
+    <div>
+      <img ng-src="{{ itemVariant.images[0].styles.thumbnail }}" />
+    </div>
+
   </li>
 </ul>

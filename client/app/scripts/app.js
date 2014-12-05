@@ -38,7 +38,7 @@ angular
         controller: 'MainCtrl'
       })
       .state('dashboard.item.variant', {
-        url: '/item/:id/:variant',
+        url: '/:variant',
         templateUrl: 'views/dashboard/dashboard.item.variant.html',
         controller: 'MainCtrl'
       });

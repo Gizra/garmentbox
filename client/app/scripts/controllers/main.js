@@ -8,13 +8,16 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('MainCtrl', function ($scope, Items, $log) {
+  .controller('MainCtrl', function ($scope, Items, ItemVariants, $log) {
+
+    $scope.items = null;
+    $scope.selectedItem = null;
+    $scope.itemVariants = null;
+    $scope.selectedItemVariants = null;
 
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState){
       if (toState.name.startsWith('dashboard')) {
         // Load items.
-        $scope.selectedItem = null;
-
         Items.get().then(function(items) {
           $scope.items = items;
 
@@ -24,6 +27,12 @@ angular.module('clientApp')
       }
     });
 
+    /**
+     * Set the selected item.
+     *
+     * @param toState
+     * @param toParams
+     */
     var setSelectedItem = function(toState, toParams) {
       if (!toState.name.startsWith('dashboard.item')) {
         return;
@@ -33,11 +42,20 @@ angular.module('clientApp')
       angular.forEach($scope.items, function(value, key) {
         if (value.id == id) {
           $scope.selectedItem = value;
-          $log.log($scope.selectedItem);
         }
+      });
+
+      ItemVariants.get(id).then(function(itemVariants) {
+        $scope.itemVariants = itemVariants;
       });
     };
 
+    /**
+     * Set the selected item variant.
+     *
+     * @param toState
+     * @param toParams
+     */
     var setSelectedItemVariant = function(toState, toParams) {
       if (!toState.name.startsWith('dashboard.item.variant')) {
         return;

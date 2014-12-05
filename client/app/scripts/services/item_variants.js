@@ -21,8 +21,9 @@ angular.module('clientApp')
      *
      * @returns {*}
      */
-    this.get = function() {
-      return $q.when(cache.data || getDataFromBackend());
+    this.get = function(itemId) {
+      // @todo: Add cache based on itemId.
+      return getDataFromBackend(itemId);
     };
 
     /**
@@ -30,13 +31,15 @@ angular.module('clientApp')
      *
      * @returns {$q.promise}
      */
-    function getDataFromBackend() {
+    function getDataFromBackend(itemId) {
       var deferred = $q.defer();
       var url = Config.backend + '/api/item_variants';
+      var params = !!itemId ? {item: itemId} : {};
 
       $http({
         method: 'GET',
-        url: url
+        url: url,
+        params: params
       }).success(function(response) {
         setCache(response.data);
         deferred.resolve(response.data);
