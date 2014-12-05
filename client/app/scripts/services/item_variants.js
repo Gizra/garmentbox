@@ -10,9 +10,6 @@
 angular.module('clientApp')
   .service('ItemVariants', function ($q, $http, $timeout, Config, $rootScope) {
 
-
-    var ItemVariants = this;
-
     // A private cache key.
     var cache = {};
 
@@ -22,7 +19,10 @@ angular.module('clientApp')
      * @returns {*}
      */
     this.get = function(itemId) {
-      // @todo: Add cache based on itemId.
+      if (cache[itemId]) {
+        return $q.when(cache[itemId].data);
+      }
+
       return getDataFromBackend(itemId);
     };
 
@@ -41,7 +41,7 @@ angular.module('clientApp')
         url: url,
         params: params
       }).success(function(response) {
-        setCache(response.data);
+        setCache(itemId, response.data);
         deferred.resolve(response.data);
       });
 
@@ -51,18 +51,21 @@ angular.module('clientApp')
     /**
      * Save meters in cache, and broadcast en event to inform that the meters data changed.
      *
-     * @param meters
+     * @param itemId
+     *   The item ID.
+     * @param data
+     *   The data to cache.
      */
-    var setCache = function(data) {
+    var setCache = function(itemId, data) {
       // Cache data.
-      cache = {
+      cache[itemId] = {
         data: data,
         timestamp: new Date()
       };
 
       // Clear cache in 60 seconds.
       $timeout(function() {
-        cache.data = undefined;
+        delete(cache[itemId]);
       }, 60000);
 
       // Broadcast a change event.

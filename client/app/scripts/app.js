@@ -25,12 +25,22 @@ angular
       .state('login', {
         url: '/',
         templateUrl: 'views/login.html',
-        controller: 'LoginCtrl'
+        controller: 'LoginCtrl',
+        onEnter: function($state, Auth) {
+          if (Auth.isAuthenticated()) {
+            $state.go('dashboard');
+          }
+        }
       })
       .state('dashboard', {
         url: '/dashboard',
         templateUrl: 'views/dashboard/dashboard.html',
-        controller: 'MainCtrl'
+        controller: 'MainCtrl',
+        onEnter: function($state, Auth) {
+          if (!Auth.isAuthenticated()) {
+            $state.go('login');
+          }
+        }
       })
       .state('dashboard.item', {
         url: '/item/:id',

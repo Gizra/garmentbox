@@ -10,8 +10,6 @@
 angular.module('clientApp')
   .service('Items', function ($q, $http, $timeout, Config, $rootScope) {
 
-    var Items = this;
-
     // A private cache key.
     var cache = {};
 

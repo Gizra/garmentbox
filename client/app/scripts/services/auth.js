@@ -45,7 +45,7 @@ angular.module('clientApp')
     /**
      * A user is logged in.
      */
-    this.userLoggedin = function() {
+    this.isAuthenticated = function() {
       return !!localStorageService.get('access_token');
     };
 
