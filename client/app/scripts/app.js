@@ -26,9 +26,13 @@ angular
         url: '/',
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl',
-        onEnter: function($state, Auth) {
+        onEnter: function($state, Auth,$timeout) {
           if (Auth.isAuthenticated()) {
-            $state.go('dashboard');
+            // We need to use $timeout to make sure $state is ready to
+            // transition.
+            $timeout(function() {
+              $state.go('dashboard');
+            });
           }
         }
       })
@@ -36,9 +40,11 @@ angular
         url: '/dashboard',
         templateUrl: 'views/dashboard/dashboard.html',
         controller: 'MainCtrl',
-        onEnter: function($state, Auth) {
+        onEnter: function($state, Auth, $timeout) {
           if (!Auth.isAuthenticated()) {
-            $state.go('login');
+            $timeout(function() {
+              $state.go('login');
+            });
           }
         }
       })
