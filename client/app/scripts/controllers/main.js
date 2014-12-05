@@ -37,6 +37,8 @@ angular.module('clientApp')
       if (!toState.name.startsWith('dashboard.item')) {
         return;
       }
+
+      $scope.selectedItem = null;
       var id = toParams.id;
 
       angular.forEach($scope.items, function(value, key) {
@@ -61,6 +63,7 @@ angular.module('clientApp')
         return;
       }
 
+      $scope.selectedItemVariant = null;
       var id = toParams.variant;
 
       ItemVariants.get(id).then(function(itemVariants) {
