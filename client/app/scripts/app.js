@@ -20,43 +20,55 @@ angular
   ])
   .config(function($stateProvider, $urlRouterProvider, $httpProvider) {
 
+    var redirectToDashbaord = function($state, Auth,$timeout) {
+      if (Auth.isAuthenticated()) {
+        // We need to use $timeout to make sure $state is ready to
+        // transition.
+        $timeout(function() {
+          $state.go('dashboard');
+        });
+      }
+    };
+
+    var page403 = function($state, Auth,$timeout) {
+      if (!Auth.isAuthenticated()) {
+        // We need to use $timeout to make sure $state is ready to
+        // transition.
+        $timeout(function() {
+          $state.go('403');
+        });
+      }
+    };
+
     // Now set up the states.
     $stateProvider
       .state('login', {
         url: '/',
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl',
-        onEnter: function($state, Auth,$timeout) {
-          if (Auth.isAuthenticated()) {
-            // We need to use $timeout to make sure $state is ready to
-            // transition.
-            $timeout(function() {
-              $state.go('dashboard');
-            });
-          }
-        }
+        onEnter: redirectToDashbaord
       })
       .state('dashboard', {
         url: '/dashboard',
         templateUrl: 'views/dashboard/dashboard.html',
         controller: 'MainCtrl',
-        onEnter: function($state, Auth, $timeout) {
-          if (!Auth.isAuthenticated()) {
-            $timeout(function() {
-              $state.go('login');
-            });
-          }
-        }
+        onEnter: page403
       })
       .state('dashboard.item', {
         url: '/item/:id',
         templateUrl: 'views/dashboard/dashboard.item.html',
-        controller: 'MainCtrl'
+        controller: 'MainCtrl',
+        onEnter: page403
       })
       .state('dashboard.item.variant', {
         url: '/:variant',
         templateUrl: 'views/dashboard/dashboard.item.variant.html',
-        controller: 'MainCtrl'
+        controller: 'MainCtrl',
+        onEnter: page403
+      })
+      .state('403', {
+        url: '/403',
+        templateUrl: 'views/403.html'
       });
 
     // For any unmatched url, redirect to '/'.
