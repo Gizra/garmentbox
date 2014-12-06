@@ -8,21 +8,26 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('MainCtrl', function ($scope, Items, ItemVariants, $log) {
+  .controller('MainCtrl', function ($scope, Items, ItemVariants, $state, $log) {
 
     $scope.items = null;
     $scope.selectedItem = null;
     $scope.itemVariants = null;
     $scope.selectedItemVariants = null;
 
-    $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState){
-      if (toState.name.startsWith('dashboard')) {
+    $scope.$on('$stateChangeSuccess', function(event, toState, toParams){
+      if ($state.includes('dashboard')) {
         // Load items.
         Items.get().then(function(items) {
           $scope.items = items;
 
-          setSelectedItem(toState, toParams);
-          setSelectedItemVariant(toState, toParams);
+          if (toParams.id) {
+            setSelectedItem(toParams.id);
+          }
+
+          if (toParams.variant) {
+            setSelectedItemVariant(toParams.variant);
+          }
         });
       }
     });
@@ -30,18 +35,13 @@ angular.module('clientApp')
     /**
      * Set the selected item.
      *
-     * @param toState
-     * @param toParams
+     * @param int id
+     *   The item ID.
      */
-    var setSelectedItem = function(toState, toParams) {
-      if (!toState.name.startsWith('dashboard.item')) {
-        return;
-      }
-
+    var setSelectedItem = function(id) {
       $scope.selectedItem = null;
-      var id = toParams.id;
 
-      angular.forEach($scope.items, function(value, key) {
+      angular.forEach($scope.items, function(value) {
         if (value.id == id) {
           $scope.selectedItem = value;
         }
@@ -55,19 +55,14 @@ angular.module('clientApp')
     /**
      * Set the selected item variant.
      *
-     * @param toState
-     * @param toParams
+     * @param int id
+     *   The item variant ID.
      */
-    var setSelectedItemVariant = function(toState, toParams) {
-      if (!toState.name.startsWith('dashboard.item.variant')) {
-        return;
-      }
-
+    var setSelectedItemVariant = function(id) {
       $scope.selectedItemVariant = null;
-      var id = toParams.variant;
 
       ItemVariants.get(id).then(function(itemVariants) {
-        angular.forEach($scope.itemVariants, function(value, key) {
+        angular.forEach($scope.itemVariants, function(value) {
           if (value.id == id) {
             $scope.selectedItemVariant = value;
           }

@@ -20,6 +20,16 @@ angular
   ])
   .config(function($stateProvider, $urlRouterProvider, $httpProvider) {
 
+    /**
+     * Redirect a logged in user to the dashboard.
+     *
+     * @param $state
+     *   The ui-router state.
+     * @param Auth
+     *   The Auth service.
+     * @param $timeout
+     *   The timeout service.
+     */
     var redirectToDashbaord = function($state, Auth,$timeout) {
       if (Auth.isAuthenticated()) {
         // We need to use $timeout to make sure $state is ready to
@@ -30,6 +40,16 @@ angular
       }
     };
 
+    /**
+     * Redirect a user to a 403 error page.
+     *
+     * @param $state
+     *   The ui-router state.
+     * @param Auth
+     *   The Auth service.
+     * @param $timeout
+     *   The timeout service.
+     */
     var page403 = function($state, Auth,$timeout) {
       if (!Auth.isAuthenticated()) {
         // We need to use $timeout to make sure $state is ready to

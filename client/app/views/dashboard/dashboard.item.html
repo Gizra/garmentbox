@@ -1,15 +1,17 @@
-<a href ui-sref="dashboard">X</a>{{ selectedItem.label }}
+<div class="row">
+  <a href ui-sref="dashboard">X</a>{{ selectedItem.label }}
 
-<ul>
-  <li ng-repeat="itemVariant in itemVariants">
-    <div>
-      <a href ui-sref="dashboard.item.variant({ variant: itemVariant.id })">{{ itemVariant.label }}</a>
-    </div>
-    <div>
-      <img ng-src="{{ itemVariant.images[0].styles.thumbnail }}" />
-    </div>
+  <ul>
+    <li ng-repeat="itemVariant in itemVariants">
+      <div>
+        <a href ui-sref="dashboard.item.variant({ variant: itemVariant.id })">{{ itemVariant.label }}</a>
+      </div>
+      <div>
+        <img ng-src="{{ itemVariant.images[0].styles.thumbnail }}" />
+      </div>
 
-  </li>
-</ul>
+    </li>
+  </ul>
 
-<div ui-view></div>
+  <div ui-view></div>
+</div>
