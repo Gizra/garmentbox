@@ -17,20 +17,22 @@ angular.module('clientApp')
     $scope.selectedItemVariants = null;
 
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams){
-      if ($state.includes('dashboard')) {
-        // Load items.
-        Items.get().then(function(items) {
-          $scope.items = items;
-
-          if (toParams.id) {
-            setSelectedItem(toParams.id);
-          }
-
-          if (toParams.variant) {
-            setSelectedItemVariant(toParams.variant);
-          }
-        });
+      if (!$state.includes('dashboard.item')) {
+        return;
       }
+
+      // Load items.
+      Items.get().then(function(items) {
+        $scope.items = items;
+
+        if (toParams.id) {
+          setSelectedItem(toParams.id);
+        }
+
+        if (toParams.variant) {
+          setSelectedItemVariant(toParams.variant);
+        }
+      });
     });
 
     /**

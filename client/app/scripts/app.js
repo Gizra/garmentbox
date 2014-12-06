@@ -86,6 +86,18 @@ angular
         controller: 'MainCtrl',
         onEnter: page403
       })
+      .state('dashboard.companies', {
+        url: '/companies',
+        templateUrl: 'views/dashboard/dashboard.companies.html',
+        controller: 'CompaniesCtrl',
+        onEnter: page403
+      })
+      .state('dashboard.companies.company', {
+        url: '/:id',
+        templateUrl: 'views/dashboard/dashboard.companies.company.html',
+        controller: 'CompaniesCtrl',
+        onEnter: page403
+      })
       .state('403', {
         url: '/403',
         templateUrl: 'views/403.html'
