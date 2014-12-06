@@ -1,10 +1,13 @@
 <div class="row">
   <div class="col-md-4">
-    <ul>
-      <li ng-repeat="item in items">
-        <a href ui-sref="dashboard.items.variants({ id: item.id })">{{ item.label }}</a>
-      </li>
-    </ul>
+    <spinner ng-show="loadingItems"></spinner>
+    <div ng-hide="loadingItems">
+      <ul>
+        <li ng-repeat="item in items">
+          <a href ui-sref="dashboard.items.variants({ id: item.id })">{{ item.label }}</a>
+        </li>
+      </ul>
+    </div>
   </div>
 
   <div ui-view></div>

@@ -13,8 +13,11 @@ angular.module('clientApp')
     // Initialize values.
     $scope.items = null;
     $scope.selectedItem = null;
+    $scope.loadingItems = false;
+
     $scope.itemVariants = null;
     $scope.selectedItemVariants = null;
+    $scope.loadingItemVariants = false;
 
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams){
       if (!$state.includes('dashboard.items')) {
@@ -22,7 +25,9 @@ angular.module('clientApp')
       }
 
       // Load items.
+      $scope.loadingItems = true;
       Items.get().then(function(items) {
+        $scope.loadingItems = false;
         $scope.items = items;
 
         if (toParams.id) {
@@ -50,7 +55,9 @@ angular.module('clientApp')
         }
       });
 
+      $scope.loadingItemVariants = true;
       ItemVariants.get(id).then(function(itemVariants) {
+        $scope.loadingItemVariants = false;
         $scope.itemVariants = itemVariants;
       });
     };

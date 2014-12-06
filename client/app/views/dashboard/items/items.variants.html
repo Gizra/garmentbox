@@ -1,17 +1,21 @@
 <div class="col-md-4">
-  <a href ui-sref="^"><i class="glyphicon glyphicon-remove"> </i></a>{{ selectedItem.label }}
+  <spinner ng-show="loadingItemVariants"></spinner>
 
-  <ul>
-    <li ng-repeat="itemVariant in itemVariants">
-      <div>
-        <a href ui-sref="dashboard.items.variants.variant({ variant: itemVariant.id })">{{ itemVariant.label }}</a>
-      </div>
-      <div>
-        <img ng-src="{{ itemVariant.images[0].styles.thumbnail }}" />
-      </div>
+  <div ng-hide="loadingItemVariants">
+    <a href ui-sref="^"><i class="glyphicon glyphicon-remove"> </i></a>{{ selectedItem.label }}
 
-    </li>
-  </ul>
+    <ul>
+      <li ng-repeat="itemVariant in itemVariants">
+        <div>
+          <a href ui-sref="dashboard.items.variants.variant({ variant: itemVariant.id })">{{ itemVariant.label }}</a>
+        </div>
+        <div>
+          <img ng-src="{{ itemVariant.images[0].styles.thumbnail }}" />
+        </div>
+
+      </li>
+    </ul>
+  </div>
 </div>
 
 <div ui-view></div>
