@@ -10,6 +10,7 @@
 angular.module('clientApp')
   .controller('MainCtrl', function ($scope, Items, ItemVariants, $state, $log) {
 
+    // Initialize values.
     $scope.items = null;
     $scope.selectedItem = null;
     $scope.itemVariants = null;
