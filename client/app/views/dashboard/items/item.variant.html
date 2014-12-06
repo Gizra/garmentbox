@@ -1,11 +1,13 @@
-<a href ui-sref="^">X </a>{{ selectedItemVariant.label }}
+<div class="row">
+  <a href ui-sref="^">X </a>{{ selectedItemVariant.label }}
 
 
-<div>
-  <ul>
-    <li ng-repeat="image in selectedItemVariant.images">
-      <img ng-src="{{ image.styles.thumbnail }}" />
-    </li>
-  </ul>
+  <div>
+    <ul>
+      <li ng-repeat="image in selectedItemVariant.images">
+        <img ng-src="{{ image.styles.thumbnail }}" />
+      </li>
+    </ul>
+  </div>
 </div>
 

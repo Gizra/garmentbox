@@ -72,10 +72,11 @@ angular
         url: '',
         templateUrl: 'views/dashboard/main.html',
         controller: 'DashboardCtrl',
+        abstract: true,
         onEnter: page403
       })
       .state('dashboard.items', {
-        url: '/items',
+        url: '',
         templateUrl: 'views/dashboard/items/items.html',
         controller: 'ItemsCtrl',
         onEnter: page403
