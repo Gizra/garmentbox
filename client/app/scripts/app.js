@@ -82,13 +82,13 @@ angular
         onEnter: page403
       })
       .state('dashboard.items.variants', {
-        url: 'item/:id',
+        url: '/item/:id',
         templateUrl: 'views/dashboard/items/items.variants.html',
         controller: 'ItemsCtrl',
         onEnter: page403
       })
       .state('dashboard.items.variants.variant', {
-        url: 'variant/:variant',
+        url: '/variant/:variant',
         templateUrl: 'views/dashboard/items/items.variants.variant.html',
         controller: 'ItemsCtrl',
         onEnter: page403
