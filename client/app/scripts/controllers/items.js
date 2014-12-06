@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('MainCtrl', function ($scope, Items, ItemVariants, $state, $log) {
+  .controller('ItemsCtrl', function ($scope, Items, ItemVariants, $state, $log) {
 
     // Initialize values.
     $scope.items = null;
@@ -17,7 +17,7 @@ angular.module('clientApp')
     $scope.selectedItemVariants = null;
 
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams){
-      if (!$state.includes('dashboard.item')) {
+      if (!$state.includes('dashboard.items')) {
         return;
       }
 

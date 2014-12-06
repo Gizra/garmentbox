@@ -70,31 +70,37 @@ angular
       })
       .state('dashboard', {
         url: '',
-        templateUrl: 'views/dashboard/dashboard.html',
-        controller: 'MainCtrl',
+        templateUrl: 'views/dashboard/main.html',
+        controller: 'DashboardCtrl',
         onEnter: page403
       })
-      .state('dashboard.item', {
-        url: '/item/:id',
-        templateUrl: 'views/dashboard/dashboard.item.html',
-        controller: 'MainCtrl',
+      .state('dashboard.items', {
+        url: '/items',
+        templateUrl: 'views/dashboard/items/items.html',
+        controller: 'ItemsCtrl',
+        onEnter: page403
+      })
+      .state('dashboard.item.variants', {
+        url: '/items/:id',
+        templateUrl: 'views/dashboard/items/item.variants.html',
+        controller: 'ItemsCtrl',
         onEnter: page403
       })
       .state('dashboard.item.variant', {
         url: '/:variant',
-        templateUrl: 'views/dashboard/dashboard.item.variant.html',
-        controller: 'MainCtrl',
+        templateUrl: 'views/dashboard/items/item.variant.html',
+        controller: 'ItemsCtrl',
         onEnter: page403
       })
       .state('dashboard.companies', {
         url: '/companies',
-        templateUrl: 'views/dashboard/dashboard.companies.html',
+        templateUrl: 'views/dashboard/companies/companies.html',
         controller: 'CompaniesCtrl',
         onEnter: page403
       })
       .state('dashboard.companies.company', {
         url: '/:id',
-        templateUrl: 'views/dashboard/dashboard.companies.company.html',
+        templateUrl: 'views/dashboard/companies/companies.company.html',
         controller: 'CompaniesCtrl',
         onEnter: page403
       })
