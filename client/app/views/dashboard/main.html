@@ -3,8 +3,8 @@
     <div class="navbar-header">
       <a class="brand" ui-sref="dashboard">GarmentBox</a>
       <ul class="nav">
-        <li ng-class="{active: $state.includes('contacts')}"><a ui-sref="contacts.list" href="#/contacts">Contacts</a></li>
-        <li ui-sref-active="active" class=""><a ui-sref="about" href="#/about">About</a></li>
+        <li><a ui-sref="dashboard.items">Items</a></li>
+        <li><a ui-sref="dashboard.companies">Companies</a></li>
         <li><a href ng-click="logout()">Logout</a></li>
       </ul>
     </div>
