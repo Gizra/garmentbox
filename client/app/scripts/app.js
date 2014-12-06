@@ -35,7 +35,7 @@ angular
         // We need to use $timeout to make sure $state is ready to
         // transition.
         $timeout(function() {
-          $state.go('dashboard');
+          $state.go('dashboard.items');
         });
       }
     };
@@ -82,13 +82,13 @@ angular
         onEnter: page403
       })
       .state('dashboard.items.variants', {
-        url: '/:id',
+        url: 'item/:id',
         templateUrl: 'views/dashboard/items/items.variants.html',
         controller: 'ItemsCtrl',
         onEnter: page403
       })
       .state('dashboard.items.variants.variant', {
-        url: '/:variant',
+        url: 'variant/:variant',
         templateUrl: 'views/dashboard/items/items.variants.variant.html',
         controller: 'ItemsCtrl',
         onEnter: page403
