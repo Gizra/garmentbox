@@ -63,13 +63,13 @@ angular
     // Now set up the states.
     $stateProvider
       .state('login', {
-        url: '/',
+        url: '/login',
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl',
         onEnter: redirectToDashbaord
       })
       .state('dashboard', {
-        url: '/dashboard',
+        url: '',
         templateUrl: 'views/dashboard/dashboard.html',
         controller: 'MainCtrl',
         onEnter: page403
