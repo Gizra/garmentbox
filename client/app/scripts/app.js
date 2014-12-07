@@ -109,7 +109,12 @@ angular
         url: '/companies',
         templateUrl: 'views/dashboard/companies/companies.html',
         controller: 'CompaniesCtrl',
-        onEnter: page403
+        onEnter: page403,
+        resolve: {
+          companies: function(Companies) {
+            return Companies.get();
+          }
+        }
       })
       .state('dashboard.companies.company', {
         url: '/:id',

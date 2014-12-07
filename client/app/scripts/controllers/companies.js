@@ -8,10 +8,10 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('CompaniesCtrl', function ($scope, Companies, $state, $log) {
+  .controller('CompaniesCtrl', function ($scope, companies, $state, $log) {
 
     // Initialize values.
-    $scope.companies = null;
+    $scope.companies = companies;
     $scope.selectedCompany = null;
 
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams){
@@ -19,14 +19,9 @@ angular.module('clientApp')
         return;
       }
 
-      // Load companies.
-      Companies.get().then(function(companies) {
-        $scope.companies = companies;
-
-        if (toParams.id) {
-          setSelectedCompany(toParams.id);
-        }
-      });
+      if (toParams.id) {
+        setSelectedCompany(toParams.id);
+      }
     });
 
     /**
@@ -44,5 +39,4 @@ angular.module('clientApp')
         }
       });
     };
-
   });
