@@ -8,3 +8,11 @@ Feature: User login
     Given I login with user "admin"
      When I visit "/#/dashboard/items/item/15/variant/21"
      Then I should wait for the text "Grey v-neck shirt" to "appear"
+
+  @javascript
+  Scenario: Login to site, and check access to the homepage.
+    Given I login with user "admin"
+    When I visit "/#/dashboard/items/item/15/variant/21"
+    And I click "Unselect item"
+    Then I should wait for the text "Grey v-neck shirt" to "disappear"
+

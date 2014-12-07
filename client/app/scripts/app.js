@@ -21,26 +21,6 @@ angular
   .config(function($stateProvider, $urlRouterProvider, $httpProvider) {
 
     /**
-     * Redirect a logged in user to the dashboard.
-     *
-     * @param $state
-     *   The ui-router state.
-     * @param Auth
-     *   The Auth service.
-     * @param $timeout
-     *   The timeout service.
-     */
-    var redirectToDashbaord = function($state, Auth,$timeout) {
-      if (Auth.isAuthenticated()) {
-        // We need to use $timeout to make sure $state is ready to
-        // transition.
-        $timeout(function() {
-          $state.go('dashboard.items');
-        });
-      }
-    };
-
-    /**
      * Redirect a user to a 403 error page.
      *
      * @param $state
@@ -65,8 +45,7 @@ angular
       .state('login', {
         url: '/login',
         templateUrl: 'views/login.html',
-        controller: 'LoginCtrl',
-        onEnter: redirectToDashbaord
+        controller: 'LoginCtrl'
       })
       .state('dashboard', {
         url: '/dashboard',
