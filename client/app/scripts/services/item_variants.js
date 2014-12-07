@@ -32,7 +32,6 @@ angular.module('clientApp')
      * @returns {$q.promise}
      */
     function getDataFromBackend(itemId) {
-      $log.log('item variant from backend');
       var deferred = $q.defer();
       var url = Config.backend + '/api/item_variants';
       var params = !!itemId ? {item: itemId} : {};
