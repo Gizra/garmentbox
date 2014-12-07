@@ -8,21 +8,11 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('CompaniesCtrl', function ($scope, companies, $state, $log) {
+  .controller('CompaniesCtrl', function ($scope, companies, $stateParams, $log) {
 
     // Initialize values.
     $scope.companies = companies;
     $scope.selectedCompany = null;
-
-    $scope.$on('$stateChangeSuccess', function(event, toState, toParams){
-      if (!$state.includes('dashboard.companies')) {
-        return;
-      }
-
-      if (toParams.id) {
-        setSelectedCompany(toParams.id);
-      }
-    });
 
     /**
      * Set the selected Company.
@@ -39,4 +29,8 @@ angular.module('clientApp')
         }
       });
     };
+
+    if ($stateParams.id) {
+      setSelectedCompany($stateParams.id);
+    }
   });

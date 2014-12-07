@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('ItemsCtrl', function ($scope, items, itemVariants, $state, $log) {
+  .controller('ItemsCtrl', function ($scope, items, itemVariants, $stateParams, $log) {
 
     // Initialize values.
     $scope.items = items;
@@ -16,21 +16,6 @@ angular.module('clientApp')
 
     $scope.itemVariants = itemVariants;
     $scope.selectedItemVariants = null;
-
-    $scope.$on('$stateChangeSuccess', function(event, toState, toParams){
-      if (!$state.includes('dashboard.items')) {
-        return;
-      }
-
-
-      if (toParams.id) {
-        setSelectedItem(toParams.id);
-      }
-
-      if (toParams.variant) {
-        setSelectedItemVariant(toParams.variant);
-      }
-    });
 
     /**
      * Set the selected item.
@@ -62,5 +47,13 @@ angular.module('clientApp')
           $scope.selectedItemVariant = value;
         }
       });
+    };
+
+    if ($stateParams.id) {
+      setSelectedItem($stateParams.id);
+    }
+
+    if ($stateParams.variant) {
+      setSelectedItemVariant($stateParams.variant);
     }
   });
