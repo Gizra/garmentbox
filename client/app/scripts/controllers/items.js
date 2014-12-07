@@ -56,4 +56,8 @@ angular.module('clientApp')
     if ($stateParams.variant) {
       setSelectedItemVariant($stateParams.variant);
     }
+
+    $scope.addMoreItems = function() {
+      $log.log('called');
+    };
   });

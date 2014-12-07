@@ -15,6 +15,7 @@ angular
     'ngSanitize',
 
     'config',
+    'infinite-scroll',
     'LocalStorageModule',
     'ui.router'
   ])
