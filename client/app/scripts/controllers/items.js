@@ -8,36 +8,28 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('ItemsCtrl', function ($scope, Items, ItemVariants, $state, $log) {
+  .controller('ItemsCtrl', function ($scope, items, itemVariants, $state, $log) {
 
     // Initialize values.
-    $scope.items = null;
+    $scope.items = items;
     $scope.selectedItem = null;
-    $scope.loadingItems = false;
 
-    $scope.itemVariants = null;
+    $scope.itemVariants = itemVariants;
     $scope.selectedItemVariants = null;
-    $scope.loadingItemVariants = false;
 
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams){
       if (!$state.includes('dashboard.items')) {
         return;
       }
 
-      // Load items.
-      $scope.loadingItems = true;
-      Items.get().then(function(items) {
-        $scope.loadingItems = false;
-        $scope.items = items;
 
-        if (toParams.id) {
-          setSelectedItem(toParams.id);
-        }
+      if (toParams.id) {
+        setSelectedItem(toParams.id);
+      }
 
-        if (toParams.variant) {
-          setSelectedItemVariant(toParams.variant);
-        }
-      });
+      if (toParams.variant) {
+        setSelectedItemVariant(toParams.variant);
+      }
     });
 
     /**
@@ -54,12 +46,6 @@ angular.module('clientApp')
           $scope.selectedItem = value;
         }
       });
-
-      $scope.loadingItemVariants = true;
-      ItemVariants.get(id).then(function(itemVariants) {
-        $scope.loadingItemVariants = false;
-        $scope.itemVariants = itemVariants;
-      });
     };
 
     /**
@@ -71,12 +57,10 @@ angular.module('clientApp')
     var setSelectedItemVariant = function(id) {
       $scope.selectedItemVariant = null;
 
-      ItemVariants.get(id).then(function(itemVariants) {
-        angular.forEach($scope.itemVariants, function(value) {
-          if (value.id == id) {
-            $scope.selectedItemVariant = value;
-          }
-        });
+      angular.forEach($scope.itemVariants, function(value) {
+        if (value.id == id) {
+          $scope.selectedItemVariant = value;
+        }
       });
     }
   });

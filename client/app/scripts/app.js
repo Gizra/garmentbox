@@ -78,13 +78,26 @@ angular
         url: '/items',
         templateUrl: 'views/dashboard/items/items.html',
         controller: 'ItemsCtrl',
-        onEnter: page403
+        onEnter: page403,
+        resolve: {
+          items: function(Items) {
+            return Items.get();
+          },
+          itemVariants: function() {
+            return null;
+          }
+        }
       })
       .state('dashboard.items.variants', {
         url: '/item/:id',
         templateUrl: 'views/dashboard/items/items.variants.html',
         controller: 'ItemsCtrl',
-        onEnter: page403
+        onEnter: page403,
+        resolve: {
+          itemVariants: function(ItemVariants, $stateParams) {
+            return ItemVariants.get($stateParams.id);
+          }
+        }
       })
       .state('dashboard.items.variants.variant', {
         url: '/variant/:variant',

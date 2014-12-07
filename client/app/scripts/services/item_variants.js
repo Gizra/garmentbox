@@ -8,7 +8,7 @@
  * Service in the clientApp.
  */
 angular.module('clientApp')
-  .service('ItemVariants', function ($q, $http, $timeout, Config, $rootScope) {
+  .service('ItemVariants', function ($q, $http, $timeout, Config, $rootScope, $log) {
 
     // A private cache key.
     var cache = {};
@@ -32,6 +32,7 @@ angular.module('clientApp')
      * @returns {$q.promise}
      */
     function getDataFromBackend(itemId) {
+      $log.log('item variant from backend');
       var deferred = $q.defer();
       var url = Config.backend + '/api/item_variants';
       var params = !!itemId ? {item: itemId} : {};
