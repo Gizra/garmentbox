@@ -101,6 +101,17 @@ angular
         controller: 'CompaniesCtrl',
         onEnter: page403
       })
+      .state('dashboard.account', {
+        url: '/my-account',
+        templateUrl: 'views/dashboard/account/account.html',
+        controller: 'AccountCtrl',
+        onEnter: page403,
+        resolve: {
+          account: function(Account) {
+            return Account.get();
+          }
+        }
+      })
       .state('403', {
         url: '/403',
         templateUrl: 'views/403.html'
