@@ -1,7 +1,7 @@
 language: php
 
 php:
-  - 5.4
+  - 5.3
 
 mysql:
   database: drupal
@@ -12,35 +12,52 @@ before_install:
   - sudo apt-get update > /dev/null
   - composer self-update
 
+  # Install phantomJs.
+  - sudo apt-get update
+  - sudo apt-get install build-essential chrpath libssl-dev libxft-dev
+  - sudo apt-get install libfreetype6 libfreetype6-dev
+  - sudo apt-get install libfontconfig1 libfontconfig1-dev
+  - export PHANTOM_JS="phantomjs-1.9.7-linux-x86_64"
+  - wget https://bitbucket.org/ariya/phantomjs/downloads/$PHANTOM_JS.tar.bz2
+  - sudo mv $PHANTOM_JS.tar.bz2 /usr/local/share/
+  - sudo tar xvjf /usr/local/share/$PHANTOM_JS.tar.bz2
+  - sudo ln -sf /usr/local/share/$PHANTOM_JS/bin/phantomjs /usr/local/share/phantomjs
+  - sudo ln -sf /usr/local/share/$PHANTOM_JS/bin/phantomjs /usr/local/bin/phantomjs
+  - sudo ln -sf /usr/local/share/$PHANTOM_JS/bin/phantomjs /usr/bin/phantomjs
+
+  # Install grunt.
+  - npm install -g grunt-cli
+  - npm install -g bower
+
 install:
   # install php packages required for running a web server from drush on php 5.3
   - sudo apt-get install -y --force-yes php5-cgi php5-mysql
 
   # install drush
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
-  - composer global require drush/drush:6.*@dev
+  - composer global require drush/drush:6.*
   - phpenv rehash
 
 before_script:
-  - cp default.config.sh config.sh
-  - bash scripts/ci/setup
-  - bash scripts/build
-  - cd www
-  - drush si garmentbox --db-url=mysql://root:@127.0.0.1/drupal --account-pass=admin --yes
-  - drush cc all --yes
-  # Use drush migrate command to import dummy content, as user 1, so we don't have node access issues.
-  # - drush mi --all --user=1
 
+  # Install Drupal
+  - cp travis.config.sh config.sh
+  - ./install -dy
+
+  # Install client
+  - cd client
+  - npm install
+  - bower install
+  - cp config.travis.json config.json
+  - grunt serve > ~/grunt.log 2>&1 &
   - cd ..
 
-  # Create a behat configuration file.
-  - cd garmentbox/behat
-  - cp behat.local.yml.travis behat.local.yml
-
-  # Create Drush alias.
+  # Install Behat
+  - cd behat
   - cp aliases.drushrc.php ~/.drush/
+  - cp behat.local.yml.travis behat.local.yml
   - composer install --prefer-source
-
+  - cd ..
 
 script:
   # Create display.
@@ -49,7 +66,7 @@ script:
   - sleep 3 # give xvfb some time to start
 
   # start a web server on port 8080, run in the background; wait for initialization
-  - drush @garmentbox runserver 127.0.0.1:8080 &
+  - drush @site runserver 127.0.0.1:8080 &
   - until netstat -an 2>/dev/null | grep '8080.*LISTEN'; do true; done
 
   # Run selenium.
@@ -57,14 +74,12 @@ script:
   - java -jar selenium-server-standalone-2.40.0.jar -p 4444 &
   - sleep 5
 
+  # Run phantomJs.
+  - phantomjs --webdriver=4444 > ~/phantomjs.log 2>&1 &
+
+  # Run behat tests.
+  - cd behat
   - ./bin/behat --tags=~@wip
 
-
-  # Run WebTests ---------------------------------------------------------------
-  - drush @garmentbox -y en simpletest
-
-  # Add the tests here. Use the group name, classname or the file.
-  # Example:
-  - drush @garmentbox test-run "garmentbox:demo"
-
-  # End Run WebTests -----------------------------------------------------------
+  # Print log ~/phantomjs.log
+  - cat ~/phantomjs.log

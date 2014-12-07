@@ -1,0 +1,8 @@
+{
+  "development": {
+    "backend": "http://localhost/garmentbox/www"
+  },
+  "production": {
+    "backend": "https://server.com"
+  }
+}

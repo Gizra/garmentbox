@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Garmentbox Material feature.
+ */
+
+include_once 'gb_material.features.inc';

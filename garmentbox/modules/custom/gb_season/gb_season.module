@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the gb season feature.
+ */
+
+include_once 'gb_season.features.inc';

@@ -184,10 +184,6 @@ function install_drupal_profile {
     --uri=$BASE_DOMAIN_URL
   echo
 
-  echo -e "${LBLUE}> Disable the update module as it slows down admin access${RESTORE}"
-  drush -y dis update
-  echo
-
   cd $ROOT
 }
 
@@ -216,7 +212,7 @@ function create_sites_default_files_directory {
 function enable_development_modules {
   echo -e "${LBLUE}> Enabling the development modules${RESTORE}"
   cd $ROOT/www
-  drush en -y devel views_ui field_ui context_ui
+  drush en -y devel views_ui field_ui
   cd $ROOT
   echo
 }
@@ -233,8 +229,9 @@ function import_demo_content {
   MIGRATE_UI=$(drush pm-list --pipe --type=module | grep "^migrate_ui$")
   MIGRATE_EXTRAS=$(drush pm-list --pipe --type=module | grep "^migrate_extras$")
   if [ $MIGRATE_UI ] && [ $MIGRATE_EXTRAS ]; then
+    drush en -y gb_migrate
     drush en -y migrate migrate_ui migrate_extras
-    drush mi --update --all
+    drush mi --all --user=1
   else
     echo -e  "${BGYELLOW}                                                                 ${RESTORE}"
     echo -e "${BGLYELLOW}  Migrate and or Migrate Extras module(s) are not available!     ${RESTORE}"
