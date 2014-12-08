@@ -21,6 +21,8 @@ angular.module('clientApp')
     $scope.create = function(data) {
       // @todo: Remove company hardcoding.
       data.company = 1;
-      Items.create(data);
+      Items.create(data).then(function() {
+        $scope.data = {};
+      });
     }
   });
