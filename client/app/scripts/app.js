@@ -84,6 +84,12 @@ angular
         controller: 'ItemsCtrl',
         onEnter: page403
       })
+      .state('dashboard.items.add', {
+        url: '/add',
+        templateUrl: 'views/dashboard/items/items.add.html',
+        controller: 'ItemsAddCtrl',
+        onEnter: page403
+      })
       .state('dashboard.companies', {
         url: '/companies',
         templateUrl: 'views/dashboard/companies/companies.html',
