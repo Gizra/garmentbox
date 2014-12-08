@@ -22,6 +22,34 @@ angular.module('clientApp')
       return $q.when(cache.data || getDataFromBackend());
     };
 
+
+    /**
+     * Create a new item.
+     *
+     * @param data
+     *   Object with data to be saved.
+     */
+    this.create= function(data) {
+      var deferred = $q.defer();
+      var url = Config.backend + '/api/items';
+      $http({
+        method: 'POST',
+        url: url,
+        data: data
+      }).success(function(response) {
+        // We don't need to query the backend again - we can simply append the
+        // new items to the cached list.
+        $log.log(response);
+        data = this.cache ? this.cache.data : [];
+        data.push(response.data[0]);
+        setCache(data);
+
+        deferred.resolve(response.data[0]);
+      });
+
+      return deferred.promise;
+    };
+
     /**
      * Return items array from the server.
      *
@@ -40,7 +68,7 @@ angular.module('clientApp')
       });
 
       return deferred.promise;
-    }
+    };
 
     /**
      * Save meters in cache, and broadcast en event to inform that the meters data changed.
