@@ -19,6 +19,8 @@ angular.module('clientApp')
      *   Object with data to be saved.
      */
     $scope.create = function(data) {
+      // @todo: Remove company hardcoding.
+      data.company = 1;
       Items.create(data);
     }
   });

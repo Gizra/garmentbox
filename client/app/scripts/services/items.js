@@ -8,7 +8,7 @@
  * Service in the clientApp.
  */
 angular.module('clientApp')
-  .service('Items', function ($q, $http, $timeout, Config, $rootScope) {
+  .service('Items', function ($q, $http, $timeout, Config, $rootScope, $log) {
 
     // A private cache key.
     var cache = {};
@@ -32,6 +32,7 @@ angular.module('clientApp')
     this.create= function(data) {
       var deferred = $q.defer();
       var url = Config.backend + '/api/items';
+
       $http({
         method: 'POST',
         url: url,
@@ -39,9 +40,8 @@ angular.module('clientApp')
       }).success(function(response) {
         // We don't need to query the backend again - we can simply append the
         // new items to the cached list.
-        $log.log(response);
-        data = this.cache ? this.cache.data : [];
-        data.push(response.data[0]);
+        data = cache ? cache.data : [];
+        data.unshift(response.data[0]);
         setCache(data);
 
         deferred.resolve(response.data[0]);
@@ -61,7 +61,8 @@ angular.module('clientApp')
 
       $http({
         method: 'GET',
-        url: url
+        url: url,
+        params: {sort: '-id'}
       }).success(function(response) {
         setCache(response.data);
         deferred.resolve(response.data);
