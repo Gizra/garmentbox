@@ -42,6 +42,15 @@ angular
 
     // Now set up the states.
     $stateProvider
+      .state('homepage', {
+        url: '/',
+        controller: 'HomepageCtrl',
+        resolve: {
+          companies: function(Companies) {
+            return Companies.get();
+          }
+        }
+      })
       .state('login', {
         url: '/login',
         templateUrl: 'views/login.html',
