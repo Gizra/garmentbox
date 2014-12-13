@@ -40,7 +40,7 @@ angular.module('clientApp')
      *
      * @returns {$q.promise}
      */
-    function getDataFromBackend(itemId) {
+    var getDataFromBackend = function(itemId) {
       var deferred = $q.defer();
       var url = Config.backend + '/api/item_variants';
       var params = !!itemId ? {item: itemId} : {};

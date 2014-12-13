@@ -90,7 +90,7 @@ angular
         }
       })
       .state('dashboard.byCompany.items.variants.variant', {
-        url: '/variant/{variantId:int}',
+        url: '/variant/{itemVariantId:int}',
         templateUrl: 'views/dashboard/items/items.variants.variant.html',
         controller: 'ItemsCtrl',
         onEnter: page403

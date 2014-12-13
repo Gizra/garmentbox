@@ -8,7 +8,7 @@
     <div ng-hide="loadingItems">
       <ul>
         <li ng-repeat="item in items">
-          <a href ui-sref="dashboard.byCompany.items.variants({ id: item.id })">{{ item.label }}</a>
+          <a href ui-sref="dashboard.byCompany.items.variants({ itemId: item.id })">{{ item.label }}</a>
         </li>
       </ul>
     </div>
