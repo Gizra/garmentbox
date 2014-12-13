@@ -22,14 +22,4 @@ angular.module('clientApp')
       Auth.logout();
       $state.go('login');
     };
-
-    /**
-     * Set the active company.
-     *
-     * @param int id
-     *   The company ID.
-     */
-    $scope.setActiveCompany = function(id) {
-      Companies.setActive(id);
-    }
   });

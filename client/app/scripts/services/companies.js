@@ -23,29 +23,6 @@ angular.module('clientApp')
     };
 
     /**
-     * Set the active company.
-     *
-     * A user may have multiple companies, but for some queries we may want to
-     * set the "active" one.
-     *
-     * @param int id
-     *   The ID of the company.
-     */
-    this.setActive = function(id) {
-      localStorageService.set('active_company', id);
-    };
-
-    /**
-     * Return the active company.
-     *
-     * @returns int
-     *   The ID of the active company if set.
-     */
-    this.getActive = function() {
-      return localStorageService.get('active_company');
-    };
-
-    /**
      * Return items array from the server.
      *
      * @returns {$q.promise}

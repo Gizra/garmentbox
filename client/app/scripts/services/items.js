@@ -13,13 +13,23 @@ angular.module('clientApp')
     // A private cache key.
     var cache = {};
 
+    var broadastUpdateEventName = 'gbItemsChanged';
+
+
     /**
      * Return the promise with the items list, from cache or the server.
      *
+     * @param int companyId
+     *   The company ID.
+     *
      * @returns {*}
      */
-    this.get = function() {
-      return $q.when(cache.data || getDataFromBackend());
+    this.get = function(companyId) {
+      if (cache && cache[companyId]) {
+        return $q.when(cache[companyId].data);
+      }
+
+      return getDataFromBackend(companyId);
     };
 
 
@@ -42,7 +52,7 @@ angular.module('clientApp')
         // new items to the cached list.
         data = cache ? cache.data : [];
         data.unshift(response.data[0]);
-        setCache(data);
+        setCache(data.company, data);
 
         deferred.resolve(response.data[0]);
       });
@@ -53,18 +63,25 @@ angular.module('clientApp')
     /**
      * Return items array from the server.
      *
+     * @param int companyId
+     *   The company ID.
+     *
      * @returns {$q.promise}
      */
-    function getDataFromBackend() {
+    function getDataFromBackend(companyId) {
       var deferred = $q.defer();
       var url = Config.backend + '/api/items';
+      var params = {
+        sort: '-updated',
+        'filter[company]': companyId
+      };
 
       $http({
         method: 'GET',
         url: url,
-        params: {sort: '-id'}
+        params: params
       }).success(function(response) {
-        setCache(response.data);
+        setCache(companyId, response.data);
         deferred.resolve(response.data);
       });
 
@@ -72,24 +89,27 @@ angular.module('clientApp')
     };
 
     /**
-     * Save meters in cache, and broadcast en event to inform that the meters data changed.
+     * Save cache, and broadcast en event to inform that the data changed.
      *
-     * @param meters
+     * @param int companyId
+     *   The company ID.
+     * @param data
+     *   Object with the data to cache.
      */
-    var setCache = function(data) {
-      // Cache meters data.
-      cache = {
+    var setCache = function(companyId, data) {
+      // Cache data by company ID.
+      cache[companyId] = {
         data: data,
         timestamp: new Date()
       };
 
       // Clear cache in 60 seconds.
       $timeout(function() {
-        cache.data = undefined;
+        cache.data[companyId] = undefined;
       }, 60000);
 
       // Broadcast a change event.
-      $rootScope.$broadcast('gb.items.changed');
+      $rootScope.$broadcast(broadastUpdateEventName);
     }
 
   });

@@ -48,7 +48,7 @@ angular
         controller: 'LoginCtrl'
       })
       .state('dashboard', {
-        url: '/dashboard',
+        url: '/dashboard/{companyId:int}',
         templateUrl: 'views/dashboard/main.html',
         controller: 'DashboardCtrl',
         onEnter: page403,
@@ -64,8 +64,8 @@ angular
         controller: 'ItemsCtrl',
         onEnter: page403,
         resolve: {
-          items: function(Items) {
-            return Items.get();
+          items: function($stateParams, Items) {
+            return Items.get($stateParams.companyId);
           },
           itemVariants: function() {
             return null;
@@ -73,18 +73,18 @@ angular
         }
       })
       .state('dashboard.items.variants', {
-        url: '/item/:id',
+        url: '/item/{itemId:int}',
         templateUrl: 'views/dashboard/items/items.variants.html',
         controller: 'ItemsCtrl',
         onEnter: page403,
         resolve: {
           itemVariants: function(ItemVariants, $stateParams) {
-            return ItemVariants.get($stateParams.id);
+            return ItemVariants.get($stateParams.companyId, $stateParams.id);
           }
         }
       })
       .state('dashboard.items.variants.variant', {
-        url: '/variant/:variant',
+        url: '/variant/{variantId:int}',
         templateUrl: 'views/dashboard/items/items.variants.variant.html',
         controller: 'ItemsCtrl',
         onEnter: page403
@@ -107,12 +107,12 @@ angular
         }
       })
       .state('dashboard.companies.company', {
-        url: '/:id',
+        url: '/{id:int}',
         templateUrl: 'views/dashboard/companies/companies.company.html',
         controller: 'CompaniesCtrl',
         onEnter: page403
       })
-      .state('dashboard.account', {
+      .state('account', {
         url: '/my-account',
         templateUrl: 'views/dashboard/account/account.html',
         controller: 'AccountCtrl',
