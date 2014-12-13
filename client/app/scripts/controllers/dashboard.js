@@ -12,6 +12,7 @@ angular.module('clientApp')
 
     // Initialize values.
     $scope.companies = companies;
+    $scope.defaultCompanyId = companies[0].id;
 
     /**
      * Logout current user.

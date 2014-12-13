@@ -43,7 +43,13 @@ angular.module('clientApp')
     var getDataFromBackend = function(itemId) {
       var deferred = $q.defer();
       var url = Config.backend + '/api/item_variants';
-      var params = !!itemId ? {item: itemId} : {};
+      var params = {};
+
+      if (itemId) {
+        params = {
+          'filter[item]': itemId
+        }
+      }
 
       $http({
         method: 'GET',

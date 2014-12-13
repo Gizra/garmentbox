@@ -54,6 +54,6 @@ angular.module('clientApp')
     }
 
     if ($stateParams.itemVariantId) {
-      setSelectedItemVariant($stateParams.variant);
+      setSelectedItemVariant($stateParams.itemVariantId);
     }
   });

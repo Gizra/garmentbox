@@ -85,7 +85,7 @@ angular
         onEnter: page403,
         resolve: {
           itemVariants: function(ItemVariants, $stateParams) {
-            return ItemVariants.get($stateParams.companyId, $stateParams.id);
+            return ItemVariants.get($stateParams.itemId);
           }
         }
       })
