@@ -2,13 +2,13 @@
   <div class="col-md-4">
 
     <div>
-      <a ui-sref="dashboard.items.add"><i class="glyphicon glyphicon-plus"> </i>Add Item</a>
+      <a ui-sref="dashboard.byCompany.items.add"><i class="glyphicon glyphicon-plus"> </i>Add Item</a>
     </div>
 
     <div ng-hide="loadingItems">
       <ul>
         <li ng-repeat="item in items">
-          <a href ui-sref="dashboard.items.variants({ id: item.id })">{{ item.label }}</a>
+          <a href ui-sref="dashboard.byCompany.items.variants({ id: item.id })">{{ item.label }}</a>
         </li>
       </ul>
     </div>

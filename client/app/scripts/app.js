@@ -48,7 +48,7 @@ angular
         controller: 'LoginCtrl'
       })
       .state('dashboard', {
-        url: '/dashboard/{companyId:int}',
+        url: '',
         templateUrl: 'views/dashboard/main.html',
         controller: 'DashboardCtrl',
         onEnter: page403,
@@ -58,7 +58,13 @@ angular
           }
         }
       })
-      .state('dashboard.items', {
+      .state('dashboard.byCompany', {
+        url: '/dashboard/{companyId:int}',
+        abstract: true,
+        // Since the state is abstract, we inline the <ui-view> tag.
+        template: '<ui-view/>'
+      })
+      .state('dashboard.byCompany.items', {
         url: '/items',
         templateUrl: 'views/dashboard/items/items.html',
         controller: 'ItemsCtrl',
@@ -72,7 +78,7 @@ angular
           }
         }
       })
-      .state('dashboard.items.variants', {
+      .state('dashboard.byCompany.items.variants', {
         url: '/item/{itemId:int}',
         templateUrl: 'views/dashboard/items/items.variants.html',
         controller: 'ItemsCtrl',
@@ -83,19 +89,19 @@ angular
           }
         }
       })
-      .state('dashboard.items.variants.variant', {
+      .state('dashboard.byCompany.items.variants.variant', {
         url: '/variant/{variantId:int}',
         templateUrl: 'views/dashboard/items/items.variants.variant.html',
         controller: 'ItemsCtrl',
         onEnter: page403
       })
-      .state('dashboard.items.add', {
+      .state('dashboard.byCompany.items.add', {
         url: '/add',
         templateUrl: 'views/dashboard/items/items.add.html',
         controller: 'ItemsAddCtrl',
         onEnter: page403
       })
-      .state('companies', {
+      .state('dashboard.companies', {
         url: '/companies',
         templateUrl: 'views/dashboard/companies/companies.html',
         controller: 'CompaniesCtrl',
@@ -106,13 +112,13 @@ angular
           }
         }
       })
-      .state('companies.company', {
+      .state('dashboard.companies.company', {
         url: '/{id:int}',
         templateUrl: 'views/dashboard/companies/companies.company.html',
         controller: 'CompaniesCtrl',
         onEnter: page403
       })
-      .state('account', {
+      .state('dashboard.account', {
         url: '/my-account',
         templateUrl: 'views/dashboard/account/account.html',
         controller: 'AccountCtrl',
