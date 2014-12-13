@@ -64,4 +64,8 @@ angular.module('clientApp')
       $rootScope.$broadcast('gb.companies.changed');
     }
 
+    $rootScope.$on('clearCache', function() {
+      cache = null;
+    });
+
   });

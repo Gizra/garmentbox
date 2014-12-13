@@ -116,4 +116,8 @@ angular.module('clientApp')
       $rootScope.$broadcast(broadcastUpdateEventName);
     }
 
+    $rootScope.$on('clearCache', function() {
+      cache = null;
+    });
+
   });

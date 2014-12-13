@@ -8,7 +8,7 @@
  * Service in the clientApp.
  */
 angular.module('clientApp')
-  .service('Auth', function ($injector, Utils, localStorageService, Config) {
+  .service('Auth', function ($injector, $rootScope, Utils, localStorageService, Config) {
 
     /**
      * Login by calling the Drupal REST server.
@@ -36,6 +36,8 @@ angular.module('clientApp')
      */
     this.logout = function() {
       localStorageService.remove('access_token');
+
+      $rootScope.$broadcast('clearCache');
       // Something went wrong, change state back to login
       // Service 'Auth' can't depend on '$state', hence injecting it manually
       $injector.get('$state').go('login');
