@@ -19,9 +19,12 @@ angular.module('clientApp')
      *   Object with data to be saved.
      */
     $scope.create = function(data) {
+      // Indicate we are in the middle of creation.
+      $scope.creating = true;
       // Set the company by the active one.
       data.company = $stateParams.companyId;
       Items.create(data).then(function() {
+        $scope.creating = false;
         $scope.data = {};
       });
     }
