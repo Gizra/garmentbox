@@ -95,7 +95,7 @@ angular
         controller: 'ItemsAddCtrl',
         onEnter: page403
       })
-      .state('dashboard.companies', {
+      .state('companies', {
         url: '/companies',
         templateUrl: 'views/dashboard/companies/companies.html',
         controller: 'CompaniesCtrl',
@@ -106,7 +106,7 @@ angular
           }
         }
       })
-      .state('dashboard.companies.company', {
+      .state('companies.company', {
         url: '/{id:int}',
         templateUrl: 'views/dashboard/companies/companies.company.html',
         controller: 'CompaniesCtrl',

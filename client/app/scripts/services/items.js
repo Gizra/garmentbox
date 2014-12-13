@@ -13,7 +13,8 @@ angular.module('clientApp')
     // A private cache key.
     var cache = {};
 
-    var broadastUpdateEventName = 'gbItemsChanged';
+    // Update event broadcast name.
+    var broadcastUpdateEventName = 'gbItemsChanged';
 
 
     /**
@@ -109,7 +110,7 @@ angular.module('clientApp')
       }, 60000);
 
       // Broadcast a change event.
-      $rootScope.$broadcast(broadastUpdateEventName);
+      $rootScope.$broadcast(broadcastUpdateEventName);
     }
 
   });
