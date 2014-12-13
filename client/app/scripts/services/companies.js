@@ -8,7 +8,7 @@
  * Service in the clientApp.
  */
 angular.module('clientApp')
-  .service('Companies', function ($q, $http, $timeout, Config, $rootScope) {
+  .service('Companies', function ($q, $http, $timeout, Config, $rootScope, localStorageService) {
 
     // A private cache key.
     var cache = {};
@@ -23,11 +23,34 @@ angular.module('clientApp')
     };
 
     /**
+     * Set the active company.
+     *
+     * A user may have multiple companies, but for some queries we may want to
+     * set the "active" one.
+     *
+     * @param int id
+     *   The ID of the company.
+     */
+    this.setActive = function(id) {
+      localStorageService.set('active_company', id);
+    };
+
+    /**
+     * Return the active company.
+     *
+     * @returns int
+     *   The ID of the active company if set.
+     */
+    this.getActive = function() {
+      return localStorageService.get('active_company');
+    };
+
+    /**
      * Return items array from the server.
      *
      * @returns {$q.promise}
      */
-    function getDataFromBackend() {
+    var getDataFromBackend = function() {
       var deferred = $q.defer();
       var url = Config.backend + '/api/companies';
 
@@ -40,15 +63,16 @@ angular.module('clientApp')
       });
 
       return deferred.promise;
-    }
+    };
 
     /**
-     * Save meters in cache, and broadcast en event to inform that the meters data changed.
+     * Set the cache from the server.
      *
-     * @param meters
+     * @param data
+     *   The data to cache
      */
     var setCache = function(data) {
-      // Cache meters data.
+      // Cache data.
       cache = {
         data: data,
         timestamp: new Date()
