@@ -109,7 +109,7 @@ angular.module('clientApp')
 
       // Clear cache in 60 seconds.
       $timeout(function() {
-        delete(cache.data[companyId]);
+        cache[companyId] = null;
       }, 60000);
 
       // Broadcast a change event.

@@ -55,6 +55,6 @@ angular.module('clientApp')
      * Authentication failed, set state to login.
      */
     this.authFailed = function() {
-      this.logout();
+      // this.logout();
     };
   });

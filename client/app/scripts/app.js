@@ -46,6 +46,9 @@ angular
         url: '/',
         controller: 'HomepageCtrl',
         resolve: {
+          isAuthenticated: function(Auth) {
+            return Auth.isAuthenticated();
+          },
           companies: function(Companies) {
             return Companies.get();
           }
@@ -62,8 +65,10 @@ angular
         controller: 'DashboardCtrl',
         onEnter: page403,
         resolve: {
-          companies: function(Companies) {
-            return Companies.get();
+          companies: function(Account, $log) {
+            Account.get().then(function(data) {
+              return data[0].companies;
+            });
           }
         }
       })

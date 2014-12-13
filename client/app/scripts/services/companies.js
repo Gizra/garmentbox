@@ -57,7 +57,7 @@ angular.module('clientApp')
 
       // Clear cache in 60 seconds.
       $timeout(function() {
-        cache.data = undefined;
+        cache.data = null;
       }, 60000);
 
       // Broadcast a change event.
