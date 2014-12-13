@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('ItemsAddCtrl', function ($scope, Items) {
+  .controller('ItemsAddCtrl', function ($scope, Items, Companies) {
 
     $scope.data = {};
 
@@ -19,8 +19,8 @@ angular.module('clientApp')
      *   Object with data to be saved.
      */
     $scope.create = function(data) {
-      // @todo: Remove company hardcoding.
-      data.company = 1;
+      // Set the company by the active one.
+      data.company = Companies.getActive();
       Items.create(data).then(function() {
         $scope.data = {};
       });

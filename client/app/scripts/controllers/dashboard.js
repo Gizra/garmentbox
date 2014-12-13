@@ -8,7 +8,10 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('DashboardCtrl', function ($scope, Auth, $state, Companies) {
+  .controller('DashboardCtrl', function ($scope, companies, Auth, $state, Companies, $log) {
+
+    // Initialize values.
+    $scope.companies = companies;
 
     /**
      * Logout current user.

@@ -51,7 +51,12 @@ angular
         url: '/dashboard',
         templateUrl: 'views/dashboard/main.html',
         controller: 'DashboardCtrl',
-        onEnter: page403
+        onEnter: page403,
+        resolve: {
+          companies: function(Companies) {
+            return Companies.get();
+          }
+        }
       })
       .state('dashboard.items', {
         url: '/items',
