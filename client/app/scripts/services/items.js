@@ -43,17 +43,20 @@ angular.module('clientApp')
     this.create= function(data) {
       var deferred = $q.defer();
       var url = Config.backend + '/api/items';
+      var self = this;
 
       $http({
         method: 'POST',
         url: url,
         data: data
       }).success(function(response) {
-        // We don't need to query the backend again - we can simply append the
-        // new items to the cached list.
-        data = cache ? cache.data : [];
-        data.unshift(response.data[0]);
-        setCache(data.company, data);
+
+        // Add the new item to the cache.
+        var companyId = data.company;
+        self.get(companyId).then(function(cachedData) {
+          cachedData.unshift(response.data[0]);
+          setCache(companyId, cachedData);
+        });
 
         deferred.resolve(response.data[0]);
       });

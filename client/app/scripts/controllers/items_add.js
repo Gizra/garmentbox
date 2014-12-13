@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('ItemsAddCtrl', function ($scope, Items, Companies) {
+  .controller('ItemsAddCtrl', function ($scope, $stateParams, Items) {
 
     $scope.data = {};
 
@@ -20,7 +20,7 @@ angular.module('clientApp')
      */
     $scope.create = function(data) {
       // Set the company by the active one.
-      data.company = Companies.getActive();
+      data.company = $stateParams.companyId;
       Items.create(data).then(function() {
         $scope.data = {};
       });
