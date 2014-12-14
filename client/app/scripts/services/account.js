@@ -19,8 +19,6 @@ angular.module('clientApp')
      * @returns {*}
      */
     this.get = function(id) {
-      // @todo: Remove hardocde.
-      id = 1;
       return $q.when(cache.data || getDataFromBackend(id));
     };
 
@@ -31,7 +29,7 @@ angular.module('clientApp')
      */
     function getDataFromBackend(id) {
       var deferred = $q.defer();
-      var url = Config.backend + '/api/users/' + id;
+      var url = Config.backend + '/api/me/';
 
       $http({
         method: 'GET',
@@ -67,5 +65,9 @@ angular.module('clientApp')
       // Broadcast a change event.
       $rootScope.$broadcast('gb.account.changed');
     }
+
+    $rootScope.$on('clearCache', function() {
+      cache = null;
+    });
 
   });

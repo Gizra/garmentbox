@@ -17,16 +17,16 @@ class GbMeResource extends \RestfulEntityBaseUser {
   );
 
   /**
-   * Overrides \RestfulEntityBaseUser::getPublicFields().
+   * Overrides \RestfulEntityBaseUser::publicFieldsInfo().
    */
-  public function getPublicFields() {
-    $public_fields = parent::getPublicFields();
+  public function publicFieldsInfo() {
+    $public_fields = parent::publicFieldsInfo();
 
     unset($public_fields['self']);
 
 
     $public_fields['companies'] = array(
-      'property' => 'og_user_company',
+      'property' => 'og_user_node',
       'resource' => array(
         'company' => 'companies',
       ),

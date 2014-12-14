@@ -8,7 +8,7 @@
  * Service in the clientApp.
  */
 angular.module('clientApp')
-  .service('Companies', function ($q, $http, $timeout, Config, $rootScope) {
+  .service('Companies', function ($q, $http, $timeout, Config, $rootScope, localStorageService) {
 
     // A private cache key.
     var cache = {};
@@ -27,7 +27,7 @@ angular.module('clientApp')
      *
      * @returns {$q.promise}
      */
-    function getDataFromBackend() {
+    var getDataFromBackend = function() {
       var deferred = $q.defer();
       var url = Config.backend + '/api/companies';
 
@@ -40,15 +40,16 @@ angular.module('clientApp')
       });
 
       return deferred.promise;
-    }
+    };
 
     /**
-     * Save meters in cache, and broadcast en event to inform that the meters data changed.
+     * Set the cache from the server.
      *
-     * @param meters
+     * @param data
+     *   The data to cache
      */
     var setCache = function(data) {
-      // Cache meters data.
+      // Cache data.
       cache = {
         data: data,
         timestamp: new Date()
@@ -62,5 +63,9 @@ angular.module('clientApp')
       // Broadcast a change event.
       $rootScope.$broadcast('gb.companies.changed');
     }
+
+    $rootScope.$on('clearCache', function() {
+      cache = null;
+    });
 
   });

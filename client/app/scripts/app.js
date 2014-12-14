@@ -42,46 +42,72 @@ angular
 
     // Now set up the states.
     $stateProvider
+      .state('homepage', {
+        url: '/',
+        controller: 'HomepageCtrl',
+        resolve: {
+          companies: function(Companies) {
+            return Companies.get();
+          }
+        }
+      })
       .state('login', {
         url: '/login',
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl'
       })
       .state('dashboard', {
-        url: '/dashboard',
+        url: '',
         templateUrl: 'views/dashboard/main.html',
         controller: 'DashboardCtrl',
-        onEnter: page403
+        onEnter: page403,
+        resolve: {
+          companies: function(Companies) {
+            return Companies.get();
+          }
+        }
       })
-      .state('dashboard.items', {
+      .state('dashboard.byCompany', {
+        url: '/dashboard/{companyId:int}',
+        abstract: true,
+        // Since the state is abstract, we inline the <ui-view> tag.
+        template: '<ui-view/>'
+      })
+      .state('dashboard.byCompany.items', {
         url: '/items',
         templateUrl: 'views/dashboard/items/items.html',
         controller: 'ItemsCtrl',
         onEnter: page403,
         resolve: {
-          items: function(Items) {
-            return Items.get();
+          items: function($stateParams, Items) {
+            return Items.get($stateParams.companyId);
           },
           itemVariants: function() {
             return null;
           }
         }
       })
-      .state('dashboard.items.variants', {
-        url: '/item/:id',
+      .state('dashboard.byCompany.items.variants', {
+        url: '/item/{itemId:int}',
         templateUrl: 'views/dashboard/items/items.variants.html',
         controller: 'ItemsCtrl',
         onEnter: page403,
         resolve: {
           itemVariants: function(ItemVariants, $stateParams) {
-            return ItemVariants.get($stateParams.id);
+            return ItemVariants.get($stateParams.itemId);
           }
         }
       })
-      .state('dashboard.items.variants.variant', {
-        url: '/variant/:variant',
+      .state('dashboard.byCompany.items.variants.variant', {
+        url: '/variant/{itemVariantId:int}',
         templateUrl: 'views/dashboard/items/items.variants.variant.html',
         controller: 'ItemsCtrl',
+        onEnter: page403
+      })
+      .state('dashboard.byCompany.items.add', {
+        url: '/add',
+        templateUrl: 'views/dashboard/items/items.add.html',
+        controller: 'ItemsAddCtrl',
         onEnter: page403
       })
       .state('dashboard.companies', {
@@ -96,7 +122,7 @@ angular
         }
       })
       .state('dashboard.companies.company', {
-        url: '/:id',
+        url: '/{id:int}',
         templateUrl: 'views/dashboard/companies/companies.company.html',
         controller: 'CompaniesCtrl',
         onEnter: page403

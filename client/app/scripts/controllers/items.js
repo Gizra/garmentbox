@@ -49,11 +49,11 @@ angular.module('clientApp')
       });
     };
 
-    if ($stateParams.id) {
-      setSelectedItem($stateParams.id);
+    if ($stateParams.itemId) {
+      setSelectedItem($stateParams.itemId);
     }
 
-    if ($stateParams.variant) {
-      setSelectedItemVariant($stateParams.variant);
+    if ($stateParams.itemVariantId) {
+      setSelectedItemVariant($stateParams.itemVariantId);
     }
   });

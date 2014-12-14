@@ -13,8 +13,14 @@ angular.module('clientApp')
     // A private cache key.
     var cache = {};
 
+    // Update event broadcast name.
+    var broadcastUpdateEventName = 'gbItemVariantssChanged';
+
     /**
      * Return the promise with the items list, from cache or the server.
+     *
+     * @param int itemId
+     *   The item ID.
      *
      * @returns {*}
      */
@@ -29,12 +35,21 @@ angular.module('clientApp')
     /**
      * Return items array from the server.
      *
+     * @param int itemId
+     *   The item ID.
+     *
      * @returns {$q.promise}
      */
-    function getDataFromBackend(itemId) {
+    var getDataFromBackend = function(itemId) {
       var deferred = $q.defer();
       var url = Config.backend + '/api/item_variants';
-      var params = !!itemId ? {item: itemId} : {};
+      var params = {};
+
+      if (itemId) {
+        params = {
+          'filter[item]': itemId
+        }
+      }
 
       $http({
         method: 'GET',
@@ -49,9 +64,9 @@ angular.module('clientApp')
     }
 
     /**
-     * Save meters in cache, and broadcast en event to inform that the meters data changed.
+     * Save data in cache, and broadcast en event to inform that the meters data changed.
      *
-     * @param itemId
+     * @param int itemId
      *   The item ID.
      * @param data
      *   The data to cache.
@@ -69,7 +84,11 @@ angular.module('clientApp')
       }, 60000);
 
       // Broadcast a change event.
-      $rootScope.$broadcast('gb.item_variants.changed');
+      $rootScope.$broadcast(broadcastUpdateEventName);
     }
+
+    $rootScope.$on('clearCache', function() {
+      cache = null;
+    });
 
   });
