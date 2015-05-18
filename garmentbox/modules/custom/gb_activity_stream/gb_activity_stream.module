@@ -1,0 +1,19 @@
+<?php
+/**
+ * @file
+ * Code for the Garmentbox Activity stream feature.
+ */
+
+include_once 'gb_activity_stream.features.inc';
+
+/**
+ * Implements hook_node_update().
+ */
+function gb_activity_stream_node_update($node) {
+
+  $message = message_create('content_updated', array('uid' => $node->uid));
+  $wrapper = entity_metadata_wrapper('message', $message);
+
+  $wrapper->field_node_ref->set($node);
+  $wrapper->save();
+}
